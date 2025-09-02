@@ -1,0 +1,3552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qava Complete Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+        }
+
+        /* NAVBAR STYLES */
+        .header-container {
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 16px 32px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 64px;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            overflow: visible;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .header-center {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex: 1;
+            margin-left: 40px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 36px;
+            height: 36px;
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            position: relative;
+            gap: 4px;
+        }
+
+        .nav-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .dropdown-arrow {
+            color: #000000;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover .dropdown-arrow {
+            color: #000000;
+        }
+
+        .nav-item:hover .dropdown-arrow path {
+            d: path("M3 6h6");
+        }
+
+        .nav-text {
+            color: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            white-space: nowrap;
+        }
+
+        /* Dropdown Menu Styles */
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 8px;
+            min-width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 10000;
+        }
+
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-item {
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.04);
+        }
+
+        .dropdown-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 2px;
+        }
+
+        .dropdown-subtitle {
+            font-size: 13px;
+            font-weight: 300;
+            color: rgba(55, 53, 47, 0.6);
+            line-height: 1.3;
+        }
+
+        .auth-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .auth-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .auth-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .auth-text-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .divider {
+            display: none;
+        }
+
+        .join-button {
+            padding: 6px 12px;
+            background: #0F62FE;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            font-family: inherit;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .join-button:hover {
+            background: #0053E5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
+        }
+
+        .join-text {
+            color: white;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        /* Hamburger Menu Styles */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            padding: 6px;
+            z-index: 1001;
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+        }
+
+        .hamburger-menu:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        .hamburger-line {
+            width: 18px;
+            height: 2px;
+            background-color: #000000;
+            margin: 2px 0;
+            transition: 0.2s ease;
+            border-radius: 1px;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: white;
+            z-index: 1000;
+            flex-direction: column;
+            padding: 80px 16px 32px 16px;
+            overflow-y: auto;
+            animation: slideDown 0.2s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-nav-item {
+            padding: 16px 24px;
+            border-bottom: none;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 400;
+            color: #000000;
+            transition: color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .mobile-nav-item:hover {
+            color: rgba(55, 53, 47, 1);
+        }
+
+        .mobile-auth-section {
+            margin-top: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-top: 32px;
+            border-top: none;
+        }
+
+        .mobile-auth-section .mobile-nav-item {
+            text-align: left;
+            font-size: 13px;
+            padding: 16px 24px;
+            border-radius: 6px;
+            border-bottom: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .mobile-auth-section .mobile-nav-item:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        .mobile-auth-section .join-button {
+            padding: 12px 16px;
+            font-size: 13px;
+            border-radius: 6px;
+            margin-top: 8px;
+            align-self: flex-start;
+        }
+
+        /* Mobile Dropdown Styles */
+        .mobile-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .mobile-dropdown-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .mobile-dropdown-arrow {
+            font-size: 13px;
+            transition: all 0.2s ease;
+            color: rgba(55, 53, 47, 0.6);
+        }
+
+        .mobile-dropdown-toggle.active .mobile-dropdown-arrow::before {
+            content: "−";
+        }
+        
+        .mobile-dropdown-toggle.active .mobile-dropdown-arrow {
+            opacity: 0;
+        }
+
+        .mobile-dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: rgba(55, 53, 47, 0.04);
+            border-radius: 6px;
+            margin: 0 16px 8px 16px;
+        }
+
+        .mobile-dropdown-content.active {
+            max-height: 200px;
+            padding: 8px 0;
+        }
+
+        .mobile-dropdown-item {
+            padding: 16px 24px;
+            border-bottom: none;
+            cursor: pointer;
+        }
+
+        .mobile-dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        .mobile-dropdown-item .dropdown-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 2px;
+        }
+
+        .mobile-dropdown-item .dropdown-subtitle {
+            font-size: 13px;
+            font-weight: 300;
+            color: rgba(55, 53, 47, 0.6);
+            line-height: 1.3;
+        }
+
+        /* Specific styling for the second dropdown item */
+        .dropdown-item:nth-child(2) .dropdown-subtitle,
+        .mobile-dropdown-item:nth-child(2) .dropdown-subtitle {
+            font-weight: 300;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 13px;
+            cursor: pointer;
+            color: #000000;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            transition: background-color 0.2s ease;
+        }
+
+        .close-menu:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        /* HERO SECTION STYLES */
+        .hero-section {
+            background: white;
+            padding: 80px 0;
+        }
+
+        .hero-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .hero-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 64px;
+            font-weight: 700;
+            color: #000000;
+            line-height: 1.1;
+            margin: 0 0 24px 0;
+            letter-spacing: 0%;
+        }
+
+        .hero-word {
+            transition: color 0s;
+        }
+
+        @keyframes highlightWord {
+            0% { color: #000000; }
+            10% { color: #0F62FE; }
+            90% { color: #0F62FE; }
+            100% { color: #000000; }
+        }
+
+        .hero-word.highlight {
+            animation: highlightWord 2s ease-in-out;
+        }
+
+        .hero-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 300;
+            color: rgba(0, 0, 0, 0.7);
+            line-height: 1.5;
+            margin: 0 0 32px 0;
+        }
+
+        .hero-buttons {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .hero-join-button {
+            padding: 6px 12px;
+            background: #0F62FE;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            font-family: inherit;
+            height: 27.6px;
+            text-decoration: none;
+        }
+
+        .hero-join-button:hover {
+            background: #0053E5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
+        }
+
+        .hero-join-text {
+            color: white;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .hero-join-button svg {
+            color: white;
+        }
+
+        .hero-demo-button {
+            padding: 6px 12px;
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            height: 27.6px;
+        }
+
+        .hero-demo-button:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .hero-demo-text {
+            color: #000000;
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        /* Trusted By Section in Hero */
+        .trusted-by-section-hero {
+            margin-top: 40px;
+        }
+
+        .trusted-by-text-hero {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            color: rgba(0, 0, 0, 0.6);
+            text-align: left;
+            margin-bottom: 16px;
+        }
+
+        .trusted-by-logos-hero {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+        }
+
+        .logo-item-hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .logo-item-hero:hover {
+            opacity: 1;
+        }
+
+        .logo-item-hero img {
+            height: 28px;
+            width: auto;
+            object-fit: contain;
+            transition: opacity 0.2s ease;
+        }
+
+        .logo-item-hero:hover img {
+            opacity: 1;
+        }
+
+        /* Animated Logo Slider Styles */
+        .logo-slider-container {
+            position: relative;
+            width: 60%;
+            max-width: 400px;
+            margin: 0;
+            overflow: hidden;
+            height: 40px;
+        }
+
+        .logo-slider-fade-left,
+        .logo-slider-fade-right {
+            position: absolute;
+            top: 0;
+            width: 60px;
+            height: 100%;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .logo-slider-fade-left {
+            left: 0;
+            background: linear-gradient(to right, white 0%, transparent 100%);
+        }
+
+        .logo-slider-fade-right {
+            right: 0;
+            background: linear-gradient(to left, white 0%, transparent 100%);
+        }
+
+        .logo-slider-track {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideLogos 30s linear infinite;
+            width: max-content;
+        }
+
+        .logo-slider-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            flex-shrink: 0;
+            width: 65px;
+        }
+
+        .logo-slider-item img {
+            height: 28px;
+            width: auto;
+            max-width: 100px;
+            object-fit: contain;
+        }
+
+        @keyframes slideLogos {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Responsive adjustments for logo slider */
+        @media (max-width: 768px) {
+            .logo-slider-container {
+                height: 32px;
+            }
+            
+            .logo-slider-item {
+                width: 80px;
+            }
+            
+            .logo-slider-item img {
+                height: 24px;
+                max-width: 70px;
+            }
+            
+            .logo-slider-track {
+                gap: 10px;
+                animation-duration: 25s;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-slider-item {
+                width: 60px;
+            }
+            
+            .logo-slider-item img {
+                height: 20px;
+                max-width: 50px;
+            }
+            
+            .logo-slider-track {
+                gap: 8px;
+                animation-duration: 20s;
+            }
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .desktop-image {
+            max-width: 100%;
+            height: auto;
+            z-index: 1;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            border-radius: 12px;
+        }
+
+        .mobile-image {
+            position: absolute;
+            right: calc(15% - 190px);
+            bottom: -10%;
+            max-width: 25%;
+            height: auto;
+            z-index: 2;
+            border-radius: 30px;
+        }
+
+        /* Hero Responsive */
+        @media (max-width: 1200px) {
+            .hero-title {
+                font-size: 56px;
+            }
+        }
+
+        @media (max-width: 1000px) {
+            .hero-title {
+                font-size: 48px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-container {
+                flex-direction: column;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .hero-content {
+                max-width: none;
+            }
+
+            .hero-title {
+                font-size: 40px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .hero-join-button,
+            .hero-demo-button {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+
+            .hero-image {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .desktop-image {
+                max-width: 100%;
+                order: 2;
+            }
+
+            .mobile-image {
+                position: static;
+                transform: none;
+                max-width: 60%;
+                order: 1;
+            }
+
+            /* Hero Trusted By Responsive */
+            .trusted-by-section-hero {
+                margin-top: 32px;
+            }
+
+            .trusted-by-text-hero {
+                text-align: center;
+                font-size: 13px;
+            }
+
+            .trusted-by-logos-hero {
+                justify-content: flex-start;
+                gap: 20px;
+            }
+
+            .logo-item-hero img {
+                height: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 20px;
+            }
+
+            .hero-subtitle {
+                font-size: 14px;
+            }
+
+            /* Hero Trusted By Mobile */
+            .trusted-by-section-hero {
+                margin-top: 24px;
+            }
+
+            .trusted-by-text-hero {
+                font-size: 12px;
+            }
+
+            .mobile-image {
+                max-width: 80%;
+            }
+
+            .trusted-by-logos-hero {
+                gap: 16px;
+                justify-content: flex-start;
+            }
+
+            .logo-item-hero img {
+                height: 20px;
+            }
+        }
+
+        /* COMPETITOR PLATFORMS SECTION STYLES */
+        .competitor-platforms-section {
+            background: white;
+            padding: 30px 0 10px 0;
+            position: relative;
+        }
+
+        .competitor-platforms-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .competitor-platforms-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0px;
+        }
+
+        .competitor-platforms-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 35px;
+            font-weight: 700;
+            color: #000000;
+            text-align: center;
+            margin: 0;
+            margin-bottom: 15px;
+            line-height: 1;
+        }
+
+        .competitor-platforms-subtitle-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            color: rgba(0, 0, 0, 0.6);
+            text-align: center;
+            margin: 0;
+            margin-bottom: 8px;
+        }
+
+        .competitor-platforms-subtitle {
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            text-align: center;
+            margin: 0;
+            margin-bottom: 25px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 6px 12px;
+            border-radius: 6px;
+            display: inline-block;
+            white-space: nowrap;
+            height: 27.6px;
+        }
+
+        .competitor-platforms-subtitle:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .competitor-platforms-logos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        .competitor-logo-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            filter: grayscale(100%);
+        }
+
+        /* Animated line that crosses through logos on scroll */
+        .competitor-platforms-logos::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: var(--line-width, 0px);
+            height: 3px;
+            background: #B45454;
+            transform: translateY(-50%);
+            border-radius: 2px;
+            z-index: 10;
+            transition: width 0.1s ease-out;
+        }
+
+        .competitor-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+
+
+
+
+
+        /* TRUSTED BY SECTION STYLES */
+        .trusted-by-section {
+            background: white;
+            padding: 60px 0;
+        }
+
+        .trusted-by-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .trusted-by-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            color: rgba(0, 0, 0, 0.6);
+            text-align: center;
+        }
+
+        .trusted-by-logos {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .logo-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .logo-item:hover {
+            opacity: 1;
+        }
+
+        .logo-item img {
+            height: 32px;
+            width: auto;
+            object-fit: contain;
+            transition: opacity 0.2s ease;
+        }
+
+        .logo-item:hover img {
+            opacity: 1;
+        }
+
+        /* Trusted By Responsive */
+        @media (max-width: 1200px) {
+            .trusted-by-logos {
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .trusted-by-container {
+                gap: 24px;
+            }
+
+            .trusted-by-logos {
+                gap: 20px;
+            }
+
+            .logo-item img {
+                height: 28px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .trusted-by-logos {
+                gap: 16px;
+            }
+
+            .logo-item img {
+                height: 24px;
+            }
+        }
+
+        /* Competitor Platforms Responsive */
+        @media (max-width: 1200px) {
+            .competitor-platforms-title {
+                font-size: 40px;
+            }
+            
+            .competitor-platforms-logos {
+                max-width: 480px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .competitor-platforms-section {
+                padding: 60px 0;
+            }
+            
+            .competitor-platforms-title {
+                font-size: 32px;
+            }
+            
+            .competitor-platforms-subtitle {
+                font-size: 14px;
+            }
+            
+            .competitor-platforms-logos {
+                max-width: 420px;
+                gap: 20px;
+            }
+            
+            .competitor-logo {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .competitor-platforms-section {
+                padding: 40px 0;
+            }
+            
+            .competitor-platforms-title {
+                font-size: 24px;
+            }
+            
+            .competitor-platforms-subtitle {
+                font-size: 12px;
+            }
+            
+            .competitor-platforms-logos {
+                max-width: 360px;
+                gap: 15px;
+            }
+            
+            .competitor-logo {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        /* WHAT DO YOU NEED SECTION STYLES */
+        .what-need-section {
+            background: white;
+            padding: 80px 0;
+        }
+
+        .what-need-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 32px;
+            text-align: center;
+        }
+
+        .what-need-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: #000000;
+            margin: 0 0 16px 0;
+            line-height: 1.2;
+            letter-spacing: 0%;
+        }
+
+        .what-need-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 300;
+            color: rgba(0, 0, 0, 0.7);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .category-checkboxes {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .checkbox-input {
+            width: 16px;
+            height: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.3);
+            border-radius: 3px;
+            background: white;
+            cursor: pointer;
+            appearance: none;
+            position: relative;
+        }
+
+        .checkbox-input:checked {
+            background: #000000;
+            border-color: #000000;
+            border-radius: 4px;
+        }
+
+        .checkbox-input:checked::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M20 6L9 17L4 12' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center;
+            background-size: contain;
+        }
+
+        .checkbox-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 300;
+            color: #000000;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* TAGS GRID STYLES */
+        .tags-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 24px;
+            justify-content: center;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tag-item {
+            background: white;
+            border-radius: 8px;
+            padding: 4px 16px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            color: #333333;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            height: 29px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+            vertical-align: middle;
+        }
+
+        .tag-item:hover {
+            background: rgba(0, 0, 0, 0.02);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .tag-item.selected {
+            background: #000000;
+            color: white;
+        }
+
+        .tag-item.selected:hover {
+            background: #333333;
+        }
+
+        /* SCROLLING CARDS SECTION STYLES */
+        .scrolling-cards-section {
+            background: white;
+            padding: 0;
+        }
+
+        .scrolling-cards-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 48px;
+            background: transparent;
+            border-radius: 0;
+            box-shadow: none;
+            padding: 0px 24px 0px 24px;
+            margin-top: -20px;
+        }
+
+        .scrolling-cards-content {
+            min-height: 460px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cards-container {
+            width: 100%;
+            height: 440px;
+            position: relative;
+            overflow: hidden;
+            padding: 0 40px;
+        }
+
+
+
+        .cards-track {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            animation: scrollCards 35s linear infinite;
+        }
+
+        .card-row {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 16px;
+            width: 280px;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+            transition: transform 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card {
+            position: relative;
+            overflow: visible;
+        }
+
+        .project-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        .project-card:hover .testimonial-content,
+        .project-card:hover .project-name,
+        .project-card:hover .project-type,
+        .project-card:hover .project-location,
+        .project-card:hover .project-pitch,
+        .project-card:hover .card-footer,
+        .project-card:hover .card-badge,
+        .project-card:hover .testimonial-text,
+        .project-card:hover .testimonial-author,
+        .project-card:hover .testimonial-role,
+        .project-card:hover .testimonial-photo {
+            filter: blur(2px);
+            transition: filter 0.2s ease;
+        }
+
+        .card-hover-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #0F62FE;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            font-family: inherit;
+            white-space: nowrap;
+            padding: 6px 12px;
+            opacity: 0;
+            z-index: 20;
+            text-decoration: none;
+        }
+
+
+
+        .card-hover-button-text {
+            color: white;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .project-card:hover .card-hover-button {
+            opacity: 1;
+        }
+
+        .project-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: #000000;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .project-type {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin: 0;
+            margin-top: -4px;
+        }
+
+        .project-location {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            color: #666;
+            margin: 0;
+            opacity: 1;
+        }
+
+        .testimonial-content {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            height: 100%;
+            justify-content: space-between;
+        }
+
+        .testimonial-text-content {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .testimonial-author-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .testimonial-author-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .testimonial-stars {
+            color: #0F62FE;
+            font-size: 14px;
+            margin: 8px 0;
+        }
+
+        .testimonial-author-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .testimonial-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            color: #333;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        .testimonial-author {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: #000;
+            margin: 0;
+            margin-bottom: -4px;
+        }
+
+        .testimonial-role {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            color: #666;
+            margin: 0;
+        }
+
+        .testimonial-photo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 8px;
+        }
+
+        .student-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: auto;
+        }
+
+        .listed-date {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            color: rgba(0, 0, 0, 0.6);
+            margin: 0;
+        }
+
+        .project-type {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #0F62FE;
+            margin: 0;
+            margin-top: -4px;
+        }
+
+        .project-location {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            color: rgba(0, 0, 0, 0.7);
+            margin: 0;
+            opacity: 1;
+        }
+
+        .project-pitch {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            color: #666;
+            margin: 0;
+            line-height: 1.3;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            margin-bottom: 8px;
+        }
+
+        .card-badge {
+            align-self: flex-start;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Inter', sans-serif;
+            font-size: 9px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            pointer-events: none;
+        }
+
+        .badge-project {
+            background: #E8F4FD;
+            color: #0F62FE;
+        }
+
+        .badge-internship {
+            background: #F3E5F5;
+            color: #7B1FA2;
+        }
+
+        .badge-job {
+            background: #F0FFF0;
+            color: #006600;
+        }
+
+        .badge-testimonial {
+            background: #FFF5E6;
+            color: #E67E22;
+        }
+
+        @keyframes scrollCards {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-50%);
+            }
+        }
+
+        .placeholder-box {
+            width: 100%;
+            text-align: center;
+        }
+
+        .placeholder-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 400;
+            color: #666666;
+            margin: 0;
+        }
+
+        /* CUSTOMER STORIES SECTION STYLES */
+        .customer-stories-section {
+            background: white;
+            padding: 40px 0 20px 0;
+        }
+
+        .customer-stories-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 48px;
+            background: #fafafa;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            padding: 0px 24px 6px 24px;
+        }
+
+
+
+        .stories-header {
+            margin-bottom: 8px;
+        }
+
+        .stories-title-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 0px;
+            justify-content: flex-start;
+        }
+
+        .stories-icon {
+            font-size: 24px;
+        }
+
+        .stories-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #000000;
+            margin: 0;
+        }
+
+        /* Featured Story */
+        .featured-story {
+            margin-bottom: 0px;
+        }
+
+        .featured-content {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            background: #fafafa;
+            border-radius: 12px;
+            padding: 48px;
+        }
+
+        .featured-text {
+            flex: 1;
+        }
+
+        .featured-logo {
+            font-family: 'Inter', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 12px;
+        }
+
+        .featured-quote {
+            font-family: 'Inter', sans-serif;
+            font-size: 24px;
+            font-weight: 300;
+            color: #000000;
+            line-height: 1.3;
+            margin: 0 0 8px 0;
+        }
+
+        .featured-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: #0F62FE;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .featured-link {
+            position: relative;
+        }
+
+        .featured-link:hover {
+            color: transparent;
+        }
+
+        .featured-link:hover::after {
+            content: "Coming soon";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #0053E5;
+        }
+
+        .featured-video {
+            flex: 0 0 400px;
+        }
+
+        .video-player {
+            width: 100%;
+            height: 240px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            object-fit: cover;
+        }
+
+        /* Customer Grid */
+        .customer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            margin-bottom: 15px;
+        }
+
+        .customer-card {
+            background: #fafafa;
+            border-radius: 12px;
+            padding: 12px;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .customer-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .customer-logo {
+            margin-bottom: 4px;
+            flex-shrink: 0;
+            text-align: left;
+            margin-left: 0;
+            padding-left: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .customer-logo img {
+            height: 32px;
+            width: auto;
+            max-width: 140px;
+            object-fit: contain;
+            display: block;
+            margin-left: 0;
+            padding-left: 0;
+        }
+
+        .logo-image {
+            height: 24px;
+            width: auto;
+            max-width: 80px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .company-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #000000;
+            display: block;
+            margin-left: 0;
+            padding-left: 0;
+        }
+
+        .stars {
+            font-size: 14px;
+            color: #000000;
+            margin-top: 8px;
+            margin-left: 0;
+            padding-left: 0;
+            letter-spacing: 2px;
+        }
+
+        .customer-quote {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 300;
+            color: #333333;
+            line-height: 1.3;
+            letter-spacing: 0%;
+            margin: 0;
+        }
+
+        .customer-card::after,
+        .customer-card::before,
+        .customer-quote::after,
+        .customer-quote::before {
+            content: none !important;
+        }
+
+        .customer-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 500;
+            color: #0F62FE;
+            text-decoration: none;
+            margin-top: 4px;
+            display: block;
+            transition: color 0.2s ease;
+        }
+
+        .customer-link:hover {
+            color: #0053E5;
+        }
+
+        .customer-row-divider {
+            grid-column: 1 / -1;
+            height: 1px;
+            background: #ECECEC;
+            margin: 3px 0;
+        }
+
+        /* Education Section */
+        .education-section {
+            padding: 110px 0 40px 0;
+            background: white;
+        }
+
+        .education-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .education-card {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .education-image {
+            flex: 0 0 360px;
+        }
+
+        .artwork-image {
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .education-content {
+            flex: 1;
+        }
+
+        .education-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #000000;
+            margin: 0 0 12px 0;
+        }
+
+        .education-description {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 300;
+            color: #333333;
+            line-height: 1.5;
+            margin: 0 0 16px 0;
+        }
+
+        .education-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: #0F62FE;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .education-link:hover {
+            color: #0053E5;
+        }
+
+        /* Stats Footer */
+        .stats-footer-wrapper {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            margin-top: 0px;
+            padding: 0 24px;
+            overflow: hidden;
+            mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+        }
+
+        .stats-footer {
+            display: flex;
+            gap: 48px;
+            white-space: nowrap;
+            animation: slideStats 70s linear infinite;
+            overflow: visible;
+            width: max-content;
+        }
+
+        /* Faster animation for mobile devices */
+        @media (max-width: 768px) {
+            .stats-footer {
+                animation: slideStats 47s linear infinite;
+            }
+        }
+
+        .stats-item {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            color: #000000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+            white-space: nowrap;
+            min-width: max-content;
+        }
+
+        @keyframes slideStats {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Footer Section */
+        .footer-section {
+            background: white;
+            width: 100%;
+            max-width: 1070px;
+            margin: 0 auto;
+            padding: 78px 0 46px 0;
+            margin-top: 50px;
+            border-top: 1px solid #EBEBEB;
+        }
+
+        .footer-container {
+            max-width: 940px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .footer-logo {
+            width: 39%;
+            padding: 2px 15px 0 0;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo-img {
+            width: 40px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            width: 60%;
+            gap: 25px 25px;
+            padding: 0 15px 0 10px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-heading {
+            font-family: 'Inter', sans-serif;
+            font-size: 17px;
+            color: #000000;
+            margin-bottom: 15px;
+            font-weight: 600;
+            margin: 0 0 15px 0;
+        }
+
+        .footer-link-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .footer-link-list li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+            text-decoration: none;
+            line-height: 1.2;
+            transition: text-decoration 0.2s ease;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer Dropdown Styles */
+        .footer-dropdown-item {
+            position: relative;
+        }
+
+        .footer-dropdown-menu {
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 8px;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 10000;
+        }
+
+        .footer-dropdown-item:hover .footer-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .footer-dropdown-menu .footer-dropdown-item {
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .footer-dropdown-menu .footer-dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.04);
+        }
+
+        .footer-copyright {
+            grid-column: 1 / -1;
+            margin-top: 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+        }
+
+        /* What Need Responsive */
+        @media (max-width: 768px) {
+            .what-need-title {
+                font-size: 32px;
+            }
+
+            .what-need-subtitle {
+                font-size: 16px;
+            }
+
+            .category-checkboxes {
+                gap: 16px;
+                margin-top: 32px;
+            }
+
+            .checkbox-label {
+                font-size: 14px;
+            }
+
+            .tags-grid {
+                gap: 8px;
+                margin-top: 32px;
+            }
+
+            .tag-item {
+                font-size: 13px;
+                padding: 4px 12px;
+                height: 29px;
+                line-height: 1;
+                vertical-align: middle;
+            }
+
+            /* Customer Stories Responsive */
+            .stories-title-container {
+                padding: 0 24px;
+            }
+
+            .customer-stories-container {
+                padding: 4px 16px;
+            }
+
+            .featured-content {
+                flex-direction: column;
+                gap: 32px;
+                padding: 32px;
+            }
+
+            .featured-video {
+                flex: none;
+                width: 100%;
+            }
+
+            .featured-quote {
+                font-size: 28px;
+            }
+
+            .customer-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2px;
+            }
+
+            .customer-row-divider {
+                margin: 4px 0;
+            }
+
+            .customer-card {
+                padding: 16px;
+            }
+
+            .stats-footer-wrapper {
+                padding: 0 24px;
+                margin-top: 4px; /* 8px space from container border (4px container padding + 4px = 8px) */
+            }
+
+            .stats-footer {
+                gap: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .what-need-title {
+                font-size: 28px;
+            }
+
+            .what-need-subtitle {
+                font-size: 14px;
+            }
+
+            /* Customer Stories Mobile */
+            .stories-title-container {
+                padding: 0 16px;
+            }
+
+            .customer-stories-container {
+                padding: 3px 12px;
+            }
+
+            .stories-title {
+                font-size: 14px;
+            }
+
+            .featured-quote {
+                font-size: 24px;
+            }
+
+            .customer-grid {
+                grid-template-columns: 1fr;
+                gap: 4px;
+            }
+
+            .customer-card {
+                padding: 20px;
+
+            }
+
+            .stats-footer-wrapper {
+                padding: 0 16px;
+                margin-top: 5px; /* 8px space from container border (3px container padding + 5px = 8px) */
+            }
+
+            .stats-footer {
+                gap: 12px;
+            }
+
+            .stats-item {
+                font-size: 12px;
+            }
+
+            /* Footer Responsive */
+            .footer-logo {
+                width: 100%;
+                padding: 2px 20px 0 20px;
+                margin-bottom: 30px;
+            }
+
+            .footer-links {
+                width: 100%;
+                grid-template-columns: 1fr;
+                gap: 25px;
+                padding: 0 20px 0 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .what-need-title {
+                font-size: 28px;
+            }
+
+            .what-need-subtitle {
+                font-size: 14px;
+            }
+
+            /* Customer Stories Mobile */
+            .stories-title-container {
+                padding: 0 16px;
+            }
+
+            .customer-stories-container {
+                padding: 3px 12px;
+            }
+
+            .stories-title {
+                font-size: 14px;
+            }
+
+            .featured-quote {
+                font-size: 24px;
+            }
+
+            .customer-grid {
+                grid-template-columns: 1fr;
+                gap: 4px;
+            }
+
+            .customer-card {
+                padding: 20px;
+
+            }
+
+            .stats-footer-wrapper {
+                padding: 0 16px;
+                margin-top: 5px; /* 8px space from container border (3px container padding + 5px = 8px) */
+            }
+
+            .stats-footer {
+                gap: 12px;
+            }
+
+            .stats-item {
+                font-size: 12px;
+            }
+
+            /* Footer Mobile */
+            .footer-logo {
+                width: 100%;
+                padding: 2px 20px 0 20px;
+                margin-bottom: 30px;
+            }
+
+            .footer-links {
+                width: 100%;
+                grid-template-columns: 1fr;
+                gap: 25px;
+                padding: 0 20px 0 20px;
+            }
+
+            .footer-column {
+                gap: 6px;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1400px) {
+            .header-container {
+                padding: 16px 24px;
+            }
+            
+            .navigation {
+                gap: 28px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .header-container {
+                padding: 16px 20px;
+            }
+            
+            .navigation {
+                gap: 24px;
+            }
+            
+            .nav-item {
+                padding: 6px 8px;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .header-container {
+                padding: 12px 20px;
+            }
+            
+            .header-left {
+                gap: 16px;
+            }
+            
+            .navigation {
+                gap: 6px;
+            }
+            
+            .nav-item {
+                padding: 4px 6px;
+                font-size: 13px;
+            }
+            
+            .auth-item {
+                padding: 6px 8px;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .header-container {
+                padding: 12px 20px;
+            }
+            
+            .header-left {
+                gap: 16px;
+                min-width: 0;
+                flex: 1;
+                overflow: hidden;
+            }
+            
+            .navigation {
+                display: none;
+            }
+            
+            .dropdown-menu {
+                display: none;
+            }
+            
+            .hamburger-menu {
+                display: flex;
+            }
+            
+            .header-right {
+                flex-shrink: 0;
+                gap: 8px;
+            }
+        }
+
+
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 12px 16px;
+            }
+            
+            .header-left {
+                gap: 0px;
+            }
+            
+            .navigation {
+                display: none;
+            }
+            
+            .header-right {
+                gap: 12px;
+            }
+            
+            .auth-item {
+                display: none;
+            }
+            
+            .auth-section {
+                display: flex;
+            }
+            
+            .hamburger-menu {
+                display: flex;
+                margin-left: 0;
+                padding: 6px;
+                border-radius: 4px;
+                transition: background-color 0.2s ease;
+                order: 2;
+            }
+            
+            .hamburger-menu:hover {
+                background-color: rgba(55, 53, 47, 0.08);
+            }
+            
+            .join-button {
+                padding: 6px 12px;
+                font-size: 13px;
+                width: auto;
+                height: auto;
+                min-width: 100px;
+                white-space: nowrap;
+                overflow: visible;
+            }
+            
+            .join-text {
+                font-size: 13px;
+            }
+
+
+         }
+
+
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="header-container">
+        <!-- Logo on the left -->
+        <div class="header-logo">
+            <div class="logo-container">
+                <div class="logo">
+                    <a href="complete-page.html">
+                        <img src="qava-logo.svg" alt="Qava Logo">
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation in the center -->
+        <div class="header-center">
+            <div class="navigation">
+                <div class="nav-item create-listing">
+                    <div class="nav-text">Create Listing</div>
+                </div>
+                <div class="nav-item search-listings">
+                    <div class="nav-text">Search Listings</div>
+                </div>
+                <div class="nav-item how-it-works has-dropdown">
+                    <div class="nav-text">How It Works</div>
+                    <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M6 3v6M3 6h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-item">
+                            <div class="dropdown-title">For Clients 🚀</div>
+                            <div class="dropdown-subtitle">Hiring for current or future work</div>
+                        </div>
+                        <div class="dropdown-item">
+                            <div class="dropdown-title">For Talent 👩‍💻</div>
+                            <div class="dropdown-subtitle">Interested in current or future work</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item why-qava">
+                    <div class="nav-text">Why Qava</div>
+                </div>
+                <div class="nav-item pricing">
+                    <div class="nav-text">Pricing</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Auth section on the right -->
+        <div class="header-right">
+            <div class="auth-section">
+                <div class="auth-item">
+                    <div class="nav-text">Request a demo</div>
+                </div>
+                <a href="https://app.qava.ai/" class="auth-item">
+                    <div class="nav-text">Log in</div>
+                </a>
+                <a href="https://app.qava.ai/" class="join-button">
+                    <div class="join-text">Join for free</div>
+                </a>
+            </div>
+            
+            <!-- Hamburger Menu Button -->
+            <div class="hamburger-menu" onclick="toggleMobileMenu()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
+        <div class="mobile-nav-item">
+            <div class="nav-text">Create Listing</div>
+        </div>
+        <div class="mobile-nav-item">
+            <div class="nav-text">Search Listings</div>
+        </div>
+        <div class="mobile-nav-item mobile-dropdown-toggle" onclick="toggleMobileDropdown()">
+            <div class="mobile-dropdown-header">
+                <div class="nav-text">How It Works</div>
+                <span class="mobile-dropdown-arrow">+</span>
+            </div>
+        </div>
+        <div class="mobile-dropdown-content" id="mobileDropdown">
+            <div class="mobile-dropdown-item">
+                <div class="dropdown-title">For Clients 🚀</div>
+                <div class="dropdown-subtitle">Hiring for current or future work</div>
+            </div>
+            <div class="mobile-dropdown-item">
+                <div class="dropdown-title">For Talent 👩‍💻</div>
+                <div class="dropdown-subtitle">Interested in current or future work</div>
+            </div>
+        </div>
+        <div class="mobile-nav-item">
+            <div class="nav-text">Why Qava</div>
+        </div>
+        <div class="mobile-nav-item">
+            <div class="nav-text">Pricing</div>
+        </div>
+        <div class="mobile-auth-section">
+            <div class="mobile-nav-item">Request a demo</div>
+            <a href="https://app.qava.ai/" class="mobile-nav-item">Log in</a>
+            <a href="https://app.qava.ai/" class="join-button">
+                <div class="join-text">Join for free</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-container">
+            <div class="hero-content">
+                                        <h1 class="hero-title"><span class="hero-word" id="projects">Projects</span>, <span class="hero-word" id="jobs">jobs</span>,<br><span class="hero-word" id="internships">internships</span> for<br>today's world.</h1>
+                <p class="hero-subtitle">One place for ambitious talent, leaders, and founders to shape strategy, harness AI, and accelerate results.</p>
+                <div class="hero-buttons">
+                    <a href="https://app.qava.ai/" class="hero-join-button">
+                        <span class="hero-join-text">Join for free</span>
+                    </a>
+                    <div class="hero-demo-button">
+                        <span class="hero-demo-text">Request a demo</span>
+                    </div>
+                </div>
+                
+                <!-- Trusted By Section with Animated Logo Slider -->
+                <div class="trusted-by-section-hero">
+                    <div class="trusted-by-text-hero">Trusted by +1000 top talent and institutions globally</div>
+                    <div class="logo-slider-container">
+                        <!-- Gradient overlays for fade effect -->
+                        <div class="logo-slider-fade-left"></div>
+                        <div class="logo-slider-fade-right"></div>
+                        
+                        <!-- Logo slider track -->
+                        <div class="logo-slider-track" id="logoSliderTrack">
+                            <!-- Logos will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="How it works/Search Listings Desktop 30 Aug.png" alt="Qava Desktop Interface" class="desktop-image" />
+                <img src="How it works/Landing Page Images/iPhone Landing Page.png" alt="Qava Mobile Interface" class="mobile-image" />
+            </div>
+        </div>
+    </div>
+
+    <!-- Competitor Platforms Section -->
+    <div class="competitor-platforms-section">
+        <div class="competitor-platforms-container">
+            <div class="competitor-platforms-header">
+                <h2 class="competitor-platforms-title">The future of knowledge work is here.</h2>
+                <div class="competitor-platforms-subtitle-text">The fastest-growing community of top strategy talent and opportunities.</div>
+                <div class="competitor-platforms-line"></div>
+            </div>
+            <div class="competitor-platforms-logos">
+                <div class="competitor-logo-item">
+                    <img src="Competitor Platform/Toptal.png" alt="Toptal" class="competitor-logo">
+                </div>
+                <div class="competitor-logo-item">
+                    <img src="Competitor Platform/Catalant.png" alt="Catalant" class="competitor-logo">
+                </div>
+                <div class="competitor-logo-item">
+                    <img src="Competitor Platform/LinkedIn.png" alt="LinkedIn" class="competitor-logo">
+                </div>
+                <div class="competitor-logo-item">
+                    <img src="Competitor Platform/Fiverr.png" alt="Fiverr" class="competitor-logo">
+                </div>
+                <div class="competitor-logo-item">
+                    <img src="Competitor Platform/Upwork.png" alt="Upwork" class="competitor-logo">
+                </div>
+            </div>
+            <p class="competitor-platforms-subtitle">Learn more →</p>
+        </div>
+    </div>
+
+    <!-- New Section with Testimonials Dimensions -->
+    <div class="new-section">
+        <div class="new-section-container">
+            <div class="new-section-content">
+                <div class="cards-container">
+                    <div class="cards-track">
+                        <!-- First Row -->
+                        <div class="card-row">
+                            <div class="project-card">
+                                <div class="card-badge badge-project">Project</div>
+                                <h3 class="project-name">Digital Transformation Strategy</h3>
+                                <p class="project-type">Strategy Consulting</p>
+                                <p class="project-location">📍 Remote</p>
+                                <p class="project-pitch">Exciting opportunity to work with industry leaders on cutting-edge digital transformation initiatives that will reshape how businesses operate in the modern era.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 2 days ago</span>
+                                </div>
+                                <a href="https://app.qava.ai/" class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </a>
+                            </div>
+                            <div class="project-card">
+                                <div class="card-badge badge-job">Job</div>
+                                <h3 class="project-name">Growth Marketing Lead</h3>
+                                <p class="project-type">Marketing</p>
+                                <p class="project-location">📍 New York, NY</p>
+                                <p class="project-pitch">High-growth startup seeks dynamic marketing leader to scale customer acquisition and drive exponential revenue growth through innovative strategies.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 3 days ago</span>
+                                </div>
+                                <a href="https://app.qava.ai/" class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </a>
+                            </div>
+                            <div class="project-card">
+                                <div class="card-badge badge-internship">Internship</div>
+                                <h3 class="project-name">AI Product Management</h3>
+                                <p class="project-type">Product Management</p>
+                                <p class="project-location">📍 San Francisco, CA</p>
+                                <p class="project-pitch">Innovative AI company seeks passionate intern to shape the future of product development and contribute to breakthrough technologies.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 1 day ago</span>
+                                </div>
+                                <a href="https://app.qava.ai/" class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Second Row -->
+                        <div class="card-row">
+                            <div class="project-card">
+                                <div class="testimonial-content">
+                                    <div class="testimonial-text-content">
+                                        <p class="testimonial-text">Qava has <strong><span style="color: #0F62FE;">saved me valuable time</span></strong> when it comes to building my company, and it's enabled me to work with a diverse pool of students with fresh, bright perspectives on targeted problems I'm working to solve.</p>
+                                    </div>
+                                    <div class="testimonial-author-section">
+                                        <img src="Testimonial images/Kristina Boxer.png" alt="Kristina Boxer" class="testimonial-photo">
+                                        <div class="testimonial-author-info">
+                                            <p class="testimonial-author">Kristina Boxer</p>
+                                            <p class="testimonial-role">Mmento, Founder & CEO</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="https://app.qava.ai/" class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </a>
+                            </div>
+                            <div class="project-card">
+                                <div class="card-badge badge-job">Job</div>
+                                <h3 class="project-name">Strategy Consultant</h3>
+                                <p class="project-type">Strategy</p>
+                                <p class="project-location">📍 Chicago, IL</p>
+                                <p class="project-pitch">Top-tier consulting firm seeks strategic thinker to solve complex business challenges and drive organizational transformation.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 1 week ago</span>
+                                </div>
+                                <a href="https://app.qava.ai/" class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </a>
+                            </div>
+                            <div class="project-card">
+                                <div class="card-badge badge-internship">Internship</div>
+                                <h3 class="project-name">Cybersecurity Analyst</h3>
+                                <p class="project-type">Information Security</p>
+                                <p class="project-location">📍 Washington, DC</p>
+                                <p class="project-pitch">Leading cybersecurity firm seeks tech-savvy intern to analyze threat intelligence and develop security protocols for enterprise clients.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 3 days ago</span>
+                                </div>
+                                <a href="https://app.qava.ai/" class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Third Row -->
+                        <div class="card-row">
+                            <div class="project-card">
+                                <div class="card-badge badge-project">Project</div>
+                                <h3 class="project-name">Market Entry Strategy</h3>
+                                <p class="project-type">Market Research</p>
+                                <p class="project-location">📍 Remote</p>
+                                <p class="project-pitch">Global expansion opportunity with established enterprise seeking strategic market insights and comprehensive entry planning for new markets.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 6 days ago</span>
+                                </div>
+                                <a href="https://app.qava.ai/" class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </a>
+                            </div>
+                            <div class="project-card">
+                                <div class="testimonial-content">
+                                    <div class="testimonial-text-content">
+                                        <p class="testimonial-text">I turned my classroom theory into <strong><span style="color: #0F62FE;">real-world impact</span></strong>. I worked on a live project with a startup founder and gained experience that I can actually talk about in interviews.</p>
+                                    </div>
+                                    <div class="testimonial-author-section">
+                                        <img src="Testimonial images/Sandeep Kurapati.png" alt="Sandeep Kurapati" class="testimonial-photo">
+                                        <div class="testimonial-author-info">
+                                            <p class="testimonial-author">Sandeep Kurapati</p>
+                                            <p class="testimonial-role">Kellogg MBA Class '25</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="https://app.qava.ai/" class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </a>
+                            </div>
+                            <div class="project-card">
+                                <div class="card-badge badge-internship">Internship</div>
+                                <h3 class="project-name">Sustainability Analyst</h3>
+                                <p class="project-type">Environmental Science</p>
+                                <p class="project-location">📍 Portland, OR</p>
+                                <p class="project-pitch">Green energy company seeks passionate intern to analyze environmental impact data and develop sustainability strategies for renewable energy projects.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 1 week ago</span>
+                                </div>
+                                <a href="https://app.qava.ai/" class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Row 4 - Additional unique content -->
+                        <div class="card-row">
+                            <div class="project-card">
+                                <div class="card-badge badge-project">Project</div>
+                                <h3 class="project-name">Financial Model Development</h3>
+                                <p class="project-type">Financial Analysis</p>
+                                <p class="project-location">📍 Remote</p>
+                                <p class="project-pitch">Prestigious consulting firm seeks financial modeling expert for high-impact client projects and strategic financial planning initiatives.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 5 days ago</span>
+                                </div>
+                                <a href="https://app.qava.ai/" class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </a>
+                            </div>
+                            <div class="project-card">
+                                <div class="card-badge badge-internship">Internship</div>
+                                <h3 class="project-name">Data Science Research</h3>
+                                <p class="project-type">Data Science</p>
+                                <p class="project-location">📍 Boston, MA</p>
+                                <p class="project-pitch">Leading research institution seeks data science intern to advance AI breakthroughs and contribute to cutting-edge machine learning research.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 1 week ago</span>
+                                </div>
+                                <a href="https://app.qava.ai/" class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </a>
+                            </div>
+                            <div class="project-card">
+                                <div class="testimonial-content">
+                                    <div class="testimonial-text-content">
+                                        <p class="testimonial-text">I see a <strong><span style="color: #0F62FE;">huge difference</span></strong> in my abilities. I didn't realize a 10 hour long project can give me so much learning. I'm super grateful and highly recommend everyone do at least one project!</p>
+                                    </div>
+                                    <div class="testimonial-author-section">
+                                        <img src="Testimonial images/Vrinda Batra.png" alt="Vrinda Batra" class="testimonial-photo">
+                                        <div class="testimonial-author-info">
+                                            <p class="testimonial-author">Vrinda Batra</p>
+                                            <p class="testimonial-role">Wharton MBA Class '26</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="https://app.qava.ai/" class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Row 5 - Additional unique content -->
+                        <div class="card-row">
+                            <div class="project-card">
+                                <div class="card-badge badge-project">Project</div>
+                                <h3 class="project-name">Customer Experience Strategy</h3>
+                                <p class="project-type">Customer Experience</p>
+                                <p class="project-location">📍 Remote</p>
+                                <p class="project-pitch">Innovative retail company seeks CX strategist to redesign customer journey and enhance brand loyalty through data-driven insights.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 3 days ago</span>
+                                </div>
+                                <button class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </button>
+                            </div>
+                            <div class="project-card">
+                                <div class="card-badge badge-internship">Internship</div>
+                                <h3 class="project-name">Product Marketing</h3>
+                                <p class="project-type">Marketing</p>
+                                <p class="project-location">📍 Los Angeles, CA</p>
+                                <p class="project-pitch">Dynamic startup seeks marketing intern to develop go-to-market strategies and drive product adoption through creative campaigns.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 5 days ago</span>
+                                </div>
+                                <button class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </button>
+                            </div>
+                            <div class="project-card">
+                                <div class="card-badge badge-job">Job</div>
+                                <h3 class="project-name">Senior Product Manager</h3>
+                                <p class="project-type">Product Management</p>
+                                <p class="project-location">📍 Denver, CO</p>
+                                <p class="project-pitch">Established tech company seeks experienced product manager to lead feature development and drive user engagement.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 1 week ago</span>
+                                </div>
+                                <button class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Row 6 - Additional unique content -->
+                        <div class="card-row">
+                            <div class="project-card">
+                                <div class="card-badge badge-project">Project</div>
+                                <h3 class="project-name">Supply Chain Optimization</h3>
+                                <p class="project-type">Operations</p>
+                                <p class="project-location">📍 Remote</p>
+                                <p class="project-pitch">Global manufacturing company seeks operations expert to streamline supply chain processes and reduce costs.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 4 days ago</span>
+                                </div>
+                                <button class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </button>
+                            </div>
+                            <div class="project-card">
+                                <div class="card-badge badge-internship">Internship</div>
+                                <h3 class="project-name">Investment Research</h3>
+                                <p class="project-type">Finance</p>
+                                <p class="project-location">📍 New York, NY</p>
+                                <p class="project-pitch">Leading investment firm seeks finance intern to conduct market analysis and support investment decision-making.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 2 weeks ago</span>
+                                </div>
+                                <button class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </button>
+                            </div>
+                            <div class="project-card">
+                                <div class="card-badge badge-job">Job</div>
+                                <h3 class="project-name">UX/UI Designer</h3>
+                                <p class="project-type">Design</p>
+                                <p class="project-location">📍 Portland, OR</p>
+                                <p class="project-pitch">Creative agency seeks talented designer to create intuitive user experiences and beautiful interfaces.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 6 days ago</span>
+                                </div>
+                                <button class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- What Do You Need Section -->
+    <div class="what-need-section">
+        <div class="what-need-container">
+            <h2 class="what-need-title">What do you need?</h2>
+            <p class="what-need-subtitle">Over 100 projects under 1 roof</p>
+            <div class="category-checkboxes">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="strategy" class="checkbox-input">
+                    <label for="strategy" class="checkbox-label">Strategy</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="growth" class="checkbox-input">
+                    <label for="growth" class="checkbox-label">Growth</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="finance" class="checkbox-input">
+                    <label for="finance" class="checkbox-label">Finance</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="technology" class="checkbox-input">
+                    <label for="technology" class="checkbox-label">Technology</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="operations" class="checkbox-input">
+                    <label for="operations" class="checkbox-label">Operations</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="innovation" class="checkbox-input">
+                    <label for="innovation" class="checkbox-label">Innovation</label>
+                </div>
+                                    <div class="checkbox-item">
+                        <input type="checkbox" id="non-profits" class="checkbox-input">
+                        <label for="non-profits" class="checkbox-label">Non-Profits</label>
+                    </div>
+                </div>
+                
+                <!-- Tags Grid -->
+                <div class="tags-grid">
+                    <div class="tag-item">Business Plan 🚀</div>
+                    <div class="tag-item">Cloud Migration ☁️</div>
+                    <div class="tag-item">Competitor Analysis 🥷</div>
+                    <div class="tag-item">Cost Optimization 💸</div>
+                    <div class="tag-item">Creative Strategy 🎨</div>
+                    <div class="tag-item">Customer Journey Map 🗺️</div>
+                    <div class="tag-item">Customer Segmentation 🧍</div>
+                    <div class="tag-item">Cyber Security 🧯</div>
+                    <div class="tag-item">Data Analysis 📈</div>
+                    <div class="tag-item">Data Strategy 💿</div>
+                    <div class="tag-item">Digital Transformation 🦋</div>
+                    <div class="tag-item">Financial Model 📊</div>
+                    <div class="tag-item">Go-To-Market Strategy 📍</div>
+                    <div class="tag-item">Grant Application 💰</div>
+                    <div class="tag-item">Growth Plan 🌱</div>
+                    <div class="tag-item">Industry Analysis 🔍</div>
+                    <div class="tag-item">Innovation Projects 💡</div>
+                    <div class="tag-item">Operating Model Design 🗂️</div>
+                    <div class="tag-item">Organizational Design 👏</div>
+                    <div class="tag-item">Partnership Strategy 🤝</div>
+                    <div class="tag-item">Pitch Deck 🚀</div>
+                    <div class="tag-item">Pricing Strategy 📰</div>
+                    <div class="tag-item">Process Improvement ⚙️</div>
+                    <div class="tag-item">Product Strategy 🧸</div>
+                    <div class="tag-item">Sales & Marketing Strategy 📋</div>
+                    <div class="tag-item">Strategic Finance 🎯</div>
+                    <div class="tag-item">Supply Chain Analysis 🏭</div>
+                    <div class="tag-item">System Migration 💻</div>
+                    <div class="tag-item">Tariff Impact Assessment 🌍</div>
+                    <div class="tag-item">Technology Rationalization 📗</div>
+                    <div class="tag-item">Vendor Strategy 🚚</div>
+                    <div class="tag-item">Virtual Workshop 📅</div>
+                            </div>
+        </div>
+    </div>
+
+    <!-- Customer Stories Section -->
+    <div class="customer-stories-section">
+        <!-- Section Header -->
+        <div class="stories-header">
+            <div class="stories-title-container">
+                <div class="stories-icon">📣</div>
+                <h2 class="stories-title">What people are saying</h2>
+            </div>
+        </div>
+        
+        <div class="customer-stories-container">
+
+            <!-- Featured Story -->
+            <div class="featured-story">
+                <div class="featured-content">
+                    <div class="featured-text">
+                        <div class="featured-logo">NexusFlow</div>
+                        <blockquote class="featured-quote">
+                            Qava has transformed how our teams think about talent. It's become the central hub for all our strategic initiatives.
+                        </blockquote>
+                        <a href="javascript:void(0);" class="featured-link" data-original="Read the full story →" data-hover="Coming soon">Read the full story →</a>
+                    </div>
+                    <div class="featured-video">
+                        <img src="Testimonial images/Testimonial Video Thumbnail.svg" alt="Testimonial Video Thumbnail" class="video-player">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customer Grid -->
+            <div class="customer-grid">
+                <!-- First Row -->
+                <div class="customer-card">
+                    <div class="customer-logo">
+                        <span class="company-name">Boon</span>
+                    </div>
+                    <p class="customer-quote">We streamlined our workflows and accelerated our cycle times by 3x.</p>
+                    <div class="stars">★★★★★</div>
+                </div>
+                <div class="customer-card">
+                    <div class="customer-logo">
+                        <span class="company-name">Captable</span>
+                    </div>
+                    <p class="customer-quote">With Qava, every person at Captable has an AI assistant.</p>
+                    <div class="stars">★★★★★</div>
+                </div>
+                <div class="customer-card">
+                    <div class="customer-logo">
+                        <span class="company-name">mmento</span>
+                    </div>
+                    <p class="customer-quote">Qava understands that you can solve a lot of problems with one tool.</p>
+                    <div class="stars">★★★★★</div>
+                </div>
+                
+                <!-- Second Row -->
+                <div class="customer-card">
+                    <div class="customer-logo">
+                        <span class="company-name">Saturn Guard</span>
+                    </div>
+                    <p class="customer-quote">Qava has been the most powerful and impactful way to streamline our workflow.</p>
+                    <div class="stars">★★★★★</div>
+                </div>
+                <div class="customer-card">
+                    <div class="customer-logo">
+                        <span class="company-name">Strum</span>
+                    </div>
+                    <p class="customer-quote">Someone could join Strum and onboard themselves without ever speaking to anybody.</p>
+                    <div class="stars">★★★★★</div>
+                </div>
+                <div class="customer-card">
+                    <div class="customer-logo">
+                        <span class="company-name">The Rise Group</span>
+                    </div>
+                    <p class="customer-quote">From six apps to one: Scaling faster with all teams running on Qava AI.</p>
+                    <div class="stars">★★★★★</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <!-- Stats Footer -->
+    <div class="stats-footer-wrapper">
+        <div class="stats-footer">
+            <div class="stats-item">🌐 Over 10K users worldwide</div>
+            <div class="stats-item">🏆 96% of clients would recommend Qava</div>
+            <div class="stats-item">🎯 98% of talent report gaining new, career-advancing skills</div>
+            <div class="stats-item">🎓 Talent from top 50 global MBA & EMBA schools</div>
+            <div class="stats-item">🔗 70% of projects lead to ongoing relationships between talent & clients</div>
+            <div class="stats-item">⚡ Matches made in <24 hours on average</div>
+            <div class="stats-item">📊 3x higher applicant quality vs. traditional job boards</div>
+            <div class="stats-item">🔒 100% project protection guarantee</div>
+            <div class="stats-item">🏆 62% of Fortune 100 use Qava</div>
+            <!-- Duplicate items for seamless loop -->
+            <div class="stats-item">🌐 Over 10K users worldwide</div>
+            <div class="stats-item">🏆 96% of clients would recommend Qava</div>
+            <div class="stats-item">🎯 98% of talent report gaining new, career-advancing skills</div>
+            <div class="stats-item">🎓 Talent from top 50 global MBA & EMBA schools</div>
+            <div class="stats-item">🔗 70% of projects lead to ongoing relationships between talent & clients</div>
+            <div class="stats-item">⚡ Matches made in <24 hours on average</div>
+            <div class="stats-item">📊 3x higher applicant quality vs. traditional job boards</div>
+            <div class="stats-item">🔒 100% project protection guarantee</div>
+            <div class="stats-item">🏆 62% of Fortune 100 use Qava</div>
+            <!-- Third set for smoother loop -->
+            <div class="stats-item">🌐 Over 10K users worldwide</div>
+            <div class="stats-item">🏆 96% of clients would recommend Qava</div>
+            <div class="stats-item">🎯 98% of talent report gaining new, career-advancing skills</div>
+            <div class="stats-item">🎓 Talent from top 50 global MBA & EMBA schools</div>
+            <div class="stats-item">🔗 70% of projects lead to ongoing relationships between talent & clients</div>
+            <div class="stats-item">⚡ Matches made in <24 hours on average</div>
+            <div class="stats-item">📊 3x higher applicant quality vs. traditional job boards</div>
+            <div class="stats-item">🔒 100% project protection guarantee</div>
+            <div class="stats-item">🏆 62% of Fortune 100 use Qava</div>
+        </div>
+    </div>
+    
+    <!-- Education Section -->
+    <div class="education-section">
+        <div class="education-container">
+            <div class="education-card">
+                <div class="education-image">
+                    <img src="Education Breaks the Cycle.png" alt="Education Breaks the Cycle" class="artwork-image">
+                </div>
+                <div class="education-content">
+                    <h3 class="education-title">Education breaks the cycle</h3>
+                    <p class="education-description">
+                        The Aurora Education foundation is an Indigenous organization that supports Aboriginal and Torres Strait Islander students to realize their full education and employment potential. 1% of profits will be donated to this important mission.
+                    </p>
+                    <a href="https://aurorafoundation.com.au/?gad_source=1&gad_campaignid=20266303360&gbraid=0AAAAAo_9cxXCGg5IbEOVCx16vIn4z39Pq&gclid=Cj0KCQjwn8XFBhCxARIsAMyH8BtbXMEmRGAKfavaNQn127KW-GgTf0ldjKUoTs4rPkJ0rKoAdS79zl4aAkF9EALw_wcB" class="education-link" target="_blank">Learn more →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer-section">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="complete-page.html">
+                        <img src="qava-logo.svg" alt="Qava" class="footer-logo-img" />
+                    </a>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Welcome</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">Create Listing</a></li>
+                            <li><a href="#" class="footer-link">Search Listings</a></li>
+                            <li class="footer-dropdown-item">
+                                <a href="#" class="footer-link">How It Works +</a>
+                                <div class="footer-dropdown-menu">
+                                    <div class="footer-dropdown-item">
+                                        <div class="dropdown-title">For Clients 🚀</div>
+                                        <div class="dropdown-subtitle">Hiring for current or future work</div>
+                                    </div>
+                                    <div class="footer-dropdown-item">
+                                        <div class="dropdown-title">For Talent 👩‍💻</div>
+                                        <div class="dropdown-subtitle">Interested in current or future work</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a href="#" class="footer-link">Why Qava</a></li>
+                            <li><a href="#" class="footer-link">What's New</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Get Started</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">AI Prompts</a></li>
+                            <li><a href="#" class="footer-link">Project Templates</a></li>
+                            <li><a href="#" class="footer-link">Application Tips</a></li>
+                            <li><a href="#" class="footer-link">Request a Demo</a></li>
+                            <li><a href="#" class="footer-link">Sign Up</a></li>
+                            <li><a href="#" class="footer-link">Log In</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Resources</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">Pricing</a></li>
+                            <li><a href="#" class="footer-link">About Us</a></li>
+                            <li><a href="#" class="footer-link">Careers</a></li>
+                            <li><a href="#" class="footer-link">Media Kit</a></li>
+                            <li><a href="#" class="footer-link">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Learn</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">Success Stories</a></li>
+                            <li><a href="#" class="footer-link">Help Center</a></li>
+                            <li><a href="#" class="footer-link">Webinars</a></li>
+                            <li><a href="#" class="footer-link">Blog</a></li>
+                            <li><a href="#" class="footer-link">Community</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Legal</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">Terms & Privacy</a></li>
+                            <li><a href="#" class="footer-link">California Privacy Notice</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-copyright">
+                        © 2025 qava
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+            
+            // Prevent body scroll when mobile menu is open
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function toggleMobileDropdown() {
+            const dropdown = document.getElementById('mobileDropdown');
+            const toggle = document.querySelector('.mobile-dropdown-toggle');
+            
+            dropdown.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+            
+            if (mobileMenu.classList.contains('active') && 
+                !mobileMenu.contains(event.target) && 
+                !hamburgerMenu.contains(event.target)) {
+                toggleMobileMenu();
+            }
+        });
+
+        // Prevent scroll on mobile when menu is open
+        document.addEventListener('touchmove', function(e) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu.classList.contains('active')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Handle responsive behavior
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 1100) {
+                const mobileMenu = document.getElementById('mobileMenu');
+                if (mobileMenu.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            }
+        });
+
+        // Strategy-related tag items
+        const strategyTags = [
+            'Business Plan 🚀',
+            'Creative Strategy 🎨',
+            'Data Analysis 📈',
+            'Data Strategy 💿',
+            'Digital Transformation 🦋',
+            'Go-To-Market Strategy 📍',
+            'Industry Analysis 🔍',
+            'Operating Model Design 🗂️',
+            'Organizational Design 👏',
+            'Partnership Strategy 🤝',
+            'Pricing Strategy 📰',
+            'Product Strategy 🧸',
+            'Sales & Marketing Strategy 📋',
+            'Strategic Finance 🎯'
+        ];
+
+        // Growth-related tag items
+        const growthTags = [
+            'Competitor Analysis 🥷',
+            'Customer Segmentation 🧍',
+            'Data Analysis 📈',
+            'Digital Transformation 🦋',
+            'Growth Plan 🌱',
+            'Industry Analysis 🔍',
+            'Innovation Projects 💡',
+            'Partnership Strategy 🤝',
+            'Process Improvement ⚙️',
+            'Sales & Marketing Strategy 📋',
+            'Strategic Finance 🎯',
+            'Virtual Workshop 📅'
+        ];
+
+        // Finance-related tag items
+        const financeTags = [
+            'Cost Optimization 💸',
+            'Data Analysis 📈',
+            'Digital Transformation 🦋',
+            'Financial Model 📊',
+            'Grant Application 💰',
+            'Growth Plan 🌱',
+            'Industry Analysis 🔍',
+            'Pricing Strategy 📰',
+            'Strategic Finance 🎯',
+            'Tariff Impact Assessment 🌍'
+        ];
+
+        // Technology-related tag items
+        const technologyTags = [
+            'Cloud Migration ☁️',
+            'Cost Optimization 💸',
+            'Cyber Security 🧯',
+            'Data Strategy 💿',
+            'Digital Transformation 🦋',
+            'Innovation Projects 💡',
+            'Product Strategy 🧸',
+            'System Migration 💻',
+            'Technology Rationalization 📗'
+        ];
+
+        // Operations-related tag items
+        const operationsTags = [
+            'Cost Optimization 💸',
+            'Customer Journey Map 🗺️',
+            'Data Analysis 📈',
+            'Digital Transformation 🦋',
+            'Go-To-Market Strategy 📍',
+            'Operating Model Design 🗂️',
+            'Organizational Design 👏',
+            'Partnership Strategy 🤝',
+            'Strategic Finance 🎯',
+            'Supply Chain Analysis 🏭',
+            'Tariff Impact Assessment 🌍',
+            'Vendor Strategy 🚚'
+        ];
+
+        // Innovation-related tag items
+        const innovationTags = [
+            'Business Plan 🚀',
+            'Competitor Analysis 🥷',
+            'Creative Strategy 🎨',
+            'Customer Segmentation 🧍',
+            'Cyber Security 🧯',
+            'Data Analysis 📈',
+            'Digital Transformation 🦋',
+            'Growth Plan 🌱',
+            'Innovation Projects 💡',
+            'Operating Model Design 🗂️',
+            'Organizational Design 👏',
+            'Partnership Strategy 🤝',
+            'Product Strategy 🧸',
+            'Virtual Workshop 📅'
+        ];
+
+        // Non-Profits-related tag items
+        const nonProfitsTags = [
+            'Business Plan 🚀',
+            'Customer Segmentation 🧍',
+            'Data Analysis 📈',
+            'Digital Transformation 🦋',
+            'Grant Application 💰',
+            'Operating Model Design 🗂️',
+            'Organizational Design 👏',
+            'Partnership Strategy 🤝',
+            'Pitch Deck 🚀',
+            'Sales & Marketing Strategy 📋',
+            'System Migration 💻',
+            'Technology Rationalization 📗'
+        ];
+
+        // Track manually selected tags
+        let manuallySelectedTags = new Set();
+
+        // Make tag items selectable
+        // Helper function to handle checkbox changes
+        function handleCheckboxChange(checkbox, relatedTags, tagItems) {
+            checkbox.addEventListener('change', function() {
+                const isChecked = this.checked;
+                
+                relatedTags.forEach(tagText => {
+                    const tagElement = Array.from(tagItems).find(tag => tag.textContent === tagText);
+                    if (tagElement) {
+                        if (isChecked) {
+                            // Select tags that weren't manually deselected
+                            if (!manuallySelectedTags.has(tagText)) {
+                                tagElement.classList.add('selected');
+                            }
+                        } else {
+                            // Deselect tags that weren't manually selected
+                            if (!manuallySelectedTags.has(tagText)) {
+                                tagElement.classList.remove('selected');
+                            }
+                        }
+                    }
+                });
+            });
+        }
+
+        function initializeTagSelection() {
+            const tagItems = document.querySelectorAll('.tag-item');
+            const strategyCheckbox = document.getElementById('strategy');
+            const growthCheckbox = document.getElementById('growth');
+            const financeCheckbox = document.getElementById('finance');
+            const technologyCheckbox = document.getElementById('technology');
+            const operationsCheckbox = document.getElementById('operations');
+            const innovationCheckbox = document.getElementById('innovation');
+            const nonProfitsCheckbox = document.getElementById('non-profits');
+            
+            // Add click listeners to tag items
+            tagItems.forEach(tag => {
+                tag.addEventListener('click', function() {
+                    const tagText = this.textContent;
+                    const isStrategyTag = strategyTags.includes(tagText);
+                    const isGrowthTag = growthTags.includes(tagText);
+                    const isFinanceTag = financeTags.includes(tagText);
+                    const isTechnologyTag = technologyTags.includes(tagText);
+                    const isOperationsTag = operationsTags.includes(tagText);
+                    const isInnovationTag = innovationTags.includes(tagText);
+                    const isNonProfitsTag = nonProfitsTags.includes(tagText);
+                    
+                    // If it's a category tag, mark it as manually selected
+                    if (isStrategyTag || isGrowthTag || isFinanceTag || isTechnologyTag || isOperationsTag || isInnovationTag || isNonProfitsTag) {
+                        if (this.classList.contains('selected')) {
+                            manuallySelectedTags.delete(tagText);
+                        } else {
+                            manuallySelectedTags.add(tagText);
+                        }
+                    }
+                    
+                    this.classList.toggle('selected');
+                });
+            });
+
+            // Add change listeners to category checkboxes
+            handleCheckboxChange(strategyCheckbox, strategyTags, tagItems);
+            handleCheckboxChange(growthCheckbox, growthTags, tagItems);
+            handleCheckboxChange(financeCheckbox, financeTags, tagItems);
+            handleCheckboxChange(technologyCheckbox, technologyTags, tagItems);
+            handleCheckboxChange(operationsCheckbox, operationsTags, tagItems);
+            handleCheckboxChange(innovationCheckbox, innovationTags, tagItems);
+            handleCheckboxChange(nonProfitsCheckbox, nonProfitsTags, tagItems);
+        }
+
+        // Initialize tag selection when page loads
+        document.addEventListener('DOMContentLoaded', initializeTagSelection);
+
+        // Hero word highlighting animation
+        function startHeroAnimation() {
+            const words = ['projects', 'jobs', 'internships'];
+            let currentIndex = 0;
+            
+            function highlightNextWord() {
+                if (currentIndex >= words.length) {
+                    // Animation complete, ensure all words are black
+                    words.forEach(word => {
+                        const element = document.getElementById(word);
+                        if (element) {
+                            element.style.color = '#000000';
+                        }
+                    });
+                    return;
+                }
+                
+                const currentWord = words[currentIndex];
+                const element = document.getElementById(currentWord);
+                
+                if (element) {
+                    // Reset all words to black first
+                    words.forEach(word => {
+                        const wordElement = document.getElementById(word);
+                        if (wordElement) {
+                            wordElement.style.color = '#000000';
+                        }
+                    });
+                    
+                    // Highlight current word in blue
+                    element.style.color = '#0F62FE';
+                    
+                    // After 0.5 seconds, turn current word black and move to next word
+                    setTimeout(() => {
+                        element.style.color = '#000000';
+                        currentIndex++;
+                        highlightNextWord();
+                    }, 500);
+                }
+            }
+            
+            // Start the animation
+            highlightNextWord();
+        }
+
+        // Start hero animation when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Delay start by 1 second to let page load
+            setTimeout(startHeroAnimation, 1000);
+            
+            // Initialize logo slider
+            initializeLogoSlider();
+            
+            // Initialize scroll animation for competitor logos
+            initializeCompetitorLogoAnimation();
+        });
+
+        // Logo Slider Configuration
+        const logoSliderConfig = {
+            logos: [
+                { src: "Landing Page Trusted by/Stern.png", alt: "NYU Stern" },
+                { src: "Landing Page Trusted by/Wharton.png", alt: "Wharton" },
+                { src: "Landing Page Trusted by/HBS.png", alt: "Harvard Business School" },
+                { src: "Landing Page Trusted by/Haas.png", alt: "Berkeley Haas" },
+                { src: "Landing Page Trusted by/Standford.png", alt: "Stanford Graduate School of Business" },
+                { src: "Landing Page Trusted by/Said.png", alt: "Saïd Business School" },
+                { src: "Landing Page Trusted by/Kellogg.png", alt: "Kellogg School of Management" },
+                { src: "Landing Page Trusted by/MIT.png", alt: "MIT Sloan" }
+            ],
+            visibleCount: 4,
+            speed: 30
+        };
+
+        function initializeLogoSlider() {
+            const track = document.getElementById('logoSliderTrack');
+            if (!track) return;
+
+            // Clear existing content
+            track.innerHTML = '';
+
+            // Create duplicated logos for seamless loop
+            const allLogos = [...logoSliderConfig.logos, ...logoSliderConfig.logos];
+
+            allLogos.forEach((logo, index) => {
+                const logoItem = document.createElement('div');
+                logoItem.className = 'logo-slider-item';
+                
+                const img = document.createElement('img');
+                img.src = logo.src;
+                img.alt = logo.alt;
+                img.loading = 'lazy';
+                
+                logoItem.appendChild(img);
+                track.appendChild(logoItem);
+            });
+
+            // Adjust animation duration based on number of logos
+            const totalLogos = logoSliderConfig.logos.length;
+            const animationDuration = (totalLogos * 2) * (30 / logoSliderConfig.speed);
+            
+            track.style.animationDuration = `${animationDuration}s`;
+        }
+
+        function initializeCompetitorLogoAnimation() {
+            const logosContainer = document.querySelector('.competitor-platforms-logos');
+            if (!logosContainer) return;
+
+            let animationStarted = false;
+            let animationCompleted = false;
+            let animationStartTime = null;
+            let animationId = null;
+            const animationDuration = 2000; // 2 seconds for the line to reach the end
+
+            function easeOutCubic(t) {
+                return 1 - Math.pow(1 - t, 3);
+            }
+
+            function updateLineWidth(scrollTop) {
+                if (animationCompleted) return;
+
+                // Get the section that contains the logos
+                const section = logosContainer.closest('.competitor-platforms-section');
+                if (!section) return;
+
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const viewportHeight = window.innerHeight;
+                
+                // Calculate when the logos container is visible on screen
+                const logosContainerTop = logosContainer.offsetTop;
+                const logosContainerHeight = logosContainer.offsetHeight;
+                
+                // Start animation when the logos container is fully visible on screen
+                const logosVisible = scrollTop + viewportHeight >= logosContainerTop + logosContainerHeight;
+                
+                if (logosVisible && !animationStarted) {
+                    animationStarted = true;
+                    animationStartTime = Date.now();
+                    startSmoothAnimation();
+                }
+            }
+
+            function startSmoothAnimation() {
+                function animate() {
+                    if (animationCompleted || !animationStartTime) return;
+
+                    const elapsedTime = Date.now() - animationStartTime;
+                    const animationProgress = Math.min(1, elapsedTime / animationDuration);
+                    
+                    // Apply easing for smoother motion
+                    const easedProgress = easeOutCubic(animationProgress);
+                    
+                    const maxLineWidth = logosContainer.offsetWidth;
+                    const lineWidth = easedProgress * maxLineWidth;
+                    
+                    logosContainer.style.setProperty('--line-width', `${lineWidth}px`);
+                    
+                    // Mark as complete when animation finishes
+                    if (animationProgress >= 1) {
+                        animationCompleted = true;
+                        return;
+                    }
+                    
+                    // Continue animation
+                    animationId = requestAnimationFrame(animate);
+                }
+                
+                animate();
+            }
+
+            function handleScroll() {
+                const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                updateLineWidth(currentScrollTop);
+            }
+
+            // Add scroll event listener
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            
+            // Initial call
+            setTimeout(() => {
+                handleScroll();
+            }, 100);
+        }
+    </script>
+</body>
+</html>

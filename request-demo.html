@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request a Demo - Qava</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+        }
+
+        /* NAVBAR STYLES */
+        .header-container {
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 16px 32px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 64px;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            overflow: visible;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .header-center {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex: 1;
+            margin-left: 40px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 36px;
+            height: 36px;
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            position: relative;
+            gap: 4px;
+        }
+
+        .nav-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .dropdown-arrow {
+            color: #000000;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-item:hover .dropdown-arrow {
+            transform: rotate(180deg);
+            color: #000000;
+        }
+
+        .nav-text {
+            color: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            white-space: nowrap;
+        }
+
+        /* Dropdown Menu Styles */
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 8px;
+            min-width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 10000;
+        }
+
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-item {
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.04);
+        }
+
+        .dropdown-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 2px;
+        }
+
+        .dropdown-subtitle {
+            font-size: 13px;
+            font-weight: 300;
+            color: rgba(55, 53, 47, 0.6);
+            line-height: 1.3;
+        }
+
+        .auth-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .auth-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .auth-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .auth-text-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .divider {
+            display: none;
+        }
+
+        .join-button {
+            padding: 6px 12px;
+            background: #0F62FE;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            font-family: inherit;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .join-button:hover {
+            background: #0053E5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
+        }
+
+        .join-text {
+            color: white;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        /* Hamburger Menu Styles */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1001;
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            background: transparent;
+        }
+
+        .hamburger-menu:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+        }
+
+        .hamburger-menu:active {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .hamburger-line {
+            width: 18px;
+            height: 2px;
+            background-color: #000000;
+            margin: 2px 0;
+            transition: all 0.2s ease;
+            border-radius: 1px;
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            flex-direction: column;
+            padding: 80px 20px 32px 20px;
+            overflow-y: auto;
+            animation: slideDown 0.3s ease-out;
+            box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-nav-item {
+            padding: 16px 20px;
+            border-bottom: none;
+            text-align: left;
+            font-size: 16px;
+            font-weight: 500;
+            color: #000000;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border-radius: 8px;
+            margin-bottom: 4px;
+        }
+
+        .mobile-nav-item:hover {
+            background-color: rgba(0, 0, 0, 0.04);
+            color: #000000;
+        }
+
+        .mobile-nav-item:active {
+            background-color: rgba(0, 0, 0, 0.08);
+            transform: scale(0.98);
+        }
+
+        .mobile-auth-section {
+            margin-top: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-top: 32px;
+            border-top: none;
+        }
+
+        .mobile-auth-section .mobile-nav-item {
+            text-align: left;
+            font-size: 13px;
+            padding: 16px 24px;
+            border-radius: 6px;
+            border-bottom: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .mobile-auth-section .mobile-nav-item:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        .mobile-auth-section .join-button {
+            padding: 12px 16px;
+            font-size: 13px;
+            border-radius: 6px;
+            margin-top: 8px;
+            align-self: flex-start;
+        }
+
+        /* Mobile Dropdown Styles */
+        .mobile-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .mobile-dropdown-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .mobile-dropdown-arrow {
+            font-size: 13px;
+            transition: transform 0.2s ease;
+            color: rgba(55, 53, 47, 0.6);
+        }
+
+        .mobile-dropdown-toggle.active .mobile-dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .mobile-dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: rgba(55, 53, 47, 0.04);
+            border-radius: 6px;
+            margin: 0 16px 8px 16px;
+        }
+
+        .mobile-dropdown-content.active {
+            max-height: 200px;
+            padding: 8px 0;
+        }
+
+        .mobile-dropdown-item {
+            padding: 16px 24px;
+            border-bottom: none;
+            cursor: pointer;
+        }
+
+        .mobile-dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        .mobile-dropdown-item .dropdown-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 2px;
+        }
+
+        .mobile-dropdown-item .dropdown-subtitle {
+            font-size: 13px;
+            font-weight: 300;
+            color: rgba(55, 53, 47, 0.6);
+            line-height: 1.3;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 13px;
+            cursor: pointer;
+            color: #000000;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            transition: background-color 0.2s ease;
+        }
+
+        .close-menu:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        /* DEMO REQUEST SECTION STYLES */
+        .demo-request-section {
+            background: white;
+            padding: 0 0 5px 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .demo-request-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            align-items: flex-start;
+            gap: 80px;
+            padding-top: 120px;
+        }
+
+        .demo-content {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .red-line {
+            width: 60px;
+            height: 4px;
+            background-color: #ff0000;
+            margin-bottom: 16px;
+        }
+
+        .demo-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: #000000;
+            line-height: 1.2;
+            margin: 0 0 24px 0;
+        }
+
+        .demo-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 300;
+            color: rgba(0, 0, 0, 0.7);
+            line-height: 1.5;
+            margin: 0 0 32px 0;
+        }
+
+        .demo-description {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            color: #000000;
+            line-height: 1.6;
+            margin: 0 0 24px 0;
+        }
+
+        .demo-benefits {
+            margin-bottom: 24px;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .benefit-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .benefit-icon {
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .benefit-item .demo-description {
+            margin: 0;
+        }
+
+        .demo-form-container {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .demo-form {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .form-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #000000;
+            margin: 0 0 24px 0;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-label {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 4px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            color: #000000;
+            background: #f8f9fa;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        .form-input::placeholder {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #0F62FE;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(15, 98, 254, 0.1);
+        }
+
+        .form-input:hover {
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            color: #000000;
+            background: #f8f9fa;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M12 5v14M5 12h14' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: #0F62FE;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M5 12h14' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        }
+
+        .form-select:invalid {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: #0F62FE;
+        }
+
+        .form-select option[value=""] {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            color: #000000;
+            background: #f8f9fa;
+            transition: border-color 0.2s ease;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-textarea::placeholder {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: #0F62FE;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 6px 12px;
+            background: #0F62FE;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            color: white;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .form-submit:hover {
+            background: #0053E5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
+        }
+
+        .form-submit:disabled {
+            background: rgba(0, 0, 0, 0.1);
+            color: rgba(0, 0, 0, 0.4);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .form-note {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 300;
+            color: rgba(0, 0, 0, 0.6);
+            margin-top: 4px;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        .form-note:last-of-type {
+            margin-bottom: 50px;
+        }
+
+        .form-error {
+            color: #dc3545;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .form-success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 6px;
+            padding: 16px;
+            margin-bottom: 24px;
+            color: #155724;
+            font-size: 14px;
+        }
+
+        /* Footer Section */
+        .footer-section {
+            background: white;
+            width: 100%;
+            max-width: 1070px;
+            margin: 0 auto;
+            padding: 78px 0 46px 0;
+            border-top: 1px solid #EBEBEB;
+            margin-top: 0;
+        }
+
+        .footer-container {
+            max-width: 940px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .footer-logo {
+            width: 39%;
+            padding: 2px 15px 0 0;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo-img {
+            width: 40px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            width: 60%;
+            gap: 25px 25px;
+            padding: 0 15px 0 10px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-heading {
+            font-family: 'Inter', sans-serif;
+            font-size: 17px;
+            color: #000000;
+            margin-bottom: 15px;
+            font-weight: 600;
+            margin: 0 0 15px 0;
+        }
+
+        .footer-link-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .footer-link-list li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+            text-decoration: none;
+            line-height: 1.2;
+            transition: text-decoration 0.2s ease;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer-copyright {
+            grid-column: 1 / -1;
+            margin-top: 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+        }
+
+        /* Responsive Design - Smooth & Proportionate */
+        
+        /* Large Desktop (1400px and below) */
+        @media (max-width: 1400px) {
+            .header-container {
+                padding: 16px 24px;
+            }
+            
+            .navigation {
+                gap: 24px;
+            }
+            
+            .demo-request-container {
+                padding: 0 24px;
+                gap: 80px;
+                padding-top: 120px;
+            }
+        }
+
+        /* Desktop (1200px and below) */
+        @media (max-width: 1200px) {
+            .header-container {
+                padding: 16px 20px;
+            }
+            
+            .navigation {
+                gap: 20px;
+            }
+            
+            .nav-item {
+                padding: 6px 8px;
+                font-size: 13px;
+            }
+
+            .demo-request-container {
+                gap: 70px;
+                padding-top: 110px;
+            }
+
+            .demo-title {
+                font-size: 42px;
+                line-height: 1.1;
+            }
+            
+            .demo-subtitle {
+                font-size: 17px;
+            }
+        }
+
+        /* Tablet Landscape (1024px and below) */
+        @media (max-width: 1024px) {
+            .header-container {
+                padding: 14px 20px;
+            }
+            
+            .navigation {
+                gap: 16px;
+            }
+            
+            .nav-item {
+                padding: 6px 6px;
+                font-size: 12px;
+            }
+
+            .demo-request-container {
+                gap: 60px;
+                padding-top: 100px;
+            }
+
+            .demo-title {
+                font-size: 38px;
+            }
+            
+            .demo-subtitle {
+                font-size: 16px;
+            }
+            
+            .demo-benefits {
+                margin-bottom: 20px;
+            }
+            
+            .benefit-item {
+                margin-bottom: 14px;
+            }
+        }
+
+        /* Tablet Portrait (900px and below) */
+        @media (max-width: 900px) {
+            .demo-request-container {
+                gap: 50px;
+                padding-top: 90px;
+            }
+
+            .demo-title {
+                font-size: 36px;
+            }
+            
+            .demo-subtitle {
+                font-size: 16px;
+            }
+        }
+
+        /* Tablet Portrait (768px and below) */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 12px 16px;
+            }
+            
+            .navigation {
+                display: none;
+            }
+            
+            .dropdown-menu {
+                display: none;
+            }
+            
+            .hamburger-menu {
+                display: flex;
+            }
+            
+            .header-right {
+                gap: 8px;
+            }
+            
+            .auth-item {
+                display: none;
+            }
+            
+            .join-button {
+                padding: 8px 16px;
+                font-size: 14px;
+                min-width: 110px;
+            }
+            
+            .join-text {
+                font-size: 14px;
+            }
+
+            .demo-request-section {
+                min-height: auto;
+                padding: 40px 0 60px 0;
+            }
+
+            .demo-request-container {
+                flex-direction: column;
+                gap: 48px;
+                padding: 0 20px;
+                padding-top: 80px;
+                text-align: center;
+            }
+
+            .demo-content {
+                max-width: none;
+                margin-top: 0;
+            }
+
+            .demo-title {
+                font-size: 36px;
+                line-height: 1.2;
+                margin-bottom: 20px;
+            }
+
+            .demo-subtitle {
+                font-size: 18px;
+                margin-bottom: 28px;
+            }
+
+            .demo-benefits {
+                margin-bottom: 28px;
+            }
+
+            .benefit-item {
+                margin-bottom: 16px;
+                text-align: left;
+                justify-content: flex-start;
+            }
+
+            .demo-form-container {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .demo-form {
+                padding: 24px 20px;
+                border-radius: 12px;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            }
+
+            .form-title {
+                font-size: 22px;
+                margin-bottom: 28px;
+            }
+
+            .form-group {
+                margin-bottom: 20px;
+            }
+
+            .form-input,
+            .form-select,
+            .form-textarea {
+                padding: 14px 16px;
+                font-size: 15px;
+            }
+
+            .form-submit {
+                padding: 14px 20px;
+                font-size: 15px;
+                font-weight: 500;
+            }
+
+            /* Footer Responsive */
+            .footer-section {
+                padding: 60px 0 40px 0;
+            }
+
+            .footer-logo {
+                width: 100%;
+                padding: 0 20px 0 20px;
+                margin-bottom: 30px;
+            }
+
+            .footer-links {
+                width: 100%;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+                padding: 0 20px 0 20px;
+            }
+        }
+
+        /* Mobile Large (600px and below) */
+        @media (max-width: 600px) {
+            .demo-request-container {
+                padding-top: 70px;
+                gap: 44px;
+            }
+
+            .demo-title {
+                font-size: 34px;
+            }
+
+            .demo-subtitle {
+                font-size: 17px;
+            }
+        }
+
+        /* Mobile Large (480px and below) */
+        @media (max-width: 480px) {
+            .header-container {
+                padding: 10px 16px;
+            }
+            
+            .join-button {
+                padding: 6px 12px;
+                font-size: 13px;
+                min-width: 100px;
+            }
+            
+            .join-text {
+                font-size: 13px;
+            }
+
+            .demo-request-section {
+                padding: 30px 0 50px 0;
+            }
+
+            .demo-request-container {
+                padding: 0 16px;
+                gap: 40px;
+                padding-top: 60px;
+            }
+
+            .demo-title {
+                font-size: 32px;
+                line-height: 1.2;
+                margin-bottom: 16px;
+            }
+
+            .demo-subtitle {
+                font-size: 16px;
+                margin-bottom: 24px;
+            }
+
+            .demo-benefits {
+                margin-bottom: 24px;
+            }
+
+            .benefit-item {
+                margin-bottom: 14px;
+                gap: 10px;
+            }
+
+            .benefit-icon {
+                margin-top: 1px;
+            }
+
+            .demo-form {
+                padding: 20px 16px;
+                border-radius: 10px;
+            }
+
+            .form-title {
+                font-size: 20px;
+                margin-bottom: 24px;
+            }
+
+            .form-group {
+                margin-bottom: 18px;
+            }
+
+            .form-input,
+            .form-select,
+            .form-textarea {
+                padding: 12px 14px;
+                font-size: 14px;
+            }
+
+            .form-submit {
+                padding: 12px 18px;
+                font-size: 14px;
+            }
+
+            .form-note {
+                font-size: 11px;
+                margin-top: 12px;
+            }
+
+            /* Footer Responsive */
+            .footer-links {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+        }
+
+        /* Mobile Small (360px and below) */
+        @media (max-width: 360px) {
+            .demo-request-container {
+                padding: 0 12px;
+                gap: 32px;
+                padding-top: 50px;
+            }
+
+            .demo-title {
+                font-size: 28px;
+            }
+
+            .demo-subtitle {
+                font-size: 15px;
+            }
+
+            .demo-form {
+                padding: 18px 14px;
+            }
+
+            .form-title {
+                font-size: 18px;
+            }
+
+            .form-input,
+            .form-select,
+            .form-textarea {
+                padding: 10px 12px;
+                font-size: 13px;
+            }
+
+            .form-submit {
+                padding: 10px 16px;
+                font-size: 13px;
+            }
+        }
+
+        /* Landscape Mobile Fixes */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .demo-request-section {
+                min-height: auto;
+                padding: 20px 0 40px 0;
+            }
+
+            .demo-request-container {
+                padding-top: 40px;
+                gap: 30px;
+            }
+
+            .demo-title {
+                font-size: 28px;
+                margin-bottom: 12px;
+            }
+
+            .demo-subtitle {
+                font-size: 14px;
+                margin-bottom: 16px;
+            }
+
+            .demo-benefits {
+                margin-bottom: 16px;
+            }
+
+            .benefit-item {
+                margin-bottom: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="header-container">
+        <!-- Logo on the left -->
+        <div class="header-logo">
+            <div class="logo-container">
+                <div class="logo">
+                    <a href="complete-page.html">
+                        <img src="qava-logo.svg" alt="Qava Logo">
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation in the center -->
+        <div class="header-center">
+            <div class="navigation">
+                <div class="nav-item create-listing">
+                    <div class="nav-text">Create Listing</div>
+                </div>
+                <div class="nav-item search-listings">
+                    <div class="nav-text">Search Listings</div>
+                </div>
+                <div class="nav-item how-it-works has-dropdown">
+                    <div class="nav-text">How It Works</div>
+                    <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-item">
+                            <div class="dropdown-title">For Clients 🚀</div>
+                            <div class="dropdown-subtitle">Hiring for current or future work</div>
+                        </div>
+                        <div class="dropdown-item">
+                            <div class="dropdown-title">For Talent 👩‍💻</div>
+                            <div class="dropdown-subtitle">Interested in current or future work</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item why-qava">
+                    <div class="nav-text">Why Qava</div>
+                </div>
+                <div class="nav-item pricing">
+                    <div class="nav-text">Pricing</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Auth section on the right -->
+        <div class="header-right">
+            <div class="auth-section">
+                <div class="auth-item">
+                    <div class="nav-text">Request a demo</div>
+                </div>
+                <a href="https://app.qava.ai/" class="auth-item">
+                    <div class="nav-text">Log in</div>
+                </a>
+                <a href="https://app.qava.ai/" class="join-button">
+                    <div class="join-text">Join for free</div>
+                </a>
+            </div>
+            
+            <!-- Hamburger Menu Button -->
+            <div class="hamburger-menu" onclick="toggleMobileMenu()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
+        <div class="mobile-nav-item">
+            <div class="nav-text">Create Listing</div>
+        </div>
+        <div class="mobile-nav-item">
+            <div class="nav-text">Search Listings</div>
+        </div>
+        <div class="mobile-nav-item mobile-dropdown-toggle" onclick="toggleMobileDropdown()">
+            <div class="mobile-dropdown-header">
+                <div class="nav-text">How It Works</div>
+                <span class="mobile-dropdown-arrow">▾</span>
+            </div>
+        </div>
+        <div class="mobile-dropdown-content" id="mobileDropdown">
+            <div class="mobile-dropdown-item">
+                <div class="dropdown-title">For Clients 🚀</div>
+                <div class="dropdown-subtitle">Hiring for current or future work</div>
+            </div>
+            <div class="mobile-dropdown-item">
+                <div class="dropdown-title">For Talent 👩‍💻</div>
+                <div class="dropdown-subtitle">Interested in current or future work</div>
+            </div>
+        </div>
+        <div class="mobile-nav-item">
+            <div class="nav-text">Why Qava</div>
+        </div>
+        <div class="mobile-nav-item">
+            <div class="nav-text">Pricing</div>
+        </div>
+        <div class="mobile-auth-section">
+            <div class="mobile-nav-item">Request a demo</div>
+            <a href="https://app.qava.ai/" class="mobile-nav-item">Log in</a>
+            <a href="https://app.qava.ai/" class="join-button">
+                <div class="join-text">Join for free</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Demo Request Section -->
+    <div class="demo-request-section">
+        <div class="demo-request-container">
+            <div class="demo-content">
+                <h1 class="demo-title">Contact our<br>demo team</h1>
+                <p class="demo-subtitle">Let's explore how qava can work for you</p>
+                <div class="demo-benefits">
+                    <div class="benefit-item">
+                        <svg class="benefit-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M16.6667 5L7.5 14.1667L3.33333 10" stroke="#0F62FE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <p class="demo-description">
+                            Launch strategic projects, find expert talent fast, and deliver real results—without the overhead.
+                        </p>
+                    </div>
+                    <div class="benefit-item">
+                        <svg class="benefit-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M16.6667 5L7.5 14.1667L3.33333 10" stroke="#0F62FE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <p class="demo-description">
+                            Secure, scalable, and designed to save you time and money on every project.
+                        </p>
+                    </div>
+                    <div class="benefit-item">
+                        <svg class="benefit-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M16.6667 5L7.5 14.1667L3.33333 10" stroke="#0F62FE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <p class="demo-description">
+                            Our team helps you set up, find the right talent, and make every project count.
+                        </p>
+                    </div>
+                </div>
+                <p class="demo-description">
+                    Looking for support? <a href="#" style="color: #0F62FE; text-decoration: none;">Visit our FAQ</a>
+                </p>
+            </div>
+            
+            <div class="demo-form-container">
+                <form class="demo-form" id="demoForm">
+                    
+                    
+                                         <div class="form-group">
+                         <label for="firstName" class="form-label">First name *</label>
+                         <input type="text" id="firstName" name="firstName" class="form-input" placeholder="Julie" required>
+                     </div>
+                     
+                     <div class="form-group">
+                         <label for="lastName" class="form-label">Last name *</label>
+                         <input type="text" id="lastName" name="lastName" class="form-input" placeholder="Sweet" required>
+                     </div>
+                     
+                     <div class="form-group">
+                         <label for="email" class="form-label">Work email *</label>
+                         <input type="email" id="email" name="email" class="form-input" placeholder="julie@accenture.com" required>
+                     </div>
+                     
+                     <div class="form-group">
+                         <label for="company" class="form-label">Company name *</label>
+                         <input type="text" id="company" name="company" class="form-input" placeholder="Lovelace Inc." required>
+                     </div>
+                    
+                                         <div class="form-group">
+                         <label for="companySize" class="form-label">Company size *</label>
+                         <select id="companySize" name="companySize" class="form-select" required>
+                             <option value="" selected disabled>Please select</option>
+                             <option value="startup">Startup</option>
+                             <option value="smb">SMB</option>
+                             <option value="mid-market">Mid-market</option>
+                             <option value="enterprise">Enterprise</option>
+                             <option value="non-profit">Non-profit</option>
+                             <option value="other">Other</option>
+                         </select>
+                     </div>
+                     
+                     <div class="form-group">
+                         <label for="country" class="form-label">Country or region *</label>
+                         <select id="country" name="country" class="form-select" required>
+                             <option value="" selected disabled>Please select</option>
+                             <option value="united-states">United States</option>
+                             <option value="canada">Canada</option>
+                             <option value="united-kingdom">United Kingdom</option>
+                             <option value="germany">Germany</option>
+                             <option value="france">France</option>
+                             <option value="australia">Australia</option>
+                             <option value="japan">Japan</option>
+                             <option value="new-zealand">New Zealand</option>
+                             <option value="other">Other</option>
+                         </select>
+                     </div>
+                    
+                                         <div class="form-group">
+                         <label for="additionalInfo" class="form-label">Anything else?</label>
+                         <textarea id="additionalInfo" name="additionalInfo" class="form-textarea" placeholder="Tell us more about your needs..."></textarea>
+                     </div>
+                    
+                    <button type="submit" class="form-submit" id="submitBtn">
+                        Submit
+                    </button>
+                    
+                    <p class="form-note">
+                        By submitting this form, you agree to our <a href="#" style="color: #0F62FE; text-decoration: none;">Terms</a>.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer-section">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="complete-page.html">
+                        <img src="qava-logo.svg" alt="Qava" class="footer-logo-img" />
+                    </a>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Welcome</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">Find a project</a></li>
+                            <li><a href="#" class="footer-link">How it works</a></li>
+                            <li><a href="#" class="footer-link">Why qava</a></li>
+                            <li><a href="#" class="footer-link">What's new</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Get started</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">AI prompts</a></li>
+                            <li><a href="#" class="footer-link">Project templates</a></li>
+                            <li><a href="#" class="footer-link">Application tips</a></li>
+                            <li><a href="#" class="footer-link">Request a demo</a></li>
+                            <li><a href="#" class="footer-link">Sign up</a></li>
+                            <li><a href="#" class="footer-link">Log in</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Resources</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">Pricing</a></li>
+                            <li><a href="#" class="footer-link">About us</a></li>
+                            <li><a href="#" class="footer-link">Careers</a></li>
+                            <li><a href="#" class="footer-link">Media kit</a></li>
+                            <li><a href="#" class="footer-link">Contact us</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Learn</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">Success stories</a></li>
+                            <li><a href="#" class="footer-link">Help center</a></li>
+                            <li><a href="#" class="footer-link">Webinars</a></li>
+                            <li><a href="#" class="footer-link">Blog</a></li>
+                            <li><a href="#" class="footer-link">Community</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Legal</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">Terms & privacy</a></li>
+                            <li><a href="#" class="footer-link">California Privacy Notice</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-copyright">
+                        © 2025 qava
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+            
+            mobileMenu.classList.toggle('active');
+            hamburgerMenu.classList.toggle('active');
+            
+            // Prevent body scroll when mobile menu is open
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function toggleMobileDropdown() {
+            const dropdown = document.getElementById('mobileDropdown');
+            const toggle = document.querySelector('.mobile-dropdown-toggle');
+            
+            dropdown.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+            
+            if (mobileMenu.classList.contains('active') && 
+                !mobileMenu.contains(event.target) && 
+                !hamburgerMenu.contains(event.target)) {
+                toggleMobileMenu();
+            }
+        });
+
+        // Prevent scroll on mobile when menu is open
+        document.addEventListener('touchmove', function(e) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu.classList.contains('active')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Handle responsive behavior
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 1100) {
+                const mobileMenu = document.getElementById('mobileMenu');
+                if (mobileMenu.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            }
+        });
+
+        // Form submission handling
+        document.getElementById('demoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.textContent;
+            
+            // Show loading state
+            submitBtn.textContent = 'Submitting...';
+            submitBtn.disabled = true;
+            
+            // Simulate form submission (replace with actual API call)
+            setTimeout(() => {
+                // Show success message
+                const successMessage = document.createElement('div');
+                successMessage.className = 'form-success';
+                successMessage.textContent = 'A representative will be in touch shortly 🚀';
+                
+                const form = document.getElementById('demoForm');
+                form.insertBefore(successMessage, form.firstChild);
+                
+                // Reset form
+                form.reset();
+                
+                // Reset button
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                
+                // Remove success message after 5 seconds
+                setTimeout(() => {
+                    successMessage.remove();
+                }, 5000);
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
