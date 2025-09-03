@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms - Qava</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+        }
+
+        /* NAVBAR STYLES */
+        .header-container {
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 16px 32px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 64px;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            overflow: visible;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .header-center {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex: 1;
+            margin-left: 40px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 36px;
+            height: 36px;
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            position: relative;
+            gap: 4px;
+        }
+
+        .nav-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .dropdown-arrow {
+            color: #000000;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover .dropdown-arrow {
+            color: #000000;
+        }
+
+        .nav-item:hover .dropdown-arrow path {
+            d: path("M3 6h6");
+        }
+
+        .nav-text {
+            color: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            white-space: nowrap;
+        }
+
+        /* Dropdown Menu Styles */
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 8px;
+            min-width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 10000;
+        }
+
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-item {
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.04);
+        }
+
+        .dropdown-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 2px;
+        }
+
+        .dropdown-subtitle {
+            font-size: 13px;
+            font-weight: 300;
+            color: rgba(55, 53, 47, 0.6);
+            line-height: 1.3;
+        }
+
+        .auth-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .auth-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .auth-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .auth-text-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .divider {
+            display: none;
+        }
+
+        .join-button {
+            padding: 6px 12px;
+            background: #0F62FE;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            font-family: inherit;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .join-button:hover {
+            background: #0053E5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
+        }
+
+        .join-text {
+            color: white;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        /* Hamburger Menu Styles */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            padding: 6px;
+            z-index: 1001;
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+        }
+
+        .hamburger-menu:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        .hamburger-line {
+            width: 18px;
+            height: 2px;
+            background-color: #000000;
+            margin: 2px 0;
+            transition: 0.2s ease;
+            border-radius: 1px;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: white;
+            z-index: 1000;
+            flex-direction: column;
+            padding: 80px 16px 32px 16px;
+            overflow-y: auto;
+            animation: slideDown 0.2s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-nav-item {
+            padding: 16px 24px;
+            border-bottom: none;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 400;
+            color: #000000;
+            transition: color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .mobile-nav-item:hover {
+            color: rgba(55, 53, 47, 1);
+        }
+
+        .mobile-auth-section {
+            margin-top: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-top: 32px;
+            border-top: none;
+        }
+
+        .mobile-auth-section .mobile-nav-item {
+            text-align: left;
+            font-size: 13px;
+            padding: 16px 24px;
+            border-radius: 6px;
+            border-bottom: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .mobile-auth-section .mobile-nav-item:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        .mobile-auth-section .join-button {
+            padding: 12px 16px;
+            font-size: 13px;
+            border-radius: 6px;
+            margin-top: 8px;
+            align-self: flex-start;
+        }
+
+        /* Mobile Dropdown Styles */
+        .mobile-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .mobile-dropdown-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .mobile-dropdown-arrow {
+            font-size: 13px;
+            transition: all 0.2s ease;
+            color: rgba(55, 53, 47, 0.6);
+        }
+
+        .mobile-dropdown-toggle.active .mobile-dropdown-arrow::before {
+            content: "−";
+        }
+        
+        .mobile-dropdown-toggle.active .mobile-dropdown-arrow {
+            opacity: 0;
+        }
+
+        .mobile-dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: rgba(55, 53, 47, 0.04);
+            border-radius: 6px;
+            margin: 0 16px 8px 16px;
+        }
+
+        .mobile-dropdown-content.active {
+            max-height: 200px;
+            padding: 8px 0;
+        }
+
+        .mobile-dropdown-item {
+            padding: 16px 24px;
+            border-bottom: none;
+            cursor: pointer;
+        }
+
+        .mobile-dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        .mobile-dropdown-item .dropdown-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 2px;
+        }
+
+        .mobile-dropdown-item .dropdown-subtitle {
+            font-size: 13px;
+            font-weight: 300;
+            color: rgba(55, 53, 47, 0.6);
+            line-height: 1.3;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1100px) {
+            .header-center {
+                display: none;
+            }
+            
+            .hamburger-menu {
+                display: flex;
+            }
+            
+            .header-container {
+                padding: 16px 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 16px 16px;
+            }
+            
+            .auth-section {
+                display: none;
+            }
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            padding: 80px 32px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .page-description {
+            font-size: 16px;
+            font-weight: 400;
+            color: #666666;
+            text-align: center;
+            margin-bottom: 48px;
+            line-height: 1.5;
+        }
+
+        /* Terms Content Styles */
+        .terms-content {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333333;
+        }
+
+        .terms-intro {
+            font-size: 16px;
+            font-weight: 400;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .terms-intro a {
+            color: #0F62FE;
+            text-decoration: none;
+        }
+
+        .terms-intro a:hover {
+            text-decoration: underline;
+        }
+
+        .terms-section {
+            margin-bottom: 32px;
+        }
+
+        .terms-heading {
+            font-size: 20px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 16px;
+            margin-top: 0;
+        }
+
+        .terms-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 16px 0;
+        }
+
+        .terms-list li {
+            font-size: 16px;
+            font-weight: 400;
+            margin-bottom: 12px;
+            line-height: 1.6;
+            padding-left: 0;
+        }
+
+        .terms-list strong {
+            font-weight: 600;
+            color: #000000;
+        }
+
+        .terms-text {
+            font-size: 16px;
+            font-weight: 400;
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .terms-footer {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid #EBEBEB;
+        }
+
+        .terms-footer .terms-text {
+            font-style: italic;
+            color: #666666;
+        }
+
+
+
+        /* Footer Section */
+        .footer-section {
+            background: white;
+            width: 100%;
+            max-width: 1070px;
+            margin: 0 auto;
+            padding: 78px 0 46px 0;
+            margin-top: 50px;
+            border-top: 1px solid #EBEBEB;
+        }
+
+        .footer-container {
+            max-width: 940px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .footer-logo {
+            width: 39%;
+            padding: 2px 15px 0 0;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo-img {
+            width: 40px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            width: 60%;
+            gap: 25px 25px;
+            padding: 0 15px 0 10px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-heading {
+            font-family: 'Inter', sans-serif;
+            font-size: 17px;
+            color: #000000;
+            margin-bottom: 15px;
+            font-weight: 600;
+            margin: 0 0 15px 0;
+        }
+
+        .footer-link-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .footer-link-list li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+            text-decoration: none;
+            line-height: 1.2;
+            transition: text-decoration 0.2s ease;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer Dropdown Styles */
+        .footer-dropdown-item {
+            position: relative;
+        }
+
+        .footer-dropdown-menu {
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 8px;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 10000;
+        }
+
+        .footer-dropdown-item:hover .footer-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .footer-dropdown-menu .footer-dropdown-item {
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .footer-dropdown-menu .footer-dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.04);
+        }
+
+        .footer-copyright {
+            grid-column: 1 / -1;
+            margin-top: 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+        }
+
+        /* Footer Responsive */
+        @media (max-width: 480px) {
+            .footer-logo {
+                width: 100%;
+                padding: 2px 20px 0 20px;
+                margin-bottom: 30px;
+            }
+
+            .footer-links {
+                width: 100%;
+                grid-template-columns: 1fr;
+                gap: 25px;
+                padding: 0 20px 0 20px;
+            }
+
+            .footer-column {
+                gap: 6px;
+            }
+        }
+
+        /* Terms Page Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 40px 24px;
+                max-width: 100%;
+            }
+            
+            .page-title {
+                font-size: 28px;
+            }
+            
+            .page-description {
+                font-size: 15px;
+                margin-bottom: 32px;
+            }
+            
+            .terms-heading {
+                font-size: 18px;
+            }
+            
+            .terms-list li,
+            .terms-text,
+            .terms-intro {
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 32px 16px;
+            }
+            
+            .page-title {
+                font-size: 24px;
+            }
+            
+            .page-description {
+                font-size: 14px;
+                margin-bottom: 24px;
+            }
+            
+            .terms-heading {
+                font-size: 16px;
+            }
+            
+            .terms-list li,
+            .terms-text,
+            .terms-intro {
+                font-size: 14px;
+            }
+            
+            .terms-section {
+                margin-bottom: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="header-container">
+        <!-- Logo on the left -->
+        <div class="header-logo">
+            <div class="logo-container">
+                <div class="logo">
+                    <a href="complete-page.html">
+                        <img src="qava-logo.svg" alt="Qava Logo">
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation in the center -->
+        <div class="header-center">
+            <div class="navigation">
+                <div class="nav-item create-listing">
+                    <div class="nav-text">Create Listing</div>
+                </div>
+                <div class="nav-item search-listings">
+                    <div class="nav-text">Search Listings</div>
+                </div>
+                <div class="nav-item how-it-works has-dropdown">
+                    <div class="nav-text">How It Works</div>
+                    <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M6 3v6M3 6h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-item">
+                            <div class="dropdown-title">For Clients 🚀</div>
+                            <div class="dropdown-subtitle">Hiring for current or future work</div>
+                        </div>
+                        <div class="dropdown-item">
+                            <div class="dropdown-title">For Talent 👩‍💻</div>
+                            <div class="dropdown-subtitle">Interested in current or future work</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item why-qava">
+                    <div class="nav-text">Why Qava</div>
+                </div>
+                <div class="nav-item pricing">
+                    <div class="nav-text">Pricing</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Auth section on the right -->
+        <div class="header-right">
+            <div class="auth-section">
+                <div class="auth-item">
+                    <div class="nav-text">Request a demo</div>
+                </div>
+                <a href="https://app.qava.ai/" class="auth-item">
+                    <div class="nav-text">Log in</div>
+                </a>
+                <a href="https://app.qava.ai/" class="join-button">
+                    <div class="join-text">Join for free</div>
+                </a>
+            </div>
+            
+            <!-- Hamburger Menu Button -->
+            <div class="hamburger-menu" onclick="toggleMobileMenu()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
+        <div class="mobile-nav-item">
+            <div class="nav-text">Create Listing</div>
+        </div>
+        <div class="mobile-nav-item">
+            <div class="nav-text">Search Listings</div>
+        </div>
+        <div class="mobile-nav-item mobile-dropdown-toggle" onclick="toggleMobileDropdown()">
+            <div class="mobile-dropdown-header">
+                <div class="nav-text">How It Works</div>
+                <span class="mobile-dropdown-arrow">+</span>
+            </div>
+        </div>
+        <div class="mobile-dropdown-content" id="mobileDropdown">
+            <div class="mobile-dropdown-item">
+                <div class="dropdown-title">For Clients 🚀</div>
+                <div class="dropdown-subtitle">Hiring for current or future work</div>
+            </div>
+            <div class="mobile-dropdown-item">
+                <div class="dropdown-title">For Talent 👩‍💻</div>
+                <div class="dropdown-subtitle">Interested in current or future work</div>
+            </div>
+        </div>
+        <div class="mobile-nav-item">
+            <div class="nav-text">Why Qava</div>
+        </div>
+        <div class="mobile-nav-item">
+            <div class="nav-text">Pricing</div>
+        </div>
+        <div class="mobile-auth-section">
+            <div class="mobile-nav-item">Request a demo</div>
+            <a href="https://app.qava.ai/" class="mobile-nav-item">Log in</a>
+            <a href="https://app.qava.ai/" class="join-button">
+                <div class="join-text">Join for free</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1 class="page-title">Terms</h1>
+        <p class="page-description">Please read carefully</p>
+        
+        <div class="terms-content">
+            <p class="terms-intro">
+                Welcome to qava ("qava," "we," "our," or "us"). These Terms of Use ("Terms") govern your access to and use of the website <a href="https://www.qava.ai" target="_blank">www.qava.ai</a> (the "Platform") and the services offered through it. By accessing or using the Platform, you ("User") agree to comply with and be bound by these Terms.
+            </p>
+            
+            <p class="terms-intro">
+                Users include both Clients and Talent, defined below. If you do not agree with these Terms, you must not use the Platform.
+            </p>
+
+            <div class="terms-section">
+                <h2 class="terms-heading">1. Definitions</h2>
+                <ul class="terms-list">
+                    <li><strong>Client:</strong> Any individual or organization that posts projects or engages Talent through the Platform.</li>
+                    <li><strong>Talent:</strong> Any individual who applies for, engages in, or completes projects offered through the Platform.</li>
+                    <li><strong>Short-Term Projects:</strong> Limited-scope engagements facilitated through the Platform that do not constitute employment.</li>
+                    <li><strong>Confidential Information:</strong> Any proprietary, sensitive, or non-public information disclosed or made available during the course of a project.</li>
+                </ul>
+            </div>
+
+            <div class="terms-section">
+                <h2 class="terms-heading">2. Nature of the Relationship</h2>
+                <ul class="terms-list">
+                    <li><strong>Independent Contractors:</strong> All engagements facilitated through the Platform are between independent contractors. Nothing in these Terms creates an employment, agency, partnership, or joint venture relationship between Clients, Talent, or qava.</li>
+                    <li><strong>No Employment Guarantee:</strong> Projects posted or completed on the Platform do not constitute employment by either Paths or the Client. Talent is not entitled to employment benefits or protections.</li>
+                </ul>
+            </div>
+
+            <div class="terms-section">
+                <h2 class="terms-heading">3. Purpose of the Platform</h2>
+                <ul class="terms-list">
+                    <li><strong>Independent Contractors:</strong> All engagements facilitated through the Platform are between independent contractors. Nothing in these Terms creates an employment, agency, partnership, or joint venture relationship between Clients, Talent, or qava.</li>
+                    <li><strong>No Employment Guarantee:</strong> Projects posted or completed on the Platform do not constitute employment by either Paths or the Client. Talent is not entitled to employment benefits or protections.</li>
+                </ul>
+                <p class="terms-text">
+                    qava exists to provide a learning-focused, project-based opportunity for emerging professionals and students to apply their knowledge to real-world business challenges. The Platform is intended to support professional growth, not to replace traditional employment or provide guaranteed outcomes for Clients.
+                </p>
+            </div>
+
+            <div class="terms-section">
+                <h2 class="terms-heading">4. Confidentiality & Data Handling</h2>
+                <ul class="terms-list">
+                    <li><strong>Client Ownership:</strong> All work products, materials, and deliverables created by Talent during the project are the exclusive property of the Client upon full payment of any agreed fees.</li>
+                    <li><strong>Destruction and Return:</strong> Upon completion or termination of a project, Talent agrees to return all Confidential Information to the Client or destroy it as instructed. Talent shall not retain, reproduce, or share any work product or Client information without prior written consent.</li>
+                    <li><strong>Client Responsibility:</strong> Clients must clearly communicate confidentiality expectations to Talent in writing before the commencement of a project.</li>
+                    <li><strong>Survival:</strong> Confidentiality obligations survive the end of the project.</li>
+                </ul>
+            </div>
+
+            <div class="terms-section">
+                <h2 class="terms-heading">5. Professional Conduct and Mutual Respect</h2>
+                <ul class="terms-list">
+                    <li><strong>Mutual Expectations:</strong> Clients and Talent agree to treat one another with fairness, respect, professionalism, and integrity.</li>
+                    <li><strong>No Solicitation or Harassment:</strong> Clients must not pursue Talent for unrelated or non-professional interactions, nor may Talent contact Clients for future work outside the Platform without mutual written consent.</li>
+                    <li><strong>Feedback and Ratings:</strong> Users agree to provide honest, constructive, and respectful feedback as part of the Platform experience.</li>
+                </ul>
+            </div>
+
+            <div class="terms-section">
+                <h2 class="terms-heading">6. Project Termination</h2>
+                <ul class="terms-list">
+                    <li><strong>Right to Terminate:</strong> Clients and Talent may terminate a project at any time, with reasonable notice, and must communicate this in writing.</li>
+                    <li><strong>Final Obligations:</strong> Upon termination, Talent must return or destroy all Confidential Information, and both parties should settle any outstanding payments or deliverables in good faith.</li>
+                </ul>
+            </div>
+
+            <div class="terms-section">
+                <h2 class="terms-heading">7. Platform Use & Restrictions</h2>
+                <ul class="terms-list">
+                    <li><strong>Compliance:</strong> Users agree to comply with all applicable laws, regulations, and these Terms while using the Platform.</li>
+                </ul>
+                <p class="terms-text"><strong>Prohibited Activities:</strong></p>
+                <ul class="terms-list">
+                    <li>No illegal, fraudulent, misleading, or harmful activities.</li>
+                    <li>No misrepresentation of skills, credentials, or project intentions.</li>
+                    <li>No bypassing of the Platform for off-platform work without mutual agreement and Paths' consent.</li>
+                </ul>
+            </div>
+
+            <div class="terms-section">
+                <h2 class="terms-heading">8. Limitation of Liability</h2>
+                <ul class="terms-list">
+                    <li><strong>Facilitator Role:</strong> qava is a facilitator of connections between Clients and Talent. We are not a party to any agreements between them and assume no liability for their actions, omissions, or deliverables.</li>
+                    <li><strong>No Guarantees:</strong> qava does not guarantee the quality, outcome, or suitability of any project, Client, or Talent engagement.</li>
+                    <li><strong>Assumption of Risk:</strong> Users assume all risks related to engagements, including but not limited to miscommunication, delivery delays, or unmet expectations.</li>
+                    <li><strong>Indemnification:</strong> Users agree to defend, indemnify, and hold harmless qava and its affiliates, officers, and employees from any claims, liabilities, costs, or damages resulting from their use of the Platform or participation in a project.</li>
+                </ul>
+            </div>
+
+            <div class="terms-section">
+                <h2 class="terms-heading">9. Dispute Resolution & Avoidance</h2>
+                <ul class="terms-list">
+                    <li><strong>Good Faith Effort:</strong> Users agree to attempt resolution of disputes informally and in good faith prior to any legal action.</li>
+                    <li><strong>Mediation:</strong> Paths may, at its discretion, assist in mediating disputes; however, it is not obligated to intervene or make final judgments.</li>
+                    <li><strong>Jurisdiction and Law:</strong> These Terms are governed by and construed under the laws of the State of New York, USA.</li>
+                </ul>
+            </div>
+
+            <div class="terms-section">
+                <h2 class="terms-heading">10. Platform Integrity and Future Use</h2>
+                <ul class="terms-list">
+                    <li><strong>Learning First:</strong> The Platform is designed to support learning, exploration, and real-world application of academic and professional skills.</li>
+                    <li><strong>No Re-Use Without Consent:</strong> Clients and Talent may not reuse, reproduce, or share work created through the Platform outside the agreed scope without explicit mutual consent.</li>
+                </ul>
+            </div>
+
+            <div class="terms-section">
+                <h2 class="terms-heading">11. Updates and Modifications</h2>
+                <p class="terms-text">
+                    qava reserves the right to modify these Terms at any time. Users will be notified of material changes via the Platform or email. Continued use of the Platform constitutes acceptance of any updated Terms.
+                </p>
+            </div>
+
+            <div class="terms-section">
+                <h2 class="terms-heading">12. Contact</h2>
+                <p class="terms-text">
+                    For questions or concerns about these Terms of Use, please contact: 📧 <a href="mailto:hello@qava.ai">hello@qava.ai</a>
+                </p>
+            </div>
+
+            <div class="terms-footer">
+                <p class="terms-text">
+                    By using the Platform, you confirm that you have read, understood, and agreed to these Terms of Use. If you do not agree, please discontinue use of the Platform.
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Footer Section -->
+    <footer class="footer-section">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="complete-page.html">
+                        <img src="qava-logo.svg" alt="Qava" class="footer-logo-img" />
+                    </a>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Welcome</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">Create Listing</a></li>
+                            <li><a href="#" class="footer-link">Search Listings</a></li>
+                            <li class="footer-dropdown-item">
+                                <a href="#" class="footer-link">How It Works +</a>
+                                <div class="footer-dropdown-menu">
+                                    <div class="footer-dropdown-item">
+                                        <div class="dropdown-title">For Clients 🚀</div>
+                                        <div class="dropdown-subtitle">Hiring for current or future work</div>
+                                    </div>
+                                    <div class="footer-dropdown-item">
+                                        <div class="dropdown-title">For Talent 👩‍💻</div>
+                                        <div class="dropdown-subtitle">Interested in current or future work</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a href="#" class="footer-link">Why Qava</a></li>
+                            <li><a href="#" class="footer-link">What's New</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Get Started</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">AI Prompts</a></li>
+                            <li><a href="#" class="footer-link">Project Templates</a></li>
+                            <li><a href="#" class="footer-link">Application Tips</a></li>
+                            <li><a href="#" class="footer-link">Request a Demo</a></li>
+                            <li><a href="#" class="footer-link">Sign Up</a></li>
+                            <li><a href="#" class="footer-link">Log In</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Resources</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">Pricing</a></li>
+                            <li><a href="#" class="footer-link">About Us</a></li>
+                            <li><a href="#" class="footer-link">Careers</a></li>
+                            <li><a href="#" class="footer-link">Media Kit</a></li>
+                            <li><a href="#" class="footer-link">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Learn</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">Success Stories</a></li>
+                            <li><a href="#" class="footer-link">Help Center</a></li>
+                            <li><a href="#" class="footer-link">Webinars</a></li>
+                            <li><a href="#" class="footer-link">Blog</a></li>
+                            <li><a href="#" class="footer-link">Community</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Legal</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">Terms & Privacy</a></li>
+                            <li><a href="#" class="footer-link">California Privacy Notice</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-copyright">
+                        © 2025 qava
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+            
+            // Prevent body scroll when mobile menu is open
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function toggleMobileDropdown() {
+            const dropdown = document.getElementById('mobileDropdown');
+            const toggle = document.querySelector('.mobile-dropdown-toggle');
+            
+            dropdown.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+            
+            if (mobileMenu.classList.contains('active') && 
+                !mobileMenu.contains(event.target) && 
+                !hamburgerMenu.contains(event.target)) {
+                toggleMobileMenu();
+            }
+        });
+
+        // Prevent scroll on mobile when menu is open
+        document.addEventListener('touchmove', function(e) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu.classList.contains('active')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Handle responsive behavior
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 1100) {
+                const mobileMenu = document.getElementById('mobileMenu');
+                if (mobileMenu.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

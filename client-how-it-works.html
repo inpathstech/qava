@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How It Works - Qava</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+        }
+
+        /* NAVBAR STYLES */
+        .header-container {
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 16px 32px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 64px;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            overflow: visible;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .header-center {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex: 1;
+            margin-left: 40px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 36px;
+            height: 36px;
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            position: relative;
+            gap: 4px;
+        }
+
+        .nav-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .dropdown-arrow {
+            color: #000000;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover .dropdown-arrow {
+            color: #000000;
+        }
+
+        .nav-text {
+            color: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            white-space: nowrap;
+        }
+
+        /* Dropdown Menu Styles */
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 8px;
+            min-width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 10000;
+        }
+
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-item {
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.04);
+        }
+
+        .dropdown-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 2px;
+        }
+
+        .dropdown-subtitle {
+            font-size: 13px;
+            font-weight: 300;
+            color: rgba(55, 53, 47, 0.6);
+            line-height: 1.3;
+        }
+
+        .auth-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .auth-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .auth-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .join-button {
+            padding: 6px 12px;
+            background: #0F62FE;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            font-family: inherit;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .join-button:hover {
+            background: #0053E5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
+        }
+
+        .join-text {
+            color: white;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        /* Hamburger Menu Styles */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            padding: 6px;
+            z-index: 1001;
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+        }
+
+        .hamburger-menu:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        .hamburger-line {
+            width: 18px;
+            height: 2px;
+            background-color: #000000;
+            margin: 2px 0;
+            transition: 0.2s ease;
+            border-radius: 1px;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: white;
+            z-index: 1000;
+            flex-direction: column;
+            padding: 80px 16px 32px 16px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #000000;
+            transition: color 0.2s ease;
+        }
+
+        .close-menu:hover {
+            color: rgba(55, 53, 47, 0.6);
+        }
+
+        .mobile-nav-item {
+            padding: 16px 24px;
+            border-bottom: none;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 400;
+            color: #000000;
+            transition: color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .mobile-nav-item:hover {
+            color: rgba(55, 53, 47, 1);
+        }
+
+        .mobile-auth-section {
+            margin-top: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-top: 32px;
+            border-top: none;
+        }
+
+        .mobile-auth-section .mobile-nav-item {
+            text-align: left;
+            font-size: 13px;
+            padding: 16px 24px;
+            border-radius: 6px;
+            border-bottom: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .mobile-auth-section .mobile-nav-item:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        .mobile-auth-section .join-button {
+            padding: 12px 16px;
+            font-size: 13px;
+            border-radius: 6px;
+            margin-top: 8px;
+            align-self: flex-start;
+        }
+
+        /* Mobile Dropdown Styles */
+        .mobile-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .mobile-dropdown-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .mobile-dropdown-arrow {
+            font-size: 13px;
+            transition: all 0.2s ease;
+            color: rgba(55, 53, 47, 0.6);
+        }
+
+        .mobile-dropdown-content {
+            background-color: rgba(55, 53, 47, 0.04);
+            border-radius: 6px;
+            margin: 0 16px 8px 16px;
+            padding: 8px 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .mobile-dropdown-content.active {
+            max-height: 200px;
+        }
+
+        .mobile-dropdown-item {
+            padding: 16px 24px;
+            border-bottom: none;
+            cursor: pointer;
+        }
+
+        .mobile-dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        .mobile-dropdown-item .dropdown-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 2px;
+        }
+
+        .mobile-dropdown-item .dropdown-subtitle {
+            font-size: 13px;
+            font-weight: 300;
+            color: rgba(55, 53, 47, 0.6);
+            line-height: 1.3;
+        }
+
+        /* Responsive Design for Navbar */
+        @media (max-width: 1100px) {
+            .header-center {
+                display: none;
+            }
+            
+            .hamburger-menu {
+                display: flex;
+            }
+        }
+
+        /* Main Content Styles */
+        .client-how-it-works-page {
+            min-height: 100vh;
+            background: white;
+        }
+
+        .page-header {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 64px 24px 0 24px;
+            text-align: center;
+        }
+
+        .page-title {
+            color: #050505;
+            line-height: 1.2;
+            font-size: 28px;
+            margin-bottom: 30px;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .page-subtitle {
+            color: #666666;
+            font-size: 18px;
+            font-weight: 300;
+            font-family: 'Inter', sans-serif;
+            margin-bottom: 64px;
+        }
+
+        @media (min-width: 768px) {
+            .page-title {
+                font-size: 45px;
+                line-height: 49px;
+            }
+            
+            .page-subtitle {
+                font-size: 20px;
+            }
+        }
+
+        /* Scrolling Cards Styles */
+        .scrolling-cards-container {
+            max-width: 900px;
+            margin: 0 auto 64px auto;
+            padding: 0 24px;
+        }
+
+        .scrolling-cards-track {
+            height: 320px;
+            overflow: hidden;
+            position: relative;
+            padding: 0 20px;
+        }
+
+        .scrolling-cards-track .card-row {
+            margin-bottom: 12px;
+        }
+
+        .scrolling-cards-content {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            will-change: transform;
+        }
+
+        .scrolling-cards-track::before,
+        .scrolling-cards-track::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 32px;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .scrolling-cards-track::before {
+            top: 0;
+            background: linear-gradient(to bottom, white, transparent);
+        }
+
+        .scrolling-cards-track::after {
+            bottom: 0;
+            background: linear-gradient(to top, white, transparent);
+        }
+
+        .card-row {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .founder-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 12px 16px;
+            width: 100%;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            transition: all 0.2s ease;
+            position: relative;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .founder-card:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .ask-text {
+            font-size: 13px;
+            font-weight: 500;
+            color: #1a1a1a;
+            line-height: 1.3;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .location {
+            font-size: 11px;
+            color: #6b7280;
+            font-weight: 300;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .matched-pill {
+            background: #0F62FE;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+            white-space: nowrap;
+            flex-shrink: 0;
+            letter-spacing: 0.025em;
+        }
+
+        @keyframes scrollCards {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-50%);
+            }
+        }
+
+        /* Step Section Styles */
+        .step-section {
+            background: white;
+            padding: 80px 0;
+        }
+
+        .step-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .step-content {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .step-text {
+            flex: 1;
+            max-width: 300px;
+        }
+
+        .step-number {
+            margin-bottom: 24px;
+        }
+
+        .step-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 8px;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+
+        .step-description {
+            font-size: 18px;
+            color: #666666;
+            line-height: 1.3;
+            margin-bottom: 24px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+        }
+
+        .step-link {
+            color: #000000;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-left: -12px;
+        }
+
+        .step-link:hover {
+            background-color: #f3f4f6;
+            color: #000000;
+        }
+
+        .step-mockups {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+        }
+
+        .desktop-mockup {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .mobile-mockup {
+            position: absolute;
+            right: 40px;
+            top: calc(50% + 40px);
+            transform: translateY(-50%);
+            width: 160px;
+            z-index: 10;
+            border-radius: 25px;
+            background-color: white;
+        }
+
+        .desktop-mockup img,
+        .mobile-mockup img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-mockup img {
+            border-radius: 25px;
+            overflow: hidden;
+        }
+
+        /* Comparison Section Styles */
+        .comparison-section {
+            max-width: 1000px;
+            margin: 80px auto 64px auto;
+            padding: 0 24px;
+        }
+
+        .comparison-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .comparison-title {
+            color: #050505;
+            font-size: 32px;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            margin-bottom: 16px;
+        }
+
+        .comparison-subtitle {
+            color: #666666;
+            font-size: 18px;
+            font-weight: 300;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+        }
+
+        .comparison-card {
+            background: white;
+            border-radius: 8px;
+            padding: 40px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .comparison-card h3 {
+            color: #050505;
+            font-size: 24px;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            margin-bottom: 24px;
+        }
+
+        .comparison-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .comparison-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            color: #666666;
+        }
+
+        /* Checkmark and X Styles */
+        .checkmark {
+            flex-shrink: 0;
+            display: inline-block;
+        }
+
+        .x-mark {
+            color: #dc2626;
+            font-size: 18px;
+            font-weight: 300;
+            flex-shrink: 0;
+        }
+
+        /* Footer Styles */
+        .footer-section {
+            background: white;
+            width: 100%;
+            max-width: 1070px;
+            margin: 0 auto;
+            padding: 78px 0 46px 0;
+            margin-top: 50px;
+            border-top: 1px solid #EBEBEB;
+        }
+
+        .footer-container {
+            max-width: 940px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .footer-logo {
+            width: 39%;
+            padding: 2px 15px 0 0;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo-img {
+            width: 40px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            width: 60%;
+            gap: 25px 25px;
+            padding: 0 15px 0 10px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-heading {
+            font-family: 'Inter', sans-serif;
+            font-size: 17px;
+            color: #000000;
+            margin-bottom: 15px;
+            font-weight: 600;
+            margin: 0 0 15px 0;
+        }
+
+        .footer-link-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .footer-link-list li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+            text-decoration: none;
+            line-height: 1.2;
+            transition: text-decoration 0.2s ease;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer-copyright {
+            grid-column: 1 / -1;
+            margin-top: 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: #797979;
+            font-weight: 300;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .step-content {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .step-text {
+                max-width: 100%;
+                text-align: center;
+            }
+
+            .step-title {
+                font-size: 28px;
+            }
+
+            .step-description {
+                font-size: 16px;
+            }
+
+            .step-mockups {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .mobile-mockup {
+                position: static;
+                transform: none;
+                width: 120px;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .comparison-card {
+                padding: 24px;
+            }
+
+            .page-header {
+                padding: 48px 16px 0 16px;
+            }
+            
+            .page-title {
+                font-size: 28px;
+            }
+            
+            .page-subtitle {
+                font-size: 16px;
+            }
+
+            .footer-logo {
+                width: 100%;
+                padding: 2px 20px 0 20px;
+                margin-bottom: 30px;
+            }
+
+            .footer-links {
+                width: 100%;
+                grid-template-columns: 1fr;
+                gap: 25px;
+                padding: 0 20px 0 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="header-container">
+        <!-- Logo on the left -->
+        <div class="header-logo">
+            <div class="logo-container">
+                <div class="logo">
+                    <a href="/">
+                        <img src="qava-logo.svg" alt="Qava Logo" width="36" height="36" />
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation in the center -->
+        <div class="header-center">
+            <div class="navigation">
+                <div class="nav-item create-listing">
+                    <div class="nav-text">Create Listing</div>
+                </div>
+                <div class="nav-item search-listings">
+                    <div class="nav-text">Search Listings</div>
+                </div>
+                <div class="nav-item how-it-works has-dropdown">
+                    <div class="nav-text">How It Works</div>
+                    <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M6 3v6M3 6h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-item">
+                            <div class="dropdown-title">For Clients 🚀</div>
+                            <div class="dropdown-subtitle">Hiring for current or future work</div>
+                        </div>
+                        <div class="dropdown-item">
+                            <div class="dropdown-title">For Talent 👩‍💻</div>
+                            <div class="dropdown-subtitle">Interested in current or future work</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item why-qava">
+                    <div class="nav-text">Why Qava</div>
+                </div>
+                <div class="nav-item pricing">
+                    <div class="nav-text">Pricing</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Auth section on the right -->
+        <div class="header-right">
+            <div class="auth-section">
+                <div class="auth-item">
+                    <div class="nav-text">Request a demo</div>
+                </div>
+                <a href="https://app.qava.ai/" class="auth-item">
+                    <div class="nav-text">Log in</div>
+                </a>
+                <a href="https://app.qava.ai/" class="join-button">
+                    <div class="join-text">Join for free</div>
+                </a>
+            </div>
+            
+            <!-- Hamburger Menu Button -->
+            <div class="hamburger-menu" onclick="toggleMobileMenu()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
+        <div class="mobile-nav-item">
+            <div class="nav-text">Create Listing</div>
+        </div>
+        <div class="mobile-nav-item">
+            <div class="nav-text">Search Listings</div>
+        </div>
+        <div class="mobile-nav-item mobile-dropdown-toggle" onclick="toggleMobileDropdown()">
+            <div class="mobile-dropdown-header">
+                <div class="nav-text">How It Works</div>
+                <span class="mobile-dropdown-arrow">+</span>
+            </div>
+        </div>
+        <div class="mobile-dropdown-content" id="mobileDropdown">
+            <div class="mobile-dropdown-item">
+                <div class="dropdown-title">For Clients 🚀</div>
+                <div class="dropdown-subtitle">Hiring for current or future work</div>
+            </div>
+            <div class="mobile-dropdown-item">
+                <div class="dropdown-title">For Talent 👩‍💻</div>
+                <div class="dropdown-subtitle">Interested in current or future work</div>
+            </div>
+        </div>
+        <div class="mobile-nav-item">
+            <div class="nav-text">Why Qava</div>
+        </div>
+        <div class="mobile-nav-item">
+            <div class="nav-text">Pricing</div>
+        </div>
+        <div class="mobile-auth-section">
+            <div class="mobile-nav-item">Request a demo</div>
+            <a href="https://app.qava.ai/" class="mobile-nav-item">Log in</a>
+            <a href="https://app.qava.ai/" class="join-button">
+                <div class="join-text">Join for free</div>
+            </a>
+        </div>
+    </div>
+
+    <main class="client-how-it-works-page">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">Get it done, faster</h1>
+            <p class="page-subtitle">Your one-stop-shop for all your top talent needs</p>
+        </div>
+
+        <!-- Scrolling Cards Section -->
+        <div class="scrolling-cards-container">
+            <div class="scrolling-cards-track">
+                <div class="scrolling-cards-content" style="animation: scrollCards 30s linear infinite;">
+                    <!-- Card 1 -->
+                    <div class="card-row">
+                        <div class="founder-card">
+                            <div class="card-content">
+                                <div class="ask-text">Seed-stage AI sales SaaS startup seeks board-ready 5-year model and fundraising pack.</div>
+                                <div class="location">
+                                    <span>📊 Financial Model</span>
+                                    <span>📍 New York City</span>
+                                </div>
+                            </div>
+                            <div class="matched-pill">Matched</div>
+                        </div>
+                    </div>
+
+                <!-- Card 2 -->
+                <div class="card-row">
+                    <div class="founder-card">
+                        <div class="card-content">
+                            <div class="ask-text">Exciting pre-seed marketplace wants sales deck and conversion metrics.</div>
+                            <div class="location">
+                                <span>🚀 Pitch Deck</span>
+                                <span>📍 Sydney</span>
+                            </div>
+                        </div>
+                        <div class="matched-pill">Matched</div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="card-row">
+                    <div class="founder-card">
+                        <div class="card-content">
+                            <div class="ask-text">Series A fintech needs pricing & packaging strategy.</div>
+                            <div class="location">
+                                <span>📰 Pricing Strategy</span>
+                                <span>📍 San Francisco</span>
+                            </div>
+                        </div>
+                        <div class="matched-pill">Matched</div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="card-row">
+                    <div class="founder-card">
+                        <div class="card-content">
+                            <div class="ask-text">We're a bootstrapped DTC apparel brand and need a 90-day go-to-market plan.</div>
+                            <div class="location">
+                                <span>📍 Go-To-Market Strategy</span>
+                                <span>📍 Los Angeles</span>
+                            </div>
+                        </div>
+                        <div class="matched-pill">Matched</div>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="card-row">
+                    <div class="founder-card">
+                        <div class="card-content">
+                            <div class="ask-text">Harvard alums working on a hardware startup for older adults and need a one-page business plan and customer surveys.</div>
+                            <div class="location">
+                                <span>🚀 Business Plan</span>
+                                <span>📍 Boston</span>
+                            </div>
+                        </div>
+                        <div class="matched-pill">Matched</div>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="card-row">
+                    <div class="founder-card">
+                        <div class="card-content">
+                            <div class="ask-text">We're a climate tech SaaS and want a ruthless competitive teardown and positioning wedge.</div>
+                            <div class="location">
+                                <span>🥷 Competitor Analysis</span>
+                                <span>📍 Austin</span>
+                            </div>
+                        </div>
+                        <div class="matched-pill">Matched</div>
+                    </div>
+                </div>
+
+                <!-- Card 7 -->
+                <div class="card-row">
+                    <div class="founder-card">
+                        <div class="card-content">
+                            <div class="ask-text">We're a healthtech platform and need ICPs, buyer personas, and 15 customer interviews synthesized.</div>
+                            <div class="location">
+                                <span>🧍 Customer Segmentation</span>
+                                <span>📍 Seattle</span>
+                            </div>
+                        </div>
+                        <div class="matched-pill">Matched</div>
+                    </div>
+                </div>
+
+                <!-- Card 8 -->
+                <div class="card-row">
+                    <div class="founder-card">
+                        <div class="card-content">
+                            <div class="ask-text">We're a high-growth B2B SaaS and need a live KPI dashboard for LTV/CAC, payback, and runway.</div>
+                            <div class="location">📍 Chicago</div>
+                        </div>
+                        <div class="matched-pill">Matched</div>
+                    </div>
+                </div>
+
+                <!-- Card 9 -->
+                <div class="card-row">
+                    <div class="founder-card">
+                        <div class="card-content">
+                            <div class="ask-text">We're a premium consumer goods brand and need TAM/SAM/SOM sized with defensible assumptions.</div>
+                            <div class="location">📍 Miami</div>
+                        </div>
+                        <div class="matched-pill">Matched</div>
+                    </div>
+                </div>
+
+                <!-- Card 10 -->
+                <div class="card-row">
+                    <div class="founder-card">
+                        <div class="card-content">
+                            <div class="ask-text">We're a scaling DTC label and need unit economics and a margin map across SKUs and channels.</div>
+                            <div class="location">📍 Portland</div>
+                        </div>
+                        <div class="matched-pill">Matched</div>
+                    </div>
+                </div>
+
+                <!-- Card 11 -->
+                <div class="card-row">
+                    <div class="founder-card">
+                        <div class="card-content">
+                            <div class="ask-text">We're a hardware DTC at pilot stage and need vendor RFQs, MOQs, and a demand/reorder plan.</div>
+                            <div class="location">📍 Denver</div>
+                        </div>
+                        <div class="matched-pill">Matched</div>
+                    </div>
+                </div>
+
+                <!-- Card 12 -->
+                <div class="card-row">
+                    <div class="founder-card">
+                        <div class="card-content">
+                            <div class="ask-text">We're a seed-stage SaaS and need a sales playbook—talk tracks, demo flow, and objection handling.</div>
+                            <div class="location">📍 Nashville</div>
+                        </div>
+                        <div class="matched-pill">Matched</div>
+                    </div>
+                </div>
+
+                <!-- Card 13 -->
+                <div class="card-row">
+                    <div class="founder-card">
+                        <div class="card-content">
+                            <div class="ask-text">We're a Series A dev-tools company and need product analytics events and dashboards defined.</div>
+                            <div class="location">📍 Toronto</div>
+                        </div>
+                        <div class="matched-pill">Matched</div>
+                    </div>
+                </div>
+
+                <!-- Card 14 -->
+                <div class="card-row">
+                    <div class="founder-card">
+                        <div class="card-content">
+                            <div class="ask-text">We're a growth-stage marketplace and want two growth experiments a week with a learning loop.</div>
+                            <div class="location">📍 Vancouver</div>
+                        </div>
+                        <div class="matched-pill">Matched</div>
+                    </div>
+                </div>
+
+                <!-- Card 15 -->
+                <div class="card-row">
+                    <div class="founder-card">
+                        <div class="card-content">
+                            <div class="ask-text">We're a mission-led brand and need a content calendar and 10 cornerstone pieces to launch.</div>
+                            <div class="location">📍 London</div>
+                        </div>
+                        <div class="matched-pill">Matched</div>
+                    </div>
+                </div>
+
+                <!-- Card 16 -->
+                <div class="card-row">
+                    <div class="founder-card">
+                        <div class="card-content">
+                            <div class="ask-text">We're a venture-backed SaaS and need a clean data room and cap table/dilution scenarios.</div>
+                            <div class="location">📍 Berlin</div>
+                        </div>
+                        <div class="matched-pill">Matched</div>
+                    </div>
+                </div>
+
+                <!-- Card 17 -->
+                <div class="card-row">
+                    <div class="founder-card">
+                        <div class="card-content">
+                            <div class="ask-text">We're an enterprise business unit piloting gen-AI and need a SOC2-ready security & privacy roadmap.</div>
+                            <div class="location">📍 Amsterdam</div>
+                        </div>
+                        <div class="matched-pill">Matched</div>
+                    </div>
+                </div>
+
+                <!-- Card 18 -->
+                <div class="card-row">
+                    <div class="founder-card">
+                        <div class="card-content">
+                            <div class="ask-text">We're a nonprofit going national and need a partnerships & distribution strategy with targets.</div>
+                            <div class="location">📍 Paris</div>
+                        </div>
+                        <div class="matched-pill">Matched</div>
+                    </div>
+                </div>
+
+                <!-- Card 19 -->
+                <div class="card-row">
+                    <div class="founder-card">
+                        <div class="card-content">
+                            <div class="ask-text">We're a scale-up selling into retailers and need wholesale terms, trade-spend plan, and a sell-in deck.</div>
+                            <div class="location">📍 Singapore</div>
+                        </div>
+                        <div class="matched-pill">Matched</div>
+                    </div>
+                </div>
+
+                <!-- Card 20 -->
+                <div class="card-row">
+                    <div class="founder-card">
+                        <div class="card-content">
+                            <div class="ask-text">We're a Series B B2B SaaS and need a two-quarter product roadmap with outcomes, not features.</div>
+                            <div class="location">📍 Tokyo</div>
+                        </div>
+                        <div class="matched-pill">Matched</div>
+                    </div>
+                </div>
+
+                <!-- Duplicate first few cards for seamless loop -->
+                <!-- Card 1 (duplicate) -->
+                <div class="card-row">
+                    <div class="founder-card">
+                        <div class="card-content">
+                            <div class="ask-text">Seed-stage AI sales SaaS startup seeks board-ready 5-year model and fundraising pack.</div>
+                            <div class="location">📍 New York City</div>
+                        </div>
+                        <div class="matched-pill">Matched</div>
+                    </div>
+                </div>
+
+                <!-- Card 2 (duplicate) -->
+                <div class="card-row">
+                    <div class="founder-card">
+                        <div class="card-content">
+                            <div class="ask-text">Exciting pre-seed marketplace wants sales deck and conversion metrics.</div>
+                            <div class="location">📍 Sydney</div>
+                        </div>
+                        <div class="matched-pill">Matched</div>
+                    </div>
+                </div>
+
+                <!-- Card 3 (duplicate) -->
+                <div class="card-row">
+                    <div class="founder-card">
+                        <div class="card-content">
+                            <div class="ask-text">Series A fintech needs pricing & packaging strategy.</div>
+                            <div class="location">📍 San Francisco</div>
+                        </div>
+                        <div class="matched-pill">Matched</div>
+                    </div>
+                </div>
+
+                <!-- Card 4 (duplicate) -->
+                <div class="card-row">
+                    <div class="founder-card">
+                        <div class="card-content">
+                            <div class="ask-text">We're a bootstrapped DTC apparel brand and need a 90-day go-to-market plan.</div>
+                            <div class="location">📍 Los Angeles</div>
+                        </div>
+                        <div class="matched-pill">Matched</div>
+                    </div>
+                </div>
+
+                <!-- Card 5 (duplicate) -->
+                <div class="card-row">
+                    <div class="founder-card">
+                        <div class="card-content">
+                            <div class="ask-text">Harvard alums working on a hardware startup for older adults and need a one-page business plan and customer surveys.</div>
+                            <div class="location">📍 Boston</div>
+                        </div>
+                        <div class="matched-pill">Matched</div>
+                    </div>
+                </div>
+
+                <!-- Card 6 (duplicate) -->
+                <div class="card-row">
+                    <div class="founder-card">
+                        <div class="card-content">
+                            <div class="ask-text">We're a climate tech SaaS and want a ruthless competitive teardown and positioning wedge.</div>
+                            <div class="location">📍 Austin</div>
+                        </div>
+                        <div class="matched-pill">Matched</div>
+                    </div>
+                </div>
+
+                <!-- Card 7 (duplicate) -->
+                <div class="card-row">
+                    <div class="founder-card">
+                        <div class="card-content">
+                            <div class="ask-text">We're a healthtech platform and need ICPs, buyer personas, and 15 customer interviews synthesized.</div>
+                            <div class="location">📍 Seattle</div>
+                        </div>
+                        <div class="matched-pill">Matched</div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="max-w-[900px] mx-auto px-6 md:px-12 mb-4" style="max-width: 900px; margin: 0 auto; padding: 0 24px; margin-bottom: 16px;">
+            <div class="text-center">
+                <p class="text-[#666666] text-lg md:text-xl font-light font-inter" style="color: #666666; font-size: 18px; font-weight: 300; font-family: 'Inter', sans-serif;">
+                    Our simple 4-step process
+                </p>
+            </div>
+        </div>
+
+        <!-- Step 1 Section -->
+        <div class="step-section">
+            <div class="step-container">
+                <div class="step-content">
+                    <div class="step-text">
+                        <div class="step-number">
+                            <img src="How it works/681780e7e56236e59c10ba52_1.svg" alt="Step 1" width="48" height="48" />
+                        </div>
+                        <h2 class="step-title">Create your listing</h2>
+                        <p class="step-description">Our powerfully simple AI helps you create the perfect description in 2-3 minutes.</p>
+                        <a href="#" class="step-link">Explore →</a>
+                    </div>
+                    <div class="step-mockups">
+                        <div class="desktop-mockup">
+                            <img src="How it works/New Project Desktop v1.svg" alt="Desktop Project Creation" width="600" height="400" />
+                        </div>
+                        <div class="mobile-mockup">
+                            <img src="How it works/iPhone Listing Type.png" alt="Mobile Project Creation" width="200" height="400" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2 Section -->
+        <div class="step-section">
+            <div class="step-container">
+                <div class="step-content">
+                    <div class="step-text">
+                        <div class="step-number">
+                            <img src="How it works/6817812f2036dad2e7e669f6_3.svg" alt="Step 2" width="48" height="48" />
+                        </div>
+                        <h2 class="step-title">Review your applicants</h2>
+                        <p class="step-description">Start getting top-school applicants in minutes, from the US and beyond.</p>
+                        <a href="#" class="step-link">Explore →</a>
+                    </div>
+                    <div class="step-mockups">
+                        <div class="desktop-mockup">
+                            <img src="How it works/Review Applicants.svg" alt="Desktop Talent Application" width="600" height="400" />
+                        </div>
+                        <div class="mobile-mockup">
+                            <img src="How it works/iPhone Feedback quote.svg" alt="Mobile Talent Selection" width="200" height="400" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3 Section -->
+        <div class="step-section">
+            <div class="step-container">
+                <div class="step-content">
+                    <div class="step-text">
+                        <div class="step-number">
+                            <img src="How it works/6817812f3a08ce0fbd232903_2.svg" alt="Step 3" width="48" height="48" />
+                        </div>
+                        <h2 class="step-title">Select your favorite applicant</h2>
+                        <p class="step-description">Instant intros to top talent so work starts immediately.</p>
+                        <a href="#" class="step-link">Explore →</a>
+                    </div>
+                    <div class="step-mockups">
+                        <div class="desktop-mockup">
+                            <img src="How it works/Congrats.svg" alt="Desktop Review Applicants" width="600" height="400" />
+                        </div>
+                        <div class="mobile-mockup">
+                            <img src="How it works/Congrats iphone.png" alt="Mobile Review Applicants" width="200" height="400" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4 Section -->
+        <div class="step-section">
+            <div class="step-container">
+                <div class="step-content">
+                    <div class="step-text">
+                        <div class="step-number">
+                            <img src="How it works/6817812f9c09bf0f4ac260a5_4.svg" alt="Step 4" width="48" height="48" />
+                        </div>
+                        <h2 class="step-title">Collaborate, grow, reflect</h2>
+                        <p class="step-description">See it through, then level up through feedback—together.</p>
+                        <a href="#" class="step-link">Explore →</a>
+                    </div>
+                    <div class="step-mockups">
+                        <div class="desktop-mockup">
+                            <img src="How it works/Feedback Form Desktop.svg" alt="Desktop Select Applicant" width="600" height="400" />
+                        </div>
+                        <div class="mobile-mockup">
+                            <img src="How it works/iPhone Feedback quote.svg" alt="Mobile Select Applicant" width="200" height="400" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How we're different Section -->
+        <div class="comparison-section">
+            <div class="comparison-header">
+                <h2 class="comparison-title">How we're different</h2>
+                <p class="comparison-subtitle">Side-by-side comparison of qava vs traditional platforms</p>
+            </div>
+            
+            <div class="comparison-grid">
+                <!-- Traditional platforms -->
+                <div class="comparison-card">
+                    <h3>Traditional platforms</h3>
+                    <ul class="comparison-list">
+                        <li>
+                            <span class="x-mark">×</span>
+                            <span>Offshore, low-cost talent</span>
+                        </li>
+                        <li>
+                            <span class="x-mark">×</span>
+                            <span>Limited local market knowledge</span>
+                        </li>
+                        <li>
+                            <span class="x-mark">×</span>
+                            <span>No verified professional credentials</span>
+                        </li>
+                        <li>
+                            <span class="x-mark">×</span>
+                            <span>No long-term alignment or skin in the game</span>
+                        </li>
+                        <li>
+                            <span class="x-mark">×</span>
+                            <span>Flood of unfiltered applicants</span>
+                        </li>
+                        <li>
+                            <span class="x-mark">×</span>
+                            <span>Takes large cut of freelancer earnings</span>
+                        </li>
+                        <li>
+                            <span class="x-mark">×</span>
+                            <span>Incentivizes shallow, high-volume work</span>
+                        </li>
+                        <li>
+                            <span class="x-mark">×</span>
+                            <span>No affiliation with trusted institutions</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- qava.ai -->
+                <div class="comparison-card">
+                    <h3>qava.ai</h3>
+                    <ul class="comparison-list">
+                        <li>
+                            <img src="Yes tick-1.svg" alt="✓" class="checkmark" width="18" height="18" />
+                            <span>Top-tier MBA & experienced talent</span>
+                        </li>
+                        <li>
+                            <img src="Yes tick-1.svg" alt="✓" class="checkmark" width="18" height="18" />
+                            <span>Local understanding of market/industry</span>
+                        </li>
+                        <li>
+                            <img src="Yes tick-1.svg" alt="✓" class="checkmark" width="18" height="18" />
+                            <span>Embrace latest AI tools and prompts</span>
+                        </li>
+                        <li>
+                            <img src="Yes tick-1.svg" alt="✓" class="checkmark" width="18" height="18" />
+                            <span>Open to ongoing or repeat work</span>
+                        </li>
+                        <li>
+                            <img src="Yes tick-1.svg" alt="✓" class="checkmark" width="18" height="18" />
+                            <span>Curated shortlist of high-quality candidates</span>
+                        </li>
+                        <li>
+                            <img src="Yes tick-1.svg" alt="✓" class="checkmark" width="18" height="18" />
+                            <span>Fair model that encourages quality</span>
+                        </li>
+                        <li>
+                            <img src="Yes tick-1.svg" alt="✓" class="checkmark" width="18" height="18" />
+                            <span>Connected to top universities</span>
+                        </li>
+                        <li>
+                            <img src="Yes tick-1.svg" alt="✓" class="checkmark" width="18" height="18" />
+                            <span>Designed for deep, strategic engagement</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer-section">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="/">
+                        <img src="qava-logo.svg" alt="Qava" class="footer-logo-img" />
+                    </a>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Welcome</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">Create Listing</a></li>
+                            <li><a href="#" class="footer-link">Search Listings</a></li>
+                            <li><a href="#" class="footer-link">How It Works</a></li>
+                            <li><a href="#" class="footer-link">Why Qava</a></li>
+                            <li><a href="#" class="footer-link">What's New</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Get Started</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">AI Prompts</a></li>
+                            <li><a href="#" class="footer-link">Project Templates</a></li>
+                            <li><a href="#" class="footer-link">Application Tips</a></li>
+                            <li><a href="#" class="footer-link">Request a Demo</a></li>
+                            <li><a href="#" class="footer-link">Sign Up</a></li>
+                            <li><a href="#" class="footer-link">Log In</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Resources</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">Pricing</a></li>
+                            <li><a href="#" class="footer-link">About Us</a></li>
+                            <li><a href="#" class="footer-link">Careers</a></li>
+                            <li><a href="#" class="footer-link">Media Kit</a></li>
+                            <li><a href="#" class="footer-link">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Learn</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">Success Stories</a></li>
+                            <li><a href="#" class="footer-link">Help Center</a></li>
+                            <li><a href="#" class="footer-link">Webinars</a></li>
+                            <li><a href="#" class="footer-link">Blog</a></li>
+                            <li><a href="#" class="footer-link">Community</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Legal</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">Terms & Privacy</a></li>
+                            <li><a href="#" class="footer-link">California Privacy Notice</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-copyright">
+                        © 2025 qava
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+            
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function toggleMobileDropdown() {
+            const mobileDropdown = document.getElementById('mobileDropdown');
+            const mobileDropdownToggle = document.querySelector('.mobile-dropdown-toggle');
+            const arrow = mobileDropdownToggle.querySelector('.mobile-dropdown-arrow');
+            
+            mobileDropdown.classList.toggle('active');
+            mobileDropdownToggle.classList.toggle('active');
+            
+            if (mobileDropdown.classList.contains('active')) {
+                arrow.textContent = '−';
+            } else {
+                arrow.textContent = '+';
+            }
+        }
+    </script>
+</body>
+</html>
