@@ -149,13 +149,15 @@
             padding: 12px;
             border-radius: 6px;
             cursor: pointer;
-            transition: background-color 0.2s ease;
+            transition: all 0.2s ease;
             text-decoration: none;
             display: block;
+            background-color: transparent;
         }
 
         .dropdown-item:hover {
             background-color: rgba(0, 0, 0, 0.06);
+            transform: translateY(-1px);
         }
 
         .dropdown-title {
@@ -1108,7 +1110,9 @@
                 </a>
                 <div class="nav-item how-it-works has-dropdown">
                     <div class="nav-text">How It Works</div>
-                    <span class="dropdown-arrow">+</span>
+                    <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M6 3v6M3 6h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                     <div class="dropdown-menu">
                         <a href="https://qava.ai/client-how-it-works.html" class="dropdown-item">
                             <div class="dropdown-title">For Clients 🚀</div>

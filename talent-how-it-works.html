@@ -141,13 +141,15 @@
             padding: 12px;
             border-radius: 6px;
             cursor: pointer;
-            transition: background-color 0.2s ease;
+            transition: all 0.2s ease;
             text-decoration: none;
             display: block;
+            background-color: transparent;
         }
 
         .dropdown-item:hover {
             background-color: rgba(0, 0, 0, 0.06);
+            transform: translateY(-1px);
         }
 
         .dropdown-title {
@@ -1010,12 +1012,12 @@
     <!-- Mobile Menu Overlay -->
     <div class="mobile-menu" id="mobileMenu">
         <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
-        <div class="mobile-nav-item">
+        <a href="https://app.qava.ai/" class="mobile-nav-item">
             <div class="nav-text">Create Listing</div>
-        </div>
-        <div class="mobile-nav-item">
+        </a>
+        <a href="https://app.qava.ai/" class="mobile-nav-item">
             <div class="nav-text">Search Listings</div>
-        </div>
+        </a>
         <div class="mobile-nav-item mobile-dropdown-toggle" onclick="toggleMobileDropdown()">
             <div class="mobile-dropdown-header">
                 <div class="nav-text">How It Works</div>
@@ -1023,23 +1025,23 @@
             </div>
         </div>
         <div class="mobile-dropdown-content" id="mobileDropdown">
-            <div class="mobile-dropdown-item">
+            <a href="https://qava.ai/client-how-it-works.html" class="mobile-dropdown-item">
                 <div class="dropdown-title">For Clients 🚀</div>
                 <div class="dropdown-subtitle">Hiring for current or future work</div>
-            </div>
-            <div class="mobile-dropdown-item">
+            </a>
+            <a href="https://qava.ai/talent-how-it-works.html" class="mobile-dropdown-item">
                 <div class="dropdown-title">For Talent 👩‍💻</div>
                 <div class="dropdown-subtitle">Interested in current or future work</div>
-            </div>
+            </a>
         </div>
-        <div class="mobile-nav-item">
+        <a href="why-qava.html" class="mobile-nav-item">
             <div class="nav-text">Why Qava</div>
-        </div>
-        <div class="mobile-nav-item">
+        </a>
+        <a href="https://qava.ai/pricing.html" class="mobile-nav-item">
             <div class="nav-text">Pricing</div>
-        </div>
+        </a>
         <div class="mobile-auth-section">
-            <div class="mobile-nav-item">Request a demo</div>
+            <a href="https://qava.ai/request-demo.html" class="mobile-nav-item">Request a demo</a>
             <a href="https://app.qava.ai/" class="mobile-nav-item">Log in</a>
             <a href="https://app.qava.ai/" class="join-button">
                 <div class="join-text">Join for free</div>
