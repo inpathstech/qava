@@ -75,7 +75,7 @@
         .navigation {
             display: flex;
             align-items: center;
-            gap: 28px;
+            gap: 8px;
         }
 
         .nav-item {
@@ -91,6 +91,7 @@
             align-items: center;
             position: relative;
             gap: 4px;
+            text-decoration: none;
         }
 
         .nav-item:hover {
@@ -142,11 +143,15 @@
             padding: 12px;
             border-radius: 6px;
             cursor: pointer;
-            transition: background-color 0.2s ease;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: block;
+            background-color: transparent;
         }
 
         .dropdown-item:hover {
-            background-color: rgba(55, 53, 47, 0.04);
+            background-color: rgba(0, 0, 0, 0.06);
+            transform: translateY(-1px);
         }
 
         .dropdown-title {
@@ -314,6 +319,7 @@
             cursor: pointer;
             border-radius: 8px;
             margin-bottom: 4px;
+            text-decoration: none;
         }
 
         .mobile-nav-item:hover {
@@ -398,10 +404,14 @@
             padding: 16px 24px;
             border-bottom: none;
             cursor: pointer;
+            text-decoration: none;
+            display: block;
+            background-color: transparent;
         }
 
         .mobile-dropdown-item:hover {
-            background-color: rgba(55, 53, 47, 0.08);
+            background-color: rgba(0, 0, 0, 0.06);
+            transform: translateY(-1px);
         }
 
         .mobile-dropdown-item .dropdown-title {
@@ -1227,7 +1237,7 @@
                 <div class="nav-item how-it-works has-dropdown">
                     <div class="nav-text">How It Works</div>
                     <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                        <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M6 3v6M3 6h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     <div class="dropdown-menu">
                         <a href="https://qava.ai/client-how-it-works.html" class="dropdown-item">
