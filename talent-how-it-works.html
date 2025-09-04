@@ -142,10 +142,12 @@
             border-radius: 6px;
             cursor: pointer;
             transition: background-color 0.2s ease;
+            text-decoration: none;
+            display: block;
         }
 
         .dropdown-item:hover {
-            background-color: rgba(55, 53, 47, 0.04);
+            background-color: rgba(0, 0, 0, 0.06);
         }
 
         .dropdown-title {
@@ -941,7 +943,7 @@
         <div class="header-logo">
             <div class="logo-container">
                 <div class="logo">
-                    <a href="complete-page.html">
+                    <a href="https://qava.ai">
                         <img src="qava-logo.svg" alt="Qava Logo">
                     </a>
                 </div>
@@ -951,43 +953,43 @@
         <!-- Navigation in the center -->
         <div class="header-center">
             <div class="navigation">
-                <div class="nav-item create-listing">
+                <a href="https://app.qava.ai/" class="nav-item create-listing">
                     <div class="nav-text">Create Listing</div>
-                </div>
-                <div class="nav-item search-listings">
+                </a>
+                <a href="https://app.qava.ai/" class="nav-item search-listings">
                     <div class="nav-text">Search Listings</div>
-                </div>
+                </a>
                 <div class="nav-item how-it-works has-dropdown">
                     <div class="nav-text">How It Works</div>
                     <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none">
                         <path d="M6 3v6M3 6h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     <div class="dropdown-menu">
-                        <div class="dropdown-item">
+                        <a href="https://qava.ai/client-how-it-works.html" class="dropdown-item">
                             <div class="dropdown-title">For Clients 🚀</div>
                             <div class="dropdown-subtitle">Hiring for current or future work</div>
-                        </div>
-                        <div class="dropdown-item">
+                        </a>
+                        <a href="https://qava.ai/talent-how-it-works.html" class="dropdown-item">
                             <div class="dropdown-title">For Talent 👩‍💻</div>
                             <div class="dropdown-subtitle">Interested in current or future work</div>
-                        </div>
+                        </a>
                     </div>
                 </div>
-                <div class="nav-item why-qava">
+                <a href="why-qava.html" class="nav-item why-qava">
                     <div class="nav-text">Why Qava</div>
-                </div>
-                <div class="nav-item pricing">
+                </a>
+                <a href="https://qava.ai/pricing.html" class="nav-item pricing">
                     <div class="nav-text">Pricing</div>
-                </div>
+                </a>
             </div>
         </div>
         
         <!-- Auth section on the right -->
         <div class="header-right">
             <div class="auth-section">
-                <div class="auth-item">
+                <a href="https://qava.ai/request-demo.html" class="auth-item">
                     <div class="nav-text">Request a demo</div>
-                </div>
+                </a>
                 <a href="https://app.qava.ai/" class="auth-item">
                     <div class="nav-text">Log in</div>
                 </a>
