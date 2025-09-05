@@ -3055,6 +3055,103 @@
                 width: 100%;
                 max-width: 280px;
             }
+            
+            /* Education section mobile layout - image on top */
+            .education-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 24px;
+                padding: 24px;
+            }
+            
+            .education-image {
+                flex: none;
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+            
+            .education-content {
+                flex: none;
+                width: 100%;
+            }
+            
+            .education-title {
+                font-size: 20px;
+                text-align: center;
+            }
+            
+            .education-description {
+                font-size: 14px;
+                text-align: center;
+            }
+            
+            /* Customer stories mobile layout - simple vertical list */
+            .customer-stories-container {
+                background: white;
+                box-shadow: none;
+                padding: 24px 16px;
+            }
+            
+            .stories-title-container {
+                justify-content: center;
+                margin-bottom: 24px;
+            }
+            
+            .stories-title {
+                font-size: 18px;
+                text-align: center;
+            }
+            
+            .featured-story {
+                display: none;
+            }
+            
+            .customer-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                grid-template-columns: none;
+            }
+            
+            .customer-card {
+                background: white;
+                border-radius: 0;
+                padding: 0;
+                box-shadow: none;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                padding-bottom: 16px;
+            }
+            
+            .customer-card:last-child {
+                border-bottom: none;
+            }
+            
+            .customer-logo {
+                margin-bottom: 8px;
+            }
+            
+            .company-name {
+                font-size: 16px;
+                font-weight: 700;
+                margin-bottom: 8px;
+                text-align: center;
+            }
+            
+            .customer-quote {
+                font-size: 14px;
+                line-height: 1.4;
+                margin-bottom: 8px;
+            }
+            
+            .stars {
+                font-size: 12px;
+                margin-top: 4px;
+            }
+            
+            .customer-link {
+                display: none;
+            }
          }
 
 
