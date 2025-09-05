@@ -1808,7 +1808,7 @@
             position: absolute;
             left: 0;
             top: 0;
-            color: #0053E5;
+            color: #002bff;
         }
 
         .featured-video {
@@ -1991,11 +1991,26 @@
             font-weight: 500;
             color: #002bff;
             text-decoration: none;
-            transition: color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s ease;
         }
 
-        .education-link:hover {
-            color: #0053E5;
+        .education-link-text {
+            display: inline-block;
+        }
+
+        .education-link-arrow {
+            display: inline-block;
+            transform: translateX(-8px);
+            opacity: 0;
+            transition: all 0.2s ease;
+        }
+
+        .education-link:hover .education-link-arrow {
+            transform: translateX(0);
+            opacity: 1;
         }
 
         /* Stats Footer */
@@ -3520,7 +3535,7 @@
                         <a href="javascript:void(0);" class="featured-link" data-original="Read the full story →" data-hover="Coming soon">Read the full story →</a>
                     </div>
                     <div class="featured-video">
-                        <img src="Testimonial images/Testimonial Video Thumbnail.svg" alt="Testimonial Video Thumbnail" class="video-player">
+                        <img src="Testimonial images/Testimonial Image v2.svg" alt="Testimonial Video Thumbnail" class="video-player">
                     </div>
                 </div>
             </div>
@@ -3624,7 +3639,10 @@
                     <p class="education-description">
                         The Aurora Education foundation is an Indigenous organization that supports Aboriginal and Torres Strait Islander students to realize their full education and employment potential. 1% of profits will be donated to this important mission.
                     </p>
-                    <a href="https://aurorafoundation.com.au/?gad_source=1&gad_campaignid=20266303360&gbraid=0AAAAAo_9cxXCGg5IbEOVCx16vIn4z39Pq&gclid=Cj0KCQjwn8XFBhCxARIsAMyH8BtbXMEmRGAKfavaNQn127KW-GgTf0ldjKUoTs4rPkJ0rKoAdS79zl4aAkF9EALw_wcB" class="education-link" target="_blank">Learn more →</a>
+                    <a href="https://aurorafoundation.com.au/?gad_source=1&gad_campaignid=20266303360&gbraid=0AAAAAo_9cxXCGg5IbEOVCx16vIn4z39Pq&gclid=Cj0KCQjwn8XFBhCxARIsAMyH8BtbXMEmRGAKfavaNQn127KW-GgTf0ldjKUoTs4rPkJ0rKoAdS79zl4aAkF9EALw_wcB" class="education-link" target="_blank">
+                        <span class="education-link-text">Learn more</span>
+                        <span class="education-link-arrow">→</span>
+                    </a>
                 </div>
             </div>
         </div>
