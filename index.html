@@ -3152,6 +3152,49 @@
             .customer-link {
                 display: none;
             }
+            
+            /* Footer mobile layout - 2 columns */
+            .footer-content {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 24px 16px;
+                padding: 0 16px;
+            }
+            
+            .footer-column {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .footer-heading {
+                font-size: 14px;
+                font-weight: 600;
+                color: #333;
+                margin-bottom: 8px;
+            }
+            
+            .footer-link {
+                font-size: 13px;
+                color: #666;
+                text-decoration: none;
+                line-height: 1.4;
+            }
+            
+            .footer-link:hover {
+                color: #002bff;
+            }
+            
+            .footer-logo {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 20px;
+                grid-column: 1 / -1;
+            }
+            
+            .footer-logo-img {
+                width: 32px;
+            }
          }
 
 
