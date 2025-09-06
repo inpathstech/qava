@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qava</title>
+    <title>Request a Demo - Qava</title>
     <link rel="icon" type="image/svg+xml" href="qava-logo.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -205,7 +205,7 @@
 
         .join-button {
             padding: 6px 12px;
-            background: #002bff;
+            background: #0F62FE;
             border-radius: 6px;
             display: flex;
             align-items: center;
@@ -219,7 +219,7 @@
         }
 
         .join-button:hover {
-            background: #002bff;
+            background: #0053E5;
             transform: translateY(-1px);
             box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
         }
@@ -583,7 +583,7 @@
 
         .form-input:focus {
             outline: none;
-            border-color: #002bff;
+            border-color: #0F62FE;
             background: #ffffff;
             box-shadow: 0 0 0 3px rgba(15, 98, 254, 0.1);
         }
@@ -614,7 +614,7 @@
 
         .form-select:focus {
             outline: none;
-            border-color: #002bff;
+            border-color: #0F62FE;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M5 12h14' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
         }
 
@@ -624,7 +624,7 @@
 
         .form-select:focus {
             outline: none;
-            border-color: #002bff;
+            border-color: #0F62FE;
         }
 
         .form-select option[value=""] {
@@ -652,13 +652,13 @@
 
         .form-textarea:focus {
             outline: none;
-            border-color: #002bff;
+            border-color: #0F62FE;
         }
 
         .form-submit {
             width: 100%;
             padding: 6px 12px;
-            background: #002bff;
+            background: #0F62FE;
             border: none;
             border-radius: 6px;
             font-family: 'Inter', sans-serif;
@@ -703,9 +703,13 @@
         }
 
         .form-error {
-            color: #dc3545;
-            font-size: 12px;
-            margin-top: 4px;
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 6px;
+            padding: 16px;
+            margin-bottom: 24px;
+            color: #721c24;
+            font-size: 14px;
         }
 
         .form-success {
@@ -799,29 +803,6 @@
 
         .footer-link:hover {
             text-decoration: underline;
-        }
-
-        .footer-link.coming-soon {
-            cursor: default;
-            position: relative;
-        }
-
-        .footer-link.coming-soon:hover {
-            text-decoration: none;
-        }
-
-        .footer-link.coming-soon:hover::after {
-            content: "Coming Soon";
-            position: absolute;
-            bottom: -20px;
-            left: 0;
-            background: #333;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            white-space: nowrap;
-            z-index: 1000;
         }
 
         .footer-copyright {
@@ -1087,6 +1068,7 @@
             .join-button {
                 padding: 6px 12px;
                 font-size: 13px;
+                min-width: 100px;
             }
             
             .join-text {
@@ -1263,20 +1245,20 @@
                         <path d="M6 3v6M3 6h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     <div class="dropdown-menu">
-                        <a href="https://qava.ai/clienthowitworks" class="dropdown-item">
+                        <a href="https://qava.ai/client-how-it-works.html" class="dropdown-item">
                             <div class="dropdown-title">For Clients 🚀</div>
                             <div class="dropdown-subtitle">Hiring for current or future work</div>
                         </a>
-                        <a href="https://qava.ai/talenthowitworks" class="dropdown-item">
+                        <a href="https://qava.ai/talent-how-it-works.html" class="dropdown-item">
                             <div class="dropdown-title">For Talent 👩‍💻</div>
                             <div class="dropdown-subtitle">Interested in current or future work</div>
                         </a>
                     </div>
                 </div>
-                <a href="https://qava.ai/why-qava" class="nav-item why-qava">
+                <a href="why-qava.html" class="nav-item why-qava">
                     <div class="nav-text">Why Qava</div>
                 </a>
-                <a href="https://qava.ai/pricing" class="nav-item pricing">
+                <a href="https://qava.ai/pricing.html" class="nav-item pricing">
                     <div class="nav-text">Pricing</div>
                 </a>
             </div>
@@ -1285,7 +1267,7 @@
         <!-- Auth section on the right -->
         <div class="header-right">
             <div class="auth-section">
-                <a href="javascript:void(0)" class="auth-item">
+                <a href="https://qava.ai/request-demo.html" class="auth-item">
                     <div class="nav-text">Request a demo</div>
                 </a>
                 <a href="https://app.qava.ai/" class="auth-item">
@@ -1321,23 +1303,23 @@
             </div>
         </div>
         <div class="mobile-dropdown-content" id="mobileDropdown">
-            <a href="https://qava.ai/clienthowitworks" class="mobile-dropdown-item">
+            <a href="https://qava.ai/client-how-it-works.html" class="mobile-dropdown-item">
                 <div class="dropdown-title">For Clients 🚀</div>
                 <div class="dropdown-subtitle">Hiring for current or future work</div>
             </a>
-            <a href="https://qava.ai/talenthowitworks" class="mobile-dropdown-item">
+            <a href="https://qava.ai/talent-how-it-works.html" class="mobile-dropdown-item">
                 <div class="dropdown-title">For Talent 👩‍💻</div>
                 <div class="dropdown-subtitle">Interested in current or future work</div>
             </a>
         </div>
-        <a href="https://qava.ai/why-qava" class="mobile-nav-item">
+        <a href="why-qava.html" class="mobile-nav-item">
             <div class="nav-text">Why Qava</div>
         </a>
-        <a href="https://qava.ai/pricing" class="mobile-nav-item">
+        <a href="https://qava.ai/pricing.html" class="mobile-nav-item">
             <div class="nav-text">Pricing</div>
         </a>
         <div class="mobile-auth-section">
-            <a href="javascript:void(0)" class="mobile-nav-item">Request a demo</a>
+            <a href="https://qava.ai/request-demo.html" class="mobile-nav-item">Request a demo</a>
             <a href="https://app.qava.ai/" class="mobile-nav-item">Log in</a>
             <a href="https://app.qava.ai/" class="join-button">
                 <div class="join-text">Join for free</div>
@@ -1354,7 +1336,7 @@
                 <div class="demo-benefits">
                     <div class="benefit-item">
                         <svg class="benefit-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path d="M16.6667 5L7.5 14.1667L3.33333 10" stroke="#002bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16.6667 5L7.5 14.1667L3.33333 10" stroke="#0F62FE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                         <p class="demo-description">
                             Launch strategic projects, find expert talent fast, and deliver real results—without the overhead.
@@ -1362,7 +1344,7 @@
                     </div>
                     <div class="benefit-item">
                         <svg class="benefit-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path d="M16.6667 5L7.5 14.1667L3.33333 10" stroke="#002bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16.6667 5L7.5 14.1667L3.33333 10" stroke="#0F62FE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                         <p class="demo-description">
                             Secure, scalable, and designed to save you time and money on every project.
@@ -1370,7 +1352,7 @@
                     </div>
                     <div class="benefit-item">
                         <svg class="benefit-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path d="M16.6667 5L7.5 14.1667L3.33333 10" stroke="#002bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16.6667 5L7.5 14.1667L3.33333 10" stroke="#0F62FE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                         <p class="demo-description">
                             Our team helps you set up, find the right talent, and make every project count.
@@ -1378,7 +1360,7 @@
                     </div>
                 </div>
                 <p class="demo-description">
-                    Looking for support? <a href="#" style="color: #002bff; text-decoration: none;">Visit our FAQ</a>
+                    Looking for support? <a href="#" style="color: #0F62FE; text-decoration: none;">Visit our FAQ</a>
                 </p>
             </div>
             
@@ -1445,7 +1427,7 @@
                     </button>
                     
                     <p class="form-note">
-                        By submitting this form, you agree to our <a href="terms" style="color: #002bff; text-decoration: none;">Terms</a>.
+                        By submitting this form, you agree to our <a href="#" style="color: #0F62FE; text-decoration: none;">Terms</a>.
                     </p>
                 </form>
             </div>
@@ -1457,7 +1439,7 @@
         <div class="footer-container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <a href="https://qava.ai">
+                    <a href="index.html">
                         <img src="qava-logo.svg" alt="Qava" class="footer-logo-img" />
                     </a>
                 </div>
@@ -1465,50 +1447,48 @@
                     <div class="footer-column">
                         <h4 class="footer-heading">Welcome</h4>
                         <ul class="footer-link-list">
-                            <li><a href="https://app.qava.ai/" class="footer-link">Create Listing</a></li>
-                            <li><a href="https://app.qava.ai/" class="footer-link">Search Listings</a></li>
-                            <li><a href="clienthowitworks" class="footer-link">How It Works for Clients</a></li>
-                            <li><a href="talenthowitworks" class="footer-link">How It Works for Talent</a></li>
-                            <li><a href="why-qava" class="footer-link">Why Qava</a></li>
-                            <li><a href="javascript:void(0)" class="footer-link coming-soon">What's New</a></li>
+                            <li><a href="index.html" class="footer-link">Find a project</a></li>
+                            <li><a href="client-how-it-works.html" class="footer-link">How it works</a></li>
+                            <li><a href="why-qava.html" class="footer-link">Why qava</a></li>
+                            <li><a href="index.html" class="footer-link">What's new</a></li>
                         </ul>
                     </div>
                     <div class="footer-column">
-                        <h4 class="footer-heading">Get Started</h4>
+                        <h4 class="footer-heading">Get started</h4>
                         <ul class="footer-link-list">
-                            <li><a href="https://app.qava.ai/" class="footer-link">AI Prompts</a></li>
-                            <li><a href="https://app.qava.ai/" class="footer-link">Project Templates</a></li>
-                            <li><a href="https://app.qava.ai/" class="footer-link">Application Tips</a></li>
-                            <li><a href="demo" class="footer-link">Request a Demo</a></li>
-                            <li><a href="https://app.qava.ai/" class="footer-link">Sign Up</a></li>
-                            <li><a href="https://app.qava.ai/" class="footer-link">Log In</a></li>
+                            <li><a href="index.html" class="footer-link">AI prompts</a></li>
+                            <li><a href="index.html" class="footer-link">Project templates</a></li>
+                            <li><a href="index.html" class="footer-link">Application tips</a></li>
+                            <li><a href="request-demo.html" class="footer-link">Request a demo</a></li>
+                            <li><a href="https://app.qava.ai/" class="footer-link">Sign up</a></li>
+                            <li><a href="https://app.qava.ai/" class="footer-link">Log in</a></li>
                         </ul>
                     </div>
                     <div class="footer-column">
                         <h4 class="footer-heading">Resources</h4>
                         <ul class="footer-link-list">
-                            <li><a href="https://qava.ai/pricing" class="footer-link">Pricing</a></li>
-                            <li><a href="#" class="footer-link coming-soon">About Us</a></li>
-                            <li><a href="#" class="footer-link coming-soon">Careers</a></li>
-                            <li><a href="#" class="footer-link coming-soon">Media Kit</a></li>
-                            <li><a href="#" class="footer-link coming-soon">Contact Us</a></li>
+                            <li><a href="pricing.html" class="footer-link">Pricing</a></li>
+                            <li><a href="index.html" class="footer-link">About us</a></li>
+                            <li><a href="index.html" class="footer-link">Careers</a></li>
+                            <li><a href="index.html" class="footer-link">Media kit</a></li>
+                            <li><a href="request-demo.html" class="footer-link">Contact us</a></li>
                         </ul>
                     </div>
                     <div class="footer-column">
                         <h4 class="footer-heading">Learn</h4>
                         <ul class="footer-link-list">
-                            <li><a href="javascript:void(0)" class="footer-link coming-soon">Success Stories</a></li>
-                            <li><a href="javascript:void(0)" class="footer-link coming-soon">Help Center</a></li>
-                            <li><a href="javascript:void(0)" class="footer-link coming-soon">Webinars</a></li>
-                            <li><a href="javascript:void(0)" class="footer-link coming-soon">Blog</a></li>
-                            <li><a href="javascript:void(0)" class="footer-link coming-soon">Community</a></li>
+                            <li><a href="index.html" class="footer-link">Success stories</a></li>
+                            <li><a href="index.html" class="footer-link">Help center</a></li>
+                            <li><a href="index.html" class="footer-link">Webinars</a></li>
+                            <li><a href="index.html" class="footer-link">Blog</a></li>
+                            <li><a href="index.html" class="footer-link">Community</a></li>
                         </ul>
                     </div>
                     <div class="footer-column">
                         <h4 class="footer-heading">Legal</h4>
                         <ul class="footer-link-list">
-                            <li><a href="terms" class="footer-link">Terms & Privacy</a></li>
-                            <li><a href="terms" class="footer-link">California Privacy Notice</a></li>
+                            <li><a href="index.html" class="footer-link">Terms & privacy</a></li>
+                            <li><a href="index.html" class="footer-link">California Privacy Notice</a></li>
                         </ul>
                     </div>
                     <div class="footer-copyright">
@@ -1584,8 +1564,32 @@
             submitBtn.textContent = 'Submitting...';
             submitBtn.disabled = true;
             
-            // Simulate form submission (replace with actual API call)
-            setTimeout(() => {
+            // Collect form data
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+            
+            // Add timestamp and source
+            data.timestamp = new Date().toISOString();
+            data.source = 'demo-page';
+            
+            // Submit to backend API
+            fetch('https://api.qava.ai/admin/contact-requests', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(result => {
                 // Show success message
                 const successMessage = document.createElement('div');
                 successMessage.className = 'form-success';
@@ -1605,7 +1609,27 @@
                 setTimeout(() => {
                     successMessage.remove();
                 }, 5000);
-            }, 2000);
+            })
+            .catch(error => {
+                console.error('Error submitting form:', error);
+                
+                // Show error message
+                const errorMessage = document.createElement('div');
+                errorMessage.className = 'form-error';
+                errorMessage.textContent = 'Sorry, there was an error submitting your request. Please try again.';
+                
+                const form = document.getElementById('demoForm');
+                form.insertBefore(errorMessage, form.firstChild);
+                
+                // Reset button
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                
+                // Remove error message after 5 seconds
+                setTimeout(() => {
+                    errorMessage.remove();
+                }, 5000);
+            });
         });
     </script>
 </body>

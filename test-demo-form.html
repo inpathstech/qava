@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Demo Form</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select, textarea { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        button { background: #002bff; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #001acc; }
+        .success { background: #d4edda; color: #155724; padding: 10px; border-radius: 4px; margin: 10px 0; }
+        .error { background: #f8d7da; color: #721c24; padding: 10px; border-radius: 4px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Demo Form Test</h1>
+    <p>This is a simplified test version of your demo form to verify the JavaScript functionality.</p>
+    
+    <form id="testForm">
+        <div class="form-group">
+            <label for="firstName">First name *</label>
+            <input type="text" id="firstName" name="firstName" value="Test" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="lastName">Last name *</label>
+            <input type="text" id="lastName" name="lastName" value="User" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Work email *</label>
+            <input type="email" id="email" name="email" value="test@example.com" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="company">Company name *</label>
+            <input type="text" id="company" name="company" value="Test Company" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="companySize">Company size *</label>
+            <select id="companySize" name="companySize" required>
+                <option value="startup" selected>Startup</option>
+                <option value="smb">SMB</option>
+                <option value="mid-market">Mid-market</option>
+                <option value="enterprise">Enterprise</option>
+                <option value="non-profit">Non-profit</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="country">Country or region *</label>
+            <select id="country" name="country" required>
+                <option value="united-states" selected>United States</option>
+                <option value="canada">Canada</option>
+                <option value="united-kingdom">United Kingdom</option>
+                <option value="germany">Germany</option>
+                <option value="france">France</option>
+                <option value="australia">Australia</option>
+                <option value="japan">Japan</option>
+                <option value="new-zealand">New Zealand</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="additionalInfo">Anything else?</label>
+            <textarea id="additionalInfo" name="additionalInfo" placeholder="Tell us more about your needs...">This is a test submission</textarea>
+        </div>
+        
+        <button type="submit" id="submitBtn">Submit Test</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('testForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.textContent;
+            const resultDiv = document.getElementById('result');
+            
+            // Show loading state
+            submitBtn.textContent = 'Submitting...';
+            submitBtn.disabled = true;
+            
+            // Collect form data
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+            
+            // Add timestamp and source
+            data.timestamp = new Date().toISOString();
+            data.source = 'demo-page';
+            
+            console.log('📤 Sending data:', data);
+            
+            // Submit to backend API
+            fetch('https://api.qava.ai/admin/contact-requests', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                console.log('📥 Response status:', response.status);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(result => {
+                console.log('✅ Success:', result);
+                
+                // Show success message
+                resultDiv.innerHTML = '<div class="success">✅ Success! Contact request submitted successfully. A representative will be in touch shortly 🚀</div>';
+                
+                // Reset form
+                document.getElementById('testForm').reset();
+                
+                // Reset button
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            })
+            .catch(error => {
+                console.error('❌ Error:', error);
+                
+                // Show error message
+                resultDiv.innerHTML = '<div class="error">❌ Error: ' + error.message + '. This is expected since the backend is not deployed yet.</div>';
+                
+                // Reset button
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            });
+        });
+    </script>
+</body>
+</html>
