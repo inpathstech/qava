@@ -92,10 +92,20 @@
             align-items: center;
             position: relative;
             gap: 4px;
+            text-decoration: none;
         }
 
         .nav-item:hover {
             background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        /* Ensure navigation links work properly */
+        .nav-item:visited {
+            color: #000000;
+        }
+
+        .nav-item:active {
             color: #000000;
         }
 
@@ -297,10 +307,20 @@
             color: #000000;
             transition: color 0.2s ease;
             cursor: pointer;
+            text-decoration: none;
         }
 
         .mobile-nav-item:hover {
             color: rgba(55, 53, 47, 1);
+        }
+
+        /* Ensure mobile navigation links work properly */
+        .mobile-nav-item:visited {
+            color: #000000;
+        }
+
+        .mobile-nav-item:active {
+            color: #000000;
         }
 
         .mobile-auth-section {
