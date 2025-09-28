@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qava Complete Page</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>Qava</title>
+    <link rel="icon" type="image/svg+xml" href="qava-logo.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -571,10 +571,20 @@
             transition: all 0.2s ease;
             font-family: inherit;
             height: 27.6px;
+            text-decoration: none;
         }
 
         .hero-demo-button:hover {
             background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        /* Ensure hero demo button link works properly */
+        .hero-demo-button:visited {
+            color: #000000;
+        }
+
+        .hero-demo-button:active {
             color: #000000;
         }
 
@@ -2589,9 +2599,9 @@
                     <a href="https://app.qava.ai/" class="hero-join-button">
                         <span class="hero-join-text">Join for free</span>
                     </a>
-                    <div class="hero-demo-button">
+                    <a href="https://qava.ai/request-demo" class="hero-demo-button">
                         <span class="hero-demo-text">Request a demo</span>
-                    </div>
+                    </a>
                 </div>
                 
                 <!-- Trusted By Section with Animated Logo Slider -->
@@ -3148,19 +3158,8 @@
                         <ul class="footer-link-list">
                             <li><a href="https://app.qava.ai/" class="footer-link">Create Listing</a></li>
                             <li><a href="https://app.qava.ai/" class="footer-link">Search Listings</a></li>
-                            <li class="footer-dropdown-item">
-                                <a href="#" class="footer-link">How It Works +</a>
-                                <div class="footer-dropdown-menu">
-                                    <a href="https://qava.ai/clienthowitworks" class="footer-dropdown-item">
-                                        <div class="dropdown-title">For Clients 🚀</div>
-                                        <div class="dropdown-subtitle">Hiring for current or future work</div>
-                                    </a>
-                                    <a href="https://qava.ai/talenthowitworks" class="footer-dropdown-item">
-                                        <div class="dropdown-title">For Talent 👩‍💻</div>
-                                        <div class="dropdown-subtitle">Interested in current or future work</div>
-                                    </a>
-                                </div>
-                            </li>
+                            <li><a href="https://qava.ai/clienthowitworks" class="footer-link">How It Works for Clients</a></li>
+                            <li><a href="https://qava.ai/talenthowitworks" class="footer-link">How It Works for Talent</a></li>
                             <li><a href="https://qava.ai/why-qava" class="footer-link">Why Qava</a></li>
                             <li><span class="footer-link disabled-link">What's New</span></li>
                         </ul>
@@ -3168,19 +3167,19 @@
                     <div class="footer-column">
                         <h4 class="footer-heading">Get Started</h4>
                         <ul class="footer-link-list">
-                            <li><a href="https://qava.ai/ai-prompts" class="footer-link">AI Prompts</a></li>
-                            <li><a href="https://qava.ai/templates" class="footer-link">Project Templates</a></li>
-                            <li><a href="https://qava.ai/applicant-tips" class="footer-link">Application Tips</a></li>
                             <li><a href="https://qava.ai/request-demo" class="footer-link">Request a Demo</a></li>
                             <li><a href="https://app.qava.ai/" class="footer-link">Sign Up</a></li>
                             <li><a href="https://app.qava.ai/" class="footer-link">Log In</a></li>
+                            <li><span class="footer-link disabled-link">AI Prompts</span></li>
+                            <li><span class="footer-link disabled-link">Project Templates</span></li>
+                            <li><span class="footer-link disabled-link">Application Tips</span></li>
                         </ul>
                     </div>
                     <div class="footer-column">
                         <h4 class="footer-heading">Resources</h4>
                         <ul class="footer-link-list">
                             <li><a href="https://qava.ai/pricing" class="footer-link">Pricing</a></li>
-                            <li><a href="https://qava.ai/about" class="footer-link">About Us</a></li>
+                            <li><span class="footer-link disabled-link">About Us</span></li>
                             <li><span class="footer-link disabled-link">Careers</span></li>
                             <li><span class="footer-link disabled-link">Media Kit</span></li>
                             <li><span class="footer-link disabled-link">Contact Us</span></li>
@@ -3199,8 +3198,8 @@
                     <div class="footer-column">
                         <h4 class="footer-heading">Legal</h4>
                         <ul class="footer-link-list">
-                            <li><a href="https://qava.ai/terms" class="footer-link">Terms & Privacy</a></li>
-                            <li><a href="https://qava.ai/privacy" class="footer-link">California Privacy Notice</a></li>
+                            <li><a href="terms.html" class="footer-link">Terms & Privacy</a></li>
+                            <li><a href="terms.html" class="footer-link">California Privacy Notice</a></li>
                         </ul>
                     </div>
                     <div class="footer-copyright">

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Why Qava</title>
+    <title>Idea vs Stealth Mode</title>
     <link rel="icon" type="image/svg+xml" href="qava-logo.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -99,8 +99,6 @@
             background-color: rgba(0, 0, 0, 0.06);
             color: #000000;
         }
-
-
 
         .dropdown-arrow {
             color: #000000;
@@ -297,8 +295,6 @@
         .mobile-nav-item:hover {
             color: rgba(55, 53, 47, 1);
         }
-
-
 
         .mobile-auth-section {
             margin-top: 32px;
@@ -569,7 +565,7 @@
             font-size: 48px;
             font-weight: 700;
             color: #000000;
-            margin-bottom: 24px;
+            margin-bottom: 12px;
             line-height: 1.2;
         }
 
@@ -1051,34 +1047,96 @@
             }
         }
 
-        /* Disabled footer links with hover effects */
-        .footer-link.disabled-link {
-            cursor: not-allowed;
-            opacity: 0.6;
-            position: relative;
+        /* Testimonial Section */
+        .testimonial-section {
+            padding: 0 0 80px 0;
+            background: white;
         }
 
-        .footer-link.disabled-link:hover {
-            text-decoration: none;
-            opacity: 0.8;
-            color: #999999;
+        .testimonial-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
-        .footer-link.disabled-link:hover::before {
-            content: "Coming Soon";
-            position: absolute;
-            top: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #000000;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 500;
-            white-space: nowrap;
-            z-index: 1000;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        .testimonial-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .testimonial-quote {
+            font-size: 22px;
+            font-weight: 300;
+            color: #000000;
+            line-height: 1.3;
+            margin-bottom: 40px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .testimonial-attribution {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .testimonial-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .company-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+
+        .company-name {
+            font-size: 14px;
+            font-weight: 400;
+            color: #000000;
+            text-transform: lowercase;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .testimonial-person {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 4px;
+        }
+
+        .person-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #000000;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .person-title {
+            font-size: 14px;
+            font-weight: 400;
+            color: #666666;
+            font-family: 'Inter', sans-serif;
+        }
+
+        @media (max-width: 768px) {
+            .testimonial-quote {
+                font-size: 24px;
+                margin-bottom: 30px;
+            }
+
+            .testimonial-attribution {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .testimonial-person {
+                align-items: center;
+            }
         }
     </style>
 </head>
@@ -1196,164 +1254,74 @@
     <!-- Main Content -->
     <main class="main-content">
         <div class="content-container">
-            <h1 class="page-title">Why Qava?</h1>
-            <p class="page-subtitle">Discover what makes Qava the platform of choice for top talent, leaders, and founders who want to shape strategy, harness AI, and accelerate results.</p>
+            <h1 class="page-title">What mode are you?</h1>
+            <p class="page-subtitle">The journey begins long before the world sees it</p>
             
             <div class="content-section">
-                <h2 class="section-title">Reason 1: Knowledge Work Has Gone Agile</h2>
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <img src="Stealth mode image.png" alt="Leopard in jungle foliage" style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);">
+                </div>
+                <h2 class="section-title">Stealth mode</h2>
                 <p class="section-content">
-                    The way knowledge work gets done has fundamentally changed. Instead of relying on long, expensive consulting engagements, organizations now need fast, insightful, and impactful results.
-                </p>
-                <p class="section-content">
-                    Qava was built for this new reality. Our platform enables clients to engage with exceptional talent on an on-demand basis, who thrive on delivering sharp, strategic insights quickly, while giving ambitious professionals access to opportunities that reflect this new pace of work.
-                </p>
-                <p class="section-content">
-                    At the same time, the sourcing and onboarding of talent has had to accelerate. Businesses can no longer afford weeks of screening or slow hiring cycles; they need curated candidates that can plug in and start adding value almost immediately. Qava makes this possible.
+                    When a startup (or a project within a company) is operating in stealth mode, it's deliberately staying under the radar—keeping its product, strategy, team, and progress secret until it's ready to unveil. We respect this approach: if you're building something special and not yet ready to reveal details, it's perfectly acceptable to simply say your company is "in stealth mode."
                 </p>
                 
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">⚡</div>
-                        <h3 class="feature-title">Faster Turnaround</h3>
-                        <p class="feature-description">
-                            72% of projects on Qava launch within 48 hours, compared to weeks with traditional consulting models.
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">📈</div>
-                        <h3 class="feature-title">Higher Impact, Quicker</h3>
-                        <p class="feature-description">
-                            Clients report delivering outcomes 4x faster than legacy consulting approaches, without sacrificing quality.
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">🔍</div>
-                        <h3 class="feature-title">Agility at Scale</h3>
-                        <p class="feature-description">
-                            Over 80% of projects are scoped, staffed, and in execution within a single week—matching the new pace of business.
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">🎯</div>
-                        <h3 class="feature-title">Outcome-Driven Results</h3>
-                        <p class="feature-description">
-                            91% of clients say Qava projects delivered immediate strategic insights that informed real decisions in under 10 days.
-                        </p>
-                    </div>
-                </div>
+                <p class="section-content">Why companies go stealth:</p>
+                <ul class="section-content" style="padding-left: 20px;">
+                    <li style="margin-bottom: 0px;"><strong style="color: #002bff;">Protect intellectual property:</strong> Prevent rivals from copying your ideas before you've secured patents or a first-mover advantage.</li>
+                    <li style="margin-bottom: 0px;"><strong style="color: #002bff;">Control the narrative:</strong> Maintain focus, avoid hype, and reserve public-facing messaging until launch.</li>
+                    <li style="margin-bottom: 0px;"><strong style="color: #002bff;">Avoid premature attention:</strong> Keep things quiet to deter competitors or shutter noise until you're pressure-tested and polished.</li>
+                </ul>
             </div>
             
             <div class="content-section">
-                <h2 class="section-title">Reason 2: Career Paths Have Been Flipped Upside Down</h2>
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <img src="Idea mode.png" alt="Idea mode illustration" style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);">
+                </div>
+                <h2 class="section-title">Idea mode</h2>
                 <p class="section-content">
-                    The old idea of climbing a single career ladder is fading fast. Professionals today are increasingly building portfolio careers—where they balance multiple roles, projects, and income streams at once—and following the Hollywood model, where teams of specialists come together for a defined project, deliver results, and then move on to the next challenge.
-                </p>
-                <p class="section-content">
-                    Traditional platforms weren't designed for this shift. They tend to reward tenure over outcomes, volume over quality, and visibility over true expertise. Qava is built for the new reality: a world where results matter more than résumés, agility matters more than longevity, and the right project can accelerate a career faster than years of incremental progression.
+                    Idea mode is the initial phase when all you really have is a concept—no product, no team, maybe not even a business. It's that exciting but raw stage where you're building the foundation: validating assumptions, understanding who your customers are, testing hypotheses, sketching rudimentary financial models, and scoping out the competition.
                 </p>
                 
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">🌍</div>
-                        <h3 class="feature-title">Portfolio Careers Rising</h3>
-                        <p class="feature-description">
-                            62% of professionals under 40 say they prefer multiple roles or income streams over a single linear career path.
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">🎬</div>
-                        <h3 class="feature-title">Hollywood Model in Action</h3>
-                        <p class="feature-description">
-                            More than 70% of Qava projects involve teams that assemble for a specific challenge and disband once results are delivered.
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">📊</div>
-                        <h3 class="feature-title">Results Over Résumés</h3>
-                        <p class="feature-description">
-                            89% of clients report prioritizing outcomes and insights over candidate tenure when choosing talent.
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">🚀</div>
-                        <h3 class="feature-title">Career Acceleration</h3>
-                        <p class="feature-description">
-                            78% of Qava professionals say project work has advanced their careers faster than traditional roles ever did.
-                        </p>
-                    </div>
-                </div>
+                <p class="section-content">What happens during idea mode:</p>
+                <ul class="section-content" style="padding-left: 20px;">
+                    <li style="margin-bottom: 0px;"><strong style="color: #002bff;">Customer segmentation:</strong> Who will use/buy this?</li>
+                    <li style="margin-bottom: 0px;"><strong style="color: #002bff;">Problem validation:</strong> Do they actually have the problem you want to solve?</li>
+                    <li style="margin-bottom: 0px;"><strong style="color: #002bff;">Competitor analysis:</strong> Who else is doing something similar? Where's the gap?</li>
+                    <li style="margin-bottom: 0px;"><strong style="color: #002bff;">Financial modeling:</strong> What costs, pricing strategy, revenue streams make sense?</li>
+                    <li style="margin-bottom: 0px;"><strong style="color: #002bff;">Early prototypes or sketches:</strong> A few slides or clickable screens to start testing concept</li>
+                </ul>
             </div>
             
-            <div class="content-section">
-                <h2 class="section-title">Reason 3: Strategy Shouldn't Be a Luxury</h2>
-                <p class="section-content">
-                    In large corporations, dedicated strategy teams and offices are standard. They're filled with smart people who spend their days on deep industry analysis, competitor benchmarking, customer insights, and exploring M&A opportunities. But for startups, growth companies, non-profits, and even ambitious individuals, that level of strategic horsepower has often felt out of reach—something only the biggest enterprises can afford.
-                </p>
-                <p class="section-content">
-                    Qava changes that. By making world-class strategy talent accessible on-demand, we ensure that strategy is no longer a luxury reserved for Fortune 500s. Whether you're a founder mapping your next market, a non-profit exploring new funding models, or a business leader testing growth opportunities, Qava puts the same caliber of strategic insight in your hands.
-                </p>
-                <p class="section-content">
-                    Strategy should be for anyone with a vision—and with Qava, it is.
-                </p>
-                
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">🏢</div>
-                        <h3 class="feature-title">Strategy Is Concentrated</h3>
-                        <p class="feature-description">
-                            94% of Fortune 500 companies have dedicated strategy teams, while fewer than 15% of SMBs can access similar resources.
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">💡</div>
-                        <h3 class="feature-title">Affordable Expertise</h3>
-                        <p class="feature-description">
-                            Qava projects cost up to 80% less than hiring a full-time strategist or engaging a traditional consulting firm.
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">🌱</div>
-                        <h3 class="feature-title">Accessible to All</h3>
-                        <p class="feature-description">
-                            68% of Qava clients are startups, growth companies, or non-profits—organizations historically priced out of strategic support.
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">📈</div>
-                        <h3 class="feature-title">Leveling the Playing Field</h3>
-                        <p class="feature-description">
-                            87% of clients say Qava gave them enterprise-grade strategic insight that they otherwise would not have been able to access.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            
-
-            
-            <div class="content-section">
-                <h2 class="section-title">Join the Revolution</h2>
-                <p class="section-content">
-                    Whether you're a talented professional looking to make an impact, a leader seeking strategic expertise, or a founder building the future, Qava provides the tools, connections, and opportunities you need to succeed in today's rapidly evolving business landscape.
-                </p>
-            </div>
         </div>
     </main>
+
+    <!-- Testimonial Section -->
+    <section class="testimonial-section">
+        <div class="testimonial-container">
+            <div class="testimonial-content">
+                <div class="testimonial-quote">
+                    Over a dozen projects on qava have helped us grow our mission.
+                </div>
+                <div class="testimonial-attribution">
+                    <div class="testimonial-logo">
+                        <img src="Landing Page Trusted by/Cotopaxi logo.png" alt="Cotopaxi" class="company-logo" />
+                    </div>
+                    <div class="testimonial-person">
+                        <div class="person-name">Stella White</div>
+                        <div class="person-title">VP, Sustainability</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer Section -->
     <footer class="footer-section">
         <div class="footer-container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <a href="https://qava.ai/">
+                    <a href="https://qava.ai">
                         <img src="qava-logo.svg" alt="Qava" class="footer-logo-img" />
                     </a>
                 </div>
@@ -1363,48 +1331,48 @@
                         <ul class="footer-link-list">
                             <li><a href="https://app.qava.ai/" class="footer-link">Create Listing</a></li>
                             <li><a href="https://app.qava.ai/" class="footer-link">Search Listings</a></li>
-                            <li><a href="https://qava.ai/clienthowitworks" class="footer-link">How It Works for Clients</a></li>
-                            <li><a href="https://qava.ai/talenthowitworks" class="footer-link">How It Works for Talent</a></li>
-                            <li><a href="https://qava.ai/why-qava" class="footer-link">Why Qava</a></li>
-                            <li><span class="footer-link disabled-link">What's New</span></li>
+                            <li><a href="clienthowitworks" class="footer-link">How It Works for Clients</a></li>
+                            <li><a href="talenthowitworks" class="footer-link">How It Works for Talent</a></li>
+                            <li><a href="why-qava" class="footer-link">Why Qava</a></li>
+                            <li><a href="javascript:void(0)" class="footer-link coming-soon">What's New</a></li>
                         </ul>
                     </div>
                     <div class="footer-column">
                         <h4 class="footer-heading">Get Started</h4>
                         <ul class="footer-link-list">
-                            <li><a href="https://qava.ai/request-demo" class="footer-link">Request a Demo</a></li>
+                            <li><a href="https://app.qava.ai/" class="footer-link">AI Prompts</a></li>
+                            <li><a href="https://app.qava.ai/" class="footer-link">Project Templates</a></li>
+                            <li><a href="https://app.qava.ai/" class="footer-link">Application Tips</a></li>
+                            <li><a href="demo" class="footer-link">Request a Demo</a></li>
                             <li><a href="https://app.qava.ai/" class="footer-link">Sign Up</a></li>
                             <li><a href="https://app.qava.ai/" class="footer-link">Log In</a></li>
-                            <li><span class="footer-link disabled-link">AI Prompts</span></li>
-                            <li><span class="footer-link disabled-link">Project Templates</span></li>
-                            <li><span class="footer-link disabled-link">Application Tips</span></li>
                         </ul>
                     </div>
                     <div class="footer-column">
                         <h4 class="footer-heading">Resources</h4>
                         <ul class="footer-link-list">
                             <li><a href="https://qava.ai/pricing" class="footer-link">Pricing</a></li>
-                            <li><span class="footer-link disabled-link">About Us</span></li>
-                            <li><span class="footer-link disabled-link">Careers</span></li>
-                            <li><span class="footer-link disabled-link">Media Kit</span></li>
-                            <li><span class="footer-link disabled-link">Contact Us</span></li>
+                            <li><a href="#" class="footer-link coming-soon">About Us</a></li>
+                            <li><a href="#" class="footer-link coming-soon">Careers</a></li>
+                            <li><a href="#" class="footer-link coming-soon">Media Kit</a></li>
+                            <li><a href="#" class="footer-link coming-soon">Contact Us</a></li>
                         </ul>
                     </div>
                     <div class="footer-column">
                         <h4 class="footer-heading">Learn</h4>
                         <ul class="footer-link-list">
-                            <li><span class="footer-link disabled-link">Success Stories</span></li>
-                            <li><span class="footer-link disabled-link">Help Center</span></li>
-                            <li><span class="footer-link disabled-link">Webinars</span></li>
-                            <li><span class="footer-link disabled-link">Blog</span></li>
-                            <li><span class="footer-link disabled-link">Community</span></li>
+                            <li><a href="javascript:void(0)" class="footer-link coming-soon">Success Stories</a></li>
+                            <li><a href="javascript:void(0)" class="footer-link coming-soon">Help Center</a></li>
+                            <li><a href="javascript:void(0)" class="footer-link coming-soon">Webinars</a></li>
+                            <li><a href="javascript:void(0)" class="footer-link coming-soon">Blog</a></li>
+                            <li><a href="javascript:void(0)" class="footer-link coming-soon">Community</a></li>
                         </ul>
                     </div>
                     <div class="footer-column">
                         <h4 class="footer-heading">Legal</h4>
                         <ul class="footer-link-list">
-                            <li><a href="terms.html" class="footer-link">Terms & Privacy</a></li>
-                            <li><a href="terms.html" class="footer-link">California Privacy Notice</a></li>
+                            <li><a href="terms" class="footer-link">Terms & Privacy</a></li>
+                            <li><a href="terms" class="footer-link">California Privacy Notice</a></li>
                         </ul>
                     </div>
                     <div class="footer-copyright">

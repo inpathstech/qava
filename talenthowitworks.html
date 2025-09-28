@@ -965,6 +965,36 @@
                 padding: 0 12px;
             }
         }
+
+        /* Disabled footer links with hover effects */
+        .footer-link.disabled-link {
+            cursor: not-allowed;
+            opacity: 0.6;
+            position: relative;
+        }
+
+        .footer-link.disabled-link:hover {
+            text-decoration: none;
+            opacity: 0.8;
+            color: #999999;
+        }
+
+        .footer-link.disabled-link:hover::before {
+            content: "Coming Soon";
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000000;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+            white-space: nowrap;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
     </style>
 </head>
 <body>
@@ -1257,58 +1287,58 @@
         <div class="footer-container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <a href="https://qava.ai">
+                    <a href="https://qava.ai/">
                         <img src="qava-logo.svg" alt="Qava" class="footer-logo-img">
                     </a>
                 </div>
                 <div class="footer-links">
                     <div class="footer-column">
-                        <h4>Welcome</h4>
+                        <h4 class="footer-heading">Welcome</h4>
                         <ul class="footer-link-list">
                             <li><a href="https://app.qava.ai/" class="footer-link">Create Listing</a></li>
                             <li><a href="https://app.qava.ai/" class="footer-link">Search Listings</a></li>
-                            <li><a href="clienthowitworks" class="footer-link">How It Works for Clients</a></li>
-                            <li><a href="talenthowitworks" class="footer-link">How It Works for Talent</a></li>
-                            <li><a href="why-qava" class="footer-link">Why Qava</a></li>
-                            <li><a href="javascript:void(0)" class="footer-link coming-soon">What's New</a></li>
+                            <li><a href="https://qava.ai/clienthowitworks" class="footer-link">How It Works for Clients</a></li>
+                            <li><a href="https://qava.ai/talenthowitworks" class="footer-link">How It Works for Talent</a></li>
+                            <li><a href="https://qava.ai/why-qava" class="footer-link">Why Qava</a></li>
+                            <li><span class="footer-link disabled-link">What's New</span></li>
                         </ul>
                     </div>
                     <div class="footer-column">
-                        <h4>Get Started</h4>
+                        <h4 class="footer-heading">Get Started</h4>
                         <ul class="footer-link-list">
-                            <li><a href="https://app.qava.ai/" class="footer-link">AI Prompts</a></li>
-                            <li><a href="https://app.qava.ai/" class="footer-link">Project Templates</a></li>
-                            <li><a href="https://app.qava.ai/" class="footer-link">Application Tips</a></li>
-                            <li><a href="demo" class="footer-link">Request a Demo</a></li>
+                            <li><a href="https://qava.ai/request-demo" class="footer-link">Request a Demo</a></li>
                             <li><a href="https://app.qava.ai/" class="footer-link">Sign Up</a></li>
                             <li><a href="https://app.qava.ai/" class="footer-link">Log In</a></li>
+                            <li><span class="footer-link disabled-link">AI Prompts</span></li>
+                            <li><span class="footer-link disabled-link">Project Templates</span></li>
+                            <li><span class="footer-link disabled-link">Application Tips</span></li>
                         </ul>
                     </div>
                     <div class="footer-column">
-                        <h4>Resources</h4>
+                        <h4 class="footer-heading">Resources</h4>
                         <ul class="footer-link-list">
                             <li><a href="https://qava.ai/pricing" class="footer-link">Pricing</a></li>
-                            <li><a href="#" class="footer-link coming-soon">About Us</a></li>
-                            <li><a href="#" class="footer-link coming-soon">Careers</a></li>
-                            <li><a href="#" class="footer-link coming-soon">Media Kit</a></li>
-                            <li><a href="#" class="footer-link coming-soon">Contact Us</a></li>
+                            <li><span class="footer-link disabled-link">About Us</span></li>
+                            <li><span class="footer-link disabled-link">Careers</span></li>
+                            <li><span class="footer-link disabled-link">Media Kit</span></li>
+                            <li><span class="footer-link disabled-link">Contact Us</span></li>
                         </ul>
                     </div>
                     <div class="footer-column">
-                        <h4>Learn</h4>
+                        <h4 class="footer-heading">Learn</h4>
                         <ul class="footer-link-list">
-                            <li><a href="javascript:void(0)" class="footer-link coming-soon">Success Stories</a></li>
-                            <li><a href="javascript:void(0)" class="footer-link coming-soon">Help Center</a></li>
-                            <li><a href="javascript:void(0)" class="footer-link coming-soon">Webinars</a></li>
-                            <li><a href="javascript:void(0)" class="footer-link coming-soon">Blog</a></li>
-                            <li><a href="javascript:void(0)" class="footer-link coming-soon">Community</a></li>
+                            <li><span class="footer-link disabled-link">Success Stories</span></li>
+                            <li><span class="footer-link disabled-link">Help Center</span></li>
+                            <li><span class="footer-link disabled-link">Webinars</span></li>
+                            <li><span class="footer-link disabled-link">Blog</span></li>
+                            <li><span class="footer-link disabled-link">Community</span></li>
                         </ul>
                     </div>
                     <div class="footer-column">
-                        <h4>Legal</h4>
+                        <h4 class="footer-heading">Legal</h4>
                         <ul class="footer-link-list">
-                            <li><a href="terms" class="footer-link">Terms & Privacy</a></li>
-                            <li><a href="terms" class="footer-link">California Privacy Notice</a></li>
+                            <li><a href="terms.html" class="footer-link">Terms & Privacy</a></li>
+                            <li><a href="terms.html" class="footer-link">California Privacy Notice</a></li>
                         </ul>
                     </div>
                     <div class="footer-copyright">
