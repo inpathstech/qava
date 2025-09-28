@@ -157,10 +157,21 @@
             border-radius: 6px;
             cursor: pointer;
             transition: background-color 0.2s ease;
+            text-decoration: none;
+            display: block;
         }
 
         .dropdown-item:hover {
             background-color: rgba(55, 53, 47, 0.04);
+        }
+
+        /* Ensure dropdown links work properly */
+        .dropdown-item:visited {
+            color: inherit;
+        }
+
+        .dropdown-item:active {
+            color: inherit;
         }
 
         .dropdown-title {
@@ -399,10 +410,21 @@
             padding: 16px 24px;
             border-bottom: none;
             cursor: pointer;
+            text-decoration: none;
+            display: block;
         }
 
         .mobile-dropdown-item:hover {
             background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        /* Ensure mobile dropdown links work properly */
+        .mobile-dropdown-item:visited {
+            color: inherit;
+        }
+
+        .mobile-dropdown-item:active {
+            color: inherit;
         }
 
         .mobile-dropdown-item .dropdown-title {
@@ -2008,6 +2030,36 @@
             text-decoration: underline;
         }
 
+        /* Disabled footer links with hover effects */
+        .footer-link.disabled-link {
+            cursor: not-allowed;
+            opacity: 0.6;
+            position: relative;
+        }
+
+        .footer-link.disabled-link:hover {
+            text-decoration: none;
+            opacity: 0.8;
+            color: #999999;
+        }
+
+        .footer-link.disabled-link:hover::before {
+            content: "Coming Soon";
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000000;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+            white-space: nowrap;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
         /* Footer Dropdown Styles */
         .footer-dropdown-item {
             position: relative;
@@ -2434,14 +2486,14 @@
                         <path d="M6 3v6M3 6h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     <div class="dropdown-menu">
-                        <div class="dropdown-item">
+                        <a href="https://qava.ai/how-it-works-clients" class="dropdown-item">
                             <div class="dropdown-title">For Clients 🚀</div>
                             <div class="dropdown-subtitle">Hiring for current or future work</div>
-                        </div>
-                        <div class="dropdown-item">
+                        </a>
+                        <a href="https://qava.ai/how-it-works-talent" class="dropdown-item">
                             <div class="dropdown-title">For Talent 👩‍💻</div>
                             <div class="dropdown-subtitle">Interested in current or future work</div>
-                        </div>
+                        </a>
                     </div>
                 </div>
                 <a href="https://qava.ai/why-qava" class="nav-item why-qava">
@@ -2492,14 +2544,14 @@
             </div>
         </div>
         <div class="mobile-dropdown-content" id="mobileDropdown">
-            <div class="mobile-dropdown-item">
+            <a href="https://qava.ai/how-it-works-clients" class="mobile-dropdown-item">
                 <div class="dropdown-title">For Clients 🚀</div>
                 <div class="dropdown-subtitle">Hiring for current or future work</div>
-            </div>
-            <div class="mobile-dropdown-item">
+            </a>
+            <a href="https://qava.ai/how-it-works-talent" class="mobile-dropdown-item">
                 <div class="dropdown-title">For Talent 👩‍💻</div>
                 <div class="dropdown-subtitle">Interested in current or future work</div>
-            </div>
+            </a>
         </div>
         <a href="https://qava.ai/why-qava" class="mobile-nav-item">
             <div class="nav-text">Why Qava</div>
@@ -3099,7 +3151,7 @@
                                 </div>
                             </li>
                             <li><a href="https://qava.ai/why-qava" class="footer-link">Why Qava</a></li>
-                            <li><a href="https://qava.ai/whats-new" class="footer-link">What's New</a></li>
+                            <li><span class="footer-link disabled-link">What's New</span></li>
                         </ul>
                     </div>
                     <div class="footer-column">
@@ -3118,19 +3170,19 @@
                         <ul class="footer-link-list">
                             <li><a href="https://qava.ai/pricing" class="footer-link">Pricing</a></li>
                             <li><a href="https://qava.ai/about" class="footer-link">About Us</a></li>
-                            <li><a href="https://qava.ai/careers" class="footer-link">Careers</a></li>
-                            <li><a href="https://qava.ai/media-kit" class="footer-link">Media Kit</a></li>
-                            <li><a href="https://qava.ai/contact" class="footer-link">Contact Us</a></li>
+                            <li><span class="footer-link disabled-link">Careers</span></li>
+                            <li><span class="footer-link disabled-link">Media Kit</span></li>
+                            <li><span class="footer-link disabled-link">Contact Us</span></li>
                         </ul>
                     </div>
                     <div class="footer-column">
                         <h4 class="footer-heading">Learn</h4>
                         <ul class="footer-link-list">
-                            <li><a href="https://qava.ai/success-stories" class="footer-link">Success Stories</a></li>
-                            <li><a href="https://qava.ai/help-center" class="footer-link">Help Center</a></li>
-                            <li><a href="https://qava.ai/webinars" class="footer-link">Webinars</a></li>
-                            <li><a href="https://qava.ai/blog" class="footer-link">Blog</a></li>
-                            <li><a href="https://qava.ai/community" class="footer-link">Community</a></li>
+                            <li><span class="footer-link disabled-link">Success Stories</span></li>
+                            <li><span class="footer-link disabled-link">Help Center</span></li>
+                            <li><span class="footer-link disabled-link">Webinars</span></li>
+                            <li><span class="footer-link disabled-link">Blog</span></li>
+                            <li><span class="footer-link disabled-link">Community</span></li>
                         </ul>
                     </div>
                     <div class="footer-column">
