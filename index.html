@@ -2091,10 +2091,21 @@
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.2s ease;
+            text-decoration: none;
+            display: block;
         }
 
         .footer-dropdown-menu .footer-dropdown-item:hover {
             background-color: rgba(55, 53, 47, 0.04);
+        }
+
+        /* Ensure footer dropdown links work properly */
+        .footer-dropdown-menu .footer-dropdown-item:visited {
+            color: inherit;
+        }
+
+        .footer-dropdown-menu .footer-dropdown-item:active {
+            color: inherit;
         }
 
         .footer-copyright {
@@ -2486,11 +2497,11 @@
                         <path d="M6 3v6M3 6h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     <div class="dropdown-menu">
-                        <a href="https://qava.ai/how-it-works-clients" class="dropdown-item">
+                        <a href="https://qava.ai/clienthowitworks" class="dropdown-item">
                             <div class="dropdown-title">For Clients 🚀</div>
                             <div class="dropdown-subtitle">Hiring for current or future work</div>
                         </a>
-                        <a href="https://qava.ai/how-it-works-talent" class="dropdown-item">
+                        <a href="https://qava.ai/talenthowitworks" class="dropdown-item">
                             <div class="dropdown-title">For Talent 👩‍💻</div>
                             <div class="dropdown-subtitle">Interested in current or future work</div>
                         </a>
@@ -2544,11 +2555,11 @@
             </div>
         </div>
         <div class="mobile-dropdown-content" id="mobileDropdown">
-            <a href="https://qava.ai/how-it-works-clients" class="mobile-dropdown-item">
+            <a href="https://qava.ai/clienthowitworks" class="mobile-dropdown-item">
                 <div class="dropdown-title">For Clients 🚀</div>
                 <div class="dropdown-subtitle">Hiring for current or future work</div>
             </a>
-            <a href="https://qava.ai/how-it-works-talent" class="mobile-dropdown-item">
+            <a href="https://qava.ai/talenthowitworks" class="mobile-dropdown-item">
                 <div class="dropdown-title">For Talent 👩‍💻</div>
                 <div class="dropdown-subtitle">Interested in current or future work</div>
             </a>
@@ -3140,14 +3151,14 @@
                             <li class="footer-dropdown-item">
                                 <a href="#" class="footer-link">How It Works +</a>
                                 <div class="footer-dropdown-menu">
-                                    <div class="footer-dropdown-item">
+                                    <a href="https://qava.ai/clienthowitworks" class="footer-dropdown-item">
                                         <div class="dropdown-title">For Clients 🚀</div>
                                         <div class="dropdown-subtitle">Hiring for current or future work</div>
-                                    </div>
-                                    <div class="footer-dropdown-item">
+                                    </a>
+                                    <a href="https://qava.ai/talenthowitworks" class="footer-dropdown-item">
                                         <div class="dropdown-title">For Talent 👩‍💻</div>
                                         <div class="dropdown-subtitle">Interested in current or future work</div>
-                                    </div>
+                                    </a>
                                 </div>
                             </li>
                             <li><a href="https://qava.ai/why-qava" class="footer-link">Why Qava</a></li>
