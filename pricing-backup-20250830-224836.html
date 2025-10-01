@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - Qava</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            background-color: white;
+        }
+
+        /* NAVBAR STYLES */
+        .header-container {
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 16px 32px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 64px;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            overflow: visible;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .header-center {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex: 1;
+            margin-left: 40px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 36px;
+            height: 36px;
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            position: relative;
+            gap: 4px;
+        }
+
+        .nav-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .dropdown-arrow {
+            color: #000000;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-item:hover .dropdown-arrow {
+            color: #000000;
+        }
+
+        .nav-item.has-dropdown:hover .dropdown-arrow {
+            transform: rotate(45deg);
+        }
+
+        .nav-text {
+            color: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            white-space: nowrap;
+        }
+
+        /* Dropdown Menu Styles */
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 8px;
+            min-width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 10000;
+        }
+
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-item {
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.04);
+        }
+
+        .dropdown-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 2px;
+        }
+
+        .dropdown-subtitle {
+            font-size: 13px;
+            font-weight: 300;
+            color: rgba(55, 53, 47, 0.6);
+            line-height: 1.3;
+        }
+
+        .auth-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .auth-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .auth-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .auth-text-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .divider {
+            display: none;
+        }
+
+        .join-button {
+            padding: 6px 12px;
+            background: #0F62FE;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            font-family: inherit;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .join-button:hover {
+            background: #0053E5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
+        }
+
+        .join-text {
+            color: white;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        /* Hamburger Menu Styles */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            padding: 6px;
+            z-index: 1001;
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+        }
+
+        .hamburger-menu:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        .hamburger-line {
+            width: 18px;
+            height: 2px;
+            background-color: #000000;
+            margin: 2px 0;
+            transition: 0.2s ease;
+            border-radius: 1px;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: white;
+            z-index: 1000;
+            flex-direction: column;
+            padding: 80px 16px 32px 16px;
+            overflow-y: auto;
+            animation: slideDown 0.2s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-nav-item {
+            padding: 16px 24px;
+            border-bottom: none;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 400;
+            color: #000000;
+            transition: color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .mobile-nav-item:hover {
+            color: rgba(55, 53, 47, 1);
+        }
+
+        .mobile-auth-section {
+            margin-top: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-top: 32px;
+            border-top: none;
+        }
+
+        .mobile-auth-section .mobile-nav-item {
+            text-align: left;
+            font-size: 13px;
+            padding: 16px 24px;
+            border-radius: 6px;
+            border-bottom: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .mobile-auth-section .mobile-nav-item:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        .mobile-auth-section .join-button {
+            padding: 12px 16px;
+            font-size: 13px;
+            border-radius: 6px;
+            margin-top: 8px;
+            align-self: flex-start;
+        }
+
+        /* Mobile Dropdown Styles */
+        .mobile-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .mobile-dropdown-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .mobile-dropdown-arrow {
+            font-size: 13px;
+            transition: all 0.2s ease;
+            color: rgba(55, 53, 47, 0.6);
+        }
+
+        .mobile-dropdown-toggle.active .mobile-dropdown-arrow::before {
+            content: "−";
+        }
+        
+        .mobile-dropdown-toggle.active .mobile-dropdown-arrow {
+            opacity: 0;
+        }
+
+        .mobile-dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: rgba(55, 53, 47, 0.04);
+            border-radius: 6px;
+            margin: 0 16px 8px 16px;
+        }
+
+        .mobile-dropdown-content.active {
+            max-height: 200px;
+            padding: 8px 0;
+        }
+
+        .mobile-dropdown-item {
+            padding: 16px 24px;
+            border-bottom: none;
+            cursor: pointer;
+        }
+
+        .mobile-dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        .mobile-dropdown-item .dropdown-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 2px;
+        }
+
+        .mobile-dropdown-item .dropdown-subtitle {
+            font-size: 13px;
+            font-weight: 300;
+            color: rgba(55, 53, 47, 0.6);
+            line-height: 1.3;
+        }
+
+        /* Specific styling for the second dropdown item */
+        .dropdown-item:nth-child(2) .dropdown-subtitle,
+        .mobile-dropdown-item:nth-child(2) .dropdown-subtitle {
+            font-weight: 300;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 13px;
+            cursor: pointer;
+            color: #000000;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            transition: background-color 0.2s ease;
+        }
+
+        .close-menu:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        /* PRICING CONTENT STYLES */
+        .pricing-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 32px;
+            min-height: 60vh;
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .pricing-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 16px;
+        }
+
+        .pricing-subtitle {
+            font-size: 18px;
+            font-weight: 300;
+            color: rgba(0, 0, 0, 0.7);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Toggle Tabs */
+        .pricing-tabs {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 60px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 4px;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+            gap: 8px;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 8px 4px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 300;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #0F62FE, #0053E5);
+            color: white;
+        }
+
+        .tab-button:hover:not(.active) {
+            background: rgba(15, 98, 254, 0.1);
+            color: #0F62FE;
+        }
+
+        /* Currency Selector */
+        .currency-selector {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 300;
+            color: #666;
+            position: relative;
+            margin-top: auto;
+            align-self: flex-start;
+        }
+
+        .currency-dropdown {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+        }
+
+        .currency-dropdown:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        #currency-arrow {
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .currency-selector:hover #currency-arrow {
+            transform: rotate(45deg);
+        }
+
+        .currency-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 8px;
+            min-width: 120px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 10000;
+            margin-top: 8px;
+        }
+
+        .currency-selector:hover .currency-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .currency-option {
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 14px;
+        }
+
+        .currency-option:hover {
+            background-color: rgba(15, 98, 254, 0.1);
+        }
+
+        .currency-option.active {
+            background-color: rgba(15, 98, 254, 0.1);
+            color: #0F62FE;
+            font-weight: 500;
+        }
+
+        /* Pricing Table */
+        .pricing-table {
+            background: white;
+            border-radius: 16px;
+            overflow: visible;
+            margin-bottom: 50px;
+        }
+
+        /* Handle hidden attribute */
+        .pricing-table[hidden] {
+            display: none !important;
+        }
+        
+
+        
+
+        
+
+        
+
+        
+
+
+
+
+
+
+
+
+
+
+        .pricing-plans {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0;
+        }
+
+
+
+        .plan-column {
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            border-right: 1px solid #f0f0f0;
+        }
+
+        .plan-column:last-child {
+            border-right: none;
+        }
+
+        .plan-column .plan-name {
+            margin-bottom: 0px !important;
+        }
+
+        .plan-column .plan-badge {
+            margin-bottom: 0px !important;
+        }
+
+        .plan-column .plan-description {
+            margin-bottom: 0px !important;
+        }
+
+        .plan-column .plan-price {
+            margin-bottom: 0px !important;
+        }
+
+        .plan-column .plan-period {
+            margin-bottom: 0px !important;
+        }
+
+        .plan-header-row {
+            background: white;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .plan-header-row .feature-info {
+            text-align: left;
+        }
+
+        .plan-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 0px;
+        }
+
+        .plan-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 0px;
+        }
+
+        .badge-starter {
+            background: #f0f8ff;
+            color: #0F62FE;
+        }
+
+        .badge-popular {
+            background: #f0fff0;
+            color: #28a745;
+        }
+
+        .badge-accelerator {
+            background: #fff0f0;
+            color: #dc3545;
+        }
+
+        .plan-description {
+            font-size: 14px;
+            font-weight: 300;
+            color: #666;
+            line-height: 1.4;
+            margin-bottom: 0px;
+        }
+
+        .plan-price {
+            font-size: 32px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 0px;
+        }
+
+        .plan-price-currency {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .plan-period {
+            font-size: 14px;
+            font-weight: 300;
+            color: #666;
+            margin-bottom: 0px;
+        }
+
+        /* Features Section */
+        .features-section {
+        }
+
+        .feature-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            align-items: center;
+            padding: 12px 32px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+
+
+        .feature-row:last-child {
+            border-bottom: none;
+        }
+
+        .feature-info {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .feature-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 4px;
+        }
+
+        .feature-description {
+            font-size: 14px;
+            font-weight: 300;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .feature-value {
+            text-align: center;
+            font-size: 16px;
+            font-weight: 300;
+            color: #000000;
+        }
+
+        .feature-check {
+            background-image: url('Yes tick-1.svg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 16px 16px;
+            width: 16px;
+            height: 16px;
+            margin: 0 auto;
+        }
+
+        .feature-dash {
+            color: #ccc;
+            font-size: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .pricing-plans {
+                grid-template-columns: 1fr;
+            }
+
+            .plan-column {
+                border-right: none;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            .plan-column:last-child {
+                border-bottom: none;
+            }
+
+            .feature-row {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                text-align: center;
+            }
+
+            .feature-info {
+                text-align: center;
+            }
+
+            .pricing-tabs {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .currency-selector {
+                margin-left: 0;
+                margin-top: 16px;
+                justify-content: center;
+            }
+        }
+
+        /* Footer Section */
+        .footer-section {
+            background: white;
+            width: 100%;
+            max-width: 1070px;
+            margin: 0 auto;
+            padding: 78px 0 46px 0;
+            margin-top: 50px;
+            border-top: 1px solid #EBEBEB;
+        }
+
+        .footer-container {
+            max-width: 940px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .footer-logo {
+            width: 39%;
+            padding: 2px 15px 0 0;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo-img {
+            width: 40px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            width: 60%;
+            gap: 25px 25px;
+            padding: 0 15px 0 10px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-heading {
+            font-family: 'Inter', sans-serif;
+            font-size: 17px;
+            color: #000000;
+            margin-bottom: 15px;
+            font-weight: 600;
+            margin: 0 0 15px 0;
+        }
+
+        .footer-link-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .footer-link-list li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+            text-decoration: none;
+            line-height: 1.2;
+            transition: text-decoration 0.2s ease;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer Dropdown Styles */
+        .footer-dropdown-item {
+            position: relative;
+        }
+
+        .footer-dropdown-menu {
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 8px;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 10000;
+        }
+
+        .footer-dropdown-item:hover .footer-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .footer-dropdown-menu .footer-dropdown-item {
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .footer-dropdown-menu .footer-dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.04);
+        }
+
+        .footer-copyright {
+            grid-column: 1 / -1;
+            margin-top: 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 16px 16px;
+            }
+
+            .header-center {
+                display: none;
+            }
+
+            .hamburger-menu {
+                display: flex;
+            }
+
+            .pricing-content {
+                padding: 60px 16px;
+            }
+
+            .pricing-title {
+                font-size: 36px;
+            }
+
+            .pricing-subtitle {
+                font-size: 16px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+            }
+
+            .footer-logo {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .footer-links {
+                width: 100%;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-links {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Testimonial Section */
+        .testimonial-section {
+            padding: 0 0 80px 0;
+            background: white;
+        }
+
+        .testimonial-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .testimonial-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .testimonial-quote {
+            font-size: 22px;
+            font-weight: 300;
+            color: #000000;
+            line-height: 1.3;
+            margin-bottom: 40px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .testimonial-attribution {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .testimonial-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .company-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+
+        .company-name {
+            font-size: 14px;
+            font-weight: 400;
+            color: #000000;
+            text-transform: lowercase;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .testimonial-person {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 4px;
+        }
+
+        .person-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #000000;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .person-title {
+            font-size: 14px;
+            font-weight: 400;
+            color: #666666;
+            font-family: 'Inter', sans-serif;
+        }
+
+        @media (max-width: 768px) {
+            .testimonial-quote {
+                font-size: 24px;
+                margin-bottom: 30px;
+            }
+
+            .testimonial-attribution {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .testimonial-person {
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="header-container">
+        <!-- Logo on the left -->
+        <div class="header-logo">
+            <div class="logo-container">
+                <div class="logo">
+                    <a href="qava-landing-page-v2-august-29th-2025.html">
+                        <img src="qava-logo.svg" alt="Qava Logo">
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation in the center -->
+        <div class="header-center">
+            <div class="navigation">
+                <div class="nav-item create-listing">
+                    <div class="nav-text">Create Listing</div>
+                </div>
+                <div class="nav-item search-listings">
+                    <div class="nav-text">Search Listings</div>
+                </div>
+                <div class="nav-item how-it-works has-dropdown">
+                    <div class="nav-text">How It Works</div>
+                    <span class="dropdown-arrow">+</span>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-item">
+                            <div class="dropdown-title">For Clients 🚀</div>
+                            <div class="dropdown-subtitle">Hiring for current or future work</div>
+                        </div>
+                        <div class="dropdown-item">
+                            <div class="dropdown-title">For Talent 👩‍💻</div>
+                            <div class="dropdown-subtitle">Interested in current or future work</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item why-qava">
+                    <div class="nav-text">Why Qava</div>
+                </div>
+                <div class="nav-item pricing">
+                    <div class="nav-text">Pricing</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Auth section on the right -->
+        <div class="header-right">
+            <div class="auth-section">
+                <div class="auth-item">
+                    <div class="nav-text">Request a demo</div>
+                </div>
+                <a href="https://app.qava.ai/" class="auth-item">
+                    <div class="nav-text">Log in</div>
+                </a>
+                <a href="https://app.qava.ai/" class="join-button">
+                    <div class="join-text">Join for free</div>
+                </a>
+            </div>
+            
+            <!-- Hamburger Menu Button -->
+            <div class="hamburger-menu" onclick="toggleMobileMenu()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
+        <div class="mobile-nav-item">
+            <div class="nav-text">Create Listing</div>
+        </div>
+        <div class="mobile-nav-item">
+            <div class="nav-text">Search Listings</div>
+        </div>
+        <div class="mobile-nav-item mobile-dropdown-toggle" onclick="toggleMobileDropdown()">
+            <div class="mobile-dropdown-header">
+                <div class="nav-text">How It Works</div>
+                <span class="mobile-dropdown-arrow">+</span>
+            </div>
+        </div>
+        <div class="mobile-dropdown-content" id="mobileDropdown">
+            <div class="mobile-dropdown-item">
+                <div class="dropdown-title">For Clients 🚀</div>
+                <div class="dropdown-subtitle">Hiring for current or future work</div>
+            </div>
+            <div class="mobile-dropdown-item">
+                <div class="dropdown-title">For Talent 👩‍💻</div>
+                <div class="dropdown-subtitle">Interested in current or future work</div>
+            </div>
+        </div>
+        <div class="mobile-nav-item">
+            <div class="nav-text">Why Qava</div>
+        </div>
+        <div class="mobile-nav-item">
+            <div class="nav-text">Pricing</div>
+        </div>
+        <div class="mobile-auth-section">
+            <div class="mobile-nav-item">Request a demo</div>
+            <a href="https://app.qava.ai/" class="mobile-nav-item">Log in</a>
+            <a href="https://app.qava.ai/" class="join-button">
+                <div class="join-text">Join for free</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Pricing Content -->
+    <div class="pricing-content">
+        <div class="pricing-header">
+            <h1 class="pricing-title">Pricing</h1>
+            <p class="pricing-subtitle">Tired of complicated pricing tiers? Us too.</p>
+        </div>
+        
+        <!-- Toggle Tabs -->
+        <div class="pricing-tabs">
+            <button class="tab-button active" type="button" data-tab="projects" onclick="switchTab('projects')">Projects</button>
+            <button class="tab-button" type="button" data-tab="jobs" onclick="switchTab('jobs')">Jobs</button>
+            <button class="tab-button" type="button" data-tab="internships" onclick="switchTab('internships')">Internships</button>
+        </div>
+
+
+
+        <!-- Project Listings Pricing Table -->
+        <div class="pricing-table" id="projects-table" data-panel="projects">
+            <div class="features-section">
+                <div class="feature-row plan-header-row">
+                    <div class="feature-info">
+                        <div class="feature-name"></div>
+                        <div class="feature-description"></div>
+                        <div class="currency-selector">
+                            <div class="currency-dropdown">
+                                <span id="current-currency">USD $</span> <span id="currency-arrow">+</span>
+                            </div>
+                            <div class="currency-menu">
+                                <div class="currency-option active" onclick="switchCurrency('USD', '$')">USD $</div>
+                                <div class="currency-option" onclick="switchCurrency('AUD', 'A$')">AUD A$</div>
+                                <div class="currency-option" onclick="switchCurrency('BRL', 'R$')">BRL R$</div>
+                                <div class="currency-option" onclick="switchCurrency('CAD', 'C$')">CAD C$</div>
+                                <div class="currency-option" onclick="switchCurrency('CNY', '¥')">CNY ¥</div>
+                                <div class="currency-option" onclick="switchCurrency('EUR', '€')">EUR €</div>
+                                <div class="currency-option" onclick="switchCurrency('GBP', '£')">GBP £</div>
+                                <div class="currency-option" onclick="switchCurrency('INR', '₹')">INR ₹</div>
+                                <div class="currency-option" onclick="switchCurrency('JPY', '¥')">JPY ¥</div>
+                                <div class="currency-option" onclick="switchCurrency('KRW', '₩')">KRW ₩</div>
+                                <div class="currency-option" onclick="switchCurrency('MXN', '$')">MXN $</div>
+                                <div class="currency-option" onclick="switchCurrency('NZD', 'NZ$')">NZD NZ$</div>
+                                <div class="currency-option" onclick="switchCurrency('SGD', 'S$')">SGD S$</div>
+                                <div class="currency-option" onclick="switchCurrency('ZAR', 'R')">ZAR R</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="plan-column">
+                        <div class="plan-name">Basic</div>
+                        <div class="plan-badge badge-starter">Starter 🏁</div>
+                        <div class="plan-description">Perfect for first-timers testing the waters or on a tight budget.</div>
+                        <div class="plan-price">
+                            <span class="plan-price-currency" data-usd="$" data-eur="€" data-inr="₹" data-gbp="£" data-cny="¥" data-jpy="¥" data-krw="₩" data-cad="C$" data-brl="R$" data-aud="A$" data-sgd="S$" data-nzd="NZ$" data-zar="R" data-mxn="$">$</span><span class="plan-price-amount" data-usd="49" data-eur="45" data-inr="4083" data-gbp="38" data-cny="353" data-jpy="7350" data-krw="65500" data-cad="66" data-brl="245" data-aud="74" data-sgd="66" data-nzd="80" data-zar="920" data-mxn="820">49</span>
+                        </div>
+                        <div class="plan-period">p/listing</div>
+                    </div>
+                    <div class="plan-column">
+                        <div class="plan-name">Premium</div>
+                        <div class="plan-badge badge-popular">Most popular ⭐️</div>
+                        <div class="plan-description">Ideal for those ready for strong talent without breaking the bank.</div>
+                        <div class="plan-price">
+                            <span class="plan-price-currency" data-usd="$" data-eur="€" data-inr="₹" data-gbp="£" data-cny="¥" data-jpy="¥" data-krw="₩" data-cad="C$" data-brl="R$" data-aud="A$" data-sgd="S$" data-nzd="NZ$" data-zar="R" data-mxn="$">$</span><span class="plan-price-amount" data-usd="79" data-eur="73" data-inr="6583" data-gbp="62" data-cny="569" data-jpy="11850" data-krw="105500" data-cad="107" data-brl="395" data-aud="119" data-sgd="107" data-nzd="129" data-zar="1480" data-mxn="1320">79</span>
+                        </div>
+                        <div class="plan-period">p/listing</div>
+                    </div>
+                    <div class="plan-column">
+                        <div class="plan-name">Accelerator</div>
+                        <div class="plan-badge badge-accelerator">Best performing 🚀</div>
+                        <div class="plan-description">Best for fast movers who want priority placement in search.</div>
+                        <div class="plan-price">
+                            <span class="plan-price-currency" data-usd="$" data-eur="€" data-inr="₹" data-gbp="£" data-cny="¥" data-jpy="¥" data-krw="₩" data-cad="C$" data-brl="R$" data-aud="A$" data-sgd="S$" data-nzd="NZ$" data-zar="R" data-mxn="$">$</span><span class="plan-price-amount" data-usd="119" data-eur="110" data-inr="9917" data-gbp="94" data-cny="857" data-jpy="17850" data-krw="159000" data-cad="162" data-brl="595" data-aud="179" data-sgd="162" data-nzd="195" data-zar="2240" data-mxn="1990">119</span>
+                        </div>
+                        <div class="plan-period">p/listing</div>
+                    </div>
+                </div>
+                <div class="feature-row">
+                    <div class="feature-info">
+                        <div class="feature-name">Access to top talent</div>
+                        <div class="feature-description">We source from top schools including HBS, Wharton, and top consulting clubs.</div>
+                    </div>
+                    <div class="feature-value feature-check"></div>
+                    <div class="feature-value feature-check"></div>
+                    <div class="feature-value feature-check"></div>
+                </div>
+                <div class="feature-row">
+                    <div class="feature-info">
+                        <div class="feature-name">Satisfaction guarantee</div>
+                        <div class="feature-description">If you are truly disappointed, we'll refund 100% of your listing price—no questions asked.</div>
+                    </div>
+                    <div class="feature-value feature-check"></div>
+                    <div class="feature-value feature-check"></div>
+                    <div class="feature-value feature-check"></div>
+                </div>
+                <div class="feature-row">
+                    <div class="feature-info">
+                        <div class="feature-name">Applicant count</div>
+                        <div class="feature-description">Maximum number of applicants you get to choose from.</div>
+                    </div>
+                    <div class="feature-value">3</div>
+                    <div class="feature-value">5</div>
+                    <div class="feature-value">9</div>
+                </div>
+                <div class="feature-row">
+                    <div class="feature-info">
+                        <div class="feature-name">Search boost</div>
+                        <div class="feature-description">Keep your listing at the top of search results.</div>
+                    </div>
+                    <div class="feature-value">1 week</div>
+                    <div class="feature-value">2 weeks</div>
+                    <div class="feature-value">4 weeks</div>
+                </div>
+                <div class="feature-row">
+                    <div class="feature-info">
+                        <div class="feature-name">Featured in newsletter</div>
+                        <div class="feature-description">Number of times your project is promoted in our weekly community newsletter.</div>
+                    </div>
+                    <div class="feature-value feature-dash">--</div>
+                    <div class="feature-value">2 distributions</div>
+                    <div class="feature-value">4 distributions</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Job Listings Pricing Table -->
+        <div class="pricing-table" id="jobs-table" data-panel="jobs">
+            <div class="features-section">
+                <div class="feature-row plan-header-row">
+                    <div class="feature-info">
+                        <div class="feature-name"></div>
+                        <div class="feature-description"></div>
+                        <div class="currency-selector">
+                            <div class="currency-dropdown">
+                                <span id="current-currency">USD $</span> <span id="currency-arrow">+</span>
+                            </div>
+                            <div class="currency-menu">
+                                <div class="currency-option active" onclick="switchCurrency('USD', '$')">USD $</div>
+                                <div class="currency-option" onclick="switchCurrency('AUD', 'A$')">AUD A$</div>
+                                <div class="currency-option" onclick="switchCurrency('BRL', 'R$')">BRL R$</div>
+                                <div class="currency-option" onclick="switchCurrency('CAD', 'C$')">CAD C$</div>
+                                <div class="currency-option" onclick="switchCurrency('CNY', '¥')">CNY ¥</div>
+                                <div class="currency-option" onclick="switchCurrency('EUR', '€')">EUR €</div>
+                                <div class="currency-option" onclick="switchCurrency('GBP', '£')">GBP £</div>
+                                <div class="currency-option" onclick="switchCurrency('INR', '₹')">INR ₹</div>
+                                <div class="currency-option" onclick="switchCurrency('JPY', '¥')">JPY ¥</div>
+                                <div class="currency-option" onclick="switchCurrency('KRW', '₩')">KRW ₩</div>
+                                <div class="currency-option" onclick="switchCurrency('MXN', '$')">MXN $</div>
+                                <div class="currency-option" onclick="switchCurrency('NZD', 'NZ$')">NZD NZ$</div>
+                                <div class="currency-option" onclick="switchCurrency('SGD', 'S$')">SGD S$</div>
+                                <div class="currency-option" onclick="switchCurrency('ZAR', 'R')">ZAR R</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="plan-column">
+                        <div class="plan-name">Basic</div>
+                        <div class="plan-badge badge-starter">Starter 🏁</div>
+                        <div class="plan-description">Perfect for first-timers testing the waters or on a tight budget.</div>
+                        <div class="plan-price">
+                            <span class="plan-price-currency" data-usd="$" data-eur="€" data-inr="₹" data-gbp="£" data-cny="¥" data-jpy="¥" data-krw="₩" data-cad="C$" data-brl="R$" data-aud="A$" data-sgd="S$" data-nzd="NZ$" data-zar="R" data-mxn="$">$</span><span class="plan-price-amount" data-usd="199" data-eur="183" data-inr="16583" data-gbp="156" data-cny="1427" data-jpy="29700" data-krw="264500" data-cad="268" data-brl="985" data-aud="299" data-sgd="268" data-nzd="323" data-zar="3720" data-mxn="3320">199</span>
+                        </div>
+                        <div class="plan-period">p/listing</div>
+                    </div>
+                    <div class="plan-column">
+                        <div class="plan-name">Premium</div>
+                        <div class="plan-badge badge-popular">Most popular ⭐️</div>
+                        <div class="plan-description">Ideal for those ready for strong talent without breaking the bank.</div>
+                        <div class="plan-price">
+                            <span class="plan-price-currency" data-usd="$" data-eur="€" data-inr="₹" data-gbp="£" data-cny="¥" data-jpy="¥" data-krw="₩" data-cad="C$" data-brl="R$" data-aud="A$" data-sgd="S$" data-nzd="NZ$" data-zar="R" data-mxn="$">$</span><span class="plan-price-amount" data-usd="249" data-eur="229" data-inr="20750" data-gbp="195" data-cny="1787" data-jpy="37200" data-krw="331000" data-cad="336" data-brl="1230" data-aud="374" data-sgd="336" data-nzd="404" data-zar="4650" data-mxn="4150">249</span>
+                        </div>
+                        <div class="plan-period">p/listing</div>
+                    </div>
+                    <div class="plan-column">
+                        <div class="plan-name">Accelerator</div>
+                        <div class="plan-badge badge-accelerator">Best performing 🚀</div>
+                        <div class="plan-description">Best for fast movers who want priority placement in search.</div>
+                        <div class="plan-price">
+                            <span class="plan-price-currency" data-usd="$" data-eur="€" data-inr="₹" data-gbp="£" data-cny="¥" data-jpy="¥" data-krw="₩" data-cad="C$" data-brl="R$" data-aud="A$" data-sgd="S$" data-nzd="NZ$" data-zar="R" data-mxn="$">$</span><span class="plan-price-amount" data-usd="299" data-eur="275" data-inr="24917" data-gbp="234" data-cny="2143" data-jpy="44700" data-krw="397000" data-cad="403" data-brl="1475" data-aud="449" data-sgd="403" data-nzd="485" data-zar="5580" data-mxn="4980">299</span>
+                        </div>
+                        <div class="plan-period">p/listing</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="features-section" style="border-top: 1px solid #f0f0f0;">
+                <div class="feature-row">
+                    <div class="feature-info">
+                        <div class="feature-name">Access to top talent</div>
+                        <div class="feature-description">We source from top schools including HBS, Wharton, and top consulting clubs.</div>
+                    </div>
+                    <div class="feature-value feature-check"></div>
+                    <div class="feature-value feature-check"></div>
+                    <div class="feature-value feature-check"></div>
+                </div>
+                <div class="feature-row">
+                    <div class="feature-info">
+                        <div class="feature-name">Satisfaction guarantee</div>
+                        <div class="feature-description">If you are truly disappointed, we'll refund 100% of your listing price—no questions asked.</div>
+                    </div>
+                    <div class="feature-value feature-check"></div>
+                    <div class="feature-value feature-check"></div>
+                    <div class="feature-value feature-check"></div>
+                </div>
+                <div class="feature-row">
+                    <div class="feature-info">
+                        <div class="feature-name">Applicant count</div>
+                        <div class="feature-description">Maximum number of applicants you get to choose from.</div>
+                    </div>
+                    <div class="feature-value">Unlimited</div>
+                    <div class="feature-value">Unlimited</div>
+                    <div class="feature-value">Unlimited</div>
+                </div>
+                <div class="feature-row">
+                    <div class="feature-info">
+                        <div class="feature-name">Search boost</div>
+                        <div class="feature-description">Keep your listing at the top of search results.</div>
+                    </div>
+                    <div class="feature-value">1 week</div>
+                    <div class="feature-value">2 weeks</div>
+                    <div class="feature-value">4 weeks</div>
+                </div>
+                <div class="feature-row">
+                    <div class="feature-info">
+                        <div class="feature-name">Featured in newsletter</div>
+                        <div class="feature-description">Number of times your project is promoted in our weekly community newsletter.</div>
+                    </div>
+                    <div class="feature-value feature-dash">--</div>
+                    <div class="feature-value">2 distributions</div>
+                    <div class="feature-value">4 distributions</div>
+                </div>
+            </div>
+        </div>
+
+
+        
+        <!-- Internship Listings Pricing Table -->
+        <div class="pricing-table" id="internships-table" data-panel="internships">
+            
+            <div class="features-section">
+                <div class="feature-row plan-header-row">
+                    <div class="feature-info">
+                        <div class="feature-name"></div>
+                        <div class="feature-description"></div>
+                        <div class="currency-selector">
+                            <div class="currency-dropdown">
+                                <span id="current-currency">USD $</span> <span id="currency-arrow">+</span>
+                            </div>
+                            <div class="currency-menu">
+                                <div class="currency-option active" onclick="switchCurrency('USD', '$')">USD $</div>
+                                <div class="currency-option" onclick="switchCurrency('AUD', 'A$')">AUD A$</div>
+                                <div class="currency-option" onclick="switchCurrency('BRL', 'R$')">BRL R$</div>
+                                <div class="currency-option" onclick="switchCurrency('CAD', 'C$')">CAD C$</div>
+                                <div class="currency-option" onclick="switchCurrency('CNY', '¥')">CNY ¥</div>
+                                <div class="currency-option" onclick="switchCurrency('EUR', '€')">EUR €</div>
+                                <div class="currency-option" onclick="switchCurrency('GBP', '£')">GBP £</div>
+                                <div class="currency-option" onclick="switchCurrency('INR', '₹')">INR ₹</div>
+                                <div class="currency-option" onclick="switchCurrency('JPY', '¥')">JPY ¥</div>
+                                <div class="currency-option" onclick="switchCurrency('KRW', '₩')">KRW ₩</div>
+                                <div class="currency-option" onclick="switchCurrency('MXN', '$')">MXN $</div>
+                                <div class="currency-option" onclick="switchCurrency('NZD', 'NZ$')">NZD NZ$</div>
+                                <div class="currency-option" onclick="switchCurrency('SGD', 'S$')">SGD S$</div>
+                                <div class="currency-option" onclick="switchCurrency('ZAR', 'R')">ZAR R</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="plan-column">
+                        <div class="plan-name">Basic</div>
+                        <div class="plan-badge badge-starter">Starter 🏁</div>
+                        <div class="plan-description">Perfect for first-timers testing the waters or on a tight budget.</div>
+                        <div class="plan-price">
+                            <span class="plan-price-currency" data-usd="$" data-eur="€" data-inr="₹" data-gbp="£" data-cny="¥" data-jpy="¥" data-krw="₩" data-cad="C$" data-brl="R$" data-aud="A$" data-sgd="S$" data-nzd="NZ$" data-zar="R" data-mxn="$">$</span><span class="plan-price-amount" data-usd="99" data-eur="91" data-inr="8250" data-gbp="78" data-cny="714" data-jpy="14850" data-krw="132000" data-cad="134" data-brl="490" data-aud="149" data-sgd="134" data-nzd="161" data-zar="1850" data-mxn="1650">99</span>
+                        </div>
+                        <div class="plan-period">p/listing</div>
+                    </div>
+                    <div class="plan-column">
+                        <div class="plan-name">Premium</div>
+                        <div class="plan-badge badge-popular">Most popular ⭐️</div>
+                        <div class="plan-description">Ideal for those ready for strong talent without breaking the bank.</div>
+                        <div class="plan-price">
+                            <span class="plan-price-currency" data-usd="$" data-eur="€" data-inr="₹" data-gbp="£" data-cny="¥" data-jpy="¥" data-krw="₩" data-cad="C$" data-brl="R$" data-aud="A$" data-sgd="S$" data-nzd="NZ$" data-zar="R" data-mxn="$">$</span><span class="plan-price-amount" data-usd="149" data-eur="137" data-inr="12417" data-gbp="117" data-cny="1071" data-jpy="22350" data-krw="198500" data-cad="201" data-brl="735" data-aud="224" data-sgd="201" data-nzd="242" data-zar="2780" data-mxn="2480">149</span>
+                        </div>
+                        <div class="plan-period">p/listing</div>
+                    </div>
+                    <div class="plan-column">
+                        <div class="plan-name">Accelerator</div>
+                        <div class="plan-badge badge-accelerator">Best performing 🚀</div>
+                        <div class="plan-description">Best for fast movers who want priority placement in search.</div>
+                        <div class="plan-price">
+                            <span class="plan-price-currency" data-usd="$" data-eur="€" data-inr="₹" data-gbp="£" data-cny="¥" data-jpy="¥" data-krw="₩" data-cad="C$" data-brl="R$" data-aud="A$" data-sgd="S$" data-nzd="NZ$" data-zar="R" data-mxn="$">$</span><span class="plan-price-amount" data-usd="199" data-eur="183" data-inr="16583" data-gbp="156" data-cny="1427" data-jpy="29700" data-krw="264500" data-cad="268" data-brl="980" data-aud="299" data-sgd="268" data-nzd="323" data-zar="3720" data-mxn="3320">199</span>
+                        </div>
+                        <div class="plan-period">p/listing</div>
+                    </div>
+                </div>
+                <div class="feature-row">
+                    <div class="feature-info">
+                        <div class="feature-name">Access to top talent</div>
+                        <div class="feature-description">We source from top schools including HBS, Wharton, and top consulting clubs.</div>
+                    </div>
+                    <div class="feature-value feature-check"></div>
+                    <div class="feature-value feature-check"></div>
+                    <div class="feature-value feature-check"></div>
+                </div>
+                <div class="feature-row">
+                    <div class="feature-info">
+                        <div class="feature-name">Satisfaction guarantee</div>
+                        <div class="feature-description">If you are truly disappointed, we'll refund 100% of your listing price—no questions asked.</div>
+                    </div>
+                    <div class="feature-value feature-check"></div>
+                    <div class="feature-value feature-check"></div>
+                    <div class="feature-value feature-check"></div>
+                </div>
+                <div class="feature-row">
+                    <div class="feature-info">
+                        <div class="feature-name">Applicant count</div>
+                        <div class="feature-description">Maximum number of applicants you get to choose from.</div>
+                    </div>
+                    <div class="feature-value">Unlimited</div>
+                    <div class="feature-value">Unlimited</div>
+                    <div class="feature-value">Unlimited</div>
+                </div>
+                <div class="feature-row">
+                    <div class="feature-info">
+                        <div class="feature-name">Search boost</div>
+                        <div class="feature-description">Keep your listing at the top of search results.</div>
+                    </div>
+                    <div class="feature-value">1 week</div>
+                    <div class="feature-value">2 weeks</div>
+                    <div class="feature-value">4 weeks</div>
+                </div>
+                <div class="feature-row">
+                    <div class="feature-info">
+                        <div class="feature-name">Featured in newsletter</div>
+                        <div class="feature-description">Number of times your project is promoted in our weekly community newsletter.</div>
+                    </div>
+                    <div class="feature-value feature-dash">--</div>
+                    <div class="feature-value">2 distributions</div>
+                    <div class="feature-value">4 distributions</div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+    </div>
+
+    <!-- Testimonial Section -->
+    <section class="testimonial-section">
+        <div class="testimonial-container">
+            <div class="testimonial-content">
+                <div class="testimonial-quote">
+                    Over a dozen projects on qava have helped us grow our mission.
+                </div>
+                <div class="testimonial-attribution">
+                    <div class="testimonial-logo">
+                        <img src="Landing Page Trusted by/Cotopaxi logo.png" alt="Cotopaxi" class="company-logo" />
+                    </div>
+                    <div class="testimonial-person">
+                        <div class="person-name">Stella White</div>
+                        <div class="person-title">VP, Sustainability</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer-section">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="qava-landing-page-v2-august-29th-2025.html">
+                        <img src="qava-logo.svg" alt="Qava" class="footer-logo-img" />
+                    </a>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Welcome</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">Create Listing</a></li>
+                            <li><a href="#" class="footer-link">Search Listings</a></li>
+                            <li class="footer-dropdown-item">
+                                <a href="#" class="footer-link">How It Works +</a>
+                                <div class="footer-dropdown-menu">
+                                    <div class="footer-dropdown-item">
+                                        <div class="dropdown-title">For Clients 🚀</div>
+                                        <div class="dropdown-subtitle">Hiring for current or future work</div>
+                                    </div>
+                                    <div class="footer-dropdown-item">
+                                        <div class="dropdown-title">For Talent 👩‍💻</div>
+                                        <div class="dropdown-subtitle">Interested in current or future work</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a href="#" class="footer-link">Why Qava</a></li>
+                            <li><a href="#" class="footer-link">What's New</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Get Started</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">AI Prompts</a></li>
+                            <li><a href="#" class="footer-link">Project Templates</a></li>
+                            <li><a href="#" class="footer-link">Application Tips</a></li>
+                            <li><a href="#" class="footer-link">Request a Demo</a></li>
+                            <li><a href="#" class="footer-link">Sign Up</a></li>
+                            <li><a href="#" class="footer-link">Log In</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Resources</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">Pricing</a></li>
+                            <li><a href="#" class="footer-link">About Us</a></li>
+                            <li><a href="#" class="footer-link">Careers</a></li>
+                            <li><a href="#" class="footer-link">Media Kit</a></li>
+                            <li><a href="#" class="footer-link">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Learn</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">Success Stories</a></li>
+                            <li><a href="#" class="footer-link">Help Center</a></li>
+                            <li><a href="#" class="footer-link">Webinars</a></li>
+                            <li><a href="#" class="footer-link">Blog</a></li>
+                            <li><a href="#" class="footer-link">Community</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Legal</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">Terms & Privacy</a></li>
+                            <li><a href="#" class="footer-link">California Privacy Notice</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-copyright">
+                        © 2025 qava
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+            
+            // Prevent body scroll when mobile menu is open
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function toggleMobileDropdown() {
+            const dropdown = document.getElementById('mobileDropdown');
+            const toggle = document.querySelector('.mobile-dropdown-toggle');
+            
+            dropdown.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+            
+            if (mobileMenu.classList.contains('active') && 
+                !mobileMenu.contains(event.target) && 
+                !hamburgerMenu.contains(event.target)) {
+                toggleMobileMenu();
+            }
+        });
+
+                    // Tab switching functionality
+        function switchTab(tabType) {
+            // Hide all panels
+            document.querySelectorAll('[data-panel]').forEach(panel => {
+                panel.style.display = 'none';
+                panel.hidden = true;
+            });
+
+            // Deactivate all tab buttons
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+
+            // Find target panel/button
+            const panel = document.querySelector(`[data-panel="${tabType}"]`);
+            const btn   = document.querySelector(`[data-tab="${tabType}"]`);
+            
+            if (!panel || !btn) return;
+
+            // Show panel reliably
+            panel.style.display = 'block';
+            panel.hidden = false;
+            btn.classList.add('active');
+        }
+
+        // Initialize the page with projects tab active
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide all panels initially
+            document.querySelectorAll('[data-panel]').forEach(panel => {
+                panel.style.display = 'none';
+                panel.hidden = true;
+            });
+            
+            // Show projects panel and activate its button
+            const projectsPanel = document.querySelector('[data-panel="projects"]');
+            const projectsButton = document.querySelector('[data-tab="projects"]');
+            
+            if (projectsPanel && projectsButton) {
+                projectsPanel.style.display = 'block';
+                projectsPanel.hidden = false;
+                projectsButton.classList.add('active');
+            }
+        });
+
+
+
+        // Currency switching functionality
+        function switchCurrency(currency, symbol) {
+            // Update current currency display in ALL tables
+            document.querySelectorAll('#current-currency').forEach(element => {
+                element.textContent = currency + ' ' + symbol;
+            });
+            
+            // Update active state in dropdown
+            document.querySelectorAll('.currency-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update all pricing amounts and symbols
+            const currencySymbols = document.querySelectorAll('.plan-price-currency');
+            const priceAmounts = document.querySelectorAll('.plan-price-amount');
+            
+            currencySymbols.forEach(symbolElement => {
+                symbolElement.textContent = symbolElement.getAttribute('data-' + currency.toLowerCase());
+            });
+            
+            priceAmounts.forEach(amountElement => {
+                amountElement.textContent = amountElement.getAttribute('data-' + currency.toLowerCase());
+            });
+        }
+        
+
+    </script>
+</body>
+</html>

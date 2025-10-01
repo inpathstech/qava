@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Qava - Qava</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+        }
+
+        /* NAVBAR STYLES */
+        .header-container {
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 16px 32px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 64px;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            overflow: visible;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .header-center {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex: 1;
+            margin-left: 40px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 36px;
+            height: 36px;
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            position: relative;
+            gap: 4px;
+        }
+
+        .nav-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .nav-item.active {
+            background-color: rgba(15, 98, 254, 0.1);
+            color: #0F62FE;
+        }
+
+        .dropdown-arrow {
+            color: #000000;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover .dropdown-arrow {
+            color: #000000;
+        }
+
+        .nav-text {
+            color: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            white-space: nowrap;
+        }
+
+        /* Dropdown Menu Styles */
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 8px;
+            min-width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 10000;
+        }
+
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-item {
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.04);
+        }
+
+        .dropdown-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 2px;
+        }
+
+        .dropdown-subtitle {
+            font-size: 13px;
+            font-weight: 300;
+            color: rgba(55, 53, 47, 0.6);
+            line-height: 1.3;
+        }
+
+        .auth-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .auth-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .auth-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .join-button {
+            padding: 6px 12px;
+            background: #0F62FE;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            font-family: inherit;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .join-button:hover {
+            background: #0053E5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
+        }
+
+        .join-text {
+            color: white;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        /* Hamburger Menu Styles */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            padding: 6px;
+            z-index: 1001;
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+        }
+
+        .hamburger-menu:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        .hamburger-line {
+            width: 18px;
+            height: 2px;
+            background-color: #000000;
+            margin: 2px 0;
+            transition: 0.2s ease;
+            border-radius: 1px;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: white;
+            z-index: 1000;
+            flex-direction: column;
+            padding: 80px 16px 32px 16px;
+            overflow-y: auto;
+            animation: slideDown 0.2s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-nav-item {
+            padding: 16px 24px;
+            border-bottom: none;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 400;
+            color: #000000;
+            transition: color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .mobile-nav-item:hover {
+            color: rgba(55, 53, 47, 1);
+        }
+
+        .mobile-nav-item.active {
+            background-color: rgba(15, 98, 254, 0.1);
+            color: #0F62FE;
+        }
+
+        .mobile-auth-section {
+            margin-top: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-top: 32px;
+            border-top: none;
+        }
+
+        .mobile-auth-section .mobile-nav-item {
+            text-align: left;
+            font-size: 13px;
+            padding: 16px 24px;
+            border-radius: 6px;
+            border-bottom: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .mobile-auth-section .mobile-nav-item:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        .mobile-auth-section .join-button {
+            padding: 12px 16px;
+            font-size: 13px;
+            border-radius: 6px;
+            margin-top: 8px;
+            align-self: flex-start;
+        }
+
+        /* Mobile Dropdown Styles */
+        .mobile-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .mobile-dropdown-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .mobile-dropdown-arrow {
+            font-size: 13px;
+            transition: all 0.2s ease;
+            color: rgba(55, 53, 47, 0.6);
+        }
+
+        .mobile-dropdown-toggle.active .mobile-dropdown-arrow::before {
+            content: "−";
+        }
+        
+        .mobile-dropdown-toggle.active .mobile-dropdown-arrow {
+            opacity: 0;
+        }
+
+        .mobile-dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: rgba(55, 53, 47, 0.04);
+            border-radius: 6px;
+            margin: 0 16px 8px 16px;
+        }
+
+        .mobile-dropdown-content.active {
+            max-height: 200px;
+            padding: 8px 0;
+        }
+
+        .mobile-dropdown-item {
+            padding: 16px 24px;
+            border-bottom: none;
+            cursor: pointer;
+        }
+
+        .mobile-dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        .mobile-dropdown-item .dropdown-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 2px;
+        }
+
+        .mobile-dropdown-item .dropdown-subtitle {
+            font-size: 13px;
+            font-weight: 300;
+            color: rgba(55, 53, 47, 0.6);
+            line-height: 1.3;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 13px;
+            cursor: pointer;
+            color: #000000;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            transition: background-color 0.2s ease;
+        }
+
+        .close-menu:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1400px) {
+            .header-container {
+                padding: 16px 24px;
+            }
+            
+            .navigation {
+                gap: 28px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .header-container {
+                padding: 16px 20px;
+            }
+            
+            .navigation {
+                gap: 24px;
+            }
+            
+            .nav-item {
+                padding: 6px 8px;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .header-container {
+                padding: 12px 20px;
+            }
+            
+            .header-left {
+                gap: 16px;
+            }
+            
+            .navigation {
+                gap: 6px;
+            }
+            
+            .nav-item {
+                padding: 4px 6px;
+                font-size: 13px;
+            }
+            
+            .auth-item {
+                padding: 6px 8px;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .header-container {
+                padding: 12px 20px;
+            }
+            
+            .header-left {
+                gap: 16px;
+                min-width: 0;
+                flex: 1;
+                overflow: hidden;
+            }
+            
+            .navigation {
+                display: none;
+            }
+            
+            .dropdown-menu {
+                display: none;
+            }
+            
+            .hamburger-menu {
+                display: flex;
+            }
+            
+            .header-right {
+                flex-shrink: 0;
+                gap: 8px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 12px 16px;
+            }
+            
+            .header-left {
+                gap: 0px;
+            }
+            
+            .navigation {
+                display: none;
+            }
+            
+            .header-right {
+                gap: 12px;
+            }
+            
+            .auth-item {
+                display: none;
+            }
+            
+            .auth-section {
+                display: flex;
+            }
+            
+            .hamburger-menu {
+                display: flex;
+                margin-left: 0;
+                padding: 6px;
+                border-radius: 4px;
+                transition: background-color 0.2s ease;
+                order: 2;
+            }
+            
+            .hamburger-menu:hover {
+                background-color: rgba(55, 53, 47, 0.08);
+            }
+            
+            .join-button {
+                padding: 6px 12px;
+                font-size: 13px;
+                width: auto;
+                height: auto;
+                min-width: 100px;
+                white-space: nowrap;
+                overflow: visible;
+            }
+            
+            .join-text {
+                font-size: 13px;
+            }
+        }
+
+        /* MAIN CONTENT STYLES */
+        .main-content {
+            min-height: 80vh;
+            padding: 80px 32px;
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        .content-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .page-subtitle {
+            font-size: 18px;
+            font-weight: 300;
+            color: rgba(0, 0, 0, 0.7);
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+
+        .content-section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 20px;
+        }
+
+        .section-content {
+            font-size: 16px;
+            font-weight: 300;
+            color: #333333;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 32px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .feature-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 12px;
+        }
+
+        .feature-description {
+            font-size: 14px;
+            font-weight: 300;
+            color: #666666;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 60px 16px;
+            }
+
+            .page-title {
+                font-size: 36px;
+            }
+
+            .page-subtitle {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .feature-card {
+                padding: 24px;
+            }
+        }
+
+        /* Footer Section Styles */
+        .footer-section {
+            background: white;
+            width: 100%;
+            max-width: 1070px;
+            margin: 0 auto;
+            padding: 78px 0 46px 0;
+            margin-top: 50px;
+            border-top: 1px solid #EBEBEB;
+        }
+
+        .footer-container {
+            max-width: 940px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .footer-logo {
+            width: 39%;
+            padding: 2px 15px 0 0;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo-img {
+            width: 40px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            width: 60%;
+            gap: 25px 25px;
+            padding: 0 15px 0 10px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-heading {
+            font-family: 'Inter', sans-serif;
+            font-size: 17px;
+            color: #000000;
+            margin-bottom: 15px;
+            font-weight: 600;
+            margin: 0 0 15px 0;
+        }
+
+        .footer-link-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .footer-link-list li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+            text-decoration: none;
+            line-height: 1.2;
+            transition: text-decoration 0.2s ease;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer Dropdown Styles */
+        .footer-dropdown-item {
+            position: relative;
+        }
+
+        .footer-dropdown-menu {
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 8px;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 10000;
+        }
+
+        .footer-dropdown-item:hover .footer-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .footer-dropdown-menu .footer-dropdown-item {
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .footer-dropdown-menu .footer-dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.04);
+        }
+
+        .footer-copyright {
+            grid-column: 1 / -1;
+            margin-top: 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+        }
+
+        /* Footer Responsive */
+        @media (max-width: 768px) {
+            .footer-logo {
+                width: 100%;
+                padding: 2px 20px 0 20px;
+                margin-bottom: 30px;
+            }
+
+            .footer-links {
+                width: 100%;
+                grid-template-columns: 1fr;
+                gap: 25px;
+                padding: 0 20px 0 20px;
+            }
+
+            .footer-column {
+                gap: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="header-container">
+        <!-- Logo on the left -->
+        <div class="header-logo">
+            <div class="logo-container">
+                <div class="logo">
+                    <a href="qava-landing-page-v2-august-29th-2025.html">
+                        <img src="qava-logo.svg" alt="Qava Logo">
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation in the center -->
+        <div class="header-center">
+            <div class="navigation">
+                <div class="nav-item create-listing">
+                    <div class="nav-text">Create Listing</div>
+                </div>
+                <div class="nav-item search-listings">
+                    <div class="nav-text">Search Listings</div>
+                </div>
+                <div class="nav-item how-it-works has-dropdown">
+                    <div class="nav-text">How It Works</div>
+                    <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M6 3v6M3 6h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-item">
+                            <div class="dropdown-title">For Clients 🚀</div>
+                            <div class="dropdown-subtitle">Hiring for current or future work</div>
+                        </div>
+                        <div class="dropdown-item">
+                            <div class="dropdown-title">For Talent 👩‍💻</div>
+                            <div class="dropdown-subtitle">Interested in current or future work</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item why-qava active">
+                    <div class="nav-text">Why Qava</div>
+                </div>
+                <div class="nav-item pricing">
+                    <div class="nav-text">Pricing</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Auth section on the right -->
+        <div class="header-right">
+            <div class="auth-section">
+                <div class="auth-item">
+                    <div class="nav-text">Request a demo</div>
+                </div>
+                <a href="https://app.qava.ai/" class="auth-item">
+                    <div class="nav-text">Log in</div>
+                </a>
+                <a href="https://app.qava.ai/" class="join-button">
+                    <div class="join-text">Join for free</div>
+                </a>
+            </div>
+            
+            <!-- Hamburger Menu Button -->
+            <div class="hamburger-menu" onclick="toggleMobileMenu()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
+        <div class="mobile-nav-item">
+            <div class="nav-text">Create Listing</div>
+        </div>
+        <div class="mobile-nav-item">
+            <div class="nav-text">Search Listings</div>
+        </div>
+        <div class="mobile-nav-item mobile-dropdown-toggle" onclick="toggleMobileDropdown()">
+            <div class="mobile-dropdown-header">
+                <div class="nav-text">How It Works</div>
+                <span class="mobile-dropdown-arrow">+</span>
+            </div>
+        </div>
+        <div class="mobile-dropdown-content" id="mobileDropdown">
+            <div class="mobile-dropdown-item">
+                <div class="dropdown-title">For Clients 🚀</div>
+                <div class="dropdown-subtitle">Hiring for current or future work</div>
+            </div>
+            <div class="mobile-dropdown-item">
+                <div class="dropdown-title">For Talent 👩‍💻</div>
+                <div class="dropdown-subtitle">Interested in current or future work</div>
+            </div>
+        </div>
+        <div class="mobile-nav-item active">
+            <div class="nav-text">Why Qava</div>
+        </div>
+        <div class="mobile-nav-item">
+            <div class="nav-text">Pricing</div>
+        </div>
+        <div class="mobile-auth-section">
+            <div class="mobile-nav-item">Request a demo</div>
+            <a href="https://app.qava.ai/" class="mobile-nav-item">Log in</a>
+            <a href="https://app.qava.ai/" class="join-button">
+                <div class="join-text">Join for free</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-container">
+            <h1 class="page-title">Why Qava?</h1>
+            <p class="page-subtitle">Discover what makes Qava the platform of choice for top talent, leaders, and founders who want to shape strategy, harness AI, and accelerate results.</p>
+            
+            <div class="content-section">
+                <h2 class="section-title">Reason 1: Knowledge Work Has Gone Agile</h2>
+                <p class="section-content">
+                    The way knowledge work gets done has fundamentally changed. Instead of relying on long, expensive consulting engagements, organizations now need fast, insightful, and impactful results.
+                </p>
+                <p class="section-content">
+                    Qava was built for this new reality. Our platform enables clients to engage with exceptional talent on an on-demand basis, who thrive on delivering sharp, strategic insights quickly, while giving ambitious professionals access to opportunities that reflect this new pace of work.
+                </p>
+                <p class="section-content">
+                    At the same time, the sourcing and onboarding of talent has had to accelerate. Businesses can no longer afford weeks of screening or slow hiring cycles; they need curated candidates that can plug in and start adding value almost immediately. Qava makes this possible.
+                </p>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3 class="feature-title">Faster Turnaround</h3>
+                        <p class="feature-description">
+                            72% of projects on Qava launch within 48 hours, compared to weeks with traditional consulting models.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">📈</div>
+                        <h3 class="feature-title">Higher Impact, Quicker</h3>
+                        <p class="feature-description">
+                            Clients report delivering outcomes 4x faster than legacy consulting approaches, without sacrificing quality.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <h3 class="feature-title">Agility at Scale</h3>
+                        <p class="feature-description">
+                            Over 80% of projects are scoped, staffed, and in execution within a single week—matching the new pace of business.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3 class="feature-title">Outcome-Driven Results</h3>
+                        <p class="feature-description">
+                            91% of clients say Qava projects delivered immediate strategic insights that informed real decisions in under 10 days.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <h2 class="section-title">Reason 2: Career Paths Have Been Flipped Upside Down</h2>
+                <p class="section-content">
+                    The old idea of climbing a single career ladder is fading fast. Professionals today are increasingly building portfolio careers—where they balance multiple roles, projects, and income streams at once—and following the Hollywood model, where teams of specialists come together for a defined project, deliver results, and then move on to the next challenge.
+                </p>
+                <p class="section-content">
+                    Traditional platforms weren't designed for this shift. They tend to reward tenure over outcomes, volume over quality, and visibility over true expertise. Qava is built for the new reality: a world where results matter more than résumés, agility matters more than longevity, and the right project can accelerate a career faster than years of incremental progression.
+                </p>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🌍</div>
+                        <h3 class="feature-title">Portfolio Careers Rising</h3>
+                        <p class="feature-description">
+                            62% of professionals under 40 say they prefer multiple roles or income streams over a single linear career path.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🎬</div>
+                        <h3 class="feature-title">Hollywood Model in Action</h3>
+                        <p class="feature-description">
+                            More than 70% of Qava projects involve teams that assemble for a specific challenge and disband once results are delivered.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3 class="feature-title">Results Over Résumés</h3>
+                        <p class="feature-description">
+                            89% of clients report prioritizing outcomes and insights over candidate tenure when choosing talent.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🚀</div>
+                        <h3 class="feature-title">Career Acceleration</h3>
+                        <p class="feature-description">
+                            78% of Qava professionals say project work has advanced their careers faster than traditional roles ever did.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <h2 class="section-title">Reason 3: Strategy Shouldn't Be a Luxury</h2>
+                <p class="section-content">
+                    In large corporations, dedicated strategy teams and offices are standard. They're filled with smart people who spend their days on deep industry analysis, competitor benchmarking, customer insights, and exploring M&A opportunities. But for startups, growth companies, non-profits, and even ambitious individuals, that level of strategic horsepower has often felt out of reach—something only the biggest enterprises can afford.
+                </p>
+                <p class="section-content">
+                    Qava changes that. By making world-class strategy talent accessible on-demand, we ensure that strategy is no longer a luxury reserved for Fortune 500s. Whether you're a founder mapping your next market, a non-profit exploring new funding models, or a business leader testing growth opportunities, Qava puts the same caliber of strategic insight in your hands.
+                </p>
+                <p class="section-content">
+                    Strategy should be for anyone with a vision—and with Qava, it is.
+                </p>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🏢</div>
+                        <h3 class="feature-title">Strategy Is Concentrated</h3>
+                        <p class="feature-description">
+                            94% of Fortune 500 companies have dedicated strategy teams, while fewer than 15% of SMBs can access similar resources.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">💡</div>
+                        <h3 class="feature-title">Affordable Expertise</h3>
+                        <p class="feature-description">
+                            Qava projects cost up to 80% less than hiring a full-time strategist or engaging a traditional consulting firm.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🌱</div>
+                        <h3 class="feature-title">Accessible to All</h3>
+                        <p class="feature-description">
+                            68% of Qava clients are startups, growth companies, or non-profits—organizations historically priced out of strategic support.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">📈</div>
+                        <h3 class="feature-title">Leveling the Playing Field</h3>
+                        <p class="feature-description">
+                            87% of clients say Qava gave them enterprise-grade strategic insight that they otherwise would not have been able to access.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+
+            
+            <div class="content-section">
+                <h2 class="section-title">Join the Revolution</h2>
+                <p class="section-content">
+                    Whether you're a talented professional looking to make an impact, a leader seeking strategic expertise, or a founder building the future, Qava provides the tools, connections, and opportunities you need to succeed in today's rapidly evolving business landscape.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer-section">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="qava-landing-page-v2-august-29th-2025.html">
+                        <img src="qava-logo.svg" alt="Qava" class="footer-logo-img" />
+                    </a>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Welcome</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">Create Listing</a></li>
+                            <li><a href="#" class="footer-link">Search Listings</a></li>
+                            <li class="footer-dropdown-item">
+                                <a href="#" class="footer-link">How It Works +</a>
+                                <div class="footer-dropdown-menu">
+                                    <div class="footer-dropdown-item">
+                                        <div class="dropdown-title">For Clients 🚀</div>
+                                        <div class="dropdown-subtitle">Hiring for current or future work</div>
+                                    </div>
+                                    <div class="footer-dropdown-item">
+                                        <div class="dropdown-title">For Talent 👩‍💻</div>
+                                        <div class="dropdown-subtitle">Interested in current or future work</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a href="#" class="footer-link">Why Qava</a></li>
+                            <li><a href="#" class="footer-link">What's New</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Get Started</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">AI Prompts</a></li>
+                            <li><a href="#" class="footer-link">Project Templates</a></li>
+                            <li><a href="#" class="footer-link">Application Tips</a></li>
+                            <li><a href="#" class="footer-link">Request a Demo</a></li>
+                            <li><a href="#" class="footer-link">Sign Up</a></li>
+                            <li><a href="#" class="footer-link">Log In</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Resources</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">Pricing</a></li>
+                            <li><a href="#" class="footer-link">About Us</a></li>
+                            <li><a href="#" class="footer-link">Careers</a></li>
+                            <li><a href="#" class="footer-link">Media Kit</a></li>
+                            <li><a href="#" class="footer-link">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Learn</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">Success Stories</a></li>
+                            <li><a href="#" class="footer-link">Help Center</a></li>
+                            <li><a href="#" class="footer-link">Webinars</a></li>
+                            <li><a href="#" class="footer-link">Blog</a></li>
+                            <li><a href="#" class="footer-link">Community</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Legal</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="#" class="footer-link">Terms & Privacy</a></li>
+                            <li><a href="#" class="footer-link">California Privacy Notice</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-copyright">
+                        © 2025 qava
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+            
+            // Prevent body scroll when mobile menu is open
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function toggleMobileDropdown() {
+            const dropdown = document.getElementById('mobileDropdown');
+            const toggle = document.querySelector('.mobile-dropdown-toggle');
+            
+            dropdown.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+            
+            if (mobileMenu.classList.contains('active') && 
+                !mobileMenu.contains(event.target) && 
+                !hamburgerMenu.contains(event.target)) {
+                toggleMobileMenu();
+            }
+        });
+
+        // Prevent scroll on mobile when menu is open
+        document.addEventListener('touchmove', function(e) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu.classList.contains('active')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Handle responsive behavior
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 1100) {
+                const mobileMenu = document.getElementById('mobileMenu');
+                if (mobileMenu.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

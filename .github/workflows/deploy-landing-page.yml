@@ -1,0 +1,68 @@
+name: Deploy Qava Landing Page
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '*.html'
+      - '*.css'
+      - '*.js'
+      - '*.png'
+      - '*.jpg'
+      - '*.svg'
+      - '*.mp4'
+      - 'How it works/**'
+      - 'Landing Page Trusted by/**'
+      - 'Testimonial images/**'
+      - 'Testimonial company logos/**'
+      - 'Competitor Platform/**'
+      - 'Emails/**'
+      - 'Template images/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+        
+    - name: Deploy to S3
+      run: |
+        # Upload main page as index.html
+        aws s3 cp complete-page.html s3://${{ secrets.S3_BUCKET_NAME }}/index.html \
+          --content-type "text/html" \
+          --cache-control "max-age=3600"
+          
+        # Upload all assets
+        aws s3 sync . s3://${{ secrets.S3_BUCKET_NAME }}/ \
+          --exclude "*.html" \
+          --exclude "*.md" \
+          --exclude "*.sh" \
+          --exclude "*.jsx" \
+          --exclude "*.ts" \
+          --exclude "*.tsx" \
+          --exclude "node_modules/*" \
+          --exclude ".git/*" \
+          --exclude "Paths-Backend/*" \
+          --exclude "Paths-Web-FE/*" \
+          --exclude ".github/*"
+          
+    - name: Invalidate CloudFront
+      if: secrets.CLOUDFRONT_DISTRIBUTION_ID
+      run: |
+        aws cloudfront create-invalidation \
+          --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+          --paths "/*"
+          
+    - name: Deploy complete
+      run: |
+        echo "✅ Qava landing page deployed successfully!"
+        echo "🌐 Your site is live at: https://qava.ai"

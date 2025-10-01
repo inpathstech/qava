@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qava Complete Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+        }
+
+        /* NAVBAR STYLES */
+        .header-container {
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 16px 32px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 64px;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            overflow: visible;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .header-center {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex: 1;
+            margin-left: 40px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 36px;
+            height: 36px;
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            position: relative;
+            gap: 4px;
+        }
+
+        .nav-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .dropdown-arrow {
+            color: #000000;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-item:hover .dropdown-arrow {
+            transform: rotate(180deg);
+            color: #000000;
+        }
+
+        .nav-text {
+            color: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            white-space: nowrap;
+        }
+
+        /* Dropdown Menu Styles */
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 8px;
+            min-width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 10000;
+        }
+
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-item {
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.04);
+        }
+
+        .dropdown-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 2px;
+        }
+
+        .dropdown-subtitle {
+            font-size: 13px;
+            font-weight: 300;
+            color: rgba(55, 53, 47, 0.6);
+            line-height: 1.3;
+        }
+
+        .auth-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .auth-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+        }
+
+        .auth-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .auth-text-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .divider {
+            display: none;
+        }
+
+        .join-button {
+            padding: 6px 12px;
+            background: #0F62FE;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        .join-button:hover {
+            background: #0053E5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
+        }
+
+        .join-text {
+            color: white;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        /* Hamburger Menu Styles */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            padding: 6px;
+            z-index: 1001;
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+        }
+
+        .hamburger-menu:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        .hamburger-line {
+            width: 18px;
+            height: 2px;
+            background-color: #000000;
+            margin: 2px 0;
+            transition: 0.2s ease;
+            border-radius: 1px;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: white;
+            z-index: 1000;
+            flex-direction: column;
+            padding: 80px 16px 32px 16px;
+            overflow-y: auto;
+            animation: slideDown 0.2s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-nav-item {
+            padding: 16px 24px;
+            border-bottom: none;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 400;
+            color: #000000;
+            transition: color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .mobile-nav-item:hover {
+            color: rgba(55, 53, 47, 1);
+        }
+
+        .mobile-auth-section {
+            margin-top: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-top: 32px;
+            border-top: none;
+        }
+
+        .mobile-auth-section .mobile-nav-item {
+            text-align: left;
+            font-size: 13px;
+            padding: 16px 24px;
+            border-radius: 6px;
+            border-bottom: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .mobile-auth-section .mobile-nav-item:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        .mobile-auth-section .join-button {
+            padding: 12px 16px;
+            font-size: 13px;
+            border-radius: 6px;
+            margin-top: 8px;
+            align-self: flex-start;
+        }
+
+        /* Mobile Dropdown Styles */
+        .mobile-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .mobile-dropdown-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .mobile-dropdown-arrow {
+            font-size: 13px;
+            transition: transform 0.2s ease;
+            color: rgba(55, 53, 47, 0.6);
+        }
+
+        .mobile-dropdown-toggle.active .mobile-dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .mobile-dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: rgba(55, 53, 47, 0.04);
+            border-radius: 6px;
+            margin: 0 16px 8px 16px;
+        }
+
+        .mobile-dropdown-content.active {
+            max-height: 200px;
+            padding: 8px 0;
+        }
+
+        .mobile-dropdown-item {
+            padding: 16px 24px;
+            border-bottom: none;
+            cursor: pointer;
+        }
+
+        .mobile-dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        .mobile-dropdown-item .dropdown-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 2px;
+        }
+
+        .mobile-dropdown-item .dropdown-subtitle {
+            font-size: 13px;
+            font-weight: 300;
+            color: rgba(55, 53, 47, 0.6);
+            line-height: 1.3;
+        }
+
+        /* Specific styling for the second dropdown item */
+        .dropdown-item:nth-child(2) .dropdown-subtitle,
+        .mobile-dropdown-item:nth-child(2) .dropdown-subtitle {
+            font-weight: 300;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 13px;
+            cursor: pointer;
+            color: #000000;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            transition: background-color 0.2s ease;
+        }
+
+        .close-menu:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        /* HERO SECTION STYLES */
+        .hero-section {
+            background: white;
+            padding: 80px 0;
+        }
+
+        .hero-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .hero-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 64px;
+            font-weight: 700;
+            color: #000000;
+            line-height: 1.1;
+            margin: 0 0 24px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 300;
+            color: rgba(0, 0, 0, 0.7);
+            line-height: 1.5;
+            margin: 0 0 32px 0;
+        }
+
+        .hero-buttons {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .hero-join-button {
+            padding: 6px 12px;
+            background: #0F62FE;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            font-family: inherit;
+            height: 32px;
+        }
+
+        .hero-join-button:hover {
+            background: #0053E5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
+        }
+
+        .hero-join-text {
+            color: white;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .hero-join-button svg {
+            color: white;
+        }
+
+        .hero-demo-button {
+            padding: 6px 12px;
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            height: 32px;
+        }
+
+        .hero-demo-button:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .hero-demo-text {
+            color: #000000;
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Hero Responsive */
+        @media (max-width: 1200px) {
+            .hero-title {
+                font-size: 56px;
+            }
+        }
+
+        @media (max-width: 1000px) {
+            .hero-title {
+                font-size: 48px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-container {
+                flex-direction: column;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .hero-content {
+                max-width: none;
+            }
+
+            .hero-title {
+                font-size: 40px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .hero-join-button,
+            .hero-demo-button {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .hero-subtitle {
+                font-size: 14px;
+            }
+        }
+
+        /* TRUSTED BY SECTION STYLES */
+        .trusted-by-section {
+            background: white;
+            padding: 60px 0;
+        }
+
+        .trusted-by-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .trusted-by-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            color: rgba(0, 0, 0, 0.6);
+            text-align: center;
+        }
+
+        .trusted-by-logos {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .logo-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .logo-item:hover {
+            opacity: 1;
+        }
+
+        .logo-item img {
+            height: 32px;
+            width: auto;
+            object-fit: contain;
+            transition: opacity 0.2s ease;
+        }
+
+        .logo-item:hover img {
+            opacity: 1;
+        }
+
+        /* Trusted By Responsive */
+        @media (max-width: 1200px) {
+            .trusted-by-logos {
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .trusted-by-container {
+                gap: 24px;
+            }
+
+            .trusted-by-logos {
+                gap: 20px;
+            }
+
+            .logo-item img {
+                height: 28px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .trusted-by-logos {
+                gap: 16px;
+            }
+
+            .logo-item img {
+                height: 24px;
+            }
+        }
+
+        /* WHAT DO YOU NEED SECTION STYLES */
+        .what-need-section {
+            background: white;
+            padding: 80px 0;
+        }
+
+        .what-need-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 32px;
+            text-align: center;
+        }
+
+        .what-need-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: #000000;
+            margin: 0 0 16px 0;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        .what-need-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 300;
+            color: rgba(0, 0, 0, 0.7);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .category-checkboxes {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .checkbox-input {
+            width: 16px;
+            height: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.3);
+            border-radius: 3px;
+            background: white;
+            cursor: pointer;
+            appearance: none;
+            position: relative;
+        }
+
+        .checkbox-input:checked {
+            background: #000000;
+            border-color: #000000;
+            border-radius: 4px;
+        }
+
+        .checkbox-input:checked::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M20 6L9 17L4 12' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center;
+            background-size: contain;
+        }
+
+        .checkbox-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 300;
+            color: #000000;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* TAGS GRID STYLES */
+        .tags-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 48px;
+            justify-content: center;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tag-item {
+            background: white;
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            color: #333333;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            min-height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tag-item:hover {
+            background: rgba(0, 0, 0, 0.02);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .tag-item.selected {
+            background: #000000;
+            color: white;
+        }
+
+        .tag-item.selected:hover {
+            background: #333333;
+        }
+
+        /* What Need Responsive */
+        @media (max-width: 768px) {
+            .what-need-title {
+                font-size: 32px;
+            }
+
+            .what-need-subtitle {
+                font-size: 16px;
+            }
+
+            .category-checkboxes {
+                gap: 16px;
+                margin-top: 32px;
+            }
+
+            .checkbox-label {
+                font-size: 14px;
+            }
+
+            .tags-grid {
+                gap: 8px;
+                margin-top: 32px;
+            }
+
+            .tag-item {
+                font-size: 13px;
+                padding: 6px 12px;
+                min-height: 26px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .what-need-title {
+                font-size: 28px;
+            }
+
+            .what-need-subtitle {
+                font-size: 14px;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1400px) {
+            .header-container {
+                padding: 16px 24px;
+            }
+            
+            .navigation {
+                gap: 28px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .header-container {
+                padding: 16px 20px;
+            }
+            
+            .navigation {
+                gap: 24px;
+            }
+            
+            .nav-item {
+                padding: 6px 8px;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .header-container {
+                padding: 12px 20px;
+            }
+            
+            .header-left {
+                gap: 16px;
+            }
+            
+            .navigation {
+                gap: 6px;
+            }
+            
+            .nav-item {
+                padding: 4px 6px;
+                font-size: 13px;
+            }
+            
+            .auth-item {
+                padding: 6px 8px;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .header-container {
+                padding: 12px 20px;
+            }
+            
+            .header-left {
+                gap: 16px;
+                min-width: 0;
+                flex: 1;
+                overflow: hidden;
+            }
+            
+            .navigation {
+                display: none;
+            }
+            
+            .dropdown-menu {
+                display: none;
+            }
+            
+            .hamburger-menu {
+                display: flex;
+            }
+            
+            .header-right {
+                flex-shrink: 0;
+                gap: 8px;
+            }
+        }
+
+
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 12px 16px;
+            }
+            
+            .header-left {
+                gap: 0px;
+            }
+            
+            .navigation {
+                display: none;
+            }
+            
+            .header-right {
+                gap: 12px;
+            }
+            
+            .auth-item {
+                display: none;
+            }
+            
+            .auth-section {
+                display: flex;
+            }
+            
+            .hamburger-menu {
+                display: flex;
+                margin-left: 0;
+                padding: 6px;
+                border-radius: 4px;
+                transition: background-color 0.2s ease;
+                order: 2;
+            }
+            
+            .hamburger-menu:hover {
+                background-color: rgba(55, 53, 47, 0.08);
+            }
+            
+            .join-button {
+                padding: 6px 12px;
+                font-size: 13px;
+                width: auto;
+                height: auto;
+                min-width: 100px;
+                white-space: nowrap;
+                overflow: visible;
+            }
+            
+            .join-text {
+                font-size: 13px;
+            }
+
+
+         }
+
+
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="header-container">
+        <!-- Logo on the left -->
+        <div class="header-logo">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="qava-logo.svg" alt="Qava Logo">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation in the center -->
+        <div class="header-center">
+            <div class="navigation">
+                <div class="nav-item create-listing">
+                    <div class="nav-text">Create Listing</div>
+                </div>
+                <div class="nav-item search-listings">
+                    <div class="nav-text">Search Listings</div>
+                </div>
+                <div class="nav-item how-it-works has-dropdown">
+                    <div class="nav-text">How It Works</div>
+                    <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-item">
+                            <div class="dropdown-title">For Clients 🚀</div>
+                            <div class="dropdown-subtitle">Hiring for current or future work</div>
+                        </div>
+                        <div class="dropdown-item">
+                            <div class="dropdown-title">For Talent 👩‍💻</div>
+                            <div class="dropdown-subtitle">Interested in current or future work</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item why-qava">
+                    <div class="nav-text">Why Qava</div>
+                </div>
+                <div class="nav-item pricing">
+                    <div class="nav-text">Pricing</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Auth section on the right -->
+        <div class="header-right">
+            <div class="auth-section">
+                <div class="auth-item">
+                    <div class="nav-text">Request a demo</div>
+                </div>
+                <div class="auth-item">
+                    <div class="nav-text">Log in</div>
+                </div>
+                <div class="join-button">
+                    <div class="join-text">Join for free</div>
+                </div>
+            </div>
+            
+            <!-- Hamburger Menu Button -->
+            <div class="hamburger-menu" onclick="toggleMobileMenu()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
+        <div class="mobile-nav-item">
+            <div class="nav-text">Create Listing</div>
+        </div>
+        <div class="mobile-nav-item">
+            <div class="nav-text">Search Listings</div>
+        </div>
+        <div class="mobile-nav-item mobile-dropdown-toggle" onclick="toggleMobileDropdown()">
+            <div class="mobile-dropdown-header">
+                <div class="nav-text">How It Works</div>
+                <span class="mobile-dropdown-arrow">▾</span>
+            </div>
+        </div>
+        <div class="mobile-dropdown-content" id="mobileDropdown">
+            <div class="mobile-dropdown-item">
+                <div class="dropdown-title">For Clients 🚀</div>
+                <div class="dropdown-subtitle">Hiring for current or future work</div>
+            </div>
+            <div class="mobile-dropdown-item">
+                <div class="dropdown-title">For Talent 👩‍💻</div>
+                <div class="dropdown-subtitle">Interested in current or future work</div>
+            </div>
+        </div>
+        <div class="mobile-nav-item">
+            <div class="nav-text">Why Qava</div>
+        </div>
+        <div class="mobile-nav-item">
+            <div class="nav-text">Pricing</div>
+        </div>
+        <div class="mobile-auth-section">
+            <div class="mobile-nav-item">Request a demo</div>
+            <div class="mobile-nav-item">Log in</div>
+            <div class="join-button">
+                <div class="join-text">Join for free</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-container">
+            <div class="hero-content">
+                                        <h1 class="hero-title">Projects, jobs,<br>internships for<br>today's world.</h1>
+                <p class="hero-subtitle">One place for ambitious talent, leaders, and founders to shape strategy, harness AI, and accelerate results.</p>
+                <div class="hero-buttons">
+                    <div class="hero-join-button">
+                        <span class="hero-join-text">Join for free</span>
+                    </div>
+                    <div class="hero-demo-button">
+                        <span class="hero-demo-text">Request a demo</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="Landing Page main Image.svg" alt="Qava Landing Page Interface" />
+            </div>
+        </div>
+    </div>
+
+    <!-- Trusted By Section -->
+    <div class="trusted-by-section">
+        <div class="trusted-by-container">
+            <div class="trusted-by-text">Trusted by +1000 top talent and institutions</div>
+            <div class="trusted-by-logos">
+                <div class="logo-item">
+                    <img src="Landing Page Trusted by/Stern.png" alt="NYU Stern">
+                </div>
+                <div class="logo-item">
+                    <img src="Landing Page Trusted by/Wharton.png" alt="Wharton">
+                </div>
+                <div class="logo-item">
+                    <img src="Landing Page Trusted by/HBS.png" alt="Harvard Business School">
+                </div>
+                <div class="logo-item">
+                    <img src="Landing Page Trusted by/Haas.png" alt="Berkeley Haas">
+                </div>
+                <div class="logo-item">
+                    <img src="Landing Page Trusted by/Standford.png" alt="Stanford Graduate School of Business">
+                </div>
+                <div class="logo-item">
+                    <img src="Landing Page Trusted by/Said.png" alt="Saïd Business School">
+                </div>
+                <div class="logo-item">
+                    <img src="Landing Page Trusted by/Kellogg.png" alt="Kellogg School of Management">
+                </div>
+                <div class="logo-item">
+                    <img src="Landing Page Trusted by/MIT.png" alt="MIT Sloan">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- What Do You Need Section -->
+    <div class="what-need-section">
+        <div class="what-need-container">
+            <h2 class="what-need-title">What do you need?</h2>
+            <p class="what-need-subtitle">Over 100 projects under 1 roof</p>
+            <div class="category-checkboxes">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="strategy" class="checkbox-input">
+                    <label for="strategy" class="checkbox-label">Strategy</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="growth" class="checkbox-input">
+                    <label for="growth" class="checkbox-label">Growth</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="finance" class="checkbox-input">
+                    <label for="finance" class="checkbox-label">Finance</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="technology" class="checkbox-input">
+                    <label for="technology" class="checkbox-label">Technology</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="operations" class="checkbox-input">
+                    <label for="operations" class="checkbox-label">Operations</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="innovation" class="checkbox-input">
+                    <label for="innovation" class="checkbox-label">Innovation</label>
+                </div>
+                                    <div class="checkbox-item">
+                        <input type="checkbox" id="non-profits" class="checkbox-input">
+                        <label for="non-profits" class="checkbox-label">Non-Profits</label>
+                    </div>
+                </div>
+                
+                <!-- Tags Grid -->
+                <div class="tags-grid">
+                    <div class="tag-item">Business Plan 🚀</div>
+                    <div class="tag-item">Cloud Migration ☁️</div>
+                    <div class="tag-item">Competitor Analysis 🥷</div>
+                    <div class="tag-item">Cost Optimization 💸</div>
+                    <div class="tag-item">Creative Strategy 🎨</div>
+                    <div class="tag-item">Customer Journey Map 🗺️</div>
+                    <div class="tag-item">Customer Segmentation 🧍</div>
+                    <div class="tag-item">Cyber Security 🧯</div>
+                    <div class="tag-item">Data Analysis 📈</div>
+                    <div class="tag-item">Data Strategy 💿</div>
+                    <div class="tag-item">Digital Transformation 🦋</div>
+                    <div class="tag-item">Financial Model 📊</div>
+                    <div class="tag-item">Go-To-Market Strategy 📍</div>
+                    <div class="tag-item">Grant Application 💰</div>
+                    <div class="tag-item">Growth Plan 🌱</div>
+                    <div class="tag-item">Industry Analysis 🔍</div>
+                    <div class="tag-item">Innovation Projects 💡</div>
+                    <div class="tag-item">Operating Model Design 🗂️</div>
+                    <div class="tag-item">Organizational Design 👏</div>
+                    <div class="tag-item">Partnership Strategy 🤝</div>
+                    <div class="tag-item">Pitch Deck 🚀</div>
+                    <div class="tag-item">Pricing Strategy 📰</div>
+                    <div class="tag-item">Process Improvement ⚙️</div>
+                    <div class="tag-item">Product Strategy 🧸</div>
+                    <div class="tag-item">Sales & Marketing Strategy 📋</div>
+                    <div class="tag-item">Strategic Finance 🎯</div>
+                    <div class="tag-item">Supply Chain Analysis 🏭</div>
+                    <div class="tag-item">System Migration 💻</div>
+                    <div class="tag-item">Tariff Impact Assessment 🌍</div>
+                    <div class="tag-item">Technology Rationalization 📗</div>
+                    <div class="tag-item">Vendor Strategy 🚚</div>
+                    <div class="tag-item">Virtual Workshop 📅</div>
+                </div>
+            </div>
+        </div>
+
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+            
+            // Prevent body scroll when mobile menu is open
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function toggleMobileDropdown() {
+            const dropdown = document.getElementById('mobileDropdown');
+            const toggle = document.querySelector('.mobile-dropdown-toggle');
+            
+            dropdown.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+            
+            if (mobileMenu.classList.contains('active') && 
+                !mobileMenu.contains(event.target) && 
+                !hamburgerMenu.contains(event.target)) {
+                toggleMobileMenu();
+            }
+        });
+
+        // Prevent scroll on mobile when menu is open
+        document.addEventListener('touchmove', function(e) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu.classList.contains('active')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Handle responsive behavior
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 1100) {
+                const mobileMenu = document.getElementById('mobileMenu');
+                if (mobileMenu.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            }
+        });
+
+        // Strategy-related tag items
+        const strategyTags = [
+            'Business Plan 🚀',
+            'Creative Strategy 🎨',
+            'Data Analysis 📈',
+            'Data Strategy 💿',
+            'Digital Transformation 🦋',
+            'Go-To-Market Strategy 📍',
+            'Industry Analysis 🔍',
+            'Operating Model Design 🗂️',
+            'Organizational Design 👏',
+            'Partnership Strategy 🤝',
+            'Pricing Strategy 📰',
+            'Product Strategy 🧸',
+            'Sales & Marketing Strategy 📋',
+            'Strategic Finance 🎯'
+        ];
+
+        // Growth-related tag items
+        const growthTags = [
+            'Competitor Analysis 🥷',
+            'Customer Segmentation 🧍',
+            'Data Analysis 📈',
+            'Digital Transformation 🦋',
+            'Growth Plan 🌱',
+            'Industry Analysis 🔍',
+            'Innovation Projects 💡',
+            'Partnership Strategy 🤝',
+            'Process Improvement ⚙️',
+            'Sales & Marketing Strategy 📋',
+            'Strategic Finance 🎯',
+            'Virtual Workshop 📅'
+        ];
+
+        // Finance-related tag items
+        const financeTags = [
+            'Cost Optimization 💸',
+            'Data Analysis 📈',
+            'Digital Transformation 🦋',
+            'Financial Model 📊',
+            'Grant Application 💰',
+            'Growth Plan 🌱',
+            'Industry Analysis 🔍',
+            'Pricing Strategy 📰',
+            'Strategic Finance 🎯',
+            'Tariff Impact Assessment 🌍'
+        ];
+
+        // Technology-related tag items
+        const technologyTags = [
+            'Cloud Migration ☁️',
+            'Cost Optimization 💸',
+            'Cyber Security 🧯',
+            'Data Strategy 💿',
+            'Digital Transformation 🦋',
+            'Innovation Projects 💡',
+            'Product Strategy 🧸',
+            'System Migration 💻',
+            'Technology Rationalization 📗'
+        ];
+
+        // Operations-related tag items
+        const operationsTags = [
+            'Cost Optimization 💸',
+            'Customer Journey Map 🗺️',
+            'Data Analysis 📈',
+            'Digital Transformation 🦋',
+            'Go-To-Market Strategy 📍',
+            'Operating Model Design 🗂️',
+            'Organizational Design 👏',
+            'Partnership Strategy 🤝',
+            'Strategic Finance 🎯',
+            'Tariff Impact Assessment 🌍',
+            'Vendor Strategy 🚚'
+        ];
+
+        // Innovation-related tag items
+        const innovationTags = [
+            'Business Plan 🚀',
+            'Competitor Analysis 🥷',
+            'Creative Strategy 🎨',
+            'Customer Segmentation 🧍',
+            'Cyber Security 🧯',
+            'Data Analysis 📈',
+            'Digital Transformation 🦋',
+            'Growth Plan 🌱',
+            'Innovation Projects 💡',
+            'Operating Model Design 🗂️',
+            'Organizational Design 👏',
+            'Partnership Strategy 🤝',
+            'Product Strategy 🧸',
+            'Virtual Workshop 📅'
+        ];
+
+        // Non-Profits-related tag items
+        const nonProfitsTags = [
+            'Business Plan 🚀',
+            'Customer Segmentation 🧍',
+            'Data Analysis 📈',
+            'Digital Transformation 🦋',
+            'Grant Application 💰',
+            'Operating Model Design 🗂️',
+            'Organizational Design 👏',
+            'Partnership Strategy 🤝',
+            'Pitch Deck 🚀',
+            'Sales & Marketing Strategy 📋',
+            'System Migration 💻',
+            'Technology Rationalization 📗'
+        ];
+
+        // Track manually selected tags
+        let manuallySelectedTags = new Set();
+
+        // Make tag items selectable
+        // Helper function to handle checkbox changes
+        function handleCheckboxChange(checkbox, relatedTags, tagItems) {
+            checkbox.addEventListener('change', function() {
+                const isChecked = this.checked;
+                
+                relatedTags.forEach(tagText => {
+                    const tagElement = Array.from(tagItems).find(tag => tag.textContent === tagText);
+                    if (tagElement) {
+                        if (isChecked) {
+                            // Select tags that weren't manually deselected
+                            if (!manuallySelectedTags.has(tagText)) {
+                                tagElement.classList.add('selected');
+                            }
+                        } else {
+                            // Deselect tags that weren't manually selected
+                            if (!manuallySelectedTags.has(tagText)) {
+                                tagElement.classList.remove('selected');
+                            }
+                        }
+                    }
+                });
+            });
+        }
+
+        function initializeTagSelection() {
+            const tagItems = document.querySelectorAll('.tag-item');
+            const strategyCheckbox = document.getElementById('strategy');
+            const growthCheckbox = document.getElementById('growth');
+            const financeCheckbox = document.getElementById('finance');
+            const technologyCheckbox = document.getElementById('technology');
+            const operationsCheckbox = document.getElementById('operations');
+            const innovationCheckbox = document.getElementById('innovation');
+            const nonProfitsCheckbox = document.getElementById('non-profits');
+            
+            // Add click listeners to tag items
+            tagItems.forEach(tag => {
+                tag.addEventListener('click', function() {
+                    const tagText = this.textContent;
+                    const isStrategyTag = strategyTags.includes(tagText);
+                    const isGrowthTag = growthTags.includes(tagText);
+                    const isFinanceTag = financeTags.includes(tagText);
+                    const isTechnologyTag = technologyTags.includes(tagText);
+                    const isOperationsTag = operationsTags.includes(tagText);
+                    const isInnovationTag = innovationTags.includes(tagText);
+                    const isNonProfitsTag = nonProfitsTags.includes(tagText);
+                    
+                    // If it's a category tag, mark it as manually selected
+                    if (isStrategyTag || isGrowthTag || isFinanceTag || isTechnologyTag || isOperationsTag || isInnovationTag || isNonProfitsTag) {
+                        if (this.classList.contains('selected')) {
+                            manuallySelectedTags.delete(tagText);
+                        } else {
+                            manuallySelectedTags.add(tagText);
+                        }
+                    }
+                    
+                    this.classList.toggle('selected');
+                });
+            });
+
+            // Add change listeners to category checkboxes
+            handleCheckboxChange(strategyCheckbox, strategyTags, tagItems);
+            handleCheckboxChange(growthCheckbox, growthTags, tagItems);
+            handleCheckboxChange(financeCheckbox, financeTags, tagItems);
+            handleCheckboxChange(technologyCheckbox, technologyTags, tagItems);
+            handleCheckboxChange(operationsCheckbox, operationsTags, tagItems);
+            handleCheckboxChange(innovationCheckbox, innovationTags, tagItems);
+            handleCheckboxChange(nonProfitsCheckbox, nonProfitsTags, tagItems);
+        }
+
+        // Initialize tag selection when page loads
+        document.addEventListener('DOMContentLoaded', initializeTagSelection);
+    </script>
+</body>
+</html>
