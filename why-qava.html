@@ -803,7 +803,15 @@
                 gap: 6px;
             }
         }
-    </style>
+        /* Fix navbar underline issue */
+        .nav-item,
+        .nav-item:link,
+        .nav-item:visited,
+        .nav-item:hover,
+        .nav-item:active,
+        .nav-item:focus {
+            text-decoration: none !important;
+        }    </style>
 </head>
 <body>
     <!-- Navigation Bar -->
