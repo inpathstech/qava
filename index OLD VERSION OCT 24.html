@@ -1,0 +1,4890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qava</title>
+    <link rel="icon" type="image/svg+xml" href="qava-logo.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+        }
+
+        /* NAVBAR STYLES */
+        .header-container {
+            width: 100%;
+            padding: 16px 32px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 64px;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            overflow: visible;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .header-center {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex: 1;
+            margin-left: 40px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 36px;
+            height: 36px;
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 400;
+            color: #000000;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            position: relative;
+            gap: 4px;
+            text-decoration: none;
+        }
+
+        .nav-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        /* Ensure navigation links work properly */
+        .nav-item:visited {
+            color: #000000;
+        }
+
+        .nav-item:active {
+            color: #000000;
+        }
+
+        .dropdown-arrow {
+            color: #000000;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover .dropdown-arrow {
+            color: #000000;
+        }
+
+        .nav-item:hover .dropdown-arrow path {
+            d: path("M3 6h6");
+        }
+
+        .nav-text {
+            color: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            white-space: nowrap;
+        }
+
+        /* Dropdown Menu Styles */
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 8px;
+            min-width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 10000;
+        }
+
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-item {
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.04);
+        }
+
+        /* Ensure dropdown links work properly */
+        .dropdown-item:visited {
+            color: inherit;
+        }
+
+        .dropdown-item:active {
+            color: inherit;
+        }
+
+        .dropdown-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 2px;
+        }
+
+        .dropdown-subtitle {
+            font-size: 13px;
+            font-weight: 300;
+            color: rgba(55, 53, 47, 0.6);
+            line-height: 1.3;
+        }
+
+        .auth-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .auth-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 400;
+            color: #000000;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .auth-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .auth-text-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .divider {
+            display: none;
+        }
+
+        .join-button {
+            padding: 6px 12px;
+            background: #0F62FE;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            font-family: inherit;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .join-button:hover {
+            background: #0053E5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
+        }
+
+        .join-text {
+            color: white;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        /* Hamburger Menu Styles */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            padding: 6px;
+            z-index: 1001;
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+        }
+
+        .hamburger-menu:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        .hamburger-line {
+            width: 18px;
+            height: 2px;
+            background-color: #000000;
+            margin: 2px 0;
+            transition: 0.2s ease;
+            border-radius: 1px;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: white;
+            z-index: 1000;
+            flex-direction: column;
+            padding: 80px 16px 32px 16px;
+            overflow-y: auto;
+            animation: slideDown 0.2s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-nav-item {
+            padding: 16px 24px;
+            border-bottom: none;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 400;
+            color: #000000;
+            transition: color 0.2s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .mobile-nav-item:hover {
+            color: rgba(55, 53, 47, 1);
+        }
+
+        /* Ensure mobile navigation links work properly */
+        .mobile-nav-item:visited {
+            color: #000000;
+        }
+
+        .mobile-nav-item:active {
+            color: #000000;
+        }
+
+        .mobile-auth-section {
+            margin-top: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-top: 32px;
+            border-top: none;
+        }
+
+        .mobile-auth-section .mobile-nav-item {
+            text-align: left;
+            font-size: 13px;
+            padding: 16px 24px;
+            border-radius: 6px;
+            border-bottom: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .mobile-auth-section .mobile-nav-item:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        .mobile-auth-section .join-button {
+            padding: 12px 16px;
+            font-size: 13px;
+            border-radius: 6px;
+            margin-top: 8px;
+            align-self: flex-start;
+        }
+
+        /* Mobile Dropdown Styles */
+        .mobile-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .mobile-dropdown-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .mobile-dropdown-arrow {
+            font-size: 13px;
+            transition: all 0.2s ease;
+            color: rgba(55, 53, 47, 0.6);
+        }
+
+        .mobile-dropdown-toggle.active .mobile-dropdown-arrow::before {
+            content: "−";
+        }
+        
+        .mobile-dropdown-toggle.active .mobile-dropdown-arrow {
+            opacity: 0;
+        }
+
+        .mobile-dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: rgba(55, 53, 47, 0.04);
+            border-radius: 6px;
+            margin: 0 16px 8px 16px;
+        }
+
+        .mobile-dropdown-content.active {
+            max-height: 200px;
+            padding: 8px 0;
+        }
+
+        .mobile-dropdown-item {
+            padding: 16px 24px;
+            border-bottom: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+        }
+
+        .mobile-dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        /* Ensure mobile dropdown links work properly */
+        .mobile-dropdown-item:visited {
+            color: inherit;
+        }
+
+        .mobile-dropdown-item:active {
+            color: inherit;
+        }
+
+        .mobile-dropdown-item .dropdown-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 2px;
+        }
+
+        .mobile-dropdown-item .dropdown-subtitle {
+            font-size: 13px;
+            font-weight: 300;
+            color: rgba(55, 53, 47, 0.6);
+            line-height: 1.3;
+        }
+
+        /* Specific styling for the second dropdown item */
+        .dropdown-item:nth-child(2) .dropdown-subtitle,
+        .mobile-dropdown-item:nth-child(2) .dropdown-subtitle {
+            font-weight: 300;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 13px;
+            cursor: pointer;
+            color: #000000;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            transition: background-color 0.2s ease;
+        }
+
+        .close-menu:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        /* HERO SECTION STYLES */
+        .hero-section {
+            background: white;
+            padding: 80px 0;
+        }
+
+        .hero-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .hero-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 64px;
+            font-weight: 700;
+            color: #000000;
+            line-height: 1.1;
+            margin: 0 0 24px 0;
+            letter-spacing: 0%;
+        }
+
+        .hero-word {
+            transition: color 0s;
+        }
+
+        @keyframes highlightWord {
+            0% { color: #000000; }
+            10% { color: #0F62FE; }
+            90% { color: #0F62FE; }
+            100% { color: #000000; }
+        }
+
+        .hero-word.highlight {
+            animation: highlightWord 2s ease-in-out;
+        }
+
+        .hero-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 300;
+            color: rgba(0, 0, 0, 0.7);
+            line-height: 1.5;
+            margin: 0 0 32px 0;
+        }
+
+        .hero-buttons {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .hero-join-button {
+            padding: 6px 12px;
+            background: #0F62FE;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            font-family: inherit;
+            height: 27.6px;
+            text-decoration: none;
+        }
+
+        .hero-join-button:hover {
+            background: #0053E5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
+        }
+
+        .hero-join-text {
+            color: white;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .hero-join-button svg {
+            color: white;
+        }
+
+        .hero-demo-button {
+            padding: 6px 12px;
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            height: 27.6px;
+            text-decoration: none;
+        }
+
+        .hero-demo-button:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        /* Ensure hero demo button link works properly */
+        .hero-demo-button:visited {
+            color: #000000;
+        }
+
+        .hero-demo-button:active {
+            color: #000000;
+        }
+
+        .hero-demo-text {
+            color: #000000;
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        /* Trusted By Section in Hero */
+        .trusted-by-section-hero {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .trusted-by-text-hero {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            color: rgba(0, 0, 0, 0.6);
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .trusted-by-logos-hero {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+        }
+
+        .logo-item-hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .logo-item-hero:hover {
+            opacity: 1;
+        }
+
+        .logo-item-hero img {
+            height: 28px;
+            width: auto;
+            object-fit: contain;
+            transition: opacity 0.2s ease;
+        }
+
+        .logo-item-hero:hover img {
+            opacity: 1;
+        }
+
+        /* Animated Logo Slider Styles */
+        .logo-slider-container {
+            position: relative;
+            width: 60%;
+            max-width: 400px;
+            margin: 0 auto;
+            overflow: hidden;
+            height: 40px;
+        }
+
+        .logo-slider-fade-left,
+        .logo-slider-fade-right {
+            position: absolute;
+            top: 0;
+            width: 60px;
+            height: 100%;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .logo-slider-fade-left {
+            left: 0;
+            background: linear-gradient(to right, white 0%, transparent 100%);
+        }
+
+        .logo-slider-fade-right {
+            right: 0;
+            background: linear-gradient(to left, white 0%, transparent 100%);
+        }
+
+        .logo-slider-track {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideLogos 30s linear infinite;
+            width: max-content;
+        }
+
+        .logo-slider-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            flex-shrink: 0;
+            width: 65px;
+        }
+
+        .logo-slider-item img {
+            height: 28px;
+            width: auto;
+            max-width: 100px;
+            object-fit: contain;
+        }
+
+        @keyframes slideLogos {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Responsive adjustments for logo slider */
+        @media (max-width: 768px) {
+            .logo-slider-container {
+                height: 32px;
+            }
+            
+            .logo-slider-item {
+                width: 80px;
+            }
+            
+            .logo-slider-item img {
+                height: 24px;
+                max-width: 70px;
+            }
+            
+            .logo-slider-track {
+                gap: 10px;
+                animation-duration: 25s;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-slider-item {
+                width: 60px;
+            }
+            
+            .logo-slider-item img {
+                height: 20px;
+                max-width: 50px;
+            }
+            
+            .logo-slider-track {
+                gap: 8px;
+                animation-duration: 20s;
+            }
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .desktop-image {
+            max-width: 100%;
+            height: auto;
+            z-index: 1;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            border-radius: 12px;
+        }
+
+        .mobile-image {
+            position: absolute;
+            right: calc(15% - 190px);
+            bottom: -10%;
+            max-width: 25%;
+            height: auto;
+            z-index: 2;
+            border-radius: 30px;
+        }
+
+        /* Hero Responsive */
+        @media (max-width: 1200px) {
+            .hero-title {
+                font-size: 56px;
+            }
+        }
+
+        @media (max-width: 1000px) {
+            .hero-title {
+                font-size: 48px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-container {
+                flex-direction: column;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .hero-content {
+                max-width: none;
+            }
+
+            .hero-title {
+                font-size: 40px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .hero-join-button,
+            .hero-demo-button {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+
+            .hero-image {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .desktop-image {
+                max-width: 100%;
+                order: 2;
+            }
+
+            .mobile-image {
+                position: static;
+                transform: none;
+                max-width: 60%;
+                order: 1;
+            }
+
+            /* Hero Trusted By Responsive */
+            .trusted-by-section-hero {
+                margin-top: 32px;
+            }
+
+            .trusted-by-text-hero {
+                text-align: center;
+                font-size: 13px;
+            }
+
+            .trusted-by-logos-hero {
+                justify-content: flex-start;
+                gap: 20px;
+            }
+
+            .logo-item-hero img {
+                height: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 20px;
+            }
+
+            .hero-subtitle {
+                font-size: 14px;
+            }
+
+            /* Hero Trusted By Mobile */
+            .trusted-by-section-hero {
+                margin-top: 24px;
+            }
+
+            .trusted-by-text-hero {
+                font-size: 12px;
+            }
+
+            .mobile-image {
+                max-width: 80%;
+            }
+
+            .trusted-by-logos-hero {
+                gap: 16px;
+                justify-content: flex-start;
+            }
+
+            .logo-item-hero img {
+                height: 20px;
+            }
+        }
+
+        /* COMPETITOR PLATFORMS SECTION STYLES */
+        .competitor-platforms-section {
+            background: white;
+            padding: 30px 0 10px 0;
+            position: relative;
+        }
+
+        .competitor-platforms-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .competitor-platforms-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0px;
+        }
+
+        .competitor-platforms-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 35px;
+            font-weight: 700;
+            color: #000000;
+            text-align: center;
+            margin: 0;
+            margin-bottom: 15px;
+            line-height: 1;
+        }
+
+        .competitor-platforms-subtitle-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            color: rgba(0, 0, 0, 0.6);
+            text-align: center;
+            margin: 0;
+            margin-bottom: 8px;
+        }
+
+        .competitor-platforms-subtitle {
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            text-align: center;
+            margin: 0;
+            margin-bottom: 25px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 6px 12px;
+            border-radius: 6px;
+            display: inline-block;
+            white-space: nowrap;
+            height: 27.6px;
+        }
+
+        .competitor-platforms-subtitle:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .competitor-platforms-logos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        .competitor-logo-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            filter: grayscale(100%);
+        }
+
+        /* Animated line that crosses through logos on scroll */
+        .competitor-platforms-logos::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: var(--line-width, 0px);
+            height: 3px;
+            background: #B45454;
+            transform: translateY(-50%);
+            border-radius: 2px;
+            z-index: 10;
+            transition: width 0.1s ease-out;
+        }
+
+        .competitor-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+
+
+
+
+
+        /* TRUSTED BY SECTION STYLES */
+        .trusted-by-section {
+            background: white;
+            padding: 60px 0;
+        }
+
+        .trusted-by-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .trusted-by-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            color: rgba(0, 0, 0, 0.6);
+            text-align: center;
+        }
+
+        .trusted-by-logos {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .logo-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .logo-item:hover {
+            opacity: 1;
+        }
+
+        .logo-item img {
+            height: 32px;
+            width: auto;
+            object-fit: contain;
+            transition: opacity 0.2s ease;
+        }
+
+        .logo-item:hover img {
+            opacity: 1;
+        }
+
+        /* Trusted By Responsive */
+        @media (max-width: 1200px) {
+            .trusted-by-logos {
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .trusted-by-container {
+                gap: 24px;
+            }
+
+            .trusted-by-logos {
+                gap: 20px;
+            }
+
+            .logo-item img {
+                height: 28px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .trusted-by-logos {
+                gap: 16px;
+            }
+
+            .logo-item img {
+                height: 24px;
+            }
+        }
+
+        /* Competitor Platforms Responsive */
+        @media (max-width: 1200px) {
+            .competitor-platforms-title {
+                font-size: 40px;
+            }
+            
+            .competitor-platforms-logos {
+                max-width: 480px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .competitor-platforms-section {
+                padding: 60px 0;
+            }
+            
+            .competitor-platforms-title {
+                font-size: 32px;
+            }
+            
+            .competitor-platforms-subtitle {
+                font-size: 14px;
+            }
+            
+            .competitor-platforms-logos {
+                max-width: 420px;
+                gap: 20px;
+            }
+            
+            .competitor-logo {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .competitor-platforms-section {
+                padding: 40px 0;
+            }
+            
+            .competitor-platforms-title {
+                font-size: 24px;
+            }
+            
+            .competitor-platforms-subtitle {
+                font-size: 12px;
+            }
+            
+            .competitor-platforms-logos {
+                max-width: 360px;
+                gap: 15px;
+            }
+            
+            .competitor-logo {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        /* FEATURE CARDS SECTION STYLES */
+        .feature-cards-section {
+            background: white;
+            padding: 100px 0 60px 0;
+        }
+
+        .feature-cards-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        .feature-cards-header {
+            font-family: 'Inter', sans-serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: #000000;
+            text-align: center;
+            margin: 0 0 8px 0;
+        }
+
+        .feature-cards-subheader {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            color: #6B6B6B;
+            text-align: center;
+            margin: 8px 0 16px 0;
+        }
+
+        .feature-cards-logos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .feature-logo-item {
+            opacity: 1;
+        }
+
+        .feature-logo-item img {
+            height: 28px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        /* Matching CTA Section */
+        .matching-cta-section {
+            background: white;
+            padding: 80px 0 0 0;
+        }
+
+        .matching-cta-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 32px;
+            text-align: center;
+        }
+
+        .matching-cta-header {
+            font-family: 'Inter', sans-serif;
+            font-size: 70px;
+            font-weight: 600;
+            color: #000000;
+            text-align: center;
+            margin: 0 0 16px 0;
+            line-height: 1.2;
+        }
+
+        .matching-cta-subheader {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 300;
+            color: #6B6B6B;
+            text-align: center;
+            margin: 0 0 32px 0;
+        }
+
+        .matching-cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cta-button {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-block;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .cta-button-primary {
+            background: #0F62FE;
+            color: white;
+            border: 1px solid #0F62FE;
+        }
+
+        .cta-button-primary:hover {
+            background: #0050E6;
+            border-color: #0050E6;
+        }
+
+        .cta-button-secondary {
+            background: white;
+            color: #000000;
+            border: none;
+            font-weight: 300;
+        }
+
+        .cta-button-secondary:hover {
+            background: #F5F5F5;
+            color: #000000;
+        }
+
+        /* Selection Boxes Section */
+        .selection-boxes-section {
+            background: white;
+            padding: 0;
+            margin: 0;
+        }
+
+        .selection-boxes-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* Selection Boxes */
+        .selection-boxes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 0;
+            margin-bottom: 0;
+            max-width: 100%;
+        }
+
+        .selection-box {
+            background: #fafafa;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .selection-box:hover {
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .selection-box.active {
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .selection-checkbox {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 18px;
+            height: 18px;
+            border: 1px solid #D9D9D9;
+            border-radius: 4px;
+            background: white;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .selection-checkbox.checked {
+            background: #000000;
+            border-color: #000000;
+        }
+
+        .selection-checkbox.checked::after {
+            content: '';
+            width: 16px;
+            height: 16px;
+            background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 13l4 4L19 7'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .selection-image {
+            width: calc(100% - 32px);
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            border-radius: 8px;
+            margin: 16px 16px 0 16px;
+        }
+
+        .selection-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: #000000;
+            margin: 20px 20px 8px 20px;
+            text-align: left;
+        }
+
+        .selection-description {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 300;
+            color: #6B6B6B;
+            margin: 0 20px 8px 20px;
+            line-height: 1.4;
+            text-align: left;
+        }
+
+        .selection-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #0F62FE;
+            text-decoration: none;
+            margin: 0 0 20px 20px;
+            display: block;
+            text-align: left;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .selection-link:hover {
+            color: #0050E6;
+        }
+
+        .selection-arrow {
+            display: inline-block;
+            opacity: 0;
+            transform: translateX(-8px);
+            transition: all 0.3s ease;
+            margin-left: 4px;
+        }
+
+        .selection-box:hover .selection-arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .feature-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 0;
+        }
+
+        .feature-card {
+            background: #fafafa;
+            border-radius: 12px;
+            padding: 14px 16px;
+            text-align: left;
+            transition: all 0.2s ease;
+            height: 110px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .feature-card.active {
+            background: white !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .feature-card-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #000000;
+            margin: 0 0 8px 0;
+            line-height: 1.3;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .feature-card-description {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 300;
+            color: #6B6B6B;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        .feature-preview-box {
+            margin-top: 20px;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            height: 400px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+
+        .preview-content {
+            display: flex;
+            gap: 40px;
+            overflow: visible;
+            align-items: stretch;
+        }
+
+        .preview-left {
+            flex: 0 0 260px;
+            padding-right: 30px;
+            overflow: visible;
+            border-right: 1px solid #d0d0d0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .preview-projects-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding-bottom: 4px;
+            flex: 1;
+        }
+
+        .project-list-item {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #000000;
+            padding: 6px 12px;
+            line-height: 1.4;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            background: white;
+            display: inline-block;
+            width: fit-content;
+        }
+
+        .project-list-item:hover,
+        .project-list-item.active-project {
+            background: #000000;
+            color: white;
+            font-weight: 300;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .preview-right {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .preview-image {
+            display: none;
+        }
+
+        .preview-benefits {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            flex: 1;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .benefit-checkmark {
+            flex-shrink: 0;
+            font-size: 14px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .feature-cards-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .feature-card {
+                padding: 24px 20px;
+            }
+
+            .feature-preview-box {
+                padding: 24px 20px;
+            }
+
+            .preview-content {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .preview-left {
+                flex: none;
+                border-right: none;
+                border-bottom: 1px solid #d0d0d0;
+                padding-right: 0;
+                padding-bottom: 20px;
+            }
+
+            .preview-image-placeholder {
+                max-width: 100%;
+                height: 200px;
+            }
+        }
+
+        /* SCROLLING CARDS SECTION STYLES */
+        .scrolling-cards-section {
+            background: white;
+            padding: 0;
+        }
+
+        .scrolling-cards-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 48px;
+            background: transparent;
+            border-radius: 0;
+            box-shadow: none;
+            padding: 0px 24px 0px 24px;
+            margin-top: -20px;
+        }
+
+        .scrolling-cards-content {
+            min-height: 460px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cards-container {
+            width: 100%;
+            height: 440px;
+            position: relative;
+            overflow: hidden;
+            padding: 0 40px;
+        }
+
+
+
+        .cards-track {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            animation: scrollCards 35s linear infinite;
+        }
+
+        .card-row {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 16px;
+            width: 280px;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+            transition: transform 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card {
+            position: relative;
+            overflow: visible;
+        }
+
+        .project-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        .project-card:hover .testimonial-content,
+        .project-card:hover .project-name,
+        .project-card:hover .project-type,
+        .project-card:hover .project-location,
+        .project-card:hover .project-pitch,
+        .project-card:hover .card-footer,
+        .project-card:hover .card-badge,
+        .project-card:hover .testimonial-text,
+        .project-card:hover .testimonial-author,
+        .project-card:hover .testimonial-role,
+        .project-card:hover .testimonial-photo {
+            filter: blur(2px);
+            transition: filter 0.2s ease;
+        }
+
+        .card-hover-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #0F62FE;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            font-family: inherit;
+            white-space: nowrap;
+            padding: 6px 12px;
+            opacity: 0;
+            z-index: 20;
+            text-decoration: none;
+        }
+
+
+
+        .card-hover-button-text {
+            color: white;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .project-card:hover .card-hover-button {
+            opacity: 1;
+        }
+
+        .project-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: #000000;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .project-type {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin: 0;
+            margin-top: -4px;
+        }
+
+        .project-location {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            color: #666;
+            margin: 0;
+            opacity: 1;
+        }
+
+        .testimonial-content {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            height: 100%;
+            justify-content: space-between;
+        }
+
+        .testimonial-text-content {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .testimonial-author-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .testimonial-author-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .testimonial-stars {
+            color: #0F62FE;
+            font-size: 14px;
+            margin: 8px 0;
+        }
+
+        .testimonial-author-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .testimonial-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            color: #333;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        .testimonial-author {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: #000;
+            margin: 0;
+            margin-bottom: -4px;
+        }
+
+        .testimonial-role {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            color: #666;
+            margin: 0;
+        }
+
+        .testimonial-photo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 8px;
+        }
+
+        .student-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: auto;
+        }
+
+        .listed-date {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            color: rgba(0, 0, 0, 0.6);
+            margin: 0;
+        }
+
+        .project-type {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #0F62FE;
+            margin: 0;
+            margin-top: -4px;
+        }
+
+        .project-location {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            color: rgba(0, 0, 0, 0.7);
+            margin: 0;
+            opacity: 1;
+        }
+
+        .project-pitch {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            color: #666;
+            margin: 0;
+            line-height: 1.3;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            margin-bottom: 8px;
+        }
+
+        .card-badge {
+            align-self: flex-start;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Inter', sans-serif;
+            font-size: 9px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            pointer-events: none;
+        }
+
+        .badge-project {
+            background: #E8F4FD;
+            color: #0F62FE;
+        }
+
+        .badge-internship {
+            background: #F3E5F5;
+            color: #7B1FA2;
+        }
+
+        .badge-job {
+            background: #F0FFF0;
+            color: #006600;
+        }
+
+        .badge-testimonial {
+            background: #FFF5E6;
+            color: #E67E22;
+        }
+
+        @keyframes scrollCards {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-50%);
+            }
+        }
+
+        .placeholder-box {
+            width: 100%;
+            text-align: center;
+        }
+
+        .placeholder-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 400;
+            color: #666666;
+            margin: 0;
+        }
+
+        /* CUSTOMER STORIES SECTION STYLES */
+        .customer-stories-section {
+            background: #fafafa;
+            padding: 60px 0 20px 0;
+            width: 100%;
+        }
+
+        .customer-stories-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 32px;
+            background: transparent;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+
+
+        .stories-header {
+            margin-bottom: 20px;
+        }
+
+        .stories-title-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 32px;
+            justify-content: flex-start;
+        }
+
+        .stories-icon {
+            font-size: 24px;
+            display: none;
+        }
+
+        .stories-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 36px;
+            font-weight: 600;
+            color: #000000;
+            margin: 0;
+            text-align: left;
+        }
+
+        /* Featured Story - Removed */
+
+        /* Customer Grid */
+        .customer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .customer-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            height: 160px;
+        }
+
+        .customer-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+        
+        .customer-card-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .customer-logo {
+            margin-bottom: 8px;
+            flex-shrink: 0;
+            text-align: left;
+            margin-left: 0;
+            padding-left: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .company-logo {
+            height: 48px;
+            width: auto;
+            max-width: 100%;
+            object-fit: contain;
+            margin-bottom: 8px;
+            display: block;
+            margin-left: 0;
+        }
+        
+        .stars {
+            margin-top: auto;
+            padding-top: 12px;
+        }
+
+
+        .logo-image {
+            height: 24px;
+            width: auto;
+            max-width: 80px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .company-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #000000;
+            display: block;
+            margin-left: 0;
+            padding-left: 0;
+        }
+
+        .stars {
+            font-size: 14px;
+            color: #000000;
+            margin-top: 8px;
+            margin-left: 0;
+            padding-left: 0;
+            letter-spacing: 2px;
+        }
+
+        .customer-quote {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 300;
+            color: #333333;
+            line-height: 1.4;
+            letter-spacing: 0%;
+            margin: 0;
+        }
+
+        .customer-card::after,
+        .customer-card::before,
+        .customer-quote::after,
+        .customer-quote::before {
+            content: none !important;
+        }
+
+        .customer-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 500;
+            color: #0F62FE;
+            text-decoration: none;
+            margin-top: 4px;
+            display: block;
+            transition: color 0.2s ease;
+        }
+
+        .customer-link:hover {
+            color: #0053E5;
+        }
+
+        .customer-row-divider {
+            grid-column: 1 / -1;
+            height: 1px;
+            background: #ECECEC;
+            margin: 3px 0;
+        }
+
+        /* Education Section */
+        .education-section {
+            padding: 110px 0 40px 0;
+            background: white;
+        }
+
+        .education-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .education-card {
+            display: flex;
+            align-items: stretch;
+            gap: 24px;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .education-image {
+            flex: 0 0 140px;
+            display: flex;
+        }
+
+        .artwork-image {
+            width: 140px;
+            height: 100%;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .education-content {
+            flex: 1;
+        }
+
+        .education-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #000000;
+            margin: 0 0 12px 0;
+        }
+
+        .education-description {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 300;
+            color: #333333;
+            line-height: 1.5;
+            margin: 0 0 16px 0;
+        }
+
+        .education-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: #0F62FE;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .education-link:hover {
+            color: #0053E5;
+        }
+
+        .education-arrow {
+            display: inline-block;
+            opacity: 0;
+            transform: translateX(-8px);
+            transition: all 0.3s ease;
+            margin-left: 4px;
+        }
+
+        .education-card:hover .education-arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Stats Footer - Notion Style */
+        .stats-footer-wrapper {
+            position: relative;
+            width: calc(100% + 64px);
+            margin: 0 -32px;
+            margin-top: -20px;
+            padding: 20px 0 60px 0;
+            overflow: hidden;
+            background: transparent;
+            mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+        }
+
+        .stats-footer {
+            display: flex;
+            gap: 60px;
+            white-space: nowrap;
+            animation: slideStats 90s linear infinite;
+            overflow: visible;
+            width: max-content;
+            will-change: transform;
+        }
+
+        /* Faster animation for mobile devices */
+        @media (max-width: 768px) {
+            .stats-footer {
+                animation: slideStats 60s linear infinite;
+                gap: 40px;
+            }
+        }
+
+        .stats-item {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            color: #6B6B6B;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+            white-space: nowrap;
+            min-width: max-content;
+            filter: grayscale(100%);
+            opacity: 0.7;
+        }
+
+        @keyframes slideStats {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-33.333%);
+            }
+        }
+
+        /* Footer Section */
+        .footer-section {
+            background: white;
+            width: 100%;
+            max-width: 1070px;
+            margin: 0 auto;
+            padding: 78px 0 46px 0;
+            margin-top: 50px;
+            border-top: 1px solid #EBEBEB;
+        }
+
+        .footer-container {
+            max-width: 940px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .footer-logo {
+            width: 39%;
+            padding: 2px 15px 0 0;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo-img {
+            width: 40px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            width: 60%;
+            gap: 25px 25px;
+            padding: 0 15px 0 10px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-heading {
+            font-family: 'Inter', sans-serif;
+            font-size: 17px;
+            color: #000000;
+            margin-bottom: 15px;
+            font-weight: 600;
+            margin: 0 0 15px 0;
+        }
+
+        .footer-link-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .footer-link-list li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+            text-decoration: none;
+            line-height: 1.2;
+            transition: text-decoration 0.2s ease;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Disabled footer links with hover effects */
+        .footer-link.disabled-link {
+            cursor: not-allowed;
+            opacity: 0.6;
+            position: relative;
+        }
+
+        .footer-link.disabled-link:hover {
+            text-decoration: none;
+            opacity: 0.8;
+            color: #999999;
+        }
+
+        .footer-link.disabled-link:hover::before {
+            content: "Coming Soon";
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000000;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+            white-space: nowrap;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Footer Dropdown Styles */
+        .footer-dropdown-item {
+            position: relative;
+        }
+
+        .footer-dropdown-menu {
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 8px;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 10000;
+        }
+
+        .footer-dropdown-item:hover .footer-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .footer-dropdown-menu .footer-dropdown-item {
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            text-decoration: none;
+            display: block;
+        }
+
+        .footer-dropdown-menu .footer-dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.04);
+        }
+
+        /* Ensure footer dropdown links work properly */
+        .footer-dropdown-menu .footer-dropdown-item:visited {
+            color: inherit;
+        }
+
+        .footer-dropdown-menu .footer-dropdown-item:active {
+            color: inherit;
+        }
+
+        .footer-copyright {
+            grid-column: 1 / -1;
+            margin-top: 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+        }
+
+        /* What Need Responsive */
+        @media (max-width: 768px) {
+            .what-need-title {
+                font-size: 32px;
+            }
+
+            .what-need-subtitle {
+                font-size: 16px;
+            }
+
+            .category-checkboxes {
+                gap: 16px;
+                margin-top: 32px;
+            }
+
+            .checkbox-label {
+                font-size: 14px;
+            }
+
+            .tags-grid {
+                gap: 8px;
+                margin-top: 32px;
+            }
+
+            .tag-item {
+                font-size: 13px;
+                padding: 4px 12px;
+                height: 29px;
+                line-height: 1;
+                vertical-align: middle;
+            }
+
+            /* Customer Stories Responsive */
+            .stories-title-container {
+                padding: 0 24px;
+            }
+
+            .customer-stories-container {
+                padding: 4px 16px;
+            }
+
+            .featured-content {
+                flex-direction: column;
+                gap: 32px;
+                padding: 32px;
+            }
+
+            .featured-video {
+                flex: none;
+                width: 100%;
+            }
+
+            .featured-quote {
+                font-size: 28px;
+            }
+
+            .customer-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2px;
+            }
+
+            .customer-row-divider {
+                margin: 4px 0;
+            }
+
+            .customer-card {
+                padding: 16px;
+            }
+
+            .stats-footer-wrapper {
+                padding: 0 24px;
+                margin-top: 4px; /* 8px space from container border (4px container padding + 4px = 8px) */
+            }
+
+            .stats-footer {
+                gap: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .what-need-title {
+                font-size: 28px;
+            }
+
+            .what-need-subtitle {
+                font-size: 14px;
+            }
+
+            /* Customer Stories Mobile */
+            .stories-title-container {
+                padding: 0 16px;
+            }
+
+            .customer-stories-container {
+                padding: 3px 12px;
+            }
+
+            .stories-title {
+                font-size: 14px;
+            }
+
+            .featured-quote {
+                font-size: 24px;
+            }
+
+            .customer-grid {
+                grid-template-columns: 1fr;
+                gap: 4px;
+            }
+
+            .customer-card {
+                padding: 20px;
+
+            }
+
+            .stats-footer-wrapper {
+                padding: 0 16px;
+                margin-top: 5px; /* 8px space from container border (3px container padding + 5px = 8px) */
+            }
+
+            .stats-footer {
+                gap: 12px;
+            }
+
+            .stats-item {
+                font-size: 12px;
+            }
+
+            /* Footer Responsive */
+            .footer-logo {
+                width: 100%;
+                padding: 2px 20px 0 20px;
+                margin-bottom: 30px;
+            }
+
+            .footer-links {
+                width: 100%;
+                grid-template-columns: 1fr;
+                gap: 25px;
+                padding: 0 20px 0 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .what-need-title {
+                font-size: 28px;
+            }
+
+            .what-need-subtitle {
+                font-size: 14px;
+            }
+
+            /* Customer Stories Mobile */
+            .stories-title-container {
+                padding: 0 16px;
+            }
+
+            .customer-stories-container {
+                padding: 3px 12px;
+            }
+
+            .stories-title {
+                font-size: 14px;
+            }
+
+            .featured-quote {
+                font-size: 24px;
+            }
+
+            .customer-grid {
+                grid-template-columns: 1fr;
+                gap: 4px;
+            }
+
+            .customer-card {
+                padding: 20px;
+
+            }
+
+            .stats-footer-wrapper {
+                padding: 0 16px;
+                margin-top: 5px; /* 8px space from container border (3px container padding + 5px = 8px) */
+            }
+
+            .stats-footer {
+                gap: 12px;
+            }
+
+            .stats-item {
+                font-size: 12px;
+            }
+
+            /* Footer Mobile */
+            .footer-logo {
+                width: 100%;
+                padding: 2px 20px 0 20px;
+                margin-bottom: 30px;
+            }
+
+            .footer-links {
+                width: 100%;
+                grid-template-columns: 1fr;
+                gap: 25px;
+                padding: 0 20px 0 20px;
+            }
+
+            .footer-column {
+                gap: 6px;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1400px) {
+            .header-container {
+                padding: 16px 24px;
+            }
+            
+            .navigation {
+                gap: 28px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .header-container {
+                padding: 16px 20px;
+            }
+            
+            .navigation {
+                gap: 24px;
+            }
+            
+            .nav-item {
+                padding: 6px 8px;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .header-container {
+                padding: 12px 20px;
+            }
+            
+            .header-left {
+                gap: 16px;
+            }
+            
+            .navigation {
+                gap: 6px;
+            }
+            
+            .nav-item {
+                padding: 4px 6px;
+                font-size: 13px;
+            }
+            
+            .auth-item {
+                padding: 6px 8px;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .header-container {
+                padding: 12px 20px;
+            }
+            
+            .header-left {
+                gap: 16px;
+                min-width: 0;
+                flex: 1;
+                overflow: hidden;
+            }
+            
+            .navigation {
+                display: none;
+            }
+            
+            .dropdown-menu {
+                display: none;
+            }
+            
+            .hamburger-menu {
+                display: flex;
+            }
+            
+            .header-right {
+                flex-shrink: 0;
+                gap: 8px;
+            }
+        }
+
+
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 12px 16px;
+            }
+            
+            .header-left {
+                gap: 0px;
+            }
+            
+            .navigation {
+                display: none;
+            }
+            
+            .header-right {
+                gap: 12px;
+            }
+            
+            .auth-item {
+                display: none;
+            }
+            
+            .auth-section {
+                display: flex;
+            }
+            
+            .hamburger-menu {
+                display: flex;
+                margin-left: 0;
+                padding: 6px;
+                border-radius: 4px;
+                transition: background-color 0.2s ease;
+                order: 2;
+            }
+            
+            .hamburger-menu:hover {
+                background-color: rgba(55, 53, 47, 0.08);
+            }
+            
+            .join-button {
+                padding: 6px 12px;
+                font-size: 13px;
+                width: auto;
+                height: auto;
+                min-width: 100px;
+                white-space: nowrap;
+                overflow: visible;
+            }
+            
+            .join-text {
+                font-size: 13px;
+            }
+
+
+         }
+
+        /* Fix navbar underline issue - only for main nav items, not dropdown items */
+        .navigation .nav-item,
+        .navigation .nav-item:link,
+        .navigation .nav-item:visited,
+        .navigation .nav-item:hover,
+        .navigation .nav-item:active,
+        .navigation .nav-item:focus {
+            text-decoration: none !important;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="header-container">
+        <!-- Logo on the left -->
+        <div class="header-logo">
+            <div class="logo-container">
+                <div class="logo">
+                    <a href="https://qava.ai/">
+                        <img src="qava-logo.svg" alt="Qava Logo">
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation in the center -->
+        <div class="header-center">
+            <div class="navigation">
+                <a href="https://app.qava.ai/" class="nav-item create-listing">
+                    <div class="nav-text">Create Listing</div>
+                </a>
+                <a href="https://app.qava.ai/" class="nav-item search-listings">
+                    <div class="nav-text">Search Listings</div>
+                </a>
+                <div class="nav-item how-it-works has-dropdown">
+                    <div class="nav-text">How It Works</div>
+                    <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M6 3v6M3 6h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <div class="dropdown-menu">
+                        <a href="https://qava.ai/clienthowitworks" class="dropdown-item">
+                            <div class="dropdown-title">For Clients 🚀</div>
+                            <div class="dropdown-subtitle">Hiring for current or future work</div>
+                        </a>
+                        <a href="https://qava.ai/talenthowitworks" class="dropdown-item">
+                            <div class="dropdown-title">For Talent 👩‍💻</div>
+                            <div class="dropdown-subtitle">Interested in current or future work</div>
+                        </a>
+                    </div>
+                </div>
+                <a href="https://qava.ai/whyqava" class="nav-item why-qava">
+                    <div class="nav-text">Why Qava</div>
+                </a>
+                <a href="https://qava.ai/pricing" class="nav-item pricing">
+                    <div class="nav-text">Pricing</div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Auth section on the right -->
+        <div class="header-right">
+            <div class="auth-section">
+                <a href="https://qava.ai/request-demo" class="auth-item">
+                    <div class="nav-text">Request a demo</div>
+                </a>
+                <a href="https://app.qava.ai/" class="auth-item">
+                    <div class="nav-text">Log in</div>
+                </a>
+                <a href="https://app.qava.ai/" class="join-button">
+                    <div class="join-text">Join for free</div>
+                </a>
+            </div>
+            
+            <!-- Hamburger Menu Button -->
+            <div class="hamburger-menu" onclick="toggleMobileMenu()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
+        <a href="https://app.qava.ai/" class="mobile-nav-item">
+            <div class="nav-text">Create Listing</div>
+        </a>
+        <a href="https://app.qava.ai/" class="mobile-nav-item">
+            <div class="nav-text">Search Listings</div>
+        </a>
+        <div class="mobile-nav-item mobile-dropdown-toggle" onclick="toggleMobileDropdown()">
+            <div class="mobile-dropdown-header">
+                <div class="nav-text">How It Works</div>
+                <span class="mobile-dropdown-arrow">+</span>
+            </div>
+        </div>
+        <div class="mobile-dropdown-content" id="mobileDropdown">
+            <a href="https://qava.ai/clienthowitworks" class="mobile-dropdown-item">
+                <div class="dropdown-title">For Clients 🚀</div>
+                <div class="dropdown-subtitle">Hiring for current or future work</div>
+            </a>
+            <a href="https://qava.ai/talenthowitworks" class="mobile-dropdown-item">
+                <div class="dropdown-title">For Talent 👩‍💻</div>
+                <div class="dropdown-subtitle">Interested in current or future work</div>
+            </a>
+        </div>
+        <a href="https://qava.ai/whyqava" class="mobile-nav-item">
+            <div class="nav-text">Why Qava</div>
+        </a>
+        <a href="https://qava.ai/pricing" class="mobile-nav-item">
+            <div class="nav-text">Pricing</div>
+        </a>
+        <div class="mobile-auth-section">
+            <a href="https://qava.ai/request-demo" class="mobile-nav-item">Request a demo</a>
+            <a href="https://app.qava.ai/" class="mobile-nav-item">Log in</a>
+            <a href="https://app.qava.ai/" class="join-button">
+                <div class="join-text">Join for free</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-container">
+            <div class="hero-content">
+                                        <h1 class="hero-title"><span class="hero-word" id="projects">Projects</span>, <span class="hero-word" id="jobs">jobs</span>,<br><span class="hero-word" id="internships">internships</span> for<br>today's world.</h1>
+                <p class="hero-subtitle">One place for ambitious talent, leaders, and founders to shape strategy, harness AI, and accelerate results.</p>
+                <div class="hero-buttons">
+                    <a href="https://app.qava.ai/" class="hero-join-button">
+                        <span class="hero-join-text">Join for free</span>
+                    </a>
+                    <a href="https://qava.ai/request-demo" class="hero-demo-button">
+                        <span class="hero-demo-text">Request a demo</span>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="How it works/Landing Page Images/Main Desktop v2.svg" alt="Qava Desktop Interface" class="desktop-image" />
+                <img src="How it works/Landing Page Images/iPhone Landing Page.png" alt="Qava Mobile Interface" class="mobile-image" />
+            </div>
+        </div>
+    </div>
+
+    <!-- Competitor Platforms Section -->
+    <div class="competitor-platforms-section">
+        <div class="competitor-platforms-container">
+            <div class="competitor-platforms-header">
+                <h2 class="competitor-platforms-title">The future of knowledge work is here.</h2>
+                <div class="competitor-platforms-subtitle-text">The fastest-growing community of top strategy talent and opportunities.</div>
+                <div class="competitor-platforms-line"></div>
+            </div>
+            <div class="competitor-platforms-logos">
+                <div class="competitor-logo-item">
+                    <img src="Competitor Platform/Toptal.png" alt="Toptal" class="competitor-logo">
+                </div>
+                <div class="competitor-logo-item">
+                    <img src="Competitor Platform/Catalant.png" alt="Catalant" class="competitor-logo">
+                </div>
+                <div class="competitor-logo-item">
+                    <img src="Competitor Platform/LinkedIn.png" alt="LinkedIn" class="competitor-logo">
+                </div>
+                <div class="competitor-logo-item">
+                    <img src="Competitor Platform/Fiverr.png" alt="Fiverr" class="competitor-logo">
+                </div>
+                <div class="competitor-logo-item">
+                    <img src="Competitor Platform/Upwork.png" alt="Upwork" class="competitor-logo">
+                </div>
+            </div>
+                        <a href="https://qava.ai/whyqava" class="competitor-platforms-subtitle">Learn more →</a>
+        </div>
+    </div>
+
+    <!-- New Section with Testimonials Dimensions -->
+    <div class="new-section">
+        <div class="new-section-container">
+            <div class="new-section-content">
+                <div class="cards-container">
+                    <div class="cards-track">
+                        <!-- First Row -->
+                        <div class="card-row">
+                            <div class="project-card">
+                                <div class="card-badge badge-project">Project</div>
+                                <h3 class="project-name">Digital Transformation Strategy</h3>
+                                <p class="project-type">Strategy Consulting</p>
+                                <p class="project-location">📍 Remote</p>
+                                <p class="project-pitch">Exciting opportunity to work with industry leaders on cutting-edge digital transformation initiatives that will reshape how businesses operate in the modern era.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 2 days ago</span>
+                                </div>
+                                <a href="https://app.qava.ai/" class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </a>
+                            </div>
+                            <div class="project-card">
+                                <div class="card-badge badge-job">Job</div>
+                                <h3 class="project-name">Growth Marketing Lead</h3>
+                                <p class="project-type">Marketing</p>
+                                <p class="project-location">📍 New York, NY</p>
+                                <p class="project-pitch">High-growth startup seeks dynamic marketing leader to scale customer acquisition and drive exponential revenue growth through innovative strategies.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 3 days ago</span>
+                                </div>
+                                <a href="https://app.qava.ai/" class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </a>
+                            </div>
+                            <div class="project-card">
+                                <div class="card-badge badge-internship">Internship</div>
+                                <h3 class="project-name">AI Product Management</h3>
+                                <p class="project-type">Product Management</p>
+                                <p class="project-location">📍 San Francisco, CA</p>
+                                <p class="project-pitch">Innovative AI company seeks passionate intern to shape the future of product development and contribute to breakthrough technologies.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 1 day ago</span>
+                                </div>
+                                <a href="https://app.qava.ai/" class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Second Row -->
+                        <div class="card-row">
+                            <div class="project-card">
+                                <div class="testimonial-content">
+                                    <div class="testimonial-text-content">
+                                        <p class="testimonial-text">Qava has <strong><span style="color: #0F62FE;">saved me valuable time</span></strong> when it comes to building my company, and it's enabled me to work with a diverse pool of students with fresh, bright perspectives on targeted problems I'm working to solve.</p>
+                                    </div>
+                                    <div class="testimonial-author-section">
+                                        <img src="Testimonial images/Kristina Boxer.png" alt="Kristina Boxer" class="testimonial-photo">
+                                        <div class="testimonial-author-info">
+                                            <p class="testimonial-author">Kristina Boxer</p>
+                                            <p class="testimonial-role">Mmento, Founder & CEO</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="https://app.qava.ai/" class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </a>
+                            </div>
+                            <div class="project-card">
+                                <div class="card-badge badge-job">Job</div>
+                                <h3 class="project-name">Strategy Consultant</h3>
+                                <p class="project-type">Strategy</p>
+                                <p class="project-location">📍 Chicago, IL</p>
+                                <p class="project-pitch">Top-tier consulting firm seeks strategic thinker to solve complex business challenges and drive organizational transformation.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 1 week ago</span>
+                                </div>
+                                <a href="https://app.qava.ai/" class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </a>
+                            </div>
+                            <div class="project-card">
+                                <div class="card-badge badge-internship">Internship</div>
+                                <h3 class="project-name">Cybersecurity Analyst</h3>
+                                <p class="project-type">Information Security</p>
+                                <p class="project-location">📍 Washington, DC</p>
+                                <p class="project-pitch">Leading cybersecurity firm seeks tech-savvy intern to analyze threat intelligence and develop security protocols for enterprise clients.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 3 days ago</span>
+                                </div>
+                                <a href="https://app.qava.ai/" class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Third Row -->
+                        <div class="card-row">
+                            <div class="project-card">
+                                <div class="card-badge badge-project">Project</div>
+                                <h3 class="project-name">Market Entry Strategy</h3>
+                                <p class="project-type">Market Research</p>
+                                <p class="project-location">📍 Remote</p>
+                                <p class="project-pitch">Global expansion opportunity with established enterprise seeking strategic market insights and comprehensive entry planning for new markets.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 6 days ago</span>
+                                </div>
+                                <a href="https://app.qava.ai/" class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </a>
+                            </div>
+                            <div class="project-card">
+                                <div class="testimonial-content">
+                                    <div class="testimonial-text-content">
+                                        <p class="testimonial-text">I turned my classroom theory into <strong><span style="color: #0F62FE;">real-world impact</span></strong>. I worked on a live project with a startup founder and gained experience that I can actually talk about in interviews.</p>
+                                    </div>
+                                    <div class="testimonial-author-section">
+                                        <img src="Testimonial images/Sandeep Kurapati.png" alt="Sandeep Kurapati" class="testimonial-photo">
+                                        <div class="testimonial-author-info">
+                                            <p class="testimonial-author">Sandeep Kurapati</p>
+                                            <p class="testimonial-role">Kellogg MBA Class '25</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="https://app.qava.ai/" class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </a>
+                            </div>
+                            <div class="project-card">
+                                <div class="card-badge badge-internship">Internship</div>
+                                <h3 class="project-name">Sustainability Analyst</h3>
+                                <p class="project-type">Environmental Science</p>
+                                <p class="project-location">📍 Portland, OR</p>
+                                <p class="project-pitch">Green energy company seeks passionate intern to analyze environmental impact data and develop sustainability strategies for renewable energy projects.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 1 week ago</span>
+                                </div>
+                                <a href="https://app.qava.ai/" class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Row 4 - Additional unique content -->
+                        <div class="card-row">
+                            <div class="project-card">
+                                <div class="card-badge badge-project">Project</div>
+                                <h3 class="project-name">Financial Model Development</h3>
+                                <p class="project-type">Financial Analysis</p>
+                                <p class="project-location">📍 Remote</p>
+                                <p class="project-pitch">Prestigious consulting firm seeks financial modeling expert for high-impact client projects and strategic financial planning initiatives.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 5 days ago</span>
+                                </div>
+                                <a href="https://app.qava.ai/" class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </a>
+                            </div>
+                            <div class="project-card">
+                                <div class="card-badge badge-internship">Internship</div>
+                                <h3 class="project-name">Data Science Research</h3>
+                                <p class="project-type">Data Science</p>
+                                <p class="project-location">📍 Boston, MA</p>
+                                <p class="project-pitch">Leading research institution seeks data science intern to advance AI breakthroughs and contribute to cutting-edge machine learning research.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 1 week ago</span>
+                                </div>
+                                <a href="https://app.qava.ai/" class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </a>
+                            </div>
+                            <div class="project-card">
+                                <div class="testimonial-content">
+                                    <div class="testimonial-text-content">
+                                        <p class="testimonial-text">I see a <strong><span style="color: #0F62FE;">huge difference</span></strong> in my abilities. I didn't realize a 10 hour long project can give me so much learning. I'm super grateful and highly recommend everyone do at least one project!</p>
+                                    </div>
+                                    <div class="testimonial-author-section">
+                                        <img src="Testimonial images/Vrinda Batra.png" alt="Vrinda Batra" class="testimonial-photo">
+                                        <div class="testimonial-author-info">
+                                            <p class="testimonial-author">Vrinda Batra</p>
+                                            <p class="testimonial-role">Wharton MBA Class '26</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="https://app.qava.ai/" class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Row 5 - Additional unique content -->
+                        <div class="card-row">
+                            <div class="project-card">
+                                <div class="card-badge badge-project">Project</div>
+                                <h3 class="project-name">Customer Experience Strategy</h3>
+                                <p class="project-type">Customer Experience</p>
+                                <p class="project-location">📍 Remote</p>
+                                <p class="project-pitch">Innovative retail company seeks CX strategist to redesign customer journey and enhance brand loyalty through data-driven insights.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 3 days ago</span>
+                                </div>
+                                <button class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </button>
+                            </div>
+                            <div class="project-card">
+                                <div class="card-badge badge-internship">Internship</div>
+                                <h3 class="project-name">Product Marketing</h3>
+                                <p class="project-type">Marketing</p>
+                                <p class="project-location">📍 Los Angeles, CA</p>
+                                <p class="project-pitch">Dynamic startup seeks marketing intern to develop go-to-market strategies and drive product adoption through creative campaigns.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 5 days ago</span>
+                                </div>
+                                <button class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </button>
+                            </div>
+                            <div class="project-card">
+                                <div class="card-badge badge-job">Job</div>
+                                <h3 class="project-name">Senior Product Manager</h3>
+                                <p class="project-type">Product Management</p>
+                                <p class="project-location">📍 Denver, CO</p>
+                                <p class="project-pitch">Established tech company seeks experienced product manager to lead feature development and drive user engagement.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 1 week ago</span>
+                                </div>
+                                <button class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Row 6 - Additional unique content -->
+                        <div class="card-row">
+                            <div class="project-card">
+                                <div class="card-badge badge-project">Project</div>
+                                <h3 class="project-name">Supply Chain Optimization</h3>
+                                <p class="project-type">Operations</p>
+                                <p class="project-location">📍 Remote</p>
+                                <p class="project-pitch">Global manufacturing company seeks operations expert to streamline supply chain processes and reduce costs.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 4 days ago</span>
+                                </div>
+                                <button class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </button>
+                            </div>
+                            <div class="project-card">
+                                <div class="card-badge badge-internship">Internship</div>
+                                <h3 class="project-name">Investment Research</h3>
+                                <p class="project-type">Finance</p>
+                                <p class="project-location">📍 New York, NY</p>
+                                <p class="project-pitch">Leading investment firm seeks finance intern to conduct market analysis and support investment decision-making.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 2 weeks ago</span>
+                                </div>
+                                <button class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </button>
+                            </div>
+                            <div class="project-card">
+                                <div class="card-badge badge-job">Job</div>
+                                <h3 class="project-name">UX/UI Designer</h3>
+                                <p class="project-type">Design</p>
+                                <p class="project-location">📍 Portland, OR</p>
+                                <p class="project-pitch">Creative agency seeks talented designer to create intuitive user experiences and beautiful interfaces.</p>
+                                <div class="card-footer">
+                                    <span class="listed-date">Listed 6 days ago</span>
+                                </div>
+                                <button class="card-hover-button">
+                                    <div class="card-hover-button-text">Sign up or log in</div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Matching CTA Section -->
+    <div class="matching-cta-section">
+        <div class="matching-cta-container">
+            <h2 class="matching-cta-header">Work smart &<br>smash your goals.</h2>
+            <p class="matching-cta-subheader">Where startups, enterprises, and talent build what's next.</p>
+            <div class="matching-cta-buttons">
+                <a href="https://app.qava.ai/signup" class="cta-button cta-button-primary">Join for free</a>
+                <a href="https://app.qava.ai/demo" class="cta-button cta-button-secondary">Request a demo</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Connect with MBA Talent Section -->
+    <div class="feature-cards-section">
+        <div class="feature-cards-container">
+            <h2 class="feature-cards-header">Connect with world-class MBA talent</h2>
+            <p class="feature-cards-subheader">Reach 1,000s of talented students and graduates in minutes.</p>
+            
+            <!-- University Logos -->
+            <div class="feature-cards-logos">
+                <div class="feature-logo-item">
+                    <img src="Landing Page Trusted by/MIT.png" alt="MIT Sloan">
+                </div>
+                <div class="feature-logo-item">
+                    <img src="Landing Page Trusted by/Stern.png" alt="NYU Stern">
+                </div>
+                <div class="feature-logo-item">
+                    <img src="Landing Page Trusted by/Wharton.png" alt="Wharton">
+                </div>
+                <div class="feature-logo-item">
+                    <img src="Landing Page Trusted by/HBS.png" alt="Harvard Business School">
+                </div>
+                <div class="feature-logo-item">
+                    <img src="Landing Page Trusted by/Haas.png" alt="Berkeley Haas">
+                </div>
+                <div class="feature-logo-item">
+                    <img src="Landing Page Trusted by/Standford.png" alt="Stanford GSB">
+                </div>
+                <div class="feature-logo-item">
+                    <img src="Landing Page Trusted by/Kellogg.png" alt="Northwestern Kellogg">
+                </div>
+                <div class="feature-logo-item">
+                    <img src="Landing Page Trusted by/Said.png" alt="Oxford Saïd">
+                </div>
+                <div class="feature-logo-item">
+                    <img src="Landing Page Trusted by/AGSM.jpg" alt="AGSM UNSW Business School">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Three Selection Boxes Section -->
+    <div class="selection-boxes-section">
+        <div class="selection-boxes-container">
+            <!-- Three Selection Boxes -->
+            <div class="selection-boxes">
+                <div class="selection-box active">
+                    <h3 class="selection-title">326+ Projects</h3>
+                    <p class="selection-description">From launches to fundraises to grants. Join the teams building what's next.</p>
+                    <a href="#" class="selection-link">Search <span class="selection-arrow">→</span></a>
+                </div>
+                <div class="selection-box">
+                    <h3 class="selection-title">200+ Jobs</h3>
+                    <p class="selection-description">Discover jobs at fast-growing companies where your work matters.</p>
+                    <a href="#" class="selection-link">Search <span class="selection-arrow">→</span></a>
+                </div>
+                <div class="selection-box">
+                    <h3 class="selection-title">420+ Internships</h3>
+                    <p class="selection-description">Internships built on diversity, fairness, and real impact.</p>
+                    <a href="#" class="selection-link">Search <span class="selection-arrow">→</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feature Cards Section -->
+    <div class="feature-cards-section">
+        <div class="feature-cards-container">
+            <h2 class="feature-cards-header">The projects behind every great business</h2>
+            <p class="feature-cards-subheader">Plan smarter, execute faster, and grow stronger with 100+ ready-to-start projects.</p>
+            
+            <div class="feature-cards-grid">
+                <!-- Build & Launch Card -->
+                <div class="feature-card active" data-preview="build">
+                    <h3 class="feature-card-title">I want to build or launch 🚀</h3>
+                    <p class="feature-card-description">Turn your idea into a real business.</p>
+                </div>
+
+                <!-- Growth & Capital Card -->
+                <div class="feature-card" data-preview="grow">
+                    <h3 class="feature-card-title">I want to grow or raise money 🌱</h3>
+                    <p class="feature-card-description">Expand reach, attract funding, and scale impact.</p>
+                </div>
+
+                <!-- Improve & Scale Card -->
+                <div class="feature-card" data-preview="improve">
+                    <h3 class="feature-card-title">I want to scale or improve ⚙️</h3>
+                    <p class="feature-card-description">Streamline operations and strengthen your foundation.</p>
+                </div>
+
+                <!-- Measure & Optimize Card -->
+                <div class="feature-card" data-preview="measure">
+                    <h3 class="feature-card-title">I want to measure or optimize 📊</h3>
+                    <p class="feature-card-description">Track performance and make smarter decisions.</p>
+                </div>
+            </div>
+
+            <!-- Large Preview Box -->
+            <div class="feature-preview-box">
+                <div class="preview-content">
+                    <!-- Left Side: Project List -->
+                    <div class="preview-left">
+                        <div class="preview-projects-list">
+                            <!-- Project names will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <!-- Right Side: Benefits -->
+                    <div class="preview-right">
+                        <div class="preview-benefits">
+                            <!-- Benefits will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Stories Section -->
+    <div class="customer-stories-section">
+        <!-- Section Header -->
+        <div class="stories-header">
+            <div class="stories-title-container">
+                <h2 class="stories-title">Trusted by teams that build.</h2>
+            </div>
+        </div>
+        
+        <div class="customer-stories-container">
+
+            <!-- Customer Grid -->
+            <div class="customer-grid">
+                <!-- First Row -->
+                <div class="customer-card">
+                    <div class="customer-card-content">
+                        <div class="customer-logo">
+                            <span class="company-name">Boon</span>
+                        </div>
+                        <p class="customer-quote">We streamlined our workflows and accelerated our sales cycle using incredible interns and AI.</p>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                </div>
+                <div class="customer-card">
+                    <div class="customer-card-content">
+                        <div class="customer-logo">
+                            <span class="company-name">Captable</span>
+                        </div>
+                        <p class="customer-quote">With Qava, every person at Captable has an intern and is growing 10x faster.</p>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                </div>
+                <div class="customer-card">
+                    <div class="customer-card-content">
+                        <div class="customer-logo">
+                            <span class="company-name">mmento</span>
+                        </div>
+                        <p class="customer-quote">Qava has saved me valuable time, and I get to work with a diverse pool of fresh, bright perspectives on targeted problems.</p>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                </div>
+                
+                <!-- Second Row -->
+                <div class="customer-card">
+                    <div class="customer-card-content">
+                        <div class="customer-logo">
+                            <span class="company-name">Saturn Guard</span>
+                        </div>
+                        <p class="customer-quote">Qava has been the most powerful and impactful way to grow our mission and company.</p>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                </div>
+                <div class="customer-card">
+                    <div class="customer-card-content">
+                        <div class="customer-logo">
+                            <span class="company-name">Stum</span>
+                        </div>
+                        <p class="customer-quote">The EASIEST and MOST AGILE talent solution we have ever used. Thank you.</p>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                </div>
+                <div class="customer-card">
+                    <div class="customer-card-content">
+                        <div class="customer-logo">
+                            <span class="company-name">The Rise Group</span>
+                        </div>
+                        <p class="customer-quote">It's about time there was a talent sourcing platform that actually works.</p>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                </div>
+                
+                <!-- Third Row -->
+                <div class="customer-card">
+                    <div class="customer-card-content">
+                        <div class="customer-logo">
+                            <span class="company-name">TechFlow</span>
+                        </div>
+                        <p class="customer-quote">Qava's talent pool helped us scale our engineering team 3x faster than traditional hiring.</p>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                </div>
+                <div class="customer-card">
+                    <div class="customer-card-content">
+                        <div class="customer-logo">
+                            <span class="company-name">DataVault</span>
+                        </div>
+                        <p class="customer-quote">The quality of MBA talent we found through Qava exceeded our expectations completely.</p>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                </div>
+                <div class="customer-card">
+                    <div class="customer-card-content">
+                        <div class="customer-logo">
+                            <span class="company-name">GreenTech</span>
+                        </div>
+                        <p class="customer-quote">Qava connected us with brilliant minds who transformed our sustainability strategy.</p>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                </div>
+                
+                <!-- Fourth Row -->
+                <div class="customer-card">
+                    <div class="customer-card-content">
+                        <div class="customer-logo">
+                            <span class="company-name">FinTech Pro</span>
+                        </div>
+                        <p class="customer-quote">The financial modeling expertise we gained through Qava was game-changing for our startup.</p>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                </div>
+                <div class="customer-card">
+                    <div class="customer-card-content">
+                        <div class="customer-logo">
+                            <span class="company-name">CloudScale</span>
+                        </div>
+                        <p class="customer-quote">Qava's platform made finding top-tier talent effortless and incredibly efficient.</p>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                </div>
+                <div class="customer-card">
+                    <div class="customer-card-content">
+                        <div class="customer-logo">
+                            <span class="company-name">HealthTech</span>
+                        </div>
+                        <p class="customer-quote">The strategic insights from Qava's talent helped us navigate complex healthcare regulations.</p>
+                    </div>
+                    <div class="stars">★★★★★</div>
+                </div>
+            </div>
+
+            <!-- Stats Footer -->
+            <div class="stats-footer-wrapper">
+        <div class="stats-footer">
+            <div class="stats-item">🌐 Over 10K users worldwide</div>
+            <div class="stats-item">🏆 96% of clients would recommend Qava</div>
+            <div class="stats-item">🎯 98% of talent report gaining new, career-advancing skills</div>
+            <div class="stats-item">🎓 Talent from top 50 global MBA & EMBA schools</div>
+            <div class="stats-item">🔗 70% of projects lead to ongoing relationships between talent & clients</div>
+            <div class="stats-item">⚡ Matches made in <24 hours on average</div>
+            <div class="stats-item">📊 3x higher applicant quality vs. traditional job boards</div>
+            <div class="stats-item">🔒 100% project protection guarantee</div>
+            <div class="stats-item">🏆 62% of Fortune 100 use Qava</div>
+            <!-- Duplicate items for seamless loop -->
+            <div class="stats-item">🌐 Over 10K users worldwide</div>
+            <div class="stats-item">🏆 96% of clients would recommend Qava</div>
+            <div class="stats-item">🎯 98% of talent report gaining new, career-advancing skills</div>
+            <div class="stats-item">🎓 Talent from top 50 global MBA & EMBA schools</div>
+            <div class="stats-item">🔗 70% of projects lead to ongoing relationships between talent & clients</div>
+            <div class="stats-item">⚡ Matches made in <24 hours on average</div>
+            <div class="stats-item">📊 3x higher applicant quality vs. traditional job boards</div>
+            <div class="stats-item">🔒 100% project protection guarantee</div>
+            <div class="stats-item">🏆 62% of Fortune 100 use Qava</div>
+            <!-- Third set for smoother loop -->
+            <div class="stats-item">🌐 Over 10K users worldwide</div>
+            <div class="stats-item">🏆 96% of clients would recommend Qava</div>
+            <div class="stats-item">🎯 98% of talent report gaining new, career-advancing skills</div>
+            <div class="stats-item">🎓 Talent from top 50 global MBA & EMBA schools</div>
+            <div class="stats-item">🔗 70% of projects lead to ongoing relationships between talent & clients</div>
+            <div class="stats-item">⚡ Matches made in <24 hours on average</div>
+            <div class="stats-item">📊 3x higher applicant quality vs. traditional job boards</div>
+            <div class="stats-item">🔒 100% project protection guarantee</div>
+            <div class="stats-item">🏆 62% of Fortune 100 use Qava</div>
+            </div>
+        </div>
+
+        </div>
+    </div>
+    
+    <!-- Education Section -->
+    <div class="education-section">
+        <div class="education-container">
+            <div class="education-card">
+                <div class="education-image">
+                    <img src="Education Breaks the Cycle.png" alt="Education Breaks the Cycle" class="artwork-image">
+                </div>
+                <div class="education-content">
+                    <h3 class="education-title">Education breaks the cycle</h3>
+                    <p class="education-description">
+                        The Aurora Education foundation is an Indigenous organization that supports Aboriginal and Torres Strait Islander students to realize their full education and employment potential. 1% of profits will be donated to this important mission.
+                    </p>
+                    <a href="https://aurorafoundation.com.au/?gad_source=1&gad_campaignid=20266303360&gbraid=0AAAAAo_9cxXCGg5IbEOVCx16vIn4z39Pq&gclid=Cj0KCQjwn8XFBhCxARIsAMyH8BtbXMEmRGAKfavaNQn127KW-GgTf0ldjKUoTs4rPkJ0rKoAdS79zl4aAkF9EALw_wcB" class="education-link" target="_blank">Learn more<span class="education-arrow">→</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer-section">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="https://qava.ai/">
+                        <img src="qava-logo.svg" alt="Qava" class="footer-logo-img" />
+                    </a>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Welcome</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://app.qava.ai/" class="footer-link">Create Listing</a></li>
+                            <li><a href="https://app.qava.ai/" class="footer-link">Search Listings</a></li>
+                            <li><a href="https://qava.ai/clienthowitworks" class="footer-link">How It Works for Clients</a></li>
+                            <li><a href="https://qava.ai/talenthowitworks" class="footer-link">How It Works for Talent</a></li>
+                            <li><a href="https://qava.ai/whyqava" class="footer-link">Why Qava</a></li>
+                            <li><span class="footer-link disabled-link">What's New</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Get Started</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://qava.ai/request-demo" class="footer-link">Request a Demo</a></li>
+                            <li><a href="https://app.qava.ai/" class="footer-link">Sign Up</a></li>
+                            <li><a href="https://app.qava.ai/" class="footer-link">Log In</a></li>
+                            <li><span class="footer-link disabled-link">AI Prompts</span></li>
+                            <li><span class="footer-link disabled-link">Project Templates</span></li>
+                            <li><span class="footer-link disabled-link">Application Tips</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Resources</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://qava.ai/pricing" class="footer-link">Pricing</a></li>
+                            <li><span class="footer-link disabled-link">About Us</span></li>
+                            <li><span class="footer-link disabled-link">Careers</span></li>
+                            <li><span class="footer-link disabled-link">Media Kit</span></li>
+                            <li><span class="footer-link disabled-link">Contact Us</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Learn</h4>
+                        <ul class="footer-link-list">
+                            <li><span class="footer-link disabled-link">Success Stories</span></li>
+                            <li><span class="footer-link disabled-link">Help Center</span></li>
+                            <li><span class="footer-link disabled-link">Webinars</span></li>
+                            <li><span class="footer-link disabled-link">Blog</span></li>
+                            <li><span class="footer-link disabled-link">Community</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Legal</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="terms" class="footer-link">Terms & Privacy</a></li>
+                            <li><a href="terms" class="footer-link">California Privacy Notice</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-copyright">
+                        © 2025 qava
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+            
+            // Prevent body scroll when mobile menu is open
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function toggleMobileDropdown() {
+            const dropdown = document.getElementById('mobileDropdown');
+            const toggle = document.querySelector('.mobile-dropdown-toggle');
+            
+            dropdown.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+            
+            if (mobileMenu.classList.contains('active') && 
+                !mobileMenu.contains(event.target) && 
+                !hamburgerMenu.contains(event.target)) {
+                toggleMobileMenu();
+            }
+        });
+
+        // Prevent scroll on mobile when menu is open
+        document.addEventListener('touchmove', function(e) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu.classList.contains('active')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Handle responsive behavior
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 1100) {
+                const mobileMenu = document.getElementById('mobileMenu');
+                if (mobileMenu.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            }
+        });
+
+        // Strategy-related tag items
+        const strategyTags = [
+            'Business Plan 🚀',
+            'Creative Strategy 🎨',
+            'Data Analysis 📈',
+            'Data Strategy 💿',
+            'Digital Transformation 🦋',
+            'Go-To-Market Strategy 📍',
+            'Industry Analysis 🔍',
+            'Operating Model Design 🗂️',
+            'Organizational Design 👏',
+            'Partnership Strategy 🤝',
+            'Pricing Strategy 📰',
+            'Product Strategy 🧸',
+            'Sales & Marketing Strategy 📋',
+            'Strategic Finance 🎯'
+        ];
+
+        // Growth-related tag items
+        const growthTags = [
+            'Competitor Analysis 🥷',
+            'Customer Segmentation 🧍',
+            'Data Analysis 📈',
+            'Digital Transformation 🦋',
+            'Growth Plan 🌱',
+            'Industry Analysis 🔍',
+            'Innovation Projects 💡',
+            'Partnership Strategy 🤝',
+            'Process Improvement ⚙️',
+            'Sales & Marketing Strategy 📋',
+            'Strategic Finance 🎯',
+            'Virtual Workshop 📅'
+        ];
+
+        // Finance-related tag items
+        const financeTags = [
+            'Cost Optimization 💸',
+            'Data Analysis 📈',
+            'Digital Transformation 🦋',
+            'Financial Model 📊',
+            'Grant Application 💰',
+            'Growth Plan 🌱',
+            'Industry Analysis 🔍',
+            'Pricing Strategy 📰',
+            'Strategic Finance 🎯',
+            'Tariff Impact Assessment 🌍'
+        ];
+
+        // Technology-related tag items
+        const technologyTags = [
+            'Cloud Migration ☁️',
+            'Cost Optimization 💸',
+            'Cyber Security 🧯',
+            'Data Strategy 💿',
+            'Digital Transformation 🦋',
+            'Innovation Projects 💡',
+            'Product Strategy 🧸',
+            'System Migration 💻',
+            'Technology Rationalization 📗'
+        ];
+
+        // Operations-related tag items
+        const operationsTags = [
+            'Cost Optimization 💸',
+            'Customer Journey Map 🗺️',
+            'Data Analysis 📈',
+            'Digital Transformation 🦋',
+            'Go-To-Market Strategy 📍',
+            'Operating Model Design 🗂️',
+            'Organizational Design 👏',
+            'Partnership Strategy 🤝',
+            'Strategic Finance 🎯',
+            'Supply Chain Analysis 🏭',
+            'Tariff Impact Assessment 🌍',
+            'Vendor Strategy 🚚'
+        ];
+
+        // Innovation-related tag items
+        const innovationTags = [
+            'Business Plan 🚀',
+            'Competitor Analysis 🥷',
+            'Creative Strategy 🎨',
+            'Customer Segmentation 🧍',
+            'Cyber Security 🧯',
+            'Data Analysis 📈',
+            'Digital Transformation 🦋',
+            'Growth Plan 🌱',
+            'Innovation Projects 💡',
+            'Operating Model Design 🗂️',
+            'Organizational Design 👏',
+            'Partnership Strategy 🤝',
+            'Product Strategy 🧸',
+            'Virtual Workshop 📅'
+        ];
+
+        // Non-Profits-related tag items
+        const nonProfitsTags = [
+            'Business Plan 🚀',
+            'Customer Segmentation 🧍',
+            'Data Analysis 📈',
+            'Digital Transformation 🦋',
+            'Grant Application 💰',
+            'Operating Model Design 🗂️',
+            'Organizational Design 👏',
+            'Partnership Strategy 🤝',
+            'Pitch Deck 🚀',
+            'Sales & Marketing Strategy 📋',
+            'System Migration 💻',
+            'Technology Rationalization 📗'
+        ];
+
+        // Track manually selected tags
+        let manuallySelectedTags = new Set();
+
+        // Make tag items selectable
+        // Helper function to handle checkbox changes
+        function handleCheckboxChange(checkbox, relatedTags, tagItems) {
+            checkbox.addEventListener('change', function() {
+                const isChecked = this.checked;
+                
+                relatedTags.forEach(tagText => {
+                    const tagElement = Array.from(tagItems).find(tag => tag.textContent === tagText);
+                    if (tagElement) {
+                        if (isChecked) {
+                            // Select tags that weren't manually deselected
+                            if (!manuallySelectedTags.has(tagText)) {
+                                tagElement.classList.add('selected');
+                            }
+                        } else {
+                            // Deselect tags that weren't manually selected
+                            if (!manuallySelectedTags.has(tagText)) {
+                                tagElement.classList.remove('selected');
+                            }
+                        }
+                    }
+                });
+            });
+        }
+
+        function initializeTagSelection() {
+            const tagItems = document.querySelectorAll('.tag-item');
+            const strategyCheckbox = document.getElementById('strategy');
+            const growthCheckbox = document.getElementById('growth');
+            const financeCheckbox = document.getElementById('finance');
+            const technologyCheckbox = document.getElementById('technology');
+            const operationsCheckbox = document.getElementById('operations');
+            const innovationCheckbox = document.getElementById('innovation');
+            const nonProfitsCheckbox = document.getElementById('non-profits');
+            
+            // Add click listeners to tag items
+            tagItems.forEach(tag => {
+                tag.addEventListener('click', function() {
+                    const tagText = this.textContent;
+                    const isStrategyTag = strategyTags.includes(tagText);
+                    const isGrowthTag = growthTags.includes(tagText);
+                    const isFinanceTag = financeTags.includes(tagText);
+                    const isTechnologyTag = technologyTags.includes(tagText);
+                    const isOperationsTag = operationsTags.includes(tagText);
+                    const isInnovationTag = innovationTags.includes(tagText);
+                    const isNonProfitsTag = nonProfitsTags.includes(tagText);
+                    
+                    // If it's a category tag, mark it as manually selected
+                    if (isStrategyTag || isGrowthTag || isFinanceTag || isTechnologyTag || isOperationsTag || isInnovationTag || isNonProfitsTag) {
+                        if (this.classList.contains('selected')) {
+                            manuallySelectedTags.delete(tagText);
+                        } else {
+                            manuallySelectedTags.add(tagText);
+                        }
+                    }
+                    
+                    this.classList.toggle('selected');
+                });
+            });
+
+            // Add change listeners to category checkboxes
+            handleCheckboxChange(strategyCheckbox, strategyTags, tagItems);
+            handleCheckboxChange(growthCheckbox, growthTags, tagItems);
+            handleCheckboxChange(financeCheckbox, financeTags, tagItems);
+            handleCheckboxChange(technologyCheckbox, technologyTags, tagItems);
+            handleCheckboxChange(operationsCheckbox, operationsTags, tagItems);
+            handleCheckboxChange(innovationCheckbox, innovationTags, tagItems);
+            handleCheckboxChange(nonProfitsCheckbox, nonProfitsTags, tagItems);
+        }
+
+        // Initialize tag selection when page loads
+        document.addEventListener('DOMContentLoaded', initializeTagSelection);
+
+        // Hero word highlighting animation
+        function startHeroAnimation() {
+            const words = ['projects', 'jobs', 'internships'];
+            let currentIndex = 0;
+            
+            function highlightNextWord() {
+                if (currentIndex >= words.length) {
+                    // Animation complete, ensure all words are black
+                    words.forEach(word => {
+                        const element = document.getElementById(word);
+                        if (element) {
+                            element.style.color = '#000000';
+                        }
+                    });
+                    return;
+                }
+                
+                const currentWord = words[currentIndex];
+                const element = document.getElementById(currentWord);
+                
+                if (element) {
+                    // Reset all words to black first
+                    words.forEach(word => {
+                        const wordElement = document.getElementById(word);
+                        if (wordElement) {
+                            wordElement.style.color = '#000000';
+                        }
+                    });
+                    
+                    // Highlight current word in blue
+                    element.style.color = '#0F62FE';
+                    
+                    // After 0.5 seconds, turn current word black and move to next word
+                    setTimeout(() => {
+                        element.style.color = '#000000';
+                        currentIndex++;
+                        highlightNextWord();
+                    }, 500);
+                }
+            }
+            
+            // Start the animation
+            highlightNextWord();
+        }
+
+        // Start hero animation when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Delay start by 1 second to let page load
+            setTimeout(startHeroAnimation, 1000);
+            
+            // Initialize logo slider
+            initializeLogoSlider();
+            
+            // Initialize scroll animation for competitor logos
+            initializeCompetitorLogoAnimation();
+        });
+
+        // Logo Slider Configuration
+        const logoSliderConfig = {
+            logos: [
+                { src: "Landing Page Trusted by/Stern.png", alt: "NYU Stern" },
+                { src: "Landing Page Trusted by/Wharton.png", alt: "Wharton" },
+                { src: "Landing Page Trusted by/HBS.png", alt: "Harvard Business School" },
+                { src: "Landing Page Trusted by/Haas.png", alt: "Berkeley Haas" },
+                { src: "Landing Page Trusted by/Standford.png", alt: "Stanford Graduate School of Business" },
+                { src: "Landing Page Trusted by/Said.png", alt: "Saïd Business School" },
+                { src: "Landing Page Trusted by/Kellogg.png", alt: "Kellogg School of Management" },
+                { src: "Landing Page Trusted by/MIT.png", alt: "MIT Sloan" }
+            ],
+            visibleCount: 4,
+            speed: 30
+        };
+
+        function initializeLogoSlider() {
+            const track = document.getElementById('logoSliderTrack');
+            if (!track) return;
+
+            // Clear existing content
+            track.innerHTML = '';
+
+            // Create duplicated logos for seamless loop
+            const allLogos = [...logoSliderConfig.logos, ...logoSliderConfig.logos];
+
+            allLogos.forEach((logo, index) => {
+                const logoItem = document.createElement('div');
+                logoItem.className = 'logo-slider-item';
+                
+                const img = document.createElement('img');
+                img.src = logo.src;
+                img.alt = logo.alt;
+                img.loading = 'lazy';
+                
+                logoItem.appendChild(img);
+                track.appendChild(logoItem);
+            });
+
+            // Adjust animation duration based on number of logos
+            const totalLogos = logoSliderConfig.logos.length;
+            const animationDuration = (totalLogos * 2) * (30 / logoSliderConfig.speed);
+            
+            track.style.animationDuration = `${animationDuration}s`;
+        }
+
+        function initializeCompetitorLogoAnimation() {
+            const logosContainer = document.querySelector('.competitor-platforms-logos');
+            if (!logosContainer) return;
+
+            let animationStarted = false;
+            let animationCompleted = false;
+            let animationStartTime = null;
+            let animationId = null;
+            const animationDuration = 2000; // 2 seconds for the line to reach the end
+
+            function easeOutCubic(t) {
+                return 1 - Math.pow(1 - t, 3);
+            }
+
+            function updateLineWidth(scrollTop) {
+                if (animationCompleted) return;
+
+                // Get the section that contains the logos
+                const section = logosContainer.closest('.competitor-platforms-section');
+                if (!section) return;
+
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const viewportHeight = window.innerHeight;
+                
+                // Calculate when the logos container is visible on screen
+                const logosContainerTop = logosContainer.offsetTop;
+                const logosContainerHeight = logosContainer.offsetHeight;
+                
+                // Start animation when the logos container is fully visible on screen
+                const logosVisible = scrollTop + viewportHeight >= logosContainerTop + logosContainerHeight;
+                
+                if (logosVisible && !animationStarted) {
+                    animationStarted = true;
+                    animationStartTime = Date.now();
+                    startSmoothAnimation();
+                }
+            }
+
+            function startSmoothAnimation() {
+                function animate() {
+                    if (animationCompleted || !animationStartTime) return;
+
+                    const elapsedTime = Date.now() - animationStartTime;
+                    const animationProgress = Math.min(1, elapsedTime / animationDuration);
+                    
+                    // Apply easing for smoother motion
+                    const easedProgress = easeOutCubic(animationProgress);
+                    
+                    const maxLineWidth = logosContainer.offsetWidth;
+                    const lineWidth = easedProgress * maxLineWidth;
+                    
+                    logosContainer.style.setProperty('--line-width', `${lineWidth}px`);
+                    
+                    // Mark as complete when animation finishes
+                    if (animationProgress >= 1) {
+                        animationCompleted = true;
+                        return;
+                    }
+                    
+                    // Continue animation
+                    animationId = requestAnimationFrame(animate);
+                }
+                
+                animate();
+            }
+
+            function handleScroll() {
+                const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                updateLineWidth(currentScrollTop);
+            }
+
+            // Add scroll event listener
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            
+            // Initial call
+            setTimeout(() => {
+                handleScroll();
+            }, 100);
+        }
+
+        // Feature Cards Preview Box Interaction
+        const previewData = {
+            build: {
+                image: '', // You'll provide the image path
+                projectNames: [
+                    'Business Plan 🚀',
+                    'Pitch Deck 🖼️',
+                    'Financial Model 📊',
+                    'Competitor Analysis 🥷',
+                    'Customer Segmentation 🧍‍♂️',
+                    'Customer Journey Map 🗺️',
+                    'Industry Analysis 🔍',
+                    'Grant Application 💰',
+                    'Custom Project 🧠'
+                ],
+                benefits: [
+                    'Validate your business idea with a clear roadmap',
+                    'Attract investors and secure funding faster',
+                    'Understand your market and competitive advantage',
+                    'Build a strong foundation for growth'
+                ],
+                oldProjects: [
+                    {
+                        name: 'Business Plan',
+                        price: 245,
+                        purpose: 'Your business plan turns ambition into structure — it is the foundation for building something investors, partners, and teammates can believe in.',
+                        benefits: [
+                            'Clarifies your goals and the path to reach them',
+                            'Builds investor confidence with a clear, data-backed story',
+                            'Aligns your team around one shared vision and direction'
+                        ],
+                        stat: '📊 Startups with formal business plans are 2.5× more likely to secure funding — Harvard Business Review',
+                        quote: '"Plans are worthless, but planning is everything."',
+                        quoteAuthor: '— Dwight D. Eisenhower'
+                    },
+                    {
+                        name: 'Pitch Deck',
+                        price: 265,
+                        purpose: 'Your pitch deck is your story — it turns your business plan into a visual, emotional narrative that inspires belief and investment.',
+                        benefits: [
+                            'Captures investor attention in under 3 minutes',
+                            'Communicates the "why," "what," and "how" with clarity',
+                            'Provides a structure for confident storytelling'
+                        ],
+                        stat: '📊 "Investors decide within 2–3 minutes whether to keep listening." — Y Combinator',
+                        quote: '"Make every slide earn its place."',
+                        quoteAuthor: '— Guy Kawasaki'
+                    },
+                    {
+                        name: 'Financial Model',
+                        price: 350,
+                        purpose: 'Your financial model brings logic to your dream — it shows how your idea becomes sustainable and scalable. It is both a roadmap and a reality check.',
+                        benefits: [
+                            'Translates strategy into numbers investors can trust',
+                            'Highlights key assumptions, levers, and growth drivers',
+                            'Helps you forecast, adapt, and make data-driven decisions'
+                        ],
+                        stat: '💡 Startups with robust financial models are 40% more likely to secure funding — CB Insights',
+                        quote: '"Without data, you are just another person with an opinion."',
+                        quoteAuthor: '— W. Edwards Deming'
+                    },
+                    {
+                        name: 'Competitor Analysis',
+                        price: 140,
+                        purpose: 'A competitor analysis reveals where you stand and how to win — it is your guide to strategic differentiation.',
+                        benefits: [
+                            'Identifies your competitors\' strengths and weaknesses',
+                            'Finds gaps in the market you can own',
+                            'Positions your brand where others can\'t easily follow'
+                        ],
+                        stat: '📊 Companies that monitor competitors grow revenue 2× faster — Harvard Business Review',
+                        quote: '"The essence of strategy is choosing what not to do."',
+                        quoteAuthor: '— Michael Porter'
+                    },
+                    {
+                        name: 'Customer Segmentation',
+                        price: 70,
+                        purpose: 'Segmentation helps you understand who your customers truly are — and how to speak to each with relevance and impact.',
+                        benefits: [
+                            'Groups customers by behavior, needs, and value',
+                            'Enables personalized marketing and pricing',
+                            'Improves ROI by focusing resources on the right audience'
+                        ],
+                        stat: '👥 80% of growth leaders use advanced segmentation to guide strategy — McKinsey & Co.',
+                        quote: '"If you\'re marketing to everyone, you\'re reaching no one."',
+                        quoteAuthor: '— Seth Godin'
+                    },
+                    {
+                        name: 'Customer Journey Map',
+                        price: 125,
+                        purpose: 'A customer journey map visualizes every step from awareness to loyalty — ensuring you deliver consistent, meaningful experiences.',
+                        benefits: [
+                            'Exposes friction points and moments that matter',
+                            'Builds empathy across teams and touchpoints',
+                            'Aligns marketing, sales, and service around the customer'
+                        ],
+                        stat: '🗺️ Brands using journey mapping see 3× higher customer satisfaction — Forrester',
+                        quote: '"People don\'t buy products — they buy better versions of themselves."',
+                        quoteAuthor: '— Donald Miller'
+                    },
+                    {
+                        name: 'Industry Analysis',
+                        price: 160,
+                        purpose: 'An industry analysis gives you perspective — it grounds your decisions in trends, forces, and data that shape your market.',
+                        benefits: [
+                            'Evaluates market size, growth, and barriers to entry',
+                            'Identifies key trends and regulatory shifts',
+                            'Strengthens your business case and investor narrative'
+                        ],
+                        stat: '📊 "Understanding your industry is understanding your destiny." — Bain & Company',
+                        quote: '"Strategy without insight is just guesswork."',
+                        quoteAuthor: '— Michael Porter'
+                    },
+                    {
+                        name: 'Grant Application',
+                        price: 175,
+                        purpose: 'A strong grant application secures funding and credibility — helping you prove your idea\'s impact and potential.',
+                        benefits: [
+                            'Frames your idea to align with funder priorities',
+                            'Supports your claims with data, clarity, and measurable outcomes',
+                            'Builds confidence with a structured and compelling narrative'
+                        ],
+                        stat: '💰 Organizations with well-structured proposals are 3× more likely to receive funding — Grant Professionals Association',
+                        quote: '"You can\'t just ask for money — you have to show what the world gains from giving it."',
+                        quoteAuthor: '— Bill Gates'
+                    },
+                    {
+                        name: 'Custom Project',
+                        price: null,
+                        purpose: 'Define exactly what you need — whether that\'s refining a financial model, building a niche market analysis, or solving a problem no one else has tackled. We\'ll match you with talent who understand your goals, your stage, and your industry.',
+                        benefits: [
+                            'Designed around your objectives — not a preset scope',
+                            'Flexible timelines and deliverables',
+                            'Access to MBA-level talent without the consulting overhead'
+                        ],
+                        stat: '💡 "No two companies scale the same way — customized solutions deliver 3× higher ROI than standardized ones." — Harvard Business Review',
+                        quote: null,
+                        quoteAuthor: null
+                    }
+                ]
+            },
+            grow: {
+                image: '', // You'll provide the image path
+                projectNames: [
+                    'Go-To-Market Strategy 📍',
+                    'Growth Plan 🌿',
+                    'Partnership Strategy 🤝',
+                    'Pricing Strategy 💵',
+                    'Sales & Marketing Strategy 🧾',
+                    'Strategic Finance 🎯',
+                    'Custom Project 🧠'
+                ],
+                benefits: [
+                    'Scale your customer base systematically',
+                    'Attract funding from investors',
+                    'Build strategic partnerships',
+                    'Optimize pricing for maximum growth'
+                ],
+                oldProjects: [
+                    {
+                        name: 'Go-To-Market Strategy',
+                        price: 140,
+                        purpose: 'Your go-to-market strategy turns a product into momentum — it is your blueprint for launching, acquiring customers, and scaling demand.',
+                        benefits: [
+                            'Defines your target audience and value proposition',
+                            'Aligns product, marketing, and sales around one launch plan',
+                            'Reduces risk by testing before scaling'
+                        ],
+                        stat: '📊 Companies with a defined go-to-market process are 50% more likely to achieve successful launches — Ignition PMM Report',
+                        quote: '"Execution without strategy is aimless; strategy without execution is useless."',
+                        quoteAuthor: '— Morris Chang'
+                    },
+                    {
+                        name: 'Growth Plan',
+                        price: 190,
+                        purpose: 'A growth plan gives direction — turning traction into scalable success.',
+                        benefits: [
+                            'Identifies your biggest growth levers',
+                            'Prioritizes opportunities across products, regions, or audiences',
+                            'Aligns teams behind measurable milestones'
+                        ],
+                        stat: '📊 Startups with structured growth plans grow 60% faster than those without one — TechCrunch',
+                        quote: '"The biggest risk is not taking any risk."',
+                        quoteAuthor: '— Mark Zuckerberg'
+                    },
+                    {
+                        name: 'Partnership Strategy',
+                        price: 160,
+                        purpose: 'Partnerships open new doors — expanding your reach, resources, and credibility.',
+                        benefits: [
+                            'Identifies mutually beneficial partners and shared goals',
+                            'Builds trust and structure around collaboration',
+                            'Accelerates growth through shared audiences and capabilities'
+                        ],
+                        stat: '📊 80% of high-growth startups attribute success to strategic partnerships — Deloitte',
+                        quote: '"Alone we can do so little; together we can do so much."',
+                        quoteAuthor: '— Helen Keller'
+                    },
+                    {
+                        name: 'Pricing Strategy',
+                        price: 210,
+                        purpose: 'A pricing strategy ensures you capture the value you create.',
+                        benefits: [
+                            'Clarifies how your price reflects customer value',
+                            'Tests tiers and models to maximize conversion',
+                            'Balances competitiveness and profitability'
+                        ],
+                        stat: '📊 A 1% price increase can lead to 8% profit growth — McKinsey',
+                        quote: '"Price is what you pay. Value is what you get."',
+                        quoteAuthor: '— Warren Buffett'
+                    },
+                    {
+                        name: 'Sales & Marketing Strategy',
+                        price: 140,
+                        purpose: 'Your sales and marketing strategy connects awareness to action — turning leads into loyal customers.',
+                        benefits: [
+                            'Defines how to attract, convert, and retain customers',
+                            'Creates consistency between brand message and sales execution',
+                            'Increases ROI across every channel'
+                        ],
+                        stat: '📊 Aligned sales and marketing teams achieve 38% higher win rates — HubSpot',
+                        quote: '"If you build a great experience, customers tell each other about it."',
+                        quoteAuthor: '— Jeff Bezos'
+                    },
+                    {
+                        name: 'Strategic Finance',
+                        price: 280,
+                        purpose: 'Strategic finance connects your growth ambitions to the numbers that make them real.',
+                        benefits: [
+                            'Tracks performance against goals and investor expectations',
+                            'Identifies where to allocate capital for highest return',
+                            'Builds confidence with clear financial storytelling'
+                        ],
+                        stat: '📊 Companies with strong finance strategies outperform peers by 33% on ROI — Deloitte',
+                        quote: '"You can\'t improve what you don\'t measure."',
+                        quoteAuthor: '— Bill Gates'
+                    },
+                    {
+                        name: 'Custom Project',
+                        price: null,
+                        purpose: 'Define exactly what you need — whether that\'s refining a financial model, building a niche market analysis, or solving a problem no one else has tackled. We\'ll match you with talent who understand your goals, your stage, and your industry.',
+                        benefits: [
+                            'Designed around your objectives — not a preset scope',
+                            'Flexible timelines and deliverables',
+                            'Access to MBA-level talent without the consulting overhead'
+                        ],
+                        stat: '💡 "No two companies scale the same way — customized solutions deliver 3× higher ROI than standardized ones." — Harvard Business Review',
+                        quote: null,
+                        quoteAuthor: null
+                    }
+                ]
+            },
+            improve: {
+                image: '', // You'll provide the image path
+                projectNames: [
+                    'Operating Model Design 📦',
+                    'Process Improvement ⚙️',
+                    'Technology Rationalization 📗',
+                    'System Migration 💻',
+                    'Vendor Strategy 🚛',
+                    'Organizational Design 👏',
+                    'Cost Optimization 💸',
+                    'Innovation Projects 💡',
+                    'Digital Transformation 🦋',
+                    'Custom Project 🧠'
+                ],
+                benefits: [
+                    'Increase operational efficiency by 25%',
+                    'Reduce costs while maintaining quality',
+                    'Scale your systems and processes',
+                    'Build a strong organizational foundation'
+                ],
+                oldProjects: [
+                    {
+                        name: 'Operating Model Design',
+                        price: 220,
+                        purpose: 'Your operating model defines how work gets done — connecting teams, tools, and decisions for smoother delivery.',
+                        benefits: [
+                            'Clarifies roles, ownership, and decision-making',
+                            'Aligns structure with business strategy and goals',
+                            'Enables faster, more consistent execution'
+                        ],
+                        stat: '📊 Companies that redesign their operating models grow 40% faster after Series A — McKinsey',
+                        quote: '"You don\'t build a business—you build people, and then people build the business."',
+                        quoteAuthor: '— Zig Ziglar'
+                    },
+                    {
+                        name: 'Process Improvement',
+                        price: 210,
+                        purpose: 'Process improvement removes friction — helping your team move faster and deliver better results.',
+                        benefits: [
+                            'Identifies bottlenecks and inefficiencies',
+                            'Streamlines repeatable tasks and workflows',
+                            'Reduces waste while improving quality'
+                        ],
+                        stat: '📊 Process redesign can increase productivity by up to 25% — Forbes',
+                        quote: '"Speed is useful only if you\'re heading in the right direction."',
+                        quoteAuthor: '— Mike Krzyzewski'
+                    },
+                    {
+                        name: 'Technology Rationalization',
+                        price: 180,
+                        purpose: 'Simplify your tech stack to reduce cost, improve collaboration, and free up resources for growth.',
+                        benefits: [
+                            'Identifies redundant or underused tools',
+                            'Reduces software costs and integration issues',
+                            'Strengthens efficiency through better tool alignment'
+                        ],
+                        stat: '📊 Startups that streamline their tech stack save up to 20% annually — Productiv',
+                        quote: '"Technology should serve your strategy, not the other way around."',
+                        quoteAuthor: '— Reid Hoffman'
+                    },
+                    {
+                        name: 'System Migration',
+                        price: 240,
+                        purpose: 'Upgrade from legacy systems to scalable, modern platforms that improve security and performance.',
+                        benefits: [
+                            'Minimizes downtime and risk during transitions',
+                            'Improves data access, speed, and reliability',
+                            'Supports long-term scalability and innovation'
+                        ],
+                        stat: '📊 Well-planned migrations reduce downtime costs by 30% — Gartner',
+                        quote: '"Innovation distinguishes between a leader and a follower."',
+                        quoteAuthor: '— Steve Jobs'
+                    },
+                    {
+                        name: 'Vendor Strategy',
+                        price: 175,
+                        purpose: 'Strengthen how you work with external partners to drive value and efficiency.',
+                        benefits: [
+                            'Evaluates vendor performance and costs',
+                            'Strengthens contracts and accountability',
+                            'Builds long-term, high-value partnerships'
+                        ],
+                        stat: '📊 Effective vendor management can reduce external spend by 10–15% annually — Procurement Leaders',
+                        quote: '"You don\'t get what you deserve; you get what you negotiate."',
+                        quoteAuthor: '— Chester Karrass'
+                    },
+                    {
+                        name: 'Organizational Design',
+                        price: 230,
+                        purpose: 'Design your team structure for alignment, accountability, and collaboration.',
+                        benefits: [
+                            'Clarifies responsibilities and reporting lines',
+                            'Supports company growth without adding confusion',
+                            'Builds a culture of empowerment and clarity'
+                        ],
+                        stat: '📊 Companies with clear org design see 25% higher employee engagement — Gallup',
+                        quote: '"Culture eats strategy for breakfast."',
+                        quoteAuthor: '— Peter Drucker'
+                    },
+                    {
+                        name: 'Cost Optimization',
+                        price: 210,
+                        purpose: 'Cut unnecessary costs while strengthening your business fundamentals.',
+                        benefits: [
+                            'Identifies where you\'re overspending or duplicating work',
+                            'Prioritizes savings without harming growth',
+                            'Improves profitability and cash flow stability'
+                        ],
+                        stat: '📊 Structured cost programs save 8–12% in the first year — BCG',
+                        quote: '"Revenue is vanity, profit is sanity, cash is reality."',
+                        quoteAuthor: '— Alan Miltz'
+                    },
+                    {
+                        name: 'Innovation Projects',
+                        price: 195,
+                        purpose: 'Drive creativity and progress through focused innovation initiatives.',
+                        benefits: [
+                            'Encourages experimentation and rapid learning',
+                            'Builds a culture of curiosity and adaptability',
+                            'Creates new products, efficiencies, or revenue streams'
+                        ],
+                        stat: '📊 Innovative companies grow revenue 2.6× faster than competitors — PwC',
+                        quote: '"Innovation distinguishes between a leader and a follower."',
+                        quoteAuthor: '— Steve Jobs'
+                    },
+                    {
+                        name: 'Digital Transformation',
+                        price: 260,
+                        purpose: 'Use digital tools and automation to increase agility and performance.',
+                        benefits: [
+                            'Enhances productivity and data-driven decision-making',
+                            'Improves customer and employee experience',
+                            'Future-proofs your organization for growth'
+                        ],
+                        stat: '📊 Digitally mature firms are 23% more profitable than their peers — MIT Sloan',
+                        quote: '"The best way to predict the future is to invent it."',
+                        quoteAuthor: '— Alan Kay'
+                    },
+                    {
+                        name: 'Custom Project',
+                        price: null,
+                        purpose: 'Define exactly what you need — whether that\'s refining a financial model, building a niche market analysis, or solving a problem no one else has tackled. We\'ll match you with talent who understand your goals, your stage, and your industry.',
+                        benefits: [
+                            'Designed around your objectives — not a preset scope',
+                            'Flexible timelines and deliverables',
+                            'Access to MBA-level talent without the consulting overhead'
+                        ],
+                        stat: '💡 "No two companies scale the same way — customized solutions deliver 3× higher ROI than standardized ones." — Harvard Business Review',
+                        quote: null,
+                        quoteAuthor: null
+                    }
+                ]
+            },
+            measure: {
+                image: '', // You'll provide the image path
+                projectNames: [
+                    'Data Analysis 📈',
+                    'Data Strategy 💿',
+                    'Tariff Impact Assessment 🌍',
+                    'Pricing Strategy 💵',
+                    'Strategic Finance 🎯',
+                    'Operating Model Design 📦',
+                    'Custom Project 🧠'
+                ],
+                benefits: [
+                    'Make data-driven decisions confidently',
+                    'Track key metrics that matter',
+                    'Improve ROI by 33% with better forecasting',
+                    'Optimize performance across all functions'
+                ],
+                oldProjects: [
+                    {
+                        name: 'Data Analysis',
+                        price: 150,
+                        purpose: 'Turn information into insight so you can make better decisions.',
+                        benefits: [
+                            'Identifies key trends in performance, customers, and operations',
+                            'Informs smarter, faster business decisions',
+                            'Converts raw data into actionable clarity'
+                        ],
+                        stat: '📊 Data-driven companies are 19× more likely to be profitable — McKinsey',
+                        quote: '"Without data, you\'re just another person with an opinion."',
+                        quoteAuthor: '— W. Edwards Deming'
+                    },
+                    {
+                        name: 'Data Strategy',
+                        price: 190,
+                        purpose: 'Create a clear plan for collecting, managing, and using data effectively.',
+                        benefits: [
+                            'Defines how data supports your goals and decisions',
+                            'Ensures accuracy, accessibility, and security',
+                            'Builds the foundation for advanced analytics and automation'
+                        ],
+                        stat: '📊 Companies with unified data strategies make decisions 5× faster — Accenture',
+                        quote: '"In God we trust; all others must bring data."',
+                        quoteAuthor: '— W. Edwards Deming'
+                    },
+                    {
+                        name: 'Tariff Impact Assessment',
+                        price: 170,
+                        purpose: 'Understand how global changes or tariffs affect your costs, margins, and strategy.',
+                        benefits: [
+                            'Identifies cost risks in your supply chain',
+                            'Supports pricing and sourcing decisions',
+                            'Protects margins through proactive planning'
+                        ],
+                        stat: '📊 Trade-related adjustments can impact up to 15% of total COGS — World Bank',
+                        quote: '"The essence of strategy is choosing what not to do."',
+                        quoteAuthor: '— Michael Porter'
+                    },
+                    {
+                        name: 'Pricing Strategy',
+                        price: 210,
+                        purpose: 'Align your pricing with customer value and business objectives.',
+                        benefits: [
+                            'Balances competitiveness with profitability',
+                            'Tests models and pricing tiers to optimize revenue',
+                            'Builds confidence in value perception and pricing decisions'
+                        ],
+                        stat: '📊 A 1% price increase can drive up to 8% profit growth — McKinsey',
+                        quote: '"Price is what you pay. Value is what you get."',
+                        quoteAuthor: '— Warren Buffett'
+                    },
+                    {
+                        name: 'Strategic Finance',
+                        price: 280,
+                        purpose: 'Connect your financial insights to strategic decision-making.',
+                        benefits: [
+                            'Tracks KPIs and cash flow for better resource allocation',
+                            'Improves investor confidence through clear financial storytelling',
+                            'Informs long-term growth and funding strategy'
+                        ],
+                        stat: '📊 Companies with strong finance strategies outperform peers by 33% on ROI — Deloitte',
+                        quote: '"You can\'t improve what you don\'t measure."',
+                        quoteAuthor: '— Bill Gates'
+                    },
+                    {
+                        name: 'Operating Model Design',
+                        price: 220,
+                        purpose: 'Link your structure, systems, and metrics to measurable business outcomes.',
+                        benefits: [
+                            'Aligns operational performance with financial goals',
+                            'Improves accountability through clear reporting',
+                            'Creates a feedback loop for continuous improvement'
+                        ],
+                        stat: '📊 Cross-functional metrics improve delivery times by 20–30% — McKinsey',
+                        quote: '"If you don\'t measure it, you can\'t manage it."',
+                        quoteAuthor: '— Peter Drucker'
+                    },
+                    {
+                        name: 'Custom Project',
+                        price: null,
+                        purpose: 'Define exactly what you need — whether that\'s refining a financial model, building a niche market analysis, or solving a problem no one else has tackled. We\'ll match you with talent who understand your goals, your stage, and your industry.',
+                        benefits: [
+                            'Designed around your objectives — not a preset scope',
+                            'Flexible timelines and deliverables',
+                            'Access to MBA-level talent without the consulting overhead'
+                        ],
+                        stat: '💡 "No two companies scale the same way — customized solutions deliver 3× higher ROI than standardized ones." — Harvard Business Review',
+                        quote: null,
+                        quoteAuthor: null
+                    }
+                ]
+            }
+        };
+
+        // Wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            const featureCards = document.querySelectorAll('.feature-card');
+            const previewProjectsList = document.querySelector('.preview-projects-list');
+            const previewBenefits = document.querySelector('.preview-benefits');
+
+            if (!previewProjectsList || !previewBenefits) {
+                return;
+            }
+
+            // Store current category for project hover
+            let currentCategory = 'build';
+
+            // Map project names to image files
+            const projectImageMap = {
+                'Business Plan': 'Business Plan.svg',
+                'Pitch Deck': 'Pitch Deck.svg',
+                'Financial Model': 'Strategic Finance.svg', // Using Strategic Finance as fallback
+                'Competitor Analysis': 'Competitor Analysis.svg',
+                'Customer Segmentation': 'Customer Segmentation.svg',
+                'Customer Journey Map': 'Customer Segmentation.svg', // Using Customer Segmentation as fallback
+                'Industry Analysis': 'Industry Analysis.svg',
+                'Grant Application': 'Grant Applications.svg',
+                'Go-To-Market Strategy': 'Go-To-Market Strategy.svg',
+                'Growth Plan': 'Growth Strategy.svg',
+                'Partnership Strategy': 'Partnership Strategy.svg',
+                'Pricing Strategy': 'Pricing Strategy.svg',
+                'Sales & Marketing Strategy': 'Sales & Marketing Strategy.svg',
+                'Strategic Finance': 'Strategic Finance.svg',
+                'Operating Model Design': 'Operating Model Design.svg',
+                'Process Improvement': 'Process Improvement.svg',
+                'Technology Rationalization': 'Technology Rationalization.svg',
+                'System Migration': 'System Migration.svg',
+                'Vendor Strategy': 'Vendor Strategy.svg',
+                'Organizational Design': 'Organizational Design.svg',
+                'Cost Optimization': 'Cost Optimization.svg',
+                'Innovation Projects': 'Innovation Strategy.svg',
+                'Digital Transformation': 'Digital Transformation.svg',
+                'Data Analysis': 'Data Analysis.svg',
+                'Data Strategy': 'Data Strategy.svg',
+                'Tariff Impact Assessment': 'Tariff Impact Assessment.svg'
+            };
+
+            function updateProjectDetails(projectName, categoryData) {
+                // Find the project details from oldProjects array
+                const project = categoryData.oldProjects.find(p => {
+                    // Match by removing emoji from projectName
+                    const nameWithoutEmoji = projectName.replace(/[\u{1F300}-\u{1F9FF}]/gu, '').trim();
+                    return p.name === nameWithoutEmoji || 
+                           p.name.includes(nameWithoutEmoji) || 
+                           nameWithoutEmoji.includes(p.name.split('(')[0].trim());
+                });
+                
+                if (!project) {
+                    console.log('Project not found:', projectName);
+                    return;
+                }
+                
+                console.log('Displaying project:', project.name);
+                
+                // Image loading disabled
+                // const nameWithoutEmoji = projectName.replace(/[\u{1F300}-\u{1F9FF}]/gu, '').trim();
+                // const imagePath = projectImageMap[nameWithoutEmoji] || projectImageMap[project.name];
+                // if (imagePath) {
+                //     previewImage.src = 'Paths Image Libarary SVG 3 copy/' + imagePath;
+                //     previewImage.style.display = 'block';
+                // } else {
+                //     previewImage.style.display = 'none';
+                // }
+                
+                // Update RIGHT side with project-specific details
+                previewBenefits.innerHTML = '';
+                
+                // Add purpose heading if available
+                if (project.purpose) {
+                    // Create heading
+                    const purposeHeading = document.createElement('div');
+                    purposeHeading.style.fontWeight = '600';
+                    purposeHeading.style.fontSize = '18px';
+                    purposeHeading.style.color = '#000';
+                    purposeHeading.style.marginBottom = '12px';
+                    purposeHeading.textContent = 'How this helps you';
+                    previewBenefits.appendChild(purposeHeading);
+                    
+                    const purposeText = document.createElement('p');
+                    purposeText.style.fontSize = '14px';
+                    purposeText.style.lineHeight = '1.6';
+                    purposeText.style.fontWeight = '300';
+                    purposeText.style.color = '#333';
+                    purposeText.style.marginBottom = '10px';
+                    purposeText.style.marginTop = '0';
+                    purposeText.textContent = project.purpose;
+                    previewBenefits.appendChild(purposeText);
+                }
+                
+                // Add benefits with checkmarks
+                if (project.benefits && Array.isArray(project.benefits)) {
+                    project.benefits.forEach(benefit => {
+                        const benefitItem = document.createElement('div');
+                        benefitItem.className = 'benefit-item';
+                        
+                        const checkmark = document.createElement('div');
+                        checkmark.className = 'benefit-checkmark';
+                        checkmark.textContent = '✅';
+                        
+                        const benefitText = document.createElement('span');
+                        benefitText.textContent = benefit;
+                        
+                        benefitItem.appendChild(checkmark);
+                        benefitItem.appendChild(benefitText);
+                        previewBenefits.appendChild(benefitItem);
+                    });
+                }
+                
+                // Add stat if available
+                if (project.stat) {
+                    const statItem = document.createElement('div');
+                    statItem.style.marginTop = '10px';
+                    statItem.style.fontSize = '13px';
+                    statItem.style.fontWeight = '300';
+                    statItem.style.lineHeight = '1.5';
+                    statItem.style.color = '#333';
+                    statItem.textContent = project.stat;
+                    previewBenefits.appendChild(statItem);
+                }
+                
+                // Add quote if available
+                if (project.quote) {
+                    const quoteItem = document.createElement('div');
+                    quoteItem.style.marginTop = '10px';
+                    quoteItem.style.fontSize = '13px';
+                    quoteItem.style.fontWeight = '300';
+                    quoteItem.style.lineHeight = '1.5';
+                    quoteItem.style.color = '#333';
+                    
+                    // Add emoji (not italic)
+                    const emoji = document.createElement('span');
+                    emoji.textContent = '💬 ';
+                    emoji.style.fontStyle = 'normal';
+                    
+                    // Add quote text (italic)
+                    const quoteText = document.createElement('span');
+                    quoteText.style.fontStyle = 'italic';
+                    let quoteContent = project.quote;
+                    if (project.quoteAuthor) {
+                        quoteContent += ` ${project.quoteAuthor}`;
+                    }
+                    quoteText.textContent = quoteContent;
+                    
+                    quoteItem.appendChild(emoji);
+                    quoteItem.appendChild(quoteText);
+                    previewBenefits.appendChild(quoteItem);
+                }
+                
+                // Add price box at the bottom, aligned to left
+                const priceSection = document.createElement('div');
+                priceSection.style.marginTop = '16px';
+                
+                const priceBox = document.createElement('a');
+                priceBox.href = 'https://app.qava.ai/';
+                priceBox.target = '_blank';
+                priceBox.style.padding = '6px 12px';
+                priceBox.style.background = 'white';
+                priceBox.style.border = '1px solid #0F62FE';
+                priceBox.style.borderRadius = '6px';
+                priceBox.style.fontSize = '13px';
+                priceBox.style.fontWeight = '500';
+                priceBox.style.color = '#0F62FE';
+                priceBox.style.textDecoration = 'none';
+                priceBox.style.cursor = 'pointer';
+                priceBox.style.transition = 'all 0.2s ease';
+                priceBox.style.display = 'inline-block';
+                
+                if (project.price) {
+                    priceBox.textContent = `Projects start at $${project.price}`;
+                    
+                    // Calculate consultant rate range and savings based on project type
+                    let consultantRateRange = '';
+                    let savingsPercent = 0;
+                    
+                    // Determine consultant rate based on project price complexity
+                    if (project.price < 100) {
+                        consultantRateRange = '$800-$1,500';
+                        savingsPercent = Math.round(((1150 - project.price) / 1150) * 100);
+                    } else if (project.price < 150) {
+                        consultantRateRange = '$1,200-$2,000';
+                        savingsPercent = Math.round(((1600 - project.price) / 1600) * 100);
+                    } else if (project.price < 200) {
+                        consultantRateRange = '$1,800-$3,000';
+                        savingsPercent = Math.round(((2400 - project.price) / 2400) * 100);
+                    } else if (project.price < 250) {
+                        consultantRateRange = '$2,500-$4,000';
+                        savingsPercent = Math.round(((3250 - project.price) / 3250) * 100);
+                    } else if (project.price < 300) {
+                        consultantRateRange = '$3,000-$5,000';
+                        savingsPercent = Math.round(((4000 - project.price) / 4000) * 100);
+                    } else {
+                        consultantRateRange = '$4,000-$7,000';
+                        savingsPercent = Math.round(((5500 - project.price) / 5500) * 100);
+                    }
+                    
+                    // Create consultant rate text container
+                    const consultantRate = document.createElement('div');
+                    consultantRate.style.fontSize = '10.5px';
+                    consultantRate.style.fontWeight = '300';
+                    consultantRate.style.color = '#999';
+                    consultantRate.style.marginTop = '8px';
+                    consultantRate.style.textAlign = 'left';
+                    consultantRate.style.transition = 'color 0.2s ease';
+                    consultantRate.style.width = '250px';
+                    consultantRate.style.height = '16px';
+                    consultantRate.style.lineHeight = '16px';
+                    consultantRate.style.overflow = 'hidden';
+                    consultantRate.style.whiteSpace = 'nowrap';
+                    
+                    // Create text span
+                    const rateText = document.createElement('span');
+                    rateText.textContent = `Est. consultant rate: ${consultantRateRange} `;
+                    
+                    // Create emoji span (always present)
+                    const emojiSpan = document.createElement('span');
+                    emojiSpan.textContent = '💸';
+                    emojiSpan.style.display = 'inline';
+                    
+                    consultantRate.appendChild(rateText);
+                    consultantRate.appendChild(emojiSpan);
+                    
+                    // Add hover effect to priceBox
+                    priceBox.addEventListener('mouseenter', function() {
+                        this.style.background = '#0F62FE';
+                        this.style.color = 'white';
+                        rateText.textContent = `Save up to ${savingsPercent}%`;
+                        emojiSpan.style.display = 'none';
+                    });
+                    priceBox.addEventListener('mouseleave', function() {
+                        this.style.background = 'white';
+                        this.style.color = '#0F62FE';
+                        rateText.textContent = `Est. consultant rate: ${consultantRateRange} `;
+                        emojiSpan.style.display = 'inline';
+                    });
+                    
+                    priceSection.appendChild(priceBox);
+                    priceSection.appendChild(consultantRate);
+                } else {
+                    // For Custom Project (price is null), show "Get pricing" without consultant rate
+                    priceBox.textContent = 'Get pricing';
+                    priceBox.addEventListener('mouseenter', function() {
+                        this.style.background = '#0F62FE';
+                        this.style.color = 'white';
+                    });
+                    priceBox.addEventListener('mouseleave', function() {
+                        this.style.background = 'white';
+                        this.style.color = '#0F62FE';
+                    });
+                    priceSection.appendChild(priceBox);
+                }
+                
+                previewBenefits.appendChild(priceSection);
+                
+                // Fallback for old format (description only)
+                if (!project.benefits && !project.purpose && project.description) {
+                    const descItem = document.createElement('div');
+                    descItem.className = 'benefit-item';
+                    const descCheckmark = document.createElement('div');
+                    descCheckmark.className = 'benefit-checkmark';
+                    descCheckmark.textContent = '✅';
+                    const descText = document.createElement('span');
+                    descText.textContent = project.description;
+                    descItem.appendChild(descCheckmark);
+                    descItem.appendChild(descText);
+                    previewBenefits.appendChild(descItem);
+                }
+            }
+
+            function updatePreview(previewType, cardElement) {
+                const data = previewData[previewType];
+                
+                if (!data) return;
+                
+                currentCategory = previewType;
+                
+                // Remove active class from all cards
+                featureCards.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to current card
+                if (cardElement) {
+                    cardElement.classList.add('active');
+                }
+                
+                // Populate LEFT side: Project names
+                previewProjectsList.innerHTML = '';
+                if (Array.isArray(data.projectNames)) {
+                    data.projectNames.forEach((projectName, index) => {
+                        const projectItem = document.createElement('div');
+                        projectItem.className = 'project-list-item';
+                        projectItem.textContent = projectName;
+                        
+                        // Add hover listener to each project item
+                        projectItem.addEventListener('mouseenter', function() {
+                            // Remove active class from all project items
+                            document.querySelectorAll('.project-list-item').forEach(item => {
+                                item.classList.remove('active-project');
+                            });
+                            // Add active class to this item
+                            this.classList.add('active-project');
+                            // Update right side with project details
+                            updateProjectDetails(projectName, data);
+                        });
+                        
+                        previewProjectsList.appendChild(projectItem);
+                    });
+                }
+                
+                // Populate RIGHT side: Show first project by default
+                if (data.projectNames && data.projectNames.length > 0) {
+                    // Automatically show first project details
+                    updateProjectDetails(data.projectNames[0], data);
+                    // Mark first project as active
+                    setTimeout(() => {
+                        const firstProject = document.querySelector('.project-list-item');
+                        if (firstProject) {
+                            firstProject.classList.add('active-project');
+                        }
+                    }, 0);
+                }
+            }
+
+            // Initialize with first category immediately
+            if (featureCards.length > 0) {
+                console.log('Initializing with Build & Launch category');
+                updatePreview('build', featureCards[0]);
+            } else {
+                console.log('No feature cards found!');
+            }
+
+            // Add hover listeners
+            featureCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    const previewType = this.getAttribute('data-preview');
+                    updatePreview(previewType, this);
+                });
+            });
+
+            // Selection boxes functionality
+            const selectionBoxes = document.querySelectorAll('.selection-box');
+            selectionBoxes.forEach(box => {
+                box.addEventListener('mouseenter', function() {
+                    // Remove active class from all boxes
+                    selectionBoxes.forEach(b => {
+                        b.classList.remove('active');
+                    });
+                    
+                    // Add active class to hovered box
+                    this.classList.add('active');
+                });
+            });
+        }); // End DOMContentLoaded
+    </script>
+</body>
+</html>

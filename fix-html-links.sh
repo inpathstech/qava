@@ -41,3 +41,5 @@ for file in "${HTML_FILES[@]}"; do
 done
 
 echo "All HTML files have been updated!"
+
+

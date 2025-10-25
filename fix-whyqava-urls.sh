@@ -31,3 +31,5 @@ for page in "${MAIN_PAGES[@]}"; do
 done
 
 echo "All why-qava URLs have been updated to whyqava!"
+
+
