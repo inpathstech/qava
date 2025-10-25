@@ -1511,33 +1511,6 @@
             max-width: 900px;
             margin: 0 auto;
             padding: 0 32px;
-            position: relative;
-        }
-
-        .scrolling-listings-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 32px;
-            width: 40px;
-            background: linear-gradient(to right, white, transparent);
-            z-index: 10;
-            pointer-events: none;
-            border-radius: 8px 0 0 8px;
-        }
-
-        .scrolling-listings-container::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            right: 32px;
-            width: 40px;
-            background: linear-gradient(to left, white, transparent);
-            z-index: 10;
-            pointer-events: none;
-            border-radius: 0 8px 8px 0;
         }
 
         .scrolling-listings-track {
@@ -1545,6 +1518,30 @@
             overflow: hidden;
             position: relative;
             border-radius: 8px;
+        }
+
+        .scrolling-listings-track::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .scrolling-listings-track::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+            z-index: 10;
+            pointer-events: none;
         }
 
         .scrolling-listings-content {
