@@ -1518,8 +1518,6 @@
             overflow: hidden;
             position: relative;
             border-radius: 8px;
-            box-shadow: inset 15px 0 15px -15px rgba(0, 0, 0, 0.1),
-                        inset -15px 0 15px -15px rgba(0, 0, 0, 0.1);
         }
 
         .scrolling-listings-content {
@@ -1533,25 +1531,28 @@
             display: flex;
         }
 
-        .scrolling-listings-track::before,
-        .scrolling-listings-track::after {
+        .scrolling-listings-track::before {
             content: '';
             position: absolute;
+            top: 0;
+            bottom: 0;
             left: 0;
-            right: 0;
-            height: 40px;
+            width: 30px;
+            background: linear-gradient(to right, white, transparent);
             z-index: 10;
             pointer-events: none;
         }
 
-        .scrolling-listings-track::before {
-            top: 0;
-            background: linear-gradient(to bottom, white, transparent);
-        }
-
         .scrolling-listings-track::after {
+            content: '';
+            position: absolute;
+            top: 0;
             bottom: 0;
-            background: linear-gradient(to top, white, transparent);
+            right: 0;
+            width: 30px;
+            background: linear-gradient(to left, white, transparent);
+            z-index: 10;
+            pointer-events: none;
         }
 
         .listing-card {
