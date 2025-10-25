@@ -1377,25 +1377,26 @@
 
         .selection-box {
             background: #fafafa;
-            border: 1px solid transparent;
+            border: none;
             border-radius: 8px;
             overflow: hidden;
             cursor: pointer;
             transition: all 0.2s ease;
             position: relative;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             display: flex;
             flex-direction: column;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
         .selection-box:hover {
             background: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
         }
 
         .selection-box.active {
             background: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
         }
 
         .selection-checkbox {
@@ -1536,6 +1537,7 @@
             flex-direction: column;
             gap: 12px;
             will-change: transform;
+            padding: 0 20px;
         }
 
         .scrolling-listings-content.active {
@@ -1551,23 +1553,39 @@
             min-height: 70px;
             display: flex;
             align-items: center;
+            gap: 12px;
             transition: all 0.2s ease;
             border: 1px solid rgba(0, 0, 0, 0.08);
             position: relative;
+        }
+
+        .listing-image {
+            width: 48px;
+            height: 48px;
+            border-radius: 6px;
+            object-fit: cover;
+            flex-shrink: 0;
         }
 
         .listing-type-badge {
             position: absolute;
             top: 12px;
             right: 16px;
-            background: white;
+            background: #fafafa;
             color: #000000;
             font-size: 10px;
             font-weight: 300;
             padding: 4px 8px;
             border-radius: 6px;
             letter-spacing: 0.3px;
-            border: 1px solid #000000;
+            border: none;
+        }
+
+        .listing-type-badge.featured-badge {
+            background: #0F62FE;
+            color: white;
+            font-weight: 500;
+            border-radius: 12px;
         }
 
         .listing-card:hover {
@@ -1598,6 +1616,16 @@
             display: flex;
             align-items: center;
             gap: 12px;
+        }
+
+        .featured-badge {
+            background: #0F62FE;
+            color: white;
+            font-size: 10px;
+            font-weight: 500;
+            padding: 3px 8px;
+            border-radius: 12px;
+            white-space: nowrap;
         }
 
         @keyframes scrollListings {
@@ -1883,6 +1911,12 @@
             .listing-card {
                 padding: 14px 16px;
                 min-height: 60px;
+                gap: 10px;
+            }
+
+            .listing-image {
+                width: 40px;
+                height: 40px;
             }
 
             .listing-title {
@@ -1891,6 +1925,11 @@
 
             .listing-meta {
                 font-size: 11px;
+            }
+
+            .featured-badge {
+                font-size: 9px;
+                padding: 2px 6px;
             }
 
             .listing-type-badge {
@@ -1941,6 +1980,12 @@
             .listing-card {
                 padding: 12px 14px;
                 min-height: 56px;
+                gap: 8px;
+            }
+
+            .listing-image {
+                width: 36px;
+                height: 36px;
             }
 
             .listing-title {
@@ -1949,6 +1994,11 @@
 
             .listing-meta {
                 font-size: 10px;
+            }
+
+            .featured-badge {
+                font-size: 8px;
+                padding: 2px 5px;
             }
 
             .listing-type-badge {
@@ -3608,114 +3658,130 @@
     <!-- Scrolling Listings Section -->
     <div class="scrolling-listings-section">
         <div class="scrolling-listings-container">
-            <div class="scrolling-listings-track">
+            <div class="scrolling-listings-wrapper">
+                <div class="scrolling-listings-track">
                 <!-- Projects List -->
                 <div class="scrolling-listings-content active" id="projects-list" style="animation: scrollListings 40s linear infinite;">
                     <!-- Project cards will be duplicated for seamless loop -->
                     <div class="listing-card">
+                        <img src="Project Type Images Oct 2025/Business Plan.svg" alt="Business Plan 🚀" class="listing-image">
                         <div class="listing-type-badge">Business Plan 🚀</div>
                         <div class="listing-content">
-                            <div class="listing-title">Business Plan - Seed-stage AI SaaS</div>
-                            <div class="listing-meta"><span>📍 New York City</span><span>$350</span><span>12 hours</span></div>
+                            <div class="listing-title">Seed-Stage AI SaaS Seeks Business Plan</div>
+                            <div class="listing-meta"><span>📍 New York City</span><span>$350</span><span>12 hours</span><span class="featured-badge">Featured</span></div>
                                 </div>
                             </div>
                     <div class="listing-card">
+                        <img src="Project Type Images Oct 2025/Go-To-Market Strategy.svg" alt="Go-To-Market Strategy 📍" class="listing-image">
                         <div class="listing-type-badge">Go-To-Market Strategy 📍</div>
                         <div class="listing-content">
-                            <div class="listing-title">Go-To-Market Strategy - Pre-seed Marketplace</div>
-                            <div class="listing-meta"><span>📍 Sydney</span><span>$280</span><span>12 hours</span></div>
+                            <div class="listing-title">Pre-Seed Marketplace Seeks Go-To-Market Strategy</div>
+                            <div class="listing-meta"><span>📍 Sydney</span><span>$280</span><span>12 hours</span><span class="featured-badge">Featured</span></div>
                                 </div>
                             </div>
                     <div class="listing-card">
+                        <img src="Project Type Images Oct 2025/Pricing Strategy.svg" alt="Pricing Strategy 💵" class="listing-image">
                         <div class="listing-type-badge">Pricing Strategy 💵</div>
                         <div class="listing-content">
-                            <div class="listing-title">Pricing Strategy - Series A Fintech</div>
-                            <div class="listing-meta"><span>📍 San Francisco</span><span>$280</span><span>12 hours</span></div>
+                            <div class="listing-title">Series A Fintech Company Seeks Pricing Strategy</div>
+                            <div class="listing-meta"><span>📍 San Francisco</span><span>$280</span><span>12 hours</span><span class="featured-badge">Featured</span></div>
                                 </div>
                             </div>
                     <div class="listing-card">
+                        <img src="Project Type Images Oct 2025/Financial Model.svg" alt="Financial Model 📊" class="listing-image">
                         <div class="listing-type-badge">Financial Model 📊</div>
                         <div class="listing-content">
-                            <div class="listing-title">Financial Model - Bootstrapped DTC Brand</div>
-                            <div class="listing-meta"><span>📍 Los Angeles</span><span>$700</span><span>12 hours</span></div>
+                            <div class="listing-title">Financial Model for Bootstrapped DTC Brand</div>
+                            <div class="listing-meta"><span>📍 Los Angeles</span><span>$700</span><span>12 hours</span><span class="featured-badge">Featured</span></div>
                         </div>
                                     </div>
                     <div class="listing-card">
+                        <img src="Project Type Images Oct 2025/Pitch Deck.svg" alt="Pitch Deck 🖼️" class="listing-image">
                         <div class="listing-type-badge">Pitch Deck 🖼️</div>
                         <div class="listing-content">
-                            <div class="listing-title">Pitch Deck - Series B SaaS</div>
-                            <div class="listing-meta"><span>📍 Austin</span><span>$525</span><span>10 hours</span></div>
+                            <div class="listing-title">Series B SaaS Looking for Pitch Deck</div>
+                            <div class="listing-meta"><span>📍 Austin</span><span>$525</span><span>10 hours</span><span class="featured-badge">Featured</span></div>
                                         </div>
                                     </div>
                     <div class="listing-card">
+                        <img src="Project Type Images Oct 2025/Data Strategy.svg" alt="Data Strategy 💿" class="listing-image">
                         <div class="listing-type-badge">Data Strategy 💿</div>
                         <div class="listing-content">
-                            <div class="listing-title">Data Strategy - Growth-stage E-commerce</div>
-                            <div class="listing-meta"><span>📍 Seattle</span><span>$280</span><span>14 hours</span></div>
+                            <div class="listing-title">Growth-Stage E-commerce Seeks Data Strategy</div>
+                            <div class="listing-meta"><span>📍 Seattle</span><span>$280</span><span>14 hours</span><span class="featured-badge">Featured</span></div>
                                 </div>
                             </div>
                     <div class="listing-card">
+                        <img src="Project Type Images Oct 2025/Customer Segmentation.svg" alt="Customer Segmentation 🧍‍♂️" class="listing-image">
                         <div class="listing-type-badge">Customer Segmentation 🧍‍♂️</div>
                         <div class="listing-content">
-                            <div class="listing-title">Customer Segmentation - Early-stage Fintech</div>
-                            <div class="listing-meta"><span>📍 Boston</span><span>$140</span><span>12 hours</span></div>
+                            <div class="listing-title">Early-Stage Fintech Seeks Customer Segmentation</div>
+                            <div class="listing-meta"><span>📍 Boston</span><span>$140</span><span>12 hours</span><span class="featured-badge">Featured</span></div>
                                 </div>
                             </div>
                     <div class="listing-card">
+                        <img src="Project Type Images Oct 2025/Growth Strategy.svg" alt="Growth Plan 🌿" class="listing-image">
                         <div class="listing-type-badge">Growth Plan 🌿</div>
                         <div class="listing-content">
-                            <div class="listing-title">Growth Plan - Seed-stage Marketplace</div>
-                            <div class="listing-meta"><span>📍 Denver</span><span>$280</span><span>12 hours</span></div>
+                            <div class="listing-title">Seed-Stage Marketplace Seeks Growth Plan</div>
+                            <div class="listing-meta"><span>📍 Denver</span><span>$280</span><span>12 hours</span><span class="featured-badge">Featured</span></div>
                                 </div>
                             </div>
                     <div class="listing-card">
+                        <img src="Project Type Images Oct 2025/Product Strategy.svg" alt="Product Strategy 🧸" class="listing-image">
                         <div class="listing-type-badge">Product Strategy 🧸</div>
                         <div class="listing-content">
-                            <div class="listing-title">Product Strategy - Series A Consumer App</div>
-                            <div class="listing-meta"><span>📍 Miami</span><span>$315</span><span>12 hours</span></div>
+                            <div class="listing-title">Series A Consumer App Looking for Product Strategy</div>
+                            <div class="listing-meta"><span>📍 Miami</span><span>$315</span><span>12 hours</span><span class="featured-badge">Featured</span></div>
                         </div>
                                 </div>
                     <div class="listing-card">
+                        <img src="Project Type Images Oct 2025/Competitor Analysis.svg" alt="Competitor Analysis 🥷" class="listing-image">
                         <div class="listing-type-badge">Competitor Analysis 🥷</div>
                         <div class="listing-content">
-                            <div class="listing-title">Competitor Analysis - Pre-seed SaaS</div>
-                            <div class="listing-meta"><span>📍 Chicago</span><span>$280</span><span>8 hours</span></div>
+                            <div class="listing-title">Pre-Seed SaaS Seeks Competitor Analysis</div>
+                            <div class="listing-meta"><span>📍 Chicago</span><span>$280</span><span>8 hours</span><span class="featured-badge">Featured</span></div>
                             </div>
                                     </div>
                     <!-- Duplicate for seamless loop -->
                     <div class="listing-card">
+                        <img src="Project Type Images Oct 2025/Business Plan.svg" alt="Business Plan 🚀" class="listing-image">
                         <div class="listing-type-badge">Business Plan 🚀</div>
                         <div class="listing-content">
-                            <div class="listing-title">Business Plan - Seed-stage AI SaaS</div>
-                            <div class="listing-meta"><span>📍 New York City</span><span>$350</span><span>12 hours</span></div>
+                            <div class="listing-title">Seed-Stage AI SaaS Seeks Business Plan</div>
+                            <div class="listing-meta"><span>📍 New York City</span><span>$350</span><span>12 hours</span><span class="featured-badge">Featured</span></div>
                                         </div>
                                     </div>
                     <div class="listing-card">
+                        <img src="Project Type Images Oct 2025/Go-To-Market Strategy.svg" alt="Go-To-Market Strategy 📍" class="listing-image">
                         <div class="listing-type-badge">Go-To-Market Strategy 📍</div>
                         <div class="listing-content">
-                            <div class="listing-title">Go-To-Market Strategy - Pre-seed Marketplace</div>
-                            <div class="listing-meta"><span>📍 Sydney</span><span>$280</span><span>12 hours</span></div>
+                            <div class="listing-title">Pre-Seed Marketplace Seeks Go-To-Market Strategy</div>
+                            <div class="listing-meta"><span>📍 Sydney</span><span>$280</span><span>12 hours</span><span class="featured-badge">Featured</span></div>
                                 </div>
                             </div>
                     <div class="listing-card">
+                        <img src="Project Type Images Oct 2025/Pricing Strategy.svg" alt="Pricing Strategy 💵" class="listing-image">
                         <div class="listing-type-badge">Pricing Strategy 💵</div>
                         <div class="listing-content">
-                            <div class="listing-title">Pricing Strategy - Series A Fintech</div>
-                            <div class="listing-meta"><span>📍 San Francisco</span><span>$280</span><span>12 hours</span></div>
+                            <div class="listing-title">Series A Fintech Company Seeks Pricing Strategy</div>
+                            <div class="listing-meta"><span>📍 San Francisco</span><span>$280</span><span>12 hours</span><span class="featured-badge">Featured</span></div>
                                 </div>
                     </div>
                     <div class="listing-card">
+                        <img src="Project Type Images Oct 2025/Financial Model.svg" alt="Financial Model 📊" class="listing-image">
                         <div class="listing-type-badge">Financial Model 📊</div>
                         <div class="listing-content">
-                            <div class="listing-title">Financial Model - Bootstrapped DTC Brand</div>
-                            <div class="listing-meta"><span>📍 Los Angeles</span><span>$700</span><span>12 hours</span></div>
+                            <div class="listing-title">Financial Model for Bootstrapped DTC Brand</div>
+                            <div class="listing-meta"><span>📍 Los Angeles</span><span>$700</span><span>12 hours</span><span class="featured-badge">Featured</span></div>
                         </div>
                     </div>
                     <div class="listing-card">
+                        <img src="Project Type Images Oct 2025/Pitch Deck.svg" alt="Pitch Deck 🖼️" class="listing-image">
                         <div class="listing-type-badge">Pitch Deck 🖼️</div>
                         <div class="listing-content">
-                            <div class="listing-title">Pitch Deck - Series B SaaS</div>
-                            <div class="listing-meta"><span>📍 Austin</span><span>$525</span><span>10 hours</span></div>
+                            <div class="listing-title">Series B SaaS Looking for Pitch Deck</div>
+                            <div class="listing-meta"><span>📍 Austin</span><span>$525</span><span>10 hours</span><span class="featured-badge">Featured</span></div>
                         </div>
                             </div>
                         </div>
@@ -3723,70 +3789,80 @@
                 <!-- Jobs List -->
                 <div class="scrolling-listings-content" id="jobs-list" style="animation: scrollListings 40s linear infinite;">
                     <div class="listing-card">
-                        <div class="listing-type-badge">Job</div>
+                        <img src="Project Type Images Oct 2025/Product Strategy.svg" alt="Job" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
-                            <div class="listing-title">Senior Product Manager - Series B SaaS</div>
-                            <div class="listing-meta">📍 San Francisco Full-time               $140k-$180k</div>
+                            <div class="listing-title">Senior Product Manager for Series B SaaS</div>
+                            <div class="listing-meta"><span>📍 San Francisco</span><span>Full-time</span><span>$140k-$180k</span></div>
                                 </div>
                             </div>
                     <div class="listing-card">
-                        <div class="listing-type-badge">Job</div>
+                        <img src="Project Type Images Oct 2025/Sales & Marketing Strategy.svg" alt="Job" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
-                            <div class="listing-title">Marketing Lead - Early-stage Fintech</div>
-                            <div class="listing-meta">📍 New York City Full-time               $120k-$160k</div>
+                            <div class="listing-title">Marketing Lead for Early-Stage Fintech</div>
+                            <div class="listing-meta"><span>📍 New York City</span><span>Full-time</span><span>$120k-$160k</span></div>
                                 </div>
                             </div>
                     <div class="listing-card">
-                        <div class="listing-type-badge">Job</div>
+                        <img src="Project Type Images Oct 2025/Data Analysis.svg" alt="Job" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
-                            <div class="listing-title">Data Analyst - Growth-stage E-commerce</div>
-                            <div class="listing-meta">📍 Remote Full-time               $90k-$120k</div>
+                            <div class="listing-title">Data Analyst for Growth-Stage E-commerce</div>
+                            <div class="listing-meta"><span>📍 Remote</span><span>Full-time</span><span>$90k-$120k</span></div>
                                     </div>
                                         </div>
                     <div class="listing-card">
-                        <div class="listing-type-badge">Job</div>
+                        <img src="Project Type Images Oct 2025/Operating Model Design.svg" alt="Job" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
-                            <div class="listing-title">Business Operations Manager - Seed Startup</div>
-                            <div class="listing-meta">📍 Austin Full-time               $100k-$130k</div>
+                            <div class="listing-title">Business Operations Manager for Seed Startup</div>
+                            <div class="listing-meta"><span>📍 Austin</span><span>Full-time</span><span>$100k-$130k</span></div>
                                     </div>
                                 </div>
                     <div class="listing-card">
-                        <div class="listing-type-badge">Job</div>
+                        <img src="Project Type Images Oct 2025/Growth Strategy.svg" alt="Job" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
-                            <div class="listing-title">Strategy Consultant - Series A Marketplace</div>
-                            <div class="listing-meta">📍 Boston Full-time               $130k-$170k</div>
+                            <div class="listing-title">Strategy Consultant for Series A Marketplace</div>
+                            <div class="listing-meta"><span>📍 Boston</span><span>Full-time</span><span>$130k-$170k</span></div>
                             </div>
                         </div>
                     <div class="listing-card">
-                        <div class="listing-type-badge">Job</div>
+                        <img src="Project Type Images Oct 2025/Sales & Marketing Strategy.svg" alt="Job" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
-                            <div class="listing-title">Growth Marketing Manager - Pre-seed SaaS</div>
-                            <div class="listing-meta">📍 Los Angeles Full-time               $110k-$140k</div>
+                            <div class="listing-title">Growth Marketing Manager for Pre-Seed SaaS</div>
+                            <div class="listing-meta"><span>📍 Los Angeles</span><span>Full-time</span><span>$110k-$140k</span></div>
                                 </div>
                             </div>
                     <div class="listing-card">
-                        <div class="listing-type-badge">Job</div>
+                        <img src="Project Type Images Oct 2025/Data Analysis.svg" alt="Job" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
                             <div class="listing-title">Financial Analyst - Series B Fintech</div>
-                            <div class="listing-meta">📍 Chicago Full-time               $95k-$125k</div>
+                            <div class="listing-meta"><span>📍 Chicago</span><span>Full-time</span><span>$95k-$125k</span></div>
                                 </div>
                             </div>
                     <div class="listing-card">
-                        <div class="listing-type-badge">Job</div>
+                        <img src="Project Type Images Oct 2025/Organizational Design.svg" alt="Job" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
                             <div class="listing-title">Chief of Staff - Growth-stage Startup</div>
-                            <div class="listing-meta">📍 Seattle Full-time               $150k-$190k</div>
+                            <div class="listing-meta"><span>📍 Seattle</span><span>Full-time</span><span>$150k-$190k</span></div>
                                 </div>
                             </div>
                     <div class="listing-card">
-                        <div class="listing-type-badge">Job</div>
+                        <img src="Project Type Images Oct 2025/Other.svg" alt="Job" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
                             <div class="listing-title">Business Development Lead - Seed Tech</div>
-                            <div class="listing-meta">📍 Miami Full-time               $120k-$150k</div>
+                            <div class="listing-meta"><span>📍 Miami</span><span>Full-time</span><span>$120k-$150k</span></div>
                         </div>
                                 </div>
                     <div class="listing-card">
-                        <div class="listing-type-badge">Job</div>
+                        <img src="Project Type Images Oct 2025/Product Strategy.svg" alt="Job" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
                             <div class="listing-title">Product Strategy Lead - Series A Consumer</div>
                             <div class="listing-meta">📍 Denver Part-Time               $135k-$175k</div>
@@ -3794,38 +3870,43 @@
                                 </div>
                     <!-- Duplicate for seamless loop -->
                     <div class="listing-card">
-                        <div class="listing-type-badge">Job</div>
+                        <img src="Project Type Images Oct 2025/Product Strategy.svg" alt="Job" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
-                            <div class="listing-title">Senior Product Manager - Series B SaaS</div>
-                            <div class="listing-meta">📍 San Francisco Full-time               $140k-$180k</div>
+                            <div class="listing-title">Senior Product Manager for Series B SaaS</div>
+                            <div class="listing-meta"><span>📍 San Francisco</span><span>Full-time</span><span>$140k-$180k</span></div>
                             </div>
                                 </div>
                     <div class="listing-card">
-                        <div class="listing-type-badge">Job</div>
+                        <img src="Project Type Images Oct 2025/Sales & Marketing Strategy.svg" alt="Job" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
-                            <div class="listing-title">Marketing Lead - Early-stage Fintech</div>
-                            <div class="listing-meta">📍 New York City Full-time               $120k-$160k</div>
+                            <div class="listing-title">Marketing Lead for Early-Stage Fintech</div>
+                            <div class="listing-meta"><span>📍 New York City</span><span>Full-time</span><span>$120k-$160k</span></div>
                             </div>
                         </div>
                     <div class="listing-card">
-                        <div class="listing-type-badge">Job</div>
+                        <img src="Project Type Images Oct 2025/Data Analysis.svg" alt="Job" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
-                            <div class="listing-title">Data Analyst - Growth-stage E-commerce</div>
+                            <div class="listing-title">Data Analyst for Growth-Stage E-commerce</div>
                             <div class="listing-meta">📍 Remote Part-Time               $90k-$120k</div>
                     </div>
                 </div>
                     <div class="listing-card">
-                        <div class="listing-type-badge">Job</div>
+                        <img src="Project Type Images Oct 2025/Operating Model Design.svg" alt="Job" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
-                            <div class="listing-title">Business Operations Manager - Seed Startup</div>
-                            <div class="listing-meta">📍 Austin Full-time               $100k-$130k</div>
+                            <div class="listing-title">Business Operations Manager for Seed Startup</div>
+                            <div class="listing-meta"><span>📍 Austin</span><span>Full-time</span><span>$100k-$130k</span></div>
                         </div>
                     </div>
                     <div class="listing-card">
-                        <div class="listing-type-badge">Job</div>
+                        <img src="Project Type Images Oct 2025/Growth Strategy.svg" alt="Job" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
-                            <div class="listing-title">Strategy Consultant - Series A Marketplace</div>
-                            <div class="listing-meta">📍 Boston Full-time               $130k-$170k</div>
+                            <div class="listing-title">Strategy Consultant for Series A Marketplace</div>
+                            <div class="listing-meta"><span>📍 Boston</span><span>Full-time</span><span>$130k-$170k</span></div>
             </div>
         </div>
     </div>
@@ -3833,110 +3914,128 @@
                 <!-- Internships List -->
                 <div class="scrolling-listings-content" id="internships-list" style="animation: scrollListings 40s linear infinite;">
                     <div class="listing-card">
-                        <div class="listing-type-badge">Summer Internship</div>
+                        <img src="Project Type Images Oct 2025/Product Strategy.svg" alt="Summer Internship" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
-                            <div class="listing-title">Product Management Intern - Series A SaaS</div>
-                            <div class="listing-meta">📍 San Francisco Summer 2025               $35/hr</div>
+                            <div class="listing-title">Series A SaaS Seeks Product Management Intern</div>
+                            <div class="listing-meta"><span>📍 San Francisco</span><span>Summer 2025</span><span>$35/hr</span></div>
                 </div>
                 </div>
                     <div class="listing-card">
-                        <div class="listing-type-badge">Summer Internship</div>
+                        <img src="Project Type Images Oct 2025/Sales & Marketing Strategy.svg" alt="Summer Internship" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
-                            <div class="listing-title">Marketing Strategy Intern - Growth-stage Fintech</div>
-                            <div class="listing-meta">📍 New York City Fall 2025               $30/hr</div>
+                            <div class="listing-title">Growth-Stage Fintech Seeks Marketing Strategy Intern</div>
+                            <div class="listing-meta"><span>📍 New York City</span><span>Fall 2025</span><span>$30/hr</span></div>
                 </div>
                 </div>
                     <div class="listing-card">
-                        <div class="listing-type-badge">Summer Internship</div>
+                        <img src="Project Type Images Oct 2025/Data Analysis.svg" alt="Summer Internship" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
-                            <div class="listing-title">Business Analytics Intern - Series B E-commerce</div>
-                            <div class="listing-meta">📍 Remote Spring 2025               $28/hr</div>
+                            <div class="listing-title">Series B E-commerce Seeks Business Analytics Intern</div>
+                            <div class="listing-meta"><span>📍 Remote</span><span>Spring 2025</span><span>$28/hr</span></div>
                 </div>
                 </div>
                     <div class="listing-card">
-                        <div class="listing-type-badge">Summer Internship</div>
+                        <img src="Project Type Images Oct 2025/Operating Model Design.svg" alt="Summer Internship" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
-                            <div class="listing-title">Operations Intern - Seed-stage Marketplace</div>
-                            <div class="listing-meta">📍 Austin Summer 2025               $25/hr</div>
+                            <div class="listing-title">Seed-Stage Marketplace Seeks Operations Intern</div>
+                            <div class="listing-meta"><span>📍 Austin</span><span>Summer 2025</span><span>$25/hr</span></div>
                         </div>
                     </div>
                     <div class="listing-card">
-                        <div class="listing-type-badge">Summer Internship</div>
+                        <img src="Project Type Images Oct 2025/Growth Strategy.svg" alt="Summer Internship" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
-                            <div class="listing-title">Strategy Consulting Intern - Series A Tech</div>
-                            <div class="listing-meta">📍 Boston Fall 2025               $32/hr</div>
+                            <div class="listing-title">Boutique Consulting Firm Seeks Strategy Intern</div>
+                            <div class="listing-meta"><span>📍 Boston</span><span>Fall 2025</span><span>$32/hr</span></div>
                         </div>
                     </div>
                     <div class="listing-card">
-                        <div class="listing-type-badge">Winter Internship</div>
+                        <img src="Project Type Images Oct 2025/Sales & Marketing Strategy.svg" alt="Winter Internship" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
                             <div class="listing-title">Growth Marketing Intern - Pre-seed Startup</div>
-                            <div class="listing-meta">📍 Los Angeles Summer 2025               $27/hr</div>
+                            <div class="listing-meta"><span>📍 Los Angeles</span><span>Summer 2025</span><span>$27/hr</span></div>
                         </div>
                     </div>
                     <div class="listing-card">
-                        <div class="listing-type-badge">Winter Internship</div>
+                        <img src="Project Type Images Oct 2025/Strategic Finance.svg" alt="Winter Internship" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
                             <div class="listing-title">Financial Analysis Intern - Series B Fintech</div>
-                            <div class="listing-meta">📍 Chicago Spring 2025               $30/hr</div>
+                            <div class="listing-meta"><span>📍 Chicago</span><span>Spring 2025</span><span>$30/hr</span></div>
                         </div>
                     </div>
                     <div class="listing-card">
-                        <div class="listing-type-badge">Winter Internship</div>
+                        <img src="Project Type Images Oct 2025/Product Strategy.svg" alt="Winter Internship" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
                             <div class="listing-title">Product Strategy Intern - Growth-stage SaaS</div>
-                            <div class="listing-meta">📍 Seattle Summer 2025               $33/hr</div>
+                            <div class="listing-meta"><span>📍 Seattle</span><span>Summer 2025</span><span>$33/hr</span></div>
                         </div>
                     </div>
                     <div class="listing-card">
-                        <div class="listing-type-badge">Winter Internship</div>
+                        <img src="Project Type Images Oct 2025/Other.svg" alt="Winter Internship" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
                             <div class="listing-title">Business Development Intern - Seed Tech</div>
-                            <div class="listing-meta">📍 Miami Fall 2025               $26/hr</div>
+                            <div class="listing-meta"><span>📍 Miami</span><span>Fall 2025</span><span>$26/hr</span></div>
                         </div>
                     </div>
                     <div class="listing-card">
-                        <div class="listing-type-badge">Winter Internship</div>
+                        <img src="Project Type Images Oct 2025/Data Analysis.svg" alt="Winter Internship" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
-                            <div class="listing-title">Data Science Intern - Series A Consumer App</div>
-                            <div class="listing-meta">📍 Denver Spring 2025               $31/hr</div>
+                            <div class="listing-title">Series A Consumer App Seeks Data Science Intern</div>
+                            <div class="listing-meta"><span>📍 Denver</span><span>Spring 2025</span><span>$31/hr</span></div>
                         </div>
                     </div>
                     <!-- Duplicate for seamless loop -->
                     <div class="listing-card">
-                        <div class="listing-type-badge">Internship</div>
+                        <img src="Project Type Images Oct 2025/Product Strategy.svg" alt="Internship" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
-                            <div class="listing-title">Product Management Intern - Series A SaaS</div>
-                            <div class="listing-meta">📍 San Francisco Summer 2025               $35/hr</div>
+                            <div class="listing-title">Series A SaaS Seeks Product Management Intern</div>
+                            <div class="listing-meta"><span>📍 San Francisco</span><span>Summer 2025</span><span>$35/hr</span></div>
                         </div>
                     </div>
                     <div class="listing-card">
-                        <div class="listing-type-badge">Internship</div>
+                        <img src="Project Type Images Oct 2025/Sales & Marketing Strategy.svg" alt="Internship" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
-                            <div class="listing-title">Marketing Strategy Intern - Growth-stage Fintech</div>
-                            <div class="listing-meta">📍 New York City Fall 2025               $30/hr</div>
+                            <div class="listing-title">Growth-Stage Fintech Seeks Marketing Strategy Intern</div>
+                            <div class="listing-meta"><span>📍 New York City</span><span>Fall 2025</span><span>$30/hr</span></div>
                         </div>
                     </div>
                     <div class="listing-card">
-                        <div class="listing-type-badge">Internship</div>
+                        <img src="Project Type Images Oct 2025/Data Analysis.svg" alt="Internship" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
-                            <div class="listing-title">Business Analytics Intern - Series B E-commerce</div>
-                            <div class="listing-meta">📍 Remote Spring 2025               $28/hr</div>
+                            <div class="listing-title">Series B E-commerce Seeks Business Analytics Intern</div>
+                            <div class="listing-meta"><span>📍 Remote</span><span>Spring 2025</span><span>$28/hr</span></div>
                         </div>
                     </div>
                     <div class="listing-card">
-                        <div class="listing-type-badge">Internship</div>
+                        <img src="Project Type Images Oct 2025/Operating Model Design.svg" alt="Internship" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
-                            <div class="listing-title">Operations Intern - Seed-stage Marketplace</div>
-                            <div class="listing-meta">📍 Austin Summer 2025               $25/hr</div>
+                            <div class="listing-title">Seed-Stage Marketplace Seeks Operations Intern</div>
+                            <div class="listing-meta"><span>📍 Austin</span><span>Summer 2025</span><span>$25/hr</span></div>
                         </div>
                     </div>
                     <div class="listing-card">
-                        <div class="listing-type-badge">Internship</div>
+                        <img src="Project Type Images Oct 2025/Growth Strategy.svg" alt="Internship" class="listing-image">
+                        <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
-                            <div class="listing-title">Strategy Consulting Intern - Series A Tech</div>
-                            <div class="listing-meta">📍 Boston Fall 2025               $32/hr</div>
+                            <div class="listing-title">Boutique Consulting Firm Seeks Strategy Intern</div>
+                            <div class="listing-meta"><span>📍 Boston</span><span>Fall 2025</span><span>$32/hr</span></div>
                         </div>
+                    </div>
+                </div>
+            </div>
                     </div>
                 </div>
             </div>
