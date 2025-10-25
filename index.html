@@ -1482,6 +1482,140 @@
             transform: translateX(0);
         }
 
+        /* Jobs Search link color (red) */
+        .selection-box:nth-child(2) .selection-link {
+            color: #B45454;
+        }
+
+        .selection-box:nth-child(2) .selection-link:hover {
+            color: #9a3a3a;
+        }
+
+        /* Internships Search link color (purple) */
+        .selection-box:nth-child(3) .selection-link {
+            color: #8B5CF6;
+        }
+
+        .selection-box:nth-child(3) .selection-link:hover {
+            color: #7C3AED;
+        }
+
+        /* Scrolling Listings Styles */
+        .scrolling-listings-section {
+            background: white;
+            padding: 32px 0 64px 0;
+            margin: 0;
+        }
+
+        .scrolling-listings-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        .scrolling-listings-track {
+            height: 280px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 8px;
+        }
+
+        .scrolling-listings-content {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            will-change: transform;
+        }
+
+        .scrolling-listings-content.active {
+            display: flex;
+        }
+
+        .scrolling-listings-track::before,
+        .scrolling-listings-track::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 40px;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .scrolling-listings-track::before {
+            top: 0;
+            background: linear-gradient(to bottom, white, transparent);
+        }
+
+        .scrolling-listings-track::after {
+            bottom: 0;
+            background: linear-gradient(to top, white, transparent);
+        }
+
+        .listing-card {
+            background: white;
+            border-radius: 8px;
+            padding: 16px 20px;
+            width: 100%;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .listing-type-badge {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: white;
+            color: #000000;
+            font-size: 10px;
+            font-weight: 300;
+            padding: 4px 8px;
+            border-radius: 6px;
+            letter-spacing: 0.3px;
+            border: 1px solid #000000;
+        }
+
+        .listing-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .listing-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .listing-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a1a;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        .listing-meta {
+            font-size: 12px;
+            color: #6b7280;
+            font-weight: 300;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        @keyframes scrollListings {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-50%);
+            }
+        }
+
         .feature-cards-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -1735,6 +1869,39 @@
                 font-size: 15px;
                 margin-bottom: 16px;
             }
+
+            /* Scrolling Listings Mobile */
+            .scrolling-listings-section {
+                padding: 24px 0 48px 0;
+            }
+
+            .scrolling-listings-container {
+                padding: 0 24px;
+            }
+
+            .scrolling-listings-track {
+                height: 240px;
+            }
+
+            .listing-card {
+                padding: 14px 16px;
+                min-height: 60px;
+            }
+
+            .listing-title {
+                font-size: 13px;
+            }
+
+            .listing-meta {
+                font-size: 11px;
+            }
+
+            .listing-type-badge {
+                font-size: 9px;
+                padding: 3px 6px;
+                top: 10px;
+                right: 14px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1759,6 +1926,39 @@
             .selection-link {
                 font-size: 14px;
                 margin: 0 0 14px 16px;
+            }
+
+            /* Scrolling Listings Mobile Small */
+            .scrolling-listings-section {
+                padding: 20px 0 40px 0;
+            }
+
+            .scrolling-listings-container {
+                padding: 0 20px;
+            }
+
+            .scrolling-listings-track {
+                height: 220px;
+            }
+
+            .listing-card {
+                padding: 12px 14px;
+                min-height: 56px;
+            }
+
+            .listing-title {
+                font-size: 12px;
+            }
+
+            .listing-meta {
+                font-size: 10px;
+            }
+
+            .listing-type-badge {
+                font-size: 8px;
+                padding: 3px 5px;
+                top: 9px;
+                right: 12px;
             }
         }
 
@@ -3327,10 +3527,10 @@
             <div class="nav-text">Pricing</div>
         </a>
         <a href="https://qava.ai/demo" class="mobile-nav-item">Request a demo</a>
-        <a href="https://app.qava.ai/" class="mobile-nav-item">Log in</a>
+            <a href="https://app.qava.ai/" class="mobile-nav-item">Log in</a>
         <a href="https://app.qava.ai/" class="join-button mobile-menu-join-button">
-            <div class="join-text">Join for free</div>
-        </a>
+                <div class="join-text">Join for free</div>
+            </a>
     </div>
 
     <!-- Matching CTA Section -->
@@ -3343,8 +3543,8 @@
                 <a href="https://qava.ai/demo" class="cta-button cta-button-secondary">Request a demo</a>
             </div>
         </div>
-    </div>
-
+                </div>
+                
     <!-- Connect with MBA Talent Section -->
     <div class="feature-cards-section connect-section">
         <div class="feature-cards-container">
@@ -3355,34 +3555,34 @@
             <div class="feature-cards-logos">
                 <div class="feature-logo-item">
                     <img src="Landing Page Trusted by/MIT.png" alt="MIT Sloan">
-                </div>
+                        </div>
                 <div class="feature-logo-item">
                     <img src="Landing Page Trusted by/Stern.png" alt="NYU Stern">
-                </div>
+                    </div>
                 <div class="feature-logo-item">
                     <img src="Landing Page Trusted by/Wharton.png" alt="Wharton">
                 </div>
                 <div class="feature-logo-item">
                     <img src="Landing Page Trusted by/HBS.png" alt="Harvard Business School">
-                </div>
+            </div>
                 <div class="feature-logo-item">
                     <img src="Landing Page Trusted by/Haas.png" alt="Berkeley Haas">
-                </div>
+            </div>
                 <div class="feature-logo-item">
                     <img src="Landing Page Trusted by/Standford.png" alt="Stanford GSB">
-                </div>
+        </div>
                 <div class="feature-logo-item">
                     <img src="Landing Page Trusted by/Kellogg.png" alt="Northwestern Kellogg">
-                </div>
+    </div>
                 <div class="feature-logo-item">
                     <img src="Landing Page Trusted by/Said.png" alt="Oxford Saïd">
-                </div>
+            </div>
                 <div class="feature-logo-item">
                     <img src="Landing Page Trusted by/AGSM.jpg" alt="AGSM UNSW Business School">
                 </div>
-            </div>
-        </div>
-    </div>
+                </div>
+                </div>
+                </div>
 
     <!-- Three Selection Boxes Section -->
     <div class="selection-boxes-section">
@@ -3398,7 +3598,7 @@
                     <h3 class="selection-title">200+ Jobs</h3>
                     <p class="selection-description">Discover jobs at fast-growing companies where your work matters.</p>
                     <a href="#" class="selection-link">Search <span class="selection-arrow">→</span></a>
-                </div>
+            </div>
                 <div class="selection-box">
                     <h3 class="selection-title">420+ Internships</h3>
                     <p class="selection-description">Internships built on diversity, fairness, and real impact.</p>
@@ -3408,6 +3608,344 @@
         </div>
     </div>
 
+    <!-- Scrolling Listings Section -->
+    <div class="scrolling-listings-section">
+        <div class="scrolling-listings-container">
+            <div class="scrolling-listings-track">
+                <!-- Projects List -->
+                <div class="scrolling-listings-content active" id="projects-list" style="animation: scrollListings 40s linear infinite;">
+                    <!-- Project cards will be duplicated for seamless loop -->
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Business Plan 🚀</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Business Plan - Seed-stage AI SaaS</div>
+                            <div class="listing-meta"><span>📍 New York City</span><span>$350</span><span>12 hours</span></div>
+                                </div>
+                            </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Go-To-Market Strategy 📍</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Go-To-Market Strategy - Pre-seed Marketplace</div>
+                            <div class="listing-meta"><span>📍 Sydney</span><span>$280</span><span>12 hours</span></div>
+                                </div>
+                            </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Pricing Strategy 💵</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Pricing Strategy - Series A Fintech</div>
+                            <div class="listing-meta"><span>📍 San Francisco</span><span>$280</span><span>12 hours</span></div>
+                                </div>
+                            </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Financial Model 📊</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Financial Model - Bootstrapped DTC Brand</div>
+                            <div class="listing-meta"><span>📍 Los Angeles</span><span>$700</span><span>12 hours</span></div>
+                        </div>
+                                    </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Pitch Deck 🖼️</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Pitch Deck - Series B SaaS</div>
+                            <div class="listing-meta"><span>📍 Austin</span><span>$525</span><span>10 hours</span></div>
+                                        </div>
+                                    </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Data Strategy 💿</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Data Strategy - Growth-stage E-commerce</div>
+                            <div class="listing-meta"><span>📍 Seattle</span><span>$280</span><span>14 hours</span></div>
+                                </div>
+                            </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Customer Segmentation 🧍‍♂️</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Customer Segmentation - Early-stage Fintech</div>
+                            <div class="listing-meta"><span>📍 Boston</span><span>$140</span><span>12 hours</span></div>
+                                </div>
+                            </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Growth Plan 🌿</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Growth Plan - Seed-stage Marketplace</div>
+                            <div class="listing-meta"><span>📍 Denver</span><span>$280</span><span>12 hours</span></div>
+                                </div>
+                            </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Product Strategy 🧸</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Product Strategy - Series A Consumer App</div>
+                            <div class="listing-meta"><span>📍 Miami</span><span>$315</span><span>12 hours</span></div>
+                        </div>
+                                </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Competitor Analysis 🥷</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Competitor Analysis - Pre-seed SaaS</div>
+                            <div class="listing-meta"><span>📍 Chicago</span><span>$280</span><span>8 hours</span></div>
+                            </div>
+                                    </div>
+                    <!-- Duplicate for seamless loop -->
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Business Plan 🚀</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Business Plan - Seed-stage AI SaaS</div>
+                            <div class="listing-meta"><span>📍 New York City</span><span>$350</span><span>12 hours</span></div>
+                                        </div>
+                                    </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Go-To-Market Strategy 📍</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Go-To-Market Strategy - Pre-seed Marketplace</div>
+                            <div class="listing-meta"><span>📍 Sydney</span><span>$280</span><span>12 hours</span></div>
+                                </div>
+                            </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Pricing Strategy 💵</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Pricing Strategy - Series A Fintech</div>
+                            <div class="listing-meta"><span>📍 San Francisco</span><span>$280</span><span>12 hours</span></div>
+                                </div>
+                    </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Financial Model 📊</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Financial Model - Bootstrapped DTC Brand</div>
+                            <div class="listing-meta"><span>📍 Los Angeles</span><span>$700</span><span>12 hours</span></div>
+                        </div>
+                    </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Pitch Deck 🖼️</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Pitch Deck - Series B SaaS</div>
+                            <div class="listing-meta"><span>📍 Austin</span><span>$525</span><span>10 hours</span></div>
+                        </div>
+                            </div>
+                        </div>
+                        
+                <!-- Jobs List -->
+                <div class="scrolling-listings-content" id="jobs-list" style="animation: scrollListings 40s linear infinite;">
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Job</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Senior Product Manager - Series B SaaS</div>
+                            <div class="listing-meta">📍 San Francisco Full-time               $140k-$180k</div>
+                                </div>
+                            </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Job</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Marketing Lead - Early-stage Fintech</div>
+                            <div class="listing-meta">📍 New York City Full-time               $120k-$160k</div>
+                                </div>
+                            </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Job</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Data Analyst - Growth-stage E-commerce</div>
+                            <div class="listing-meta">📍 Remote Full-time               $90k-$120k</div>
+                                    </div>
+                                        </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Job</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Business Operations Manager - Seed Startup</div>
+                            <div class="listing-meta">📍 Austin Full-time               $100k-$130k</div>
+                                    </div>
+                                </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Job</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Strategy Consultant - Series A Marketplace</div>
+                            <div class="listing-meta">📍 Boston Full-time               $130k-$170k</div>
+                            </div>
+                        </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Job</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Growth Marketing Manager - Pre-seed SaaS</div>
+                            <div class="listing-meta">📍 Los Angeles Full-time               $110k-$140k</div>
+                                </div>
+                            </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Job</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Financial Analyst - Series B Fintech</div>
+                            <div class="listing-meta">📍 Chicago Full-time               $95k-$125k</div>
+                                </div>
+                            </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Job</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Chief of Staff - Growth-stage Startup</div>
+                            <div class="listing-meta">📍 Seattle Full-time               $150k-$190k</div>
+                                </div>
+                            </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Job</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Business Development Lead - Seed Tech</div>
+                            <div class="listing-meta">📍 Miami Full-time               $120k-$150k</div>
+                        </div>
+                                </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Job</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Product Strategy Lead - Series A Consumer</div>
+                            <div class="listing-meta">📍 Denver Part-Time               $135k-$175k</div>
+                            </div>
+                                </div>
+                    <!-- Duplicate for seamless loop -->
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Job</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Senior Product Manager - Series B SaaS</div>
+                            <div class="listing-meta">📍 San Francisco Full-time               $140k-$180k</div>
+                            </div>
+                                </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Job</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Marketing Lead - Early-stage Fintech</div>
+                            <div class="listing-meta">📍 New York City Full-time               $120k-$160k</div>
+                            </div>
+                        </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Job</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Data Analyst - Growth-stage E-commerce</div>
+                            <div class="listing-meta">📍 Remote Part-Time               $90k-$120k</div>
+                    </div>
+                </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Job</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Business Operations Manager - Seed Startup</div>
+                            <div class="listing-meta">📍 Austin Full-time               $100k-$130k</div>
+                        </div>
+                    </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Job</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Strategy Consultant - Series A Marketplace</div>
+                            <div class="listing-meta">📍 Boston Full-time               $130k-$170k</div>
+            </div>
+        </div>
+    </div>
+
+                <!-- Internships List -->
+                <div class="scrolling-listings-content" id="internships-list" style="animation: scrollListings 40s linear infinite;">
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Summer Internship</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Product Management Intern - Series A SaaS</div>
+                            <div class="listing-meta">📍 San Francisco Summer 2025               $35/hr</div>
+                </div>
+                </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Summer Internship</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Marketing Strategy Intern - Growth-stage Fintech</div>
+                            <div class="listing-meta">📍 New York City Fall 2025               $30/hr</div>
+                </div>
+                </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Summer Internship</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Business Analytics Intern - Series B E-commerce</div>
+                            <div class="listing-meta">📍 Remote Spring 2025               $28/hr</div>
+                </div>
+                </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Summer Internship</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Operations Intern - Seed-stage Marketplace</div>
+                            <div class="listing-meta">📍 Austin Summer 2025               $25/hr</div>
+                        </div>
+                    </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Summer Internship</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Strategy Consulting Intern - Series A Tech</div>
+                            <div class="listing-meta">📍 Boston Fall 2025               $32/hr</div>
+                        </div>
+                    </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Winter Internship</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Growth Marketing Intern - Pre-seed Startup</div>
+                            <div class="listing-meta">📍 Los Angeles Summer 2025               $27/hr</div>
+                        </div>
+                    </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Winter Internship</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Financial Analysis Intern - Series B Fintech</div>
+                            <div class="listing-meta">📍 Chicago Spring 2025               $30/hr</div>
+                        </div>
+                    </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Winter Internship</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Product Strategy Intern - Growth-stage SaaS</div>
+                            <div class="listing-meta">📍 Seattle Summer 2025               $33/hr</div>
+                        </div>
+                    </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Winter Internship</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Business Development Intern - Seed Tech</div>
+                            <div class="listing-meta">📍 Miami Fall 2025               $26/hr</div>
+                        </div>
+                    </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Winter Internship</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Data Science Intern - Series A Consumer App</div>
+                            <div class="listing-meta">📍 Denver Spring 2025               $31/hr</div>
+                        </div>
+                    </div>
+                    <!-- Duplicate for seamless loop -->
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Internship</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Product Management Intern - Series A SaaS</div>
+                            <div class="listing-meta">📍 San Francisco Summer 2025               $35/hr</div>
+                        </div>
+                    </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Internship</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Marketing Strategy Intern - Growth-stage Fintech</div>
+                            <div class="listing-meta">📍 New York City Fall 2025               $30/hr</div>
+                        </div>
+                    </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Internship</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Business Analytics Intern - Series B E-commerce</div>
+                            <div class="listing-meta">📍 Remote Spring 2025               $28/hr</div>
+                        </div>
+                    </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Internship</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Operations Intern - Seed-stage Marketplace</div>
+                            <div class="listing-meta">📍 Austin Summer 2025               $25/hr</div>
+                        </div>
+                    </div>
+                    <div class="listing-card">
+                        <div class="listing-type-badge">Internship</div>
+                        <div class="listing-content">
+                            <div class="listing-title">Strategy Consulting Intern - Series A Tech</div>
+                            <div class="listing-meta">📍 Boston Fall 2025               $32/hr</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                    </div>
+                </div>
+                
     <!-- Feature Cards Section -->
     <div class="feature-cards-section">
         <div class="feature-cards-container">
@@ -3419,7 +3957,7 @@
                 <div class="feature-card active" data-preview="build">
                     <h3 class="feature-card-title">I want to build or launch 🚀</h3>
                     <p class="feature-card-description">Turn your idea into a real business.</p>
-                </div>
+                            </div>
 
                 <!-- Growth & Capital Card -->
                 <div class="feature-card" data-preview="grow">
@@ -3477,28 +4015,28 @@
                 <!-- First Row -->
                 <div class="customer-card">
                     <div class="customer-card-content">
-                        <div class="customer-logo">
-                            <span class="company-name">Boon</span>
-                        </div>
-                        <p class="customer-quote">We streamlined our workflows and accelerated our sales cycle using incredible interns and AI.</p>
+                    <div class="customer-logo">
+                        <span class="company-name">Boon</span>
+                    </div>
+                    <p class="customer-quote">We streamlined our workflows and accelerated our sales cycle using incredible interns and AI.</p>
                     </div>
                     <div class="stars">★★★★★</div>
                 </div>
                 <div class="customer-card">
                     <div class="customer-card-content">
-                        <div class="customer-logo">
-                            <span class="company-name">Captable</span>
-                        </div>
-                        <p class="customer-quote">With Qava, every person at Captable has an intern and is growing 10x faster.</p>
+                    <div class="customer-logo">
+                        <span class="company-name">Captable</span>
+                    </div>
+                    <p class="customer-quote">With Qava, every person at Captable has an intern and is growing 10x faster.</p>
                     </div>
                     <div class="stars">★★★★★</div>
                 </div>
                 <div class="customer-card">
                     <div class="customer-card-content">
-                        <div class="customer-logo">
-                            <span class="company-name">mmento</span>
-                        </div>
-                        <p class="customer-quote">Qava has saved me valuable time, and I get to work with a diverse pool of fresh, bright perspectives on targeted problems.</p>
+                    <div class="customer-logo">
+                        <span class="company-name">mmento</span>
+                    </div>
+                    <p class="customer-quote">Qava has saved me valuable time, and I get to work with a diverse pool of fresh, bright perspectives on targeted problems.</p>
                     </div>
                     <div class="stars">★★★★★</div>
                 </div>
@@ -3506,28 +4044,28 @@
                 <!-- Second Row -->
                 <div class="customer-card">
                     <div class="customer-card-content">
-                        <div class="customer-logo">
-                            <span class="company-name">Saturn Guard</span>
-                        </div>
-                        <p class="customer-quote">Qava has been the most powerful and impactful way to grow our mission and company.</p>
+                    <div class="customer-logo">
+                        <span class="company-name">Saturn Guard</span>
+                    </div>
+                    <p class="customer-quote">Qava has been the most powerful and impactful way to grow our mission and company.</p>
                     </div>
                     <div class="stars">★★★★★</div>
                 </div>
                 <div class="customer-card">
                     <div class="customer-card-content">
-                        <div class="customer-logo">
-                            <span class="company-name">Stum</span>
-                        </div>
-                        <p class="customer-quote">The EASIEST and MOST AGILE talent solution we have ever used. Thank you.</p>
+                    <div class="customer-logo">
+                        <span class="company-name">Stum</span>
+                    </div>
+                    <p class="customer-quote">The EASIEST and MOST AGILE talent solution we have ever used. Thank you.</p>
                     </div>
                     <div class="stars">★★★★★</div>
                 </div>
                 <div class="customer-card">
                     <div class="customer-card-content">
-                        <div class="customer-logo">
-                            <span class="company-name">The Rise Group</span>
-                        </div>
-                        <p class="customer-quote">It's about time there was a talent sourcing platform that actually works.</p>
+                    <div class="customer-logo">
+                        <span class="company-name">The Rise Group</span>
+                    </div>
+                    <p class="customer-quote">It's about time there was a talent sourcing platform that actually works.</p>
                     </div>
                     <div class="stars">★★★★★</div>
                 </div>
@@ -3559,8 +4097,8 @@
                         <p class="customer-quote">Qava connected us with brilliant minds who transformed our sustainability strategy.</p>
                     </div>
                     <div class="stars">★★★★★</div>
-                </div>
-                
+            </div>
+
                 <!-- Fourth Row -->
                 <div class="customer-card">
                     <div class="customer-card-content">
@@ -3588,11 +4126,11 @@
                         <p class="customer-quote">The strategic insights from Qava's talent helped us navigate complex healthcare regulations.</p>
                     </div>
                     <div class="stars">★★★★★</div>
-                </div>
-            </div>
-
-            <!-- Stats Footer -->
-            <div class="stats-footer-wrapper">
+        </div>
+    </div>
+    
+    <!-- Stats Footer -->
+    <div class="stats-footer-wrapper">
         <div class="stats-footer">
             <div class="stats-item">🌐 Over 10K users worldwide</div>
             <div class="stats-item">🏆 96% of clients would recommend Qava</div>
@@ -4997,9 +5535,13 @@
                 });
             });
 
-            // Selection boxes functionality
+            // Selection boxes functionality & Scrolling Listings Hover Interaction
             const selectionBoxes = document.querySelectorAll('.selection-box');
-            selectionBoxes.forEach(box => {
+            const projectsList = document.getElementById('projects-list');
+            const jobsList = document.getElementById('jobs-list');
+            const internshipsList = document.getElementById('internships-list');
+
+            selectionBoxes.forEach((box, index) => {
                 box.addEventListener('mouseenter', function() {
                     // Remove active class from all boxes
                     selectionBoxes.forEach(b => {
@@ -5008,8 +5550,28 @@
                     
                     // Add active class to hovered box
                     this.classList.add('active');
+
+                    // Remove active class from all lists
+                    projectsList.classList.remove('active');
+                    jobsList.classList.remove('active');
+                    internshipsList.classList.remove('active');
+
+                    // Add active class based on which box is hovered
+                    if (index === 0) {
+                        // Projects box (first box)
+                        projectsList.classList.add('active');
+                    } else if (index === 1) {
+                        // Jobs box (second box)
+                        jobsList.classList.add('active');
+                    } else if (index === 2) {
+                        // Internships box (third box)
+                        internshipsList.classList.add('active');
+                    }
                 });
             });
+
+            // Set default to projects on page load
+            projectsList.classList.add('active');
         }); // End DOMContentLoaded
     </script>
 </body>
