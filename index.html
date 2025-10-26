@@ -1690,34 +1690,6 @@
             margin: 0;
         }
 
-        .network-effect-box {
-            margin-top: 20px;
-            background: white;
-            border: 1px solid #000000;
-            border-radius: 12px;
-            padding: 20px 24px;
-            transition: all 0.3s ease;
-            box-sizing: border-box;
-        }
-
-        .network-effect-title {
-            font-family: 'Inter', sans-serif;
-            font-size: 16px;
-            font-weight: 700;
-            color: #000000;
-            margin: 0 0 8px 0;
-            line-height: 1.4;
-        }
-
-        .network-effect-description {
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            font-weight: 300;
-            color: #111111;
-            line-height: 1.6;
-            margin: 0;
-        }
-
         .feature-preview-box {
             margin-top: 20px;
             background: white;
@@ -2085,20 +2057,6 @@
 
             .feature-card-description {
                 font-size: 14px;
-            }
-
-            .network-effect-box {
-                padding: 16px 20px;
-                margin-top: 16px;
-            }
-
-            .network-effect-title {
-                font-size: 14px;
-                margin-bottom: 6px;
-            }
-
-            .network-effect-description {
-                font-size: 13px;
             }
 
             .feature-preview-box {
@@ -5483,31 +5441,6 @@
                     quoteItem.appendChild(quoteText);
                     previewBenefits.appendChild(quoteItem);
                 }
-                
-                // Add Network Effect Box
-                const networkEffectBox = document.createElement('div');
-                networkEffectBox.className = 'network-effect-box';
-                networkEffectBox.style.marginTop = '16px';
-                
-                const networkEffectTitle = document.createElement('p');
-                networkEffectTitle.className = 'network-effect-title';
-                networkEffectTitle.textContent = '💎 Network effect built in.';
-                
-                const networkEffectDescription = document.createElement('p');
-                networkEffectDescription.className = 'network-effect-description';
-                
-                const networkEffectContent = {
-                    'build': 'Qava talent often bring access to other founders, product mentors, early-stage investors, and startup advisors — the people who help ideas turn into real businesses.',
-                    'grow': 'Qava talent often bring access to investors, accelerators, mentors, and strategic partners — networks that open doors to funding and growth opportunities.',
-                    'improve': 'Qava talent often bring access to experienced operators, industry experts, and executive networks — connections that help you streamline, strengthen, and scale.',
-                    'measure': 'Qava talent often bring access to expensive databases, the latest in academic frameworks, analysts, and professors — people who help you make smarter, data-driven decisions.'
-                };
-                
-                networkEffectDescription.textContent = networkEffectContent[currentCategory] || networkEffectContent['build'];
-                
-                networkEffectBox.appendChild(networkEffectTitle);
-                networkEffectBox.appendChild(networkEffectDescription);
-                previewBenefits.appendChild(networkEffectBox);
                 
                 // Add price box at the bottom, aligned to left
                 const priceSection = document.createElement('div');
