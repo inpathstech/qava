@@ -4434,7 +4434,7 @@
                     <!-- Network emoji circle -->
                     <div style="width: 140px; height: 140px; border-radius: 8px; display: flex; align-items: center; justify-content: center; position: relative;">
                         <!-- Center circle reference (invisible) -->
-                        <div style="position: absolute; width: 120px; height: 120px; left: 10px; top: 10px;">
+                        <div id="emoji-circle" style="position: absolute; width: 120px; height: 120px; left: 10px; top: 10px; transition: transform 0.1s ease-out;">
                             <!-- 12 emojis evenly distributed (30 degrees apart) - radius 60px -->
                             <!-- Using trigonometry: x = 60 + 60*sin(angle), y = 60 - 60*cos(angle) -->
                             <!-- 💰 - 0° (Top) -->
@@ -5864,6 +5864,27 @@
 
             // Set default to projects on page load
             projectsList.classList.add('active');
+
+        // Emoji Circle Scroll Animation
+        const emojiCircle = document.getElementById('emoji-circle');
+        if (emojiCircle) {
+            let lastScrollY = window.scrollY;
+            let rotation = 0;
+
+            window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
+                const scrollDelta = currentScrollY - lastScrollY;
+                
+                // Rotate based on scroll direction and distance
+                // Adjust rotation speed by changing the divisor (lower = faster rotation)
+                rotation += scrollDelta / 3;
+                
+                // Apply rotation
+                emojiCircle.style.transform = `rotate(${rotation}deg)`;
+                
+                lastScrollY = currentScrollY;
+            }, { passive: true });
+        }
         }); // End DOMContentLoaded
     </script>
 </body>
