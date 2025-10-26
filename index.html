@@ -2820,6 +2820,46 @@
             transform: translateX(4px);
         }
 
+        /* Network Effect Section - Uses same margins as Connect section */
+        .network-effect-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        .network-effect-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+            background: white;
+        }
+
+        .network-effect-image {
+            flex: 0 0 auto;
+            display: flex;
+        }
+
+        .network-effect-content {
+            flex: 1;
+        }
+
+        .network-effect-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #000000;
+            margin: 0 0 12px 0;
+        }
+
+        .network-effect-description {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 300;
+            color: #333333;
+            line-height: 1.5;
+            margin: 0;
+        }
+
         /* Stats Footer - Notion Style */
         .stats-footer-wrapper {
             position: relative;
@@ -3089,6 +3129,30 @@
                 padding: 10px 20px;
                 font-size: 13px;
             }
+
+            /* Network Effect Responsive */
+            .network-effect-container {
+                padding: 0 24px;
+            }
+
+            .network-effect-card {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .network-effect-image {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .network-effect-title {
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+
+            .network-effect-description {
+                font-size: 13px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -3131,6 +3195,20 @@
             .network-cta .cta-arrow {
                 width: 16px;
                 height: 16px;
+            }
+
+            /* Network Effect Responsive 480px */
+            .network-effect-container {
+                padding: 0 20px;
+            }
+
+            .network-effect-title {
+                font-size: 18px;
+                margin-bottom: 8px;
+            }
+
+            .network-effect-description {
+                font-size: 12px;
             }
         }
 
@@ -4328,11 +4406,11 @@
 
     <!-- Network Effect Section -->
     <div class="education-section" style="padding-top: 40px;">
-        <div class="education-container">
-            <div class="education-card" style="box-shadow: none;">
-                <div class="education-image">
+        <div class="network-effect-container">
+            <div class="network-effect-card">
+                <div class="network-effect-image">
                     <!-- Network emoji circle -->
-                    <div style="width: 180px; height: 180px; border-radius: 8px; display: flex; align-items: center; justify-content: center; position: relative; margin-right: 16px;">
+                    <div style="width: 180px; height: 180px; border-radius: 8px; display: flex; align-items: center; justify-content: center; position: relative;">
                         <!-- Center circle reference (invisible) -->
                         <div style="position: absolute; width: 140px; height: 140px; left: 0px; top: 20px;">
                             <!-- 12 emojis evenly distributed (30 degrees apart) - radius 70px -->
@@ -4364,9 +4442,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="education-content">
-                    <h3 class="education-title">Network effect built in.</h3>
-                    <p class="education-description">
+                <div class="network-effect-content">
+                    <h3 class="network-effect-title">Network effect built in.</h3>
+                    <p class="network-effect-description">
                         Qava talent often bring access to powerful networks — from investors, mentors, and professors to founders, distributors, strategic partners, and executive networks — the kind of connections that help your business launch faster, grow stronger, and scale smarter.
                     </p>
                 </div>
