@@ -4438,29 +4438,29 @@
                             <!-- 12 emojis evenly distributed (30 degrees apart) - radius 60px -->
                             <!-- Using trigonometry: x = 60 + 60*sin(angle), y = 60 - 60*cos(angle) -->
                             <!-- 💰 - 0° (Top) -->
-                            <div style="position: absolute; left: 50%; top: 0; transform: translate(-50%, -50%); font-size: 24px;">💰</div>
+                            <div class="emoji-item" style="position: absolute; left: 50%; top: 0; transform: translate(-50%, -50%); font-size: 24px; transition: transform 0.1s ease-out;">💰</div>
                             <!-- 🧠 - 30° -->
-                            <div style="position: absolute; left: calc(50% + 30px); top: calc(50% - 52px); transform: translate(-50%, -50%); font-size: 24px;">🧠</div>
+                            <div class="emoji-item" style="position: absolute; left: calc(50% + 30px); top: calc(50% - 52px); transform: translate(-50%, -50%); font-size: 24px; transition: transform 0.1s ease-out;">🧠</div>
                             <!-- 🎓 - 60° -->
-                            <div style="position: absolute; left: calc(50% + 52px); top: calc(50% - 30px); transform: translate(-50%, -50%); font-size: 24px;">🎓</div>
+                            <div class="emoji-item" style="position: absolute; left: calc(50% + 52px); top: calc(50% - 30px); transform: translate(-50%, -50%); font-size: 24px; transition: transform 0.1s ease-out;">🎓</div>
                             <!-- 🚀 - 90° (Right) -->
-                            <div style="position: absolute; left: 100%; top: 50%; transform: translate(-50%, -50%); font-size: 24px;">🚀</div>
+                            <div class="emoji-item" style="position: absolute; left: 100%; top: 50%; transform: translate(-50%, -50%); font-size: 24px; transition: transform 0.1s ease-out;">🚀</div>
                             <!-- 📦 - 120° -->
-                            <div style="position: absolute; left: calc(50% + 52px); top: calc(50% + 30px); transform: translate(-50%, -50%); font-size: 24px;">📦</div>
+                            <div class="emoji-item" style="position: absolute; left: calc(50% + 52px); top: calc(50% + 30px); transform: translate(-50%, -50%); font-size: 24px; transition: transform 0.1s ease-out;">📦</div>
                             <!-- 🤝 - 150° -->
-                            <div style="position: absolute; left: calc(50% + 30px); top: calc(50% + 52px); transform: translate(-50%, -50%); font-size: 24px;">🤝</div>
+                            <div class="emoji-item" style="position: absolute; left: calc(50% + 30px); top: calc(50% + 52px); transform: translate(-50%, -50%); font-size: 24px; transition: transform 0.1s ease-out;">🤝</div>
                             <!-- 🏢 - 180° (Bottom) -->
-                            <div style="position: absolute; left: 50%; top: 100%; transform: translate(-50%, -50%); font-size: 24px;">🏢</div>
+                            <div class="emoji-item" style="position: absolute; left: 50%; top: 100%; transform: translate(-50%, -50%); font-size: 24px; transition: transform 0.1s ease-out;">🏢</div>
                             <!-- 📍 - 210° -->
-                            <div style="position: absolute; left: calc(50% - 30px); top: calc(50% + 52px); transform: translate(-50%, -50%); font-size: 24px;">📍</div>
+                            <div class="emoji-item" style="position: absolute; left: calc(50% - 30px); top: calc(50% + 52px); transform: translate(-50%, -50%); font-size: 24px; transition: transform 0.1s ease-out;">📍</div>
                             <!-- 🌏 - 240° -->
-                            <div style="position: absolute; left: calc(50% - 52px); top: calc(50% + 30px); transform: translate(-50%, -50%); font-size: 24px;">🌏</div>
+                            <div class="emoji-item" style="position: absolute; left: calc(50% - 52px); top: calc(50% + 30px); transform: translate(-50%, -50%); font-size: 24px; transition: transform 0.1s ease-out;">🌏</div>
                             <!-- 🛹 - 270° (Left) -->
-                            <div style="position: absolute; left: 0; top: 50%; transform: translate(-50%, -50%); font-size: 24px;">🛹</div>
+                            <div class="emoji-item" style="position: absolute; left: 0; top: 50%; transform: translate(-50%, -50%); font-size: 24px; transition: transform 0.1s ease-out;">🛹</div>
                             <!-- 🏬 - 300° -->
-                            <div style="position: absolute; left: calc(50% - 52px); top: calc(50% - 30px); transform: translate(-50%, -50%); font-size: 24px;">🏬</div>
+                            <div class="emoji-item" style="position: absolute; left: calc(50% - 52px); top: calc(50% - 30px); transform: translate(-50%, -50%); font-size: 24px; transition: transform 0.1s ease-out;">🏬</div>
                             <!-- 💈 - 330° -->
-                            <div style="position: absolute; left: calc(50% - 30px); top: calc(50% - 52px); transform: translate(-50%, -50%); font-size: 24px;">💈</div>
+                            <div class="emoji-item" style="position: absolute; left: calc(50% - 30px); top: calc(50% - 52px); transform: translate(-50%, -50%); font-size: 24px; transition: transform 0.1s ease-out;">💈</div>
                         </div>
                     </div>
                 </div>
@@ -5867,7 +5867,9 @@
 
         // Emoji Circle Scroll Animation
         const emojiCircle = document.getElementById('emoji-circle');
-        if (emojiCircle) {
+        const emojiItems = document.querySelectorAll('.emoji-item');
+        
+        if (emojiCircle && emojiItems.length > 0) {
             let lastScrollY = window.scrollY;
             let rotation = 0;
 
@@ -5879,8 +5881,13 @@
                 // Adjust rotation speed by changing the divisor (lower = faster rotation)
                 rotation += scrollDelta / 3;
                 
-                // Apply rotation
+                // Apply rotation to circle
                 emojiCircle.style.transform = `rotate(${rotation}deg)`;
+                
+                // Counter-rotate each emoji to keep them upright
+                emojiItems.forEach(emoji => {
+                    emoji.style.transform = `translate(-50%, -50%) rotate(${-rotation}deg)`;
+                });
                 
                 lastScrollY = currentScrollY;
             }, { passive: true });
