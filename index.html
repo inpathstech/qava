@@ -2790,6 +2790,35 @@
             transform: translateX(0);
         }
 
+        /* Network CTA Button */
+        .network-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: #000000;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-top: 16px;
+        }
+
+        .network-cta:hover {
+            background: #333333;
+        }
+
+        .network-cta .cta-arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .network-cta:hover .cta-arrow {
+            transform: translateX(4px);
+        }
+
         /* Stats Footer - Notion Style */
         .stats-footer-wrapper {
             position: relative;
@@ -3054,6 +3083,11 @@
             .education-link {
                 font-size: 14px;
             }
+
+            .network-cta {
+                padding: 10px 20px;
+                font-size: 13px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -3086,6 +3120,16 @@
 
             .education-link {
                 font-size: 13px;
+            }
+
+            .network-cta {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+
+            .network-cta .cta-arrow {
+                width: 16px;
+                height: 16px;
             }
         }
 
@@ -4287,35 +4331,35 @@
             <div class="education-card" style="box-shadow: none;">
                 <div class="education-image">
                     <!-- Network emoji circle -->
-                    <div style="width: 140px; height: 140px; border-radius: 8px; display: flex; align-items: center; justify-content: center; position: relative;">
+                    <div style="width: 180px; height: 180px; border-radius: 8px; display: flex; align-items: center; justify-content: center; position: relative; margin-right: 40px;">
                         <!-- Center circle reference (invisible) -->
-                        <div style="position: absolute; width: 100px; height: 100px; left: 20px; top: 20px;">
-                            <!-- 12 emojis evenly distributed (30 degrees apart) - radius 50px -->
-                            <!-- Using trigonometry: x = 50 + 50*sin(angle), y = 50 - 50*cos(angle) -->
+                        <div style="position: absolute; width: 140px; height: 140px; left: 0px; top: 20px;">
+                            <!-- 12 emojis evenly distributed (30 degrees apart) - radius 70px -->
+                            <!-- Using trigonometry: x = 70 + 70*sin(angle), y = 70 - 70*cos(angle) -->
                             <!-- 💰 - 0° (Top) -->
-                            <div style="position: absolute; left: 50%; top: 0; transform: translate(-50%, -50%); font-size: 18px;">💰</div>
+                            <div style="position: absolute; left: 50%; top: 0; transform: translate(-50%, -50%); font-size: 28px;">💰</div>
                             <!-- 🧠 - 30° -->
-                            <div style="position: absolute; left: calc(50% + 25px); top: calc(50% - 43.3px); transform: translate(-50%, -50%); font-size: 18px;">🧠</div>
+                            <div style="position: absolute; left: calc(50% + 35px); top: calc(50% - 60.6px); transform: translate(-50%, -50%); font-size: 28px;">🧠</div>
                             <!-- 🎓 - 60° -->
-                            <div style="position: absolute; left: calc(50% + 43.3px); top: calc(50% - 25px); transform: translate(-50%, -50%); font-size: 18px;">🎓</div>
+                            <div style="position: absolute; left: calc(50% + 60.6px); top: calc(50% - 35px); transform: translate(-50%, -50%); font-size: 28px;">🎓</div>
                             <!-- 🚀 - 90° (Right) -->
-                            <div style="position: absolute; left: 100%; top: 50%; transform: translate(-50%, -50%); font-size: 18px;">🚀</div>
+                            <div style="position: absolute; left: 100%; top: 50%; transform: translate(-50%, -50%); font-size: 28px;">🚀</div>
                             <!-- 📦 - 120° -->
-                            <div style="position: absolute; left: calc(50% + 43.3px); top: calc(50% + 25px); transform: translate(-50%, -50%); font-size: 18px;">📦</div>
+                            <div style="position: absolute; left: calc(50% + 60.6px); top: calc(50% + 35px); transform: translate(-50%, -50%); font-size: 28px;">📦</div>
                             <!-- 🤝 - 150° -->
-                            <div style="position: absolute; left: calc(50% + 25px); top: calc(50% + 43.3px); transform: translate(-50%, -50%); font-size: 18px;">🤝</div>
+                            <div style="position: absolute; left: calc(50% + 35px); top: calc(50% + 60.6px); transform: translate(-50%, -50%); font-size: 28px;">🤝</div>
                             <!-- 🏢 - 180° (Bottom) -->
-                            <div style="position: absolute; left: 50%; top: 100%; transform: translate(-50%, -50%); font-size: 18px;">🏢</div>
+                            <div style="position: absolute; left: 50%; top: 100%; transform: translate(-50%, -50%); font-size: 28px;">🏢</div>
                             <!-- 📍 - 210° -->
-                            <div style="position: absolute; left: calc(50% - 25px); top: calc(50% + 43.3px); transform: translate(-50%, -50%); font-size: 18px;">📍</div>
+                            <div style="position: absolute; left: calc(50% - 35px); top: calc(50% + 60.6px); transform: translate(-50%, -50%); font-size: 28px;">📍</div>
                             <!-- 🌏 - 240° -->
-                            <div style="position: absolute; left: calc(50% - 43.3px); top: calc(50% + 25px); transform: translate(-50%, -50%); font-size: 18px;">🌏</div>
+                            <div style="position: absolute; left: calc(50% - 60.6px); top: calc(50% + 35px); transform: translate(-50%, -50%); font-size: 28px;">🌏</div>
                             <!-- 🛹 - 270° (Left) -->
-                            <div style="position: absolute; left: 0; top: 50%; transform: translate(-50%, -50%); font-size: 18px;">🛹</div>
+                            <div style="position: absolute; left: 0; top: 50%; transform: translate(-50%, -50%); font-size: 28px;">🛹</div>
                             <!-- 🏬 - 300° -->
-                            <div style="position: absolute; left: calc(50% - 43.3px); top: calc(50% - 25px); transform: translate(-50%, -50%); font-size: 18px;">🏬</div>
+                            <div style="position: absolute; left: calc(50% - 60.6px); top: calc(50% - 35px); transform: translate(-50%, -50%); font-size: 28px;">🏬</div>
                             <!-- 💈 - 330° -->
-                            <div style="position: absolute; left: calc(50% - 25px); top: calc(50% - 43.3px); transform: translate(-50%, -50%); font-size: 18px;">💈</div>
+                            <div style="position: absolute; left: calc(50% - 35px); top: calc(50% - 60.6px); transform: translate(-50%, -50%); font-size: 28px;">💈</div>
                         </div>
                     </div>
                 </div>
@@ -4324,6 +4368,12 @@
                     <p class="education-description">
                         Qava talent often bring access to powerful networks — from investors, mentors, and professors to founders, distributors, strategic partners, and executive networks — the kind of connections that help your business launch faster, grow stronger, and scale smarter.
                     </p>
+                    <a href="https://app.qava.ai/" class="cta-button network-cta">
+                        <span>Join for free</span>
+                        <svg class="cta-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 4L14 10L8 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
                 </div>
             </div>
         </div>
