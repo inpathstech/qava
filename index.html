@@ -3950,9 +3950,9 @@
                             <div class="listing-title">Strategy Consultant for Series A Marketplace</div>
                             <div class="listing-meta"><span>📍 Boston</span><span>Full-time</span><span>$130k-$170k</span></div>
             </div>
-                            </div>
-                        </div>
-                        
+        </div>
+    </div>
+
                 <!-- Internships List -->
                 <div class="scrolling-listings-content" id="internships-list" style="animation: scrollListings 40s linear infinite;">
                     <div class="listing-card">
@@ -3961,24 +3961,24 @@
                         <div class="listing-content">
                             <div class="listing-title">Series A SaaS Seeks Product Management Intern</div>
                             <div class="listing-meta"><span>📍 San Francisco</span><span>Summer 2025</span><span>$35/hr</span></div>
-                                </div>
-                            </div>
+                </div>
+                </div>
                     <div class="listing-card">
                         <img src="Paths Image Libarary SVG 3 copy/85702cf9-f471-4cf0-8d93-cf92ce9222a0.png" alt="Summer Internship" class="listing-image">
                         <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
                             <div class="listing-title">Growth-Stage Fintech Seeks Marketing Strategy Intern</div>
                             <div class="listing-meta"><span>📍 New York City</span><span>Fall 2025</span><span>$30/hr</span></div>
-                                </div>
-                            </div>
+                </div>
+                </div>
                     <div class="listing-card">
                         <img src="Paths Image Libarary SVG 3 copy/85702cf9-f471-4cf0-8d93-cf92ce9222a0.png" alt="Summer Internship" class="listing-image">
                         <div class="listing-type-badge featured-badge">Featured</div>
                         <div class="listing-content">
                             <div class="listing-title">Series B E-commerce Seeks Business Analytics Intern</div>
                             <div class="listing-meta"><span>📍 Remote</span><span>Spring 2025</span><span>$28/hr</span></div>
-                                </div>
-                            </div>
+                </div>
+                </div>
                     <div class="listing-card">
                         <img src="Paths Image Libarary SVG 3 copy/85702cf9-f471-4cf0-8d93-cf92ce9222a0.png" alt="Summer Internship" class="listing-image">
                         <div class="listing-type-badge featured-badge">Featured</div>
@@ -4081,9 +4081,9 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
+                    </div>
+                </div>
+                
     <!-- Feature Cards Section -->
     <div class="feature-cards-section">
         <div class="feature-cards-container">
@@ -4095,7 +4095,7 @@
                 <div class="feature-card active" data-preview="build">
                     <h3 class="feature-card-title">I want to build or launch 🚀</h3>
                     <p class="feature-card-description">Turn your idea into a real business.</p>
-                </div>
+                            </div>
 
                 <!-- Growth & Capital Card -->
                 <div class="feature-card" data-preview="grow">
@@ -4114,13 +4114,7 @@
                     <h3 class="feature-card-title">I want to measure or optimize 📊</h3>
                     <p class="feature-card-description">Track performance and make smarter decisions.</p>
                 </div>
-                </div>
-
-            <!-- Network Effect Box -->
-            <div class="network-effect-box">
-                <p class="network-effect-title" id="network-effect-title">💎 Network effect built in.</p>
-                <p class="network-effect-description" id="network-effect-description">Qava talent often bring access to other founders, product mentors, early-stage investors, and startup advisors — the people who help ideas turn into real businesses.</p>
-                </div>
+            </div>
 
             <!-- Large Preview Box -->
             <div class="feature-preview-box">
@@ -5490,6 +5484,31 @@
                     previewBenefits.appendChild(quoteItem);
                 }
                 
+                // Add Network Effect Box
+                const networkEffectBox = document.createElement('div');
+                networkEffectBox.className = 'network-effect-box';
+                networkEffectBox.style.marginTop = '16px';
+                
+                const networkEffectTitle = document.createElement('p');
+                networkEffectTitle.className = 'network-effect-title';
+                networkEffectTitle.textContent = '💎 Network effect built in.';
+                
+                const networkEffectDescription = document.createElement('p');
+                networkEffectDescription.className = 'network-effect-description';
+                
+                const networkEffectContent = {
+                    'build': 'Qava talent often bring access to other founders, product mentors, early-stage investors, and startup advisors — the people who help ideas turn into real businesses.',
+                    'grow': 'Qava talent often bring access to investors, accelerators, mentors, and strategic partners — networks that open doors to funding and growth opportunities.',
+                    'improve': 'Qava talent often bring access to experienced operators, industry experts, and executive networks — connections that help you streamline, strengthen, and scale.',
+                    'measure': 'Qava talent often bring access to expensive databases, the latest in academic frameworks, analysts, and professors — people who help you make smarter, data-driven decisions.'
+                };
+                
+                networkEffectDescription.textContent = networkEffectContent[currentCategory] || networkEffectContent['build'];
+                
+                networkEffectBox.appendChild(networkEffectTitle);
+                networkEffectBox.appendChild(networkEffectDescription);
+                previewBenefits.appendChild(networkEffectBox);
+                
                 // Add price box at the bottom, aligned to left
                 const priceSection = document.createElement('div');
                 priceSection.style.marginTop = '16px';
@@ -5623,21 +5642,6 @@
                 // Add active class to current card
                 if (cardElement) {
                     cardElement.classList.add('active');
-                }
-                
-                // Update Network Effect Box
-                const networkEffectTitle = document.getElementById('network-effect-title');
-                const networkEffectDescription = document.getElementById('network-effect-description');
-                
-                const networkEffectContent = {
-                    'build': 'Qava talent often bring access to other founders, product mentors, early-stage investors, and startup advisors — the people who help ideas turn into real businesses.',
-                    'grow': 'Qava talent often bring access to investors, accelerators, mentors, and strategic partners — networks that open doors to funding and growth opportunities.',
-                    'improve': 'Qava talent often bring access to experienced operators, industry experts, and executive networks — connections that help you streamline, strengthen, and scale.',
-                    'measure': 'Qava talent often bring access to expensive databases, the latest in academic frameworks, analysts, and professors — people who help you make smarter, data-driven decisions.'
-                };
-                
-                if (networkEffectDescription && networkEffectContent[previewType]) {
-                    networkEffectDescription.textContent = networkEffectContent[previewType];
                 }
                 
                 // Populate LEFT side: Project names
