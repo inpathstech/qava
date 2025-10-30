@@ -2634,7 +2634,7 @@
             transition: all 0.2s ease;
             display: flex;
             flex-direction: column;
-            height: 160px;
+            min-height: 160px;
         }
 
         .customer-card:hover {
@@ -2703,14 +2703,6 @@
             letter-spacing: 2px;
         }
 
-        .customer-card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
-            padding-top: 12px;
-        }
-
         .customer-project-badge {
             font-family: 'Inter', sans-serif;
             font-size: 10px;
@@ -2722,6 +2714,8 @@
             letter-spacing: 0.3px;
             border: none;
             white-space: nowrap;
+            align-self: flex-start;
+            margin-top: 8px;
         }
 
         .customer-quote {
@@ -4467,11 +4461,9 @@
                         <span class="company-name">Boon</span>
                     </div>
                     <p class="customer-quote">We streamlined our workflows and accelerated our sales cycle using incredible interns and AI.</p>
+                    <div class="customer-project-badge">Sales & Marketing Strategy 📈</div>
                     </div>
-                    <div class="customer-card-footer">
-                        <div class="stars">★★★★★</div>
-                        <div class="customer-project-badge">Sales & Marketing Strategy 📈</div>
-                    </div>
+                    <div class="stars">★★★★★</div>
                 </div>
                 <div class="customer-card">
                     <div class="customer-card-content">
@@ -4479,11 +4471,9 @@
                         <span class="company-name">Captable</span>
                     </div>
                     <p class="customer-quote">With Qava, every person at Captable has an intern and is growing 10x faster.</p>
+                    <div class="customer-project-badge">Growth Strategy 🌱</div>
                     </div>
-                    <div class="customer-card-footer">
-                        <div class="stars">★★★★★</div>
-                        <div class="customer-project-badge">Growth Strategy 🌱</div>
-                    </div>
+                    <div class="stars">★★★★★</div>
                 </div>
                 <div class="customer-card">
                     <div class="customer-card-content">
@@ -4491,11 +4481,9 @@
                         <span class="company-name">mmento</span>
                     </div>
                     <p class="customer-quote">Qava has saved me valuable time, and I get to work with a diverse pool of fresh, bright perspectives on targeted problems.</p>
+                    <div class="customer-project-badge">Strategy Consulting 💡</div>
                     </div>
-                    <div class="customer-card-footer">
-                        <div class="stars">★★★★★</div>
-                        <div class="customer-project-badge">Strategy Consulting 💡</div>
-                    </div>
+                    <div class="stars">★★★★★</div>
                 </div>
                 
                 <!-- Second Row -->
@@ -4505,11 +4493,9 @@
                         <span class="company-name">Saturn Guard</span>
                     </div>
                     <p class="customer-quote">Qava has been the most powerful and impactful way to grow our mission and company.</p>
+                    <div class="customer-project-badge">Business Plan 📋</div>
                     </div>
-                    <div class="customer-card-footer">
-                        <div class="stars">★★★★★</div>
-                        <div class="customer-project-badge">Business Plan 📋</div>
-                    </div>
+                    <div class="stars">★★★★★</div>
                 </div>
                 <div class="customer-card">
                     <div class="customer-card-content">
@@ -4517,11 +4503,9 @@
                         <span class="company-name">Stum</span>
                     </div>
                     <p class="customer-quote">The EASIEST and MOST AGILE talent solution we have ever used. Thank you.</p>
+                    <div class="customer-project-badge">Talent Sourcing 👥</div>
                     </div>
-                    <div class="customer-card-footer">
-                        <div class="stars">★★★★★</div>
-                        <div class="customer-project-badge">Talent Sourcing 👥</div>
-                    </div>
+                    <div class="stars">★★★★★</div>
                 </div>
                 <div class="customer-card">
                     <div class="customer-card-content">
@@ -4529,11 +4513,9 @@
                         <span class="company-name">The Rise Group</span>
                     </div>
                     <p class="customer-quote">It's about time there was a talent sourcing platform that actually works.</p>
+                    <div class="customer-project-badge">Operating Model Design ⚙️</div>
                     </div>
-                    <div class="customer-card-footer">
-                        <div class="stars">★★★★★</div>
-                        <div class="customer-project-badge">Operating Model Design ⚙️</div>
-                    </div>
+                    <div class="stars">★★★★★</div>
                 </div>
                 
                 <!-- Third Row -->
@@ -4543,11 +4525,9 @@
                             <span class="company-name">TechFlow</span>
                         </div>
                         <p class="customer-quote">Qava's talent pool helped us scale our engineering team 3x faster than traditional hiring.</p>
-                    </div>
-                    <div class="customer-card-footer">
-                        <div class="stars">★★★★★</div>
                         <div class="customer-project-badge">Digital Transformation 💻</div>
                     </div>
+                    <div class="stars">★★★★★</div>
                 </div>
                 <div class="customer-card">
                     <div class="customer-card-content">
@@ -4555,11 +4535,9 @@
                             <span class="company-name">DataVault</span>
                         </div>
                         <p class="customer-quote">The quality of MBA talent we found through Qava exceeded our expectations completely.</p>
-                    </div>
-                    <div class="customer-card-footer">
-                        <div class="stars">★★★★★</div>
                         <div class="customer-project-badge">Data Strategy 📊</div>
                     </div>
+                    <div class="stars">★★★★★</div>
                 </div>
                 <div class="customer-card">
                     <div class="customer-card-content">
@@ -4567,11 +4545,9 @@
                             <span class="company-name">GreenTech</span>
                         </div>
                         <p class="customer-quote">Qava connected us with brilliant minds who transformed our sustainability strategy.</p>
-                    </div>
-                    <div class="customer-card-footer">
-                        <div class="stars">★★★★★</div>
                         <div class="customer-project-badge">Partnership Strategy 🤝</div>
                     </div>
+                    <div class="stars">★★★★★</div>
             </div>
 
                 <!-- Fourth Row -->
@@ -4581,11 +4557,9 @@
                             <span class="company-name">FinTech Pro</span>
                         </div>
                         <p class="customer-quote">The financial modeling expertise we gained through Qava was game-changing for our startup.</p>
-                    </div>
-                    <div class="customer-card-footer">
-                        <div class="stars">★★★★★</div>
                         <div class="customer-project-badge">Financial Model 💰</div>
                     </div>
+                    <div class="stars">★★★★★</div>
                 </div>
                 <div class="customer-card">
                     <div class="customer-card-content">
@@ -4593,11 +4567,9 @@
                             <span class="company-name">CloudScale</span>
                         </div>
                         <p class="customer-quote">Qava's platform made finding top-tier talent effortless and incredibly efficient.</p>
-                    </div>
-                    <div class="customer-card-footer">
-                        <div class="stars">★★★★★</div>
                         <div class="customer-project-badge">Go-To-Market Strategy 🚀</div>
                     </div>
+                    <div class="stars">★★★★★</div>
                 </div>
                 <div class="customer-card">
                     <div class="customer-card-content">
@@ -4605,11 +4577,9 @@
                             <span class="company-name">HealthTech</span>
                         </div>
                         <p class="customer-quote">The strategic insights from Qava's talent helped us navigate complex healthcare regulations.</p>
-                    </div>
-                    <div class="customer-card-footer">
-                        <div class="stars">★★★★★</div>
                         <div class="customer-project-badge">Pricing Strategy 💵</div>
                     </div>
+                    <div class="stars">★★★★★</div>
         </div>
     </div>
     
