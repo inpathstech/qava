@@ -5977,24 +5977,6 @@
                         internshipsList.classList.add('active');
                     }
                 });
-                
-                // When hovering away from Jobs or Internships, restore Projects to active
-                box.addEventListener('mouseleave', function() {
-                    if (index !== 0) { // If not Projects box
-                        // Remove active from all
-                        selectionBoxes.forEach(b => {
-                            b.classList.remove('active');
-                        });
-                        // Set Projects box to active
-                        selectionBoxes[0].classList.add('active');
-                        
-                        // Reset lists to show projects
-                        projectsList.classList.remove('active');
-                        jobsList.classList.remove('active');
-                        internshipsList.classList.remove('active');
-                        projectsList.classList.add('active');
-                    }
-                });
             });
 
             // Set default to projects on page load
