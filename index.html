@@ -1503,6 +1503,34 @@
             padding: 0 32px;
         }
 
+        .scrolling-listings-wrapper {
+            position: relative;
+        }
+
+        .scrolling-listings-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        .scrolling-listings-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+            z-index: 20;
+            pointer-events: none;
+        }
+
         .scrolling-listings-track {
             height: 280px;
             overflow: hidden;
