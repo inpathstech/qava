@@ -5584,12 +5584,26 @@
 
         // Wait for DOM to be ready
         document.addEventListener('DOMContentLoaded', function() {
-            const featureCards = document.querySelectorAll('.feature-card');
-            const previewProjectsList = document.querySelector('.preview-projects-list');
-            const previewBenefits = document.querySelector('.preview-benefits');
+            // Prefer elements inside the feature preview box specifically
+            const previewBox = document.querySelector('.feature-preview-box');
+            let previewProjectsList = document.querySelector('.preview-projects-list');
+            let previewBenefits = document.querySelector('.preview-benefits');
+            if (previewBox) {
+                const scopedProjects = previewBox.querySelector('.preview-projects-list');
+                const scopedBenefits = previewBox.querySelector('.preview-benefits');
+                if (scopedProjects) previewProjectsList = scopedProjects;
+                if (scopedBenefits) previewBenefits = scopedBenefits;
+            }
 
+            // If elements are still not found, retry once after layout
             if (!previewProjectsList || !previewBenefits) {
-                return;
+                requestAnimationFrame(() => {
+                    const retryBox = document.querySelector('.feature-preview-box');
+                    if (retryBox) {
+                        previewProjectsList = retryBox.querySelector('.preview-projects-list');
+                        previewBenefits = retryBox.querySelector('.preview-benefits');
+                    }
+                });
             }
 
             // Store current category for project hover
@@ -5911,13 +5925,13 @@
 
             // Initialize with first category immediately
             if (featureCards.length > 0) {
-                console.log('Initializing with Build & Launch category');
-                console.log('Feature cards found:', featureCards.length);
-                console.log('Preview list element:', previewProjectsList);
-                console.log('Preview benefits element:', previewBenefits);
                 updatePreview('build', featureCards[0]);
-            } else {
-                console.log('No feature cards found!');
+                // Fallback: if list is still empty, try once more on next frame
+                requestAnimationFrame(() => {
+                    if (previewProjectsList && previewProjectsList.children.length === 0) {
+                        updatePreview('build', featureCards[0]);
+                    }
+                });
             }
 
             // Add hover listeners
