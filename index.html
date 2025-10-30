@@ -3869,8 +3869,8 @@
             <div class="matching-cta-buttons" style="margin-top: 40px; margin-bottom: 150px;">
                 <a href="https://app.qava.ai/" class="cta-button cta-button-primary">Join for free</a>
                 <a href="https://qava.ai/demo" class="cta-button cta-button-secondary">Request a demo</a>
-            </div>
-            
+                </div>
+                
             <!-- Preview Section Header -->
             <div style="text-align: center; margin-top: 60px; margin-bottom: 32px;">
                 <h2 style="font-size: 32px; font-weight: 700; color: #000; margin-bottom: 12px; line-height: 1.2;">Build with conviction</h2>
@@ -3882,13 +3882,13 @@
                 <div class="feature-card active" data-preview="build">
                     <h3 class="feature-card-title">I want to build or launch 🚀</h3>
                     <p class="feature-card-description">Turn your idea into a real business.</p>
-    </div>
+                        </div>
 
                 <!-- Growth & Capital Card -->
                 <div class="feature-card" data-preview="grow">
                     <h3 class="feature-card-title">I want to grow or raise money 🌱</h3>
                     <p class="feature-card-description">Expand reach, attract funding, and scale impact.</p>
-                </div>
+                    </div>
 
                 <!-- Improve & Scale Card -->
                 <div class="feature-card" data-preview="improve">
@@ -3900,8 +3900,8 @@
                 <div class="feature-card" data-preview="measure">
                     <h3 class="feature-card-title">I want to measure or optimize 📊</h3>
                     <p class="feature-card-description">Track performance and make smarter decisions.</p>
-                </div>
-                </div>
+            </div>
+            </div>
 
             <!-- Large Preview Box -->
             <div class="feature-preview-box">
@@ -3910,19 +3910,19 @@
                     <div class="preview-left">
                         <div class="preview-projects-list">
                             <!-- Project names will be populated by JavaScript -->
-                        </div>
-                    </div>
+        </div>
+    </div>
 
                     <!-- Right Side: Benefits -->
                     <div class="preview-right">
                         <div class="preview-benefits">
                             <!-- Benefits will be populated by JavaScript -->
-                        </div>
-                    </div>
-                </div>
             </div>
-        </div>
-    </div>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
 
     <!-- Three Selection Boxes Section -->
     <div class="selection-boxes-section">
@@ -5913,6 +5913,9 @@
             // Initialize with first category immediately
             if (featureCards.length > 0) {
                 console.log('Initializing with Build & Launch category');
+                console.log('Feature cards found:', featureCards.length);
+                console.log('Preview list element:', previewProjectsList);
+                console.log('Preview benefits element:', previewBenefits);
                 updatePreview('build', featureCards[0]);
             } else {
                 console.log('No feature cards found!');
