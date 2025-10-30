@@ -6049,5 +6049,78 @@
         }
         }); // End DOMContentLoaded
     </script>
+
+    <!-- Inline canonical listing image mapper (runs last and guards against rewrites) -->
+    <script id="listing-image-mapper-inline">
+    (() => {
+      const VERSION = '20251030';
+      const BASE = './Project Type Images Oct 2025/';
+      const RULES = [
+        { k: [/business plan/i], f: 'Business Plan.svg' },
+        { k: [/pitch deck/i], f: 'Pitch Deck.svg' },
+        { k: [/financial model/i], f: 'Financial Model.svg' },
+        { k: [/competitor/i], f: 'Competitor Analysis.svg' },
+        { k: [/customer segmentation/i], f: 'Customer Segmentation.svg' },
+        { k: [/journey/i], f: 'Customer Journey.svg' },
+        { k: [/industry/i], f: 'Industry Analysis.svg' },
+        { k: [/grant/i], f: 'Grant Applications.svg' },
+        { k: [/go-?to-?market|gtm/i], f: 'Go-To-Market Strategy.svg' },
+        { k: [/\bgrowth\b/i], f: 'Growth Strategy.svg' },
+        { k: [/partnership/i], f: 'Partnership Strategy.svg' },
+        { k: [/pricing/i], f: 'Pricing Strategy.svg' },
+        // Marketing / brand / e‑commerce
+        { k: [/sales|marketing|brand|e-?commerce/i], f: 'Sales & Marketing Strategy.svg' },
+        // Strategy/consulting generic
+        { k: [/\bstrategy\b|consulting/i], f: 'Growth Strategy.svg' },
+        // Operations/process
+        { k: [/process|ops|operations/i], f: 'Process Improvement.svg' },
+        // Finance
+        { k: [/strategic finance|\bfinance\b|fp&a|fp\s*&\s*a/i], f: 'Strategic Finance.svg' },
+        // Product
+        { k: [/\bproduct\b/i], f: 'Product Strategy.svg' },
+        // Supply chain / logistics
+        { k: [/supply chain|logistics/i], f: 'Supply Chain Analysis.svg' },
+        // Technology and migrations
+        { k: [/technology rationalization|rationali[sz]ation/i], f: 'Technology Rationalization.svg' },
+        { k: [/\bmigration\b/i], f: 'System Migration.svg' },
+        { k: [/digital transformation|platform|engineering/i], f: 'Digital Transformation.svg' },
+        // Data/analytics
+        { k: [/data analysis|analytics|business analytics/i], f: 'Data Analysis.svg' },
+        { k: [/data strategy|governance/i], f: 'Data Strategy.svg' },
+        { k: [/tariff|policy impact/i], f: 'Tariff Impact Assessment.svg' },
+        { k: [/vendor|procure/i], f: 'Vendor Strategy.svg' },
+        { k: [/organiz(ation|ational) design/i], f: 'Organizational Design.svg' },
+        { k: [/innovation/i], f: 'Innovation Strategy.svg' },
+        // Generic fallbacks
+        { k: [/internship|\bintern\b/i], f: 'Other.svg' },
+        { k: [/\bjob\b|hiring|\brole\b/i], f: 'Other.svg' },
+      ];
+      const FALLBACK = 'Other.svg';
+      const pick = t => {
+        for (const r of RULES) if (r.k.some(rx => rx.test(t))) return r.f;
+        return FALLBACK;
+      };
+      const apply = () => {
+        document.querySelectorAll('.listing-card').forEach(card => {
+          const title = (card.querySelector('.listing-title') || card).textContent?.trim() || '';
+          const file = pick(title);
+          let img = card.querySelector('img.listing-image');
+          if (!img) {
+            img = document.createElement('img');
+            img.className = 'listing-image';
+            img.alt = 'Listing image';
+            (card.querySelector('.listing-left, .listing-media, .listing-image-slot') || card).prepend(img);
+          }
+          const src = `${BASE}${file}?v=${VERSION}`;
+          if (img.getAttribute('src') !== src) img.setAttribute('src', src);
+        });
+      };
+      // Run immediately (we are at end of body)
+      apply();
+      // Guard against late mutations
+      const mo = new MutationObserver(() => requestAnimationFrame(apply));
+      mo.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['src'] });
+    })();
+    </script>
 </body>
 </html>

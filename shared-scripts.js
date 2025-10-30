@@ -76,19 +76,29 @@ document.addEventListener('DOMContentLoaded', function () {
             { keys: [/\bgrowth\b/i], file: 'Growth Strategy.svg' },
             { keys: [/partnership|alliances?/i], file: 'Partnership Strategy.svg' },
             { keys: [/pricing/i], file: 'Pricing Strategy.svg' },
-            { keys: [/sales|marketing strategy/i], file: 'Sales & Marketing Strategy.svg' },
-            { keys: [/strategic finance/i], file: 'Strategic Finance.svg' },
-            { keys: [/operating model/i], file: 'Operating Model Design.svg' },
-            { keys: [/process improvement|lean|six sigma/i], file: 'Process Improvement.svg' },
+            // Marketing/e-commerce/brand should map here per requirement
+            { keys: [/sales|marketing|brand|e-?commerce/i], file: 'Sales & Marketing Strategy.svg' },
+            // Strategy/consulting generic
+            { keys: [/\bstrategy\b|consulting/i], file: 'Growth Strategy.svg' },
+            // Operations/process
+            { keys: [/process|ops|operations/i], file: 'Process Improvement.svg' },
+            // Finance
+            { keys: [/strategic finance|\bfinance\b|fp&a|fp\s*&\s*a/i], file: 'Strategic Finance.svg' },
+            // Product
+            { keys: [/\bproduct\b/i], file: 'Product Strategy.svg' },
+            // Supply chain / logistics
+            { keys: [/supply chain|logistics/i], file: 'Supply Chain Analysis.svg' },
+            // Technology and migrations
             { keys: [/technology rationalization|rationali[sz]ation/i], file: 'Technology Rationalization.svg' },
-            { keys: [/system migration|\bmigration\b/i], file: 'System Migration.svg' },
+            { keys: [/\bmigration\b/i], file: 'System Migration.svg' },
+            { keys: [/digital transformation|platform|engineering/i], file: 'Digital Transformation.svg' },
+            // Data/analytics
+            { keys: [/data analysis|analytics|business analytics/i], file: 'Data Analysis.svg' },
+            { keys: [/data strategy|governance/i], file: 'Data Strategy.svg' },
+            { keys: [/tariff|policy impact/i], file: 'Tariff Impact Assessment.svg' },
             { keys: [/vendor|procure/i], file: 'Vendor Strategy.svg' },
             { keys: [/organiz(ation|ational) design/i], file: 'Organizational Design.svg' },
             { keys: [/innovation/i], file: 'Innovation Strategy.svg' },
-            { keys: [/digital transformation/i], file: 'Digital Transformation.svg' },
-            { keys: [/data analysis|analytics/i], file: 'Data Analysis.svg' },
-            { keys: [/data strategy|governance/i], file: 'Data Strategy.svg' },
-            { keys: [/tariff|policy impact/i], file: 'Tariff Impact Assessment.svg' },
             // Jobs/Internships generic fallbacks
             { keys: [/internship|\bintern\b/i], file: 'Other.svg' },
             { keys: [/\bjob\b|hiring|\brole\b/i], file: 'Other.svg' },
@@ -102,26 +112,39 @@ document.addEventListener('DOMContentLoaded', function () {
             return FALLBACK;
         };
 
-        const cards = document.querySelectorAll('.listing-card');
-        if (!cards.length) return;
+        const apply = () => {
+            const cards = document.querySelectorAll('.listing-card');
+            if (!cards.length) return;
+            cards.forEach((card) => {
+                const titleEl = card.querySelector('.listing-title');
+                const title = (titleEl ? titleEl.textContent : card.textContent || '').trim();
+                const file = chooseFile(title);
+                let img = card.querySelector('img.listing-image');
+                if (!img) {
+                    img = document.createElement('img');
+                    img.className = 'listing-image';
+                    img.alt = 'Listing image';
+                    const slot = card.querySelector('.listing-left, .listing-media, .listing-image-slot') || card;
+                    slot.prepend(img);
+                }
+                const src = `${BASE}${file}?v=${VERSION}`;
+                if (img.getAttribute('src') !== src) img.setAttribute('src', src);
+            });
+        };
 
-        cards.forEach((card) => {
-            const titleEl = card.querySelector('.listing-title');
-            const title = (titleEl ? titleEl.textContent : card.textContent || '').trim();
-            const file = chooseFile(title);
+        // Initial run
+        apply();
 
-            // Reuse existing image or inject a new one in the left/media slot
-            let img = card.querySelector('img.listing-image');
-            if (!img) {
-                img = document.createElement('img');
-                img.className = 'listing-image';
-                img.alt = 'Listing image';
-                const slot = card.querySelector('.listing-left, .listing-media, .listing-image-slot') || card;
-                slot.prepend(img);
-            }
-
-            const src = `${BASE}${file}?v=${VERSION}`;
-            if (img.getAttribute('src') !== src) img.setAttribute('src', src);
+        // Re-assert if later scripts mutate the DOM or image src
+        const observer = new MutationObserver(() => {
+            // Batch via rAF to avoid thrashing
+            window.requestAnimationFrame(apply);
+        });
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['src']
         });
     } catch (err) {
         // Fail silently to avoid impacting other site scripts
