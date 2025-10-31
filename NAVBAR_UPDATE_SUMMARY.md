@@ -84,3 +84,4 @@ To use the shared navbar in new pages:
 - All "Request a demo" links now correctly point to https://qava.ai/demo instead of /request-demo
 - Footer links were also updated where applicable
 
+
