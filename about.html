@@ -485,22 +485,43 @@
 
         /* FOOTER STYLES */
         .footer-section {
-            background: #fafafa;
-            padding: 60px 0 40px 0;
-            margin-top: 80px;
+            background: white;
+            width: 100%;
+            max-width: 1070px;
+            margin: 0 auto;
+            padding: 78px 0 46px 0;
+            margin-top: 50px;
+            border-top: 1px solid #EBEBEB;
         }
 
         .footer-container {
-            max-width: 900px;
+            max-width: 940px;
             margin: 0 auto;
-            padding: 0 32px;
         }
 
         .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .footer-logo {
+            width: 39%;
+            padding: 2px 15px 0 0;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo-img {
+            width: 40px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .footer-links {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 48px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(3, 1fr);
+            width: 60%;
+            gap: 16px 25px;
+            padding: 0 15px 0 10px;
         }
 
         .footer-column {
@@ -509,74 +530,159 @@
         }
 
         .footer-heading {
-            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 17px;
+            color: #000000;
+            margin-bottom: 8px;
             font-weight: 600;
-            color: #000;
-            margin-bottom: 16px;
+            margin: 0 0 8px 0;
         }
 
         .footer-link-list {
             list-style: none;
             padding: 0;
             margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
         }
 
         .footer-link-list li {
-            margin-bottom: 12px;
+            margin: 0;
+            padding: 0;
         }
 
         .footer-link {
+            font-family: 'Inter', sans-serif;
             font-size: 13px;
             font-weight: 300;
-            color: #666;
+            color: #797979;
             text-decoration: none;
-            transition: color 0.2s ease;
-            cursor: pointer;
+            line-height: 1.2;
+            transition: text-decoration 0.2s ease;
         }
 
         .footer-link:hover {
-            color: #000;
+            text-decoration: underline;
         }
 
-        .disabled-link {
-            opacity: 0.5;
+        /* Disabled footer links with hover effects */
+        .footer-link.disabled-link {
             cursor: not-allowed;
+            opacity: 0.6;
+            position: relative;
         }
 
-        .disabled-link:hover {
-            color: #666;
+        .footer-link.disabled-link:hover {
+            text-decoration: none;
+            opacity: 0.8;
+            color: #999999;
+        }
+
+        .footer-link.disabled-link:hover::before {
+            content: "Coming Soon";
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000000;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+            white-space: nowrap;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Footer Dropdown Styles */
+        .footer-dropdown-item {
+            position: relative;
+        }
+
+        .footer-dropdown-menu {
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 8px;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 10000;
+        }
+
+        .footer-dropdown-item:hover .footer-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .footer-dropdown-menu .footer-dropdown-item {
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            text-decoration: none;
+            display: block;
+        }
+
+        .footer-dropdown-menu .footer-dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.04);
+        }
+
+        /* Ensure footer dropdown links work properly */
+        .footer-dropdown-menu .footer-dropdown-item:visited {
+            color: inherit;
+        }
+
+        .footer-dropdown-menu .footer-dropdown-item:active {
+            color: inherit;
         }
 
         .footer-copyright {
             grid-column: 1 / -1;
-            font-size: 12px;
+            margin-top: 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
             font-weight: 300;
-            color: #666;
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
-            margin-top: 20px;
+            color: #797979;
         }
 
         @media (max-width: 768px) {
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 32px;
-            }
-
             .footer-section {
                 padding: 40px 0 30px 0;
+                margin-top: 30px;
             }
 
-            .footer-container {
-                padding: 0 24px;
+            .footer-logo {
+                width: 100%;
+                margin-bottom: 24px;
+            }
+
+            .footer-links {
+                width: 100%;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px 16px;
+            }
+
+            .footer-copyright {
+                margin-top: 24px;
             }
         }
 
         @media (max-width: 480px) {
-            .footer-content {
+            .footer-links {
                 grid-template-columns: 1fr;
-                gap: 24px;
+                gap: 20px;
+            }
+
+            .footer-section {
+                padding: 30px 20px 24px 20px;
             }
         }
     </style>
