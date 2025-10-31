@@ -2816,13 +2816,13 @@
         }
 
         .rise-crop {
-            width: 260px; /* visible area */
-            height: 26px;
-            overflow: hidden;
             display: inline-block;
+            overflow: visible;  /* allow full wordmark, no clipping */
+            width: auto;
+            height: auto;
         }
         .rise-crop .rise-logo {
-            transform: translateX(-24px); /* trim built-in SVG left padding */
+            transform: none;     /* rely on natural left edge of cropped SVG */
         }
 
         .attribution-text {
