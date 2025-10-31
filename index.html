@@ -2815,6 +2815,16 @@
             object-position: left center; /* flush-left alignment */
         }
 
+        .rise-crop {
+            width: 260px; /* visible area */
+            height: 26px;
+            overflow: hidden;
+            display: inline-block;
+        }
+        .rise-crop .rise-logo {
+            transform: translateX(-24px); /* trim built-in SVG left padding */
+        }
+
         .attribution-text {
             display: flex;
             flex-direction: column;
@@ -4625,9 +4635,11 @@
                 <div class="customer-card">
                     <div class="stars">★★★★★</div>
                     <div class="customer-card-content">
-                        <p class="customer-quote">I used Qava to set up our 2025 P&L with charts showing where our revenue is growing and how our expenses are trending. It completely changed how I think about our monthly performance — for the better.</p>
+                        <p class="customer-quote">I used Qava to set up our 2025 P&L with charts showing where our revenue is growing and how our expenses are trending.</p>
                         <div class="customer-attribution">
-                            <img src="Testimonial company logos/The Rise Group.svg" alt="The Rise Group" class="attribution-logo rise-logo">
+                            <div class="logo-crop rise-crop">
+                                <img src="Testimonial company logos/The Rise Group.svg" alt="The Rise Group" class="attribution-logo rise-logo">
+                            </div>
                             <div class="attribution-text">
                                 <span class="attribution-name">Emma Burke, CEO</span>
                             </div>
