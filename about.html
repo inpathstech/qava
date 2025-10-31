@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Qava</title>
+    <link rel="icon" type="image/svg+xml" href="qava-logo.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+        }
+
+        /* NAVBAR STYLES */
+        .header-container {
+            width: 100%;
+            padding: 16px 32px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 64px;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            overflow: visible;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .header-center {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex: 1;
+            margin-left: 40px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 36px;
+            height: 36px;
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 400;
+            color: #000000;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            position: relative;
+            gap: 4px;
+            text-decoration: none;
+        }
+
+        .nav-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .nav-item:visited {
+            color: #000000;
+        }
+
+        .nav-item:active {
+            color: #000000;
+        }
+
+        .dropdown-arrow {
+            color: #000000;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover .dropdown-arrow {
+            color: #000000;
+        }
+
+        .nav-text {
+            color: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            white-space: nowrap;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 8px;
+            min-width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 10000;
+        }
+
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-item {
+            display: flex;
+            flex-direction: column;
+            padding: 12px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            text-decoration: none;
+            gap: 2px;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(0, 0, 0, 0.04);
+        }
+
+        .dropdown-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 2px;
+        }
+
+        .dropdown-subtitle {
+            font-size: 12px;
+            font-weight: 300;
+            color: #666666;
+        }
+
+        .auth-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .auth-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 400;
+            color: #000000;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .auth-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+        }
+
+        .join-button {
+            background-color: #0F62FE;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .join-button:hover {
+            background-color: #0050E6;
+        }
+
+        .join-text {
+            color: white;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger-line {
+            width: 20px;
+            height: 2px;
+            background-color: #000000;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100%;
+            background: white;
+            z-index: 10001;
+            transition: right 0.3s ease;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .close-menu {
+            font-size: 24px;
+            cursor: pointer;
+            align-self: flex-end;
+            margin-bottom: 16px;
+        }
+
+        .mobile-nav-item {
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            font-weight: 400;
+            color: #000000;
+            text-decoration: none;
+        }
+
+        .mobile-nav-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+        }
+
+        .mobile-dropdown-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mobile-dropdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .mobile-dropdown-arrow {
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-dropdown-toggle.active .mobile-dropdown-arrow {
+            transform: rotate(45deg);
+        }
+
+        .mobile-dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding-left: 12px;
+        }
+
+        .mobile-dropdown-content.active {
+            max-height: 200px;
+        }
+
+        .mobile-dropdown-item {
+            display: flex;
+            flex-direction: column;
+            padding: 12px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            text-decoration: none;
+            gap: 2px;
+        }
+
+        .mobile-dropdown-item:hover {
+            background-color: rgba(0, 0, 0, 0.04);
+        }
+
+        .mobile-menu-join-button {
+            margin-top: 16px;
+        }
+
+        @media (max-width: 1100px) {
+            .header-center {
+                display: none;
+            }
+
+            .auth-section {
+                display: none;
+            }
+
+            .hamburger-menu {
+                display: flex;
+            }
+        }
+
+        /* ABOUT PAGE STYLES */
+        .about-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 32px;
+        }
+
+        .about-section {
+            margin-bottom: 60px;
+        }
+
+        .about-title {
+            font-size: 42px;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 40px;
+            line-height: 1.2;
+        }
+
+        .section-heading {
+            font-size: 32px;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .section-subheading {
+            font-size: 20px;
+            font-weight: 600;
+            color: #000;
+            margin-bottom: 16px;
+            margin-top: 32px;
+        }
+
+        .about-text {
+            font-size: 16px;
+            font-weight: 300;
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .about-list {
+            list-style: none;
+            padding: 0;
+            margin: 24px 0;
+        }
+
+        .about-list li {
+            font-size: 16px;
+            font-weight: 300;
+            color: #333;
+            line-height: 1.4;
+            margin-bottom: 6px;
+            padding-left: 0;
+        }
+
+        .highlight-box {
+            background: transparent;
+            border-radius: 12px;
+            padding: 32px 0;
+            margin: 32px 0;
+        }
+
+        .highlight-text {
+            font-size: 16px;
+            font-weight: 300;
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .beliefs-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .belief-item {
+            font-size: 16px;
+            font-weight: 400;
+            color: #000;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 24px;
+            margin-top: 48px;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: #0F62FE;
+            color: white;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .cta-button:hover {
+            background: #0050E6;
+        }
+
+        .cta-button-secondary {
+            background: white;
+            color: #000;
+            border: 1px solid #e0e0e0;
+        }
+
+        .cta-button-secondary:hover {
+            background: #fafafa;
+            border-color: #000;
+        }
+
+        @media (max-width: 768px) {
+            .about-container {
+                padding: 60px 24px;
+            }
+
+            .about-title {
+                font-size: 32px;
+            }
+
+            .section-heading {
+                font-size: 24px;
+            }
+
+            .section-subheading {
+                font-size: 18px;
+            }
+
+            .about-text, .about-list li {
+                font-size: 14px;
+            }
+
+            .highlight-text, .belief-item {
+                font-size: 16px;
+            }
+
+            .highlight-box {
+                padding: 24px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* FOOTER STYLES */
+        .footer-section {
+            background: #fafafa;
+            padding: 60px 0 40px 0;
+            margin-top: 80px;
+        }
+
+        .footer-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 48px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-heading {
+            font-size: 14px;
+            font-weight: 600;
+            color: #000;
+            margin-bottom: 16px;
+        }
+
+        .footer-link-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-link-list li {
+            margin-bottom: 12px;
+        }
+
+        .footer-link {
+            font-size: 13px;
+            font-weight: 300;
+            color: #666;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .footer-link:hover {
+            color: #000;
+        }
+
+        .disabled-link {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .disabled-link:hover {
+            color: #666;
+        }
+
+        .footer-copyright {
+            grid-column: 1 / -1;
+            font-size: 12px;
+            font-weight: 300;
+            color: #666;
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 32px;
+            }
+
+            .footer-section {
+                padding: 40px 0 30px 0;
+            }
+
+            .footer-container {
+                padding: 0 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="header-container">
+        <!-- Logo on the left -->
+        <div class="header-logo">
+            <div class="logo-container">
+                <div class="logo">
+                    <a href="https://qava.ai/">
+                        <img src="qava-logo.svg" alt="Qava Logo">
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation in the center -->
+        <div class="header-center">
+            <div class="navigation">
+                <a href="https://app.qava.ai/" class="nav-item create-listing">
+                    <div class="nav-text">Create Listing</div>
+                </a>
+                <a href="https://app.qava.ai/projects" class="nav-item search-listings">
+                    <div class="nav-text">Search Listings</div>
+                </a>
+                <div class="nav-item how-it-works has-dropdown">
+                    <div class="nav-text">How It Works</div>
+                    <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M6 3v6M3 6h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <div class="dropdown-menu">
+                        <a href="https://qava.ai/clienthowitworks" class="dropdown-item">
+                            <div class="dropdown-title">For Clients 🚀</div>
+                            <div class="dropdown-subtitle">Hiring for current or future work</div>
+                        </a>
+                        <a href="https://qava.ai/talenthowitworks" class="dropdown-item">
+                            <div class="dropdown-title">For Talent 👩‍💻</div>
+                            <div class="dropdown-subtitle">Interested in current or future work</div>
+                        </a>
+                    </div>
+                </div>
+                <a href="https://qava.ai/whyqava" class="nav-item why-qava">
+                    <div class="nav-text">Why Qava</div>
+                </a>
+                <a href="https://qava.ai/pricing" class="nav-item pricing">
+                    <div class="nav-text">Pricing</div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Auth section on the right -->
+        <div class="header-right">
+            <div class="auth-section">
+                <a href="https://qava.ai/demo" class="auth-item">
+                    <div class="nav-text">Request a demo</div>
+                </a>
+                <a href="https://app.qava.ai/" class="auth-item">
+                    <div class="nav-text">Log in</div>
+                </a>
+                <a href="https://app.qava.ai/" class="join-button">
+                    <div class="join-text">Join for free</div>
+                </a>
+            </div>
+            
+            <!-- Hamburger Menu Button -->
+            <div class="hamburger-menu" onclick="toggleMobileMenu()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
+        <a href="https://app.qava.ai/" class="mobile-nav-item">
+            <div class="nav-text">Create Listing</div>
+        </a>
+        <a href="https://app.qava.ai/projects" class="mobile-nav-item">
+            <div class="nav-text">Search Listings</div>
+        </a>
+        <div class="mobile-nav-item mobile-dropdown-toggle" onclick="toggleMobileDropdown()">
+            <div class="mobile-dropdown-header">
+                <div class="nav-text">How It Works</div>
+                <span class="mobile-dropdown-arrow">+</span>
+            </div>
+        </div>
+        <div class="mobile-dropdown-content" id="mobileDropdown">
+            <a href="https://qava.ai/clienthowitworks" class="mobile-dropdown-item">
+                <div class="dropdown-title">For Clients 🚀</div>
+                <div class="dropdown-subtitle">Hiring for current or future work</div>
+            </a>
+            <a href="https://qava.ai/talenthowitworks" class="mobile-dropdown-item">
+                <div class="dropdown-title">For Talent 👩‍💻</div>
+                <div class="dropdown-subtitle">Interested in current or future work</div>
+            </a>
+        </div>
+        <a href="https://qava.ai/whyqava" class="mobile-nav-item">
+            <div class="nav-text">Why Qava</div>
+        </a>
+        <a href="https://qava.ai/pricing" class="mobile-nav-item">
+            <div class="nav-text">Pricing</div>
+        </a>
+        <a href="https://qava.ai/demo" class="mobile-nav-item">Request a demo</a>
+        <a href="https://app.qava.ai/" class="mobile-nav-item">Log in</a>
+        <a href="https://app.qava.ai/" class="join-button mobile-menu-join-button">
+            <div class="join-text">Join for free</div>
+        </a>
+    </div>
+
+    <!-- About Page Content -->
+    <div class="about-container">
+        <h1 class="about-title">About Qava</h1>
+
+        <div class="about-section">
+            <h2 class="section-heading">The future of work isn't coming.<br>It's already here.</h2>
+            
+            <p class="about-text">
+                I started Qava in 2024 after seeing the same pattern again and again — founders and operators stuck, and incredibly smart talent stuck without the right opportunities to break in.
+            </p>
+
+            <p class="about-text">
+                So I ran a pilot. No code, no automation — just matchmaking. I had more than 100 conversations with MBAs, grads, and career-changers ready to contribute, and over 100 conversations with startups, nonprofits, and growth companies hungry for help.
+            </p>
+
+            <div class="highlight-box">
+                <p class="highlight-text"><strong>The result of these matches?</strong></p>
+                <p class="highlight-text">🤝 Sales closed.<br>🚀 Capital raised.<br>💰 Grants awarded.<br>🔓 Careers unlocked.</p>
+            </div>
+
+            <p class="about-text">
+                That pilot proved that when you connect the right minds to the right problems, everyone wins. So I built Qava to make that connection scalable, affordable, and simple.
+            </p>
+        </div>
+
+        <div class="about-section">
+            <h2 class="section-heading">What is Qava?</h2>
+            
+            <p class="about-text">
+                Qava is an AI-powered platform that connects top talent with growth opportunities — fast.
+            </p>
+
+            <h3 class="section-subheading">We specialize in clearly scoped, high-leverage work:</h3>
+
+            <ul class="about-list">
+                <li>📊 Financial modeling</li>
+                <li>📝 Business plans</li>
+                <li>🚀 Go-to-market strategy</li>
+                <li>🔍 Customer segmentation & market research</li>
+                <li>🧭 Pricing, operations, & competitor analysis</li>
+                <li>💼 Internships, fractional roles & one-off strategic projects</li>
+            </ul>
+
+            <p class="about-text">
+                Whether you're launching something new, scaling what's working, or cleaning up a mess, Qava brings you the thinking power to move forward — without hiring full-time or paying bloated consulting fees.
+            </p>
+        </div>
+
+        <div class="about-section">
+            <h2 class="section-heading">Why it works</h2>
+            
+            <p class="about-text">We stripped out everything that slows people down:</p>
+            
+            <ul class="about-list">
+                <li>❌ No expensive retainers</li>
+                <li>❌ No "spray-and-pray" job boards</li>
+                <li>❌ No ghosting or unclear expectations</li>
+            </ul>
+
+            <p class="about-text">Instead, we give you:</p>
+
+            <ul class="about-list">
+                <li>✅ Talent that's vetted, motivated, and MBA-trained</li>
+                <li>✅ Projects with real outcomes, not just tasks</li>
+                <li>✅ Public proof of work to help talent get noticed</li>
+                <li>✅ Tools to help companies find the right fit, faster</li>
+            </ul>
+        </div>
+
+        <div class="about-section">
+            <h2 class="section-heading">A new kind of meritocracy</h2>
+            
+            <p class="about-text">
+                Qava is built for people who can help — not just people with connections.
+            </p>
+
+            <h3 class="section-subheading">We believe:</h3>
+
+            <div class="beliefs-grid">
+                <p class="belief-item">Your work should open doors, not your background</p>
+                <p class="belief-item">Reputation should be earned in the open</p>
+                <p class="belief-item">Strategy should be accessible, not exclusive</p>
+            </div>
+
+            <p class="about-text">
+                We encourage talent to build visible, verifiable proof of their skills — through project reviews, client feedback, and LinkedIn highlights that travel with them long after the project ends.
+            </p>
+        </div>
+
+        <div class="about-section">
+            <h2 class="section-heading">Ready to get started?</h2>
+            
+            <p class="about-text">
+                🧠 If you're talent — explore real, resume-worthy work that helps you grow your skills, your network, and your story.
+            </p>
+
+            <p class="about-text">
+                💼 If you're a company — post a project today and get matched with sharp, motivated talent ready to help you build.
+            </p>
+
+            <div class="highlight-box">
+                <p class="highlight-text"><strong>Strategy shouldn't be a luxury.<br>And talent shouldn't go unnoticed.<br>Qava makes sure of it.</strong></p>
+            </div>
+
+            <div class="cta-buttons">
+                <a href="https://app.qava.ai/" class="cta-button">
+                    Post a project
+                </a>
+                <a href="https://app.qava.ai/projects" class="cta-button cta-button-secondary">
+                    Explore open projects
+                </a>
+                <a href="https://app.qava.ai/" class="cta-button cta-button-secondary">
+                    Join as talent
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer-section">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="https://qava.ai/">
+                        <img src="qava-logo.svg" alt="Qava" class="footer-logo-img" />
+                    </a>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Welcome</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://app.qava.ai/" class="footer-link">Create Listing</a></li>
+                            <li><a href="https://app.qava.ai/projects" class="footer-link">Search Listings</a></li>
+                            <li><a href="https://qava.ai/clienthowitworks" class="footer-link">How It Works for Clients</a></li>
+                            <li><a href="https://qava.ai/talenthowitworks" class="footer-link">How It Works for Talent</a></li>
+                            <li><a href="https://qava.ai/whyqava" class="footer-link">Why Qava</a></li>
+                            <li><span class="footer-link disabled-link">What's New</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Get Started</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://qava.ai/request-demo" class="footer-link">Request a Demo</a></li>
+                            <li><a href="https://app.qava.ai/" class="footer-link">Sign Up</a></li>
+                            <li><a href="https://app.qava.ai/" class="footer-link">Log In</a></li>
+                            <li><span class="footer-link disabled-link">AI Prompts</span></li>
+                            <li><span class="footer-link disabled-link">Project Templates</span></li>
+                            <li><span class="footer-link disabled-link">Application Tips</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Resources</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://qava.ai/pricing" class="footer-link">Pricing</a></li>
+                            <li><a href="https://qava.ai/about" class="footer-link">About Us</a></li>
+                            <li><span class="footer-link disabled-link">Careers</span></li>
+                            <li><span class="footer-link disabled-link">Media Kit</span></li>
+                            <li><span class="footer-link disabled-link">Contact Us</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Learn</h4>
+                        <ul class="footer-link-list">
+                            <li><span class="footer-link disabled-link">Success Stories</span></li>
+                            <li><span class="footer-link disabled-link">Help Center</span></li>
+                            <li><span class="footer-link disabled-link">Webinars</span></li>
+                            <li><span class="footer-link disabled-link">Blog</span></li>
+                            <li><span class="footer-link disabled-link">Community</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Legal</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="terms" class="footer-link">Terms & Privacy</a></li>
+                            <li><a href="terms" class="footer-link">California Privacy Notice</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-copyright">
+                        © 2025 qava
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+            
+            // Prevent body scroll when mobile menu is open
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function toggleMobileDropdown() {
+            const dropdown = document.getElementById('mobileDropdown');
+            const toggle = document.querySelector('.mobile-dropdown-toggle');
+            
+            dropdown.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+            
+            if (mobileMenu.classList.contains('active') && 
+                !mobileMenu.contains(event.target) && 
+                !hamburgerMenu.contains(event.target)) {
+                toggleMobileMenu();
+            }
+        });
+
+        // Prevent scroll on mobile when menu is open
+        document.addEventListener('touchmove', function(e) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu.classList.contains('active')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Handle responsive behavior
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 1100) {
+                const mobileMenu = document.getElementById('mobileMenu');
+                if (mobileMenu.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+
