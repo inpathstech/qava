@@ -1685,10 +1685,12 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
-            overflow: hidden;
+            overflow: visible;
             box-sizing: border-box;
             cursor: pointer;
             box-shadow: 0px 0.325926px 0.733333px rgba(0,0,0,0.12), 0px 1.54074px 2.86667px rgba(0,0,0,0.07), 0px 4px 9px rgba(0,0,0,0.05);
+            position: relative;
+            margin-top: 16px;
         }
 
         .feature-card:hover {
@@ -1701,6 +1703,23 @@
             background: white;
             transform: translateY(-2px);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-card-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            padding: 4px 16px;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            color: #000000;
+            white-space: nowrap;
+            z-index: 1;
         }
 
         .feature-card-title {
@@ -3934,24 +3953,28 @@
             <div class="feature-cards-grid">
                 <!-- Build & Launch Card -->
                 <div class="feature-card active" data-preview="build">
+                    <div class="feature-card-badge">Start</div>
                     <h3 class="feature-card-title">I want to build or launch 🚀</h3>
                     <p class="feature-card-description">Turn your idea into a real business.</p>
                         </div>
 
                 <!-- Growth & Capital Card -->
                 <div class="feature-card" data-preview="grow">
+                    <div class="feature-card-badge">Grow</div>
                     <h3 class="feature-card-title">I want to grow or raise money 🌱</h3>
                     <p class="feature-card-description">Expand reach, attract funding, and scale impact.</p>
                     </div>
 
                 <!-- Improve & Scale Card -->
                 <div class="feature-card" data-preview="improve">
+                    <div class="feature-card-badge">Scale</div>
                     <h3 class="feature-card-title">I want to scale or improve ⚙️</h3>
                     <p class="feature-card-description">Streamline operations and strengthen your foundation.</p>
                 </div>
 
                 <!-- Measure & Optimize Card -->
                 <div class="feature-card" data-preview="measure">
+                    <div class="feature-card-badge">Measure</div>
                     <h3 class="feature-card-title">I want to measure or optimize 📊</h3>
                     <p class="feature-card-description">Track performance and make smarter decisions.</p>
             </div>
