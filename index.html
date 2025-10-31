@@ -1711,15 +1711,22 @@
             left: 50%;
             transform: translateX(-50%);
             background: white;
-            border: 1px solid #000000;
+            border: 1px solid #6B6B6B;
             border-radius: 20px;
             padding: 2px 12px;
             font-family: 'Inter', sans-serif;
             font-size: 10px;
             font-weight: 400;
-            color: #000000;
+            color: #6B6B6B;
             white-space: nowrap;
             z-index: 1;
+            transition: all 0.2s ease;
+        }
+
+        .feature-card:hover .feature-card-badge,
+        .feature-card.active .feature-card-badge {
+            border-color: #000000;
+            color: #000000;
         }
 
         .feature-card-title {
