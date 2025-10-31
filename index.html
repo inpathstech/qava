@@ -5794,6 +5794,14 @@
                 'Tariff Impact Assessment': 'Tariff Impact Assessment.svg'
             };
 
+            // Category-specific headings
+            const categoryHeadings = {
+                'build': 'Launch with the right foundations',
+                'grow': 'Fuel your growth with projects that unlock capital and traction',
+                'improve': 'Strengthen your operations and build smarter',
+                'measure': 'Make better decisions with data-backed insights'
+            };
+
             function updateProjectDetails(projectName, categoryData) {
                 // Find the project details from oldProjects array
                 const project = categoryData.oldProjects.find(p => {
@@ -5826,13 +5834,13 @@
                 
                 // Add purpose heading if available
                 if (project.purpose) {
-                    // Create heading
+                    // Create heading with category-specific text
                     const purposeHeading = document.createElement('div');
                     purposeHeading.style.fontWeight = '600';
                     purposeHeading.style.fontSize = '18px';
                     purposeHeading.style.color = '#000';
                     purposeHeading.style.marginBottom = '12px';
-                    purposeHeading.textContent = 'How this helps you';
+                    purposeHeading.textContent = categoryHeadings[currentCategory] || 'How this helps you';
                     previewBenefits.appendChild(purposeHeading);
                     
                     const purposeText = document.createElement('p');
