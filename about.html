@@ -429,16 +429,22 @@
             line-height: 1.6;
         }
 
+        .two-column-text {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
         .cta-link {
             font-size: 16px;
-            font-weight: 700;
-            color: #0F62FE;
+            font-weight: 300;
+            color: #333;
             text-decoration: none;
             transition: color 0.2s ease;
         }
 
         .cta-link:hover {
-            color: #0050E6;
+            color: #000;
         }
 
         @media (max-width: 768px) {
@@ -470,13 +476,9 @@
                 padding: 24px;
             }
 
-            .cta-buttons {
-                flex-direction: column;
-            }
-
-            .cta-button {
-                width: 100%;
-                justify-content: center;
+            .two-column-text {
+                grid-template-columns: 1fr;
+                gap: 24px;
             }
         }
 
@@ -760,13 +762,15 @@
         <div class="about-section">
             <h2 class="section-heading">Ready to get started?</h2>
             
-            <p class="about-text">
-                🧠 If you're talent — explore real, resume-worthy work that helps you grow your skills, your network, and your story.
-            </p>
+            <div class="two-column-text">
+                <p class="about-text">
+                    🧠 If you're talent — explore real, resume-worthy work that helps you grow your skills, your network, and your story.
+                </p>
 
-            <p class="about-text">
-                💼 If you're a company — post a project today and get matched with sharp, motivated talent ready to help you build.
-            </p>
+                <p class="about-text">
+                    💼 If you're a company — post a project today and get matched with sharp, motivated talent ready to help you build.
+                </p>
+            </div>
 
             <ul class="about-list cta-list">
                 <li><a href="https://app.qava.ai/" class="cta-link">📣 Post a project</a></li>
