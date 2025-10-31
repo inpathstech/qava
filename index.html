@@ -2792,6 +2792,20 @@
             height: 45px;
         }
 
+        /* Crop wrapper to scale Boon icon without shifting layout */
+        .logo-crop {
+            width: 45px;
+            height: 45px;
+            overflow: hidden;
+            display: inline-block;
+        }
+        .boon-crop .boon-logo {
+            height: 45px;
+            transform: scale(2.6);
+            transform-origin: left center;
+            display: block;
+        }
+
         .attribution-text {
             display: flex;
             flex-direction: column;
@@ -4584,7 +4598,9 @@
                     <div class="customer-card-content">
                         <p class="customer-quote">We streamlined our workflows and accelerated our sales cycle using incredible interns and AI.</p>
                         <div class="customer-attribution">
-                            <img src="Testimonial company logos/Boon.svg" alt="Boon" class="attribution-logo boon-logo">
+                            <div class="logo-crop boon-crop">
+                                <img src="Testimonial company logos/Boon.svg" alt="Boon" class="attribution-logo boon-logo">
+                            </div>
                             <div class="attribution-text">
                                 <span class="attribution-name">Guy M., Co-Founder & CEO</span>
                             </div>
