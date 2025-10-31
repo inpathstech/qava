@@ -2807,7 +2807,12 @@
         }
 
         .rise-logo {
-            height: 28px;
+            display: block;
+            height: 24px; /* slightly smaller to ensure full wordmark fits viewBox */
+            width: auto;
+            max-width: none;
+            object-fit: contain;
+            object-position: left center; /* flush-left alignment */
         }
 
         .attribution-text {
