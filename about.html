@@ -429,41 +429,16 @@
             line-height: 1.6;
         }
 
-        .cta-buttons {
-            display: flex;
-            gap: 24px;
-            margin-top: 48px;
-            flex-wrap: wrap;
-        }
-
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 12px;
-            background: #0F62FE;
-            color: white;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: 500;
+        .cta-link {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0F62FE;
             text-decoration: none;
-            transition: all 0.2s ease;
-            white-space: nowrap;
+            transition: color 0.2s ease;
         }
 
-        .cta-button:hover {
-            background: #0050E6;
-        }
-
-        .cta-button-secondary {
-            background: white;
-            color: #000;
-            border: 1px solid #e0e0e0;
-        }
-
-        .cta-button-secondary:hover {
-            background: #fafafa;
-            border-color: #000;
+        .cta-link:hover {
+            color: #0050E6;
         }
 
         @media (max-width: 768px) {
@@ -793,17 +768,11 @@
                 💼 If you're a company — post a project today and get matched with sharp, motivated talent ready to help you build.
             </p>
 
-            <div class="cta-buttons">
-                <a href="https://app.qava.ai/" class="cta-button">
-                    Post a project
-                </a>
-                <a href="https://app.qava.ai/projects" class="cta-button cta-button-secondary">
-                    Explore open projects
-                </a>
-                <a href="https://app.qava.ai/" class="cta-button cta-button-secondary">
-                    Join as talent
-                </a>
-            </div>
+            <ul class="about-list cta-list">
+                <li><a href="https://app.qava.ai/" class="cta-link">📣 Post a project</a></li>
+                <li><a href="https://app.qava.ai/projects" class="cta-link">🔦 Explore open projects</a></li>
+                <li><a href="https://app.qava.ai/" class="cta-link">🚪 Join as talent</a></li>
+            </ul>
         </div>
     </div>
 
