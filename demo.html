@@ -93,8 +93,7 @@
             text-decoration: none;
         }
 
-        .nav-item:hover,
-        .nav-item.active {
+        .nav-item:hover {
             background-color: rgba(0, 0, 0, 0.06);
             color: #000000;
         }
@@ -1265,7 +1264,7 @@
                 <a href="https://app.qava.ai/" class="nav-item create-listing">
                     <div class="nav-text">Create Listing</div>
                 </a>
-                <a href="https://app.qava.ai/" class="nav-item search-listings">
+                <a href="https://app.qava.ai/projects" class="nav-item search-listings">
                     <div class="nav-text">Search Listings</div>
                 </a>
                 <div class="nav-item how-it-works has-dropdown">
@@ -1287,10 +1286,10 @@
                 <a href="https://qava.ai/whyqava" class="nav-item why-qava">
                     <div class="nav-text">Why Qava</div>
                 </a>
-                <a href="https://qava.ai/pricing.html" class="nav-item pricing">
+                <a href="https://qava.ai/pricing" class="nav-item pricing">
                     <div class="nav-text">Pricing</div>
                 </a>
-                <a href="https://qava.ai/about.html" class="nav-item about">
+                <a href="https://qava.ai/about" class="nav-item about">
                     <div class="nav-text">About</div>
                 </a>
             </div>
@@ -1299,7 +1298,7 @@
         <!-- Auth section on the right -->
         <div class="header-right">
             <div class="auth-section">
-                <a href="https://qava.ai/demo.html" class="auth-item">
+                <a href="https://qava.ai/demo" class="auth-item">
                     <div class="nav-text">Request a demo</div>
                 </a>
                 <a href="https://app.qava.ai/" class="auth-item">
@@ -1351,7 +1350,7 @@
             <div class="nav-text">Pricing</div>
         </a>
         <div class="mobile-auth-section">
-            <a href="https://qava.ai/demo.html" class="mobile-nav-item">Request a demo</a>
+            <a href="https://qava.ai/demo" class="mobile-nav-item">Request a demo</a>
             <a href="https://app.qava.ai/" class="mobile-nav-item">Log in</a>
             <a href="https://app.qava.ai/" class="join-button">
                 <div class="join-text">Join for free</div>
@@ -1665,22 +1664,6 @@
                 }, 5000);
             });
         });
-    </script>
-
-    <!-- Active Nav State Script -->
-    <script>
-    (() => {
-        const currentPath = window.location.pathname;
-        if (currentPath.includes('/pricing') || currentPath === '/pricing.html') {
-            document.querySelector(.nav-item.pricing')?.classList.add('active');
-        } else if (currentPath.includes('/whyqava')) {
-            document.querySelector(.nav-item.why-qava')?.classList.add('active');
-        } else if (currentPath.includes('/about')) {
-            document.querySelector(.nav-item.about')?.classList.add('active');
-        } else if (currentPath.includes('/clienthowitworks') || currentPath.includes('/talenthowitworks')) {
-            document.querySelector(.nav-item.how-it-works')?.classList.add('active');
-        }
-    })();
     </script>
 </body>
 </html>
