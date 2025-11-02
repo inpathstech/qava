@@ -2964,7 +2964,6 @@
         .qa-answer {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.35s ease-in-out, padding 0.35s ease-in-out;
         }
 
         .qa-item.active .qa-answer {
@@ -6486,7 +6485,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                 qaItem.classList.add('active');
                 // Use requestAnimationFrame to ensure class is applied before calculating height
                 requestAnimationFrame(() => {
-                    const contentHeight = qaAnswer.scrollHeight;
+                    const contentHeight = qaAnswer.scrollHeight + 24; // Add extra space for padding
                     qaAnswer.style.maxHeight = contentHeight + 'px';
                 });
             }
