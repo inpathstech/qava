@@ -446,9 +446,9 @@
         
         .benefits-container {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 32px;
-            max-width: 1400px;
+            max-width: 1000px;
             margin: 0 auto;
         }
         
@@ -456,17 +456,6 @@
             background: white;
             border-radius: 8px;
             padding: 32px;
-            position: relative;
-        }
-        
-        .benefit-card:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            right: -16px;
-            top: 0;
-            bottom: 0;
-            width: 1px;
-            background-color: #E0E0E0;
         }
         
         .benefit-card h3 {
