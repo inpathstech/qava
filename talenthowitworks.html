@@ -478,23 +478,37 @@
         .benefit-search-button {
             display: inline-block;
             padding: 8px 16px;
-            background: white;
-            color: #0F62FE;
+            background: #0F62FE;
+            color: white;
             text-decoration: none;
-            border: 1px solid #0F62FE;
+            border: none;
             border-radius: 6px;
             font-family: 'Inter', sans-serif;
             font-size: 13px;
             font-weight: 500;
             transition: all 0.2s ease;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .benefit-search-button::after {
+            content: '→';
+            position: absolute;
+            right: -20px;
+            opacity: 0;
+            transition: all 0.3s ease;
         }
         
         .benefit-search-button:hover {
-            background: #0F62FE;
-            color: white;
+            padding-right: 28px;
             transform: translateY(-2px);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+        
+        .benefit-search-button:hover::after {
+            right: 16px;
+            opacity: 1;
         }
         
         .benefit-quote {
