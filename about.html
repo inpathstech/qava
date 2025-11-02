@@ -1009,6 +1009,26 @@
             }
         });
     </script>
+
+    <script>
+    (() => {
+        // Get current page from URL (works for both qava.ai and local paths)
+        const currentPath = window.location.pathname;
+        const hostname = window.location.hostname;
+        
+        // Map pages to nav items
+        if (currentPath.includes('/pricing') || currentPath === '/pricing.html') {
+            document.querySelector('.nav-item.pricing')?.classList.add('active');
+        } else if (currentPath.includes('/whyqava')) {
+            document.querySelector('.nav-item.why-qava')?.classList.add('active');
+        } else if (currentPath.includes('/about')) {
+            document.querySelector('.nav-item.about')?.classList.add('active');
+        } else if (currentPath.includes('/clienthowitworks') || currentPath.includes('/talenthowitworks')) {
+            document.querySelector('.nav-item.how-it-works')?.classList.add('active');
+        }
+        // Note: Homepage (index.html) doesn't have a nav item to highlight
+    })();
+    </script>
 </body>
 </html>
 
