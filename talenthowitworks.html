@@ -476,39 +476,31 @@
         }
         
         .benefit-search-button {
-            display: inline-block;
-            padding: 8px 16px;
-            background: #0F62FE;
-            color: white;
-            text-decoration: none;
-            border: none;
-            border-radius: 6px;
             font-family: 'Inter', sans-serif;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 500;
-            transition: all 0.2s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .benefit-search-button::after {
-            content: '→';
-            position: absolute;
-            right: -20px;
-            opacity: 0;
+            color: #0F62FE;
+            text-decoration: none;
+            display: inline-block;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
         
         .benefit-search-button:hover {
-            padding-right: 28px;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            color: #0053E5;
         }
         
-        .benefit-search-button:hover::after {
-            right: 16px;
+        .benefit-search-arrow {
+            display: inline-block;
+            opacity: 0;
+            transform: translateX(-8px);
+            transition: all 0.3s ease;
+            margin-left: 4px;
+        }
+        
+        .benefit-card:hover .benefit-search-arrow {
             opacity: 1;
+            transform: translateX(0);
         }
         
         .benefit-quote {
@@ -1163,7 +1155,7 @@
                     <h3>Corporate Professionals 💼</h3>
                     <p style="font-weight: 500; margin-bottom: 12px; background: #f0fff1; color: #009b5f; padding: 4px 8px; border-radius: 4px; display: inline-block;">Broaden your perspective.</p>
                     <p>Step into startup and non-profit projects to stretch your strategic thinking and leadership. Return to your role sharper, faster, and more adaptable.</p>
-                    <a href="https://app.qava.ai/" class="benefit-search-button">Search</a>
+                    <a href="https://app.qava.ai/" class="benefit-search-button">Search<span class="benefit-search-arrow">→</span></a>
                 </div>
 
                 <!-- Benefit Card 2 -->
@@ -1172,7 +1164,7 @@
                     <h3>Entrepreneurs 🚀</h3>
                     <p style="font-weight: 500; margin-bottom: 12px; background: #f0fff1; color: #009b5f; padding: 4px 8px; border-radius: 4px; display: inline-block;">Learn from other founders.</p>
                     <p>Work inside different ventures to see how others go to market, attract investors, and grow — insights that accelerate your own journey.</p>
-                    <a href="https://app.qava.ai/" class="benefit-search-button">Search</a>
+                    <a href="https://app.qava.ai/" class="benefit-search-button">Search<span class="benefit-search-arrow">→</span></a>
                 </div>
 
                 <!-- Benefit Card 3 -->
@@ -1181,7 +1173,7 @@
                     <h3>Independent Talent & Students 🌎</h3>
                     <p style="font-weight: 500; margin-bottom: 12px; background: #f0fff1; color: #009b5f; padding: 4px 8px; border-radius: 4px; display: inline-block;">Turn theory into traction.</p>
                     <p>Apply your knowledge to real projects that deliver results. Build credibility, discover industries, and connect with global mentors.</p>
-                    <a href="https://app.qava.ai/" class="benefit-search-button">Search</a>
+                    <a href="https://app.qava.ai/" class="benefit-search-button">Search<span class="benefit-search-arrow">→</span></a>
                 </div>
 
                 <!-- Benefit Card 4 -->
@@ -1190,7 +1182,7 @@
                     <h3>Community & Mission Builders ❤️</h3>
                     <p style="font-weight: 500; margin-bottom: 12px; background: #f0fff1; color: #009b5f; padding: 4px 8px; border-radius: 4px; display: inline-block;">Work with purpose.</p>
                     <p>Join initiatives that create real-world impact — from sustainability to social innovation — alongside people driven by the same mission.</p>
-                    <a href="https://app.qava.ai/" class="benefit-search-button">Search</a>
+                    <a href="https://app.qava.ai/" class="benefit-search-button">Search<span class="benefit-search-arrow">→</span></a>
                 </div>
             </div>
         </div>
