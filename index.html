@@ -94,7 +94,8 @@
             text-decoration: none;
         }
 
-        .nav-item:hover {
+        .nav-item:hover,
+        .nav-item.active {
             background-color: rgba(0, 0, 0, 0.06);
             color: #000000;
         }
@@ -4706,7 +4707,7 @@
                                 <img src="Testimonial company logos/mmento logo.svg" alt="mmento" class="attribution-logo mmento-logo">
                                 <div class="attribution-text">
                                     <span class="attribution-name">Founder & CEO</span>
-                                </div>
+                    </div>
                             </div>
                             <div style="width: 60%; height: 0.5px; background-color: #000; margin: 12px auto;"></div>
                             <div class="customer-badges-wrapper" style="justify-content: center !important; margin-left: 0 !important; padding: 0 !important; width: 100% !important;">
@@ -4725,7 +4726,7 @@
                             <div class="customer-attribution">
                                 <div class="logo-crop boon-crop">
                                     <img src="Testimonial company logos/Boon.svg" alt="Boon" class="attribution-logo boon-logo">
-                                </div>
+                    </div>
                                 <div class="attribution-text">
                                     <span class="attribution-name">Chief Revenue Officer</span>
                                 </div>
@@ -4748,7 +4749,7 @@
                             <div class="customer-attribution">
                                 <div class="logo-crop rise-crop">
                                     <img src="Testimonial company logos/The Rise Group Square Logo.svg" alt="The Rise Group" class="attribution-logo rise-logo">
-                                </div>
+                    </div>
                                 <div class="attribution-text">
                                     <span class="attribution-name">CEO</span>
                                 </div>
@@ -4774,15 +4775,15 @@
                                 <div style="display: flex; flex-direction: column; gap: 0;">
                                     <span class="attribution-name">Kellogg School of Management</span>
                                     <span class="attribution-title" style="font-size: 8px; color: #666;">Class of 2024</span>
-                                </div>
-                            </div>
+                    </div>
+                </div>
                             <div style="width: 60%; height: 0.5px; background-color: #000; margin: 12px auto;"></div>
                             <div class="customer-badges-wrapper" style="justify-content: center !important; margin-left: 0 !important; padding: 0 !important; width: 100% !important;">
                                 <div class="customer-project-badge">Go-To-Market Strategy 📍</div>
                                 <div class="customer-project-badge">Competitor Analysis 🥷</div>
                                 <div class="customer-project-badge">Customer Segmentation 🧍‍♂️</div>
-                            </div>
-                        </div>
+                    </div>
+                </div>
                     </div>
                 </div>
                 
@@ -4796,7 +4797,7 @@
                                 <div style="display: flex; flex-direction: column; gap: 0;">
                                     <span class="attribution-name">The Wharton School</span>
                                     <span class="attribution-title" style="font-size: 8px; color: #666;">Class of 2023</span>
-                                </div>
+                    </div>
                             </div>
                             <div style="width: 60%; height: 0.5px; background-color: #000; margin: 12px auto;"></div>
                             <div class="customer-badges-wrapper" style="justify-content: center !important; margin-left: 0 !important; padding: 0 !important; width: 100% !important;">
@@ -4805,9 +4806,9 @@
                                 <div class="customer-project-badge">Pricing Strategy 💵</div>
                             </div>
                         </div>
-                    </div>
                 </div>
-                
+            </div>
+
                 <div class="customer-card">
                     <div class="stars" style="margin-top: 0; margin-bottom: 8px; padding: 0 16px; margin-left: -16px;">★★★★★</div>
                     <div class="customer-card-content">
@@ -4828,7 +4829,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+        </div>
     </div>
     
     <!-- Stats Footer -->
@@ -4998,18 +4999,18 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
     <div class="education-section">
         <div class="education-container">
             <a href="https://aurorafoundation.com.au/?gad_source=1&gad_campaignid=20266303360&gbraid=0AAAAAo_9cxXCGg5IbEOVCx16vIn4z39Pq&gclid=Cj0KCQjwn8XFBhCxARIsAMyH8BtbXMEmRGAKfavaNQn127KW-GgTf0ldjKUoTs4rPkJ0rKoAdS79zl4aAkF9EALw_wcB" target="_blank" style="text-decoration: none; color: inherit;">
-                <div class="education-card">
-                    <div class="education-image">
-                        <img src="Education Breaks the Cycle.png" alt="Education Breaks the Cycle" class="artwork-image">
-                    </div>
-                    <div class="education-content">
-                        <h3 class="education-title">Education breaks the cycle</h3>
-                        <p class="education-description">
-                            The Aurora Education foundation is an Indigenous organization that supports Aboriginal and Torres Strait Islander students to realize their full education and employment potential. 1% of profits will be donated to this important mission.
-                        </p>
-                        <span class="education-link">Learn more<span class="education-arrow">→</span></span>
-                    </div>
+            <div class="education-card">
+                <div class="education-image">
+                    <img src="Education Breaks the Cycle.png" alt="Education Breaks the Cycle" class="artwork-image">
                 </div>
+                <div class="education-content">
+                    <h3 class="education-title">Education breaks the cycle</h3>
+                    <p class="education-description">
+                        The Aurora Education foundation is an Indigenous organization that supports Aboriginal and Torres Strait Islander students to realize their full education and employment potential. 1% of profits will be donated to this important mission.
+                    </p>
+                        <span class="education-link">Learn more<span class="education-arrow">→</span></span>
+                </div>
+            </div>
             </a>
         </div>
     </div>
@@ -6562,6 +6563,27 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
       // Guard against late mutations
       const mo = new MutationObserver(() => requestAnimationFrame(apply));
       mo.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['src'] });
+    })();
+    </script>
+
+    <!-- Active Nav State Script -->
+    <script>
+    (() => {
+        // Get current page from URL (works for both qava.ai and local paths)
+        const currentPath = window.location.pathname;
+        const hostname = window.location.hostname;
+        
+        // Map pages to nav items
+        if (currentPath.includes('/pricing') || currentPath === '/pricing.html') {
+            document.querySelector('.nav-item.pricing')?.classList.add('active');
+        } else if (currentPath.includes('/whyqava')) {
+            document.querySelector('.nav-item.why-qava')?.classList.add('active');
+        } else if (currentPath.includes('/about')) {
+            document.querySelector('.nav-item.about')?.classList.add('active');
+        } else if (currentPath.includes('/clienthowitworks') || currentPath.includes('/talenthowitworks')) {
+            document.querySelector('.nav-item.how-it-works')?.classList.add('active');
+        }
+        // Note: Homepage (index.html) doesn't have a nav item to highlight
     })();
     </script>
 </body>

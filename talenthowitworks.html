@@ -93,7 +93,8 @@
             text-decoration: none;
         }
 
-        .nav-item:hover {
+        .nav-item:hover,
+        .nav-item.active {
             background-color: rgba(0, 0, 0, 0.06);
             color: #000000;
         }
@@ -1040,9 +1041,6 @@
                 <a href="https://qava.ai/pricing" class="nav-item pricing">
                     <div class="nav-text">Pricing</div>
                 </a>
-                <a href="https://qava.ai/about" class="nav-item about">
-                    <div class="nav-text">About</div>
-                </a>
             </div>
         </div>
         
@@ -1400,6 +1398,22 @@
                 }
             }
         });
+    </script>
+
+    <!-- Active Nav State Script -->
+    <script>
+    (() => {
+        const currentPath = window.location.pathname;
+        if (currentPath.includes('/pricing') || currentPath === '/pricing.html') {
+            document.querySelector(.nav-item.pricing')?.classList.add('active');
+        } else if (currentPath.includes('/whyqava')) {
+            document.querySelector(.nav-item.why-qava')?.classList.add('active');
+        } else if (currentPath.includes('/about')) {
+            document.querySelector(.nav-item.about')?.classList.add('active');
+        } else if (currentPath.includes('/clienthowitworks') || currentPath.includes('/talenthowitworks')) {
+            document.querySelector(.nav-item.how-it-works')?.classList.add('active');
+        }
+    })();
     </script>
 </body>
 </html>
