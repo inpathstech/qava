@@ -2964,12 +2964,12 @@
         .qa-answer {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: max-height 0.35s ease-in-out, padding 0.35s ease-in-out;
         }
 
         .qa-item.active .qa-answer {
-            max-height: 2000px;
             padding-bottom: 16px;
+            padding-top: 4px;
         }
 
         .qa-answer-text {
@@ -2980,6 +2980,7 @@
             line-height: 1.6;
             white-space: pre-line;
             padding: 0 16px;
+            margin: 0;
         }
 
         /* Education Section */
@@ -4944,7 +4945,7 @@ Unlike Upwork, which often connects you with low-cost offshore freelancers, Qava
 <strong>Visibility</strong>
 Unlike LinkedIn, which serves every profession and job type, Qava is purpose-built for strategic, MBA-level work. That means your projects stand out to the right audience — not buried among thousands of listings.
 
-<strong>On-demand and cost-efficient.</strong>
+<strong>On-demand and cost-efficient</strong>
 With Qava, you only pay for what you need, when you need it. No retainers. No long-term contracts. Just flexible access to top-tier talent and simple, affordable project listings that make scaling smarter — not more expensive.</p>
                 </div>
             </div>
@@ -6462,20 +6463,27 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
         // Q&A Accordion Toggle Function
         function toggleQA(element) {
             const qaItem = element.parentElement;
+            const qaAnswer = qaItem.querySelector('.qa-answer');
             const isActive = qaItem.classList.contains('active');
             
             // Close all other open items
             document.querySelectorAll('.qa-item.active').forEach(item => {
                 if (item !== qaItem) {
+                    const otherAnswer = item.querySelector('.qa-answer');
+                    otherAnswer.style.maxHeight = '0px';
                     item.classList.remove('active');
                 }
             });
             
             // Toggle current item
             if (isActive) {
+                qaAnswer.style.maxHeight = '0px';
                 qaItem.classList.remove('active');
             } else {
                 qaItem.classList.add('active');
+                // Calculate the actual content height
+                const contentHeight = qaAnswer.scrollHeight;
+                qaAnswer.style.maxHeight = contentHeight + 'px';
             }
         }
     </script>
