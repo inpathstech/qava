@@ -2940,10 +2940,6 @@
             user-select: none;
         }
 
-        .qa-question:hover {
-            background: rgba(0, 0, 0, 0.02);
-        }
-
         .qa-question-text {
             font-family: 'Inter', sans-serif;
             font-size: 16px;
@@ -2968,11 +2964,11 @@
         .qa-answer {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease, padding 0.3s ease;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .qa-item.active .qa-answer {
-            max-height: 1000px;
+            max-height: 2000px;
             padding-bottom: 16px;
         }
 
