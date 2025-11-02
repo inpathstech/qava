@@ -46,3 +46,6 @@ with open('index.html', 'w', encoding='utf-8') as f:
 
 print("Replaced Job and Internship badges with Featured badges!")
 
+
+
+

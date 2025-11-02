@@ -83,3 +83,6 @@ with open('index.html', 'w', encoding='utf-8') as f:
 
 print("Updated job and internship images based on listing titles!")
 
+
+
+

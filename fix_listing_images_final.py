@@ -129,3 +129,6 @@ print(f"✅ Successfully updated {count} listing images!")
 print("   All images now use: Project Type Images Oct 2025")
 print("   Mapped based on job/internship/project type")
 
+
+
+

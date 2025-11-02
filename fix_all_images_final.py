@@ -58,3 +58,6 @@ print(f"   - Projects: Updated folder paths")
 print(f"   - Jobs: {old_count} images diversified")
 print(f"   - Internships: Included in the {old_count} count above")
 
+
+
+

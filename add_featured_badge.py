@@ -25,3 +25,6 @@ with open('index.html', 'w', encoding='utf-8') as f:
 
 print("Added Featured badges to all listing cards!")
 
+
+
+

@@ -114,3 +114,6 @@ print("   - Projects: All paths updated")
 print("   - Jobs: Diverse images assigned based on keywords")
 print("   - Internships: Diverse images assigned based on keywords")
 
+
+
+

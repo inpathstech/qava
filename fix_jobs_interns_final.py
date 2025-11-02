@@ -76,3 +76,6 @@ with open('index.html', 'w', encoding='utf-8') as f:
 
 print("\n✅ All Jobs and Internships images updated to use Project Type Images Oct 2025")
 
+
+
+

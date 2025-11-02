@@ -81,3 +81,6 @@ with open('index.html', 'w', encoding='utf-8') as f:
 
 print("\n✅ All images now use Project Type Images Oct 2025!")
 
+
+
+
