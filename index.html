@@ -2906,6 +2906,85 @@
             margin: 3px 0;
         }
 
+        /* Q&A Section */
+        .qa-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .qa-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .qa-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 40px;
+            font-weight: 700;
+            color: #000000;
+            text-align: center;
+            margin: 0 0 48px 0;
+        }
+
+        .qa-item {
+            border-bottom: 1px solid #ECECEC;
+        }
+
+        .qa-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .qa-question:hover {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .qa-question-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: #000000;
+            flex: 1;
+            padding-right: 24px;
+        }
+
+        .qa-toggle {
+            font-size: 24px;
+            font-weight: 300;
+            color: #000000;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .qa-item.active .qa-toggle {
+            transform: rotate(45deg);
+        }
+
+        .qa-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .qa-item.active .qa-answer {
+            max-height: 1000px;
+            padding-bottom: 24px;
+        }
+
+        .qa-answer-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            color: #333333;
+            line-height: 1.6;
+            white-space: pre-line;
+        }
+
         /* Education Section */
         .education-section {
             padding: 110px 0 40px 0;
@@ -4793,6 +4872,131 @@
         </div>
     </div>
     
+    <!-- Q&A Section -->
+    <div class="qa-section">
+        <div class="qa-container">
+            <h2 class="qa-title">Q&A</h2>
+            
+            <div class="qa-item">
+                <div class="qa-question" onclick="toggleQA(this)">
+                    <span class="qa-question-text">What is Qava?</span>
+                    <span class="qa-toggle">+</span>
+                </div>
+                <div class="qa-answer">
+                    <p class="qa-answer-text">Qava connects startups, enterprises, and non-profits with business school and graduate-level talent to complete short-term, high-impact projects that move businesses forward— from building financial models to crafting go-to-market strategies. It also provides hiring managers the ability to hire full-time roles, part-time roles, and internships.</p>
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question" onclick="toggleQA(this)">
+                    <span class="qa-question-text">Who is Qava for?</span>
+                    <span class="qa-toggle">+</span>
+                </div>
+                <div class="qa-answer">
+                    <p class="qa-answer-text">Qava is for startups, growth companies, enterprises, and nonprofits serious about finding high-quality talent — and for ambitious professionals who want real-world experience that advances their careers.</p>
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question" onclick="toggleQA(this)">
+                    <span class="qa-question-text">What types of projects can I post?</span>
+                    <span class="qa-toggle">+</span>
+                </div>
+                <div class="qa-answer">
+                    <p class="qa-answer-text">You can post projects in strategy, marketing, finance, operations, fundraising, or research — or create a custom project tailored to your business goals. Common examples include:
+
+• Business plan or investor deck creation
+• Financial modeling and valuation
+• Market and competitor analysis
+• Customer journey mapping
+• Grant or funding applications</p>
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question" onclick="toggleQA(this)">
+                    <span class="qa-question-text">How does Qava find the right talent?</span>
+                    <span class="qa-toggle">+</span>
+                </div>
+                <div class="qa-answer">
+                    <p class="qa-answer-text">Our AI-powered matching system reviews your project goals and pairs you with candidates who have relevant skills, experience, and industry interest — many from top business schools around the world.</p>
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question" onclick="toggleQA(this)">
+                    <span class="qa-question-text">What does it cost to post a project?</span>
+                    <span class="qa-toggle">+</span>
+                </div>
+                <div class="qa-answer">
+                    <p class="qa-answer-text">Project listings start from $49 for basic visibility, with upgrade options for featured placement or faster matching.</p>
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question" onclick="toggleQA(this)">
+                    <span class="qa-question-text">What makes Qava different from Upwork or LinkedIn?</span>
+                    <span class="qa-toggle">+</span>
+                </div>
+                <div class="qa-answer">
+                    <p class="qa-answer-text">Three important differences set Qava apart:
+
+Quality of talent.
+Unlike Upwork, which often connects you with low-cost offshore freelancers, Qava connects you with high-caliber talent from top business schools. These professionals bring local market experience, cutting-edge academic insight, and access to premium research tools — so you get thoughtful, data-driven work that adds real value.
+
+Focus and visibility.
+Unlike LinkedIn, which serves every profession and job type, Qava is purpose-built for strategic, MBA-level work. That means your projects stand out to the right audience — not buried among thousands of listings — ensuring faster matches and higher-quality outcomes.
+
+On-demand and cost-efficient.
+With Qava, you only pay for what you need, when you need it. No retainers. No long-term contracts. Just flexible access to top-tier talent and simple, affordable project listings that make scaling smarter — not more expensive.</p>
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question" onclick="toggleQA(this)">
+                    <span class="qa-question-text">Can I use Qava if I'm not an MBA student?</span>
+                    <span class="qa-toggle">+</span>
+                </div>
+                <div class="qa-answer">
+                    <p class="qa-answer-text">Yes. While Qava was founded for MBAs and advanced degree holders, we also welcome experienced professionals and independent consultants with strong business or technical expertise.</p>
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question" onclick="toggleQA(this)">
+                    <span class="qa-question-text">How do payments work?</span>
+                    <span class="qa-toggle">+</span>
+                </div>
+                <div class="qa-answer">
+                    <p class="qa-answer-text">Qava makes payments seamless and secure. Once the project is complete, funds are released to the talent based on your agreed terms — giving both sides confidence and clarity.</p>
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question" onclick="toggleQA(this)">
+                    <span class="qa-question-text">Is Qava available globally?</span>
+                    <span class="qa-toggle">+</span>
+                </div>
+                <div class="qa-answer">
+                    <p class="qa-answer-text">Yes. Qava operates internationally, matching clients and talent across time zones. Projects can be remote or in-person depending on your preferences.</p>
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="qa-question" onclick="toggleQA(this)">
+                    <span class="qa-question-text">How do I get started?</span>
+                    <span class="qa-toggle">+</span>
+                </div>
+                <div class="qa-answer">
+                    <p class="qa-answer-text">If you're a company, sign in and click Create Listing to share what you need help with. Our AI-powered process makes it simple — even if you're not yet sure what kind of support you need.
+
+If you're talent, sign in and click Search Listings to explore live opportunities and start building your profile.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
     <!-- Education Section -->
     <div class="education-section">
         <div class="education-container">
@@ -6257,6 +6461,26 @@
             }, { passive: true });
         }
         }); // End DOMContentLoaded
+
+        // Q&A Accordion Toggle Function
+        function toggleQA(element) {
+            const qaItem = element.parentElement;
+            const isActive = qaItem.classList.contains('active');
+            
+            // Close all other open items
+            document.querySelectorAll('.qa-item.active').forEach(item => {
+                if (item !== qaItem) {
+                    item.classList.remove('active');
+                }
+            });
+            
+            // Toggle current item
+            if (isActive) {
+                qaItem.classList.remove('active');
+            } else {
+                qaItem.classList.add('active');
+            }
+        }
     </script>
 
     <!-- Inline canonical listing image mapper (runs last and guards against rewrites) -->
