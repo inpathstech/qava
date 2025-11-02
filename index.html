@@ -6477,13 +6477,18 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
             
             // Toggle current item
             if (isActive) {
-                qaAnswer.style.maxHeight = '0px';
+                qaAnswer.style.maxHeight = qaAnswer.scrollHeight + 'px';
+                requestAnimationFrame(() => {
+                    qaAnswer.style.maxHeight = '0px';
+                });
                 qaItem.classList.remove('active');
             } else {
                 qaItem.classList.add('active');
-                // Calculate the actual content height including padding
-                const contentHeight = qaAnswer.scrollHeight + 24; // Add extra space for padding
-                qaAnswer.style.maxHeight = contentHeight + 'px';
+                // Use requestAnimationFrame to ensure class is applied before calculating height
+                requestAnimationFrame(() => {
+                    const contentHeight = qaAnswer.scrollHeight;
+                    qaAnswer.style.maxHeight = contentHeight + 'px';
+                });
             }
         }
     </script>
