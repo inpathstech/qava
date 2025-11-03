@@ -1677,16 +1677,19 @@
 
         .feature-cards-grid {
             display: flex;
-            align-items: center;
+            align-items: stretch;
             gap: 12px;
             margin-top: 0;
         }
         
         .feature-card-arrow {
-            font-size: 20px;
+            font-size: 24px;
+            font-weight: 700;
             color: #DEDEDE;
             transition: color 0.2s ease;
             user-select: none;
+            display: flex;
+            align-items: center;
         }
         
         .feature-card.active + .feature-card-arrow {
@@ -1698,6 +1701,8 @@
             border-radius: 5px;
             padding: 16px;
             flex: 1;
+            display: flex;
+            flex-direction: column;
             text-align: left;
             transition: all 0.2s ease;
             min-height: 32px;
@@ -4193,7 +4198,7 @@
                     <p class="feature-card-description">Turn your idea into a real business.</p>
                 </div>
                 
-                <div class="feature-card-arrow">→</div>
+                <div class="feature-card-arrow">></div>
 
                 <!-- Growth & Capital Card -->
                 <div class="feature-card" data-preview="grow">
@@ -4202,7 +4207,7 @@
                     <p class="feature-card-description">Expand reach, attract funding, and scale impact.</p>
                 </div>
                 
-                <div class="feature-card-arrow">→</div>
+                <div class="feature-card-arrow">></div>
 
                 <!-- Improve & Scale Card -->
                 <div class="feature-card" data-preview="improve">
@@ -4211,7 +4216,7 @@
                     <p class="feature-card-description">Streamline operations and strengthen your foundation.</p>
                 </div>
                 
-                <div class="feature-card-arrow">→</div>
+                <div class="feature-card-arrow">></div>
 
                 <!-- Measure & Optimize Card -->
                 <div class="feature-card" data-preview="measure">
