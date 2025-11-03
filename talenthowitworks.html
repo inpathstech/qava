@@ -433,8 +433,43 @@
             font-size: 18px;
             font-weight: 300;
             color: rgba(0, 0, 0, 0.7);
-            margin-bottom: 64px;
+            margin-bottom: 24px;
             line-height: 1.5;
+        }
+        
+        /* VALUE BADGES SECTION */
+        .value-badges-section {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px 60px;
+        }
+        
+        .value-badges-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .value-badge {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #000000;
+            padding: 6px 12px;
+            line-height: 1.4;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            background: white;
+            display: inline-block;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+        
+        .value-badge:hover {
+            background: #000000;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
         
         /* Benefits Grid */
@@ -839,6 +874,15 @@
                 padding: 60px 16px 32px;
             }
             
+            .value-badges-section {
+                padding: 0 16px 48px;
+            }
+            
+            .value-badge {
+                font-size: 12px;
+                padding: 5px 10px;
+            }
+            
             .benefits-grid {
                 padding: 0 16px;
                 margin-bottom: 48px;
@@ -950,6 +994,15 @@
             
             .page-header {
                 padding: 50px 12px 24px;
+            }
+            
+            .value-badges-section {
+                padding: 0 12px 40px;
+            }
+            
+            .value-badge {
+                font-size: 11px;
+                padding: 4px 8px;
             }
             
             .benefits-grid {
@@ -1144,6 +1197,30 @@
         <div class="page-header">
             <h1 class="page-title">Your career, your way</h1>
             <p class="page-subtitle">Find meaningful projects that match your skills and career goals</p>
+        </div>
+
+        <!-- Value Badges Section -->
+        <div class="value-badges-section">
+            <div class="value-badges-container">
+                <span class="value-badge">Real-World Impact 🌍</span>
+                <span class="value-badge">Career Momentum 🚀</span>
+                <span class="value-badge">Founder Access 🤝</span>
+                <span class="value-badge">Learn Fearlessly 💡</span>
+                <span class="value-badge">Hands-On Growth 🌱</span>
+                <span class="value-badge">Meaningful Work ❤️</span>
+                <span class="value-badge">Global Network 🌐</span>
+                <span class="value-badge">Proven Experience ⭐</span>
+                <span class="value-badge">Purpose in Action 🎯</span>
+                <span class="value-badge">Learn by Doing 🛠️</span>
+                <span class="value-badge">Future-Ready Skills 🔮</span>
+                <span class="value-badge">Build What Lasts 🏗️</span>
+                <span class="value-badge">Create Your Path 🗺️</span>
+                <span class="value-badge">Lead with Heart 💚</span>
+                <span class="value-badge">Turn Ambition into Action ⚡</span>
+                <span class="value-badge">Connect Through Impact 🔗</span>
+                <span class="value-badge">Evolve Every Day 🦋</span>
+                <span class="value-badge">Do Work You Love 🎨</span>
+            </div>
         </div>
 
         <!-- Benefits Grid -->
