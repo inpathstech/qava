@@ -1676,16 +1676,28 @@
         }
 
         .feature-cards-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
             margin-top: 0;
+        }
+        
+        .feature-card-arrow {
+            font-size: 20px;
+            color: #DEDEDE;
+            transition: color 0.2s ease;
+            user-select: none;
+        }
+        
+        .feature-card.active + .feature-card-arrow {
+            color: #000000;
         }
 
         .feature-card {
             background: #fafafa;
             border-radius: 5px;
             padding: 16px;
+            flex: 1;
             text-align: left;
             transition: all 0.2s ease;
             min-height: 32px;
@@ -2112,8 +2124,12 @@
             }
 
             .feature-cards-grid {
-                grid-template-columns: 1fr;
+                flex-direction: column;
                 gap: 16px;
+            }
+            
+            .feature-card-arrow {
+                display: none;
             }
             
             .feature-card {
@@ -2217,7 +2233,12 @@
             }
 
             .feature-cards-grid {
+                flex-direction: column;
                 gap: 12px;
+            }
+            
+            .feature-card-arrow {
+                display: none;
             }
 
             .feature-card {
@@ -4170,14 +4191,18 @@
                     <div class="feature-card-badge">Start</div>
                     <h3 class="feature-card-title">I want to build or launch 🚀</h3>
                     <p class="feature-card-description">Turn your idea into a real business.</p>
-                        </div>
+                </div>
+                
+                <div class="feature-card-arrow">→</div>
 
                 <!-- Growth & Capital Card -->
                 <div class="feature-card" data-preview="grow">
                     <div class="feature-card-badge">Grow</div>
                     <h3 class="feature-card-title">I want to grow or raise money 🌱</h3>
                     <p class="feature-card-description">Expand reach, attract funding, and scale impact.</p>
-                    </div>
+                </div>
+                
+                <div class="feature-card-arrow">→</div>
 
                 <!-- Improve & Scale Card -->
                 <div class="feature-card" data-preview="improve">
@@ -4185,13 +4210,15 @@
                     <h3 class="feature-card-title">I want to scale or improve ⚙️</h3>
                     <p class="feature-card-description">Streamline operations and strengthen your foundation.</p>
                 </div>
+                
+                <div class="feature-card-arrow">→</div>
 
                 <!-- Measure & Optimize Card -->
                 <div class="feature-card" data-preview="measure">
                     <div class="feature-card-badge">Measure</div>
                     <h3 class="feature-card-title">I want to measure or optimize 📊</h3>
                     <p class="feature-card-description">Track performance and make smarter decisions.</p>
-            </div>
+                </div>
             </div>
 
             <!-- Large Preview Box -->
