@@ -576,8 +576,25 @@
             max-width: 800px;
             margin: 80px auto 0;
             padding: 0 24px;
-            border-top: 1px solid #E5E7EB;
-            border-bottom: 1px solid #E5E7EB;
+            position: relative;
+        }
+        
+        .quote-section::before,
+        .quote-section::after {
+            content: '';
+            display: block;
+            width: 50%;
+            height: 1px;
+            background: #E5E7EB;
+            margin: 0 auto;
+        }
+        
+        .quote-section::before {
+            margin-bottom: 32px;
+        }
+        
+        .quote-section::after {
+            margin-top: 32px;
         }
         
         .quote-card {
