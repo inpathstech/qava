@@ -571,6 +571,62 @@
             padding-left: 16px;
         }
         
+        /* Quote Card Section */
+        .quote-section {
+            max-width: 1000px;
+            margin: 80px auto 0;
+            padding: 0 24px;
+        }
+        
+        .quote-card {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.2s ease;
+        }
+        
+        .quote-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+        
+        .quote-image {
+            flex: 0 0 80px;
+        }
+        
+        .quote-image img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .quote-content {
+            flex: 1;
+        }
+        
+        .quote-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 400;
+            color: #000000;
+            line-height: 1.6;
+            margin: 0 0 8px 0;
+            font-style: italic;
+        }
+        
+        .quote-author {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #666666;
+            margin: 0;
+        }
+        
         /* Step Sections */
         .step-section {
             padding: 80px 0;
@@ -958,6 +1014,33 @@
                 font-size: 15px;
             }
             
+            .quote-section {
+                padding: 0 16px;
+                margin: 60px auto 0;
+            }
+            
+            .quote-card {
+                padding: 24px;
+                gap: 20px;
+            }
+            
+            .quote-image {
+                flex: 0 0 60px;
+            }
+            
+            .quote-image img {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .quote-text {
+                font-size: 16px;
+            }
+            
+            .quote-author {
+                font-size: 13px;
+            }
+            
             .step-section {
                 padding: 40px 0;
             }
@@ -1072,6 +1155,35 @@
             
             .benefit-card {
                 padding: 20px;
+            }
+            
+            .quote-section {
+                padding: 0 12px;
+                margin: 50px auto 0;
+            }
+            
+            .quote-card {
+                padding: 20px;
+                gap: 16px;
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .quote-image {
+                flex: 0 0 auto;
+            }
+            
+            .quote-image img {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .quote-text {
+                font-size: 14px;
+            }
+            
+            .quote-author {
+                font-size: 12px;
             }
             
             .step-container {
@@ -1291,7 +1403,7 @@
         <!-- Benefits Grid -->
         <div class="benefits-grid">
             <div class="benefits-header">
-                <h2 class="benefits-title">Find Work That Moves You</h2>
+                <h2 class="benefits-title">Find work that moves you</h2>
                 <p class="benefits-subtitle">Whether you're climbing, launching, learning, or giving back</p>
             </div>
             <div class="benefits-container">
@@ -1329,6 +1441,19 @@
                     <p style="font-weight: 400; margin-bottom: 12px; background: #f0fff1; color: #009b5f; padding: 4px 8px; border-radius: 4px; display: inline-block;">Work with purpose.</p>
                     <p>Join initiatives that create real-world impact — from sustainability to social innovation — alongside people driven by the same mission.</p>
                     <a href="https://app.qava.ai/" class="benefit-search-button">Search<span class="benefit-search-arrow">→</span></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Warren Buffett Quote Section -->
+        <div class="quote-section">
+            <div class="quote-card">
+                <div class="quote-image">
+                    <img src="Warren Buffet.png" alt="Warren Buffett">
+                </div>
+                <div class="quote-content">
+                    <p class="quote-text">"The best education you can get is investing in real-world experiences. That's the kind of learning that stays with you."</p>
+                    <p class="quote-author">— Warren Buffett</p>
                 </div>
             </div>
         </div>
