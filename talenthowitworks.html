@@ -637,6 +637,27 @@
             margin: 0;
         }
         
+        .highlight-circle {
+            position: relative;
+            color: #0F62FE;
+        }
+        
+        .highlight-circle::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-2deg);
+            width: calc(100% + 12px);
+            height: calc(100% + 8px);
+            border: 2px solid #0F62FE;
+            border-radius: 50% 45% 48% 52%;
+            pointer-events: none;
+            box-shadow: 
+                0 0 0 1px rgba(15, 98, 254, 0.3),
+                1px 1px 0 0 rgba(15, 98, 254, 0.2);
+        }
+        
         /* Step Sections */
         .step-section {
             padding: 80px 0;
@@ -1462,7 +1483,7 @@
                     <img src="Warren Buffet.png" alt="Warren Buffett">
                 </div>
                 <div class="quote-content">
-                    <p class="quote-text">"The best education you can get is investing in real-world experiences. That's the kind of learning that stays with you."</p>
+                    <p class="quote-text">"The best education you can get is investing in <span class="highlight-circle">real-world experiences</span>. That's the kind of learning that stays with you."</p>
                     <p class="quote-author">— Warren Buffett</p>
                 </div>
             </div>
