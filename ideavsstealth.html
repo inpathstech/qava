@@ -21,8 +21,6 @@
         /* NAVBAR STYLES */
         .header-container {
             width: 100%;
-            max-width: 1440px;
-            margin: 0 auto;
             padding: 16px 32px;
             background: white;
             display: flex;
@@ -83,16 +81,20 @@
             padding: 6px 12px;
             border-radius: 6px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: background-color 0.2s ease;
             font-size: 13px;
-            font-weight: 500;
+            font-weight: 400;
+            line-height: 1;
+            height: 25px;
             color: #000000;
             white-space: nowrap;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             position: relative;
             gap: 4px;
             text-decoration: none;
+            vertical-align: middle;
+            box-sizing: border-box;
         }
 
         .nav-item:hover {
@@ -180,7 +182,7 @@
             cursor: pointer;
             transition: all 0.2s ease;
             font-size: 13px;
-            font-weight: 500;
+            font-weight: 400;
             color: #000000;
             white-space: nowrap;
             display: flex;
@@ -195,7 +197,7 @@
 
         .join-button {
             padding: 6px 12px;
-            background: #002bff;
+            background: #0F62FE;
             border-radius: 6px;
             display: flex;
             align-items: center;
@@ -209,7 +211,7 @@
         }
 
         .join-button:hover {
-            background: #002bff;
+            background: #0053E5;
             transform: translateY(-1px);
             box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
         }
@@ -698,7 +700,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             width: 60%;
-            gap: 25px 25px;
+            gap: 16px 25px;
             padding: 0 15px 0 10px;
         }
 
@@ -711,9 +713,9 @@
             font-family: 'Inter', sans-serif;
             font-size: 17px;
             color: #000000;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
             font-weight: 600;
-            margin: 0 0 15px 0;
+            margin: 0 0 8px 0;
         }
 
         .footer-link-list {
@@ -722,7 +724,7 @@
             margin: 0;
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 4px;
         }
 
         .footer-link-list li {
@@ -744,27 +746,34 @@
             text-decoration: underline;
         }
 
-        .footer-link.coming-soon {
-            cursor: default;
+        /* Disabled footer links with hover effects */
+        .footer-link.disabled-link {
+            cursor: not-allowed;
+            opacity: 0.6;
             position: relative;
         }
 
-        .footer-link.coming-soon:hover {
+        .footer-link.disabled-link:hover {
             text-decoration: none;
+            opacity: 0.8;
+            color: #999999;
         }
 
-        .footer-link.coming-soon:hover::after {
+        .footer-link.disabled-link:hover::before {
             content: "Coming Soon";
             position: absolute;
-            bottom: -20px;
-            left: 0;
-            background: #333;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000000;
             color: white;
             padding: 4px 8px;
             border-radius: 4px;
             font-size: 11px;
+            font-weight: 500;
             white-space: nowrap;
             z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         }
 
         /* Footer Dropdown Styles */
@@ -798,10 +807,21 @@
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.2s ease;
+            text-decoration: none;
+            display: block;
         }
 
         .footer-dropdown-menu .footer-dropdown-item:hover {
             background-color: rgba(55, 53, 47, 0.04);
+        }
+
+        /* Ensure footer dropdown links work properly */
+        .footer-dropdown-menu .footer-dropdown-item:visited {
+            color: inherit;
+        }
+
+        .footer-dropdown-menu .footer-dropdown-item:active {
+            color: inherit;
         }
 
         .footer-copyright {
@@ -1138,36 +1158,6 @@
                 align-items: center;
             }
         }
-
-        /* Disabled footer links with hover effects */
-        .footer-link.disabled-link {
-            cursor: not-allowed;
-            opacity: 0.6;
-            position: relative;
-        }
-
-        .footer-link.disabled-link:hover {
-            text-decoration: none;
-            opacity: 0.8;
-            color: #999999;
-        }
-
-        .footer-link.disabled-link:hover::before {
-            content: "Coming Soon";
-            position: absolute;
-            top: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #000000;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 500;
-            white-space: nowrap;
-            z-index: 1000;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-        }
     </style>
 </head>
 <body>
@@ -1190,30 +1180,33 @@
                 <a href="https://app.qava.ai/" class="nav-item create-listing">
                     <div class="nav-text">Create Listing</div>
                 </a>
-                <a href="https://app.qava.ai/" class="nav-item search-listings">
+                <a href="https://app.qava.ai/projects" class="nav-item search-listings">
                     <div class="nav-text">Search Listings</div>
                 </a>
                 <div class="nav-item how-it-works has-dropdown">
                     <div class="nav-text">How It Works</div>
                     <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                        <path d="M6 3v6M3 6h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M6 3v6M3 6h6" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     <div class="dropdown-menu">
-                        <a href="clienthowitworks" class="dropdown-item">
+                        <a href="https://qava.ai/clienthowitworks" class="dropdown-item">
                             <div class="dropdown-title">For Clients 🚀</div>
                             <div class="dropdown-subtitle">Hiring for current or future work</div>
                         </a>
-                        <a href="talenthowitworks" class="dropdown-item">
+                        <a href="https://qava.ai/talenthowitworks" class="dropdown-item">
                             <div class="dropdown-title">For Talent 👩‍💻</div>
                             <div class="dropdown-subtitle">Interested in current or future work</div>
                         </a>
                     </div>
                 </div>
-                <a href="why-qava" class="nav-item why-qava">
+                <a href="https://qava.ai/whyqava" class="nav-item why-qava">
                     <div class="nav-text">Why Qava</div>
                 </a>
-                <a href="pricing" class="nav-item pricing">
+                <a href="https://qava.ai/pricing" class="nav-item pricing">
                     <div class="nav-text">Pricing</div>
+                </a>
+                <a href="https://qava.ai/about" class="nav-item about">
+                    <div class="nav-text">About</div>
                 </a>
             </div>
         </div>
@@ -1247,7 +1240,7 @@
         <a href="https://app.qava.ai/" class="mobile-nav-item">
             <div class="nav-text">Create Listing</div>
         </a>
-        <a href="https://app.qava.ai/" class="mobile-nav-item">
+        <a href="https://app.qava.ai/projects" class="mobile-nav-item">
             <div class="nav-text">Search Listings</div>
         </a>
         <div class="mobile-nav-item mobile-dropdown-toggle" onclick="toggleMobileDropdown()">
@@ -1257,20 +1250,23 @@
             </div>
         </div>
         <div class="mobile-dropdown-content" id="mobileDropdown">
-            <a href="clienthowitworks" class="mobile-dropdown-item">
+            <a href="https://qava.ai/clienthowitworks" class="mobile-dropdown-item">
                 <div class="dropdown-title">For Clients 🚀</div>
                 <div class="dropdown-subtitle">Hiring for current or future work</div>
             </a>
-            <a href="talenthowitworks" class="mobile-dropdown-item">
+            <a href="https://qava.ai/talenthowitworks" class="mobile-dropdown-item">
                 <div class="dropdown-title">For Talent 👩‍💻</div>
                 <div class="dropdown-subtitle">Interested in current or future work</div>
             </a>
         </div>
-        <a href="why-qava" class="mobile-nav-item">
+        <a href="https://qava.ai/whyqava" class="mobile-nav-item">
             <div class="nav-text">Why Qava</div>
         </a>
-        <a href="pricing" class="mobile-nav-item">
+        <a href="https://qava.ai/pricing" class="mobile-nav-item">
             <div class="nav-text">Pricing</div>
+        </a>
+        <a href="https://qava.ai/about" class="mobile-nav-item">
+            <div class="nav-text">About</div>
         </a>
         <div class="mobile-auth-section">
             <a href="https://qava.ai/demo" class="mobile-nav-item">Request a demo</a>
@@ -1360,7 +1356,7 @@
                         <h4 class="footer-heading">Welcome</h4>
                         <ul class="footer-link-list">
                             <li><a href="https://app.qava.ai/" class="footer-link">Create Listing</a></li>
-                            <li><a href="https://app.qava.ai/" class="footer-link">Search Listings</a></li>
+                            <li><a href="https://app.qava.ai/projects" class="footer-link">Search Listings</a></li>
                             <li><a href="https://qava.ai/clienthowitworks" class="footer-link">How It Works for Clients</a></li>
                             <li><a href="https://qava.ai/talenthowitworks" class="footer-link">How It Works for Talent</a></li>
                             <li><a href="https://qava.ai/whyqava" class="footer-link">Why Qava</a></li>
@@ -1382,7 +1378,7 @@
                         <h4 class="footer-heading">Resources</h4>
                         <ul class="footer-link-list">
                             <li><a href="https://qava.ai/pricing" class="footer-link">Pricing</a></li>
-                            <li><span class="footer-link disabled-link">About Us</span></li>
+                            <li><a href="https://qava.ai/about" class="footer-link">About Us</a></li>
                             <li><span class="footer-link disabled-link">Careers</span></li>
                             <li><span class="footer-link disabled-link">Media Kit</span></li>
                             <li><span class="footer-link disabled-link">Contact Us</span></li>
@@ -1401,8 +1397,8 @@
                     <div class="footer-column">
                         <h4 class="footer-heading">Legal</h4>
                         <ul class="footer-link-list">
-                            <li><a href="terms.html" class="footer-link">Terms & Privacy</a></li>
-                            <li><a href="terms.html" class="footer-link">California Privacy Notice</a></li>
+                            <li><a href="terms" class="footer-link">Terms & Privacy</a></li>
+                            <li><a href="terms" class="footer-link">California Privacy Notice</a></li>
                         </ul>
                     </div>
                     <div class="footer-copyright">
