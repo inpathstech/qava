@@ -719,45 +719,55 @@
         .story-cta-actions {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
         }
 
-        .story-cta .cta-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+        /* Primary button - Join for free */
+        .story-cta .cta-button.primary {
+            background-color: #0F62FE;
+            color: white;
+            padding: 7px 12px;
             border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
             font-size: 13px;
             font-weight: 500;
             line-height: 1;
             height: 28px;
-            padding: 7px 12px;
             text-decoration: none;
-            transition: all 0.2s ease;
             white-space: nowrap;
-            box-shadow: 0 1px 3px rgba(15, 98, 254, 0.18);
-        }
-
-        .story-cta .cta-button.primary {
-            background-color: #0F62FE;
-            color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 3px rgba(15, 98, 254, 0.3);
         }
 
         .story-cta .cta-button.primary:hover {
             background-color: #0047C3;
-            box-shadow: 0 2px 6px rgba(15, 98, 254, 0.35);
+            box-shadow: 0 2px 6px rgba(15, 98, 254, 0.4);
         }
 
+        /* Secondary button - Request a demo */
         .story-cta .cta-button.secondary {
-            background-color: white;
-            color: #0F62FE;
-            border: 1px solid rgba(15, 98, 254, 0.35);
-            box-shadow: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1;
+            height: 25px;
+            color: #000000;
+            text-decoration: none;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            background-color: transparent;
+            border: none;
         }
 
         .story-cta .cta-button.secondary:hover {
-            background-color: rgba(15, 98, 254, 0.08);
+            background-color: rgba(0, 0, 0, 0.06);
         }
 
         /* RESPONSIVE */
