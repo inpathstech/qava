@@ -717,57 +717,69 @@
         }
 
         .story-cta-actions {
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 16px;
+            justify-content: center;
         }
 
-        /* Primary button - Join for free */
+        /* Primary button - Join for free (matches hero) */
         .story-cta .cta-button.primary {
-            background-color: #0F62FE;
-            color: white;
-            padding: 7px 12px;
+            padding: 6px 12px;
+            background: #0F62FE;
             border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 13px;
-            font-weight: 500;
-            line-height: 1;
-            height: 28px;
-            text-decoration: none;
-            white-space: nowrap;
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            justify-content: center;
-            box-shadow: 0 1px 3px rgba(15, 98, 254, 0.3);
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            font-family: inherit;
+            height: 27.6px;
+            text-decoration: none;
+            color: white;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
         }
 
         .story-cta .cta-button.primary:hover {
-            background-color: #0047C3;
-            box-shadow: 0 2px 6px rgba(15, 98, 254, 0.4);
+            background: #0053E5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
         }
 
-        /* Secondary button - Request a demo */
+        /* Secondary button - Request a demo (matches hero) */
         .story-cta .cta-button.secondary {
             padding: 6px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            font-size: 13px;
-            font-weight: 400;
-            line-height: 1;
-            height: 25px;
-            color: #000000;
-            text-decoration: none;
-            white-space: nowrap;
-            display: inline-flex;
-            align-items: center;
-            background-color: transparent;
+            background: transparent;
             border: none;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            height: 27.6px;
+            text-decoration: none;
+            color: #000000;
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
         }
 
         .story-cta .cta-button.secondary:hover {
             background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .story-cta .cta-button.secondary:visited {
+            color: #000000;
+        }
+
+        .story-cta .cta-button.secondary:active {
+            color: #000000;
         }
 
         /* RESPONSIVE */
