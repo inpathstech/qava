@@ -767,19 +767,31 @@
             display: flex;
             align-items: center;
             cursor: pointer;
-            transition: background-color 0.2s ease;
+            transition: all 0.2s ease;
             font-family: inherit;
             height: 27.6px;
             text-decoration: none;
             color: #000000;
             font-size: 13px;
-            font-weight: 500;
+            font-weight: 300;
             white-space: nowrap;
+            position: relative;
         }
 
-        .story-cta .cta-button.secondary:hover {
-            background-color: rgba(0, 0, 0, 0.06);
-            color: #000000;
+        .story-cta .cta-button.secondary::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 12px;
+            right: 12px;
+            height: 1px;
+            background-color: #000000;
+            transform: scaleX(0);
+            transition: transform 0.2s ease;
+        }
+
+        .story-cta .cta-button.secondary:hover::after {
+            transform: scaleX(1);
         }
 
         .story-cta .cta-button.secondary:visited {
