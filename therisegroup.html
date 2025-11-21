@@ -6,8 +6,16 @@
     <title>Q&A with Emma Burke | Qava</title>
     <link rel="icon" type="image/svg+xml" href="qava-logo.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        @font-face {
+            font-family: 'Jonathan';
+            src: url('jonathan_signature (1)/JonathanSignature.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -483,7 +491,7 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin-bottom: 32px;
+            margin-bottom: 0;
         }
 
         .story-title {
@@ -498,6 +506,28 @@
             font-weight: 300;
             color: #4a4a4a;
             line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        .story-categories {
+            display: flex;
+            gap: 8px;
+            margin: 2px 0 3px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .story-category-pill {
+            display: inline-flex;
+            align-items: center;
+            background: #fafafa;
+            color: #000000;
+            font-size: 11px;
+            font-weight: 400;
+            padding: 6px 12px;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: all 0.2s ease;
         }
 
         .story-hero {
@@ -650,16 +680,16 @@
             padding: 14px 24px !important;
             width: fit-content;
             max-width: 100%;
-            font-size: 16px !important;
+            font-size: 35px !important;
             line-height: 1.6 !important;
             color: #000000 !important;
             font-weight: 300 !important;
-            font-style: italic !important;
+            font-style: normal !important;
             text-align: center;
-            background: #fafafa;
-            border-radius: 12px;
+            background: transparent;
             white-space: nowrap;
             display: block;
+            font-family: 'Jonathan', 'Kalam', 'Brush Script MT', cursive;
         }
 
         blockquote::before {
@@ -668,15 +698,14 @@
 
         /* Images with captions */
         .story-media {
-            margin: 24px auto 28px;
+            margin: 24px 0 28px;
             text-align: center;
         }
 
         .story-media img {
-            max-width: 620px;
             width: 100%;
             border-radius: 16px;
-            display: inline-block;
+            display: block;
         }
 
         .story-media-caption {
@@ -826,6 +855,16 @@
                 padding: 40px 20px 80px;
             }
 
+            .story-categories {
+                margin: 12px 0 12px;
+                gap: 6px;
+            }
+
+            .story-category-pill {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
             .story-title {
                 font-size: 32px;
                 line-height: 1.15;
@@ -881,7 +920,7 @@
             }
 
             .story-media {
-                margin: 20px auto 24px;
+                margin: 20px 0 24px;
             }
 
             .story-media img {
@@ -1109,6 +1148,12 @@
             <p class="story-subtitle">Making the leap from corporate, what she's learned, and the creator economy in an AI world.</p>
         </header>
 
+        <div class="story-categories">
+            <span class="story-category-pill">👩‍💼 Female Founder</span>
+            <span class="story-category-pill">🤝 Talent Management</span>
+            <span class="story-category-pill">📣 Brand Strategy</span>
+        </div>
+
         <figure class="story-hero">
             <img src="Emma-Burke-6.jpg" alt="Emma Burke" loading="lazy">
         </figure>
@@ -1123,7 +1168,7 @@
             <ul>
                 <li><a href="#pre-launch"><span class="index">1.</span><span>Pre-Launch</span></a></li>
                 <li><a href="#the-leap"><span class="index">2.</span><span>Founding The Rise Group</span></a></li>
-                <li><a href="#building-through-projects"><span class="index">3.</span><span>Building, Lessons &amp; Growth</span></a></li>
+                <li><a href="#emmas-approach"><span class="index">3.</span><span>Emma's Approach</span></a></li>
                 <li><a href="#finding-the-right-people"><span class="index">4.</span><span>Use Your Strengths</span></a></li>
                 <li><a href="#impact-of-ai"><span class="index">5.</span><span>The Impact of AI</span></a></li>
                 <li><a href="#advice-and-the-future"><span class="index">6.</span><span>Advice &amp; The Future</span></a></li>
@@ -1141,6 +1186,10 @@
                 <p class="qa-question">Q: What was your early career like before starting The Rise Group?</p>
                 <p class="qa-answer">I tried everything under the communications umbrella—marketing, editorial, fashion PR. One of my first dream roles was at Diane von Fürstenberg. I had read her book <em>The Woman I Wanted to Be</em> and watched <em>House of DVF</em>. Working there felt like stepping inside that world—creative, fast. It felt magical to me at that age.</p>
                 <p class="qa-answer">After that I joined Tory Burch, another brand I had been following. Kate Spade after that. Those early experiences taught me how much energy and storytelling go into great branding. I made great friends and learned so much about myself, business, and how to get things done to a high standard.</p>
+                <div class="story-media">
+                    <img src="EmmaandIzzi.jpeg" alt="Emma and Izzi" loading="lazy">
+                    <p class="story-media-caption">Emma & Izzi at Creators Loft 2023</p>
+                </div>
             </div>
         </section>
 
@@ -1164,8 +1213,8 @@
             </div>
         </section>
 
-        <section class="story-section" id="building-through-projects">
-            <h2>Emma’s Approach</h2>
+        <section class="story-section" id="emmas-approach">
+            <h2>Emma's Approach</h2>
             <div class="qa-block">
                 <p class="qa-question">Q: What were the key steps you took early on that shaped the success of The Rise Group?</p>
                 <p class="qa-answer">I broke it down into a few basic steps.</p>
@@ -1233,9 +1282,9 @@
         </section>
 
         <div class="story-cta">
-            <h3>Turn ideas into momentum. Fast.</h3>
-            <p style="font-weight: 300;"><a href="https://www.therisegrp.com/" target="_blank" rel="noopener">The Rise Group</a> continues to grow because Emma built it around people.</p>
-            <p style="font-weight: 300;">Start your journey today at Qava.</p>
+            <h3>Turn ideas into your future.</h3>
+            <p style="font-weight: 300;"><a href="https://www.therisegrp.com/" target="_blank" rel="noopener">The Rise Group</a> continues to grow because Emma built smart.</p>
+            <p style="font-weight: 300;">Start your journey today with Qava.</p>
             <div class="story-cta-actions">
                 <a href="https://app.qava.ai/" class="cta-button primary">Join for free</a>
                 <a href="https://qava.ai/demo" class="cta-button secondary">Request a demo</a>
