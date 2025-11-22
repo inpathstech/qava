@@ -1430,7 +1430,7 @@
         }
 
         .in-focus-image-wrapper:hover {
-            transform: scale(1.01);
+            /* No transform on hover */
         }
 
         .in-focus-image {
@@ -1623,12 +1623,60 @@
             margin: 16px 16px 0 16px;
         }
 
+        .selection-icon {
+            font-size: 20px;
+            margin: 20px 20px 2px 20px;
+            text-align: left;
+            position: relative;
+            display: inline-block;
+        }
+
+        .selection-icon::before,
+        .selection-icon::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translate(-50%, -50%);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid rgba(200, 200, 200, 0.6);
+            z-index: -1;
+            animation: radioWave 1.2s ease-out infinite;
+        }
+
+        .selection-icon::after {
+            animation-delay: 0.4s;
+        }
+
+        .selection-box.active .selection-icon::before,
+        .selection-box.active .selection-icon::after {
+            border-color: rgba(147, 197, 253, 0.7);
+        }
+
+        .selection-icon img {
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes radioWave {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(2);
+                opacity: 0;
+            }
+        }
+
         .selection-title {
             font-family: 'Inter', sans-serif;
             font-size: 18px;
             font-weight: 600;
             color: #000000;
-            margin: 20px 20px 8px 20px;
+            margin: 0 20px 8px 20px;
             text-align: left;
         }
 
@@ -4595,16 +4643,25 @@
             <!-- Three Selection Boxes -->
             <div class="selection-boxes">
                 <div class="selection-box active">
+                    <div class="selection-icon">
+                        <img src="Untitled design/Project Icon.png" alt="Projects" width="20" height="20">
+                    </div>
                     <h3 class="selection-title">On-Demand Projects</h3>
                     <p class="selection-description">From launches to fundraises to grants. Join the teams building what's next.</p>
                     <a href="https://app.qava.ai/projects" class="selection-link">Search <span class="selection-arrow">→</span></a>
                 </div>
                 <div class="selection-box">
+                    <div class="selection-icon">
+                        <img src="Untitled design/Role Icon.png" alt="Roles" width="20" height="20">
+                    </div>
                     <h3 class="selection-title">Find Your Next Role</h3>
                     <p class="selection-description">Discover jobs at fast-growing companies where your work matters.</p>
                     <a href="https://app.qava.ai/projects" class="selection-link">Search <span class="selection-arrow">→</span></a>
             </div>
                 <div class="selection-box">
+                    <div class="selection-icon">
+                        <img src="Untitled design/Internship Icon.png" alt="Internships" width="20" height="20">
+                    </div>
                     <h3 class="selection-title">Open Internships</h3>
                     <p class="selection-description">Internships built on diversity, fairness, and real impact.</p>
                     <a href="https://app.qava.ai/projects" class="selection-link">Search <span class="selection-arrow">→</span></a>
@@ -6961,14 +7018,29 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
     (function() {
         const imageWrapper = document.querySelector('.in-focus-image-wrapper');
         const readLink = document.querySelector('.in-focus-link');
+        const arrow = document.querySelector('.in-focus-arrow');
         
-        if (imageWrapper && readLink) {
+        if (imageWrapper && arrow) {
             imageWrapper.addEventListener('mouseenter', function() {
-                readLink.style.textDecoration = 'underline';
+                arrow.style.opacity = '1';
+                arrow.style.transform = 'translateX(0)';
             });
             
             imageWrapper.addEventListener('mouseleave', function() {
-                readLink.style.textDecoration = 'none';
+                arrow.style.opacity = '0';
+                arrow.style.transform = 'translateX(-6px)';
+            });
+        }
+        
+        if (readLink && arrow) {
+            readLink.addEventListener('mouseenter', function() {
+                arrow.style.opacity = '1';
+                arrow.style.transform = 'translateX(0)';
+            });
+            
+            readLink.addEventListener('mouseleave', function() {
+                arrow.style.opacity = '0';
+                arrow.style.transform = 'translateX(-6px)';
             });
         }
     })();
