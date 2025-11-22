@@ -1410,12 +1410,12 @@
             box-shadow: none;
         }
 
-        .in-focus-card:hover .in-focus-pill {
+        .in-focus-pill:hover {
             background: #000000;
             color: #ffffff;
         }
 
-        .in-focus-card:hover .in-focus-pill span {
+        .in-focus-pill:hover span {
             color: #ffffff;
         }
 
@@ -1425,6 +1425,12 @@
             overflow: hidden;
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.06), rgba(15, 23, 42, 0.02));
             box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.04);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .in-focus-image-wrapper:hover {
+            transform: scale(1.01);
         }
 
         .in-focus-image {
@@ -4551,15 +4557,15 @@
         <div class="in-focus-section">
             <div class="in-focus-container">
                 <div class="in-focus-header">
-                    <h2>In focus this month</h2>
+                    <h2>Spotlight</h2>
                     <p class="in-focus-date">November 2025</p>
                 </div>
                 <div class="in-focus-card">
-                    <div class="in-focus-image-wrapper">
+                    <a href="https://qava.ai/therisegroup" class="in-focus-image-wrapper">
                         <img src="Emma-Burke-6.jpg" alt="Emma Burke, founder of The Rise Group" class="in-focus-image" loading="lazy">
-                    </div>
+                    </a>
                     <div class="in-focus-content">
-                        <h3 class="in-focus-blog-title">Q&amp;A with Emma Burke, founder of The Rise Group</h3>
+                        <h3 class="in-focus-blog-title">Q&amp;A with Emma Burke, Founder &amp; CEO of The Rise Group</h3>
                         <p class="in-focus-subtitle">Making the leap from corporate, what she's learned, and the creator economy in an AI world.</p>
                         <div class="in-focus-badges">
                             <span style="font-size: 11px; font-weight: 500; color: #000000; margin-right: 6px;">The Rise Group x Qava //</span>
@@ -6949,6 +6955,22 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
             document.querySelector('.nav-item.how-it-works')?.classList.add('active');
         }
         // Note: Homepage (index.html) doesn't have a nav item to highlight
+    })();
+
+    // Handle in-focus card image hover effect
+    (function() {
+        const imageWrapper = document.querySelector('.in-focus-image-wrapper');
+        const readLink = document.querySelector('.in-focus-link');
+        
+        if (imageWrapper && readLink) {
+            imageWrapper.addEventListener('mouseenter', function() {
+                readLink.style.textDecoration = 'underline';
+            });
+            
+            imageWrapper.addEventListener('mouseleave', function() {
+                readLink.style.textDecoration = 'none';
+            });
+        }
     })();
     </script>
 </body>

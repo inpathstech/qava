@@ -512,7 +512,7 @@
         .story-categories {
             display: flex;
             gap: 8px;
-            margin: 2px 0 3px;
+            margin: 0 0 20px 0;
             justify-content: flex-start;
             flex-wrap: wrap;
         }
@@ -520,14 +520,46 @@
         .story-category-pill {
             display: inline-flex;
             align-items: center;
+            background: transparent;
+            color: #000000;
+            font-size: 11px;
+            font-weight: 400;
+            padding: 2px 4px;
+            border-radius: 0;
+            border: none;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .story-project-badges {
+            display: flex;
+            gap: 8px;
+            margin: 2px 0 3px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .story-badge-pill {
+            display: inline-flex;
+            align-items: center;
             background: #fafafa;
             color: #000000;
             font-size: 11px;
             font-weight: 400;
-            padding: 6px 12px;
+            padding: 4px 10px;
             border-radius: 20px;
             text-decoration: none;
-            transition: all 0.2s ease;
+        }
+
+        .story-badge-pill span {
+            color: #000000;
+        }
+
+        .story-badge-separator {
+            font-size: 11px;
+            font-weight: 400;
+            color: #000000;
         }
 
         .story-hero {
@@ -856,11 +888,21 @@
             }
 
             .story-categories {
-                margin: 12px 0 12px;
+                margin: 0 0 16px;
                 gap: 6px;
             }
 
             .story-category-pill {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .story-project-badges {
+                margin: 8px 0 8px;
+                gap: 6px;
+            }
+
+            .story-badge-pill {
                 font-size: 10px;
                 padding: 5px 10px;
             }
@@ -1143,15 +1185,25 @@
 
     <!-- Blog Content -->
     <main class="story-wrapper">
+        <div class="story-categories">
+            <span class="story-category-pill">#👩‍💼FemaleFounder</span>
+            <span class="story-category-pill">#⭐️Solopreneur</span>
+            <span class="story-category-pill">#🤝TalentManagement</span>
+            <span class="story-category-pill">#📣BrandStrategy</span>
+        </div>
+
         <header class="story-header">
             <h1 class="story-title">Q&A with Emma Burke, Founder & CEO of <a href="https://www.therisegrp.com/" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">The Rise Group</a></h1>
             <p class="story-subtitle">Making the leap from corporate, what she's learned, and the creator economy in an AI world.</p>
         </header>
 
-        <div class="story-categories">
-            <span class="story-category-pill">👩‍💼 Female Founder</span>
-            <span class="story-category-pill">🤝 Talent Management</span>
-            <span class="story-category-pill">📣 Brand Strategy</span>
+        <div class="story-project-badges">
+            <span style="font-size: 11px; font-weight: 500; color: #000000; margin-right: 6px;">The Rise Group x Qava //</span>
+            <div class="story-badge-pill"><span>Financial Model 📊</span></div>
+            <span class="story-badge-separator">+</span>
+            <div class="story-badge-pill"><span>Strategic Finance 🎯</span></div>
+            <span class="story-badge-separator">+</span>
+            <div class="story-badge-pill"><span>Industry Analysis 🔎</span></div>
         </div>
 
         <figure class="story-hero">
