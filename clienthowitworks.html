@@ -1208,23 +1208,17 @@
         }
 
         /* Comparison Section Styles */
+        .comparison-wrapper {
+            background: #f9fafb;
+            padding-top: 10px;
+            width: 100%;
+        }
+        
         .comparison-section {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 80px 24px 64px 24px;
+            padding: 70px 24px 64px 24px;
             position: relative;
-        }
-        
-        .comparison-section::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100vw;
-            height: calc(100% + 10px);
-            background: #f9fafb;
-            z-index: -1;
         }
 
         /* Talent CTA Section */
@@ -2063,6 +2057,7 @@
         </div>
 
         <!-- How we're different Section -->
+        <div class="comparison-wrapper">
         <div class="comparison-section">
             <div class="comparison-header">
                 <h2 class="comparison-title">How we're different</h2>
@@ -2167,6 +2162,7 @@
                     </ul>
                 </div>
             </div>
+        </div>
         </div>
     </main>
 
