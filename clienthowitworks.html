@@ -400,13 +400,86 @@
         }
 
         /* Responsive Design for Navbar */
+        @media (max-width: 1400px) {
+            .header-container {
+                padding: 16px 24px;
+            }
+            
+            .navigation {
+                gap: 28px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .header-container {
+                padding: 16px 20px;
+            }
+            
+            .navigation {
+                gap: 24px;
+            }
+            
+            .nav-item {
+                padding: 6px 8px;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .header-container {
+                padding: 12px 20px;
+            }
+            
+            .header-left {
+                gap: 16px;
+            }
+            
+            .navigation {
+                gap: 6px;
+            }
+            
+            .nav-item {
+                padding: 4px 6px;
+                font-size: 13px;
+            }
+            
+            .auth-item {
+                padding: 6px 8px;
+                font-size: 13px;
+            }
+        }
+
         @media (max-width: 1100px) {
-            .header-center {
+            .header-container {
+                padding: 12px 20px;
+            }
+            
+            .header-left {
+                gap: 16px;
+                min-width: 0;
+                flex: 1;
+                overflow: hidden;
+            }
+            
+            .navigation {
+                display: none;
+            }
+            
+            .dropdown-menu {
                 display: none;
             }
             
             .hamburger-menu {
                 display: flex;
+            }
+            
+            .header-right {
+                flex-shrink: 0;
+                gap: 8px;
+            }
+            
+            .header-center {
+                display: none;
             }
         }
 
