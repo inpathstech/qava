@@ -1,0 +1,1748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Talent</title>
+    <link rel="icon" type="image/svg+xml" href="qava-logo.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+        }
+        
+        /* NAVBAR STYLES */
+        .header-container {
+            width: 100%;
+            padding: 16px 32px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 64px;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            overflow: visible;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .header-center {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex: 1;
+            margin-left: 40px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 36px;
+            height: 36px;
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1;
+            height: 25px;
+            color: #000000;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+            gap: 4px;
+            text-decoration: none;
+            vertical-align: middle;
+            box-sizing: border-box;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .dropdown-arrow {
+            color: #000000;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover .dropdown-arrow {
+            color: #000000;
+        }
+
+        .nav-text {
+            color: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            white-space: nowrap;
+        }
+
+        /* Dropdown Menu Styles */
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 8px;
+            min-width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 10000;
+        }
+
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-item {
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: block;
+            background-color: transparent;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+            transform: translateY(-1px);
+        }
+
+        .dropdown-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 2px;
+        }
+
+        .dropdown-subtitle {
+            font-size: 13px;
+            font-weight: 300;
+            color: rgba(55, 53, 47, 0.6);
+            line-height: 1.3;
+        }
+
+        .auth-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .auth-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 400;
+            color: #000000;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .auth-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .join-button {
+            padding: 6px 12px;
+            background: #0F62FE;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            font-family: inherit;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .join-button:hover {
+            background: #0053E5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
+        }
+
+        .join-text {
+            color: white;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        /* Hamburger Menu Styles */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            padding: 6px;
+            z-index: 1001;
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+        }
+
+        .hamburger-menu:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        .hamburger-line {
+            width: 18px;
+            height: 2px;
+            background-color: #000000;
+            margin: 2px 0;
+            transition: 0.2s ease;
+            border-radius: 1px;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: white;
+            z-index: 1000;
+            flex-direction: column;
+            padding: 80px 16px 32px 16px;
+            overflow-y: auto;
+            animation: slideDown 0.2s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-nav-item {
+            padding: 16px 24px;
+            border-bottom: none;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 400;
+            color: #000000;
+            transition: color 0.2s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .mobile-nav-item:hover {
+            color: rgba(55, 53, 47, 1);
+        }
+
+        .mobile-auth-section {
+            margin-top: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-top: 32px;
+            border-top: none;
+        }
+
+        .mobile-auth-section .mobile-nav-item {
+            text-align: left;
+            font-size: 13px;
+            padding: 16px 24px;
+            border-radius: 6px;
+            border-bottom: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .mobile-auth-section .mobile-nav-item:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        .mobile-auth-section .join-button {
+            padding: 12px 16px;
+            font-size: 13px;
+            border-radius: 6px;
+            margin-top: 8px;
+            align-self: flex-start;
+        }
+
+        /* Mobile Dropdown Styles */
+        .mobile-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .mobile-dropdown-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .mobile-dropdown-arrow {
+            font-size: 13px;
+            transition: all 0.2s ease;
+            color: rgba(55, 53, 47, 0.6);
+        }
+
+        .mobile-dropdown-toggle.active .mobile-dropdown-arrow::before {
+            content: "−";
+        }
+        
+        .mobile-dropdown-toggle.active .mobile-dropdown-arrow {
+            opacity: 0;
+        }
+
+        .mobile-dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: rgba(55, 53, 47, 0.04);
+            border-radius: 6px;
+            margin: 0 16px 8px 16px;
+        }
+
+        .mobile-dropdown-content.active {
+            max-height: 200px;
+            padding: 8px 0;
+        }
+
+        .mobile-dropdown-item {
+            padding: 16px 24px;
+            border-bottom: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            background-color: transparent;
+        }
+
+        .mobile-dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        .mobile-dropdown-item .dropdown-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 2px;
+        }
+
+        .mobile-dropdown-item .dropdown-subtitle {
+            font-size: 13px;
+            font-weight: 300;
+            color: rgba(55, 53, 47, 0.6);
+            line-height: 1.3;
+        }
+
+        /* Responsive Design for Navbar */
+        @media (max-width: 1100px) {
+            .header-center {
+                display: none;
+            }
+            
+            .hamburger-menu {
+                display: flex;
+            }
+        }
+        
+        /* Main Content */
+        .talent-how-it-works-page {
+            min-height: 100vh;
+            background: white;
+        }
+        
+        .page-header {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 24px 40px;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 45px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 16px;
+            line-height: 1.1;
+            letter-spacing: 0%;
+        }
+        
+        .page-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 300;
+            color: rgba(0, 0, 0, 0.7);
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        
+        /* VALUE BADGES SECTION */
+        .value-badges-section {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px 60px;
+        }
+        
+        .value-badges-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px;
+        }
+        
+        .value-badge {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #000000;
+            padding: 6px 12px;
+            line-height: 1.4;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            background: white;
+            display: inline-block;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+        
+        .value-badge:hover {
+            background: #000000;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Benefits Grid */
+        .benefits-grid {
+            max-width: 900px;
+            margin: 0 auto 64px;
+            padding: 0 24px;
+        }
+        
+        .benefits-header {
+            text-align: center;
+            margin-top: 100px;
+            margin-bottom: 25px;
+        }
+        
+        .benefits-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+        
+        .benefits-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .benefits-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .benefit-card {
+            background: white;
+            border-radius: 8px;
+            padding: 32px;
+        }
+        
+        .benefit-card h3 {
+            font-family: 'Inter', sans-serif;
+            color: #000000;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .benefit-card p {
+            font-family: 'Inter', sans-serif;
+            color: #6B6B6B;
+            font-size: 12px;
+            font-weight: 300;
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+        
+        .benefit-search-button {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #0F62FE;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .benefit-search-button:hover {
+            color: #0053E5;
+        }
+        
+        .benefit-search-arrow {
+            display: inline-block;
+            opacity: 0;
+            transform: translateX(-8px);
+            transition: all 0.3s ease;
+            margin-left: 4px;
+        }
+        
+        .benefit-card:hover .benefit-search-arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .benefit-quote {
+            font-family: 'Inter', sans-serif;
+            color: rgba(0, 0, 0, 0.7);
+            font-size: 14px;
+            font-weight: 300;
+            font-style: italic;
+            border-left: 4px solid #002bff;
+            padding-left: 16px;
+        }
+        
+        /* Quote Card Section */
+        .quote-section {
+            max-width: 800px;
+            margin: 80px auto 0;
+            padding: 0 24px;
+            position: relative;
+        }
+        
+        .quote-section::before,
+        .quote-section::after {
+            content: '';
+            display: block;
+            width: 50%;
+            height: 1px;
+            background: #E5E7EB;
+            margin: 0 auto;
+        }
+        
+        .quote-section::before {
+            margin-bottom: 32px;
+        }
+        
+        .quote-section::after {
+            margin-top: 32px;
+        }
+        
+        .quote-card {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            background: white;
+            padding: 32px 0;
+        }
+        
+        .quote-image {
+            flex: 0 0 80px;
+        }
+        
+        .quote-image img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .quote-content {
+            flex: 1;
+        }
+        
+        .quote-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 300;
+            color: #6B6B6B;
+            line-height: 1.6;
+            margin: 0 0 8px 0;
+        }
+        
+        .quote-author {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #000000;
+            margin: 0;
+        }
+        
+        /* Step Sections */
+        .step-section {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .step-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .step-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 5px;
+        }
+        
+        .step-text {
+            flex: 0 0 auto;
+            max-width: 250px;
+        }
+        
+        .step-number {
+            margin-bottom: 12px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: white;
+            border: 1px solid #000000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            color: #000000;
+        }
+        
+        .step-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+        
+        .step-description {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            color: #6B6B6B;
+            line-height: 1.4;
+            margin-bottom: 24px;
+            font-weight: 300;
+        }
+        
+        .step-link {
+            font-family: 'Inter', sans-serif;
+            color: #0F62FE;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .step-link:hover {
+            color: #0053E5;
+        }
+        
+        .step-link-arrow {
+            display: inline-block;
+            opacity: 0;
+            transform: translateX(-8px);
+            transition: all 0.3s ease;
+            margin-left: 4px;
+        }
+        
+        .step-link:hover .step-link-arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .step-mockups {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+        }
+        
+        .desktop-mockup {
+            flex: 1;
+            max-width: 600px;
+        }
+        
+        .mobile-mockup {
+            position: absolute;
+            right: 40px;
+            top: calc(50% + 40px);
+            transform: translateY(-50%);
+            width: 160px;
+            z-index: 10;
+            border-radius: 25px;
+            background-color: white;
+        }
+        
+        .step-mockups img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mobile-mockup img {
+            border-radius: 25px;
+        }
+        
+        /* Comparison Section */
+        .comparison-section {
+            max-width: 1000px;
+            margin: 80px auto 48px;
+            padding: 0 24px;
+        }
+        
+        .comparison-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        
+        .comparison-title {
+            font-family: 'Inter', sans-serif;
+            color: #000000;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+        
+        .comparison-subtitle {
+            font-family: 'Inter', sans-serif;
+            color: #666;
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 48px;
+        }
+        
+        .comparison-card {
+            background: white;
+            border-radius: 8px;
+            padding: 40px;
+            border: 1px solid #E5E7EB;
+        }
+        
+        .comparison-card h3 {
+            font-family: 'Inter', sans-serif;
+            color: #000000;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+        
+        .comparison-list {
+            list-style: none;
+        }
+        
+        .comparison-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .comparison-list .check {
+            color: #002bff;
+            font-size: 18px;
+            font-weight: 300;
+        }
+        
+        .comparison-list .cross {
+            color: #EF4444;
+            font-size: 18px;
+            font-weight: 300;
+        }
+        
+        .comparison-list span {
+            font-family: 'Inter', sans-serif;
+            color: #666666;
+            font-weight: 300;
+            font-size: 16px;
+        }
+        
+        /* Tailwind-like utility classes for comparison symbols */
+        .text-red-500 {
+            color: #EF4444;
+        }
+        
+        .text-blue-500 {
+            color: #002bff;
+        }
+        
+        .text-lg {
+            font-size: 18px;
+        }
+        
+        .font-light {
+            font-weight: 300;
+        }
+        
+        .flex-shrink-0 {
+            flex-shrink: 0;
+        }
+        
+        /* Footer */
+        .footer-section {
+            background: white;
+            width: 100%;
+            max-width: 1070px;
+            margin: 0 auto;
+            padding: 78px 0 46px 0;
+            margin-top: 120px;
+            border-top: 1px solid #EBEBEB;
+        }
+        
+        .footer-container {
+            max-width: 940px;
+            margin: 0 auto;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .footer-logo {
+            width: 39%;
+            padding: 2px 15px 0 0;
+            margin-bottom: 30px;
+        }
+        
+        .footer-logo-img {
+            width: 40px;
+            height: auto;
+        }
+        
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            width: 60%;
+            gap: 25px;
+            padding: 0 15px 0 10px;
+        }
+        
+        .footer-column h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 17px;
+            color: #000000;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .footer-link-list {
+            list-style: none;
+        }
+        
+        .footer-link-list li {
+            margin-bottom: 6px;
+        }
+        
+        .footer-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+            text-decoration: none;
+            line-height: 1.2;
+            transition: text-decoration 0.2s ease;
+        }
+        
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer-link.coming-soon {
+            cursor: default;
+            position: relative;
+        }
+
+        .footer-link.coming-soon:hover {
+            text-decoration: none;
+        }
+
+        .footer-link.coming-soon:hover::after {
+            content: "Coming Soon";
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            background: #333;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            white-space: nowrap;
+            z-index: 1000;
+        }
+        
+        .footer-copyright {
+            grid-column: 1 / -1;
+            margin-top: 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: #797979;
+            font-weight: 300;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 16px 16px;
+            }
+            
+            .navigation {
+                display: none;
+            }
+            
+            .page-title {
+                font-size: 32px;
+                line-height: 1.1;
+            }
+            
+            .page-subtitle {
+                font-size: 18px;
+                margin-bottom: 48px;
+            }
+            
+            .page-header {
+                padding: 60px 16px 32px;
+            }
+            
+            .value-badges-section {
+                padding: 0 16px 48px;
+            }
+            
+            .value-badge {
+                font-size: 12px;
+                padding: 5px 10px;
+            }
+            
+            .benefits-grid {
+                padding: 0 16px;
+                margin-bottom: 48px;
+            }
+            
+            .benefits-title {
+                font-size: 28px;
+            }
+            
+            .benefits-subtitle {
+                font-size: 13px;
+            }
+            
+            .benefits-container {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .benefit-card {
+                padding: 24px;
+            }
+            
+            .benefit-card h3 {
+                font-size: 18px;
+            }
+            
+            .benefit-card p {
+                font-size: 15px;
+            }
+            
+            .quote-section {
+                padding: 0 16px;
+                margin: 60px auto 0;
+            }
+            
+            .quote-card {
+                padding: 24px;
+                gap: 20px;
+            }
+            
+            .quote-image {
+                flex: 0 0 60px;
+            }
+            
+            .quote-image img {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .quote-text {
+                font-size: 16px;
+            }
+            
+            .quote-author {
+                font-size: 13px;
+            }
+            
+            .step-section {
+                padding: 40px 0;
+            }
+            
+            .step-container {
+                padding: 0 16px;
+            }
+            
+            .step-content {
+                flex-direction: column;
+                gap: 32px;
+            }
+            
+            .step-text {
+                max-width: 100%;
+                text-align: center;
+            }
+            
+            .step-title {
+                font-size: 14px;
+            }
+            
+            .step-description {
+                font-size: 11px;
+            }
+            
+            .step-mockups {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .desktop-mockup {
+                max-width: 100%;
+            }
+            
+            .mobile-mockup {
+                position: static;
+                transform: none;
+                width: 120px;
+                margin: 0 auto;
+            }
+            
+            .comparison-section {
+                padding: 0 16px;
+                margin: 60px auto 32px;
+            }
+            
+            .comparison-title {
+                font-size: 28px;
+            }
+            
+            .comparison-subtitle {
+                font-size: 13px;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            
+            .comparison-card {
+                padding: 24px;
+            }
+            
+            .comparison-card h3 {
+                font-size: 20px;
+            }
+            
+            .footer-links {
+                grid-template-columns: 1fr;
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header-container {
+                padding: 12px 12px;
+            }
+            
+            .page-title {
+                font-size: 28px;
+            }
+            
+            .page-subtitle {
+                font-size: 16px;
+            }
+            
+            .page-header {
+                padding: 50px 12px 24px;
+            }
+            
+            .value-badges-section {
+                padding: 0 12px 40px;
+            }
+            
+            .value-badge {
+                font-size: 11px;
+                padding: 4px 8px;
+            }
+            
+            .benefits-grid {
+                padding: 0 12px;
+            }
+            
+            .benefits-title {
+                font-size: 24px;
+            }
+            
+            .benefits-subtitle {
+                font-size: 12px;
+            }
+            
+            .benefit-card {
+                padding: 20px;
+            }
+            
+            .quote-section {
+                padding: 0 12px;
+                margin: 50px auto 0;
+            }
+            
+            .quote-card {
+                padding: 20px;
+                gap: 16px;
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .quote-image {
+                flex: 0 0 auto;
+            }
+            
+            .quote-image img {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .quote-text {
+                font-size: 14px;
+            }
+            
+            .quote-author {
+                font-size: 12px;
+            }
+            
+            .step-container {
+                padding: 0 12px;
+            }
+            
+            .step-title {
+                font-size: 12px;
+            }
+            
+            .step-description {
+                font-size: 10px;
+            }
+            
+            .comparison-section {
+                padding: 0 12px;
+            }
+            
+            .comparison-title {
+                font-size: 24px;
+            }
+            
+            .comparison-subtitle {
+                font-size: 12px;
+            }
+            
+            .comparison-card {
+                padding: 20px;
+            }
+            
+            .footer-section {
+                padding: 60px 0 32px;
+            }
+            
+            .footer-container {
+                padding: 0 12px;
+            }
+        }
+
+        /* Disabled footer links with hover effects */
+        .footer-link.disabled-link {
+            cursor: not-allowed;
+            opacity: 0.6;
+            position: relative;
+        }
+
+        .footer-link.disabled-link:hover {
+            text-decoration: none;
+            opacity: 0.8;
+            color: #999999;
+        }
+
+        .footer-link.disabled-link:hover::before {
+            content: "Coming Soon";
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000000;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+            white-space: nowrap;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="header-container">
+        <!-- Logo on the left -->
+        <div class="header-logo">
+            <div class="logo-container">
+                <div class="logo">
+                    <a href="https://qava.ai">
+                        <img src="qava-logo.svg" alt="Qava Logo">
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation in the center -->
+        <div class="header-center">
+            <div class="navigation">
+                <a href="https://app.qava.ai/" class="nav-item create-listing">
+                    <div class="nav-text">Create Listing</div>
+                </a>
+                <a href="https://app.qava.ai/projects" class="nav-item search-listings">
+                    <div class="nav-text">Search Listings</div>
+                </a>
+                <div class="nav-item how-it-works has-dropdown">
+                    <div class="nav-text">How It Works</div>
+                    <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M6 3v6M3 6h6" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <div class="dropdown-menu">
+                        <a href="https://qava.ai/clienthowitworks" class="dropdown-item">
+                            <div class="dropdown-title">For Clients 🚀</div>
+                            <div class="dropdown-subtitle">Hiring for current or future work</div>
+                        </a>
+                        <a href="talenthowitworks" class="dropdown-item">
+                            <div class="dropdown-title">For Talent 👩‍💻</div>
+                            <div class="dropdown-subtitle">Interested in current or future work</div>
+                        </a>
+                    </div>
+                </div>
+                <a href="https://qava.ai/whyqava" class="nav-item why-qava">
+                    <div class="nav-text">Why Qava</div>
+                </a>
+                <a href="https://qava.ai/pricing" class="nav-item pricing">
+                    <div class="nav-text">Pricing</div>
+                </a>
+                <a href="https://qava.ai/about" class="nav-item about">
+                    <div class="nav-text">About</div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Auth section on the right -->
+        <div class="header-right">
+            <div class="auth-section">
+                <a href="https://qava.ai/demo" class="auth-item">
+                    <div class="nav-text">Request a demo</div>
+                </a>
+                <a href="https://app.qava.ai/" class="auth-item">
+                    <div class="nav-text">Log in</div>
+                </a>
+                <a href="https://app.qava.ai/" class="join-button">
+                    <div class="join-text">Join for free</div>
+                </a>
+            </div>
+            
+            <!-- Hamburger Menu Button -->
+            <div class="hamburger-menu" onclick="toggleMobileMenu()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
+        <a href="https://app.qava.ai/" class="mobile-nav-item">
+            <div class="nav-text">Create Listing</div>
+        </a>
+        <a href="https://app.qava.ai/" class="mobile-nav-item">
+            <div class="nav-text">Search Listings</div>
+        </a>
+        <div class="mobile-nav-item mobile-dropdown-toggle" onclick="toggleMobileDropdown()">
+            <div class="mobile-dropdown-header">
+                <div class="nav-text">How It Works</div>
+                <span class="mobile-dropdown-arrow">+</span>
+            </div>
+        </div>
+        <div class="mobile-dropdown-content" id="mobileDropdown">
+            <a href="https://qava.ai/clienthowitworks" class="mobile-dropdown-item">
+                <div class="dropdown-title">For Clients 🚀</div>
+                <div class="dropdown-subtitle">Hiring for current or future work</div>
+            </a>
+            <a href="talenthowitworks" class="mobile-dropdown-item">
+                <div class="dropdown-title">For Talent 👩‍💻</div>
+                <div class="dropdown-subtitle">Interested in current or future work</div>
+            </a>
+        </div>
+        <a href="https://qava.ai/whyqava" class="mobile-nav-item">
+            <div class="nav-text">Why Qava</div>
+        </a>
+        <a href="https://qava.ai/pricing" class="mobile-nav-item">
+            <div class="nav-text">Pricing</div>
+        </a>
+        <div class="mobile-auth-section">
+            <a href="https://qava.ai/demo" class="mobile-nav-item">Request a demo</a>
+            <a href="https://app.qava.ai/" class="mobile-nav-item">Log in</a>
+            <a href="https://app.qava.ai/" class="join-button">
+                <div class="join-text">Join for free</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="talent-how-it-works-page">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">Your career, your way</h1>
+            <p class="page-subtitle">Helping talent grow, earn, and achieve is at the center of our mission.</p>
+        </div>
+
+        <!-- Value Badges Section -->
+        <div class="value-badges-section">
+            <div class="value-badges-container">
+                <span class="value-badge">Real-World Impact 🌍</span>
+                <span class="value-badge">Career Momentum 🚀</span>
+                <span class="value-badge">Founder Access 🤝</span>
+                <span class="value-badge">Learn Fearlessly 💡</span>
+                <span class="value-badge">Hands-On Growth 🌱</span>
+                <span class="value-badge">Meaningful Work ❤️</span>
+                <span class="value-badge">Global Network 🌐</span>
+                <span class="value-badge">Proven Experience ⭐</span>
+                <span class="value-badge">Purpose in Action 🎯</span>
+                <span class="value-badge">Learn by Doing 🛠️</span>
+                <span class="value-badge">Future-Ready Skills 🔮</span>
+                <span class="value-badge">Build What Lasts 🏗️</span>
+                <span class="value-badge">Create Your Path 🗺️</span>
+                <span class="value-badge">Lead with Heart 💚</span>
+                <span class="value-badge">Turn Ambition into Action ⚡</span>
+                <span class="value-badge">Connect Through Impact 🔗</span>
+                <span class="value-badge">Evolve Every Day 🦋</span>
+                <span class="value-badge">Do Work You Love 🎨</span>
+            </div>
+        </div>
+
+        <!-- Benefits Grid -->
+        <div class="benefits-grid">
+            <div class="benefits-header">
+                <h2 class="benefits-title">Find work that moves you</h2>
+                <p class="benefits-subtitle">Whether you're climbing, launching, learning, or giving back</p>
+            </div>
+            <div class="benefits-container">
+                <!-- Benefit Card 1 -->
+                <div class="benefit-card">
+                    <img src="Matterhorn.png" alt="Corporate Professionals" style="width: 100%; height: 240px; object-fit: cover; object-position: top; border-radius: 6px; margin-bottom: 20px;">
+                    <h3>Corporate Professionals 💼</h3>
+                    <p style="font-weight: 400; margin-bottom: 12px; background: #f0fff1; color: #009b5f; padding: 4px 8px; border-radius: 4px; display: inline-block;">Broaden your perspective.</p>
+                    <p>Step into startup and non-profit projects to stretch your strategic thinking and leadership. Return to your role sharper, faster, and more adaptable.</p>
+                    <a href="https://app.qava.ai/" class="benefit-search-button">Search<span class="benefit-search-arrow">→</span></a>
+                </div>
+
+                <!-- Benefit Card 2 -->
+                <div class="benefit-card">
+                    <img src="Walk.png" alt="Entrepreneurs" style="width: 100%; height: 240px; object-fit: cover; object-position: top; border-radius: 6px; margin-bottom: 20px;">
+                    <h3>Entrepreneurs 🚀</h3>
+                    <p style="font-weight: 400; margin-bottom: 12px; background: #f0fff1; color: #009b5f; padding: 4px 8px; border-radius: 4px; display: inline-block;">Learn from other founders.</p>
+                    <p>Work inside different ventures to see how others go to market, attract investors, and grow — insights that accelerate your own journey.</p>
+                    <a href="https://app.qava.ai/" class="benefit-search-button">Search<span class="benefit-search-arrow">→</span></a>
+                </div>
+
+                <!-- Benefit Card 3 -->
+                <div class="benefit-card">
+                    <img src="Dolphin Jump.png" alt="Independent Talent & Students" style="width: 100%; height: 240px; object-fit: cover; object-position: top; border-radius: 6px; margin-bottom: 20px;">
+                    <h3>Independent Talent & Students 🌎</h3>
+                    <p style="font-weight: 400; margin-bottom: 12px; background: #f0fff1; color: #009b5f; padding: 4px 8px; border-radius: 4px; display: inline-block;">Turn theory into traction.</p>
+                    <p>Apply your knowledge to real projects that deliver results. Build credibility, discover industries, and connect with global mentors.</p>
+                    <a href="https://app.qava.ai/" class="benefit-search-button">Search<span class="benefit-search-arrow">→</span></a>
+                </div>
+
+                <!-- Benefit Card 4 -->
+                <div class="benefit-card">
+                    <img src="Fireflies.png" alt="Community & Mission Builders" style="width: 100%; height: 240px; object-fit: cover; object-position: top; border-radius: 6px; margin-bottom: 20px;">
+                    <h3>Community & Mission Builders ❤️</h3>
+                    <p style="font-weight: 400; margin-bottom: 12px; background: #f0fff1; color: #009b5f; padding: 4px 8px; border-radius: 4px; display: inline-block;">Work with purpose.</p>
+                    <p>Join initiatives that create real-world impact — from sustainability to social innovation — alongside people driven by the same mission.</p>
+                    <a href="https://app.qava.ai/" class="benefit-search-button">Search<span class="benefit-search-arrow">→</span></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Warren Buffett Quote Section -->
+        <div class="quote-section">
+            <div class="quote-card">
+                <div class="quote-image">
+                    <img src="Warren Buffet.png" alt="Warren Buffett">
+                </div>
+                <div class="quote-content">
+                    <p class="quote-text">"The best education you can get is investing in <span style="color: #0F62FE;">real-world experiences</span>. That's the kind of learning that stays with you."</p>
+                    <p class="quote-author">— Warren Buffett</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 1 Section -->
+        <div class="step-section">
+            <div class="step-container">
+                <div style="text-align: center; margin-bottom: 48px;">
+                    <h2 style="font-family: 'Inter', sans-serif; font-size: 32px; font-weight: 700; color: #000000; margin-bottom: 12px; line-height: 1.2;">Simple = smart</h2>
+                    <p style="color: #666; font-size: 14px; font-weight: 300; font-family: 'Inter', sans-serif; margin: 0; line-height: 1.5;">Our simple 4-step process to get you started — fast.</p>
+                </div>
+                <div class="step-content">
+                    <div class="step-text">
+                        <div class="step-number">1</div>
+                        <h2 class="step-title">Search listings</h2>
+                        <p class="step-description">Find startups, growth companies, enterprises, and minority-led organizations.</p>
+                        <a href="https://app.qava.ai/projects" class="step-link">Explore<span class="step-link-arrow">→</span></a>
+                    </div>
+                    <div class="step-mockups">
+                        <div class="desktop-mockup">
+                            <img src="How it works/Search Listings Talent Page.svg" alt="Desktop Search Listings">
+                        </div>
+                        <div class="mobile-mockup">
+                            <img src="How it works/Search Listings Talent Page MObile.svg" alt="Mobile Search Listings">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2 Section -->
+        <div class="step-section">
+            <div class="step-container">
+                <div class="step-content">
+                    <div class="step-text">
+                        <div class="step-number">2</div>
+                        <h2 class="step-title">Submit your application</h2>
+                        <p class="step-description">Submit your application with confidence in 2-3 minutes.</p>
+                        <a href="https://app.qava.ai/projects" class="step-link">Explore<span class="step-link-arrow">→</span></a>
+                    </div>
+                    <div class="step-mockups">
+                        <div class="desktop-mockup">
+                            <img src="How it works/Talent Application Desktop.svg" alt="Desktop Talent Application">
+                        </div>
+                        <div class="mobile-mockup">
+                            <img src="How it works/Submission confirmed phone.svg" alt="Submission Confirmed">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3 Section -->
+        <div class="step-section">
+            <div class="step-container">
+                <div class="step-content">
+                    <div class="step-text">
+                        <div class="step-number">3</div>
+                        <h2 class="step-title">Wait for a response</h2>
+                        <p class="step-description">No one likes waiting. Get a response in as little as 24 hours.</p>
+                        <a href="https://app.qava.ai/projects" class="step-link">Explore<span class="step-link-arrow">→</span></a>
+                    </div>
+                    <div class="step-mockups">
+                        <div class="desktop-mockup">
+                            <img src="How it works/Congrats.svg" alt="Desktop Review Applicants">
+                        </div>
+                        <div class="mobile-mockup">
+                            <img src="How it works/Congrats iphone.png" alt="Mobile Review Applicants">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4 Section -->
+        <div class="step-section">
+            <div class="step-container">
+                <div class="step-content">
+                    <div class="step-text">
+                        <div class="step-number">4</div>
+                        <h2 class="step-title">Get real feedback</h2>
+                        <p class="step-description">Don't wait for annual performance reviews. Level up with real, timely feedback.</p>
+                        <a href="https://app.qava.ai/projects" class="step-link">Explore<span class="step-link-arrow">→</span></a>
+                    </div>
+                    <div class="step-mockups">
+                        <div class="desktop-mockup">
+                            <img src="How it works/Feedback Form Desktop.svg" alt="Desktop Select Applicant">
+                        </div>
+                        <div class="mobile-mockup">
+                            <img src="How it works/iPhone Feedback quote.svg" alt="Mobile Select Applicant">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How we're different Section -->
+        <div class="comparison-section">
+            <div class="comparison-header">
+                <h2 class="comparison-title">How we're different</h2>
+                <p class="comparison-subtitle">Side-by-side comparison of Qava vs traditional platforms</p>
+            </div>
+            
+            <div class="comparison-grid">
+                <!-- Traditional platforms -->
+                <div class="comparison-card">
+                    <h3>Traditional platforms</h3>
+                                     <ul class="comparison-list">
+                     <li><span class="cross text-red-500 text-lg font-light flex-shrink-0"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 3L15 15M15 3L3 15" stroke="#EF4444" stroke-width="1" stroke-linecap="round"/></svg></span><span>Overcrowded with too many freelancers</span></li>
+                     <li><span class="cross text-red-500 text-lg font-light flex-shrink-0"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 3L15 15M15 3L3 15" stroke="#EF4444" stroke-width="1" stroke-linecap="round"/></svg></span><span>Race to the bottom on pricing</span></li>
+                     <li><span class="cross text-red-500 text-lg font-light flex-shrink-0"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 3L15 15M15 3L3 15" stroke="#EF4444" stroke-width="1" stroke-linecap="round"/></svg></span><span>Hard to stand out without paying extra</span></li>
+                     <li><span class="cross text-red-500 text-lg font-light flex-shrink-0"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 3L15 15M15 3L3 15" stroke="#EF4444" stroke-width="1" stroke-linecap="round"/></svg></span><span>Limited recognition of true expertise</span></li>
+                     <li><span class="cross text-red-500 text-lg font-light flex-shrink-0"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 3L15 15M15 3L3 15" stroke="#EF4444" stroke-width="1" stroke-linecap="round"/></svg></span><span>Little to no screening or curation</span></li>
+                     <li><span class="cross text-red-500 text-lg font-light flex-shrink-0"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 3L15 15M15 3L3 15" stroke="#EF4444" stroke-width="1" stroke-linecap="round"/></svg></span><span>Short-term, transactional focus</span></li>
+                     <li><span class="cross text-red-500 text-lg font-light flex-shrink-0"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 3L15 15M15 3L3 15" stroke="#EF4444" stroke-width="1" stroke-linecap="round"/></svg></span><span>Incentivizes quick, shallow work</span></li>
+                     <li><span class="cross text-red-500 text-lg font-light flex-shrink-0"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 3L15 15M15 3L3 15" stroke="#EF4444" stroke-width="1" stroke-linecap="round"/></svg></span><span>No strong links to trusted institutions</span></li>
+                 </ul>
+                </div>
+
+                <!-- Qava -->
+                <div class="comparison-card">
+                    <h3>Qava</h3>
+                                     <ul class="comparison-list">
+                                             <li><span class="check text-blue-500 text-lg font-light flex-shrink-0"><img src="Yes tick-1.svg" alt="✓" width="18" height="18"></span><span>Top-tier MBA & experienced talent</span></li>
+                        <li><span class="check text-blue-500 text-lg font-light flex-shrink-0"><img src="Yes tick-1.svg" alt="✓" width="18" height="18"></span><span>Curated, holistic matching process</span></li>
+                        <li><span class="check text-blue-500 text-lg font-light flex-shrink-0"><img src="Yes tick-1.svg" alt="✓" width="18" height="18"></span><span>Connected to top universities</span></li>
+                        <li><span class="check text-blue-500 text-lg font-light flex-shrink-0"><img src="Yes tick-1.svg" alt="✓" width="18" height="18"></span><span>More likely to get noticed for quality work</span></li>
+                        <li><span class="check text-blue-500 text-lg font-light flex-shrink-0"><img src="Yes tick-1.svg" alt="✓" width="18" height="18"></span><span>Broader range of meaningful opportunities</span></li>
+                        <li><span class="check text-blue-500 text-lg font-light flex-shrink-0"><img src="Yes tick-1.svg" alt="✓" width="18" height="18"></span><span>Designed for ongoing, repeat engagement</span></li>
+                        <li><span class="check text-blue-500 text-lg font-light flex-shrink-0"><img src="Yes tick-1.svg" alt="✓" width="18" height="18"></span><span>Fair model that rewards quality outcomes</span></li>
+                        <li><span class="check text-blue-500 text-lg font-light flex-shrink-0"><img src="Yes tick-1.svg" alt="✓" width="18" height="18"></span><span>Built for deep, strategic collaboration</span></li>
+                 </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-section">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="https://qava.ai/">
+                        <img src="qava-logo.svg" alt="Qava" class="footer-logo-img">
+                    </a>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Welcome</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://app.qava.ai/" class="footer-link">Create Listing</a></li>
+                            <li><a href="https://app.qava.ai/projects" class="footer-link">Search Listings</a></li>
+                            <li><a href="https://qava.ai/clienthowitworks" class="footer-link">How It Works for Clients</a></li>
+                            <li><a href="https://qava.ai/talenthowitworks" class="footer-link">How It Works for Talent</a></li>
+                            <li><a href="https://qava.ai/whyqava" class="footer-link">Why Qava</a></li>
+                            <li><span class="footer-link disabled-link">What's New</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Get Started</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://qava.ai/request-demo" class="footer-link">Request a Demo</a></li>
+                            <li><a href="https://app.qava.ai/" class="footer-link">Sign Up</a></li>
+                            <li><a href="https://app.qava.ai/" class="footer-link">Log In</a></li>
+                            <li><span class="footer-link disabled-link">AI Prompts</span></li>
+                            <li><span class="footer-link disabled-link">Project Templates</span></li>
+                            <li><span class="footer-link disabled-link">Application Tips</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Resources</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://qava.ai/pricing" class="footer-link">Pricing</a></li>
+                            <li><a href="https://qava.ai/about" class="footer-link">About Us</a></li>
+                            <li><span class="footer-link disabled-link">Careers</span></li>
+                            <li><span class="footer-link disabled-link">Media Kit</span></li>
+                            <li><span class="footer-link disabled-link">Contact Us</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Learn</h4>
+                        <ul class="footer-link-list">
+                            <li><span class="footer-link disabled-link">Success Stories</span></li>
+                            <li><span class="footer-link disabled-link">Help Center</span></li>
+                            <li><span class="footer-link disabled-link">Webinars</span></li>
+                            <li><span class="footer-link disabled-link">Blog</span></li>
+                            <li><span class="footer-link disabled-link">Community</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Legal</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="terms" class="footer-link">Terms & Privacy</a></li>
+                            <li><a href="terms" class="footer-link">California Privacy Notice</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-copyright">
+                        © 2025 qava
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+            
+            // Prevent body scroll when mobile menu is open
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function toggleMobileDropdown() {
+            const dropdown = document.getElementById('mobileDropdown');
+            const toggle = document.querySelector('.mobile-dropdown-toggle');
+            
+            dropdown.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+            
+            if (mobileMenu.classList.contains('active') && 
+                !mobileMenu.contains(event.target) && 
+                !hamburgerMenu.contains(event.target)) {
+                toggleMobileMenu();
+            }
+        });
+
+        // Prevent scroll on mobile when menu is open
+        document.addEventListener('touchmove', function(e) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu.classList.contains('active')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Handle responsive behavior
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 1100) {
+                const mobileMenu = document.getElementById('mobileMenu');
+                if (mobileMenu.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            }
+        });
+    </script>
+
+    <script>
+    (() => {
+        // Get current page from URL (works for both qava.ai and local paths)
+        const currentPath = window.location.pathname;
+        const hostname = window.location.hostname;
+        
+        // Map pages to nav items
+        if (currentPath.includes('/pricing') || currentPath === '/pricing.html') {
+            document.querySelector('.nav-item.pricing')?.classList.add('active');
+        } else if (currentPath.includes('/whyqava')) {
+            document.querySelector('.nav-item.why-qava')?.classList.add('active');
+        } else if (currentPath.includes('/about')) {
+            document.querySelector('.nav-item.about')?.classList.add('active');
+        } else if (currentPath.includes('/clienthowitworks') || currentPath.includes('/talenthowitworks')) {
+            document.querySelector('.nav-item.how-it-works')?.classList.add('active');
+        }
+        // Note: Homepage (index.html) doesn't have a nav item to highlight
+    })();
+    </script>
+</body>
+</html>
+

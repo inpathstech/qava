@@ -61,3 +61,17 @@ print(f"   - Internships: Included in the {old_count} count above")
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

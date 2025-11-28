@@ -79,3 +79,17 @@ print("\n✅ All Jobs and Internships images updated to use Project Type Images 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

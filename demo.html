@@ -826,7 +826,7 @@
             }
             
             .navigation {
-                gap: 24px;
+                gap: 28px;
             }
             
             .demo-request-container {
@@ -843,7 +843,7 @@
             }
             
             .navigation {
-                gap: 20px;
+                gap: 24px;
             }
             
             .nav-item {
@@ -866,21 +866,32 @@
             }
         }
 
-        /* Tablet Landscape (1024px and below) */
-        @media (max-width: 1024px) {
+        @media (max-width: 1200px) {
             .header-container {
-                padding: 14px 20px;
+                padding: 12px 20px;
             }
             
-            .navigation {
+            .header-left {
                 gap: 16px;
             }
             
-            .nav-item {
-                padding: 6px 6px;
-                font-size: 12px;
+            .navigation {
+                gap: 6px;
             }
+            
+            .nav-item {
+                padding: 4px 6px;
+                font-size: 13px;
+            }
+            
+            .auth-item {
+                padding: 6px 8px;
+                font-size: 13px;
+            }
+        }
 
+        /* Tablet Landscape (1024px and below) */
+        @media (max-width: 1024px) {
             .demo-request-container {
                 gap: 60px;
                 padding-top: 100px;
@@ -919,10 +930,16 @@
             }
         }
 
-        /* Tablet Portrait (768px and below) */
-        @media (max-width: 768px) {
+        @media (max-width: 1100px) {
             .header-container {
-                padding: 12px 16px;
+                padding: 12px 20px;
+            }
+            
+            .header-left {
+                gap: 16px;
+                min-width: 0;
+                flex: 1;
+                overflow: hidden;
             }
             
             .navigation {
@@ -935,6 +952,18 @@
             
             .hamburger-menu {
                 display: flex;
+            }
+            
+            .header-right {
+                flex-shrink: 0;
+                gap: 8px;
+            }
+        }
+
+        /* Tablet Portrait (768px and below) */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 12px 16px;
             }
             
             .header-right {

@@ -62,3 +62,17 @@ print("\nSuccessfully updated all job and internship images!")
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
