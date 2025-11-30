@@ -1348,7 +1348,7 @@
                             PRODUCT READY
                         </div>
                         <div style="position: absolute; right: 0; top: 0;">
-                            <button onclick="toggleAllSections()" id="toggleAllBtn" style="background: transparent; border: 1px solid #111111; color: #111111; padding: 8px 16px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: 500; transition: all 0.2s;">
+                            <button onclick="toggleAllSections()" id="toggleAllBtn" style="background: transparent; border: none; color: #111111; padding: 8px 16px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: 500; transition: all 0.2s;">
                                 Expand All
                             </button>
                         </div>
@@ -1536,12 +1536,11 @@
                 function toggleAllSections() {
                     const btn = document.getElementById('toggleAllBtn');
                     const allContents = document.querySelectorAll('.collapsible-content');
-                    const allArrows = document.querySelectorAll('.collapsible-content').length;
                     
-                    // Check if any are closed
+                    // Check if any are closed (display: none or empty)
                     let anyClosed = false;
                     allContents.forEach(content => {
-                        if (content.style.display === 'none') {
+                        if (content.style.display === 'none' || content.style.display === '') {
                             anyClosed = true;
                         }
                     });
