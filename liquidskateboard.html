@@ -1341,11 +1341,16 @@
                 <p class="qa-answer">Scaling up meant shifting from hands-on craftsmanship to a system built around suppliers, manufacturing partners, logistics networks, and retail channels. It's a completely different capability: standardizing parts, formalizing processes, qualifying vendors, planning inventory, coordinating freight, meeting certifications, and building partnerships that can support growth without compromising the feel of the board.</p>
                 
                 <!-- Production Flow Diagram -->
-                <div style="background: #fafafa; border: 1px solid #e0e0e0; border-radius: 12px; padding: 32px 24px; margin: 32px -120px; max-width: none;">
-                    <!-- Product Ready -->
-                    <div style="text-align: center; margin-bottom: 24px;">
+                <div style="background: #fafafa; border: 1px solid #e0e0e0; border-radius: 12px; padding: 32px 24px; margin: 32px -150px; max-width: none;">
+                    <!-- Product Ready & Toggle -->
+                    <div style="text-align: center; margin-bottom: 24px; position: relative;">
                         <div style="background: #111111; color: white; display: inline-block; padding: 12px 32px; border-radius: 8px; font-weight: 600; font-size: 14px; letter-spacing: 0.05em;">
                             PRODUCT READY
+                        </div>
+                        <div style="position: absolute; right: 0; top: 0;">
+                            <button onclick="toggleAllSections()" id="toggleAllBtn" style="background: transparent; border: 1px solid #111111; color: #111111; padding: 8px 16px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: 500; transition: all 0.2s;">
+                                Expand All
+                            </button>
                         </div>
                         <div style="margin: 12px auto; width: 2px; height: 20px; background: #111111;"></div>
                     </div>
@@ -1354,13 +1359,13 @@
                     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; min-width: 0;">
                         
                         <!-- Manufacturing Partners -->
-                        <div style="background: white; border: 2px solid #d0d0d0; border-radius: 8px; padding: 20px;">
+                        <div style="background: white; border: 2px solid #e0e0e0; border-radius: 8px; padding: 20px;">
                             <h3 style="font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; color: #111111; text-align: center;">Manufacturing Partners</h3>
                             
                             <div style="margin-bottom: 4px;">
                                 <div onclick="toggleSection(this)" style="font-weight: 500; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 6px 0;">
                                     <span style="font-size: 10px;">▶</span>
-                                    <span>Component Suppliers</span>
+                                    <span>Component Suppliers 📦</span>
                                 </div>
                                 <div class="collapsible-content" style="margin-left: 20px; font-size: 12px; line-height: 1.6; color: #555; margin-top: 6px; display: none;">
                                     – SKU Library & Technical Specs<br>
@@ -1373,141 +1378,141 @@
                             <div style="margin-bottom: 4px;">
                                 <div onclick="toggleSection(this)" style="font-weight: 500; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 6px 0;">
                                     <span style="font-size: 10px;">▶</span>
-                                    <span>Assembly partners</span>
+                                    <span>Assembly Partners 🏭</span>
                                 </div>
                                 <div class="collapsible-content" style="margin-left: 20px; font-size: 12px; line-height: 1.6; color: #555; margin-top: 6px; display: none;">
-                                    – Production line design<br>
+                                    – Production Line Design<br>
                                     – Standard Operating Procedures (SOPs)<br>
-                                    – Assembly jigs, tooling, fixtures
+                                    – Assembly Jigs, Tooling, Fixtures
                                 </div>
                             </div>
                             
                             <div style="margin-bottom: 4px;">
                                 <div onclick="toggleSection(this)" style="font-weight: 500; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 6px 0;">
                                     <span style="font-size: 10px;">▶</span>
-                                    <span>Quality control & testing</span>
+                                    <span>Quality Control & Testing ✅</span>
                                 </div>
                                 <div class="collapsible-content" style="margin-left: 20px; font-size: 12px; line-height: 1.6; color: #555; margin-top: 6px; display: none;">
-                                    – Functional testing protocols<br>
-                                    – Ride testing batches<br>
-                                    – Incoming inspection standards (IQC/AQL)<br>
-                                    – End-of-line checks
+                                    – Functional Testing Protocols<br>
+                                    – Ride Testing Batches<br>
+                                    – Incoming Inspection Standards (IQC/AQL)<br>
+                                    – End-of-Line Checks
                                 </div>
                             </div>
                             
                             <div>
                                 <div onclick="toggleSection(this)" style="font-weight: 500; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 6px 0;">
                                     <span style="font-size: 10px;">▶</span>
-                                    <span>Production forecasting & planning</span>
+                                    <span>Production Forecasting & Planning 📊</span>
                                 </div>
                                 <div class="collapsible-content" style="margin-left: 20px; font-size: 12px; line-height: 1.6; color: #555; margin-top: 6px; display: none;">
-                                    – Demand projections<br>
-                                    – Safety stock & buffer strategy<br>
-                                    – Supplier capacity planning
+                                    – Demand Projections<br>
+                                    – Safety Stock & Buffer Strategy<br>
+                                    – Supplier Capacity Planning
                                 </div>
                             </div>
                         </div>
                         
                         <!-- Distribution Partners -->
-                        <div style="background: white; border: 2px solid #d0d0d0; border-radius: 8px; padding: 20px;">
+                        <div style="background: white; border: 2px solid #e0e0e0; border-radius: 8px; padding: 20px;">
                             <h3 style="font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; color: #111111; text-align: center;">Distribution Partners</h3>
                             
                             <div style="margin-bottom: 4px;">
                                 <div onclick="toggleSection(this)" style="font-weight: 500; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 6px 0;">
                                     <span style="font-size: 10px;">▶</span>
-                                    <span>Freight & logistics</span>
+                                    <span>Freight & Logistics 🚚</span>
                                 </div>
                                 <div class="collapsible-content" style="margin-left: 20px; font-size: 12px; line-height: 1.6; color: #555; margin-top: 6px; display: none;">
-                                    – Sea/air shipment planning<br>
-                                    – Packaging standards<br>
-                                    – Battery (UN 38.3) shipping compliance
+                                    – Sea/Air Shipment Planning<br>
+                                    – Packaging Standards<br>
+                                    – Battery (UN 38.3) Shipping Compliance
                                 </div>
                             </div>
                             
                             <div style="margin-bottom: 4px;">
                                 <div onclick="toggleSection(this)" style="font-weight: 500; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 6px 0;">
                                     <span style="font-size: 10px;">▶</span>
-                                    <span>Warehousing & fulfillment</span>
+                                    <span>Warehousing & Fulfillment 🏢</span>
                                 </div>
                                 <div class="collapsible-content" style="margin-left: 20px; font-size: 12px; line-height: 1.6; color: #555; margin-top: 6px; display: none;">
-                                    – Regional hubs (EU, US, APAC)<br>
-                                    – Inventory management systems<br>
-                                    – Order routing logic
+                                    – Regional Hubs (EU, US, APAC)<br>
+                                    – Inventory Management Systems<br>
+                                    – Order Routing Logic
                                 </div>
                             </div>
                             
                             <div style="margin-bottom: 4px;">
                                 <div onclick="toggleSection(this)" style="font-weight: 500; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 6px 0;">
                                     <span style="font-size: 10px;">▶</span>
-                                    <span>Import/export compliance</span>
+                                    <span>Import/Export Compliance 📋</span>
                                 </div>
                                 <div class="collapsible-content" style="margin-left: 20px; font-size: 12px; line-height: 1.6; color: #555; margin-top: 6px; display: none;">
-                                    – Tariffs & HS codes<br>
-                                    – Customs brokerage<br>
-                                    – Local tax & VAT handling (EU)
+                                    – Tariffs & HS Codes<br>
+                                    – Customs Brokerage<br>
+                                    – Local Tax & VAT Handling (EU)
                                 </div>
                             </div>
                             
                             <div>
                                 <div onclick="toggleSection(this)" style="font-weight: 500; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 6px 0;">
                                     <span style="font-size: 10px;">▶</span>
-                                    <span>Market-by-market certifications</span>
+                                    <span>Market-by-Market Certifications 🏅</span>
                                 </div>
                                 <div class="collapsible-content" style="margin-left: 20px; font-size: 12px; line-height: 1.6; color: #555; margin-top: 6px; display: none;">
                                     – CE Mark (EU)<br>
                                     – FCC (US)<br>
                                     – PSE (Japan)<br>
-                                    – Battery transport certification
+                                    – Battery Transport Certification
                                 </div>
                             </div>
                         </div>
                         
                         <!-- Retail Partners -->
-                        <div style="background: white; border: 2px solid #d0d0d0; border-radius: 8px; padding: 20px;">
+                        <div style="background: white; border: 2px solid #e0e0e0; border-radius: 8px; padding: 20px;">
                             <h3 style="font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; color: #111111; text-align: center;">Retail Partners</h3>
                             
                             <div style="margin-bottom: 4px;">
                                 <div onclick="toggleSection(this)" style="font-weight: 500; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 6px 0;">
                                     <span style="font-size: 10px;">▶</span>
-                                    <span>Local skate shops & specialty stores</span>
+                                    <span>Local Skate Shops & Specialty Stores 🛹</span>
                                 </div>
                                 <div class="collapsible-content" style="margin-left: 20px; font-size: 12px; line-height: 1.6; color: #555; margin-top: 6px; display: none;">
-                                    – Consignment or wholesale terms<br>
-                                    – Retail display & merchandising
+                                    – Consignment or Wholesale Terms<br>
+                                    – Retail Display & Merchandising
                                 </div>
                             </div>
                             
                             <div style="margin-bottom: 4px;">
                                 <div onclick="toggleSection(this)" style="font-weight: 500; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 6px 0;">
                                     <span style="font-size: 10px;">▶</span>
-                                    <span>Online retailers</span>
+                                    <span>Online Retailers 💻</span>
                                 </div>
                                 <div class="collapsible-content" style="margin-left: 20px; font-size: 12px; line-height: 1.6; color: #555; margin-top: 6px; display: none;">
-                                    – Inventory integration (API/EDI)<br>
-                                    – Return/refund workflows
+                                    – Inventory Integration (API/EDI)<br>
+                                    – Return/Refund Workflows
                                 </div>
                             </div>
                             
                             <div style="margin-bottom: 4px;">
                                 <div onclick="toggleSection(this)" style="font-weight: 500; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 6px 0;">
                                     <span style="font-size: 10px;">▶</span>
-                                    <span>Demo & test-ride locations</span>
+                                    <span>Demo & Test-Ride Locations 🏄</span>
                                 </div>
                                 <div class="collapsible-content" style="margin-left: 20px; font-size: 12px; line-height: 1.6; color: #555; margin-top: 6px; display: none;">
-                                    – Liability waivers<br>
-                                    – Demo fleet maintenance
+                                    – Liability Waivers<br>
+                                    – Demo Fleet Maintenance
                                 </div>
                             </div>
                             
                             <div>
                                 <div onclick="toggleSection(this)" style="font-weight: 500; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 6px 0;">
                                     <span style="font-size: 10px;">▶</span>
-                                    <span>Creators & regional ambassadors</span>
+                                    <span>Creators & Regional Ambassadors 🎥</span>
                                 </div>
                                 <div class="collapsible-content" style="margin-left: 20px; font-size: 12px; line-height: 1.6; color: #555; margin-top: 6px; display: none;">
-                                    – Product seeding<br>
-                                    – Regional events & group rides<br>
-                                    – Local content strategy
+                                    – Product Seeding<br>
+                                    – Regional Events & Group Rides<br>
+                                    – Local Content Strategy
                                 </div>
                             </div>
                         </div>
@@ -1526,6 +1531,34 @@
                         content.style.display = 'none';
                         arrow.textContent = '▶';
                     }
+                }
+                
+                function toggleAllSections() {
+                    const btn = document.getElementById('toggleAllBtn');
+                    const allContents = document.querySelectorAll('.collapsible-content');
+                    const allArrows = document.querySelectorAll('.collapsible-content').length;
+                    
+                    // Check if any are closed
+                    let anyClosed = false;
+                    allContents.forEach(content => {
+                        if (content.style.display === 'none') {
+                            anyClosed = true;
+                        }
+                    });
+                    
+                    // Toggle all based on state
+                    allContents.forEach((content, index) => {
+                        const arrow = content.previousElementSibling.querySelector('span:first-child');
+                        if (anyClosed) {
+                            content.style.display = 'block';
+                            arrow.textContent = '▼';
+                            btn.textContent = 'Collapse All';
+                        } else {
+                            content.style.display = 'none';
+                            arrow.textContent = '▶';
+                            btn.textContent = 'Expand All';
+                        }
+                    });
                 }
                 </script>
                 
