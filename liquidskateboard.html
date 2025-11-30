@@ -606,7 +606,7 @@
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 4px;
             padding: 0;
         }
 
@@ -980,6 +980,23 @@
 
             .story-media img {
                 border-radius: 12px;
+            }
+            
+            /* Mobile: Make partner boxes horizontally scrollable */
+            .partner-boxes-container {
+                display: flex !important;
+                grid-template-columns: none !important;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                gap: 16px !important;
+                padding-bottom: 10px;
+            }
+            
+            .partner-boxes-container > div {
+                flex: 0 0 85%;
+                scroll-snap-align: start;
+                min-width: 280px;
             }
 
             .story-cta {
@@ -1366,7 +1383,7 @@
                 </div>
                     
                     <!-- Three Columns -->
-                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; min-width: 0;">
+                    <div class="partner-boxes-container" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; min-width: 0;">
                         
                         <!-- Manufacturing Partners -->
                         <div style="background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px;">
