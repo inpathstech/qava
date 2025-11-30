@@ -1350,133 +1350,184 @@
                         <div style="margin: 12px auto; width: 2px; height: 20px; background: #111111;"></div>
                     </div>
                     
-                    <!-- Manufacturing Partners -->
-                    <div style="background: white; border: 2px solid #111111; border-radius: 8px; padding: 24px; margin-bottom: 20px;">
-                        <h3 style="font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; color: #111111;">Manufacturing Partners</h3>
+                    <!-- Three Columns -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
                         
-                        <div style="margin-bottom: 16px;">
-                            <div style="font-weight: 500; font-size: 14px; margin-bottom: 6px;">• Component suppliers</div>
-                            <div style="margin-left: 20px; font-size: 13px; line-height: 1.6; color: #555;">
-                                – SKU library & technical specs<br>
-                                – Approved vendor list (AVL)<br>
-                                – Material standards & tolerances<br>
-                                – Lead times & minimum order quantities (MOQs)
+                        <!-- Manufacturing Partners -->
+                        <div style="background: white; border: 2px solid #111111; border-radius: 8px; padding: 20px;">
+                            <h3 style="font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; color: #111111; text-align: center;">Manufacturing Partners</h3>
+                            
+                            <div style="margin-bottom: 12px;">
+                                <div onclick="toggleSection(this)" style="font-weight: 500; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 6px 0;">
+                                    <span style="font-size: 10px;">▼</span>
+                                    <span>Component suppliers</span>
+                                </div>
+                                <div class="collapsible-content" style="margin-left: 20px; font-size: 12px; line-height: 1.6; color: #555; margin-top: 6px;">
+                                    – SKU library & technical specs<br>
+                                    – Approved vendor list (AVL)<br>
+                                    – Material standards & tolerances<br>
+                                    – Lead times & minimum order quantities (MOQs)
+                                </div>
+                            </div>
+                            
+                            <div style="margin-bottom: 12px;">
+                                <div onclick="toggleSection(this)" style="font-weight: 500; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 6px 0;">
+                                    <span style="font-size: 10px;">▼</span>
+                                    <span>Assembly partners</span>
+                                </div>
+                                <div class="collapsible-content" style="margin-left: 20px; font-size: 12px; line-height: 1.6; color: #555; margin-top: 6px;">
+                                    – Production line design<br>
+                                    – Standard Operating Procedures (SOPs)<br>
+                                    – Assembly jigs, tooling, fixtures
+                                </div>
+                            </div>
+                            
+                            <div style="margin-bottom: 12px;">
+                                <div onclick="toggleSection(this)" style="font-weight: 500; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 6px 0;">
+                                    <span style="font-size: 10px;">▼</span>
+                                    <span>Quality control & testing</span>
+                                </div>
+                                <div class="collapsible-content" style="margin-left: 20px; font-size: 12px; line-height: 1.6; color: #555; margin-top: 6px;">
+                                    – Functional testing protocols<br>
+                                    – Ride testing batches<br>
+                                    – Incoming inspection standards (IQC/AQL)<br>
+                                    – End-of-line checks
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div onclick="toggleSection(this)" style="font-weight: 500; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 6px 0;">
+                                    <span style="font-size: 10px;">▼</span>
+                                    <span>Production forecasting & planning</span>
+                                </div>
+                                <div class="collapsible-content" style="margin-left: 20px; font-size: 12px; line-height: 1.6; color: #555; margin-top: 6px;">
+                                    – Demand projections<br>
+                                    – Safety stock & buffer strategy<br>
+                                    – Supplier capacity planning
+                                </div>
                             </div>
                         </div>
                         
-                        <div style="margin-bottom: 16px;">
-                            <div style="font-weight: 500; font-size: 14px; margin-bottom: 6px;">• Assembly partners</div>
-                            <div style="margin-left: 20px; font-size: 13px; line-height: 1.6; color: #555;">
-                                – Production line design<br>
-                                – Standard Operating Procedures (SOPs)<br>
-                                – Assembly jigs, tooling, fixtures
+                        <!-- Distribution Partners -->
+                        <div style="background: white; border: 2px solid #111111; border-radius: 8px; padding: 20px;">
+                            <h3 style="font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; color: #111111; text-align: center;">Distribution Partners</h3>
+                            
+                            <div style="margin-bottom: 12px;">
+                                <div onclick="toggleSection(this)" style="font-weight: 500; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 6px 0;">
+                                    <span style="font-size: 10px;">▼</span>
+                                    <span>Freight & logistics</span>
+                                </div>
+                                <div class="collapsible-content" style="margin-left: 20px; font-size: 12px; line-height: 1.6; color: #555; margin-top: 6px;">
+                                    – Sea/air shipment planning<br>
+                                    – Packaging standards<br>
+                                    – Battery (UN 38.3) shipping compliance
+                                </div>
+                            </div>
+                            
+                            <div style="margin-bottom: 12px;">
+                                <div onclick="toggleSection(this)" style="font-weight: 500; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 6px 0;">
+                                    <span style="font-size: 10px;">▼</span>
+                                    <span>Warehousing & fulfillment</span>
+                                </div>
+                                <div class="collapsible-content" style="margin-left: 20px; font-size: 12px; line-height: 1.6; color: #555; margin-top: 6px;">
+                                    – Regional hubs (EU, US, APAC)<br>
+                                    – Inventory management systems<br>
+                                    – Order routing logic
+                                </div>
+                            </div>
+                            
+                            <div style="margin-bottom: 12px;">
+                                <div onclick="toggleSection(this)" style="font-weight: 500; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 6px 0;">
+                                    <span style="font-size: 10px;">▼</span>
+                                    <span>Import/export compliance</span>
+                                </div>
+                                <div class="collapsible-content" style="margin-left: 20px; font-size: 12px; line-height: 1.6; color: #555; margin-top: 6px;">
+                                    – Tariffs & HS codes<br>
+                                    – Customs brokerage<br>
+                                    – Local tax & VAT handling (EU)
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div onclick="toggleSection(this)" style="font-weight: 500; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 6px 0;">
+                                    <span style="font-size: 10px;">▼</span>
+                                    <span>Market-by-market certifications</span>
+                                </div>
+                                <div class="collapsible-content" style="margin-left: 20px; font-size: 12px; line-height: 1.6; color: #555; margin-top: 6px;">
+                                    – CE Mark (EU)<br>
+                                    – FCC (US)<br>
+                                    – PSE (Japan)<br>
+                                    – Battery transport certification
+                                </div>
                             </div>
                         </div>
                         
-                        <div style="margin-bottom: 16px;">
-                            <div style="font-weight: 500; font-size: 14px; margin-bottom: 6px;">• Quality control & testing</div>
-                            <div style="margin-left: 20px; font-size: 13px; line-height: 1.6; color: #555;">
-                                – Functional testing protocols<br>
-                                – Ride testing batches<br>
-                                – Incoming inspection standards (IQC/AQL)<br>
-                                – End-of-line checks
+                        <!-- Retail Partners -->
+                        <div style="background: white; border: 2px solid #111111; border-radius: 8px; padding: 20px;">
+                            <h3 style="font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; color: #111111; text-align: center;">Retail Partners</h3>
+                            
+                            <div style="margin-bottom: 12px;">
+                                <div onclick="toggleSection(this)" style="font-weight: 500; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 6px 0;">
+                                    <span style="font-size: 10px;">▼</span>
+                                    <span>Local skate shops & specialty stores</span>
+                                </div>
+                                <div class="collapsible-content" style="margin-left: 20px; font-size: 12px; line-height: 1.6; color: #555; margin-top: 6px;">
+                                    – Consignment or wholesale terms<br>
+                                    – Retail display & merchandising
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div>
-                            <div style="font-weight: 500; font-size: 14px; margin-bottom: 6px;">• Production forecasting & planning</div>
-                            <div style="margin-left: 20px; font-size: 13px; line-height: 1.6; color: #555;">
-                                – Demand projections<br>
-                                – Safety stock & buffer strategy<br>
-                                – Supplier capacity planning
+                            
+                            <div style="margin-bottom: 12px;">
+                                <div onclick="toggleSection(this)" style="font-weight: 500; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 6px 0;">
+                                    <span style="font-size: 10px;">▼</span>
+                                    <span>Online retailers</span>
+                                </div>
+                                <div class="collapsible-content" style="margin-left: 20px; font-size: 12px; line-height: 1.6; color: #555; margin-top: 6px;">
+                                    – Inventory integration (API/EDI)<br>
+                                    – Return/refund workflows
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    
-                    <div style="margin: 16px auto; width: 2px; height: 20px; background: #111111;"></div>
-                    
-                    <!-- Distribution Partners -->
-                    <div style="background: white; border: 2px solid #111111; border-radius: 8px; padding: 24px; margin-bottom: 20px;">
-                        <h3 style="font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; color: #111111;">Distribution Partners</h3>
-                        
-                        <div style="margin-bottom: 16px;">
-                            <div style="font-weight: 500; font-size: 14px; margin-bottom: 6px;">• Freight & logistics</div>
-                            <div style="margin-left: 20px; font-size: 13px; line-height: 1.6; color: #555;">
-                                – Sea/air shipment planning<br>
-                                – Packaging standards<br>
-                                – Battery (UN 38.3) shipping compliance
+                            
+                            <div style="margin-bottom: 12px;">
+                                <div onclick="toggleSection(this)" style="font-weight: 500; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 6px 0;">
+                                    <span style="font-size: 10px;">▼</span>
+                                    <span>Demo & test-ride locations</span>
+                                </div>
+                                <div class="collapsible-content" style="margin-left: 20px; font-size: 12px; line-height: 1.6; color: #555; margin-top: 6px;">
+                                    – Liability waivers<br>
+                                    – Demo fleet maintenance
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div style="margin-bottom: 16px;">
-                            <div style="font-weight: 500; font-size: 14px; margin-bottom: 6px;">• Warehousing & fulfillment</div>
-                            <div style="margin-left: 20px; font-size: 13px; line-height: 1.6; color: #555;">
-                                – Regional hubs (EU, US, APAC)<br>
-                                – Inventory management systems<br>
-                                – Order routing logic
-                            </div>
-                        </div>
-                        
-                        <div style="margin-bottom: 16px;">
-                            <div style="font-weight: 500; font-size: 14px; margin-bottom: 6px;">• Import/export compliance</div>
-                            <div style="margin-left: 20px; font-size: 13px; line-height: 1.6; color: #555;">
-                                – Tariffs & HS codes<br>
-                                – Customs brokerage<br>
-                                – Local tax & VAT handling (EU)
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <div style="font-weight: 500; font-size: 14px; margin-bottom: 6px;">• Market-by-market certifications</div>
-                            <div style="margin-left: 20px; font-size: 13px; line-height: 1.6; color: #555;">
-                                – CE Mark (EU)<br>
-                                – FCC (US)<br>
-                                – PSE (Japan)<br>
-                                – Battery transport certification
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div style="margin: 16px auto; width: 2px; height: 20px; background: #111111;"></div>
-                    
-                    <!-- Retail Partners -->
-                    <div style="background: white; border: 2px solid #111111; border-radius: 8px; padding: 24px;">
-                        <h3 style="font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; color: #111111;">Retail Partners</h3>
-                        
-                        <div style="margin-bottom: 16px;">
-                            <div style="font-weight: 500; font-size: 14px; margin-bottom: 6px;">• Local skate shops & specialty stores</div>
-                            <div style="margin-left: 20px; font-size: 13px; line-height: 1.6; color: #555;">
-                                – Consignment or wholesale terms<br>
-                                – Retail display & merchandising
-                            </div>
-                        </div>
-                        
-                        <div style="margin-bottom: 16px;">
-                            <div style="font-weight: 500; font-size: 14px; margin-bottom: 6px;">• Online retailers</div>
-                            <div style="margin-left: 20px; font-size: 13px; line-height: 1.6; color: #555;">
-                                – Inventory integration (API/EDI)<br>
-                                – Return/refund workflows
-                            </div>
-                        </div>
-                        
-                        <div style="margin-bottom: 16px;">
-                            <div style="font-weight: 500; font-size: 14px; margin-bottom: 6px;">• Demo & test-ride locations</div>
-                            <div style="margin-left: 20px; font-size: 13px; line-height: 1.6; color: #555;">
-                                – Liability waivers<br>
-                                – Demo fleet maintenance
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <div style="font-weight: 500; font-size: 14px; margin-bottom: 6px;">• Creators & regional ambassadors</div>
-                            <div style="margin-left: 20px; font-size: 13px; line-height: 1.6; color: #555;">
-                                – Product seeding<br>
-                                – Regional events & group rides<br>
-                                – Local content strategy
+                            
+                            <div>
+                                <div onclick="toggleSection(this)" style="font-weight: 500; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 6px 0;">
+                                    <span style="font-size: 10px;">▼</span>
+                                    <span>Creators & regional ambassadors</span>
+                                </div>
+                                <div class="collapsible-content" style="margin-left: 20px; font-size: 12px; line-height: 1.6; color: #555; margin-top: 6px;">
+                                    – Product seeding<br>
+                                    – Regional events & group rides<br>
+                                    – Local content strategy
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                
+                <script>
+                function toggleSection(element) {
+                    const content = element.nextElementSibling;
+                    const arrow = element.querySelector('span:first-child');
+                    
+                    if (content.style.display === 'none') {
+                        content.style.display = 'block';
+                        arrow.textContent = '▼';
+                    } else {
+                        content.style.display = 'none';
+                        arrow.textContent = '▶';
+                    }
+                }
+                </script>
                 
                 <div class="story-media">
                     <img src="liquid-skateboard-images/Skate Parts.png" alt="Liquid Skateboard components and parts" loading="lazy">
