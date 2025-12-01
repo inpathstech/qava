@@ -4276,6 +4276,78 @@
             }
         }
 
+        /* Calculator Section Styles */
+        .calculator-checkbox-wrapper {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 8px;
+            flex-shrink: 0;
+        }
+
+        .calculator-checkbox {
+            width: 18px;
+            height: 18px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .calculator-checkbox.checked {
+            background: #000000;
+            border-color: #000000;
+        }
+
+        .calculator-checkbox svg {
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.2s ease;
+        }
+
+        .calculator-checkbox.checked svg {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .calculator-checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .calculator-section {
+            max-width: 1070px;
+            margin: 80px auto;
+            padding: 48px 40px;
+            background: #f9fafb;
+            border-radius: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .calculator-section {
+                padding: 32px 24px;
+                margin: 48px 20px;
+            }
+
+            .calculator-checkboxes-grid {
+                grid-template-columns: 1fr !important;
+                gap: 24px !important;
+            }
+
+            .calculator-results-grid {
+                flex-direction: column !important;
+                gap: 32px !important;
+            }
+        }
+
         @media (max-width: 1100px) {
             .header-container {
                 padding: 12px 20px;
@@ -5292,6 +5364,369 @@
 
         </div>
     </div>
+    
+    <!-- Calculator Section -->
+    <section class="calculator-section">
+        
+        <!-- Header in gray box -->
+        <div style="background: white; padding: 32px; border-radius: 8px; margin-bottom: 32px; text-align: left;">
+            <h1 style="font-size: 48px; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 12px 0;">More value.<br>More control.</h1>
+            <p style="color: #666666; font-size: 16px; font-weight: 300; margin: 0 0 12px 0;">Your one-stop-shop for on-demand strategy work. Calculate savings below.</p>
+            <a href="https://qava.ai/pricing" style="display: inline-flex; align-items: center; gap: 6px; color: #0F62FE; text-decoration: none; font-size: 14px; font-weight: 500;">
+                See pricing plans →
+            </a>
+        </div>
+
+        <!-- Three columns of checkboxes -->
+        <div class="calculator-checkboxes-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 48px;">
+            
+            <!-- Column 1: Core Strategy -->
+            <div>
+                <h3 style="font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; padding-left: 8px;">Core Strategy</h3>
+                <div style="display: flex; flex-direction: column; gap: 2px;">
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="12">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Business Plan 🚀</span>
+                    </label>
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="9">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Financial Model 📊</span>
+                    </label>
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="7">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Competitor Analysis 🔍</span>
+                    </label>
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="8">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Industry Analysis 🔎</span>
+                    </label>
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="5">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Pitch Deck 🚀</span>
+                    </label>
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="8">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Pricing Strategy 💲</span>
+                    </label>
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="10">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Product Strategy 👤</span>
+                    </label>
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="8">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Customer Segmentation 🎯</span>
+                    </label>
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="8">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Cost Optimization 💸</span>
+                    </label>
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="7">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Grant Application 💰</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Column 2: Growth Strategy -->
+            <div>
+                <h3 style="font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; padding-left: 8px;">Growth Strategy</h3>
+                <div style="display: flex; flex-direction: column; gap: 2px;">
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="11">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Go-To-Market Strategy 📍</span>
+                    </label>
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="11">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Sales & Marketing Strategy 💰</span>
+                    </label>
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="10">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Growth Plan 🌱</span>
+                    </label>
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="9">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Partnership Strategy 🤝</span>
+                    </label>
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="9">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Creative Strategy 🧠</span>
+                    </label>
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="10">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Strategic Finance 💼</span>
+                    </label>
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="12">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Innovation Projects 💡</span>
+                    </label>
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="11">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Organizational Design 👋</span>
+                    </label>
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="9">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Supply Chain Analysis 🚚</span>
+                    </label>
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="4">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Virtual Workshop 🖥️</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Column 3: Advanced/Technical -->
+            <div>
+                <h3 style="font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; padding-left: 8px;">Advanced/Technical</h3>
+                <div style="display: flex; flex-direction: column; gap: 2px;">
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="14">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Digital Transformation 🦋</span>
+                    </label>
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="11">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Cyber Security 🛡️</span>
+                    </label>
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="6">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Data Analysis 📊</span>
+                    </label>
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="10">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Data Strategy 🚪</span>
+                    </label>
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="10">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">System Migration 💻</span>
+                    </label>
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="13">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Operating Model Design 💼</span>
+                    </label>
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="7">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Process Improvement ⚙️</span>
+                    </label>
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="8">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Technology Rationalization 💻</span>
+                    </label>
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="6">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Tariff Impact Assessment 🌎</span>
+                    </label>
+                    <label class="calculator-checkbox-label">
+                        <div class="calculator-checkbox-wrapper">
+                            <div class="calculator-checkbox" data-hours="7">
+                                <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Vendor Strategy 🚛</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Results Row -->
+        <div class="calculator-results-grid" style="display: flex; justify-content: center; align-items: center; gap: 64px; padding-top: 32px; border-top: 1px solid #e5e7eb;">
+            
+            <!-- Market Consultant Rate -->
+            <div style="text-align: center; min-width: 160px;">
+                <div style="font-size: 11px; font-weight: 500; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">Market Consultant Rate</div>
+                <div id="consultantRate" style="font-size: 32px; font-weight: 600; color: #6b7280; line-height: 1.2;">$0</div>
+            </div>
+            
+            <!-- Vertical Divider -->
+            <div style="width: 1px; height: 60px; background-color: #e5e7eb;"></div>
+
+            <!-- Estimated Savings -->
+            <div style="text-align: center; min-width: 160px;">
+                <div style="font-size: 11px; font-weight: 500; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">Estimated Savings</div>
+                <div id="estimatedSavings" style="font-size: 32px; font-weight: 600; color: #111827; line-height: 1.2;">$0</div>
+            </div>
+            
+            <!-- Time Saved -->
+            <div style="text-align: center; min-width: 140px;">
+                <div style="font-size: 11px; font-weight: 500; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">Time Saved</div>
+                <div id="timeSaved" style="font-size: 32px; font-weight: 600; color: #111827; line-height: 1.2;">0 hours</div>
+            </div>
+        </div>
+    </section>
     
     <!-- Q&A Section -->
     <div class="qa-section">
@@ -7038,6 +7473,114 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
             });
         }
     })();
+    </script>
+
+    <script>
+    // Calculator functionality
+    // Store current values for animation
+    let currentConsultantRate = 0;
+    let currentSavings = 0;
+    let currentHours = 0;
+    let consultantRateTimer = null;
+    let savingsTimer = null;
+    let hoursTimer = null;
+    
+    // Animate number counting up
+    function animateValue(element, start, end, duration, prefix = '', suffix = '', timerRef) {
+        // Clear existing timer if any
+        if (timerRef) {
+            clearInterval(timerRef);
+        }
+        
+        if (start === end) {
+            if (suffix === ' hours') {
+                element.textContent = end + suffix;
+            } else {
+                element.textContent = prefix + end.toLocaleString();
+            }
+            return null;
+        }
+        
+        const range = end - start;
+        const startTime = Date.now();
+        
+        const timer = setInterval(() => {
+            const elapsed = Date.now() - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            // Easing function for smooth animation
+            const easeProgress = progress < 0.5 
+                ? 2 * progress * progress 
+                : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+            
+            const current = start + (range * easeProgress);
+            
+            if (progress >= 1) {
+                clearInterval(timer);
+                if (suffix === ' hours') {
+                    element.textContent = end + suffix;
+                } else {
+                    element.textContent = prefix + end.toLocaleString();
+                }
+            } else {
+                if (suffix === ' hours') {
+                    element.textContent = Math.round(current) + suffix;
+                } else {
+                    element.textContent = prefix + Math.round(current).toLocaleString();
+                }
+            }
+        }, 16);
+        
+        return timer;
+    }
+    
+    // Calculator logic
+    function calculateSavings() {
+        const checkedBoxes = document.querySelectorAll('.calculator-checkbox.checked');
+        
+        // Calculate total hours
+        let totalHours = 0;
+        checkedBoxes.forEach(cb => {
+            totalHours += parseInt(cb.getAttribute('data-hours'));
+        });
+        
+        // Calculate costs
+        const consultantCost = totalHours * 150; // Market consultant rate at $150/hour
+        const qavaCost = totalHours * 79; // Average Qava rate
+        const savings = consultantCost - qavaCost;
+        
+        // Animate the values
+        const consultantRateElement = document.getElementById('consultantRate');
+        const savingsElement = document.getElementById('estimatedSavings');
+        const hoursElement = document.getElementById('timeSaved');
+        
+        // Clear existing timers
+        if (consultantRateTimer) clearInterval(consultantRateTimer);
+        if (savingsTimer) clearInterval(savingsTimer);
+        if (hoursTimer) clearInterval(hoursTimer);
+        
+        consultantRateTimer = animateValue(consultantRateElement, currentConsultantRate, consultantCost, 1200, '$', '', consultantRateTimer);
+        savingsTimer = animateValue(savingsElement, currentSavings, savings, 1200, '$', '', savingsTimer);
+        hoursTimer = animateValue(hoursElement, currentHours, totalHours, 1200, '', ' hours', hoursTimer);
+        
+        // Update current values
+        currentConsultantRate = consultantCost;
+        currentSavings = savings;
+        currentHours = totalHours;
+    }
+    
+    // Add click handlers to all labels (so clicking anywhere toggles the checkbox)
+    document.querySelectorAll('.calculator-checkbox-label').forEach(label => {
+        label.addEventListener('click', function(e) {
+            e.preventDefault();
+            const checkbox = this.querySelector('.calculator-checkbox');
+            checkbox.classList.toggle('checked');
+            calculateSavings();
+        });
+    });
+    
+    // Initialize with default values
+    calculateSavings();
     </script>
 </body>
 </html>
