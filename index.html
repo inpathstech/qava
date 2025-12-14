@@ -7616,6 +7616,14 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     chevronContainer.style.width = '100%';
                     
                     project.chevrons.forEach((chevron, index) => {
+                        // Define icons for each chevron
+                        const icons = {
+                            'Opportunity': '💡',
+                            'Strategy': '♟️',
+                            'Economics': '📈',
+                            'Execution': '✓'
+                        };
+                        
                         const chevronItem = document.createElement('div');
                         chevronItem.style.position = 'relative';
                         chevronItem.style.padding = '8px 14px';
@@ -7632,6 +7640,12 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         chevronItem.style.display = 'flex';
                         chevronItem.style.flexDirection = 'column';
                         chevronItem.style.justifyContent = 'center';
+                        
+                        // Add icon
+                        const chevronIcon = document.createElement('div');
+                        chevronIcon.style.fontSize = '18px';
+                        chevronIcon.style.marginBottom = '4px';
+                        chevronIcon.textContent = icons[chevron.title] || '';
                         
                         const chevronTitle = document.createElement('div');
                         chevronTitle.style.fontWeight = '600';
@@ -7654,6 +7668,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         chevronDescription.style.maxHeight = '2.8em';
                         chevronDescription.textContent = chevron.description;
                         
+                        chevronItem.appendChild(chevronIcon);
                         chevronItem.appendChild(chevronTitle);
                         chevronItem.appendChild(chevronDescription);
                         chevronContainer.appendChild(chevronItem);
