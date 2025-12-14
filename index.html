@@ -7621,7 +7621,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         const chevronItem = document.createElement('div');
                         chevronItem.style.position = 'relative';
                         chevronItem.style.padding = '6px 18px 6px 14px';
-                        chevronItem.style.backgroundColor = '#0F62FE';
+                        chevronItem.style.backgroundColor = '#000000';
                         chevronItem.style.color = 'white';
                         chevronItem.style.fontSize = '10px';
                         chevronItem.style.fontWeight = '500';
@@ -7645,13 +7645,15 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         chevronTitle.style.fontSize = '12px';
                         chevronTitle.style.marginBottom = '2px';
                         chevronTitle.style.color = 'white';
+                        chevronTitle.style.background = 'linear-gradient(180deg, transparent 60%, rgba(15, 98, 254, 0.1) 60%)';
+                        chevronTitle.style.padding = '0 2px';
+                        chevronTitle.style.display = 'inline-block';
                         chevronTitle.textContent = chevron.title;
                         
                         const chevronDescription = document.createElement('div');
                         chevronDescription.style.fontSize = '10px';
                         chevronDescription.style.fontWeight = '300';
-                        chevronDescription.style.color = 'white';
-                        chevronDescription.style.opacity = '0.9';
+                        chevronDescription.style.color = '#9CA3AF';
                         chevronDescription.style.lineHeight = '1.4';
                         chevronDescription.style.overflow = 'hidden';
                         chevronDescription.style.display = '-webkit-box';
