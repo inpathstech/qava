@@ -7609,40 +7609,49 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                 
                 // Add chevrons if available
                 if (project.chevrons && Array.isArray(project.chevrons)) {
-                    project.chevrons.forEach(chevron => {
+                    const chevronContainer = document.createElement('div');
+                    chevronContainer.style.display = 'flex';
+                    chevronContainer.style.marginTop = '16px';
+                    chevronContainer.style.gap = '0';
+                    chevronContainer.style.overflowX = 'auto';
+                    chevronContainer.style.flexWrap = 'wrap';
+                    
+                    const colors = ['#F59E0B', '#EC4899', '#14B8A6', '#22D3EE'];
+                    
+                    project.chevrons.forEach((chevron, index) => {
                         const chevronItem = document.createElement('div');
-                        chevronItem.style.display = 'flex';
-                        chevronItem.style.alignItems = 'flex-start';
-                        chevronItem.style.marginTop = '8px';
-                        chevronItem.style.gap = '8px';
+                        chevronItem.style.position = 'relative';
+                        chevronItem.style.padding = '12px 20px 12px 20px';
+                        chevronItem.style.backgroundColor = colors[index % colors.length];
+                        chevronItem.style.color = 'white';
+                        chevronItem.style.fontSize = '13px';
+                        chevronItem.style.fontWeight = '500';
+                        chevronItem.style.clipPath = 'polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%, 15px 50%)';
+                        chevronItem.style.marginLeft = index === 0 ? '0' : '-15px';
+                        chevronItem.style.minWidth = '180px';
+                        chevronItem.style.lineHeight = '1.4';
                         
-                        const chevronIcon = document.createElement('div');
-                        chevronIcon.style.fontSize = '14px';
-                        chevronIcon.style.color = '#666';
-                        chevronIcon.style.marginTop = '2px';
-                        chevronIcon.style.flexShrink = '0';
-                        chevronIcon.textContent = '›';
+                        if (index === 0) {
+                            chevronItem.style.clipPath = 'polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%)';
+                        }
                         
-                        const chevronContent = document.createElement('div');
-                        chevronContent.style.fontSize = '14px';
-                        chevronContent.style.lineHeight = '1.5';
-                        chevronContent.style.color = '#333';
-                        
-                        const chevronTitle = document.createElement('strong');
+                        const chevronTitle = document.createElement('div');
+                        chevronTitle.style.fontWeight = '600';
+                        chevronTitle.style.marginBottom = '2px';
                         chevronTitle.textContent = chevron.title;
                         
-                        const chevronSeparator = document.createTextNode(' — ');
+                        const chevronDescription = document.createElement('div');
+                        chevronDescription.style.fontSize = '11px';
+                        chevronDescription.style.fontWeight = '300';
+                        chevronDescription.style.opacity = '0.95';
+                        chevronDescription.textContent = chevron.description;
                         
-                        const chevronDescription = document.createTextNode(chevron.description);
-                        
-                        chevronContent.appendChild(chevronTitle);
-                        chevronContent.appendChild(chevronSeparator);
-                        chevronContent.appendChild(chevronDescription);
-                        
-                        chevronItem.appendChild(chevronIcon);
-                        chevronItem.appendChild(chevronContent);
-                        previewBenefits.appendChild(chevronItem);
+                        chevronItem.appendChild(chevronTitle);
+                        chevronItem.appendChild(chevronDescription);
+                        chevronContainer.appendChild(chevronItem);
                     });
+                    
+                    previewBenefits.appendChild(chevronContainer);
                 }
                 
                 // Add stat if available
