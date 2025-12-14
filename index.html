@@ -7614,36 +7614,42 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     chevronContainer.style.marginTop = '16px';
                     chevronContainer.style.gap = '0';
                     chevronContainer.style.overflowX = 'auto';
-                    chevronContainer.style.flexWrap = 'wrap';
+                    chevronContainer.style.flexWrap = 'nowrap';
+                    chevronContainer.style.alignItems = 'center';
                     
                     const colors = ['#F59E0B', '#EC4899', '#14B8A6', '#22D3EE'];
                     
                     project.chevrons.forEach((chevron, index) => {
                         const chevronItem = document.createElement('div');
                         chevronItem.style.position = 'relative';
-                        chevronItem.style.padding = '12px 20px 12px 20px';
+                        chevronItem.style.padding = '10px 20px 10px 15px';
                         chevronItem.style.backgroundColor = colors[index % colors.length];
                         chevronItem.style.color = 'white';
-                        chevronItem.style.fontSize = '13px';
+                        chevronItem.style.fontSize = '11px';
                         chevronItem.style.fontWeight = '500';
-                        chevronItem.style.clipPath = 'polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%, 15px 50%)';
-                        chevronItem.style.marginLeft = index === 0 ? '0' : '-15px';
-                        chevronItem.style.minWidth = '180px';
-                        chevronItem.style.lineHeight = '1.4';
+                        chevronItem.style.clipPath = 'polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%, 12px 50%)';
+                        chevronItem.style.marginLeft = index === 0 ? '0' : '-12px';
+                        chevronItem.style.minWidth = '140px';
+                        chevronItem.style.flexShrink = '0';
+                        chevronItem.style.lineHeight = '1.3';
+                        chevronItem.style.textAlign = 'center';
                         
                         if (index === 0) {
-                            chevronItem.style.clipPath = 'polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%)';
+                            chevronItem.style.clipPath = 'polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%)';
+                            chevronItem.style.paddingLeft = '10px';
                         }
                         
                         const chevronTitle = document.createElement('div');
                         chevronTitle.style.fontWeight = '600';
-                        chevronTitle.style.marginBottom = '2px';
+                        chevronTitle.style.fontSize = '12px';
+                        chevronTitle.style.marginBottom = '3px';
                         chevronTitle.textContent = chevron.title;
                         
                         const chevronDescription = document.createElement('div');
-                        chevronDescription.style.fontSize = '11px';
+                        chevronDescription.style.fontSize = '10px';
                         chevronDescription.style.fontWeight = '300';
-                        chevronDescription.style.opacity = '0.95';
+                        chevronDescription.style.opacity = '0.9';
+                        chevronDescription.style.lineHeight = '1.3';
                         chevronDescription.textContent = chevron.description;
                         
                         chevronItem.appendChild(chevronTitle);
