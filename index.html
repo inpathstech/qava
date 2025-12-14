@@ -7628,7 +7628,6 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         chevronItem.style.position = 'relative';
                         chevronItem.style.padding = '8px 18px 8px 14px';
                         chevronItem.style.backgroundColor = '#FFFFFF';
-                        chevronItem.style.border = '1px solid #E5E7EB';
                         chevronItem.style.color = '#1F2937';
                         chevronItem.style.fontSize = '10px';
                         chevronItem.style.fontWeight = '500';
@@ -7797,7 +7796,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     
                     // Create text span
                     const rateText = document.createElement('span');
-                    rateText.textContent = `Est. consultant rate: ${consultantRateRange} `;
+                    rateText.textContent = `Est. consultant fee: ${consultantRateRange} `;
                     
                     // Create emoji span (always present)
                     const emojiSpan = document.createElement('span');
@@ -7817,7 +7816,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     priceBox.addEventListener('mouseleave', function() {
                         this.style.background = 'white';
                         this.style.color = '#0F62FE';
-                        rateText.textContent = `Est. consultant rate: ${consultantRateRange} `;
+                        rateText.textContent = `Est. consultant fee: ${consultantRateRange} `;
                         emojiSpan.style.display = 'inline';
                     });
                     
