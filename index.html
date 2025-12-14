@@ -1991,48 +1991,12 @@
             font-size: 20px;
             margin: 20px 20px 2px 20px;
             text-align: left;
-            position: relative;
             display: inline-block;
-        }
-
-        .selection-icon::before,
-        .selection-icon::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 10px;
-            transform: translate(-50%, -50%);
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            border: 1px solid rgba(200, 200, 200, 0.6);
-            z-index: -1;
-            animation: radioWave 1.2s ease-out infinite;
-        }
-
-        .selection-icon::after {
-            animation-delay: 0.4s;
-        }
-
-        .selection-box.active .selection-icon::before,
-        .selection-box.active .selection-icon::after {
-            border-color: rgba(147, 197, 253, 0.7);
         }
 
         .selection-icon img {
             position: relative;
             z-index: 1;
-        }
-
-        @keyframes radioWave {
-            0% {
-                transform: translate(-50%, -50%) scale(0.5);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(-50%, -50%) scale(2);
-                opacity: 0;
-            }
         }
 
         .selection-title {
