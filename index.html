@@ -7610,24 +7610,21 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     const chevronContainer = document.createElement('div');
                     chevronContainer.style.display = 'flex';
                     chevronContainer.style.marginTop = '16px';
-                    chevronContainer.style.gap = '0';
+                    chevronContainer.style.gap = '8px';
                     chevronContainer.style.flexWrap = 'nowrap';
                     chevronContainer.style.alignItems = 'stretch';
                     chevronContainer.style.width = '100%';
-                    chevronContainer.style.padding = '2px 0';
-                    chevronContainer.style.overflow = 'visible';
                     
                     project.chevrons.forEach((chevron, index) => {
                         const chevronItem = document.createElement('div');
                         chevronItem.style.position = 'relative';
-                        chevronItem.style.padding = '6px 18px 6px 14px';
+                        chevronItem.style.padding = '8px 14px';
                         chevronItem.style.backgroundColor = '#FFFFFF';
                         chevronItem.style.border = '1px solid #E5E7EB';
+                        chevronItem.style.borderRadius = '4px';
                         chevronItem.style.color = '#1F2937';
                         chevronItem.style.fontSize = '10px';
                         chevronItem.style.fontWeight = '500';
-                        chevronItem.style.clipPath = 'polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%, 10px 50%)';
-                        chevronItem.style.marginLeft = index === 0 ? '0' : '-10px';
                         chevronItem.style.flex = '1';
                         chevronItem.style.minWidth = '0';
                         chevronItem.style.lineHeight = '1.3';
@@ -7635,11 +7632,6 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         chevronItem.style.display = 'flex';
                         chevronItem.style.flexDirection = 'column';
                         chevronItem.style.justifyContent = 'center';
-                        
-                        if (index === 0) {
-                            chevronItem.style.clipPath = 'polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%)';
-                            chevronItem.style.paddingLeft = '10px';
-                        }
                         
                         const chevronTitle = document.createElement('div');
                         chevronTitle.style.fontWeight = '600';
