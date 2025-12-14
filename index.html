@@ -2429,7 +2429,7 @@
 
         .benefit-checkmark {
             flex-shrink: 0;
-            font-size: 14px;
+            font-size: 12px;
             line-height: 1;
             display: flex;
             align-items: center;
@@ -7610,20 +7610,25 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     const chevronContainer = document.createElement('div');
                     chevronContainer.style.display = 'flex';
                     chevronContainer.style.marginTop = '16px';
-                    chevronContainer.style.gap = '8px';
+                    chevronContainer.style.gap = '0';
                     chevronContainer.style.flexWrap = 'nowrap';
                     chevronContainer.style.alignItems = 'stretch';
                     chevronContainer.style.width = '100%';
+                    chevronContainer.style.position = 'relative';
                     
                     project.chevrons.forEach((chevron, index) => {
-                        // Add arrow separator before each chevron except the first
+                        // Add arrow separator before each chevron except the first (positioned absolutely)
                         if (index > 0) {
                             const arrowSeparator = document.createElement('div');
-                            arrowSeparator.style.display = 'flex';
-                            arrowSeparator.style.alignItems = 'center';
+                            arrowSeparator.style.position = 'absolute';
+                            arrowSeparator.style.left = `calc(${index * 25}% - 8px)`;
+                            arrowSeparator.style.top = '50%';
+                            arrowSeparator.style.transform = 'translateY(-50%)';
                             arrowSeparator.style.color = '#9CA3AF';
-                            arrowSeparator.style.fontSize = '18px';
-                            arrowSeparator.style.flexShrink = '0';
+                            arrowSeparator.style.fontSize = '16px';
+                            arrowSeparator.style.fontWeight = '300';
+                            arrowSeparator.style.zIndex = '10';
+                            arrowSeparator.style.pointerEvents = 'none';
                             arrowSeparator.textContent = '›';
                             chevronContainer.appendChild(arrowSeparator);
                         }
