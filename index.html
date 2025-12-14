@@ -7617,13 +7617,11 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     chevronContainer.style.alignItems = 'stretch';
                     chevronContainer.style.width = '100%';
                     
-                    const colors = ['#14B8A6', '#14B8A6', '#14B8A6', '#14B8A6'];
-                    
                     project.chevrons.forEach((chevron, index) => {
                         const chevronItem = document.createElement('div');
                         chevronItem.style.position = 'relative';
                         chevronItem.style.padding = '6px 18px 6px 14px';
-                        chevronItem.style.backgroundColor = colors[index % colors.length];
+                        chevronItem.style.backgroundColor = '#0F62FE';
                         chevronItem.style.color = 'white';
                         chevronItem.style.fontSize = '10px';
                         chevronItem.style.fontWeight = '500';
@@ -7646,11 +7644,13 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         chevronTitle.style.fontWeight = '600';
                         chevronTitle.style.fontSize = '12px';
                         chevronTitle.style.marginBottom = '2px';
+                        chevronTitle.style.color = 'white';
                         chevronTitle.textContent = chevron.title;
                         
                         const chevronDescription = document.createElement('div');
                         chevronDescription.style.fontSize = '10px';
                         chevronDescription.style.fontWeight = '300';
+                        chevronDescription.style.color = 'white';
                         chevronDescription.style.opacity = '0.9';
                         chevronDescription.style.lineHeight = '1.4';
                         chevronDescription.style.overflow = 'hidden';
