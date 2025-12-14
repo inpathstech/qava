@@ -6976,6 +6976,12 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                             'Translates vision into measurable goals',
                             'Helps you see blind spots'
                         ],
+                        chevrons: [
+                            { title: 'Opportunity', description: 'What problem you\'re solving, for whom, and why now' },
+                            { title: 'Strategy', description: 'How your solution wins and creates advantage' },
+                            { title: 'Economics', description: 'How the business makes money and scales' },
+                            { title: 'Execution', description: 'How the plan turns into real-world results' }
+                        ],
                         quote: '"Plans are worthless, but planning is everything."',
                         quoteAuthor: '— Dwight D. Eisenhower'
                     },
@@ -7598,6 +7604,44 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         benefitItem.appendChild(checkmark);
                         benefitItem.appendChild(benefitText);
                         previewBenefits.appendChild(benefitItem);
+                    });
+                }
+                
+                // Add chevrons if available
+                if (project.chevrons && Array.isArray(project.chevrons)) {
+                    project.chevrons.forEach(chevron => {
+                        const chevronItem = document.createElement('div');
+                        chevronItem.style.display = 'flex';
+                        chevronItem.style.alignItems = 'flex-start';
+                        chevronItem.style.marginTop = '8px';
+                        chevronItem.style.gap = '8px';
+                        
+                        const chevronIcon = document.createElement('div');
+                        chevronIcon.style.fontSize = '14px';
+                        chevronIcon.style.color = '#666';
+                        chevronIcon.style.marginTop = '2px';
+                        chevronIcon.style.flexShrink = '0';
+                        chevronIcon.textContent = '›';
+                        
+                        const chevronContent = document.createElement('div');
+                        chevronContent.style.fontSize = '14px';
+                        chevronContent.style.lineHeight = '1.5';
+                        chevronContent.style.color = '#333';
+                        
+                        const chevronTitle = document.createElement('strong');
+                        chevronTitle.textContent = chevron.title;
+                        
+                        const chevronSeparator = document.createTextNode(' — ');
+                        
+                        const chevronDescription = document.createTextNode(chevron.description);
+                        
+                        chevronContent.appendChild(chevronTitle);
+                        chevronContent.appendChild(chevronSeparator);
+                        chevronContent.appendChild(chevronDescription);
+                        
+                        chevronItem.appendChild(chevronIcon);
+                        chevronItem.appendChild(chevronContent);
+                        previewBenefits.appendChild(chevronItem);
                     });
                 }
                 
