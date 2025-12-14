@@ -7610,12 +7610,23 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     const chevronContainer = document.createElement('div');
                     chevronContainer.style.display = 'flex';
                     chevronContainer.style.marginTop = '16px';
-                    chevronContainer.style.gap = '0';
+                    chevronContainer.style.gap = '8px';
                     chevronContainer.style.flexWrap = 'nowrap';
                     chevronContainer.style.alignItems = 'stretch';
                     chevronContainer.style.width = '100%';
                     
                     project.chevrons.forEach((chevron, index) => {
+                        // Add arrow separator before each chevron except the first
+                        if (index > 0) {
+                            const arrowSeparator = document.createElement('div');
+                            arrowSeparator.style.display = 'flex';
+                            arrowSeparator.style.alignItems = 'center';
+                            arrowSeparator.style.color = '#9CA3AF';
+                            arrowSeparator.style.fontSize = '18px';
+                            arrowSeparator.style.flexShrink = '0';
+                            arrowSeparator.textContent = '›';
+                            chevronContainer.appendChild(arrowSeparator);
+                        }
                         // Define SVG icons for each chevron
                         const svgIcons = {
                             'Opportunity': '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>',
@@ -7632,7 +7643,6 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         chevronItem.style.fontSize = '10px';
                         chevronItem.style.fontWeight = '500';
                         chevronItem.style.clipPath = 'polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%, 12px 50%)';
-                        chevronItem.style.marginLeft = index === 0 ? '0' : '-12px';
                         chevronItem.style.flex = '1';
                         chevronItem.style.minWidth = '0';
                         chevronItem.style.lineHeight = '1.3';
