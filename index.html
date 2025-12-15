@@ -7737,12 +7737,12 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     blueText.setAttribute('y', (legendY + 6).toString());
                     blueText.setAttribute('font-size', '8');
                     blueText.setAttribute('fill', '#666');
-                    blueText.textContent = 'Capital';
+                    blueText.textContent = 'Invested Capital';
                     chartSvg.appendChild(blueText);
                     
                     // Red legend
                     const redRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-                    redRect.setAttribute('x', '180');
+                    redRect.setAttribute('x', '170');
                     redRect.setAttribute('y', legendY.toString());
                     redRect.setAttribute('width', '12');
                     redRect.setAttribute('height', '8');
@@ -7750,7 +7750,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     chartSvg.appendChild(redRect);
                     
                     const redText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                    redText.setAttribute('x', '196');
+                    redText.setAttribute('x', '186');
                     redText.setAttribute('y', (legendY + 6).toString());
                     redText.setAttribute('font-size', '8');
                     redText.setAttribute('fill', '#666');
@@ -7759,8 +7759,8 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     
                     // Green legend (Revenue)
                     const greenLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                    greenLine.setAttribute('x1', '440');
-                    greenLine.setAttribute('x2', '452');
+                    greenLine.setAttribute('x1', '410');
+                    greenLine.setAttribute('x2', '422');
                     greenLine.setAttribute('y1', (legendY + 4).toString());
                     greenLine.setAttribute('y2', (legendY + 4).toString());
                     greenLine.setAttribute('stroke', '#0F62FE');
@@ -7768,7 +7768,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     chartSvg.appendChild(greenLine);
                     
                     const greenText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                    greenText.setAttribute('x', '458');
+                    greenText.setAttribute('x', '428');
                     greenText.setAttribute('y', (legendY + 6).toString());
                     greenText.setAttribute('font-size', '8');
                     greenText.setAttribute('fill', '#666');
