@@ -8012,47 +8012,29 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     journeySvg.setAttribute('height', '120');
                     journeySvg.setAttribute('viewBox', '0 0 500 120');
                     
-                    // Define arrowhead marker
-                    const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-                    const marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
-                    marker.setAttribute('id', 'arrowhead');
-                    marker.setAttribute('markerWidth', '10');
-                    marker.setAttribute('markerHeight', '7');
-                    marker.setAttribute('refX', '9');
-                    marker.setAttribute('refY', '3.5');
-                    marker.setAttribute('orient', 'auto');
-                    
-                    const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-                    polygon.setAttribute('points', '0 0, 10 3.5, 0 7');
-                    polygon.setAttribute('fill', '#9CA3AF');
-                    
-                    marker.appendChild(polygon);
-                    defs.appendChild(marker);
-                    journeySvg.appendChild(defs);
-                    
                     // Path 1 (top)
                     const path1Stages = [
-                        { name: 'Social', x: 20, y: 25 },
-                        { name: 'Engage', x: 120, y: 25 },
-                        { name: 'Trust', x: 220, y: 25 }
+                        { name: 'Social', x: 0, y: 25 },
+                        { name: 'Engage', x: 100, y: 25 },
+                        { name: 'Trust', x: 200, y: 25 }
                     ];
                     
                     // Path 2 (middle)
                     const path2Stages = [
-                        { name: 'Search', x: 20, y: 60 },
-                        { name: 'Compare', x: 120, y: 60 },
-                        { name: 'Decide', x: 220, y: 60 }
+                        { name: 'Search', x: 0, y: 60 },
+                        { name: 'Compare', x: 100, y: 60 },
+                        { name: 'Decide', x: 200, y: 60 }
                     ];
                     
                     // Path 3 (bottom)
                     const path3Stages = [
-                        { name: 'Referral', x: 20, y: 95 },
-                        { name: 'Learn', x: 120, y: 95 },
-                        { name: 'Convert', x: 220, y: 95 }
+                        { name: 'Referral', x: 0, y: 95 },
+                        { name: 'Learn', x: 100, y: 95 },
+                        { name: 'Convert', x: 200, y: 95 }
                     ];
                     
                     // Final stage (converging point)
-                    const finalStage = { name: 'Purchase', x: 380, y: 60 };
+                    const finalStage = { name: 'Purchase', x: 400, y: 60 };
                     
                     // Draw all paths
                     [path1Stages, path2Stages, path3Stages].forEach((path) => {
@@ -8061,47 +8043,47 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                             const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
                             rect.setAttribute('x', stage.x.toString());
                             rect.setAttribute('y', stage.y.toString());
-                            rect.setAttribute('width', '70');
+                            rect.setAttribute('width', '80');
                             rect.setAttribute('height', '20');
                             rect.setAttribute('rx', '4');
-                            rect.setAttribute('fill', '#BFDBFE');
+                            rect.setAttribute('fill', '#FFFFFF');
+                            rect.setAttribute('stroke', '#E5E7EB');
+                            rect.setAttribute('stroke-width', '1');
                             journeySvg.appendChild(rect);
                             
                             // Add label
                             const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                            text.setAttribute('x', (stage.x + 35).toString());
+                            text.setAttribute('x', (stage.x + 40).toString());
                             text.setAttribute('y', (stage.y + 13).toString());
                             text.setAttribute('text-anchor', 'middle');
                             text.setAttribute('font-size', '8');
                             text.setAttribute('font-weight', '500');
-                            text.setAttribute('fill', '#000000');
+                            text.setAttribute('fill', '#1F2937');
                             text.textContent = stage.name;
                             journeySvg.appendChild(text);
                             
-                            // Add arrow to next stage in path
+                            // Add line to next stage in path
                             if (index < path.length - 1) {
-                                const arrowLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                                arrowLine.setAttribute('x1', (stage.x + 70).toString());
-                                arrowLine.setAttribute('y1', (stage.y + 10).toString());
-                                arrowLine.setAttribute('x2', (path[index + 1].x - 10).toString());
-                                arrowLine.setAttribute('y2', (stage.y + 10).toString());
-                                arrowLine.setAttribute('stroke', '#9CA3AF');
-                                arrowLine.setAttribute('stroke-width', '1.5');
-                                arrowLine.setAttribute('marker-end', 'url(#arrowhead)');
-                                journeySvg.appendChild(arrowLine);
+                                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                                line.setAttribute('x1', (stage.x + 80).toString());
+                                line.setAttribute('y1', (stage.y + 10).toString());
+                                line.setAttribute('x2', (path[index + 1].x).toString());
+                                line.setAttribute('y2', (stage.y + 10).toString());
+                                line.setAttribute('stroke', '#D1D5DB');
+                                line.setAttribute('stroke-width', '1');
+                                journeySvg.appendChild(line);
                             }
                         });
                         
-                        // Add arrow from last stage in path to final stage
+                        // Add line from last stage in path to final stage
                         const lastStage = path[path.length - 1];
-                        const arrowPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                        const pathD = `M ${lastStage.x + 70} ${lastStage.y + 10} Q ${lastStage.x + 140} ${lastStage.y + 10}, ${finalStage.x - 10} ${finalStage.y + 10}`;
-                        arrowPath.setAttribute('d', pathD);
-                        arrowPath.setAttribute('stroke', '#9CA3AF');
-                        arrowPath.setAttribute('stroke-width', '1.5');
-                        arrowPath.setAttribute('fill', 'none');
-                        arrowPath.setAttribute('marker-end', 'url(#arrowhead)');
-                        journeySvg.appendChild(arrowPath);
+                        const linePath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                        const pathD = `M ${lastStage.x + 80} ${lastStage.y + 10} Q ${lastStage.x + 200} ${lastStage.y + 10}, ${finalStage.x} ${finalStage.y + 10}`;
+                        linePath.setAttribute('d', pathD);
+                        linePath.setAttribute('stroke', '#D1D5DB');
+                        linePath.setAttribute('stroke-width', '1');
+                        linePath.setAttribute('fill', 'none');
+                        journeySvg.appendChild(linePath);
                     });
                     
                     // Draw final stage
@@ -8111,7 +8093,9 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     finalRect.setAttribute('width', '80');
                     finalRect.setAttribute('height', '20');
                     finalRect.setAttribute('rx', '4');
-                    finalRect.setAttribute('fill', '#0F62FE');
+                    finalRect.setAttribute('fill', '#FFFFFF');
+                    finalRect.setAttribute('stroke', '#E5E7EB');
+                    finalRect.setAttribute('stroke-width', '1');
                     journeySvg.appendChild(finalRect);
                     
                     const finalText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
@@ -8120,7 +8104,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     finalText.setAttribute('text-anchor', 'middle');
                     finalText.setAttribute('font-size', '8');
                     finalText.setAttribute('font-weight', '600');
-                    finalText.setAttribute('fill', '#FFFFFF');
+                    finalText.setAttribute('fill', '#1F2937');
                     finalText.textContent = finalStage.name;
                     journeySvg.appendChild(finalText);
                     
