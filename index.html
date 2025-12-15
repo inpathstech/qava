@@ -7097,15 +7097,14 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     {
                         name: 'Customer Journey Map',
                         price: 125,
-                        purpose: 'Visualize every touchpoint with Qava talent who design data-backed, empathy-driven experiences that strengthen loyalty and retention.',
+                        heading: 'Brands using journey mapping see 3× higher customer satisfaction <span style="font-weight: 300;">— Forrester</span>',
+                        purpose: 'Visualize every touchpoint for your customers using talent who design data-backed, empathy-driven experiences that strengthen loyalty and retention.',
                         benefits: [
                             'Exposes friction points that hurt growth',
                             'Creates consistency across channels',
                             'Aligns your teams around the customer'
                         ],
-                        stat: '🗺️ Brands using journey mapping see 3× higher customer satisfaction — Forrester',
-                        quote: '"People do not buy products — they buy better versions of themselves."',
-                        quoteAuthor: '— Donald Miller'
+                        hasJourneyMap: true
                     },
                     {
                         name: 'Industry Analysis',
@@ -7999,6 +7998,96 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     });
                     
                     previewBenefits.appendChild(segBoxesContainer);
+                }
+                
+                // Add customer journey map if available (for Customer Journey Map)
+                if (project.hasJourneyMap) {
+                    const journeyMapContainer = document.createElement('div');
+                    journeyMapContainer.style.marginTop = '16px';
+                    journeyMapContainer.style.backgroundColor = '#FFFFFF';
+                    
+                    // Create SVG for journey map
+                    const journeySvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    journeySvg.setAttribute('width', '100%');
+                    journeySvg.setAttribute('height', '120');
+                    journeySvg.setAttribute('viewBox', '0 0 500 120');
+                    
+                    // Journey stages with arrows
+                    const stages = [
+                        { name: 'Awareness', x: 40, color: '#BFDBFE' },
+                        { name: 'Consider', x: 140, color: '#93C5FD' },
+                        { name: 'Purchase', x: 240, color: '#60A5FA' },
+                        { name: 'Onboard', x: 340, color: '#3B82F6' },
+                        { name: 'Retain', x: 440, color: '#0F62FE' }
+                    ];
+                    
+                    stages.forEach((stage, index) => {
+                        // Draw rounded rectangle for stage
+                        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                        rect.setAttribute('x', stage.x.toString());
+                        rect.setAttribute('y', '45');
+                        rect.setAttribute('width', '70');
+                        rect.setAttribute('height', '30');
+                        rect.setAttribute('rx', '4');
+                        rect.setAttribute('fill', stage.color);
+                        journeySvg.appendChild(rect);
+                        
+                        // Add stage label
+                        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                        text.setAttribute('x', (stage.x + 35).toString());
+                        text.setAttribute('y', '63');
+                        text.setAttribute('text-anchor', 'middle');
+                        text.setAttribute('font-size', '9');
+                        text.setAttribute('font-weight', '500');
+                        text.setAttribute('fill', '#000000');
+                        text.textContent = stage.name;
+                        journeySvg.appendChild(text);
+                        
+                        // Add arrow between stages (except after last stage)
+                        if (index < stages.length - 1) {
+                            const arrowLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                            arrowLine.setAttribute('x1', (stage.x + 70).toString());
+                            arrowLine.setAttribute('y1', '60');
+                            arrowLine.setAttribute('x2', (stage.x + 90).toString());
+                            arrowLine.setAttribute('y2', '60');
+                            arrowLine.setAttribute('stroke', '#9CA3AF');
+                            arrowLine.setAttribute('stroke-width', '1.5');
+                            arrowLine.setAttribute('marker-end', 'url(#arrowhead)');
+                            journeySvg.appendChild(arrowLine);
+                        }
+                    });
+                    
+                    // Define arrowhead marker
+                    const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+                    const marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+                    marker.setAttribute('id', 'arrowhead');
+                    marker.setAttribute('markerWidth', '10');
+                    marker.setAttribute('markerHeight', '7');
+                    marker.setAttribute('refX', '9');
+                    marker.setAttribute('refY', '3.5');
+                    marker.setAttribute('orient', 'auto');
+                    
+                    const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+                    polygon.setAttribute('points', '0 0, 10 3.5, 0 7');
+                    polygon.setAttribute('fill', '#9CA3AF');
+                    
+                    marker.appendChild(polygon);
+                    defs.appendChild(marker);
+                    journeySvg.insertBefore(defs, journeySvg.firstChild);
+                    
+                    // Add title
+                    const title = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    title.setAttribute('x', '250');
+                    title.setAttribute('y', '20');
+                    title.setAttribute('text-anchor', 'middle');
+                    title.setAttribute('font-size', '10');
+                    title.setAttribute('font-weight', '500');
+                    title.setAttribute('fill', '#6B7280');
+                    title.textContent = 'Customer Journey Stages';
+                    journeySvg.appendChild(title);
+                    
+                    journeyMapContainer.appendChild(journeySvg);
+                    previewBenefits.appendChild(journeyMapContainer);
                 }
                 
                 // Add chevrons if available
