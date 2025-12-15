@@ -6992,6 +6992,16 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                             'Communicates your "why" with clarity and confidence',
                             'Inspires belief and investment'
                         ],
+                        slideBoxes: [
+                            { title: '1: The Problem' },
+                            { title: '2: The Solution' },
+                            { title: '3: Customer Discovery' },
+                            { title: '4: Competitive Advantage' },
+                            { title: '5: Business Model' },
+                            { title: '6: Future Growth' },
+                            { title: '7: The Team' },
+                            { title: '8: The Ask' }
+                        ],
                         stat: 'Investors decide within 2–3 minutes whether to keep listening. <span style="font-weight: 300;">— Y Combinator</span>'
                     },
                     {
@@ -7704,6 +7714,33 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     });
                     
                     previewBenefits.appendChild(chevronContainer);
+                }
+                
+                // Add slide boxes if available (for Pitch Deck)
+                if (project.slideBoxes && Array.isArray(project.slideBoxes)) {
+                    const slideBoxesContainer = document.createElement('div');
+                    slideBoxesContainer.style.display = 'grid';
+                    slideBoxesContainer.style.gridTemplateColumns = 'repeat(4, 1fr)';
+                    slideBoxesContainer.style.gap = '8px';
+                    slideBoxesContainer.style.marginTop = '16px';
+                    
+                    project.slideBoxes.forEach((slide) => {
+                        const slideBox = document.createElement('div');
+                        slideBox.style.padding = '10px 12px';
+                        slideBox.style.backgroundColor = '#FFFFFF';
+                        slideBox.style.border = '1px solid #E5E7EB';
+                        slideBox.style.borderRadius = '4px';
+                        slideBox.style.fontSize = '11px';
+                        slideBox.style.fontWeight = '500';
+                        slideBox.style.color = '#1F2937';
+                        slideBox.style.textAlign = 'center';
+                        slideBox.style.lineHeight = '1.3';
+                        slideBox.textContent = slide.title;
+                        
+                        slideBoxesContainer.appendChild(slideBox);
+                    });
+                    
+                    previewBenefits.appendChild(slideBoxesContainer);
                 }
                 
                 // Add stat if available
