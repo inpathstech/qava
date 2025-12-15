@@ -8035,8 +8035,8 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     // Create SVG for journey map
                     const journeySvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
                     journeySvg.setAttribute('width', '100%');
-                    journeySvg.setAttribute('height', '120');
-                    journeySvg.setAttribute('viewBox', '0 0 500 120');
+                    journeySvg.setAttribute('height', '105');
+                    journeySvg.setAttribute('viewBox', '0 0 500 105');
                     
                     // Define icons for each stage
                     const stageIcons = {
@@ -8054,27 +8054,27 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     
                     // Path 1 (top)
                     const path1Stages = [
-                        { name: 'Social', x: 0, y: 25 },
-                        { name: 'Engage', x: 100, y: 25 },
-                        { name: 'Trust', x: 200, y: 25 }
+                        { name: 'Social', x: 0, y: 10 },
+                        { name: 'Engage', x: 100, y: 10 },
+                        { name: 'Trust', x: 200, y: 10 }
                     ];
                     
                     // Path 2 (middle)
                     const path2Stages = [
-                        { name: 'Search', x: 0, y: 60 },
-                        { name: 'Compare', x: 100, y: 60 },
-                        { name: 'Decide', x: 200, y: 60 }
+                        { name: 'Search', x: 0, y: 45 },
+                        { name: 'Compare', x: 100, y: 45 },
+                        { name: 'Decide', x: 200, y: 45 }
                     ];
                     
                     // Path 3 (bottom)
                     const path3Stages = [
-                        { name: 'Referral', x: 0, y: 95 },
-                        { name: 'Learn', x: 100, y: 95 },
-                        { name: 'Convert', x: 200, y: 95 }
+                        { name: 'Referral', x: 0, y: 80 },
+                        { name: 'Learn', x: 100, y: 80 },
+                        { name: 'Convert', x: 200, y: 80 }
                     ];
                     
                     // Final stage (converging point)
-                    const finalStage = { name: 'Purchase', x: 320, y: 60 };
+                    const finalStage = { name: 'Purchase', x: 320, y: 45 };
                     
                     // Draw all paths
                     [path1Stages, path2Stages, path3Stages].forEach((path) => {
