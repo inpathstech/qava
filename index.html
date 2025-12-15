@@ -7671,7 +7671,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     // X-axis labels (years)
                     years.forEach((year, i) => {
                         const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                        text.setAttribute('x', (180 + i * 100).toString());
+                        text.setAttribute('x', (120 + i * 100).toString());
                         text.setAttribute('y', '110');
                         text.setAttribute('text-anchor', 'middle');
                         text.setAttribute('font-size', '10');
@@ -7684,7 +7684,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     capital.forEach((value, i) => {
                         const height = value * 0.28;
                         const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-                        rect.setAttribute('x', (140 + i * 100).toString());
+                        rect.setAttribute('x', (80 + i * 100).toString());
                         rect.setAttribute('y', (100 - height).toString());
                         rect.setAttribute('width', '28');
                         rect.setAttribute('height', height.toString());
@@ -7696,7 +7696,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     profit.forEach((value, i) => {
                         const height = value * 0.28;
                         const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-                        rect.setAttribute('x', (172 + i * 100).toString());
+                        rect.setAttribute('x', (112 + i * 100).toString());
                         rect.setAttribute('y', (100 - height).toString());
                         rect.setAttribute('width', '28');
                         rect.setAttribute('height', height.toString());
@@ -7707,7 +7707,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     // Revenue line (green)
                     let revPathD = 'M';
                     revenue.forEach((value, i) => {
-                        const x = 186 + i * 100;
+                        const x = 126 + i * 100;
                         const y = 100 - (value * 0.28);
                         revPathD += ` ${x},${y}`;
                         if (i < revenue.length - 1) revPathD += ' L';
