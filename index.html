@@ -7109,15 +7109,14 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     {
                         name: 'Industry Analysis',
                         price: 160,
+                        heading: 'Understanding your industry is understanding your destiny. <span style="font-weight: 300;">— Bain & Company</span>',
                         purpose: 'Gain clarity and confidence in your market with Qava analysts who blend academic rigor, trend data, and AI insights into a clear, actionable perspective.',
                         benefits: [
                             'Identifies key trends and growth opportunities',
                             'Strengthens investor confidence in your strategy',
                             'Grounds your decisions in real-world data'
                         ],
-                        stat: '📊 "Understanding your industry is understanding your destiny." — Bain & Company',
-                        quote: '"Strategy without insight is just guesswork."',
-                        quoteAuthor: '— Michael Porter'
+                        hasFiveForces: true
                     },
                     {
                         name: 'Grant Application',
@@ -8127,6 +8126,69 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     
                     journeyMapContainer.appendChild(journeySvg);
                     previewBenefits.appendChild(journeyMapContainer);
+                }
+                
+                // Add Porter's Five Forces visualization if available (for Industry Analysis)
+                if (project.hasFiveForces) {
+                    const fiveForcesContainer = document.createElement('div');
+                    fiveForcesContainer.style.marginTop = '0px';
+                    fiveForcesContainer.style.backgroundColor = '#FFFFFF';
+                    
+                    // Create SVG for Five Forces
+                    const forcesSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    forcesSvg.setAttribute('width', '100%');
+                    forcesSvg.setAttribute('height', '120');
+                    forcesSvg.setAttribute('viewBox', '0 0 400 120');
+                    
+                    // Define the five forces with positions
+                    const forces = [
+                        { name: 'POTENTIAL\nNEW ENTRANT', x: 200, y: 15, radius: 28, filled: false },
+                        { name: 'AVAILABILITY OF\nSUBSTITUTES', x: 320, y: 50, radius: 28, filled: false },
+                        { name: 'BARGAINING\nPOWER OF\nSUPPLIERS', x: 270, y: 95, radius: 28, filled: false },
+                        { name: 'BARGAINING\nPOWER OF\nBUYERS', x: 130, y: 95, radius: 28, filled: false },
+                        { name: 'INTENSITY OF\nCOMPETITION', x: 200, y: 60, radius: 35, filled: true }
+                    ];
+                    
+                    // Draw each force
+                    forces.forEach(force => {
+                        // Draw circle
+                        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                        circle.setAttribute('cx', force.x.toString());
+                        circle.setAttribute('cy', force.y.toString());
+                        circle.setAttribute('r', force.radius.toString());
+                        
+                        if (force.filled) {
+                            circle.setAttribute('fill', '#0F62FE');
+                            circle.setAttribute('stroke', 'none');
+                        } else {
+                            circle.setAttribute('fill', '#FFFFFF');
+                            circle.setAttribute('stroke', '#0F62FE');
+                            circle.setAttribute('stroke-width', '2');
+                        }
+                        
+                        forcesSvg.appendChild(circle);
+                        
+                        // Add text
+                        const lines = force.name.split('\n');
+                        const lineHeight = 8;
+                        const startY = force.y - ((lines.length - 1) * lineHeight) / 2;
+                        
+                        lines.forEach((line, index) => {
+                            const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                            text.setAttribute('x', force.x.toString());
+                            text.setAttribute('y', (startY + index * lineHeight).toString());
+                            text.setAttribute('text-anchor', 'middle');
+                            text.setAttribute('font-family', 'Inter, sans-serif');
+                            text.setAttribute('font-size', '7');
+                            text.setAttribute('font-weight', '600');
+                            text.setAttribute('fill', force.filled ? '#FFFFFF' : '#1F2937');
+                            text.textContent = line;
+                            forcesSvg.appendChild(text);
+                        });
+                    });
+                    
+                    fiveForcesContainer.appendChild(forcesSvg);
+                    previewBenefits.appendChild(fiveForcesContainer);
                 }
                 
                 // Add chevrons if available
