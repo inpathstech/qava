@@ -7044,15 +7044,14 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     {
                         name: 'Competitor Analysis',
                         price: 140,
+                        heading: 'Companies that monitor competitors grow revenue 2× faster <span style="font-weight: 300;">— Harvard Business Review</span>',
                         purpose: 'Stay ahead of the market with a competitor analysis built by Qava strategists who use AI-powered research and leading strategy frameworks to uncover your edge.',
                         benefits: [
                             'Reveals gaps competitors overlook',
                             'Defines your unique position to win',
                             'Equips you with insights for confident decisions'
                         ],
-                        stat: '📊 Companies that monitor competitors grow revenue 2× faster — Harvard Business Review',
-                        quote: '"The essence of strategy is choosing what not to do."',
-                        quoteAuthor: '— Michael Porter'
+                        hasCompetitorChart: true
                     },
                     {
                         name: 'Customer Segmentation',
@@ -7777,6 +7776,128 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     
                     chartContainer.appendChild(chartSvg);
                     previewBenefits.appendChild(chartContainer);
+                }
+                
+                // Add competitor positioning chart if available (for Competitor Analysis)
+                if (project.hasCompetitorChart) {
+                    const compChartContainer = document.createElement('div');
+                    compChartContainer.style.marginTop = '16px';
+                    compChartContainer.style.backgroundColor = '#FFFFFF';
+                    
+                    // Create SVG chart
+                    const compSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    compSvg.setAttribute('width', '100%');
+                    compSvg.setAttribute('height', '120');
+                    compSvg.setAttribute('viewBox', '0 0 500 120');
+                    
+                    // Competitor data (x: market share, y: market growth)
+                    const competitors = [
+                        { name: 'Your Business', x: 120, y: 20, size: 22, color: '#10B981' },
+                        { name: 'Competitor A', x: 300, y: 30, size: 28, color: '#6B7280' },
+                        { name: 'Competitor B', x: 180, y: 65, size: 24, color: '#9CA3AF' },
+                        { name: 'Competitor C', x: 380, y: 75, size: 20, color: '#D1D5DB' },
+                        { name: 'Competitor D', x: 270, y: 85, size: 18, color: '#E5E7EB' }
+                    ];
+                    
+                    // Draw quadrant lines
+                    const vLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    vLine.setAttribute('x1', '250');
+                    vLine.setAttribute('x2', '250');
+                    vLine.setAttribute('y1', '10');
+                    vLine.setAttribute('y2', '110');
+                    vLine.setAttribute('stroke', '#E5E7EB');
+                    vLine.setAttribute('stroke-width', '1');
+                    vLine.setAttribute('stroke-dasharray', '4,4');
+                    compSvg.appendChild(vLine);
+                    
+                    const hLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    hLine.setAttribute('x1', '10');
+                    hLine.setAttribute('x2', '490');
+                    hLine.setAttribute('y1', '60');
+                    hLine.setAttribute('y2', '60');
+                    hLine.setAttribute('stroke', '#E5E7EB');
+                    hLine.setAttribute('stroke-width', '1');
+                    hLine.setAttribute('stroke-dasharray', '4,4');
+                    compSvg.appendChild(hLine);
+                    
+                    // Quadrant labels
+                    const q1Label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    q1Label.setAttribute('x', '370');
+                    q1Label.setAttribute('y', '25');
+                    q1Label.setAttribute('font-size', '9');
+                    q1Label.setAttribute('fill', '#9CA3AF');
+                    q1Label.setAttribute('font-weight', '500');
+                    q1Label.textContent = 'Leaders';
+                    compSvg.appendChild(q1Label);
+                    
+                    const q2Label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    q2Label.setAttribute('x', '120');
+                    q2Label.setAttribute('y', '25');
+                    q2Label.setAttribute('font-size', '9');
+                    q2Label.setAttribute('fill', '#9CA3AF');
+                    q2Label.setAttribute('font-weight', '500');
+                    q2Label.textContent = 'Challengers';
+                    compSvg.appendChild(q2Label);
+                    
+                    const q3Label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    q3Label.setAttribute('x', '130');
+                    q3Label.setAttribute('y', '105');
+                    q3Label.setAttribute('font-size', '9');
+                    q3Label.setAttribute('fill', '#9CA3AF');
+                    q3Label.setAttribute('font-weight', '500');
+                    q3Label.textContent = 'Niche';
+                    compSvg.appendChild(q3Label);
+                    
+                    const q4Label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    q4Label.setAttribute('x', '340');
+                    q4Label.setAttribute('y', '105');
+                    q4Label.setAttribute('font-size', '9');
+                    q4Label.setAttribute('fill', '#9CA3AF');
+                    q4Label.setAttribute('font-weight', '500');
+                    q4Label.textContent = 'High Performers';
+                    compSvg.appendChild(q4Label);
+                    
+                    // Axis labels
+                    const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    xAxis.setAttribute('x', '450');
+                    xAxis.setAttribute('y', '115');
+                    xAxis.setAttribute('font-size', '8');
+                    xAxis.setAttribute('fill', '#6B7280');
+                    xAxis.textContent = 'Market Share →';
+                    compSvg.appendChild(xAxis);
+                    
+                    const yAxis = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    yAxis.setAttribute('x', '5');
+                    yAxis.setAttribute('y', '15');
+                    yAxis.setAttribute('font-size', '8');
+                    yAxis.setAttribute('fill', '#6B7280');
+                    yAxis.textContent = '↑ Market Growth';
+                    compSvg.appendChild(yAxis);
+                    
+                    // Draw competitor bubbles
+                    competitors.forEach((comp) => {
+                        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                        circle.setAttribute('cx', comp.x.toString());
+                        circle.setAttribute('cy', comp.y.toString());
+                        circle.setAttribute('r', comp.size.toString());
+                        circle.setAttribute('fill', comp.color);
+                        circle.setAttribute('opacity', comp.name === 'Your Business' ? '1' : '0.7');
+                        compSvg.appendChild(circle);
+                        
+                        // Add label
+                        const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                        label.setAttribute('x', comp.x.toString());
+                        label.setAttribute('y', (comp.y + 4).toString());
+                        label.setAttribute('text-anchor', 'middle');
+                        label.setAttribute('font-size', '7');
+                        label.setAttribute('font-weight', comp.name === 'Your Business' ? '600' : '400');
+                        label.setAttribute('fill', comp.name === 'Your Business' ? '#FFFFFF' : '#000000');
+                        label.textContent = comp.name === 'Your Business' ? 'You' : comp.name.split(' ')[1];
+                        compSvg.appendChild(label);
+                    });
+                    
+                    compChartContainer.appendChild(compSvg);
+                    previewBenefits.appendChild(compChartContainer);
                 }
                 
                 // Add chevrons if available
