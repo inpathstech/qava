@@ -8138,15 +8138,15 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     const forcesSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
                     forcesSvg.setAttribute('width', '100%');
                     forcesSvg.setAttribute('height', '120');
-                    forcesSvg.setAttribute('viewBox', '0 0 400 120');
+                    forcesSvg.setAttribute('viewBox', '0 0 500 120');
                     
-                    // Define the five forces with positions
+                    // Define the five forces with positions (spread out horizontally)
                     const forces = [
-                        { name: 'POTENTIAL\nNEW ENTRANT', x: 200, y: 15, radius: 28, filled: false },
-                        { name: 'AVAILABILITY OF\nSUBSTITUTES', x: 320, y: 50, radius: 28, filled: false },
-                        { name: 'BARGAINING\nPOWER OF\nSUPPLIERS', x: 270, y: 95, radius: 28, filled: false },
-                        { name: 'BARGAINING\nPOWER OF\nBUYERS', x: 130, y: 95, radius: 28, filled: false },
-                        { name: 'INTENSITY OF\nCOMPETITION', x: 200, y: 60, radius: 35, filled: true }
+                        { name: 'POTENTIAL\nNEW ENTRANT', x: 250, y: 25, radius: 24, filled: false },
+                        { name: 'AVAILABILITY OF\nSUBSTITUTES', x: 410, y: 60, radius: 24, filled: false },
+                        { name: 'BARGAINING\nPOWER OF\nSUPPLIERS', x: 340, y: 95, radius: 24, filled: false },
+                        { name: 'BARGAINING\nPOWER OF\nBUYERS', x: 90, y: 60, radius: 24, filled: false },
+                        { name: 'INTENSITY OF\nCOMPETITION', x: 250, y: 60, radius: 32, filled: true }
                     ];
                     
                     // Draw each force
@@ -8158,30 +8158,32 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         circle.setAttribute('r', force.radius.toString());
                         
                         if (force.filled) {
-                            circle.setAttribute('fill', '#0F62FE');
+                            circle.setAttribute('fill', '#BFDBFE');
                             circle.setAttribute('stroke', 'none');
                         } else {
                             circle.setAttribute('fill', '#FFFFFF');
-                            circle.setAttribute('stroke', '#0F62FE');
-                            circle.setAttribute('stroke-width', '2');
+                            circle.setAttribute('stroke', '#E5E7EB');
+                            circle.setAttribute('stroke-width', '1');
                         }
                         
                         forcesSvg.appendChild(circle);
                         
                         // Add text
                         const lines = force.name.split('\n');
-                        const lineHeight = 8;
-                        const startY = force.y - ((lines.length - 1) * lineHeight) / 2;
+                        const lineHeight = 7;
+                        const totalHeight = (lines.length - 1) * lineHeight;
+                        const startY = force.y - totalHeight / 2 + 2.5;
                         
                         lines.forEach((line, index) => {
                             const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                             text.setAttribute('x', force.x.toString());
                             text.setAttribute('y', (startY + index * lineHeight).toString());
                             text.setAttribute('text-anchor', 'middle');
+                            text.setAttribute('dominant-baseline', 'middle');
                             text.setAttribute('font-family', 'Inter, sans-serif');
-                            text.setAttribute('font-size', '7');
+                            text.setAttribute('font-size', '6.5');
                             text.setAttribute('font-weight', '600');
-                            text.setAttribute('fill', force.filled ? '#FFFFFF' : '#1F2937');
+                            text.setAttribute('fill', '#1F2937');
                             text.textContent = line;
                             forcesSvg.appendChild(text);
                         });
