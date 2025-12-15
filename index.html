@@ -7744,7 +7744,10 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         slideBox.style.overflow = 'hidden';
                         slideBox.style.textOverflow = 'ellipsis';
                         
-                        slideBox.textContent = slide.title;
+                        const highlightSpan = document.createElement('span');
+                        highlightSpan.className = 'highlight';
+                        highlightSpan.textContent = slide.title;
+                        slideBox.appendChild(highlightSpan);
                         
                         slideBoxesContainer.appendChild(slideBox);
                     });
