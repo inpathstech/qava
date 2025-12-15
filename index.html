@@ -8358,14 +8358,15 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     
                     project.grantBoxes.forEach((box, index) => {
                         const grantBox = document.createElement('div');
-                        grantBox.style.padding = '16px';
+                        grantBox.style.padding = '10px 12px';
                         grantBox.style.backgroundColor = '#FFFFFF';
                         grantBox.style.border = '1px solid #E5E7EB';
-                        grantBox.style.borderRadius = '8px';
-                        grantBox.style.minHeight = '120px';
+                        grantBox.style.borderRadius = '6px';
+                        grantBox.style.height = '100px';
                         grantBox.style.display = 'flex';
                         grantBox.style.flexDirection = 'column';
                         grantBox.style.justifyContent = 'flex-start';
+                        grantBox.style.overflow = 'hidden';
                         
                         // Set gradient backgrounds
                         const gradients = [
@@ -8378,20 +8379,20 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         
                         // Add title
                         const titleDiv = document.createElement('div');
-                        titleDiv.style.fontSize = '14px';
+                        titleDiv.style.fontSize = '12px';
                         titleDiv.style.fontWeight = '600';
                         titleDiv.style.color = '#FFFFFF';
-                        titleDiv.style.marginBottom = '8px';
-                        titleDiv.style.lineHeight = '1.3';
+                        titleDiv.style.marginBottom = '6px';
+                        titleDiv.style.lineHeight = '1.2';
                         titleDiv.textContent = box.title;
                         grantBox.appendChild(titleDiv);
                         
                         // Add description
                         const descDiv = document.createElement('div');
-                        descDiv.style.fontSize = '12px';
+                        descDiv.style.fontSize = '10px';
                         descDiv.style.fontWeight = '400';
                         descDiv.style.color = '#FFFFFF';
-                        descDiv.style.lineHeight = '1.4';
+                        descDiv.style.lineHeight = '1.3';
                         descDiv.style.opacity = '0.95';
                         descDiv.textContent = box.description;
                         grantBox.appendChild(descDiv);
