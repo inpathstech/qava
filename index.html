@@ -8070,13 +8070,18 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                             const iconWidth = 10;
                             const gap = 4;
                             
-                            // Create temporary text to measure width
+                            // Create temporary text to measure width with exact same properties
                             const tempText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                            tempText.setAttribute('font-family', 'Inter, sans-serif');
                             tempText.setAttribute('font-size', '10');
                             tempText.setAttribute('font-weight', '500');
+                            tempText.setAttribute('x', '0');
+                            tempText.setAttribute('y', '0');
                             tempText.textContent = stage.name;
                             tempText.style.visibility = 'hidden';
                             journeySvg.appendChild(tempText);
+                            
+                            // Force a reflow to ensure accurate measurement
                             const textWidth = tempText.getBBox().width;
                             journeySvg.removeChild(tempText);
                             
@@ -8090,8 +8095,9 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                             iconSpan.setAttribute('transform', `translate(${startX}, ${stage.y + 5})`);
                             journeySvg.appendChild(iconSpan);
                             
-                            // Add label
+                            // Add label with explicit font-family
                             const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                            text.setAttribute('font-family', 'Inter, sans-serif');
                             text.setAttribute('x', (startX + iconWidth + gap).toString());
                             text.setAttribute('y', (stage.y + 14).toString());
                             text.setAttribute('text-anchor', 'start');
@@ -8142,13 +8148,18 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     const finalIconWidth = 10;
                     const finalGap = 4;
                     
-                    // Create temporary text to measure width
+                    // Create temporary text to measure width with exact same properties
                     const finalTempText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    finalTempText.setAttribute('font-family', 'Inter, sans-serif');
                     finalTempText.setAttribute('font-size', '10');
                     finalTempText.setAttribute('font-weight', '600');
+                    finalTempText.setAttribute('x', '0');
+                    finalTempText.setAttribute('y', '0');
                     finalTempText.textContent = finalStage.name;
                     finalTempText.style.visibility = 'hidden';
                     journeySvg.appendChild(finalTempText);
+                    
+                    // Force a reflow to ensure accurate measurement
                     const finalTextWidth = finalTempText.getBBox().width;
                     journeySvg.removeChild(finalTempText);
                     
@@ -8162,8 +8173,9 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     finalIconSpan.setAttribute('transform', `translate(${finalStartX}, ${finalStage.y + 5})`);
                     journeySvg.appendChild(finalIconSpan);
                     
-                    // Add label
+                    // Add label with explicit font-family
                     const finalText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    finalText.setAttribute('font-family', 'Inter, sans-serif');
                     finalText.setAttribute('x', (finalStartX + finalIconWidth + finalGap).toString());
                     finalText.setAttribute('y', (finalStage.y + 14).toString());
                     finalText.setAttribute('text-anchor', 'start');
