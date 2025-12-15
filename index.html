@@ -7666,9 +7666,15 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                 
                 // Add benefits with checkmarks
                 if (project.benefits && Array.isArray(project.benefits)) {
-                    project.benefits.forEach(benefit => {
+                    project.benefits.forEach((benefit, index) => {
                         const benefitItem = document.createElement('div');
                         benefitItem.className = 'benefit-item';
+                        
+                        // Remove bottom margin/padding from last benefit when followed by visual
+                        if (index === project.benefits.length - 1 && (project.hasJourneyMap || project.grantBoxes)) {
+                            benefitItem.style.marginBottom = '0';
+                            benefitItem.style.paddingBottom = '0';
+                        }
                         
                         const checkmark = document.createElement('div');
                         checkmark.className = 'benefit-checkmark';
@@ -8023,7 +8029,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                 // Add customer journey map if available (for Customer Journey Map)
                 if (project.hasJourneyMap) {
                     const journeyMapContainer = document.createElement('div');
-                    journeyMapContainer.style.marginTop = '0px';
+                    journeyMapContainer.style.marginTop = '-8px';
                     journeyMapContainer.style.backgroundColor = '#FFFFFF';
                     
                     // Create SVG for journey map
