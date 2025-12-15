@@ -7716,22 +7716,9 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     const revPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
                     revPath.setAttribute('d', revPathD);
                     revPath.setAttribute('stroke', '#0F62FE');
-                    revPath.setAttribute('stroke-width', '2.5');
+                    revPath.setAttribute('stroke-width', '1.5');
                     revPath.setAttribute('fill', 'none');
                     chartSvg.appendChild(revPath);
-                    
-                    // Revenue line dots
-                    revenue.forEach((value, i) => {
-                        const x = 186 + i * 100;
-                        const y = 100 - (value * 0.28);
-                        
-                        const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                        dot.setAttribute('cx', x.toString());
-                        dot.setAttribute('cy', y.toString());
-                        dot.setAttribute('r', '4');
-                        dot.setAttribute('fill', '#0F62FE');
-                        chartSvg.appendChild(dot);
-                    });
                     
                     // Legend
                     const legendY = 8;
@@ -7777,7 +7764,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     greenLine.setAttribute('y1', (legendY + 4).toString());
                     greenLine.setAttribute('y2', (legendY + 4).toString());
                     greenLine.setAttribute('stroke', '#0F62FE');
-                    greenLine.setAttribute('stroke-width', '2.5');
+                    greenLine.setAttribute('stroke-width', '1.5');
                     chartSvg.appendChild(greenLine);
                     
                     const greenText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
