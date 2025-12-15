@@ -7653,6 +7653,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     const years = ['2026', '2027', '2028', '2029', '2030'];
                     const capital = [5, 60, 120, 180, 280];
                     const profit = [3, 40, 80, 120, 200];
+                    const revenue = [20, 85, 160, 240, 350];
                     const roic = [44.7, 59.9, 88.7, 77.4, 67.6];
                     
                     // Chart background grid
@@ -7703,6 +7704,35 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         chartSvg.appendChild(rect);
                     });
                     
+                    // Revenue line (green)
+                    let revPathD = 'M';
+                    revenue.forEach((value, i) => {
+                        const x = 186 + i * 100;
+                        const y = 100 - (value * 0.28);
+                        revPathD += ` ${x},${y}`;
+                        if (i < revenue.length - 1) revPathD += ' L';
+                    });
+                    
+                    const revPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    revPath.setAttribute('d', revPathD);
+                    revPath.setAttribute('stroke', '#10B981');
+                    revPath.setAttribute('stroke-width', '2.5');
+                    revPath.setAttribute('fill', 'none');
+                    chartSvg.appendChild(revPath);
+                    
+                    // Revenue line dots
+                    revenue.forEach((value, i) => {
+                        const x = 186 + i * 100;
+                        const y = 100 - (value * 0.28);
+                        
+                        const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                        dot.setAttribute('cx', x.toString());
+                        dot.setAttribute('cy', y.toString());
+                        dot.setAttribute('r', '4');
+                        dot.setAttribute('fill', '#10B981');
+                        chartSvg.appendChild(dot);
+                    });
+                    
                     // Legend
                     const legendY = 8;
                     
@@ -7739,6 +7769,24 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     redText.setAttribute('fill', '#666');
                     redText.textContent = 'Net Operating Profit After Tax (NOPAT)';
                     chartSvg.appendChild(redText);
+                    
+                    // Green legend (Revenue)
+                    const greenLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    greenLine.setAttribute('x1', '420');
+                    greenLine.setAttribute('x2', '432');
+                    greenLine.setAttribute('y1', (legendY + 4).toString());
+                    greenLine.setAttribute('y2', (legendY + 4).toString());
+                    greenLine.setAttribute('stroke', '#10B981');
+                    greenLine.setAttribute('stroke-width', '2.5');
+                    chartSvg.appendChild(greenLine);
+                    
+                    const greenText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    greenText.setAttribute('x', '438');
+                    greenText.setAttribute('y', (legendY + 6).toString());
+                    greenText.setAttribute('font-size', '8');
+                    greenText.setAttribute('fill', '#666');
+                    greenText.textContent = 'Revenue';
+                    chartSvg.appendChild(greenText);
                     
                     chartContainer.appendChild(chartSvg);
                     previewBenefits.appendChild(chartContainer);
