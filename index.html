@@ -7857,22 +7857,42 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     q4Label.textContent = 'High Performers';
                     compSvg.appendChild(q4Label);
                     
-                    // Axis labels
-                    const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                    xAxis.setAttribute('x', '450');
-                    xAxis.setAttribute('y', '115');
-                    xAxis.setAttribute('font-size', '8');
-                    xAxis.setAttribute('fill', '#6B7280');
-                    xAxis.textContent = 'Market Share →';
-                    compSvg.appendChild(xAxis);
+                    // Draw solid axis lines
+                    const xAxisLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    xAxisLine.setAttribute('x1', '30');
+                    xAxisLine.setAttribute('x2', '490');
+                    xAxisLine.setAttribute('y1', '110');
+                    xAxisLine.setAttribute('y2', '110');
+                    xAxisLine.setAttribute('stroke', '#D1D5DB');
+                    xAxisLine.setAttribute('stroke-width', '1.5');
+                    compSvg.appendChild(xAxisLine);
                     
-                    const yAxis = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                    yAxis.setAttribute('x', '5');
-                    yAxis.setAttribute('y', '15');
-                    yAxis.setAttribute('font-size', '8');
-                    yAxis.setAttribute('fill', '#6B7280');
-                    yAxis.textContent = '↑ Market Growth';
-                    compSvg.appendChild(yAxis);
+                    const yAxisLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    yAxisLine.setAttribute('x1', '30');
+                    yAxisLine.setAttribute('x2', '30');
+                    yAxisLine.setAttribute('y1', '10');
+                    yAxisLine.setAttribute('y2', '110');
+                    yAxisLine.setAttribute('stroke', '#D1D5DB');
+                    yAxisLine.setAttribute('stroke-width', '1.5');
+                    compSvg.appendChild(yAxisLine);
+                    
+                    // Axis labels
+                    const xAxisLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    xAxisLabel.setAttribute('x', '490');
+                    xAxisLabel.setAttribute('y', '108');
+                    xAxisLabel.setAttribute('text-anchor', 'end');
+                    xAxisLabel.setAttribute('font-size', '8');
+                    xAxisLabel.setAttribute('fill', '#6B7280');
+                    xAxisLabel.textContent = 'Market Share';
+                    compSvg.appendChild(xAxisLabel);
+                    
+                    const yAxisLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    yAxisLabel.setAttribute('x', '32');
+                    yAxisLabel.setAttribute('y', '15');
+                    yAxisLabel.setAttribute('font-size', '8');
+                    yAxisLabel.setAttribute('fill', '#6B7280');
+                    yAxisLabel.textContent = 'Market Growth';
+                    compSvg.appendChild(yAxisLabel);
                     
                     // Draw competitor bubbles
                     competitors.forEach((comp) => {
