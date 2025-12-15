@@ -8029,7 +8029,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                 // Add customer journey map if available (for Customer Journey Map)
                 if (project.hasJourneyMap) {
                     const journeyMapContainer = document.createElement('div');
-                    journeyMapContainer.style.marginTop = '-8px';
+                    journeyMapContainer.style.marginTop = '4px';
                     journeyMapContainer.style.backgroundColor = '#FFFFFF';
                     
                     // Create SVG for journey map
@@ -8550,8 +8550,8 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                 
                 // Add price box at the bottom, aligned to left
                 const priceSection = document.createElement('div');
-                // Reduce spacing for Grant Application and Customer Journey Map
-                priceSection.style.marginTop = (project.grantBoxes || project.hasJourneyMap) ? '2px' : '16px';
+                // Adjust spacing for Grant Application and Customer Journey Map
+                priceSection.style.marginTop = project.grantBoxes ? '2px' : (project.hasJourneyMap ? '10px' : '16px');
                 
                 const priceBox = document.createElement('a');
                 priceBox.href = 'https://app.qava.ai/';
