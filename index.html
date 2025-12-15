@@ -5067,7 +5067,7 @@
                     <!-- Dividing Line -->
                     <div style="display: flex; justify-content: center; margin: 30px 0 12px 0;">
                         <div style="width: 280px; height: 1px; background-color: #E5E5E5;"></div>
-                    </div>
+    </div>
 
             <!-- CTA Buttons -->
                     <div class="matching-cta-buttons" style="margin-top: 0;">
@@ -8034,12 +8034,12 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         { name: 'Trust', x: 200, y: 25 }
                     ];
                     
-                    // Path 2 (middle) - has 4 stages
+                    // Path 2 (middle) - has 4 stages with even spacing
                     const path2Stages = [
                         { name: 'Search', x: 0, y: 60 },
-                        { name: 'Compare', x: 75, y: 60 },
-                        { name: 'Evaluate', x: 150, y: 60 },
-                        { name: 'Decide', x: 225, y: 60 }
+                        { name: 'Compare', x: 100, y: 60 },
+                        { name: 'Evaluate', x: 200, y: 60 },
+                        { name: 'Decide', x: 300, y: 60 }
                     ];
                     
                     // Path 3 (bottom)
@@ -8049,8 +8049,8 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         { name: 'Convert', x: 200, y: 95 }
                     ];
                     
-                    // Final stage (converging point)
-                    const finalStage = { name: 'Purchase', x: 320, y: 60 };
+                    // Final stage (converging point) - moved right to accommodate 4-stage path
+                    const finalStage = { name: 'Purchase', x: 400, y: 60 };
                     
                     // Draw all paths
                     [path1Stages, path2Stages, path3Stages].forEach((path) => {
