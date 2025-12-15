@@ -7056,15 +7056,43 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     {
                         name: 'Customer Segmentation',
                         price: 70,
-                        purpose: 'Understand your audience on a deeper level with Qava experts who combine behavioral data, AI clustering, and marketing science from top programs.',
+                        heading: 'If you are marketing to everyone, you are reaching no one. <span style="font-weight: 300;">— Seth Godin</span>',
+                        purpose: '80% of growth leaders use advanced segmentation to guide strategy — McKinsey & Co. Understand your audience on a deeper level using behavioral data, AI clustering, and marketing science.',
                         benefits: [
-                            'Pinpoints your highest-value customers',
-                            'Enables precision targeting and pricing',
-                            'Boosts ROI by focusing where it matters most'
+                            'Pinpoint your highest-value customers',
+                            'Enable precision targeting and pricing',
+                            'Boost ROI by focusing where it matters most'
                         ],
-                        stat: '👥 80% of growth leaders use advanced segmentation to guide strategy — McKinsey & Co.',
-                        quote: '"If you are marketing to everyone, you are reaching no one."',
-                        quoteAuthor: '— Seth Godin'
+                        segmentationBoxes: [
+                            { 
+                                title: 'Demographic',
+                                icon: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>'
+                            },
+                            { 
+                                title: 'Geographic',
+                                icon: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>'
+                            },
+                            { 
+                                title: 'Psychographic',
+                                icon: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>'
+                            },
+                            { 
+                                title: 'Technographic',
+                                icon: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>'
+                            },
+                            { 
+                                title: 'Behavioral',
+                                icon: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>'
+                            },
+                            { 
+                                title: 'Needs-based',
+                                icon: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>'
+                            },
+                            { 
+                                title: 'Value-based',
+                                icon: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>'
+                            }
+                        ]
                     },
                     {
                         name: 'Customer Journey Map',
@@ -7924,6 +7952,53 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     
                     compChartContainer.appendChild(compSvg);
                     previewBenefits.appendChild(compChartContainer);
+                }
+                
+                // Add segmentation boxes if available (for Customer Segmentation)
+                if (project.segmentationBoxes && Array.isArray(project.segmentationBoxes)) {
+                    const segBoxesContainer = document.createElement('div');
+                    segBoxesContainer.style.display = 'grid';
+                    segBoxesContainer.style.gridTemplateColumns = 'repeat(4, 1fr)';
+                    segBoxesContainer.style.gap = '8px';
+                    segBoxesContainer.style.marginTop = '16px';
+                    
+                    project.segmentationBoxes.forEach((segment) => {
+                        const segBox = document.createElement('div');
+                        segBox.style.position = 'relative';
+                        segBox.style.padding = '8px 10px';
+                        segBox.style.backgroundColor = '#FFFFFF';
+                        segBox.style.border = '1px solid #E5E7EB';
+                        segBox.style.borderRadius = '4px';
+                        segBox.style.fontSize = '10px';
+                        segBox.style.fontWeight = '500';
+                        segBox.style.color = '#1F2937';
+                        segBox.style.textAlign = 'center';
+                        segBox.style.lineHeight = '1.2';
+                        segBox.style.display = 'flex';
+                        segBox.style.flexDirection = 'column';
+                        segBox.style.alignItems = 'center';
+                        segBox.style.justifyContent = 'center';
+                        segBox.style.gap = '4px';
+                        segBox.style.minHeight = '40px';
+                        
+                        // Add icon
+                        const iconSpan = document.createElement('span');
+                        iconSpan.innerHTML = segment.icon;
+                        iconSpan.style.display = 'flex';
+                        iconSpan.style.alignItems = 'center';
+                        iconSpan.style.flexShrink = '0';
+                        segBox.appendChild(iconSpan);
+                        
+                        // Add title with highlight
+                        const titleSpan = document.createElement('span');
+                        titleSpan.className = 'highlight';
+                        titleSpan.textContent = segment.title;
+                        segBox.appendChild(titleSpan);
+                        
+                        segBoxesContainer.appendChild(segBox);
+                    });
+                    
+                    previewBenefits.appendChild(segBoxesContainer);
                 }
                 
                 // Add chevrons if available
