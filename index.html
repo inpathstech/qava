@@ -7039,10 +7039,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                             'Highlights growth drivers and key assumptions',
                             'Enables data-driven decision-making'
                         ],
-                        hasChart: true,
-                        stat: '💡 Startups with robust financial models are 40% more likely to secure funding — CB Insights',
-                        quote: '"Without data, you are just another person with an opinion."',
-                        quoteAuthor: '— W. Edwards Deming'
+                        hasChart: true
                     },
                     {
                         name: 'Competitor Analysis',
@@ -7706,40 +7703,6 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         chartSvg.appendChild(rect);
                     });
                     
-                    // ROIC line (green)
-                    let pathD = 'M';
-                    roic.forEach((value, i) => {
-                        const x = 186 + i * 100;
-                        const y = 100 - (value * 0.55);
-                        pathD += ` ${x},${y}`;
-                        if (i < roic.length - 1) pathD += ' L';
-                        
-                        // Add circle with percentage
-                        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                        circle.setAttribute('cx', x.toString());
-                        circle.setAttribute('cy', y.toString());
-                        circle.setAttribute('r', '14');
-                        circle.setAttribute('fill', '#6EE7B7');
-                        chartSvg.appendChild(circle);
-                        
-                        const percentText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                        percentText.setAttribute('x', x.toString());
-                        percentText.setAttribute('y', (y + 3).toString());
-                        percentText.setAttribute('text-anchor', 'middle');
-                        percentText.setAttribute('font-size', '8');
-                        percentText.setAttribute('font-weight', '600');
-                        percentText.setAttribute('fill', '#000');
-                        percentText.textContent = value + '%';
-                        chartSvg.appendChild(percentText);
-                    });
-                    
-                    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                    path.setAttribute('d', pathD);
-                    path.setAttribute('stroke', '#34D399');
-                    path.setAttribute('stroke-width', '2');
-                    path.setAttribute('fill', 'none');
-                    chartSvg.insertBefore(path, chartSvg.children[6]);
-                    
                     // Legend
                     const legendY = 8;
                     
@@ -7776,24 +7739,6 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     redText.setAttribute('fill', '#666');
                     redText.textContent = 'Net Operating Profit After Tax (NOPAT)';
                     chartSvg.appendChild(redText);
-                    
-                    // Green legend
-                    const greenLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                    greenLine.setAttribute('x1', '420');
-                    greenLine.setAttribute('x2', '432');
-                    greenLine.setAttribute('y1', (legendY + 4).toString());
-                    greenLine.setAttribute('y2', (legendY + 4).toString());
-                    greenLine.setAttribute('stroke', '#34D399');
-                    greenLine.setAttribute('stroke-width', '2');
-                    chartSvg.appendChild(greenLine);
-                    
-                    const greenText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                    greenText.setAttribute('x', '438');
-                    greenText.setAttribute('y', (legendY + 6).toString());
-                    greenText.setAttribute('font-size', '8');
-                    greenText.setAttribute('fill', '#666');
-                    greenText.textContent = 'ROIC';
-                    chartSvg.appendChild(greenText);
                     
                     chartContainer.appendChild(chartSvg);
                     previewBenefits.appendChild(chartContainer);
