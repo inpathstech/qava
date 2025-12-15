@@ -8003,7 +8003,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                 // Add customer journey map if available (for Customer Journey Map)
                 if (project.hasJourneyMap) {
                     const journeyMapContainer = document.createElement('div');
-                    journeyMapContainer.style.marginTop = '16px';
+                    journeyMapContainer.style.marginTop = '12px';
                     journeyMapContainer.style.backgroundColor = '#FFFFFF';
                     
                     // Create SVG for journey map
@@ -8011,6 +8011,20 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     journeySvg.setAttribute('width', '100%');
                     journeySvg.setAttribute('height', '120');
                     journeySvg.setAttribute('viewBox', '0 0 500 120');
+                    
+                    // Define icons for each stage
+                    const stageIcons = {
+                        'Social': '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+                        'Engage': '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+                        'Trust': '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+                        'Search': '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>',
+                        'Compare': '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>',
+                        'Decide': '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>',
+                        'Referral': '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg>',
+                        'Learn': '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
+                        'Convert': '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>',
+                        'Purchase': '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>'
+                    };
                     
                     // Path 1 (top)
                     const path1Stages = [
@@ -8051,11 +8065,20 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                             rect.setAttribute('stroke-width', '1');
                             journeySvg.appendChild(rect);
                             
+                            // Add icon and label container
+                            const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                            
+                            // Add icon
+                            const iconSpan = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                            iconSpan.innerHTML = stageIcons[stage.name];
+                            iconSpan.setAttribute('transform', `translate(${stage.x + 8}, ${stage.y + 5})`);
+                            journeySvg.appendChild(iconSpan);
+                            
                             // Add label
                             const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                            text.setAttribute('x', (stage.x + 40).toString());
+                            text.setAttribute('x', (stage.x + 22).toString());
                             text.setAttribute('y', (stage.y + 13).toString());
-                            text.setAttribute('text-anchor', 'middle');
+                            text.setAttribute('text-anchor', 'start');
                             text.setAttribute('font-size', '8');
                             text.setAttribute('font-weight', '500');
                             text.setAttribute('fill', '#1F2937');
@@ -8075,33 +8098,40 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                             }
                         });
                         
-                        // Add line from last stage in path to final stage
+                        // Add straight line from last stage in path to final stage
                         const lastStage = path[path.length - 1];
-                        const linePath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                        const pathD = `M ${lastStage.x + 80} ${lastStage.y + 10} Q ${lastStage.x + 200} ${lastStage.y + 10}, ${finalStage.x} ${finalStage.y + 10}`;
-                        linePath.setAttribute('d', pathD);
-                        linePath.setAttribute('stroke', '#D1D5DB');
-                        linePath.setAttribute('stroke-width', '1');
-                        linePath.setAttribute('fill', 'none');
-                        journeySvg.appendChild(linePath);
+                        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                        line.setAttribute('x1', (lastStage.x + 80).toString());
+                        line.setAttribute('y1', (lastStage.y + 10).toString());
+                        line.setAttribute('x2', finalStage.x.toString());
+                        line.setAttribute('y2', (finalStage.y + 10).toString());
+                        line.setAttribute('stroke', '#D1D5DB');
+                        line.setAttribute('stroke-width', '1');
+                        journeySvg.appendChild(line);
                     });
                     
-                    // Draw final stage
+                    // Draw final stage with light blue background
                     const finalRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
                     finalRect.setAttribute('x', finalStage.x.toString());
                     finalRect.setAttribute('y', finalStage.y.toString());
                     finalRect.setAttribute('width', '80');
                     finalRect.setAttribute('height', '20');
                     finalRect.setAttribute('rx', '4');
-                    finalRect.setAttribute('fill', '#FFFFFF');
+                    finalRect.setAttribute('fill', '#BFDBFE');
                     finalRect.setAttribute('stroke', '#E5E7EB');
                     finalRect.setAttribute('stroke-width', '1');
                     journeySvg.appendChild(finalRect);
                     
+                    // Add icon for Purchase
+                    const finalIconSpan = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                    finalIconSpan.innerHTML = stageIcons['Purchase'];
+                    finalIconSpan.setAttribute('transform', `translate(${finalStage.x + 8}, ${finalStage.y + 5})`);
+                    journeySvg.appendChild(finalIconSpan);
+                    
                     const finalText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                    finalText.setAttribute('x', (finalStage.x + 40).toString());
+                    finalText.setAttribute('x', (finalStage.x + 22).toString());
                     finalText.setAttribute('y', (finalStage.y + 13).toString());
-                    finalText.setAttribute('text-anchor', 'middle');
+                    finalText.setAttribute('text-anchor', 'start');
                     finalText.setAttribute('font-size', '8');
                     finalText.setAttribute('font-weight', '600');
                     finalText.setAttribute('fill', '#1F2937');
