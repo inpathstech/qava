@@ -6993,16 +6993,15 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                             'Inspires belief and investment'
                         ],
                         slideBoxes: [
-                            { title: '1: The Problem' },
-                            { title: '2: The Solution' },
-                            { title: '3: Customer Discovery' },
-                            { title: '4: Competitive Advantage' },
-                            { title: '5: Business Model' },
-                            { title: '6: Future Growth' },
-                            { title: '7: The Team' },
-                            { title: '8: The Ask' }
-                        ],
-                        stat: 'Investors decide within 2–3 minutes whether to keep listening. <span style="font-weight: 300;">— Y Combinator</span>'
+                            { number: '1', title: 'The Problem' },
+                            { number: '2', title: 'The Solution' },
+                            { number: '3', title: 'Customer Discovery' },
+                            { number: '4', title: 'Competitive Adv.' },
+                            { number: '5', title: 'Business Model' },
+                            { number: '6', title: 'Future Growth' },
+                            { number: '7', title: 'The Team' },
+                            { number: '8', title: 'The Ask' }
+                        ]
                     },
                     {
                         name: 'Financial Model',
@@ -7726,20 +7725,42 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     
                     project.slideBoxes.forEach((slide) => {
                         const slideBox = document.createElement('div');
-                        slideBox.style.padding = '10px 12px';
+                        slideBox.style.position = 'relative';
+                        slideBox.style.padding = '8px 10px';
                         slideBox.style.backgroundColor = '#FFFFFF';
                         slideBox.style.border = '1px solid #E5E7EB';
                         slideBox.style.borderRadius = '4px';
-                        slideBox.style.fontSize = '11px';
+                        slideBox.style.fontSize = '10px';
                         slideBox.style.fontWeight = '500';
                         slideBox.style.color = '#1F2937';
                         slideBox.style.textAlign = 'center';
-                        slideBox.style.lineHeight = '1.4';
-                        slideBox.style.minHeight = '40px';
+                        slideBox.style.lineHeight = '1.2';
                         slideBox.style.display = 'flex';
                         slideBox.style.alignItems = 'center';
                         slideBox.style.justifyContent = 'center';
+                        slideBox.style.whiteSpace = 'nowrap';
+                        slideBox.style.overflow = 'hidden';
+                        slideBox.style.textOverflow = 'ellipsis';
+                        
+                        // Create number circle
+                        const numberCircle = document.createElement('div');
+                        numberCircle.style.position = 'absolute';
+                        numberCircle.style.top = '-10px';
+                        numberCircle.style.left = '8px';
+                        numberCircle.style.width = '20px';
+                        numberCircle.style.height = '20px';
+                        numberCircle.style.borderRadius = '50%';
+                        numberCircle.style.backgroundColor = '#475569';
+                        numberCircle.style.color = 'white';
+                        numberCircle.style.display = 'flex';
+                        numberCircle.style.alignItems = 'center';
+                        numberCircle.style.justifyContent = 'center';
+                        numberCircle.style.fontSize = '11px';
+                        numberCircle.style.fontWeight = '600';
+                        numberCircle.textContent = slide.number;
+                        
                         slideBox.textContent = slide.title;
+                        slideBox.appendChild(numberCircle);
                         
                         slideBoxesContainer.appendChild(slideBox);
                     });
