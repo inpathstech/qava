@@ -6995,14 +6995,38 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                             'Inspires belief and investment'
                         ],
                         slideBoxes: [
-                            { title: '1. The Problem' },
-                            { title: '2. The Solution' },
-                            { title: '3. Customers' },
-                            { title: '4. Competition' },
-                            { title: '5. Business Model' },
-                            { title: '6. Future Growth' },
-                            { title: '7. The Team' },
-                            { title: '8. The Ask' }
+                            { 
+                                title: 'The Problem',
+                                icon: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>'
+                            },
+                            { 
+                                title: 'The Solution',
+                                icon: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>'
+                            },
+                            { 
+                                title: 'Customers',
+                                icon: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>'
+                            },
+                            { 
+                                title: 'Competition',
+                                icon: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>'
+                            },
+                            { 
+                                title: 'Business Model',
+                                icon: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>'
+                            },
+                            { 
+                                title: 'Future Growth',
+                                icon: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>'
+                            },
+                            { 
+                                title: 'The Team',
+                                icon: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>'
+                            },
+                            { 
+                                title: 'The Ask',
+                                icon: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>'
+                            }
                         ]
                     },
                     {
@@ -7740,10 +7764,20 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         slideBox.style.display = 'flex';
                         slideBox.style.alignItems = 'center';
                         slideBox.style.justifyContent = 'center';
+                        slideBox.style.gap = '6px';
                         slideBox.style.whiteSpace = 'nowrap';
                         slideBox.style.overflow = 'hidden';
                         slideBox.style.textOverflow = 'ellipsis';
                         
+                        // Add icon
+                        const iconSpan = document.createElement('span');
+                        iconSpan.innerHTML = slide.icon;
+                        iconSpan.style.display = 'flex';
+                        iconSpan.style.alignItems = 'center';
+                        iconSpan.style.flexShrink = '0';
+                        slideBox.appendChild(iconSpan);
+                        
+                        // Add title with highlight
                         const highlightSpan = document.createElement('span');
                         highlightSpan.className = 'highlight';
                         highlightSpan.textContent = slide.title;
