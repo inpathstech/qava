@@ -8003,7 +8003,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                 // Add customer journey map if available (for Customer Journey Map)
                 if (project.hasJourneyMap) {
                     const journeyMapContainer = document.createElement('div');
-                    journeyMapContainer.style.marginTop = '12px';
+                    journeyMapContainer.style.marginTop = '8px';
                     journeyMapContainer.style.backgroundColor = '#FFFFFF';
                     
                     // Create SVG for journey map
@@ -8065,31 +8065,41 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                             rect.setAttribute('stroke-width', '1');
                             journeySvg.appendChild(rect);
                             
-                            // Center the text and position icon to its left
+                            // Center icon and text together
                             const boxCenter = stage.x + 40;
                             const iconWidth = 10;
                             const gap = 4;
                             
-                            // Add label (centered)
+                            // Create temporary text to measure width
+                            const tempText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                            tempText.setAttribute('font-size', '10');
+                            tempText.setAttribute('font-weight', '500');
+                            tempText.textContent = stage.name;
+                            tempText.style.visibility = 'hidden';
+                            journeySvg.appendChild(tempText);
+                            const textWidth = tempText.getBBox().width;
+                            journeySvg.removeChild(tempText);
+                            
+                            // Calculate starting position to center both icon and text
+                            const totalWidth = iconWidth + gap + textWidth;
+                            const startX = boxCenter - (totalWidth / 2);
+                            
+                            // Add icon
+                            const iconSpan = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                            iconSpan.innerHTML = stageIcons[stage.name];
+                            iconSpan.setAttribute('transform', `translate(${startX}, ${stage.y + 5})`);
+                            journeySvg.appendChild(iconSpan);
+                            
+                            // Add label
                             const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                            text.setAttribute('x', boxCenter.toString());
+                            text.setAttribute('x', (startX + iconWidth + gap).toString());
                             text.setAttribute('y', (stage.y + 14).toString());
-                            text.setAttribute('text-anchor', 'middle');
+                            text.setAttribute('text-anchor', 'start');
                             text.setAttribute('font-size', '10');
                             text.setAttribute('font-weight', '500');
                             text.setAttribute('fill', '#1F2937');
                             text.textContent = stage.name;
                             journeySvg.appendChild(text);
-                            
-                            // Get text width after rendering
-                            const textBBox = text.getBBox();
-                            const iconX = boxCenter - (textBBox.width / 2) - gap - iconWidth / 2;
-                            
-                            // Add icon
-                            const iconSpan = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-                            iconSpan.innerHTML = stageIcons[stage.name];
-                            iconSpan.setAttribute('transform', `translate(${iconX}, ${stage.y + 5})`);
-                            journeySvg.appendChild(iconSpan);
                             
                             // Add line to next stage in path
                             if (index < path.length - 1) {
@@ -8116,7 +8126,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         journeySvg.appendChild(line);
                     });
                     
-                    // Draw final stage with light blue background and blue border
+                    // Draw final stage with light blue background (no border)
                     const finalRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
                     finalRect.setAttribute('x', finalStage.x.toString());
                     finalRect.setAttribute('y', finalStage.y.toString());
@@ -8124,35 +8134,44 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     finalRect.setAttribute('height', '20');
                     finalRect.setAttribute('rx', '4');
                     finalRect.setAttribute('fill', '#BFDBFE');
-                    finalRect.setAttribute('stroke', '#0F62FE');
-                    finalRect.setAttribute('stroke-width', '1');
+                    finalRect.setAttribute('stroke', 'none');
                     journeySvg.appendChild(finalRect);
                     
-                    // Center the Purchase text and position icon to its left
+                    // Center icon and text together for Purchase
                     const finalBoxCenter = finalStage.x + 40;
                     const finalIconWidth = 10;
                     const finalGap = 4;
                     
-                    // Add label (centered)
+                    // Create temporary text to measure width
+                    const finalTempText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    finalTempText.setAttribute('font-size', '10');
+                    finalTempText.setAttribute('font-weight', '600');
+                    finalTempText.textContent = finalStage.name;
+                    finalTempText.style.visibility = 'hidden';
+                    journeySvg.appendChild(finalTempText);
+                    const finalTextWidth = finalTempText.getBBox().width;
+                    journeySvg.removeChild(finalTempText);
+                    
+                    // Calculate starting position to center both icon and text
+                    const finalTotalWidth = finalIconWidth + finalGap + finalTextWidth;
+                    const finalStartX = finalBoxCenter - (finalTotalWidth / 2);
+                    
+                    // Add icon for Purchase
+                    const finalIconSpan = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                    finalIconSpan.innerHTML = stageIcons['Purchase'];
+                    finalIconSpan.setAttribute('transform', `translate(${finalStartX}, ${finalStage.y + 5})`);
+                    journeySvg.appendChild(finalIconSpan);
+                    
+                    // Add label
                     const finalText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                    finalText.setAttribute('x', finalBoxCenter.toString());
+                    finalText.setAttribute('x', (finalStartX + finalIconWidth + finalGap).toString());
                     finalText.setAttribute('y', (finalStage.y + 14).toString());
-                    finalText.setAttribute('text-anchor', 'middle');
+                    finalText.setAttribute('text-anchor', 'start');
                     finalText.setAttribute('font-size', '10');
                     finalText.setAttribute('font-weight', '600');
                     finalText.setAttribute('fill', '#1F2937');
                     finalText.textContent = finalStage.name;
                     journeySvg.appendChild(finalText);
-                    
-                    // Get text width after rendering
-                    const finalTextBBox = finalText.getBBox();
-                    const finalIconX = finalBoxCenter - (finalTextBBox.width / 2) - finalGap - finalIconWidth / 2;
-                    
-                    // Add icon for Purchase
-                    const finalIconSpan = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-                    finalIconSpan.innerHTML = stageIcons['Purchase'];
-                    finalIconSpan.setAttribute('transform', `translate(${finalIconX}, ${finalStage.y + 5})`);
-                    journeySvg.appendChild(finalIconSpan);
                     
                     journeyMapContainer.appendChild(journeySvg);
                     previewBenefits.appendChild(journeyMapContainer);
