@@ -7859,7 +7859,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     
                     // Draw solid axis lines
                     const xAxisLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                    xAxisLine.setAttribute('x1', '30');
+                    xAxisLine.setAttribute('x1', '10');
                     xAxisLine.setAttribute('x2', '490');
                     xAxisLine.setAttribute('y1', '110');
                     xAxisLine.setAttribute('y2', '110');
@@ -7868,8 +7868,8 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     compSvg.appendChild(xAxisLine);
                     
                     const yAxisLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                    yAxisLine.setAttribute('x1', '30');
-                    yAxisLine.setAttribute('x2', '30');
+                    yAxisLine.setAttribute('x1', '10');
+                    yAxisLine.setAttribute('x2', '10');
                     yAxisLine.setAttribute('y1', '10');
                     yAxisLine.setAttribute('y2', '110');
                     yAxisLine.setAttribute('stroke', '#D1D5DB');
@@ -7887,10 +7887,12 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     compSvg.appendChild(xAxisLabel);
                     
                     const yAxisLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                    yAxisLabel.setAttribute('x', '32');
-                    yAxisLabel.setAttribute('y', '15');
+                    yAxisLabel.setAttribute('x', '8');
+                    yAxisLabel.setAttribute('y', '60');
+                    yAxisLabel.setAttribute('text-anchor', 'middle');
                     yAxisLabel.setAttribute('font-size', '8');
                     yAxisLabel.setAttribute('fill', '#6B7280');
+                    yAxisLabel.setAttribute('transform', 'rotate(-90, 8, 60)');
                     yAxisLabel.textContent = 'Market Growth';
                     compSvg.appendChild(yAxisLabel);
                     
