@@ -6970,6 +6970,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     {
                         name: 'Business Plan',
                         price: 245,
+                        heading: 'Startups with formal business plans are 2.5× more likely to secure funding <span style="font-weight: 300;">— Harvard Business Review</span>',
                         purpose: 'Your business plan turns ambition into structure — and with Qava, you can work with top business students and graduates who know the latest frameworks, data, and AI tools to build a plan investors believe in.',
                         benefits: [
                             'Turns ideas into an investor-ready blueprint',
@@ -6986,6 +6987,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     {
                         name: 'Pitch Deck',
                         price: 265,
+                        heading: 'Investors decide within 2–3 minutes whether to keep listening. <span style="font-weight: 300;">— Y Combinator</span>',
                         purpose: 'Your pitch deck tells your story — Qava connects you with storytellers trained in top business schools who know how to win investor attention with data-driven, visually stunning decks.',
                         benefits: [
                             'Captures attention in minutes',
@@ -7579,7 +7581,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     purposeHeading.style.fontSize = '18px';
                     purposeHeading.style.color = '#000';
                     purposeHeading.style.marginBottom = '12px';
-                    purposeHeading.innerHTML = categoryHeadings[currentCategory] || 'How this helps you';
+                    purposeHeading.innerHTML = project.heading || categoryHeadings[currentCategory] || 'How this helps you';
                     previewBenefits.appendChild(purposeHeading);
                     
                     const purposeText = document.createElement('p');
