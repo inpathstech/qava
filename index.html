@@ -8108,7 +8108,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     finalRect.setAttribute('width', '80');
                     finalRect.setAttribute('height', '20');
                     finalRect.setAttribute('rx', '4');
-                    finalRect.setAttribute('fill', '#BFDBFE');
+                    finalRect.setAttribute('fill', '#eaf0ff');
                     finalRect.setAttribute('stroke', 'none');
                     journeySvg.appendChild(finalRect);
                     
@@ -8138,7 +8138,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     const forcesSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
                     forcesSvg.setAttribute('width', '100%');
                     forcesSvg.setAttribute('height', '120');
-                    forcesSvg.setAttribute('viewBox', '0 0 500 120');
+                    forcesSvg.setAttribute('viewBox', '50 0 450 130');
                     
                     // Define the five forces with positions (spread out horizontally)
                     const forces = [
@@ -8158,7 +8158,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         circle.setAttribute('r', force.radius.toString());
                         
                         if (force.filled) {
-                            circle.setAttribute('fill', '#BFDBFE');
+                            circle.setAttribute('fill', '#eaf0ff');
                             circle.setAttribute('stroke', 'none');
                         } else {
                             circle.setAttribute('fill', '#FFFFFF');
@@ -8170,7 +8170,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         
                         // Add text
                         const lines = force.name.split('\n');
-                        const lineHeight = 7;
+                        const lineHeight = 6.5;
                         const totalHeight = (lines.length - 1) * lineHeight;
                         const startY = force.y - totalHeight / 2 + 2.5;
                         
@@ -8181,7 +8181,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                             text.setAttribute('text-anchor', 'middle');
                             text.setAttribute('dominant-baseline', 'middle');
                             text.setAttribute('font-family', 'Inter, sans-serif');
-                            text.setAttribute('font-size', '6.5');
+                            text.setAttribute('font-size', '5.5');
                             text.setAttribute('font-weight', '600');
                             text.setAttribute('fill', '#1F2937');
                             text.textContent = line;
