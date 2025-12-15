@@ -8048,7 +8048,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     ];
                     
                     // Final stage (converging point)
-                    const finalStage = { name: 'Purchase', x: 400, y: 60 };
+                    const finalStage = { name: 'Purchase', x: 320, y: 60 };
                     
                     // Draw all paths
                     [path1Stages, path2Stages, path3Stages].forEach((path) => {
@@ -8065,18 +8065,22 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                             rect.setAttribute('stroke-width', '1');
                             journeySvg.appendChild(rect);
                             
-                            // Add icon and label container
-                            const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                            // Calculate center position for icon and text
+                            const textWidth = stage.name.length * 4.5; // Approximate text width
+                            const iconWidth = 10;
+                            const gap = 4;
+                            const totalWidth = iconWidth + gap + textWidth;
+                            const startX = stage.x + (80 - totalWidth) / 2;
                             
                             // Add icon
                             const iconSpan = document.createElementNS('http://www.w3.org/2000/svg', 'g');
                             iconSpan.innerHTML = stageIcons[stage.name];
-                            iconSpan.setAttribute('transform', `translate(${stage.x + 8}, ${stage.y + 5})`);
+                            iconSpan.setAttribute('transform', `translate(${startX}, ${stage.y + 5})`);
                             journeySvg.appendChild(iconSpan);
                             
                             // Add label
                             const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                            text.setAttribute('x', (stage.x + 22).toString());
+                            text.setAttribute('x', (startX + iconWidth + gap).toString());
                             text.setAttribute('y', (stage.y + 13).toString());
                             text.setAttribute('text-anchor', 'start');
                             text.setAttribute('font-size', '8');
@@ -8110,7 +8114,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         journeySvg.appendChild(line);
                     });
                     
-                    // Draw final stage with light blue background
+                    // Draw final stage with light blue background and blue border
                     const finalRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
                     finalRect.setAttribute('x', finalStage.x.toString());
                     finalRect.setAttribute('y', finalStage.y.toString());
@@ -8118,18 +8122,25 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     finalRect.setAttribute('height', '20');
                     finalRect.setAttribute('rx', '4');
                     finalRect.setAttribute('fill', '#BFDBFE');
-                    finalRect.setAttribute('stroke', '#E5E7EB');
+                    finalRect.setAttribute('stroke', '#0F62FE');
                     finalRect.setAttribute('stroke-width', '1');
                     journeySvg.appendChild(finalRect);
+                    
+                    // Calculate center position for Purchase
+                    const finalTextWidth = finalStage.name.length * 4.5;
+                    const finalIconWidth = 10;
+                    const finalGap = 4;
+                    const finalTotalWidth = finalIconWidth + finalGap + finalTextWidth;
+                    const finalStartX = finalStage.x + (80 - finalTotalWidth) / 2;
                     
                     // Add icon for Purchase
                     const finalIconSpan = document.createElementNS('http://www.w3.org/2000/svg', 'g');
                     finalIconSpan.innerHTML = stageIcons['Purchase'];
-                    finalIconSpan.setAttribute('transform', `translate(${finalStage.x + 8}, ${finalStage.y + 5})`);
+                    finalIconSpan.setAttribute('transform', `translate(${finalStartX}, ${finalStage.y + 5})`);
                     journeySvg.appendChild(finalIconSpan);
                     
                     const finalText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                    finalText.setAttribute('x', (finalStage.x + 22).toString());
+                    finalText.setAttribute('x', (finalStartX + finalIconWidth + finalGap).toString());
                     finalText.setAttribute('y', (finalStage.y + 13).toString());
                     finalText.setAttribute('text-anchor', 'start');
                     finalText.setAttribute('font-size', '8');
