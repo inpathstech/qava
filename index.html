@@ -8170,9 +8170,9 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         
                         // Add text
                         const lines = force.name.split('\n');
-                        const lineHeight = 6.5;
+                        const lineHeight = 11;
                         const totalHeight = (lines.length - 1) * lineHeight;
-                        const startY = force.y - totalHeight / 2 + 2.5;
+                        const startY = force.y - totalHeight / 2 + 5;
                         
                         lines.forEach((line, index) => {
                             const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
@@ -8181,7 +8181,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                             text.setAttribute('text-anchor', 'middle');
                             text.setAttribute('dominant-baseline', 'middle');
                             text.setAttribute('font-family', 'Inter, sans-serif');
-                            text.setAttribute('font-size', '5.5');
+                            text.setAttribute('font-size', '10');
                             text.setAttribute('font-weight', '600');
                             text.setAttribute('fill', '#1F2937');
                             text.textContent = line;
