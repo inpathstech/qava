@@ -7653,7 +7653,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     const years = ['2026', '2027', '2028', '2029', '2030'];
                     const capital = [5, 60, 120, 180, 280];
                     const profit = [3, 40, 80, 120, 200];
-                    const revenue = [20, 85, 160, 240, 350];
+                    const revenue = [40, 85, 140, 200, 270];
                     const roic = [44.7, 59.9, 88.7, 77.4, 67.6];
                     
                     // Chart background grid
@@ -7715,7 +7715,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     
                     const revPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
                     revPath.setAttribute('d', revPathD);
-                    revPath.setAttribute('stroke', '#10B981');
+                    revPath.setAttribute('stroke', '#0F62FE');
                     revPath.setAttribute('stroke-width', '2.5');
                     revPath.setAttribute('fill', 'none');
                     chartSvg.appendChild(revPath);
@@ -7729,7 +7729,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         dot.setAttribute('cx', x.toString());
                         dot.setAttribute('cy', y.toString());
                         dot.setAttribute('r', '4');
-                        dot.setAttribute('fill', '#10B981');
+                        dot.setAttribute('fill', '#0F62FE');
                         chartSvg.appendChild(dot);
                     });
                     
@@ -7776,7 +7776,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     greenLine.setAttribute('x2', '432');
                     greenLine.setAttribute('y1', (legendY + 4).toString());
                     greenLine.setAttribute('y2', (legendY + 4).toString());
-                    greenLine.setAttribute('stroke', '#10B981');
+                    greenLine.setAttribute('stroke', '#0F62FE');
                     greenLine.setAttribute('stroke-width', '2.5');
                     chartSvg.appendChild(greenLine);
                     
