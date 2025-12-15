@@ -8065,42 +8065,17 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                             rect.setAttribute('stroke-width', '1');
                             journeySvg.appendChild(rect);
                             
-                            // New centering method: center text first, then add icon
+                            // Center icon only (no text)
                             const boxCenter = stage.x + 40;
+                            const iconSize = 10;
+                            const iconX = boxCenter - (iconSize / 2);
+                            const iconY = stage.y + 5;
                             
-                            // Add text centered in the box
-                            const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                            text.setAttribute('font-family', 'Inter, sans-serif');
-                            text.setAttribute('x', boxCenter.toString());
-                            text.setAttribute('y', (stage.y + 14).toString());
-                            text.setAttribute('text-anchor', 'middle');
-                            text.setAttribute('font-size', '10');
-                            text.setAttribute('font-weight', '500');
-                            text.setAttribute('fill', '#1F2937');
-                            text.textContent = stage.name;
-                            journeySvg.appendChild(text);
-                            
-                            // Get actual text bounding box
-                            const textBBox = text.getBBox();
-                            
-                            // Position icon to the left of the text with a small gap
-                            const gap = 3;
-                            const iconX = textBBox.x - gap - 10;
-                            
-                            // Add icon
+                            // Add icon centered in the box
                             const iconSpan = document.createElementNS('http://www.w3.org/2000/svg', 'g');
                             iconSpan.innerHTML = stageIcons[stage.name];
-                            iconSpan.setAttribute('transform', `translate(${iconX}, ${stage.y + 5})`);
+                            iconSpan.setAttribute('transform', `translate(${iconX}, ${iconY})`);
                             journeySvg.appendChild(iconSpan);
-                            
-                            // Now shift both text and icon to optically center them together
-                            const iconBBox = iconSpan.getBBox();
-                            const combinedWidth = (textBBox.x + textBBox.width) - iconBBox.x;
-                            const adjustment = (80 - combinedWidth) / 2 - (iconBBox.x - stage.x);
-                            
-                            // Apply adjustment to both elements
-                            text.setAttribute('x', (boxCenter + adjustment).toString());
-                            iconSpan.setAttribute('transform', `translate(${iconX + adjustment}, ${stage.y + 5})`);
                             
                             // Add line to next stage in path
                             if (index < path.length - 1) {
@@ -8138,42 +8113,17 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     finalRect.setAttribute('stroke', 'none');
                     journeySvg.appendChild(finalRect);
                     
-                    // New centering method for Purchase: center text first, then add icon
+                    // Center icon only for Purchase (no text)
                     const finalBoxCenter = finalStage.x + 40;
+                    const finalIconSize = 10;
+                    const finalIconX = finalBoxCenter - (finalIconSize / 2);
+                    const finalIconY = finalStage.y + 5;
                     
-                    // Add text centered in the box
-                    const finalText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                    finalText.setAttribute('font-family', 'Inter, sans-serif');
-                    finalText.setAttribute('x', finalBoxCenter.toString());
-                    finalText.setAttribute('y', (finalStage.y + 14).toString());
-                    finalText.setAttribute('text-anchor', 'middle');
-                    finalText.setAttribute('font-size', '10');
-                    finalText.setAttribute('font-weight', '600');
-                    finalText.setAttribute('fill', '#1F2937');
-                    finalText.textContent = finalStage.name;
-                    journeySvg.appendChild(finalText);
-                    
-                    // Get actual text bounding box
-                    const finalTextBBox = finalText.getBBox();
-                    
-                    // Position icon to the left of the text with a small gap
-                    const finalGap = 3;
-                    const finalIconX = finalTextBBox.x - finalGap - 10;
-                    
-                    // Add icon
+                    // Add icon centered in the box
                     const finalIconSpan = document.createElementNS('http://www.w3.org/2000/svg', 'g');
                     finalIconSpan.innerHTML = stageIcons['Purchase'];
-                    finalIconSpan.setAttribute('transform', `translate(${finalIconX}, ${finalStage.y + 5})`);
+                    finalIconSpan.setAttribute('transform', `translate(${finalIconX}, ${finalIconY})`);
                     journeySvg.appendChild(finalIconSpan);
-                    
-                    // Now shift both text and icon to optically center them together
-                    const finalIconBBox = finalIconSpan.getBBox();
-                    const finalCombinedWidth = (finalTextBBox.x + finalTextBBox.width) - finalIconBBox.x;
-                    const finalAdjustment = (80 - finalCombinedWidth) / 2 - (finalIconBBox.x - finalStage.x);
-                    
-                    // Apply adjustment to both elements
-                    finalText.setAttribute('x', (finalBoxCenter + finalAdjustment).toString());
-                    finalIconSpan.setAttribute('transform', `translate(${finalIconX + finalAdjustment}, ${finalStage.y + 5})`);
                     
                     journeyMapContainer.appendChild(journeySvg);
                     previewBenefits.appendChild(journeyMapContainer);
