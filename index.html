@@ -7131,7 +7131,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         grantBoxes: [
                             { title: 'Goal Identification', description: 'Develop clarity about your vision and goals' },
                             { title: 'Grant Research', description: 'Shortlist funding organizations and identify donors whose vision and mission match your own' },
-                            { title: 'Grant Proposal Writing', description: 'Cover letter, proposal document, supporting information, etc' },
+                            { title: 'Grant Proposal<br>Writing', description: 'Cover letter, proposal document, supporting information, etc' },
                             { title: 'Follow-up', description: 'Respond to funders\' questions, remove any deficiencies, etc' }
                         ]
                     },
@@ -8378,7 +8378,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         const highlightSpan = document.createElement('span');
                         highlightSpan.className = 'highlight';
                         highlightSpan.style.display = 'inline';
-                        highlightSpan.textContent = box.title;
+                        highlightSpan.innerHTML = box.title;
                         titleDiv.appendChild(highlightSpan);
                         grantBox.appendChild(titleDiv);
                         
