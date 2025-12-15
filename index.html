@@ -8012,51 +8012,6 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     journeySvg.setAttribute('height', '120');
                     journeySvg.setAttribute('viewBox', '0 0 500 120');
                     
-                    // Journey stages with arrows
-                    const stages = [
-                        { name: 'Awareness', x: 40, color: '#BFDBFE' },
-                        { name: 'Consider', x: 140, color: '#93C5FD' },
-                        { name: 'Purchase', x: 240, color: '#60A5FA' },
-                        { name: 'Onboard', x: 340, color: '#3B82F6' },
-                        { name: 'Retain', x: 440, color: '#0F62FE' }
-                    ];
-                    
-                    stages.forEach((stage, index) => {
-                        // Draw rounded rectangle for stage
-                        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-                        rect.setAttribute('x', stage.x.toString());
-                        rect.setAttribute('y', '45');
-                        rect.setAttribute('width', '70');
-                        rect.setAttribute('height', '30');
-                        rect.setAttribute('rx', '4');
-                        rect.setAttribute('fill', stage.color);
-                        journeySvg.appendChild(rect);
-                        
-                        // Add stage label
-                        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                        text.setAttribute('x', (stage.x + 35).toString());
-                        text.setAttribute('y', '63');
-                        text.setAttribute('text-anchor', 'middle');
-                        text.setAttribute('font-size', '9');
-                        text.setAttribute('font-weight', '500');
-                        text.setAttribute('fill', '#000000');
-                        text.textContent = stage.name;
-                        journeySvg.appendChild(text);
-                        
-                        // Add arrow between stages (except after last stage)
-                        if (index < stages.length - 1) {
-                            const arrowLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                            arrowLine.setAttribute('x1', (stage.x + 70).toString());
-                            arrowLine.setAttribute('y1', '60');
-                            arrowLine.setAttribute('x2', (stage.x + 90).toString());
-                            arrowLine.setAttribute('y2', '60');
-                            arrowLine.setAttribute('stroke', '#9CA3AF');
-                            arrowLine.setAttribute('stroke-width', '1.5');
-                            arrowLine.setAttribute('marker-end', 'url(#arrowhead)');
-                            journeySvg.appendChild(arrowLine);
-                        }
-                    });
-                    
                     // Define arrowhead marker
                     const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
                     const marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
@@ -8073,18 +8028,101 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     
                     marker.appendChild(polygon);
                     defs.appendChild(marker);
-                    journeySvg.insertBefore(defs, journeySvg.firstChild);
+                    journeySvg.appendChild(defs);
                     
-                    // Add title
-                    const title = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                    title.setAttribute('x', '250');
-                    title.setAttribute('y', '20');
-                    title.setAttribute('text-anchor', 'middle');
-                    title.setAttribute('font-size', '10');
-                    title.setAttribute('font-weight', '500');
-                    title.setAttribute('fill', '#6B7280');
-                    title.textContent = 'Customer Journey Stages';
-                    journeySvg.appendChild(title);
+                    // Path 1 (top)
+                    const path1Stages = [
+                        { name: 'Social', x: 20, y: 25 },
+                        { name: 'Engage', x: 120, y: 25 },
+                        { name: 'Trust', x: 220, y: 25 }
+                    ];
+                    
+                    // Path 2 (middle)
+                    const path2Stages = [
+                        { name: 'Search', x: 20, y: 60 },
+                        { name: 'Compare', x: 120, y: 60 },
+                        { name: 'Decide', x: 220, y: 60 }
+                    ];
+                    
+                    // Path 3 (bottom)
+                    const path3Stages = [
+                        { name: 'Referral', x: 20, y: 95 },
+                        { name: 'Learn', x: 120, y: 95 },
+                        { name: 'Convert', x: 220, y: 95 }
+                    ];
+                    
+                    // Final stage (converging point)
+                    const finalStage = { name: 'Purchase', x: 380, y: 60 };
+                    
+                    // Draw all paths
+                    [path1Stages, path2Stages, path3Stages].forEach((path) => {
+                        path.forEach((stage, index) => {
+                            // Draw rounded rectangle
+                            const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                            rect.setAttribute('x', stage.x.toString());
+                            rect.setAttribute('y', stage.y.toString());
+                            rect.setAttribute('width', '70');
+                            rect.setAttribute('height', '20');
+                            rect.setAttribute('rx', '4');
+                            rect.setAttribute('fill', '#BFDBFE');
+                            journeySvg.appendChild(rect);
+                            
+                            // Add label
+                            const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                            text.setAttribute('x', (stage.x + 35).toString());
+                            text.setAttribute('y', (stage.y + 13).toString());
+                            text.setAttribute('text-anchor', 'middle');
+                            text.setAttribute('font-size', '8');
+                            text.setAttribute('font-weight', '500');
+                            text.setAttribute('fill', '#000000');
+                            text.textContent = stage.name;
+                            journeySvg.appendChild(text);
+                            
+                            // Add arrow to next stage in path
+                            if (index < path.length - 1) {
+                                const arrowLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                                arrowLine.setAttribute('x1', (stage.x + 70).toString());
+                                arrowLine.setAttribute('y1', (stage.y + 10).toString());
+                                arrowLine.setAttribute('x2', (path[index + 1].x - 10).toString());
+                                arrowLine.setAttribute('y2', (stage.y + 10).toString());
+                                arrowLine.setAttribute('stroke', '#9CA3AF');
+                                arrowLine.setAttribute('stroke-width', '1.5');
+                                arrowLine.setAttribute('marker-end', 'url(#arrowhead)');
+                                journeySvg.appendChild(arrowLine);
+                            }
+                        });
+                        
+                        // Add arrow from last stage in path to final stage
+                        const lastStage = path[path.length - 1];
+                        const arrowPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                        const pathD = `M ${lastStage.x + 70} ${lastStage.y + 10} Q ${lastStage.x + 140} ${lastStage.y + 10}, ${finalStage.x - 10} ${finalStage.y + 10}`;
+                        arrowPath.setAttribute('d', pathD);
+                        arrowPath.setAttribute('stroke', '#9CA3AF');
+                        arrowPath.setAttribute('stroke-width', '1.5');
+                        arrowPath.setAttribute('fill', 'none');
+                        arrowPath.setAttribute('marker-end', 'url(#arrowhead)');
+                        journeySvg.appendChild(arrowPath);
+                    });
+                    
+                    // Draw final stage
+                    const finalRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                    finalRect.setAttribute('x', finalStage.x.toString());
+                    finalRect.setAttribute('y', finalStage.y.toString());
+                    finalRect.setAttribute('width', '80');
+                    finalRect.setAttribute('height', '20');
+                    finalRect.setAttribute('rx', '4');
+                    finalRect.setAttribute('fill', '#0F62FE');
+                    journeySvg.appendChild(finalRect);
+                    
+                    const finalText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    finalText.setAttribute('x', (finalStage.x + 40).toString());
+                    finalText.setAttribute('y', (finalStage.y + 13).toString());
+                    finalText.setAttribute('text-anchor', 'middle');
+                    finalText.setAttribute('font-size', '8');
+                    finalText.setAttribute('font-weight', '600');
+                    finalText.setAttribute('fill', '#FFFFFF');
+                    finalText.textContent = finalStage.name;
+                    journeySvg.appendChild(finalText);
                     
                     journeyMapContainer.appendChild(journeySvg);
                     previewBenefits.appendChild(journeyMapContainer);
