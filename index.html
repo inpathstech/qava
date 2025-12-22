@@ -8234,10 +8234,10 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     
                     // Define the 4 phases
                     const phases = [
-                        { label: 'Define Target', revenue: 20, users: 18 },
-                        { label: 'Craft Value', revenue: 40, users: 38 },
-                        { label: 'Choose Channels', revenue: 65, users: 62 },
-                        { label: 'Launch & Scale', revenue: 90, users: 88 }
+                        { label: 'Define Target', duration: '(1-3 months)', revenue: 20, users: 18 },
+                        { label: 'Craft Value', duration: '(2-4 months)', revenue: 40, users: 38 },
+                        { label: 'Choose Channels', duration: '(3-5 months)', revenue: 65, users: 62 },
+                        { label: 'Launch & Scale', duration: '(4-6 months)', revenue: 90, users: 88 }
                     ];
                     
                     const boxWidth = 115;
@@ -8268,7 +8268,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         
                         // Center the phase label in the box
                         const labelX = boxX + boxWidth / 2;
-                        const labelY = startY + 15;
+                        const labelY = startY + 12;
                         
                         const labelText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                         labelText.setAttribute('x', labelX.toString());
@@ -8280,6 +8280,19 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         labelText.setAttribute('text-anchor', 'middle');
                         labelText.textContent = phase.label;
                         gtmSvg.appendChild(labelText);
+                        
+                        // Add duration below title
+                        const durationY = startY + 22;
+                        const durationText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                        durationText.setAttribute('x', labelX.toString());
+                        durationText.setAttribute('y', durationY.toString());
+                        durationText.setAttribute('font-family', 'Inter, sans-serif');
+                        durationText.setAttribute('font-size', '7');
+                        durationText.setAttribute('font-weight', '400');
+                        durationText.setAttribute('fill', '#9CA3AF');
+                        durationText.setAttribute('text-anchor', 'middle');
+                        durationText.textContent = phase.duration;
+                        gtmSvg.appendChild(durationText);
                         
                         // Calculate bar positions (centered in box)
                         const barsStartX = boxX + (boxWidth - (barWidth * 2 + barGap)) / 2;
