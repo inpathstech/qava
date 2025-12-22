@@ -8796,9 +8796,10 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     ];
                     
                     boxes.forEach((box, index) => {
-                        // Draw connector line from circle to box (horizontal)
+                        // Draw connector line from circle to box
+                        // Line 2 (middle) is horizontal, lines 1 and 3 are diagonal
                         const lineStartX = centerX + circleRadius + 8;
-                        const lineStartY = box.y + 15;
+                        const lineStartY = index === 1 ? box.y + 15 : centerY; // Middle box horizontal, others diagonal
                         const lineEndX = 160;
                         const lineEndY = box.y + 15;
                         
