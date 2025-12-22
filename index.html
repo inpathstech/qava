@@ -8266,61 +8266,10 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     phases.forEach((phase, index) => {
                         const boxX = startX + index * (boxWidth + boxGap);
                         
-                        // Consistent positioning for all icons and labels
-                        const iconX = boxX + 12; // Fixed left offset for all icons
-                        const iconCenterY = startY + 13; // Centered Y position for all icons
-                        const labelX = boxX + 26; // Fixed left offset for labels (14px from icon)
+                        // Center the phase label in the box
+                        const labelX = boxX + boxWidth / 2;
                         const labelY = startY + 15;
                         
-                        // Create icon group
-                        const iconGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-                        
-                        // Define simple, uniform icons for each phase
-                        if (index === 0) {
-                            // Target icon - concentric circles
-                            const circle1 = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                            circle1.setAttribute('cx', iconX.toString());
-                            circle1.setAttribute('cy', iconCenterY.toString());
-                            circle1.setAttribute('r', '5');
-                            circle1.setAttribute('fill', 'none');
-                            circle1.setAttribute('stroke', '#6B7280');
-                            circle1.setAttribute('stroke-width', '1');
-                            iconGroup.appendChild(circle1);
-                            const circle2 = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                            circle2.setAttribute('cx', iconX.toString());
-                            circle2.setAttribute('cy', iconCenterY.toString());
-                            circle2.setAttribute('r', '2');
-                            circle2.setAttribute('fill', '#6B7280');
-                            iconGroup.appendChild(circle2);
-                        } else if (index === 1) {
-                            // Jewel icon - diamond shape
-                            const jewel = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                            jewel.setAttribute('d', `M ${iconX} ${iconCenterY - 5} L ${iconX + 3} ${iconCenterY - 2} L ${iconX} ${iconCenterY + 3} L ${iconX - 3} ${iconCenterY - 2} Z M ${iconX - 3} ${iconCenterY - 2} L ${iconX + 3} ${iconCenterY - 2}`);
-                            jewel.setAttribute('fill', 'none');
-                            jewel.setAttribute('stroke', '#6B7280');
-                            jewel.setAttribute('stroke-width', '1');
-                            iconGroup.appendChild(jewel);
-                        } else if (index === 2) {
-                            // Megaphone icon - simple triangle
-                            const megaphone = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                            megaphone.setAttribute('d', `M ${iconX - 4} ${iconCenterY - 3} L ${iconX + 2} ${iconCenterY - 1.5} L ${iconX + 2} ${iconCenterY + 1.5} L ${iconX - 4} ${iconCenterY + 3} Z M ${iconX + 2} ${iconCenterY - 2} L ${iconX + 5} ${iconCenterY - 2} L ${iconX + 5} ${iconCenterY + 2} L ${iconX + 2} ${iconCenterY + 2} Z`);
-                            megaphone.setAttribute('fill', 'none');
-                            megaphone.setAttribute('stroke', '#6B7280');
-                            megaphone.setAttribute('stroke-width', '1');
-                            iconGroup.appendChild(megaphone);
-                        } else if (index === 3) {
-                            // Rocket icon - simple rocket shape
-                            const rocket = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                            rocket.setAttribute('d', `M ${iconX} ${iconCenterY - 5} L ${iconX - 2} ${iconCenterY - 3} L ${iconX - 2} ${iconCenterY + 3} L ${iconX} ${iconCenterY + 5} L ${iconX + 2} ${iconCenterY + 3} L ${iconX + 2} ${iconCenterY - 3} Z M ${iconX - 4} ${iconCenterY} L ${iconX - 2} ${iconCenterY + 1} M ${iconX + 2} ${iconCenterY + 1} L ${iconX + 4} ${iconCenterY}`);
-                            rocket.setAttribute('fill', 'none');
-                            rocket.setAttribute('stroke', '#6B7280');
-                            rocket.setAttribute('stroke-width', '1');
-                            iconGroup.appendChild(rocket);
-                        }
-                        
-                        gtmSvg.appendChild(iconGroup);
-                        
-                        // Add phase label with consistent positioning
                         const labelText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                         labelText.setAttribute('x', labelX.toString());
                         labelText.setAttribute('y', labelY.toString());
@@ -8328,7 +8277,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         labelText.setAttribute('font-size', '9');
                         labelText.setAttribute('font-weight', '500');
                         labelText.setAttribute('fill', '#6B7280');
-                        labelText.setAttribute('text-anchor', 'start');
+                        labelText.setAttribute('text-anchor', 'middle');
                         labelText.textContent = phase.label;
                         gtmSvg.appendChild(labelText);
                         
