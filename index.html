@@ -7198,7 +7198,8 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         ],
                         stat: null,
                         quote: null,
-                        quoteAuthor: null
+                        quoteAuthor: null,
+                        hasGrowthChart: true
                     },
                     {
                         name: 'Partnership Strategy',
@@ -8395,6 +8396,126 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     previewBenefits.appendChild(gtmContainer);
                 }
                 
+                // Add Growth Plan chart if available (for Growth Plan)
+                if (project.hasGrowthChart) {
+                    const growthContainer = document.createElement('div');
+                    growthContainer.style.marginTop = '16px';
+                    
+                    // Create SVG for Growth Plan timeline chart
+                    const growthSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    growthSvg.setAttribute('width', '100%');
+                    growthSvg.setAttribute('height', '120');
+                    growthSvg.setAttribute('viewBox', '0 0 500 120');
+                    
+                    // Define the 5 phases with start/end days and colors
+                    const phases = [
+                        { label: 'Phase 1', start: 0, end: 15, color: '#D1D5DB' },
+                        { label: 'Phase 2', start: 10, end: 35, color: '#0F62FE' },
+                        { label: 'Phase 3', start: 25, end: 55, color: '#EAF0FF' },
+                        { label: 'Phase 4', start: 45, end: 75, color: '#FFA500' },
+                        { label: 'Phase 5', start: 60, end: 100, color: '#00C853' }
+                    ];
+                    
+                    const chartX = 50;
+                    const chartY = 10;
+                    const chartWidth = 440;
+                    const chartHeight = 80;
+                    const barHeight = 12;
+                    const barSpacing = 14;
+                    
+                    // Draw Y-axis
+                    const yAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    yAxis.setAttribute('x1', chartX.toString());
+                    yAxis.setAttribute('y1', chartY.toString());
+                    yAxis.setAttribute('x2', chartX.toString());
+                    yAxis.setAttribute('y2', (chartY + chartHeight).toString());
+                    yAxis.setAttribute('stroke', '#D1D5DB');
+                    yAxis.setAttribute('stroke-width', '1');
+                    growthSvg.appendChild(yAxis);
+                    
+                    // Draw X-axis
+                    const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    xAxis.setAttribute('x1', chartX.toString());
+                    xAxis.setAttribute('y1', (chartY + chartHeight).toString());
+                    xAxis.setAttribute('x2', (chartX + chartWidth).toString());
+                    xAxis.setAttribute('y2', (chartY + chartHeight).toString());
+                    xAxis.setAttribute('stroke', '#D1D5DB');
+                    xAxis.setAttribute('stroke-width', '1');
+                    growthSvg.appendChild(xAxis);
+                    
+                    // Draw bars for each phase
+                    phases.forEach((phase, index) => {
+                        const barY = chartY + index * barSpacing;
+                        const barX = chartX + (phase.start / 100) * chartWidth;
+                        const barWidth = ((phase.end - phase.start) / 100) * chartWidth;
+                        
+                        // Draw bar
+                        const bar = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                        bar.setAttribute('x', barX.toString());
+                        bar.setAttribute('y', barY.toString());
+                        bar.setAttribute('width', barWidth.toString());
+                        bar.setAttribute('height', barHeight.toString());
+                        bar.setAttribute('rx', '6');
+                        bar.setAttribute('fill', phase.color);
+                        growthSvg.appendChild(bar);
+                        
+                        // Add phase label on left
+                        const labelText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                        labelText.setAttribute('x', (chartX - 10).toString());
+                        labelText.setAttribute('y', (barY + barHeight / 2 + 3).toString());
+                        labelText.setAttribute('font-family', 'Inter, sans-serif');
+                        labelText.setAttribute('font-size', '8');
+                        labelText.setAttribute('font-weight', '400');
+                        labelText.setAttribute('fill', '#6B7280');
+                        labelText.setAttribute('text-anchor', 'end');
+                        labelText.textContent = phase.label;
+                        growthSvg.appendChild(labelText);
+                    });
+                    
+                    // Add X-axis labels (days)
+                    const dayMarkers = [0, 25, 50, 75, 100];
+                    dayMarkers.forEach(day => {
+                        const markerX = chartX + (day / 100) * chartWidth;
+                        
+                        // Tick mark
+                        const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                        tick.setAttribute('x1', markerX.toString());
+                        tick.setAttribute('y1', (chartY + chartHeight).toString());
+                        tick.setAttribute('x2', markerX.toString());
+                        tick.setAttribute('y2', (chartY + chartHeight + 3).toString());
+                        tick.setAttribute('stroke', '#D1D5DB');
+                        tick.setAttribute('stroke-width', '1');
+                        growthSvg.appendChild(tick);
+                        
+                        // Day label
+                        const dayLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                        dayLabel.setAttribute('x', markerX.toString());
+                        dayLabel.setAttribute('y', (chartY + chartHeight + 13).toString());
+                        dayLabel.setAttribute('font-family', 'Inter, sans-serif');
+                        dayLabel.setAttribute('font-size', '7');
+                        dayLabel.setAttribute('font-weight', '400');
+                        dayLabel.setAttribute('fill', '#6B7280');
+                        dayLabel.setAttribute('text-anchor', 'middle');
+                        dayLabel.textContent = day.toString();
+                        growthSvg.appendChild(dayLabel);
+                    });
+                    
+                    // Add "Days" label
+                    const daysLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    daysLabel.setAttribute('x', (chartX + chartWidth / 2).toString());
+                    daysLabel.setAttribute('y', (chartY + chartHeight + 28).toString());
+                    daysLabel.setAttribute('font-family', 'Inter, sans-serif');
+                    daysLabel.setAttribute('font-size', '8');
+                    daysLabel.setAttribute('font-weight', '500');
+                    daysLabel.setAttribute('fill', '#000');
+                    daysLabel.setAttribute('text-anchor', 'middle');
+                    daysLabel.textContent = 'Days';
+                    growthSvg.appendChild(daysLabel);
+                    
+                    growthContainer.appendChild(growthSvg);
+                    previewBenefits.appendChild(growthContainer);
+                }
+                
                 // Add chevrons if available
                 if (project.chevrons && Array.isArray(project.chevrons)) {
                     const chevronContainer = document.createElement('div');
@@ -8725,8 +8846,8 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                 
                 // Add price box at the bottom, aligned to left
                 const priceSection = document.createElement('div');
-                // Adjust spacing for Grant Application and Customer Journey Map
-                priceSection.style.marginTop = project.grantBoxes ? '2px' : (project.hasJourneyMap ? '10px' : '16px');
+                // Adjust spacing for Grant Application, Customer Journey Map, GTM Chart, and Growth Chart
+                priceSection.style.marginTop = project.grantBoxes ? '2px' : (project.hasJourneyMap ? '10px' : (project.hasGTMChart || project.hasGrowthChart ? '16px' : '16px'));
                 
                 const priceBox = document.createElement('a');
                 priceBox.href = 'https://app.qava.ai/';
