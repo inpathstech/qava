@@ -7224,16 +7224,18 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     },
                     {
                         name: 'Pricing Strategy',
+                        heading: 'A 1% price increase can lead to 8% profit growth <span style="font-weight: 300;">— McKinsey</span>',
                         price: 210,
-                        purpose: 'Maximize revenue with Qava specialists who use data, psychology, and AI simulations to find your optimal pricing strategy.',
+                        purpose: 'Maximize revenue with specialists who use data, psychology, and AI simulations to find your optimal pricing strategy.',
                         benefits: [
-                            'Tests pricing tiers for conversion and margin',
+                            'Test pricing tiers for conversion and margin',
                             'Aligns pricing with perceived value',
                             'Strengthens long-term profitability'
                         ],
-                        stat: '📊 A 1% price increase can lead to 8% profit growth — McKinsey',
-                        quote: '"Price is what you pay. Value is what you get."',
-                        quoteAuthor: '— Warren Buffett'
+                        stat: null,
+                        quote: null,
+                        quoteAuthor: null,
+                        hasPricingMatrix: true
                     },
                     {
                         name: 'Sales & Marketing Strategy',
@@ -8571,6 +8573,136 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     });
                     
                     previewBenefits.appendChild(partnershipContainer);
+                }
+                
+                // Add Pricing Matrix if available (for Pricing Strategy)
+                if (project.hasPricingMatrix) {
+                    const matrixContainer = document.createElement('div');
+                    matrixContainer.style.marginTop = '16px';
+                    
+                    // Create SVG for Pricing Matrix
+                    const matrixSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    matrixSvg.setAttribute('width', '100%');
+                    matrixSvg.setAttribute('height', '120');
+                    matrixSvg.setAttribute('viewBox', '0 0 500 120');
+                    
+                    // Define matrix structure
+                    const cellWidth = 120;
+                    const cellHeight = 28;
+                    const startX = 60;
+                    const startY = 10;
+                    
+                    // Column headers (Price)
+                    const priceHeaders = ['HIGH', 'MEDIUM', 'LOW'];
+                    const rowHeaders = ['HIGH', 'MEDIUM', 'LOW'];
+                    
+                    // Cell labels
+                    const cellLabels = [
+                        ['Premium', 'High value', 'Superb value'],
+                        ['Over charging', 'Average', 'Good value'],
+                        ['Rip-off', 'False economy', 'Economy']
+                    ];
+                    
+                    // Add "Price" label
+                    const priceLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    priceLabel.setAttribute('x', (startX + cellWidth * 1.5).toString());
+                    priceLabel.setAttribute('y', (startY - 2).toString());
+                    priceLabel.setAttribute('font-family', 'Inter, sans-serif');
+                    priceLabel.setAttribute('font-size', '9');
+                    priceLabel.setAttribute('font-weight', '600');
+                    priceLabel.setAttribute('fill', '#000000');
+                    priceLabel.setAttribute('text-anchor', 'middle');
+                    priceLabel.textContent = 'Price';
+                    matrixSvg.appendChild(priceLabel);
+                    
+                    // Draw column headers
+                    priceHeaders.forEach((header, col) => {
+                        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                        rect.setAttribute('x', (startX + col * cellWidth).toString());
+                        rect.setAttribute('y', startY.toString());
+                        rect.setAttribute('width', cellWidth.toString());
+                        rect.setAttribute('height', cellHeight.toString());
+                        rect.setAttribute('fill', '#FFE4E4');
+                        rect.setAttribute('stroke', '#D1D5DB');
+                        rect.setAttribute('stroke-width', '1');
+                        matrixSvg.appendChild(rect);
+                        
+                        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                        text.setAttribute('x', (startX + col * cellWidth + cellWidth / 2).toString());
+                        text.setAttribute('y', (startY + cellHeight / 2 + 4).toString());
+                        text.setAttribute('font-family', 'Inter, sans-serif');
+                        text.setAttribute('font-size', '8');
+                        text.setAttribute('font-weight', '600');
+                        text.setAttribute('fill', '#000000');
+                        text.setAttribute('text-anchor', 'middle');
+                        text.textContent = header;
+                        matrixSvg.appendChild(text);
+                    });
+                    
+                    // Add "Quality" label (vertical)
+                    const qualityLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    qualityLabel.setAttribute('x', (startX - 40).toString());
+                    qualityLabel.setAttribute('y', (startY + cellHeight * 2).toString());
+                    qualityLabel.setAttribute('font-family', 'Inter, sans-serif');
+                    qualityLabel.setAttribute('font-size', '9');
+                    qualityLabel.setAttribute('font-weight', '600');
+                    qualityLabel.setAttribute('fill', '#000000');
+                    qualityLabel.setAttribute('text-anchor', 'middle');
+                    qualityLabel.setAttribute('transform', `rotate(-90 ${startX - 40} ${startY + cellHeight * 2})`);
+                    qualityLabel.textContent = 'Quality';
+                    matrixSvg.appendChild(qualityLabel);
+                    
+                    // Draw row headers and cells
+                    rowHeaders.forEach((header, row) => {
+                        // Row header
+                        const headerRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                        headerRect.setAttribute('x', (startX - 30).toString());
+                        headerRect.setAttribute('y', (startY + cellHeight + row * cellHeight).toString());
+                        headerRect.setAttribute('width', '30');
+                        headerRect.setAttribute('height', cellHeight.toString());
+                        headerRect.setAttribute('fill', '#E4E4FF');
+                        headerRect.setAttribute('stroke', '#D1D5DB');
+                        headerRect.setAttribute('stroke-width', '1');
+                        matrixSvg.appendChild(headerRect);
+                        
+                        const headerText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                        headerText.setAttribute('x', (startX - 15).toString());
+                        headerText.setAttribute('y', (startY + cellHeight + row * cellHeight + cellHeight / 2 + 3).toString());
+                        headerText.setAttribute('font-family', 'Inter, sans-serif');
+                        headerText.setAttribute('font-size', '7');
+                        headerText.setAttribute('font-weight', '600');
+                        headerText.setAttribute('fill', '#000000');
+                        headerText.setAttribute('text-anchor', 'middle');
+                        headerText.textContent = header;
+                        matrixSvg.appendChild(headerText);
+                        
+                        // Draw cells
+                        cellLabels[row].forEach((label, col) => {
+                            const cellRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                            cellRect.setAttribute('x', (startX + col * cellWidth).toString());
+                            cellRect.setAttribute('y', (startY + cellHeight + row * cellHeight).toString());
+                            cellRect.setAttribute('width', cellWidth.toString());
+                            cellRect.setAttribute('height', cellHeight.toString());
+                            cellRect.setAttribute('fill', '#E8F5E9');
+                            cellRect.setAttribute('stroke', '#D1D5DB');
+                            cellRect.setAttribute('stroke-width', '1');
+                            matrixSvg.appendChild(cellRect);
+                            
+                            const cellText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                            cellText.setAttribute('x', (startX + col * cellWidth + cellWidth / 2).toString());
+                            cellText.setAttribute('y', (startY + cellHeight + row * cellHeight + cellHeight / 2 + 3).toString());
+                            cellText.setAttribute('font-family', 'Inter, sans-serif');
+                            cellText.setAttribute('font-size', '8');
+                            cellText.setAttribute('font-weight', '500');
+                            cellText.setAttribute('fill', '#000000');
+                            cellText.setAttribute('text-anchor', 'middle');
+                            cellText.textContent = label;
+                            matrixSvg.appendChild(cellText);
+                        });
+                    });
+                    
+                    matrixContainer.appendChild(matrixSvg);
+                    previewBenefits.appendChild(matrixContainer);
                 }
                 
                 // Add chevrons if available
