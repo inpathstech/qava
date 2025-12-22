@@ -8249,7 +8249,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     const barGap = 8;
                     const maxBarHeight = 50;
                     
-                    // First pass: Draw all box backgrounds (so they're behind axes)
+                    // First pass: Draw all box backgrounds
                     phases.forEach((phase, index) => {
                         const boxX = startX + index * (boxWidth + boxGap);
                         const boxBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
@@ -8261,32 +8261,6 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         boxBg.setAttribute('fill', '#F9FAFB');
                         gtmSvg.appendChild(boxBg);
                     });
-                    
-                    // Draw Y-axis (left side) - on top of boxes
-                    const yAxisX = startX + 5;
-                    const yAxisTop = startY + 20;
-                    const yAxisBottom = startY + boxHeight - 15;
-                    const yAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                    yAxis.setAttribute('x1', yAxisX.toString());
-                    yAxis.setAttribute('y1', yAxisTop.toString());
-                    yAxis.setAttribute('x2', yAxisX.toString());
-                    yAxis.setAttribute('y2', yAxisBottom.toString());
-                    yAxis.setAttribute('stroke', '#D1D5DB');
-                    yAxis.setAttribute('stroke-width', '1');
-                    gtmSvg.appendChild(yAxis);
-                    
-                    // Draw X-axis (bottom) - on top of boxes
-                    const xAxisY = startY + boxHeight - 15;
-                    const xAxisLeft = startX + 5;
-                    const xAxisRight = startX + (boxWidth * 4) + (boxGap * 3) - 5;
-                    const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                    xAxis.setAttribute('x1', xAxisLeft.toString());
-                    xAxis.setAttribute('y1', xAxisY.toString());
-                    xAxis.setAttribute('x2', xAxisRight.toString());
-                    xAxis.setAttribute('y2', xAxisY.toString());
-                    xAxis.setAttribute('stroke', '#D1D5DB');
-                    xAxis.setAttribute('stroke-width', '1');
-                    gtmSvg.appendChild(xAxis);
                     
                     // Second pass: Draw icons, labels, and bars for each phase
                     phases.forEach((phase, index) => {
@@ -8427,6 +8401,31 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     usersLegendText.setAttribute('fill', '#6B7280');
                     usersLegendText.textContent = 'Users';
                     gtmSvg.appendChild(usersLegendText);
+                    
+                    // Draw axes LAST (on top of everything)
+                    const yAxisX = startX + 5;
+                    const yAxisTop = startY + 20;
+                    const yAxisBottom = startY + boxHeight - 15;
+                    const yAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    yAxis.setAttribute('x1', yAxisX.toString());
+                    yAxis.setAttribute('y1', yAxisTop.toString());
+                    yAxis.setAttribute('x2', yAxisX.toString());
+                    yAxis.setAttribute('y2', yAxisBottom.toString());
+                    yAxis.setAttribute('stroke', '#D1D5DB');
+                    yAxis.setAttribute('stroke-width', '1');
+                    gtmSvg.appendChild(yAxis);
+                    
+                    const xAxisY = startY + boxHeight - 15;
+                    const xAxisLeft = startX + 5;
+                    const xAxisRight = startX + (boxWidth * 4) + (boxGap * 3) - 5;
+                    const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    xAxis.setAttribute('x1', xAxisLeft.toString());
+                    xAxis.setAttribute('y1', xAxisY.toString());
+                    xAxis.setAttribute('x2', xAxisRight.toString());
+                    xAxis.setAttribute('y2', xAxisY.toString());
+                    xAxis.setAttribute('stroke', '#D1D5DB');
+                    xAxis.setAttribute('stroke-width', '1');
+                    gtmSvg.appendChild(xAxis);
                     
                     gtmContainer.appendChild(gtmSvg);
                     previewBenefits.appendChild(gtmContainer);
