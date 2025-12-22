@@ -7146,10 +7146,10 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                             'MBA-level expertise without the consulting overhead'
                         ],
                         customProjectBoxes: [
-                            { title: '🎯 Define the Challenge', description: 'Clarity, focus, and alignment' },
-                            { title: '🧩 Match the Right Talent', description: 'Fit, matching, and collaboration' },
-                            { title: '🧠 Build the Strategy', description: 'Analysis, thinking, strategic insight' },
-                            { title: '🚀 Deliver & Decide', description: 'Launch, confidence, forward motion' }
+                            { title: 'Define the Challenge', description: 'Clarity, focus, and alignment' },
+                            { title: 'Match the Right Talent', description: 'Fit, matching, and collaboration' },
+                            { title: 'Build the Strategy', description: 'Analysis, thinking, strategic insight' },
+                            { title: 'Deliver & Decide', description: 'Launch, confidence, forward motion' }
                         ]
                     }
                 ]
@@ -7278,10 +7278,10 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                             'MBA-level expertise without the consulting overhead'
                         ],
                         customProjectBoxes: [
-                            { title: '🎯 Define the Challenge', description: 'Clarity, focus, and alignment' },
-                            { title: '🧩 Match the Right Talent', description: 'Fit, matching, and collaboration' },
-                            { title: '🧠 Build the Strategy', description: 'Analysis, thinking, strategic insight' },
-                            { title: '🚀 Deliver & Decide', description: 'Launch, confidence, forward motion' }
+                            { title: 'Define the Challenge', description: 'Clarity, focus, and alignment' },
+                            { title: 'Match the Right Talent', description: 'Fit, matching, and collaboration' },
+                            { title: 'Build the Strategy', description: 'Analysis, thinking, strategic insight' },
+                            { title: 'Deliver & Decide', description: 'Launch, confidence, forward motion' }
                         ]
                     }
                 ]
@@ -7435,10 +7435,10 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                             'MBA-level expertise without the consulting overhead'
                         ],
                         customProjectBoxes: [
-                            { title: '🎯 Define the Challenge', description: 'Clarity, focus, and alignment' },
-                            { title: '🧩 Match the Right Talent', description: 'Fit, matching, and collaboration' },
-                            { title: '🧠 Build the Strategy', description: 'Analysis, thinking, strategic insight' },
-                            { title: '🚀 Deliver & Decide', description: 'Launch, confidence, forward motion' }
+                            { title: 'Define the Challenge', description: 'Clarity, focus, and alignment' },
+                            { title: 'Match the Right Talent', description: 'Fit, matching, and collaboration' },
+                            { title: 'Build the Strategy', description: 'Analysis, thinking, strategic insight' },
+                            { title: 'Deliver & Decide', description: 'Launch, confidence, forward motion' }
                         ]
                     }
                 ]
@@ -7552,10 +7552,10 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                             'MBA-level expertise without the consulting overhead'
                         ],
                         customProjectBoxes: [
-                            { title: '🎯 Define the Challenge', description: 'Clarity, focus, and alignment' },
-                            { title: '🧩 Match the Right Talent', description: 'Fit, matching, and collaboration' },
-                            { title: '🧠 Build the Strategy', description: 'Analysis, thinking, strategic insight' },
-                            { title: '🚀 Deliver & Decide', description: 'Launch, confidence, forward motion' }
+                            { title: 'Define the Challenge', description: 'Clarity, focus, and alignment' },
+                            { title: 'Match the Right Talent', description: 'Fit, matching, and collaboration' },
+                            { title: 'Build the Strategy', description: 'Analysis, thinking, strategic insight' },
+                            { title: 'Deliver & Decide', description: 'Launch, confidence, forward motion' }
                         ]
                     }
                 ]
@@ -9184,12 +9184,14 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         customBox.style.flex = '1';
                         customBox.style.textAlign = 'center';
                         
-                        // Add title (1 line max)
+                        // Add title (max 2 lines)
                         const titleDiv = document.createElement('div');
                         titleDiv.style.fontSize = '11px';
                         titleDiv.style.fontWeight = '600';
                         titleDiv.style.lineHeight = '1.3';
-                        titleDiv.style.whiteSpace = 'nowrap';
+                        titleDiv.style.display = '-webkit-box';
+                        titleDiv.style.webkitLineClamp = '2';
+                        titleDiv.style.webkitBoxOrient = 'vertical';
                         titleDiv.style.overflow = 'hidden';
                         titleDiv.style.textOverflow = 'ellipsis';
                         titleDiv.style.width = '100%';
