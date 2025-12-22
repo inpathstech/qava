@@ -376,7 +376,6 @@
             color: #000;
             margin-bottom: 24px;
             line-height: 1.2;
-            white-space: nowrap;
         }
 
         .section-subheading {
@@ -458,6 +457,159 @@
             text-decoration: underline;
         }
 
+        /* Notion-like blocks */
+        .quote-card {
+            background: #FAFAFA;
+            border: 1px solid #EBEBEB;
+            border-radius: 14px;
+            padding: 22px 22px;
+            margin: 0 0 28px 0;
+        }
+
+        .quote-text {
+            font-size: 18px;
+            font-weight: 300;
+            color: #111;
+            line-height: 1.6;
+            margin: 0 0 12px 0;
+        }
+
+        .quote-author {
+            font-size: 14px;
+            font-weight: 400;
+            color: #6B6B6B;
+            margin: 0;
+        }
+
+        .micro-heading {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111;
+            letter-spacing: 0.01em;
+            margin: 22px 0 12px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin: 12px 0 22px 0;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid #EBEBEB;
+            border-radius: 14px;
+            padding: 14px 16px;
+        }
+
+        .stat-top {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .stat-emoji {
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .stat-number {
+            font-size: 18px;
+            font-weight: 700;
+            color: #111;
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            font-weight: 300;
+            color: #6B6B6B;
+            line-height: 1.4;
+        }
+
+        .callout-card {
+            background: rgba(15, 98, 254, 0.06);
+            border: 1px solid rgba(15, 98, 254, 0.14);
+            border-radius: 14px;
+            padding: 14px 16px;
+            margin: 18px 0 0 0;
+            color: #111;
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .cta-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        .cta-card {
+            background: #FAFAFA;
+            border: 1px solid #EBEBEB;
+            border-radius: 14px;
+            padding: 14px 16px;
+        }
+
+        .cta-card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111;
+            margin: 0 0 6px 0;
+        }
+
+        .cta-card-body {
+            font-size: 14px;
+            font-weight: 300;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid #EBEBEB;
+            background: white;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #111;
+            transition: all 0.15s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+        }
+
+        .cta-button:hover {
+            background: #FAFAFA;
+            transform: translateY(-1px);
+        }
+
+        .cta-button.primary {
+            background: #0F62FE;
+            border-color: #0F62FE;
+            color: white;
+        }
+
+        .cta-button.primary:hover {
+            background: #0053E5;
+        }
+
         @media (max-width: 768px) {
             .about-container {
                 padding: 60px 24px;
@@ -490,6 +642,14 @@
             .two-column-text {
                 grid-template-columns: 1fr;
                 gap: 24px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-cards {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -806,39 +966,67 @@
     <!-- About Page Content -->
     <div class="about-container">
         <div class="about-section">
-            <h2 class="section-heading">The future of work isn't coming.<br>It's already here.</h2>
-            
-            <p class="about-text">
-                I started Qava in 2024 after seeing the same pattern again and again — founders and operators stuck, and incredibly smart talent left without the right opportunities to break in.
-            </p>
-
-            <p class="about-text">
-                So I ran a pilot. No code, no automation — just matchmaking. I had more than 100 conversations with MBAs, grads, and career-changers ready to work, and over 100 conversations with startups, nonprofits, and growth companies hungry for help.
-            </p>
-
-            <div class="highlight-box">
-                <p class="highlight-text">The result of these matches?</p>
-                <ul class="about-list">
-                    <li>🤝 Sales closed</li>
-                    <li>🚀 Capital raised</li>
-                    <li>💰 Grants awarded</li>
-                    <li>🔓 Careers unlocked</li>
-                </ul>
+            <div class="quote-card">
+                <p class="quote-text">“Everything around you that you call life was made up by people that were no smarter than you—and you can change it, you can influence it, you can build your own things that other people can use.”</p>
+                <p class="quote-author">— Steve Jobs</p>
             </div>
 
-            <p class="about-text">
-                That pilot proved that when you connect the right minds to the right problems, everyone wins. So I built Qava to make that connection scalable, affordable, and simple.
-            </p>
+            <p class="about-text">I started Qava because I believe in the limitless potential of people to create a brighter future.</p>
+
+            <p class="about-text">Nothing lights me up more than hearing about someone’s mission to build a new product, pursue their passion, 5x their income, and I love helping them do this.</p>
+
+            <p class="about-text">But I see the same patterns repeat themselves. Founders and operators get stuck—short on time, short on budget, unsure who to trust.</p>
+
+            <p class="about-text">At the same time, I see incredibly smart people on the sidelines—MBAs, graduates, career-changers—ready to help, but crowded out of meaningful opportunities.</p>
+
+            <p class="about-text">The problem wasn’t talent. The problem was connectivity.</p>
+
+            <p class="about-text">So I ran a pilot. No code. No automation. Just connecting smart people with smart people.</p>
+
+            <div class="micro-heading">What happened next?</div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-emoji">🤝</div>
+                        <div class="stat-number">$2.4M+</div>
+                    </div>
+                    <div class="stat-label">in sales influenced</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-emoji">🚀</div>
+                        <div class="stat-number">$6.1M+</div>
+                    </div>
+                    <div class="stat-label">in capital &amp; grants raised</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-emoji">🔓</div>
+                        <div class="stat-number">120+</div>
+                    </div>
+                    <div class="stat-label">careers unlocked</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-emoji">📣</div>
+                        <div class="stat-number">200+</div>
+                    </div>
+                    <div class="stat-label">public LinkedIn testimonials</div>
+                </div>
+            </div>
+
+            <div class="callout-card">When you connect the right minds to the right opportunities, magic happens.</div>
         </div>
 
         <div class="about-section">
             <h2 class="section-heading">What is Qava?</h2>
             
             <p class="about-text">
-                Qava is an AI-powered platform that connects top talent with growth opportunities — fast.
+                Qava is an AI-powered platform that connects talent with real-world opportunities—fast.
             </p>
 
-            <h3 class="section-subheading">We specialize in sharing clearly scoped, high-impact work such as:</h3>
+            <h3 class="section-subheading">We focus on clearly scoped, high-impact work where thinking matters:</h3>
 
             <ul class="about-list">
                 <li>📊 Financial modeling</li>
@@ -846,54 +1034,57 @@
                 <li>🚀 Go-to-market strategy</li>
                 <li>🔍 Customer segmentation & market research</li>
                 <li>🧭 Pricing, operations, & competitor analysis</li>
-                <li>💼 Internships, fractional roles & one-off strategic projects</li>
+                <li>💼 Internships, fractional roles, and one-off strategic projects</li>
             </ul>
 
             <p class="about-text">
-                Whether you're launching something new, scaling what's working, or cleaning up a mess, Qava brings you the thinking power to move forward — without hiring full-time or paying bloated consulting fees.
+                Whether you’re launching something new, scaling what’s working, or cleaning up a mess, Qava gives you the thinking power to move forward—without hiring full-time or paying bloated consulting fees.
             </p>
         </div>
 
         <div class="about-section">
             <h2 class="section-heading">Why it works</h2>
             
-            <p class="about-text">There's an entire industry built on costly friction between you and finding the people and opportunities you seek, and our mission is to fix that. We stripped out everything that slows people down:</p>
+            <p class="about-text">There’s an entire industry built on friction between people and opportunity. We built Qava to remove it:</p>
             
             <ul class="about-list">
                 <li>❌ No expensive retainers</li>
-                <li>❌ No "spray-and-pray" job boards</li>
+                <li>❌ No spray-and-pray job boards</li>
                 <li>❌ No ghosting or unclear expectations</li>
             </ul>
 
-            <p class="about-text">Instead, we give you:</p>
+            <p class="about-text">Instead, you get:</p>
 
             <ul class="about-list">
-                <li>✅ Talent that's motivated and business-trained</li>
-                <li>✅ Projects with real outcomes, not just tasks</li>
-                <li>✅ Public proof of work to help talent get noticed</li>
-                <li>✅ Tools to help companies find the right fit, faster</li>
+                <li>✅ Business-trained, motivated talent</li>
+                <li>✅ Projects designed around real outcomes—not busywork</li>
+                <li>✅ Public proof of work that helps talent get noticed</li>
+                <li>✅ Tools that help companies find the right fit, faster</li>
             </ul>
+
+            <div class="callout-card">This isn’t about filling roles. It’s about solving real problems—together.</div>
         </div>
 
 
         <div class="about-section">
             <h2 class="section-heading">Ready to get started?</h2>
             
-            <div class="two-column-text">
-                <p class="about-text">
-                    🧠 <strong style="color: #0F62FE;">If you're talent</strong> — explore real, resume-worthy work that helps you grow your skills, your network, and your story.
-                </p>
-
-                <p class="about-text">
-                    🚀 <strong style="color: #0F62FE;">If you're a company</strong> — post a project today and get matched with sharp, motivated talent ready to help you build.
-                </p>
+            <div class="cta-cards">
+                <div class="cta-card">
+                    <div class="cta-card-title">🧠 If you’re talent</div>
+                    <p class="cta-card-body">Work on real projects that build your skills, your network, and your story.</p>
+                </div>
+                <div class="cta-card">
+                    <div class="cta-card-title">🚀 If you’re a company</div>
+                    <p class="cta-card-body">Post a project and get matched with sharp, motivated people ready to help you build.</p>
+                </div>
             </div>
 
-            <ul class="about-list cta-list">
-                <li><a href="https://app.qava.ai/" class="cta-link">📣 Post a project</a></li>
-                <li><a href="https://app.qava.ai/projects" class="cta-link">🔦 Explore open projects</a></li>
-                <li><a href="https://app.qava.ai/" class="cta-link">🚪 Join as talent</a></li>
-            </ul>
+            <div class="cta-buttons">
+                <a href="https://app.qava.ai/" class="cta-button primary">📣 Post a project</a>
+                <a href="https://app.qava.ai/projects" class="cta-button">🔦 Explore open projects</a>
+                <a href="https://app.qava.ai/" class="cta-button">🚪 Join as talent</a>
+            </div>
         </div>
     </div>
 
