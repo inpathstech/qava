@@ -8266,51 +8266,62 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     phases.forEach((phase, index) => {
                         const boxX = startX + index * (boxWidth + boxGap);
                         
-                        // Add icon before phase label
-                        const iconSize = 10;
-                        const iconY = startY + 8;
+                        // Consistent positioning for all icons and labels
+                        const iconX = boxX + 12; // Fixed left offset for all icons
+                        const iconCenterY = startY + 13; // Centered Y position for all icons
+                        const labelX = boxX + 26; // Fixed left offset for labels (14px from icon)
                         const labelY = startY + 15;
                         
                         // Create icon group
                         const iconGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
                         
-                        // Define icons for each phase
+                        // Define simple, uniform icons for each phase
                         if (index === 0) {
-                            // Target icon for "Define Target"
+                            // Target icon - concentric circles
                             const circle1 = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                            circle1.setAttribute('cx', (boxX + boxWidth / 2 - 35).toString());
-                            circle1.setAttribute('cy', (iconY + iconSize / 2).toString());
-                            circle1.setAttribute('r', '4');
+                            circle1.setAttribute('cx', iconX.toString());
+                            circle1.setAttribute('cy', iconCenterY.toString());
+                            circle1.setAttribute('r', '5');
                             circle1.setAttribute('fill', 'none');
                             circle1.setAttribute('stroke', '#6B7280');
                             circle1.setAttribute('stroke-width', '1');
                             iconGroup.appendChild(circle1);
                             const circle2 = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                            circle2.setAttribute('cx', (boxX + boxWidth / 2 - 35).toString());
-                            circle2.setAttribute('cy', (iconY + iconSize / 2).toString());
-                            circle2.setAttribute('r', '1.5');
+                            circle2.setAttribute('cx', iconX.toString());
+                            circle2.setAttribute('cy', iconCenterY.toString());
+                            circle2.setAttribute('r', '2');
                             circle2.setAttribute('fill', '#6B7280');
                             iconGroup.appendChild(circle2);
                         } else if (index === 1) {
-                            // Lightbulb icon for "Craft Value"
-                            const bulb = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                            bulb.setAttribute('d', `M ${boxX + boxWidth / 2 - 30} ${iconY + 3} Q ${boxX + boxWidth / 2 - 30} ${iconY} ${boxX + boxWidth / 2 - 27} ${iconY} Q ${boxX + boxWidth / 2 - 24} ${iconY} ${boxX + boxWidth / 2 - 24} ${iconY + 3} Q ${boxX + boxWidth / 2 - 24} ${iconY + 6} ${boxX + boxWidth / 2 - 27} ${iconY + 7} L ${boxX + boxWidth / 2 - 27} ${iconY + 9} L ${boxX + boxWidth / 2 - 30} ${iconY + 7} Q ${boxX + boxWidth / 2 - 30} ${iconY + 6} ${boxX + boxWidth / 2 - 30} ${iconY + 3} Z`);
+                            // Lightbulb icon - simple bulb shape
+                            const bulb = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                            bulb.setAttribute('cx', iconX.toString());
+                            bulb.setAttribute('cy', (iconCenterY - 1).toString());
+                            bulb.setAttribute('r', '3.5');
                             bulb.setAttribute('fill', 'none');
                             bulb.setAttribute('stroke', '#6B7280');
                             bulb.setAttribute('stroke-width', '1');
                             iconGroup.appendChild(bulb);
+                            const base = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                            base.setAttribute('x1', (iconX - 2).toString());
+                            base.setAttribute('y1', (iconCenterY + 3).toString());
+                            base.setAttribute('x2', (iconX + 2).toString());
+                            base.setAttribute('y2', (iconCenterY + 3).toString());
+                            base.setAttribute('stroke', '#6B7280');
+                            base.setAttribute('stroke-width', '1');
+                            iconGroup.appendChild(base);
                         } else if (index === 2) {
-                            // Megaphone icon for "Choose Channels"
+                            // Megaphone icon - simple triangle
                             const megaphone = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                            megaphone.setAttribute('d', `M ${boxX + boxWidth / 2 - 38} ${iconY + 2} L ${boxX + boxWidth / 2 - 33} ${iconY + 4} L ${boxX + boxWidth / 2 - 33} ${iconY + 6} L ${boxX + boxWidth / 2 - 38} ${iconY + 8} Z M ${boxX + boxWidth / 2 - 33} ${iconY + 4} L ${boxX + boxWidth / 2 - 28} ${iconY + 4} L ${boxX + boxWidth / 2 - 28} ${iconY + 6} L ${boxX + boxWidth / 2 - 33} ${iconY + 6} Z`);
+                            megaphone.setAttribute('d', `M ${iconX - 4} ${iconCenterY - 3} L ${iconX + 2} ${iconCenterY - 1.5} L ${iconX + 2} ${iconCenterY + 1.5} L ${iconX - 4} ${iconCenterY + 3} Z M ${iconX + 2} ${iconCenterY - 2} L ${iconX + 5} ${iconCenterY - 2} L ${iconX + 5} ${iconCenterY + 2} L ${iconX + 2} ${iconCenterY + 2} Z`);
                             megaphone.setAttribute('fill', 'none');
                             megaphone.setAttribute('stroke', '#6B7280');
                             megaphone.setAttribute('stroke-width', '1');
                             iconGroup.appendChild(megaphone);
                         } else if (index === 3) {
-                            // Rocket icon for "Launch & Scale"
+                            // Rocket icon - simple rocket shape
                             const rocket = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                            rocket.setAttribute('d', `M ${boxX + boxWidth / 2 - 33} ${iconY + 8} L ${boxX + boxWidth / 2 - 33} ${iconY + 1} L ${boxX + boxWidth / 2 - 31} ${iconY} L ${boxX + boxWidth / 2 - 29} ${iconY + 1} L ${boxX + boxWidth / 2 - 29} ${iconY + 8} M ${boxX + boxWidth / 2 - 35} ${iconY + 5} L ${boxX + boxWidth / 2 - 33} ${iconY + 6} M ${boxX + boxWidth / 2 - 29} ${iconY + 6} L ${boxX + boxWidth / 2 - 27} ${iconY + 5}`);
+                            rocket.setAttribute('d', `M ${iconX} ${iconCenterY - 5} L ${iconX - 2} ${iconCenterY - 3} L ${iconX - 2} ${iconCenterY + 3} L ${iconX} ${iconCenterY + 5} L ${iconX + 2} ${iconCenterY + 3} L ${iconX + 2} ${iconCenterY - 3} Z M ${iconX - 4} ${iconCenterY} L ${iconX - 2} ${iconCenterY + 1} M ${iconX + 2} ${iconCenterY + 1} L ${iconX + 4} ${iconCenterY}`);
                             rocket.setAttribute('fill', 'none');
                             rocket.setAttribute('stroke', '#6B7280');
                             rocket.setAttribute('stroke-width', '1');
@@ -8319,9 +8330,9 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         
                         gtmSvg.appendChild(iconGroup);
                         
-                        // Add phase label at top
+                        // Add phase label with consistent positioning
                         const labelText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                        labelText.setAttribute('x', (boxX + boxWidth / 2 - 20).toString());
+                        labelText.setAttribute('x', labelX.toString());
                         labelText.setAttribute('y', labelY.toString());
                         labelText.setAttribute('font-family', 'Inter, sans-serif');
                         labelText.setAttribute('font-size', '9');
