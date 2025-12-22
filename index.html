@@ -7183,7 +7183,8 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         ],
                         stat: null,
                         quote: null,
-                        quoteAuthor: null
+                        quoteAuthor: null,
+                        hasGTMChart: true
                     },
                     {
                         name: 'Growth Plan',
@@ -7671,7 +7672,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         benefitItem.className = 'benefit-item';
                         
                         // Remove bottom margin/padding from last benefit when followed by visual
-                        if (index === project.benefits.length - 1 && (project.hasJourneyMap || project.grantBoxes)) {
+                        if (index === project.benefits.length - 1 && (project.hasJourneyMap || project.grantBoxes || project.hasGTMChart)) {
                             benefitItem.style.marginBottom = '0';
                             benefitItem.style.paddingBottom = '0';
                         }
@@ -8218,6 +8219,121 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     
                     fiveForcesContainer.appendChild(forcesSvg);
                     previewBenefits.appendChild(fiveForcesContainer);
+                }
+                
+                // Add GTM process visualization if available (for Go-To-Market Strategy)
+                if (project.hasGTMChart) {
+                    const gtmContainer = document.createElement('div');
+                    gtmContainer.style.marginTop = '16px';
+                    gtmContainer.style.backgroundColor = '#FFFFFF';
+                    
+                    // Create SVG for GTM process
+                    const gtmSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    gtmSvg.setAttribute('width', '100%');
+                    gtmSvg.setAttribute('height', '120');
+                    gtmSvg.setAttribute('viewBox', '0 0 500 120');
+                    
+                    // Define the 4 phases with better spacing
+                    const phases = [
+                        { name: 'Define the Target Customer', x: 10, y: 50, width: 105 },
+                        { name: 'Craft the Value Proposition', x: 130, y: 50, width: 105 },
+                        { name: 'Choose Channels & Acquisition Motion', x: 250, y: 50, width: 105 },
+                        { name: 'Launch, Learn, and Scale', x: 370, y: 50, width: 105 }
+                    ];
+                    
+                    phases.forEach((phase, index) => {
+                        // Draw rounded rectangle for each phase
+                        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                        rect.setAttribute('x', phase.x.toString());
+                        rect.setAttribute('y', phase.y.toString());
+                        rect.setAttribute('width', phase.width.toString());
+                        rect.setAttribute('height', '20');
+                        rect.setAttribute('rx', '4');
+                        rect.setAttribute('fill', '#FFFFFF');
+                        rect.setAttribute('stroke', '#E5E7EB');
+                        rect.setAttribute('stroke-width', '1');
+                        gtmSvg.appendChild(rect);
+                        
+                        // Add phase number
+                        const numberText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                        numberText.setAttribute('x', (phase.x + 4).toString());
+                        numberText.setAttribute('y', (phase.y + 13).toString());
+                        numberText.setAttribute('font-family', 'Inter, sans-serif');
+                        numberText.setAttribute('font-size', '9');
+                        numberText.setAttribute('font-weight', '600');
+                        numberText.setAttribute('fill', '#1F2937');
+                        numberText.textContent = (index + 1) + '.';
+                        gtmSvg.appendChild(numberText);
+                        
+                        // Add phase title - split into lines if needed
+                        const titleWords = phase.name.split(' ');
+                        const maxCharsPerLine = 12;
+                        let lines = [];
+                        let currentLine = '';
+                        
+                        titleWords.forEach(word => {
+                            if ((currentLine + ' ' + word).length <= maxCharsPerLine) {
+                                currentLine = currentLine ? currentLine + ' ' + word : word;
+                            } else {
+                                if (currentLine) lines.push(currentLine);
+                                currentLine = word;
+                            }
+                        });
+                        if (currentLine) lines.push(currentLine);
+                        
+                        // Draw text lines
+                        const startX = phase.x + 18;
+                        const startY = phase.y + 9;
+                        const lineHeight = 9;
+                        lines.forEach((line, lineIndex) => {
+                            const lineText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                            lineText.setAttribute('x', startX.toString());
+                            lineText.setAttribute('y', (startY + lineIndex * lineHeight).toString());
+                            lineText.setAttribute('font-family', 'Inter, sans-serif');
+                            lineText.setAttribute('font-size', '7.5');
+                            lineText.setAttribute('font-weight', '400');
+                            lineText.setAttribute('fill', '#1F2937');
+                            lineText.textContent = line;
+                            gtmSvg.appendChild(lineText);
+                        });
+                        
+                        // Adjust box height if text wraps
+                        if (lines.length > 1) {
+                            rect.setAttribute('height', (8 + lines.length * lineHeight).toString());
+                        }
+                        
+                        // Add arrow to next phase (except for last)
+                        if (index < phases.length - 1) {
+                            const arrow = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                            arrow.setAttribute('x1', (phase.x + phase.width).toString());
+                            arrow.setAttribute('y1', (phase.y + 10).toString());
+                            arrow.setAttribute('x2', (phases[index + 1].x - 5).toString());
+                            arrow.setAttribute('y2', (phase.y + 10).toString());
+                            arrow.setAttribute('stroke', '#D1D5DB');
+                            arrow.setAttribute('stroke-width', '1');
+                            arrow.setAttribute('marker-end', 'url(#arrowhead)');
+                            gtmSvg.appendChild(arrow);
+                        }
+                    });
+                    
+                    // Define arrowhead marker
+                    const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+                    const marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+                    marker.setAttribute('id', 'arrowhead');
+                    marker.setAttribute('markerWidth', '10');
+                    marker.setAttribute('markerHeight', '10');
+                    marker.setAttribute('refX', '9');
+                    marker.setAttribute('refY', '3');
+                    marker.setAttribute('orient', 'auto');
+                    const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+                    polygon.setAttribute('points', '0 0, 10 3, 0 6');
+                    polygon.setAttribute('fill', '#D1D5DB');
+                    marker.appendChild(polygon);
+                    defs.appendChild(marker);
+                    gtmSvg.insertBefore(defs, gtmSvg.firstChild);
+                    
+                    gtmContainer.appendChild(gtmSvg);
+                    previewBenefits.appendChild(gtmContainer);
                 }
                 
                 // Add chevrons if available
