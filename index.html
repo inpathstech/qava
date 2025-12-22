@@ -8241,14 +8241,34 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         { label: 'Launch & Scale', revenue: 90, users: 88 }
                     ];
                     
-                    const chartX = 10;
+                    const chartX = 30;
                     const chartY = 10;
-                    const chartWidth = 480;
+                    const chartWidth = 460;
                     const chartHeight = 85;
                     const maxBarHeight = chartHeight - 15;
                     const barWidth = 18;
                     const groupSpacing = chartWidth / phases.length;
                     const barGap = 6;
+                    
+                    // Draw Y-axis
+                    const yAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    yAxis.setAttribute('x1', chartX.toString());
+                    yAxis.setAttribute('y1', chartY.toString());
+                    yAxis.setAttribute('x2', chartX.toString());
+                    yAxis.setAttribute('y2', (chartY + chartHeight - 15).toString());
+                    yAxis.setAttribute('stroke', '#D1D5DB');
+                    yAxis.setAttribute('stroke-width', '1');
+                    gtmSvg.appendChild(yAxis);
+                    
+                    // Draw X-axis
+                    const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    xAxis.setAttribute('x1', chartX.toString());
+                    xAxis.setAttribute('y1', (chartY + chartHeight - 15).toString());
+                    xAxis.setAttribute('x2', (chartX + chartWidth).toString());
+                    xAxis.setAttribute('y2', (chartY + chartHeight - 15).toString());
+                    xAxis.setAttribute('stroke', '#D1D5DB');
+                    xAxis.setAttribute('stroke-width', '1');
+                    gtmSvg.appendChild(xAxis);
                     
                     // Draw bars for each phase
                     phases.forEach((phase, index) => {
