@@ -8293,23 +8293,13 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                             circle2.setAttribute('fill', '#6B7280');
                             iconGroup.appendChild(circle2);
                         } else if (index === 1) {
-                            // Lightbulb icon - simple bulb shape
-                            const bulb = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                            bulb.setAttribute('cx', iconX.toString());
-                            bulb.setAttribute('cy', (iconCenterY - 1).toString());
-                            bulb.setAttribute('r', '3.5');
-                            bulb.setAttribute('fill', 'none');
-                            bulb.setAttribute('stroke', '#6B7280');
-                            bulb.setAttribute('stroke-width', '1');
-                            iconGroup.appendChild(bulb);
-                            const base = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                            base.setAttribute('x1', (iconX - 2).toString());
-                            base.setAttribute('y1', (iconCenterY + 3).toString());
-                            base.setAttribute('x2', (iconX + 2).toString());
-                            base.setAttribute('y2', (iconCenterY + 3).toString());
-                            base.setAttribute('stroke', '#6B7280');
-                            base.setAttribute('stroke-width', '1');
-                            iconGroup.appendChild(base);
+                            // Jewel icon - diamond shape
+                            const jewel = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                            jewel.setAttribute('d', `M ${iconX} ${iconCenterY - 5} L ${iconX + 3} ${iconCenterY - 2} L ${iconX} ${iconCenterY + 3} L ${iconX - 3} ${iconCenterY - 2} Z M ${iconX - 3} ${iconCenterY - 2} L ${iconX + 3} ${iconCenterY - 2}`);
+                            jewel.setAttribute('fill', 'none');
+                            jewel.setAttribute('stroke', '#6B7280');
+                            jewel.setAttribute('stroke-width', '1');
+                            iconGroup.appendChild(jewel);
                         } else if (index === 2) {
                             // Megaphone icon - simple triangle
                             const megaphone = document.createElementNS('http://www.w3.org/2000/svg', 'path');
