@@ -7254,16 +7254,18 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     },
                     {
                         name: 'Strategic Finance',
+                        heading: 'Companies with strong finance strategies outperform peers by 33% on ROI <span style="font-weight: 300;">— Deloitte</span>',
                         price: 280,
-                        purpose: 'Confident growth starts with clear financials — Qava connects you with finance strategists who use advanced models and investor-grade storytelling.',
+                        purpose: 'Confident growth starts with clear financials — Qava connects you with finance talent who use advanced models and investor-grade storytelling.',
                         benefits: [
-                            'Translates ambition into numbers investors trust',
-                            'Guides capital allocation and ROI',
-                            'Builds financial confidence with data clarity'
+                            'Translate ambition into numbers investors trust',
+                            'Guide capital allocation and ROI',
+                            'Build financial confidence with data clarity'
                         ],
-                        stat: '📊 Companies with strong finance strategies outperform peers by 33% on ROI — Deloitte',
-                        quote: '"You cannot improve what you do not measure."',
-                        quoteAuthor: '— Bill Gates'
+                        stat: null,
+                        quote: null,
+                        quoteAuthor: null,
+                        hasFinancePuzzle: true
                     },
                     {
                         name: 'Custom Project',
@@ -7513,16 +7515,18 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     },
                     {
                         name: 'Strategic Finance',
+                        heading: 'Companies with strong finance strategies outperform peers by 33% on ROI <span style="font-weight: 300;">— Deloitte</span>',
                         price: 280,
-                        purpose: 'Transform your financial insight into advantage — Qava connects you with finance strategists who model, measure, and communicate performance.',
+                        purpose: 'Confident growth starts with clear financials — Qava connects you with finance talent who use advanced models and investor-grade storytelling.',
                         benefits: [
-                            'Tracks progress toward business goals',
-                            'Guides investment and resource allocation',
-                            'Strengthens investor confidence'
+                            'Translate ambition into numbers investors trust',
+                            'Guide capital allocation and ROI',
+                            'Build financial confidence with data clarity'
                         ],
-                        stat: '📊 Companies with strong finance strategies outperform peers by 33% on ROI — Deloitte',
-                        quote: '"You cannot improve what you do not measure."',
-                        quoteAuthor: '— Bill Gates'
+                        stat: null,
+                        quote: null,
+                        quoteAuthor: null,
+                        hasFinancePuzzle: true
                     },
                     {
                         name: 'Operating Model Design',
@@ -8863,6 +8867,69 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     
                     chartContainer.appendChild(chartSvg);
                     previewBenefits.appendChild(chartContainer);
+                }
+                
+                // Add Finance Puzzle if available (for Strategic Finance)
+                if (project.hasFinancePuzzle) {
+                    const puzzleContainer = document.createElement('div');
+                    puzzleContainer.style.marginTop = '16px';
+                    
+                    // Create SVG for Finance Puzzle
+                    const puzzleSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    puzzleSvg.setAttribute('width', '100%');
+                    puzzleSvg.setAttribute('height', '120');
+                    puzzleSvg.setAttribute('viewBox', '0 0 380 120');
+                    
+                    // Define puzzle pieces (3x2 grid)
+                    const pieces = [
+                        { x: 10, y: 10, width: 110, height: 45, color: '#60A5FA', title: 'Customer\nAcquisition', icon: '👥' },
+                        { x: 135, y: 10, width: 110, height: 45, color: '#FBBF24', title: 'Sales\nPipeline', icon: '📊' },
+                        { x: 260, y: 10, width: 110, height: 45, color: '#F87171', title: 'Budget\nForecast', icon: '💰' },
+                        { x: 10, y: 65, width: 110, height: 45, color: '#C084FC', title: 'Customer\nRecords', icon: '📋' },
+                        { x: 135, y: 65, width: 110, height: 45, color: '#A78BFA', title: 'Fundraising\nPlans', icon: '🎯' },
+                        { x: 260, y: 65, width: 110, height: 45, color: '#FB923C', title: 'Payroll', icon: '💵' }
+                    ];
+                    
+                    pieces.forEach(piece => {
+                        // Draw rectangle for each piece
+                        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                        rect.setAttribute('x', piece.x.toString());
+                        rect.setAttribute('y', piece.y.toString());
+                        rect.setAttribute('width', piece.width.toString());
+                        rect.setAttribute('height', piece.height.toString());
+                        rect.setAttribute('fill', piece.color);
+                        rect.setAttribute('rx', '8');
+                        rect.setAttribute('stroke', '#FFFFFF');
+                        rect.setAttribute('stroke-width', '2');
+                        puzzleSvg.appendChild(rect);
+                        
+                        // Add icon
+                        const icon = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                        icon.setAttribute('x', (piece.x + piece.width / 2).toString());
+                        icon.setAttribute('y', (piece.y + 20).toString());
+                        icon.setAttribute('font-size', '18');
+                        icon.setAttribute('text-anchor', 'middle');
+                        icon.textContent = piece.icon;
+                        puzzleSvg.appendChild(icon);
+                        
+                        // Add title text (split by newline if present)
+                        const lines = piece.title.split('\n');
+                        lines.forEach((line, index) => {
+                            const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                            text.setAttribute('x', (piece.x + piece.width / 2).toString());
+                            text.setAttribute('y', (piece.y + 33 + index * 8).toString());
+                            text.setAttribute('font-family', 'Inter, sans-serif');
+                            text.setAttribute('font-size', '8');
+                            text.setAttribute('font-weight', '600');
+                            text.setAttribute('fill', '#FFFFFF');
+                            text.setAttribute('text-anchor', 'middle');
+                            text.textContent = line;
+                            puzzleSvg.appendChild(text);
+                        });
+                    });
+                    
+                    puzzleContainer.appendChild(puzzleSvg);
+                    previewBenefits.appendChild(puzzleContainer);
                 }
                 
                 // Add chevrons if available
