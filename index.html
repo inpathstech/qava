@@ -8289,15 +8289,68 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         boxBg.setAttribute('fill', '#F9FAFB');
                         gtmSvg.appendChild(boxBg);
                         
+                        // Add icon before phase label
+                        const iconSize = 10;
+                        const iconY = startY + 8;
+                        const labelY = startY + 15;
+                        
+                        // Create icon group
+                        const iconGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                        
+                        // Define icons for each phase
+                        if (index === 0) {
+                            // Target icon for "Define Target"
+                            const circle1 = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                            circle1.setAttribute('cx', (boxX + boxWidth / 2 - 35).toString());
+                            circle1.setAttribute('cy', (iconY + iconSize / 2).toString());
+                            circle1.setAttribute('r', '4');
+                            circle1.setAttribute('fill', 'none');
+                            circle1.setAttribute('stroke', '#6B7280');
+                            circle1.setAttribute('stroke-width', '1');
+                            iconGroup.appendChild(circle1);
+                            const circle2 = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                            circle2.setAttribute('cx', (boxX + boxWidth / 2 - 35).toString());
+                            circle2.setAttribute('cy', (iconY + iconSize / 2).toString());
+                            circle2.setAttribute('r', '1.5');
+                            circle2.setAttribute('fill', '#6B7280');
+                            iconGroup.appendChild(circle2);
+                        } else if (index === 1) {
+                            // Lightbulb icon for "Craft Value"
+                            const bulb = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                            bulb.setAttribute('d', `M ${boxX + boxWidth / 2 - 30} ${iconY + 3} Q ${boxX + boxWidth / 2 - 30} ${iconY} ${boxX + boxWidth / 2 - 27} ${iconY} Q ${boxX + boxWidth / 2 - 24} ${iconY} ${boxX + boxWidth / 2 - 24} ${iconY + 3} Q ${boxX + boxWidth / 2 - 24} ${iconY + 6} ${boxX + boxWidth / 2 - 27} ${iconY + 7} L ${boxX + boxWidth / 2 - 27} ${iconY + 9} L ${boxX + boxWidth / 2 - 30} ${iconY + 7} Q ${boxX + boxWidth / 2 - 30} ${iconY + 6} ${boxX + boxWidth / 2 - 30} ${iconY + 3} Z`);
+                            bulb.setAttribute('fill', 'none');
+                            bulb.setAttribute('stroke', '#6B7280');
+                            bulb.setAttribute('stroke-width', '1');
+                            iconGroup.appendChild(bulb);
+                        } else if (index === 2) {
+                            // Megaphone icon for "Choose Channels"
+                            const megaphone = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                            megaphone.setAttribute('d', `M ${boxX + boxWidth / 2 - 38} ${iconY + 2} L ${boxX + boxWidth / 2 - 33} ${iconY + 4} L ${boxX + boxWidth / 2 - 33} ${iconY + 6} L ${boxX + boxWidth / 2 - 38} ${iconY + 8} Z M ${boxX + boxWidth / 2 - 33} ${iconY + 4} L ${boxX + boxWidth / 2 - 28} ${iconY + 4} L ${boxX + boxWidth / 2 - 28} ${iconY + 6} L ${boxX + boxWidth / 2 - 33} ${iconY + 6} Z`);
+                            megaphone.setAttribute('fill', 'none');
+                            megaphone.setAttribute('stroke', '#6B7280');
+                            megaphone.setAttribute('stroke-width', '1');
+                            iconGroup.appendChild(megaphone);
+                        } else if (index === 3) {
+                            // Rocket icon for "Launch & Scale"
+                            const rocket = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                            rocket.setAttribute('d', `M ${boxX + boxWidth / 2 - 33} ${iconY + 8} L ${boxX + boxWidth / 2 - 33} ${iconY + 1} L ${boxX + boxWidth / 2 - 31} ${iconY} L ${boxX + boxWidth / 2 - 29} ${iconY + 1} L ${boxX + boxWidth / 2 - 29} ${iconY + 8} M ${boxX + boxWidth / 2 - 35} ${iconY + 5} L ${boxX + boxWidth / 2 - 33} ${iconY + 6} M ${boxX + boxWidth / 2 - 29} ${iconY + 6} L ${boxX + boxWidth / 2 - 27} ${iconY + 5}`);
+                            rocket.setAttribute('fill', 'none');
+                            rocket.setAttribute('stroke', '#6B7280');
+                            rocket.setAttribute('stroke-width', '1');
+                            iconGroup.appendChild(rocket);
+                        }
+                        
+                        gtmSvg.appendChild(iconGroup);
+                        
                         // Add phase label at top
                         const labelText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                        labelText.setAttribute('x', (boxX + boxWidth / 2).toString());
-                        labelText.setAttribute('y', (startY + 15).toString());
+                        labelText.setAttribute('x', (boxX + boxWidth / 2 - 20).toString());
+                        labelText.setAttribute('y', labelY.toString());
                         labelText.setAttribute('font-family', 'Inter, sans-serif');
                         labelText.setAttribute('font-size', '9');
                         labelText.setAttribute('font-weight', '500');
                         labelText.setAttribute('fill', '#6B7280');
-                        labelText.setAttribute('text-anchor', 'middle');
+                        labelText.setAttribute('text-anchor', 'start');
                         labelText.textContent = phase.label;
                         gtmSvg.appendChild(labelText);
                         
