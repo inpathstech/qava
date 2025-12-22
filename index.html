@@ -8225,9 +8225,8 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                 if (project.hasGTMChart) {
                     const gtmContainer = document.createElement('div');
                     gtmContainer.style.marginTop = '16px';
-                    gtmContainer.style.backgroundColor = '#FFFFFF';
                     
-                    // Create SVG for GTM bar chart
+                    // Create SVG for GTM bar chart with boxes
                     const gtmSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
                     gtmSvg.setAttribute('width', '100%');
                     gtmSvg.setAttribute('height', '120');
@@ -8241,44 +8240,50 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         { label: 'Launch & Scale', revenue: 90, users: 88 }
                     ];
                     
-                    const chartX = 30;
-                    const chartY = 10;
-                    const chartWidth = 460;
-                    const chartHeight = 85;
-                    const maxBarHeight = chartHeight - 15;
-                    const barWidth = 18;
-                    const groupSpacing = chartWidth / phases.length;
-                    const barGap = 6;
+                    const boxWidth = 115;
+                    const boxHeight = 90;
+                    const boxGap = 10;
+                    const startX = 10;
+                    const startY = 5;
+                    const barWidth = 20;
+                    const barGap = 8;
+                    const maxBarHeight = 50;
                     
-                    // Draw Y-axis
-                    const yAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                    yAxis.setAttribute('x1', chartX.toString());
-                    yAxis.setAttribute('y1', chartY.toString());
-                    yAxis.setAttribute('x2', chartX.toString());
-                    yAxis.setAttribute('y2', (chartY + chartHeight - 15).toString());
-                    yAxis.setAttribute('stroke', '#D1D5DB');
-                    yAxis.setAttribute('stroke-width', '1');
-                    gtmSvg.appendChild(yAxis);
-                    
-                    // Draw X-axis
-                    const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                    xAxis.setAttribute('x1', chartX.toString());
-                    xAxis.setAttribute('y1', (chartY + chartHeight - 15).toString());
-                    xAxis.setAttribute('x2', (chartX + chartWidth).toString());
-                    xAxis.setAttribute('y2', (chartY + chartHeight - 15).toString());
-                    xAxis.setAttribute('stroke', '#D1D5DB');
-                    xAxis.setAttribute('stroke-width', '1');
-                    gtmSvg.appendChild(xAxis);
-                    
-                    // Draw bars for each phase
+                    // Draw boxes for each phase
                     phases.forEach((phase, index) => {
-                        const groupX = chartX + index * groupSpacing + groupSpacing / 2 - barWidth - barGap / 2;
+                        const boxX = startX + index * (boxWidth + boxGap);
+                        
+                        // Draw box background
+                        const boxBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                        boxBg.setAttribute('x', boxX.toString());
+                        boxBg.setAttribute('y', startY.toString());
+                        boxBg.setAttribute('width', boxWidth.toString());
+                        boxBg.setAttribute('height', boxHeight.toString());
+                        boxBg.setAttribute('rx', '4');
+                        boxBg.setAttribute('fill', '#F3F4F6');
+                        gtmSvg.appendChild(boxBg);
+                        
+                        // Add phase label at top
+                        const labelText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                        labelText.setAttribute('x', (boxX + boxWidth / 2).toString());
+                        labelText.setAttribute('y', (startY + 15).toString());
+                        labelText.setAttribute('font-family', 'Inter, sans-serif');
+                        labelText.setAttribute('font-size', '9');
+                        labelText.setAttribute('font-weight', '500');
+                        labelText.setAttribute('fill', '#6B7280');
+                        labelText.setAttribute('text-anchor', 'middle');
+                        labelText.textContent = phase.label;
+                        gtmSvg.appendChild(labelText);
+                        
+                        // Calculate bar positions (centered in box)
+                        const barsStartX = boxX + (boxWidth - (barWidth * 2 + barGap)) / 2;
+                        const barsBaseY = startY + boxHeight - 15;
                         
                         // Revenue bar (light blue)
                         const revenueHeight = (phase.revenue / 100) * maxBarHeight;
                         const revenueBar = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-                        revenueBar.setAttribute('x', groupX.toString());
-                        revenueBar.setAttribute('y', (chartY + chartHeight - revenueHeight - 15).toString());
+                        revenueBar.setAttribute('x', barsStartX.toString());
+                        revenueBar.setAttribute('y', (barsBaseY - revenueHeight).toString());
                         revenueBar.setAttribute('width', barWidth.toString());
                         revenueBar.setAttribute('height', revenueHeight.toString());
                         revenueBar.setAttribute('rx', '2');
@@ -8288,46 +8293,34 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         // Users bar (gray)
                         const usersHeight = (phase.users / 100) * maxBarHeight;
                         const usersBar = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-                        usersBar.setAttribute('x', (groupX + barWidth + barGap).toString());
-                        usersBar.setAttribute('y', (chartY + chartHeight - usersHeight - 15).toString());
+                        usersBar.setAttribute('x', (barsStartX + barWidth + barGap).toString());
+                        usersBar.setAttribute('y', (barsBaseY - usersHeight).toString());
                         usersBar.setAttribute('width', barWidth.toString());
                         usersBar.setAttribute('height', usersHeight.toString());
                         usersBar.setAttribute('rx', '2');
                         usersBar.setAttribute('fill', '#D1D5DB');
                         gtmSvg.appendChild(usersBar);
-                        
-                        // Phase label
-                        const labelText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                        labelText.setAttribute('x', (groupX + barWidth + barGap / 2).toString());
-                        labelText.setAttribute('y', (chartY + chartHeight + 5).toString());
-                        labelText.setAttribute('font-family', 'Inter, sans-serif');
-                        labelText.setAttribute('font-size', '7');
-                        labelText.setAttribute('font-weight', '400');
-                        labelText.setAttribute('fill', '#6B7280');
-                        labelText.setAttribute('text-anchor', 'middle');
-                        labelText.textContent = phase.label;
-                        gtmSvg.appendChild(labelText);
                     });
                     
-                    // Add legend
-                    const legendY = chartY + chartHeight + 18;
-                    const legendX = chartX;
+                    // Add legend at bottom center
+                    const legendY = startY + boxHeight + 10;
+                    const legendCenterX = 250;
                     
                     // Revenue legend
                     const revenueLegendBox = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-                    revenueLegendBox.setAttribute('x', legendX.toString());
+                    revenueLegendBox.setAttribute('x', (legendCenterX - 60).toString());
                     revenueLegendBox.setAttribute('y', legendY.toString());
-                    revenueLegendBox.setAttribute('width', '8');
-                    revenueLegendBox.setAttribute('height', '8');
-                    revenueLegendBox.setAttribute('rx', '1');
+                    revenueLegendBox.setAttribute('width', '10');
+                    revenueLegendBox.setAttribute('height', '10');
+                    revenueLegendBox.setAttribute('rx', '2');
                     revenueLegendBox.setAttribute('fill', '#EAF0FF');
                     gtmSvg.appendChild(revenueLegendBox);
                     
                     const revenueLegendText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                    revenueLegendText.setAttribute('x', (legendX + 12).toString());
-                    revenueLegendText.setAttribute('y', (legendY + 7).toString());
+                    revenueLegendText.setAttribute('x', (legendCenterX - 45).toString());
+                    revenueLegendText.setAttribute('y', (legendY + 8).toString());
                     revenueLegendText.setAttribute('font-family', 'Inter, sans-serif');
-                    revenueLegendText.setAttribute('font-size', '8');
+                    revenueLegendText.setAttribute('font-size', '9');
                     revenueLegendText.setAttribute('font-weight', '400');
                     revenueLegendText.setAttribute('fill', '#6B7280');
                     revenueLegendText.textContent = 'Revenue';
@@ -8335,19 +8328,19 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     
                     // Users legend
                     const usersLegendBox = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-                    usersLegendBox.setAttribute('x', (legendX + 65).toString());
+                    usersLegendBox.setAttribute('x', (legendCenterX + 20).toString());
                     usersLegendBox.setAttribute('y', legendY.toString());
-                    usersLegendBox.setAttribute('width', '8');
-                    usersLegendBox.setAttribute('height', '8');
-                    usersLegendBox.setAttribute('rx', '1');
+                    usersLegendBox.setAttribute('width', '10');
+                    usersLegendBox.setAttribute('height', '10');
+                    usersLegendBox.setAttribute('rx', '2');
                     usersLegendBox.setAttribute('fill', '#D1D5DB');
                     gtmSvg.appendChild(usersLegendBox);
                     
                     const usersLegendText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                    usersLegendText.setAttribute('x', (legendX + 77).toString());
-                    usersLegendText.setAttribute('y', (legendY + 7).toString());
+                    usersLegendText.setAttribute('x', (legendCenterX + 35).toString());
+                    usersLegendText.setAttribute('y', (legendY + 8).toString());
                     usersLegendText.setAttribute('font-family', 'Inter, sans-serif');
-                    usersLegendText.setAttribute('font-size', '8');
+                    usersLegendText.setAttribute('font-size', '9');
                     usersLegendText.setAttribute('font-weight', '400');
                     usersLegendText.setAttribute('fill', '#6B7280');
                     usersLegendText.textContent = 'Users';
