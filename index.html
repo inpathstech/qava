@@ -7239,6 +7239,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     },
                     {
                         name: 'Sales & Marketing Strategy',
+                        heading: 'Aligned sales & marketing teams achieve 38% higher win rates <span style="font-weight: 300;">— HubSpot</span>',
                         price: 140,
                         purpose: 'Turn awareness into revenue with Qava strategists who connect brand storytelling to sales execution through data-driven plans.',
                         benefits: [
@@ -7246,9 +7247,10 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                             'Integrates brand message with sales process',
                             'Delivers measurable ROI across channels'
                         ],
-                        stat: '📊 Aligned sales and marketing teams achieve 38% higher win rates — HubSpot',
-                        quote: '"If you build a great experience, customers tell each other about it."',
-                        quoteAuthor: '— Jeff Bezos'
+                        stat: null,
+                        quote: null,
+                        quoteAuthor: null,
+                        hasSalesStrategyChart: true
                     },
                     {
                         name: 'Strategic Finance',
@@ -8703,6 +8705,164 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     
                     matrixContainer.appendChild(matrixSvg);
                     previewBenefits.appendChild(matrixContainer);
+                }
+                
+                // Add Sales Strategy Chart if available (for Sales & Marketing Strategy)
+                if (project.hasSalesStrategyChart) {
+                    const chartContainer = document.createElement('div');
+                    chartContainer.style.marginTop = '16px';
+                    
+                    // Create SVG for Sales Strategy Chart
+                    const chartSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    chartSvg.setAttribute('width', '100%');
+                    chartSvg.setAttribute('height', '120');
+                    chartSvg.setAttribute('viewBox', '0 0 500 120');
+                    
+                    // Central circle
+                    const centerX = 80;
+                    const centerY = 60;
+                    const circleRadius = 35;
+                    
+                    // Draw dashed outer circle
+                    const outerCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                    outerCircle.setAttribute('cx', centerX.toString());
+                    outerCircle.setAttribute('cy', centerY.toString());
+                    outerCircle.setAttribute('r', (circleRadius + 8).toString());
+                    outerCircle.setAttribute('fill', 'none');
+                    outerCircle.setAttribute('stroke', '#D1D5DB');
+                    outerCircle.setAttribute('stroke-width', '2');
+                    outerCircle.setAttribute('stroke-dasharray', '4 4');
+                    chartSvg.appendChild(outerCircle);
+                    
+                    // Draw solid inner circle
+                    const innerCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                    innerCircle.setAttribute('cx', centerX.toString());
+                    innerCircle.setAttribute('cy', centerY.toString());
+                    innerCircle.setAttribute('r', circleRadius.toString());
+                    innerCircle.setAttribute('fill', '#1f2937');
+                    innerCircle.setAttribute('stroke', 'none');
+                    chartSvg.appendChild(innerCircle);
+                    
+                    // Add "Sales Strategy" text in circle
+                    const circleText1 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    circleText1.setAttribute('x', centerX.toString());
+                    circleText1.setAttribute('y', (centerY - 4).toString());
+                    circleText1.setAttribute('font-family', 'Inter, sans-serif');
+                    circleText1.setAttribute('font-size', '9');
+                    circleText1.setAttribute('font-weight', '600');
+                    circleText1.setAttribute('fill', '#FFFFFF');
+                    circleText1.setAttribute('text-anchor', 'middle');
+                    circleText1.textContent = 'Sales';
+                    chartSvg.appendChild(circleText1);
+                    
+                    const circleText2 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    circleText2.setAttribute('x', centerX.toString());
+                    circleText2.setAttribute('y', (centerY + 7).toString());
+                    circleText2.setAttribute('font-family', 'Inter, sans-serif');
+                    circleText2.setAttribute('font-size', '9');
+                    circleText2.setAttribute('font-weight', '600');
+                    circleText2.setAttribute('fill', '#FFFFFF');
+                    circleText2.setAttribute('text-anchor', 'middle');
+                    circleText2.textContent = 'Strategy';
+                    chartSvg.appendChild(circleText2);
+                    
+                    // Define the three boxes
+                    const boxes = [
+                        {
+                            number: '1',
+                            title: 'Direct Sales',
+                            description: 'In this approach, the sales team sells directly to the customers.',
+                            color: '#67E8F9',
+                            y: 10
+                        },
+                        {
+                            number: '2',
+                            title: 'Indirect Sales',
+                            description: 'This involves selling through intermediaries such as distributors, resellers, or affiliate marketers.',
+                            color: '#FB7185',
+                            y: 47
+                        },
+                        {
+                            number: '3',
+                            title: 'Inbound Sales',
+                            description: 'This is based on attracting customers through valuable content creation, SEO, social media marketing.',
+                            color: '#FCD34D',
+                            y: 84
+                        }
+                    ];
+                    
+                    boxes.forEach((box, index) => {
+                        // Draw connector line from circle to box
+                        const lineStartX = centerX + circleRadius + 8;
+                        const lineStartY = centerY + (index - 1) * 10;
+                        const lineEndX = 160;
+                        const lineEndY = box.y + 15;
+                        
+                        const connectorLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                        connectorLine.setAttribute('x1', lineStartX.toString());
+                        connectorLine.setAttribute('y1', lineStartY.toString());
+                        connectorLine.setAttribute('x2', lineEndX.toString());
+                        connectorLine.setAttribute('y2', lineEndY.toString());
+                        connectorLine.setAttribute('stroke', box.color);
+                        connectorLine.setAttribute('stroke-width', '2');
+                        chartSvg.appendChild(connectorLine);
+                        
+                        // Draw colored circle with number
+                        const numberCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                        numberCircle.setAttribute('cx', '175');
+                        numberCircle.setAttribute('cy', (box.y + 15).toString());
+                        numberCircle.setAttribute('r', '12');
+                        numberCircle.setAttribute('fill', box.color);
+                        chartSvg.appendChild(numberCircle);
+                        
+                        const numberText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                        numberText.setAttribute('x', '175');
+                        numberText.setAttribute('y', (box.y + 19).toString());
+                        numberText.setAttribute('font-family', 'Inter, sans-serif');
+                        numberText.setAttribute('font-size', '10');
+                        numberText.setAttribute('font-weight', '700');
+                        numberText.setAttribute('fill', '#FFFFFF');
+                        numberText.setAttribute('text-anchor', 'middle');
+                        numberText.textContent = box.number;
+                        chartSvg.appendChild(numberText);
+                        
+                        // Draw box with border
+                        const boxRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                        boxRect.setAttribute('x', '195');
+                        boxRect.setAttribute('y', box.y.toString());
+                        boxRect.setAttribute('width', '290');
+                        boxRect.setAttribute('height', '30');
+                        boxRect.setAttribute('fill', '#FFFFFF');
+                        boxRect.setAttribute('stroke', box.color);
+                        boxRect.setAttribute('stroke-width', '2');
+                        boxRect.setAttribute('rx', '15');
+                        chartSvg.appendChild(boxRect);
+                        
+                        // Add title text (bold)
+                        const titleText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                        titleText.setAttribute('x', '205');
+                        titleText.setAttribute('y', (box.y + 13).toString());
+                        titleText.setAttribute('font-family', 'Inter, sans-serif');
+                        titleText.setAttribute('font-size', '8');
+                        titleText.setAttribute('font-weight', '700');
+                        titleText.setAttribute('fill', '#000000');
+                        titleText.textContent = box.title;
+                        chartSvg.appendChild(titleText);
+                        
+                        // Add description text (regular)
+                        const descText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                        descText.setAttribute('x', '205');
+                        descText.setAttribute('y', (box.y + 23).toString());
+                        descText.setAttribute('font-family', 'Inter, sans-serif');
+                        descText.setAttribute('font-size', '6.5');
+                        descText.setAttribute('font-weight', '400');
+                        descText.setAttribute('fill', '#666666');
+                        descText.textContent = box.description;
+                        chartSvg.appendChild(descText);
+                    });
+                    
+                    chartContainer.appendChild(chartSvg);
+                    previewBenefits.appendChild(chartContainer);
                 }
                 
                 // Add chevrons if available
