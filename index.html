@@ -8249,7 +8249,20 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     const barGap = 8;
                     const maxBarHeight = 50;
                     
-                    // Draw Y-axis (left side)
+                    // First pass: Draw all box backgrounds (so they're behind axes)
+                    phases.forEach((phase, index) => {
+                        const boxX = startX + index * (boxWidth + boxGap);
+                        const boxBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                        boxBg.setAttribute('x', boxX.toString());
+                        boxBg.setAttribute('y', startY.toString());
+                        boxBg.setAttribute('width', boxWidth.toString());
+                        boxBg.setAttribute('height', boxHeight.toString());
+                        boxBg.setAttribute('rx', '4');
+                        boxBg.setAttribute('fill', '#F9FAFB');
+                        gtmSvg.appendChild(boxBg);
+                    });
+                    
+                    // Draw Y-axis (left side) - on top of boxes
                     const yAxisX = startX + 5;
                     const yAxisTop = startY + 20;
                     const yAxisBottom = startY + boxHeight - 15;
@@ -8262,7 +8275,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     yAxis.setAttribute('stroke-width', '1');
                     gtmSvg.appendChild(yAxis);
                     
-                    // Draw X-axis (bottom)
+                    // Draw X-axis (bottom) - on top of boxes
                     const xAxisY = startY + boxHeight - 15;
                     const xAxisLeft = startX + 5;
                     const xAxisRight = startX + (boxWidth * 4) + (boxGap * 3) - 5;
@@ -8275,19 +8288,9 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     xAxis.setAttribute('stroke-width', '1');
                     gtmSvg.appendChild(xAxis);
                     
-                    // Draw boxes for each phase
+                    // Second pass: Draw icons, labels, and bars for each phase
                     phases.forEach((phase, index) => {
                         const boxX = startX + index * (boxWidth + boxGap);
-                        
-                        // Draw box background
-                        const boxBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-                        boxBg.setAttribute('x', boxX.toString());
-                        boxBg.setAttribute('y', startY.toString());
-                        boxBg.setAttribute('width', boxWidth.toString());
-                        boxBg.setAttribute('height', boxHeight.toString());
-                        boxBg.setAttribute('rx', '4');
-                        boxBg.setAttribute('fill', '#F9FAFB');
-                        gtmSvg.appendChild(boxBg);
                         
                         // Add icon before phase label
                         const iconSize = 10;
