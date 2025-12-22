@@ -8416,9 +8416,9 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         { label: 'Scale What Works', start: 60, end: 100, color: '#EAF0FF' }
                     ];
                     
-                    const chartX = 50;
+                    const chartX = 110;
                     const chartY = 10;
-                    const chartWidth = 440;
+                    const chartWidth = 380;
                     const chartHeight = 80;
                     const barHeight = 12;
                     const barSpacing = 14;
@@ -8449,24 +8449,23 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         const barX = chartX + (phase.start / 100) * chartWidth;
                         const barWidth = ((phase.end - phase.start) / 100) * chartWidth;
                         
-                        // Draw bar
+                        // Draw bar (rectangular)
                         const bar = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
                         bar.setAttribute('x', barX.toString());
                         bar.setAttribute('y', barY.toString());
                         bar.setAttribute('width', barWidth.toString());
                         bar.setAttribute('height', barHeight.toString());
-                        bar.setAttribute('rx', '6');
                         bar.setAttribute('fill', phase.color);
                         growthSvg.appendChild(bar);
                         
                         // Add phase label on left
                         const labelText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                        labelText.setAttribute('x', (chartX - 10).toString());
+                        labelText.setAttribute('x', (chartX - 5).toString());
                         labelText.setAttribute('y', (barY + barHeight / 2 + 3).toString());
                         labelText.setAttribute('font-family', 'Inter, sans-serif');
-                        labelText.setAttribute('font-size', '8');
+                        labelText.setAttribute('font-size', '9');
                         labelText.setAttribute('font-weight', '400');
-                        labelText.setAttribute('fill', '#6B7280');
+                        labelText.setAttribute('fill', '#000000');
                         labelText.setAttribute('text-anchor', 'end');
                         labelText.textContent = phase.label;
                         growthSvg.appendChild(labelText);
