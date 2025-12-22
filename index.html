@@ -8548,7 +8548,14 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         boxElement.style.color = '#000000';
                         boxElement.style.lineHeight = '1.3';
                         boxElement.style.whiteSpace = 'nowrap';
-                        boxElement.textContent = box.title;
+                        
+                        // Add title with highlight
+                        const titleSpan = document.createElement('span');
+                        titleSpan.style.backgroundColor = '#EAF0FF';
+                        titleSpan.style.padding = '2px 4px';
+                        titleSpan.style.borderRadius = '2px';
+                        titleSpan.textContent = box.title;
+                        boxElement.appendChild(titleSpan);
                         
                         partnershipContainer.appendChild(boxElement);
                         
