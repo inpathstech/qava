@@ -8641,14 +8641,14 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     
                     // Add "Quality" label (vertical)
                     const qualityLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                    qualityLabel.setAttribute('x', (startX - 40).toString());
+                    qualityLabel.setAttribute('x', (startX - 50).toString());
                     qualityLabel.setAttribute('y', (startY + cellHeight * 2).toString());
                     qualityLabel.setAttribute('font-family', 'Inter, sans-serif');
                     qualityLabel.setAttribute('font-size', '9');
                     qualityLabel.setAttribute('font-weight', '600');
                     qualityLabel.setAttribute('fill', '#000000');
                     qualityLabel.setAttribute('text-anchor', 'middle');
-                    qualityLabel.setAttribute('transform', `rotate(-90 ${startX - 40} ${startY + cellHeight * 2})`);
+                    qualityLabel.setAttribute('transform', `rotate(-90 ${startX - 50} ${startY + cellHeight * 2})`);
                     qualityLabel.textContent = 'Quality';
                     matrixSvg.appendChild(qualityLabel);
                     
@@ -8656,9 +8656,9 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     rowHeaders.forEach((header, row) => {
                         // Row header
                         const headerRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-                        headerRect.setAttribute('x', (startX - 30).toString());
+                        headerRect.setAttribute('x', (startX - 40).toString());
                         headerRect.setAttribute('y', (startY + cellHeight + row * cellHeight).toString());
-                        headerRect.setAttribute('width', '30');
+                        headerRect.setAttribute('width', '40');
                         headerRect.setAttribute('height', cellHeight.toString());
                         headerRect.setAttribute('fill', '#F3F4F6');
                         headerRect.setAttribute('stroke', '#D1D5DB');
@@ -8666,7 +8666,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         matrixSvg.appendChild(headerRect);
                         
                         const headerText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                        headerText.setAttribute('x', (startX - 15).toString());
+                        headerText.setAttribute('x', (startX - 20).toString());
                         headerText.setAttribute('y', (startY + cellHeight + row * cellHeight + cellHeight / 2 + 3).toString());
                         headerText.setAttribute('font-family', 'Inter, sans-serif');
                         headerText.setAttribute('font-size', '7');
