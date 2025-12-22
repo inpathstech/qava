@@ -8796,9 +8796,9 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     ];
                     
                     boxes.forEach((box, index) => {
-                        // Draw connector line from circle to box
+                        // Draw connector line from circle to box (horizontal)
                         const lineStartX = centerX + circleRadius + 8;
-                        const lineStartY = centerY + (index - 1) * 10;
+                        const lineStartY = box.y + 15;
                         const lineEndX = 160;
                         const lineEndY = box.y + 15;
                         
@@ -8853,15 +8853,20 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         titleText.textContent = box.title;
                         chartSvg.appendChild(titleText);
                         
-                        // Add description text (regular)
+                        // Add description text (thin weight, truncated)
                         const descText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                         descText.setAttribute('x', '205');
                         descText.setAttribute('y', (box.y + 23).toString());
                         descText.setAttribute('font-family', 'Inter, sans-serif');
                         descText.setAttribute('font-size', '6.5');
-                        descText.setAttribute('font-weight', '400');
+                        descText.setAttribute('font-weight', '300');
                         descText.setAttribute('fill', '#666666');
-                        descText.textContent = box.description;
+                        // Truncate text to fit in box width (approx 60 chars)
+                        const maxLength = 60;
+                        const truncated = box.description.length > maxLength 
+                            ? box.description.substring(0, maxLength) + '...' 
+                            : box.description;
+                        descText.textContent = truncated;
                         chartSvg.appendChild(descText);
                     });
                     
@@ -8882,12 +8887,12 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     
                     // Define puzzle pieces (3x2 grid)
                     const pieces = [
-                        { x: 10, y: 10, width: 110, height: 45, color: '#60A5FA', title: 'Customer\nAcquisition', icon: '👥' },
-                        { x: 135, y: 10, width: 110, height: 45, color: '#FBBF24', title: 'Sales\nPipeline', icon: '📊' },
-                        { x: 260, y: 10, width: 110, height: 45, color: '#F87171', title: 'Budget\nForecast', icon: '💰' },
-                        { x: 10, y: 65, width: 110, height: 45, color: '#C084FC', title: 'Customer\nRecords', icon: '📋' },
-                        { x: 135, y: 65, width: 110, height: 45, color: '#A78BFA', title: 'Fundraising\nPlans', icon: '🎯' },
-                        { x: 260, y: 65, width: 110, height: 45, color: '#FB923C', title: 'Payroll', icon: '💵' }
+                        { x: 10, y: 10, width: 110, height: 45, title: 'Customer\nAcquisition', icon: '👥' },
+                        { x: 135, y: 10, width: 110, height: 45, title: 'Sales\nPipeline', icon: '📊' },
+                        { x: 260, y: 10, width: 110, height: 45, title: 'Budget\nForecast', icon: '💰' },
+                        { x: 10, y: 65, width: 110, height: 45, title: 'Customer\nRecords', icon: '📋' },
+                        { x: 135, y: 65, width: 110, height: 45, title: 'Fundraising\nPlans', icon: '🎯' },
+                        { x: 260, y: 65, width: 110, height: 45, title: 'Payroll', icon: '💵' }
                     ];
                     
                     pieces.forEach(piece => {
@@ -8897,17 +8902,17 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         rect.setAttribute('y', piece.y.toString());
                         rect.setAttribute('width', piece.width.toString());
                         rect.setAttribute('height', piece.height.toString());
-                        rect.setAttribute('fill', piece.color);
+                        rect.setAttribute('fill', '#FFFFFF');
                         rect.setAttribute('rx', '8');
-                        rect.setAttribute('stroke', '#FFFFFF');
-                        rect.setAttribute('stroke-width', '2');
+                        rect.setAttribute('stroke', '#D1D5DB');
+                        rect.setAttribute('stroke-width', '1');
                         puzzleSvg.appendChild(rect);
                         
                         // Add icon
                         const icon = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                         icon.setAttribute('x', (piece.x + piece.width / 2).toString());
-                        icon.setAttribute('y', (piece.y + 20).toString());
-                        icon.setAttribute('font-size', '18');
+                        icon.setAttribute('y', (piece.y + 18).toString());
+                        icon.setAttribute('font-size', '12');
                         icon.setAttribute('text-anchor', 'middle');
                         icon.textContent = piece.icon;
                         puzzleSvg.appendChild(icon);
@@ -8917,11 +8922,11 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         lines.forEach((line, index) => {
                             const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                             text.setAttribute('x', (piece.x + piece.width / 2).toString());
-                            text.setAttribute('y', (piece.y + 33 + index * 8).toString());
+                            text.setAttribute('y', (piece.y + 31 + index * 8).toString());
                             text.setAttribute('font-family', 'Inter, sans-serif');
                             text.setAttribute('font-size', '8');
                             text.setAttribute('font-weight', '600');
-                            text.setAttribute('fill', '#FFFFFF');
+                            text.setAttribute('fill', '#000000');
                             text.setAttribute('text-anchor', 'middle');
                             text.textContent = line;
                             puzzleSvg.appendChild(text);
