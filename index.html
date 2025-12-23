@@ -9760,7 +9760,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     // Apps to Database
                     appPositions.forEach(pos => {
                         const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                        line.setAttribute('x1', '265');
+                        line.setAttribute('x1', (pos.x + 50).toString());
                         line.setAttribute('y1', (pos.y + 7).toString());
                         line.setAttribute('x2', '370');
                         line.setAttribute('y2', '42.5');
