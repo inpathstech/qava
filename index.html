@@ -9298,7 +9298,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         rect.setAttribute('y', activity.y.toString());
                         rect.setAttribute('width', '320');
                         rect.setAttribute('height', '16');
-                        rect.setAttribute('fill', '#E6D9F5');
+                        rect.setAttribute('fill', '#D1D5DB');
                         rect.setAttribute('stroke', 'none');
                         rect.setAttribute('rx', '2');
                         modelSvg.appendChild(rect);
@@ -9332,7 +9332,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         rect.setAttribute('y', '94');
                         rect.setAttribute('width', activity.width.toString());
                         rect.setAttribute('height', '36');
-                        rect.setAttribute('fill', '#E6D9F5');
+                        rect.setAttribute('fill', '#EAF0FF');
                         rect.setAttribute('stroke', 'none');
                         rect.setAttribute('rx', '2');
                         modelSvg.appendChild(rect);
@@ -9353,21 +9353,21 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         });
                     });
                     
-                    // Margin section (right side) - purple trapezoid/arrow
+                    // Margin section (right side) - white triangle
                     const marginPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
                     marginPath.setAttribute('d', 'M 335 10 L 390 10 L 390 130 L 335 130 L 350 70 Z');
-                    marginPath.setAttribute('fill', '#7C3AED');
+                    marginPath.setAttribute('fill', '#FFFFFF');
                     marginPath.setAttribute('stroke', 'none');
                     modelSvg.appendChild(marginPath);
                     
-                    // Add "Margin" text (rotated)
+                    // Add "Margin" text (rotated, black)
                     const marginText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                     marginText.setAttribute('x', '362');
                     marginText.setAttribute('y', '70');
                     marginText.setAttribute('font-family', 'Inter, sans-serif');
                     marginText.setAttribute('font-size', '10');
                     marginText.setAttribute('font-weight', '600');
-                    marginText.setAttribute('fill', '#FFFFFF');
+                    marginText.setAttribute('fill', '#000000');
                     marginText.setAttribute('text-anchor', 'middle');
                     marginText.setAttribute('transform', 'rotate(90, 362, 70)');
                     marginText.textContent = 'Margin';
