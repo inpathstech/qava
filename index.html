@@ -7373,7 +7373,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         techRationalizationBoxes: [
                             { title: 'Understand what exists and why' },
                             { title: 'Decide what\'s worth keeping' },
-                            { title: 'Turn decisions into executable actions' },
+                            { title: 'Turn decisions into actions' },
                             { title: 'Make it real and lock in savings' }
                         ]
                     },
@@ -8621,11 +8621,13 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     techContainer.style.marginTop = '16px';
                     techContainer.style.flexWrap = 'nowrap';
                     techContainer.style.justifyContent = 'flex-start';
+                    techContainer.style.maxWidth = '100%';
+                    techContainer.style.overflow = 'visible';
                     
                     project.techRationalizationBoxes.forEach((box, index) => {
                         // Create box
                         const boxElement = document.createElement('div');
-                        boxElement.style.width = '105px';
+                        boxElement.style.width = '95px';
                         boxElement.style.flexShrink = '0';
                         boxElement.style.padding = '10px 6px';
                         boxElement.style.border = '1px solid #D1D5DB';
