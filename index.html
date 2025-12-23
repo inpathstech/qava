@@ -7359,16 +7359,23 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     },
                     {
                         name: 'Technology Rationalization',
+                        heading: 'Startups that streamline their tech stack save up to 20% annually <span style="font-weight: 300;">— Productiv</span>',
                         price: 180,
-                        purpose: 'Cut complexity and cost with Qava specialists who analyze your tech stack using data-driven methods to identify what stays, what goes, and what scales.',
+                        purpose: 'Cut complexity and cost with Qava talent who analyze your tech stack using data-driven methods to identify what stays, what goes, and what scales.',
                         benefits: [
                             'Eliminates redundant tools',
                             'Improves collaboration and efficiency',
                             'Frees up budget for innovation'
                         ],
-                        stat: '📊 Startups that streamline their tech stack save up to 20% annually — Productiv',
-                        quote: '"Technology should serve your strategy, not the other way around."',
-                        quoteAuthor: '— Reid Hoffman'
+                        stat: null,
+                        quote: null,
+                        quoteAuthor: null,
+                        techRationalizationBoxes: [
+                            { title: 'Understand what exists and why' },
+                            { title: 'Decide what's worth keeping' },
+                            { title: 'Turn decisions into executable actions' },
+                            { title: 'Make it real and lock in savings' }
+                        ]
                     },
                     {
                         name: 'System Migration',
@@ -7714,7 +7721,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         benefitItem.className = 'benefit-item';
                         
                         // Remove bottom margin/padding from last benefit when followed by visual
-                        if (index === project.benefits.length - 1 && (project.hasJourneyMap || project.grantBoxes || project.hasGTMChart || project.hasOperatingModel || project.hasProcessFlow)) {
+                        if (index === project.benefits.length - 1 && (project.hasJourneyMap || project.grantBoxes || project.hasGTMChart || project.hasOperatingModel || project.hasProcessFlow || project.techRationalizationBoxes)) {
                             benefitItem.style.marginBottom = '0';
                             benefitItem.style.paddingBottom = '0';
                         }
@@ -8605,6 +8612,56 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     previewBenefits.appendChild(partnershipContainer);
                 }
                 
+                // Add Technology Rationalization boxes if available (for Technology Rationalization)
+                if (project.techRationalizationBoxes && Array.isArray(project.techRationalizationBoxes)) {
+                    const techContainer = document.createElement('div');
+                    techContainer.style.display = 'flex';
+                    techContainer.style.alignItems = 'center';
+                    techContainer.style.gap = '8px';
+                    techContainer.style.marginTop = '16px';
+                    techContainer.style.flexWrap = 'nowrap';
+                    techContainer.style.overflowX = 'auto';
+                    
+                    project.techRationalizationBoxes.forEach((box, index) => {
+                        // Create box
+                        const boxElement = document.createElement('div');
+                        boxElement.style.flex = '1 1 0';
+                        boxElement.style.minWidth = '80px';
+                        boxElement.style.padding = '12px 8px';
+                        boxElement.style.border = '1px solid #D1D5DB';
+                        boxElement.style.borderRadius = '4px';
+                        boxElement.style.backgroundColor = '#FFFFFF';
+                        boxElement.style.textAlign = 'center';
+                        boxElement.style.fontSize = '10px';
+                        boxElement.style.fontWeight = '500';
+                        boxElement.style.color = '#000000';
+                        boxElement.style.lineHeight = '1.3';
+                        boxElement.style.whiteSpace = 'normal';
+                        
+                        // Add title with highlight
+                        const titleSpan = document.createElement('span');
+                        titleSpan.style.backgroundColor = '#EAF0FF';
+                        titleSpan.style.padding = '2px 4px';
+                        titleSpan.style.borderRadius = '2px';
+                        titleSpan.textContent = box.title;
+                        boxElement.appendChild(titleSpan);
+                        
+                        techContainer.appendChild(boxElement);
+                        
+                        // Add arrow between boxes (except after the last one)
+                        if (index < project.techRationalizationBoxes.length - 1) {
+                            const arrow = document.createElement('div');
+                            arrow.style.fontSize = '12px';
+                            arrow.style.color = '#D1D5DB';
+                            arrow.style.flexShrink = '0';
+                            arrow.textContent = '→';
+                            techContainer.appendChild(arrow);
+                        }
+                    });
+                    
+                    previewBenefits.appendChild(techContainer);
+                }
+                
                 // Add Pricing Matrix if available (for Pricing Strategy)
                 if (project.hasPricingMatrix) {
                     const matrixContainer = document.createElement('div');
@@ -9454,8 +9511,8 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                 
                 // Add price box at the bottom, aligned to left
                 const priceSection = document.createElement('div');
-                // Adjust spacing for Grant Application, Customer Journey Map, GTM Chart, Growth Chart, Operating Model, and Process Flow
-                priceSection.style.marginTop = project.grantBoxes ? '2px' : (project.hasJourneyMap ? '10px' : (project.hasGTMChart || project.hasGrowthChart || project.hasOperatingModel || project.hasProcessFlow ? '16px' : '16px'));
+                // Adjust spacing for Grant Application, Customer Journey Map, GTM Chart, Growth Chart, Operating Model, Process Flow, and Tech Rationalization
+                priceSection.style.marginTop = project.grantBoxes ? '2px' : (project.hasJourneyMap ? '10px' : (project.hasGTMChart || project.hasGrowthChart || project.hasOperatingModel || project.hasProcessFlow || project.techRationalizationBoxes ? '16px' : '16px'));
                 
                 const priceBox = document.createElement('a');
                 priceBox.href = 'https://app.qava.ai/';
