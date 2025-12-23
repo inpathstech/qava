@@ -9585,14 +9585,14 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     lbText.setAttribute('text-anchor', 'middle');
                     lbText.setAttribute('font-size', '8');
                     lbText.setAttribute('fill', '#000000');
-                    lbText.textContent = 'Load Balancer';
+                    lbText.textContent = 'Load';
                     migrationSvg.appendChild(lbText);
                     
                     // App instances (3 in cluster) - centered in cluster box
                     const appPositions = [
-                        { x: 225, y: 25 },
-                        { x: 225, y: 43 },
-                        { x: 225, y: 61 }
+                        { x: 215, y: 26 },
+                        { x: 215, y: 44 },
+                        { x: 215, y: 62 }
                     ];
                     
                     appPositions.forEach((pos, idx) => {
@@ -9639,21 +9639,12 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     
                     const dbText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                     dbText.setAttribute('x', '395');
-                    dbText.setAttribute('y', '40');
+                    dbText.setAttribute('y', '45');
                     dbText.setAttribute('text-anchor', 'middle');
                     dbText.setAttribute('font-size', '8');
                     dbText.setAttribute('fill', '#000000');
                     dbText.textContent = 'Database';
                     migrationSvg.appendChild(dbText);
-                    
-                    const dbVersion = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                    dbVersion.setAttribute('x', '395');
-                    dbVersion.setAttribute('y', '48');
-                    dbVersion.setAttribute('text-anchor', 'middle');
-                    dbVersion.setAttribute('font-size', '7');
-                    dbVersion.setAttribute('fill', '#666666');
-                    dbVersion.textContent = 'v.2';
-                    migrationSvg.appendChild(dbVersion);
                     
                     // CI/CD box (bottom center)
                     const cicdBox = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
