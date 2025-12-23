@@ -7329,7 +7329,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                 oldProjects: [
                     {
                         name: 'Operating Model Design',
-                        heading: 'Companies that redesign their operating models grow 40% faster after Series A — McKinsey',
+                        heading: 'Companies that redesign their operating models grow 40% faster after Series A <span style="font-weight: 300;">— McKinsey</span>',
                         price: 220,
                         purpose: 'Redesign how your business runs with Qava talent who apply leading frameworks and AI simulations to align people, process, and performance.',
                         benefits: [
@@ -9274,21 +9274,21 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                 // Add Operating Model visualization if available (for Operating Model Design)
                 if (project.hasOperatingModel) {
                     const modelContainer = document.createElement('div');
-                    modelContainer.style.marginTop = '16px';
+                    modelContainer.style.marginTop = '8px';
                     
                     // Create SVG for Operating Model (Value Chain)
                     const modelSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-                    modelSvg.setAttribute('viewBox', '0 0 400 140');
+                    modelSvg.setAttribute('viewBox', '0 0 400 120');
                     modelSvg.style.width = '100%';
-                    modelSvg.style.height = '140px';
+                    modelSvg.style.height = '120px';
                     modelSvg.style.maxWidth = '100%';
                     
                     // Support activities (top section) - 4 horizontal bars
                     const supportActivities = [
                         { label: 'Firm Infrastructure', y: 10 },
-                        { label: 'Human Resource Management', y: 30 },
-                        { label: 'Technology Development', y: 50 },
-                        { label: 'Procurement', y: 70 }
+                        { label: 'Human Resource Management', y: 26 },
+                        { label: 'Technology Development', y: 42 },
+                        { label: 'Procurement', y: 58 }
                     ];
                     
                     supportActivities.forEach(activity => {
@@ -9297,8 +9297,8 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         rect.setAttribute('x', '10');
                         rect.setAttribute('y', activity.y.toString());
                         rect.setAttribute('width', '320');
-                        rect.setAttribute('height', '16');
-                        rect.setAttribute('fill', '#D1D5DB');
+                        rect.setAttribute('height', '12');
+                        rect.setAttribute('fill', '#F3F4F6');
                         rect.setAttribute('stroke', 'none');
                         rect.setAttribute('rx', '2');
                         modelSvg.appendChild(rect);
@@ -9306,7 +9306,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         // Add text label
                         const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                         text.setAttribute('x', '170');
-                        text.setAttribute('y', (activity.y + 11).toString());
+                        text.setAttribute('y', (activity.y + 8.5).toString());
                         text.setAttribute('font-family', 'Inter, sans-serif');
                         text.setAttribute('font-size', '8');
                         text.setAttribute('font-weight', '400');
@@ -9329,9 +9329,9 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         // Create rectangle for primary activity
                         const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
                         rect.setAttribute('x', activity.x.toString());
-                        rect.setAttribute('y', '94');
+                        rect.setAttribute('y', '76');
                         rect.setAttribute('width', activity.width.toString());
-                        rect.setAttribute('height', '36');
+                        rect.setAttribute('height', '32');
                         rect.setAttribute('fill', '#EAF0FF');
                         rect.setAttribute('stroke', 'none');
                         rect.setAttribute('rx', '2');
@@ -9342,7 +9342,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         lines.forEach((line, index) => {
                             const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                             text.setAttribute('x', (activity.x + activity.width / 2).toString());
-                            text.setAttribute('y', (106 + (index * 9)).toString());
+                            text.setAttribute('y', (86 + (index * 9)).toString());
                             text.setAttribute('font-family', 'Inter, sans-serif');
                             text.setAttribute('font-size', '8');
                             text.setAttribute('font-weight', '400');
@@ -9353,23 +9353,24 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         });
                     });
                     
-                    // Margin section (right side) - white triangle
+                    // Margin section (right side) - white triangle with black border
                     const marginPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                    marginPath.setAttribute('d', 'M 335 10 L 390 10 L 390 130 L 335 130 L 350 70 Z');
+                    marginPath.setAttribute('d', 'M 335 10 L 390 10 L 390 108 L 335 108 L 350 59 Z');
                     marginPath.setAttribute('fill', '#FFFFFF');
-                    marginPath.setAttribute('stroke', 'none');
+                    marginPath.setAttribute('stroke', '#000000');
+                    marginPath.setAttribute('stroke-width', '1');
                     modelSvg.appendChild(marginPath);
                     
                     // Add "Margin" text (rotated, black)
                     const marginText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                     marginText.setAttribute('x', '362');
-                    marginText.setAttribute('y', '70');
+                    marginText.setAttribute('y', '59');
                     marginText.setAttribute('font-family', 'Inter, sans-serif');
                     marginText.setAttribute('font-size', '10');
                     marginText.setAttribute('font-weight', '600');
                     marginText.setAttribute('fill', '#000000');
                     marginText.setAttribute('text-anchor', 'middle');
-                    marginText.setAttribute('transform', 'rotate(90, 362, 70)');
+                    marginText.setAttribute('transform', 'rotate(90, 362, 59)');
                     marginText.textContent = 'Margin';
                     modelSvg.appendChild(marginText);
                     
