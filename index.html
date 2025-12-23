@@ -9443,18 +9443,9 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         rect.setAttribute('width', step.size.toString());
                         rect.setAttribute('height', step.size.toString());
                         rect.setAttribute('fill', step.highlight ? '#EAF0FF' : '#F3F4F6');
-                        rect.setAttribute('stroke', '#000000');
-                        rect.setAttribute('stroke-width', '1');
+                        rect.setAttribute('stroke', 'none');
                         rect.setAttribute('rx', '4');
                         flowSvg.appendChild(rect);
-                        
-                        // Add small dot in center of each box
-                        const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                        dot.setAttribute('cx', (step.x + step.size / 2).toString());
-                        dot.setAttribute('cy', (step.y + step.size / 2).toString());
-                        dot.setAttribute('r', '3');
-                        dot.setAttribute('fill', '#000000');
-                        flowSvg.appendChild(dot);
                     });
                     
                     flowContainer.appendChild(flowSvg);
