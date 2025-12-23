@@ -10643,6 +10643,21 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
     </script>
 
     <!-- Active Nav State Script -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+    // Initialize HLS for video elements
+    document.addEventListener('DOMContentLoaded', function() {
+        const videos = document.querySelectorAll('video');
+        videos.forEach(video => {
+            const source = video.querySelector('source[type="application/x-mpegURL"]');
+            if (source && Hls.isSupported()) {
+                const hls = new Hls();
+                hls.loadSource(source.src);
+                hls.attachMedia(video);
+            }
+        });
+    });
+    </script>
     <script>
     (() => {
         // Get current page from URL (works for both qava.ai and local paths)
