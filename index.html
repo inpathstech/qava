@@ -7531,16 +7531,23 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                 oldProjects: [
                     {
                         name: 'Data Analysis',
+                        heading: 'Data-driven companies are 19× more likely to be profitable <span style="font-weight: 300;">— McKinsey</span>',
                         price: 150,
-                        purpose: 'Turn raw data into strategy with Qava analysts who use modern data science and visualization frameworks to reveal what really drives performance.',
+                        purpose: 'Turn raw data into strategy with Qava talent who use modern data science and visualization frameworks to reveal what really drives performance.',
                         benefits: [
-                            'Identifies trends and insights across key metrics',
-                            'Supports faster, better business decisions',
-                            'Converts complexity into clarity'
+                            'Identify trends and insights across key metrics',
+                            'Support faster, better business decisions',
+                            'Convert complexity into clarity'
                         ],
-                        stat: '📊 Data-driven companies are 19× more likely to be profitable — McKinsey',
-                        quote: '"Without data, you\'re just another person with an opinion."',
-                        quoteAuthor: '— W. Edwards Deming'
+                        stat: null,
+                        quote: null,
+                        quoteAuthor: null,
+                        dataAnalysisBoxes: [
+                            { title: 'Define the Question' },
+                            { title: 'Gather & Prepare Data' },
+                            { title: 'Analyze & Interpret' },
+                            { title: 'Communicate & Act' }
+                        ]
                     },
                     {
                         name: 'Data Strategy',
@@ -7758,7 +7765,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         benefitItem.className = 'benefit-item';
                         
                         // Remove bottom margin/padding from last benefit when followed by visual
-                        if (index === project.benefits.length - 1 && (project.hasJourneyMap || project.grantBoxes || project.hasGTMChart || project.hasOperatingModel || project.hasProcessFlow || project.techRationalizationBoxes || project.hasSystemMigration || project.vendorStrategyBoxes || project.orgDesignBoxes || project.costOptimizationBoxes || project.innovationProjectsBoxes || project.digitalTransformationBoxes)) {
+                        if (index === project.benefits.length - 1 && (project.hasJourneyMap || project.grantBoxes || project.hasGTMChart || project.hasOperatingModel || project.hasProcessFlow || project.techRationalizationBoxes || project.hasSystemMigration || project.vendorStrategyBoxes || project.orgDesignBoxes || project.costOptimizationBoxes || project.innovationProjectsBoxes || project.digitalTransformationBoxes || project.dataAnalysisBoxes)) {
                             benefitItem.style.marginBottom = '0';
                             benefitItem.style.paddingBottom = '0';
                         }
@@ -8961,6 +8968,58 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     previewBenefits.appendChild(digitalContainer);
                 }
                 
+                // Add Data Analysis boxes if available (for Data Analysis)
+                if (project.dataAnalysisBoxes && Array.isArray(project.dataAnalysisBoxes)) {
+                    const dataContainer = document.createElement('div');
+                    dataContainer.style.display = 'flex';
+                    dataContainer.style.alignItems = 'center';
+                    dataContainer.style.gap = '6px';
+                    dataContainer.style.marginTop = '16px';
+                    dataContainer.style.flexWrap = 'nowrap';
+                    dataContainer.style.justifyContent = 'flex-start';
+                    dataContainer.style.maxWidth = '100%';
+                    dataContainer.style.overflow = 'visible';
+                    
+                    project.dataAnalysisBoxes.forEach((box, index) => {
+                        // Create box
+                        const boxElement = document.createElement('div');
+                        boxElement.style.width = '100px';
+                        boxElement.style.flexShrink = '0';
+                        boxElement.style.padding = '10px 6px';
+                        boxElement.style.border = '1px solid #D1D5DB';
+                        boxElement.style.borderRadius = '4px';
+                        boxElement.style.backgroundColor = '#FFFFFF';
+                        boxElement.style.textAlign = 'center';
+                        boxElement.style.fontSize = '10px';
+                        boxElement.style.fontWeight = '500';
+                        boxElement.style.color = '#000000';
+                        boxElement.style.lineHeight = '1.3';
+                        boxElement.style.whiteSpace = 'normal';
+                        
+                        // Add title with highlight
+                        const titleSpan = document.createElement('span');
+                        titleSpan.style.background = 'linear-gradient(180deg, transparent 60%, rgba(15, 98, 254, 0.1) 60%)';
+                        titleSpan.style.padding = '0 4px';
+                        titleSpan.style.display = 'inline';
+                        titleSpan.textContent = box.title;
+                        boxElement.appendChild(titleSpan);
+                        
+                        dataContainer.appendChild(boxElement);
+                        
+                        // Add arrow between boxes (except after the last one)
+                        if (index < project.dataAnalysisBoxes.length - 1) {
+                            const arrow = document.createElement('div');
+                            arrow.style.fontSize = '12px';
+                            arrow.style.color = '#D1D5DB';
+                            arrow.style.flexShrink = '0';
+                            arrow.textContent = '→';
+                            dataContainer.appendChild(arrow);
+                        }
+                    });
+                    
+                    previewBenefits.appendChild(dataContainer);
+                }
+                
                 // Add Pricing Matrix if available (for Pricing Strategy)
                 if (project.hasPricingMatrix) {
                     const matrixContainer = document.createElement('div');
@@ -9982,8 +10041,8 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                 
                 // Add price box at the bottom, aligned to left
                 const priceSection = document.createElement('div');
-                // Adjust spacing for Grant Application, Customer Journey Map, GTM Chart, Growth Chart, Operating Model, Process Flow, Tech Rationalization, System Migration, Vendor Strategy, Org Design, Cost Optimization, Innovation Projects, and Digital Transformation
-                priceSection.style.marginTop = project.grantBoxes ? '2px' : (project.hasJourneyMap ? '10px' : (project.hasGTMChart || project.hasGrowthChart || project.hasOperatingModel || project.hasProcessFlow || project.techRationalizationBoxes || project.hasSystemMigration || project.vendorStrategyBoxes || project.orgDesignBoxes || project.costOptimizationBoxes || project.innovationProjectsBoxes || project.digitalTransformationBoxes ? '16px' : '16px'));
+                // Adjust spacing for Grant Application, Customer Journey Map, GTM Chart, Growth Chart, Operating Model, Process Flow, Tech Rationalization, System Migration, Vendor Strategy, Org Design, Cost Optimization, Innovation Projects, Digital Transformation, and Data Analysis
+                priceSection.style.marginTop = project.grantBoxes ? '2px' : (project.hasJourneyMap ? '10px' : (project.hasGTMChart || project.hasGrowthChart || project.hasOperatingModel || project.hasProcessFlow || project.techRationalizationBoxes || project.hasSystemMigration || project.vendorStrategyBoxes || project.orgDesignBoxes || project.costOptimizationBoxes || project.innovationProjectsBoxes || project.digitalTransformationBoxes || project.dataAnalysisBoxes ? '16px' : '16px'));
                 
                 const priceBox = document.createElement('a');
                 priceBox.href = 'https://app.qava.ai/';
