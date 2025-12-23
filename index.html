@@ -9528,7 +9528,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     // Cluster background (light blue)
                     const clusterBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
                     clusterBg.setAttribute('x', '180');
-                    clusterBg.setAttribute('y', '10');
+                    clusterBg.setAttribute('y', '15');
                     clusterBg.setAttribute('width', '140');
                     clusterBg.setAttribute('height', '60');
                     clusterBg.setAttribute('fill', '#EAF0FF');
@@ -9539,7 +9539,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     // Cluster label
                     const clusterLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                     clusterLabel.setAttribute('x', '250');
-                    clusterLabel.setAttribute('y', '8');
+                    clusterLabel.setAttribute('y', '12');
                     clusterLabel.setAttribute('text-anchor', 'middle');
                     clusterLabel.setAttribute('font-size', '8');
                     clusterLabel.setAttribute('fill', '#666666');
@@ -9588,11 +9588,11 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     lbText.textContent = 'Load Balancer';
                     migrationSvg.appendChild(lbText);
                     
-                    // App instances (3 in cluster)
+                    // App instances (3 in cluster) - centered vertically
                     const appPositions = [
-                        { x: 190, y: 20 },
+                        { x: 190, y: 23 },
                         { x: 190, y: 40 },
-                        { x: 190, y: 60 }
+                        { x: 190, y: 57 }
                     ];
                     
                     appPositions.forEach((pos, idx) => {
@@ -9602,7 +9602,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         appBox.setAttribute('width', '50');
                         appBox.setAttribute('height', '14');
                         appBox.setAttribute('fill', '#FFFFFF');
-                        appBox.setAttribute('stroke', '#22C55E');
+                        appBox.setAttribute('stroke', '#D1D5DB');
                         appBox.setAttribute('stroke-width', '1');
                         appBox.setAttribute('rx', '2');
                         migrationSvg.appendChild(appBox);
@@ -9612,16 +9612,16 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         appText.setAttribute('y', (pos.y + 9).toString());
                         appText.setAttribute('text-anchor', 'middle');
                         appText.setAttribute('font-size', '7');
-                        appText.setAttribute('fill', '#22C55E');
+                        appText.setAttribute('fill', '#000000');
                         appText.textContent = 'App v.2';
                         migrationSvg.appendChild(appText);
                         
-                        // Status indicator (green circle)
+                        // Status indicator (gray circle)
                         const statusCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
                         statusCircle.setAttribute('cx', (pos.x + 45).toString());
                         statusCircle.setAttribute('cy', (pos.y + 7).toString());
                         statusCircle.setAttribute('r', '2');
-                        statusCircle.setAttribute('fill', '#22C55E');
+                        statusCircle.setAttribute('fill', '#D1D5DB');
                         migrationSvg.appendChild(statusCircle);
                     });
                     
@@ -9632,7 +9632,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     dbBox.setAttribute('width', '50');
                     dbBox.setAttribute('height', '25');
                     dbBox.setAttribute('fill', '#FFFFFF');
-                    dbBox.setAttribute('stroke', '#22C55E');
+                    dbBox.setAttribute('stroke', '#D1D5DB');
                     dbBox.setAttribute('stroke-width', '1');
                     dbBox.setAttribute('rx', '3');
                     migrationSvg.appendChild(dbBox);
@@ -9642,7 +9642,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     dbText.setAttribute('y', '40');
                     dbText.setAttribute('text-anchor', 'middle');
                     dbText.setAttribute('font-size', '8');
-                    dbText.setAttribute('fill', '#22C55E');
+                    dbText.setAttribute('fill', '#000000');
                     dbText.textContent = 'Database';
                     migrationSvg.appendChild(dbText);
                     
@@ -9651,37 +9651,37 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     dbVersion.setAttribute('y', '48');
                     dbVersion.setAttribute('text-anchor', 'middle');
                     dbVersion.setAttribute('font-size', '7');
-                    dbVersion.setAttribute('fill', '#22C55E');
+                    dbVersion.setAttribute('fill', '#666666');
                     dbVersion.textContent = 'v.2';
                     migrationSvg.appendChild(dbVersion);
                     
                     // CI/CD box (bottom center)
                     const cicdBox = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-                    cicdBox.setAttribute('x', '230');
+                    cicdBox.setAttribute('x', '225');
                     cicdBox.setAttribute('y', '90');
                     cicdBox.setAttribute('width', '50');
                     cicdBox.setAttribute('height', '18');
                     cicdBox.setAttribute('fill', '#FFFFFF');
-                    cicdBox.setAttribute('stroke', '#22C55E');
+                    cicdBox.setAttribute('stroke', '#D1D5DB');
                     cicdBox.setAttribute('stroke-width', '1');
                     cicdBox.setAttribute('rx', '3');
                     migrationSvg.appendChild(cicdBox);
                     
                     const cicdText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                    cicdText.setAttribute('x', '255');
+                    cicdText.setAttribute('x', '250');
                     cicdText.setAttribute('y', '101');
                     cicdText.setAttribute('text-anchor', 'middle');
                     cicdText.setAttribute('font-size', '8');
-                    cicdText.setAttribute('fill', '#22C55E');
+                    cicdText.setAttribute('fill', '#000000');
                     cicdText.textContent = 'CI / CD';
                     migrationSvg.appendChild(cicdText);
                     
                     // Status indicator
                     const cicdCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                    cicdCircle.setAttribute('cx', '274');
+                    cicdCircle.setAttribute('cx', '269');
                     cicdCircle.setAttribute('cy', '99');
                     cicdCircle.setAttribute('r', '2');
-                    cicdCircle.setAttribute('fill', '#22C55E');
+                    cicdCircle.setAttribute('fill', '#D1D5DB');
                     migrationSvg.appendChild(cicdCircle);
                     
                     // Connection lines
@@ -9721,11 +9721,11 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     
                     // CI/CD to Cluster (upward arrow)
                     const cicdLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                    cicdLine.setAttribute('x1', '255');
+                    cicdLine.setAttribute('x1', '250');
                     cicdLine.setAttribute('y1', '90');
-                    cicdLine.setAttribute('x2', '255');
+                    cicdLine.setAttribute('x2', '250');
                     cicdLine.setAttribute('y2', '72');
-                    cicdLine.setAttribute('stroke', '#22C55E');
+                    cicdLine.setAttribute('stroke', '#D1D5DB');
                     cicdLine.setAttribute('stroke-width', '1.5');
                     migrationSvg.appendChild(cicdLine);
                     
