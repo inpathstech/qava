@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>When Parenting Becomes a Systems Problem—and Finally Gets a Real Answer | Qava</title>
+    <link rel="icon" type="image/svg+xml" href="qava-logo.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @font-face {
+            font-family: 'Jonathan';
+            src: url('jonathan_signature (1)/JonathanSignature.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f1f1f;
+        }
+        
+        /* Cache buster v3 - Updated for No One's Ark */
+
+        /* NAVBAR STYLES - Copied from index.html */
+        .header-container {
+            width: 100%;
+            padding: 16px 32px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 64px;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            overflow: visible;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .header-center {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex: 1;
+            margin-left: 40px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 36px;
+            height: 36px;
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1;
+            height: 25px;
+            color: #000000;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+            gap: 4px;
+            text-decoration: none;
+            vertical-align: middle;
+            box-sizing: border-box;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .nav-item:visited {
+            color: #000000;
+        }
+
+        .nav-item:active {
+            color: #000000;
+        }
+
+        .dropdown-arrow {
+            color: #000000;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover .dropdown-arrow {
+            color: #000000;
+        }
+
+        .nav-text {
+            color: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            white-space: nowrap;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 8px;
+            min-width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 10000;
+        }
+
+        .nav-item.has-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-item {
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.04);
+        }
+
+        .dropdown-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 2px;
+        }
+
+        .dropdown-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 300;
+            color: #6B6B6B;
+        }
+
+        .auth-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .auth-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1;
+            height: 25px;
+            color: #000000;
+            text-decoration: none;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .auth-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+        }
+
+        .join-button {
+            background-color: #0F62FE;
+            color: white;
+            padding: 7px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1;
+            height: 28px;
+            text-decoration: none;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 3px rgba(15, 98, 254, 0.3);
+        }
+
+        .join-button:hover {
+            background-color: #0047C3;
+            box-shadow: 0 2px 6px rgba(15, 98, 254, 0.4);
+        }
+
+        .join-text {
+            color: white;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            gap: 3px;
+            cursor: pointer;
+            padding: 6px;
+            z-index: 1001;
+        }
+
+        .hamburger-line {
+            width: 20px;
+            height: 2px;
+            background-color: #000000;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: white;
+            z-index: 999;
+            display: none;
+            flex-direction: column;
+            padding: 80px 32px 32px 32px;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 20px;
+            right: 32px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #000000;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-nav-item {
+            padding: 16px 0;
+            font-size: 16px;
+            font-weight: 400;
+            color: #000000;
+            text-decoration: none;
+            border-bottom: 1px solid #EBEBEB;
+        }
+
+        .mobile-dropdown-toggle {
+            cursor: pointer;
+        }
+
+        .mobile-dropdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mobile-dropdown-arrow {
+            font-size: 18px;
+            transition: transform 0.2s ease;
+        }
+
+        .mobile-dropdown-toggle.active .mobile-dropdown-arrow {
+            transform: rotate(45deg);
+        }
+
+        .mobile-dropdown-content {
+            display: none;
+            flex-direction: column;
+            padding-left: 16px;
+        }
+
+        .mobile-dropdown-content.active {
+            display: flex;
+        }
+
+        .mobile-dropdown-item {
+            padding: 12px 0;
+            text-decoration: none;
+            border-bottom: 1px solid #F5F5F5;
+        }
+
+        .mobile-auth-section {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding-top: 24px;
+        }
+
+        /* Fix navbar underline issue */
+        .navigation .nav-item,
+        .navigation .nav-item:link,
+        .navigation .nav-item:visited,
+        .navigation .nav-item:hover,
+        .navigation .nav-item:active,
+        .navigation .nav-item:focus {
+            text-decoration: none !important;
+        }
+
+        /* FOOTER STYLES - Copied from index.html */
+        .footer-section {
+            background: white;
+            width: 100%;
+            max-width: 1070px;
+            margin: 0 auto;
+            padding: 78px 0 46px 0;
+            margin-top: 50px;
+            border-top: 1px solid #EBEBEB;
+        }
+
+        .footer-container {
+            max-width: 940px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .footer-logo {
+            width: 39%;
+            padding: 2px 15px 0 0;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo-img {
+            width: 40px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            width: 60%;
+            gap: 16px 25px;
+            padding: 0 15px 0 10px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-heading {
+            font-family: 'Inter', sans-serif;
+            font-size: 17px;
+            color: #000000;
+            margin-bottom: 8px;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+        }
+
+        .footer-link-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .footer-link-list li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+            text-decoration: none;
+            line-height: 1.2;
+            transition: text-decoration 0.2s ease;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer-link.disabled-link {
+            cursor: not-allowed;
+            opacity: 0.6;
+            position: relative;
+        }
+
+        .footer-link.disabled-link:hover {
+            text-decoration: none;
+            opacity: 0.8;
+            color: #999999;
+        }
+
+        .footer-link.disabled-link:hover::before {
+            content: "Coming Soon";
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000000;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+            white-space: nowrap;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .footer-copyright {
+            grid-column: 1 / -1;
+            margin-top: 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+        }
+
+        /* BLOG POST STYLES */
+        .story-wrapper {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 56px 24px 90px;
+        }
+
+        .story-header {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 0;
+        }
+
+        .story-title {
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .story-subtitle {
+            font-size: 20px;
+            font-weight: 300;
+            color: #4a4a4a;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        .story-hero {
+            width: 100%;
+            margin: 32px 0 40px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .story-hero img {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+        
+        /* Intro section - appears after hero image */
+        .story-intro {
+            padding: 0 !important;
+            margin: 0 0 32px !important;
+        }
+
+        .story-intro p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 16px;
+        }
+
+        .story-intro p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Main content sections */
+        .story-section {
+            padding: 0 !important;
+            margin: 56px 0 0 0 !important;
+        }
+
+        .story-section:first-of-type {
+            margin-top: 0 !important;
+        }
+ 
+        .story-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 0 24px !important;
+            padding-top: 28px !important;
+            letter-spacing: -0.01em;
+            color: #000000;
+            border-top: 1px solid #e0e0e0 !important;
+        }
+
+        .story-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #111;
+        }
+
+        /* All paragraphs - consistent spacing */
+        .story-wrapper p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 14px;
+        }
+
+        .story-section p,
+        .story-intro p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+        }
+
+        /* Pull quotes */
+        blockquote {
+            margin: 40px auto !important;
+            padding: 14px 24px !important;
+            width: fit-content;
+            max-width: 90%;
+            font-size: 48px !important;
+            line-height: 1.3 !important;
+            color: #000000 !important;
+            font-weight: 300 !important;
+            font-style: normal !important;
+            text-align: center;
+            background: transparent;
+            white-space: normal;
+            display: block;
+            font-family: 'Jonathan', 'Kalam', 'Brush Script MT', cursive;
+        }
+
+        blockquote p {
+            font-size: inherit !important;
+            line-height: inherit !important;
+            color: inherit !important;
+            font-weight: inherit !important;
+            font-style: inherit !important;
+            font-family: inherit !important;
+            margin: 0 !important;
+        }
+
+        blockquote::before {
+            content: "";
+        }
+
+        /* Images with captions */
+        .story-media {
+            margin: 24px 0 28px;
+            text-align: center;
+        }
+
+        .story-media img {
+            width: 100%;
+            border-radius: 16px;
+            display: block;
+        }
+
+        .story-media-caption {
+            margin-top: 0px;
+            font-size: 13px;
+            color: #585858;
+            font-style: italic;
+            text-align: center;
+        }
+
+        .story-media-caption a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .story-media-caption a:hover {
+            text-decoration: underline;
+        }
+
+        /* Project cards */
+        .project-card {
+            background: white;
+            border: none;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        }
+
+        .project-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .project-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0F62FE;
+            margin-bottom: 12px;
+        }
+
+        .project-card p {
+            margin-bottom: 8px;
+        }
+
+        .project-card ul {
+            margin: 12px 0;
+            padding-left: 20px;
+        }
+
+        .project-card ul li {
+            margin-bottom: 6px;
+            color: #2e2e2e;
+            line-height: 1.6;
+        }
+
+        .project-card-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .view-listing-button {
+            padding: 6px 12px;
+            background: #0F62FE;
+            color: white !important;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .view-listing-button:hover {
+            background: #0053E5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
+        }
+
+        .copy-link-button {
+            padding: 6px;
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #767676;
+            width: 28px;
+            height: 28px;
+            position: relative;
+        }
+
+        .copy-link-button:hover {
+            color: #111111;
+        }
+
+        .copy-link-button svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .copy-link-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 8px;
+            padding: 4px 8px;
+            background: #000000;
+            color: white;
+            font-size: 11px;
+            border-radius: 4px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .copy-link-button:hover .copy-link-tooltip {
+            opacity: 1;
+        }
+
+        /* Links within content */
+        .story-section a,
+        .story-intro a {
+            color: inherit;
+            text-decoration: none;
+            transition: text-decoration 0.2s ease;
+        }
+
+        .story-section a:hover,
+        .story-intro a:hover {
+            text-decoration: underline;
+        }
+
+        .story-cta {
+            margin-top: 48px;
+            text-align: center;
+            padding: 32px 48px;
+            border-radius: 14px;
+            background: #fafafa;
+        }
+
+        .story-cta h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .story-cta p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #3b3b3b;
+            margin-bottom: 0;
+            font-weight: 300;
+        }
+
+        .story-cta p:first-of-type {
+            margin-bottom: 4px;
+        }
+
+        .story-cta p:last-of-type {
+            margin-bottom: 28px;
+        }
+
+        .story-cta-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        /* Primary button - Join for free (matches hero) */
+        .story-cta .cta-button.primary {
+            padding: 6px 12px;
+            background: #0F62FE;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            font-family: inherit;
+            height: 27.6px;
+            text-decoration: none;
+            color: white;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .story-cta .cta-button.primary:hover {
+            background: #0053E5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
+        }
+
+        /* Secondary button - Request a demo (matches hero) */
+        .story-cta .cta-button.secondary {
+            padding: 6px 12px;
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            height: 27.6px;
+            text-decoration: none;
+            color: #000000;
+            font-size: 13px;
+            font-weight: 300;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .story-cta .cta-button.secondary::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 12px;
+            right: 12px;
+            height: 1px;
+            background-color: #000000;
+            transform: scaleX(0);
+            transition: transform 0.2s ease;
+        }
+
+        .story-cta .cta-button.secondary:hover::after {
+            transform: scaleX(1);
+        }
+
+        .story-cta .cta-button.secondary:visited {
+            color: #000000;
+        }
+
+        .story-cta .cta-button.secondary:active {
+            color: #000000;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1100px) {
+            .header-container {
+                padding: 12px 20px;
+            }
+
+            .navigation {
+                display: none;
+            }
+
+            .auth-section {
+                display: none;
+            }
+
+            .hamburger-menu {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .story-wrapper {
+                padding: 40px 20px 80px;
+            }
+
+            .story-title {
+                font-size: 32px;
+                line-height: 1.15;
+            }
+
+            .story-subtitle {
+                font-size: 17px;
+                line-height: 1.45;
+            }
+
+            .story-hero {
+                margin: 24px 0 32px;
+                border-radius: 8px;
+            }
+
+            .story-section {
+                margin: 48px 0 0 0 !important;
+            }
+
+            .story-section h2 {
+                font-size: 22px;
+                padding-top: 24px !important;
+                margin-bottom: 20px !important;
+            }
+
+            blockquote {
+                margin: 32px auto !important;
+                padding: 12px 18px !important;
+                font-size: 36px !important;
+                max-width: 90%;
+            }
+
+            blockquote p {
+                font-size: inherit !important;
+            }
+
+            .story-media {
+                margin: 20px 0 24px;
+            }
+
+            .story-media img {
+                border-radius: 12px;
+            }
+
+            .story-cta {
+                padding: 32px 24px;
+                margin-top: 40px;
+            }
+
+            .story-cta h3 {
+                font-size: 20px;
+                margin-bottom: 14px;
+            }
+
+            .story-cta p {
+                font-size: 15px;
+                margin-bottom: 24px;
+            }
+
+            .story-cta-actions {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+                align-items: center;
+            }
+
+            .story-cta .cta-button {
+                width: auto;
+                max-width: 280px;
+                min-width: fit-content;
+                padding: 8px 16px;
+            }
+
+            .footer-section {
+                padding: 60px 24px 40px 24px;
+            }
+
+            .footer-logo {
+                width: 100%;
+                padding: 0;
+                margin-bottom: 32px;
+            }
+
+            .footer-links {
+                width: 100%;
+                grid-template-columns: 1fr;
+                padding: 0;
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .story-wrapper {
+                padding: 32px 18px 70px;
+            }
+
+            .story-title {
+                font-size: 28px;
+            }
+
+            .story-subtitle {
+                font-size: 16px;
+            }
+
+            .story-hero {
+                margin: 20px 0 28px;
+            }
+
+            .story-section h2 {
+                font-size: 20px;
+            }
+
+            .story-wrapper p {
+                font-size: 15px !important;
+            }
+
+            blockquote {
+                font-size: 28px !important;
+                padding: 10px 16px !important;
+            }
+
+            blockquote p {
+                font-size: inherit !important;
+            }
+
+            .story-cta {
+                padding: 28px 20px;
+            }
+
+            .story-cta h3 {
+                font-size: 18px;
+            }
+
+            .story-cta p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="header-container">
+        <!-- Logo on the left -->
+        <div class="header-logo">
+            <div class="logo-container">
+                <div class="logo">
+                    <a href="https://qava.ai/">
+                        <img src="qava-logo.svg" alt="Qava Logo">
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation in the center -->
+        <div class="header-center">
+            <div class="navigation">
+                <a href="https://app.qava.ai/" class="nav-item create-listing">
+                    <div class="nav-text">Create Listing</div>
+                </a>
+                <a href="https://app.qava.ai/projects" class="nav-item search-listings">
+                    <div class="nav-text">Search Listings</div>
+                </a>
+                <div class="nav-item how-it-works has-dropdown">
+                    <div class="nav-text">How It Works</div>
+                    <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M6 3v6M3 6h6" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <div class="dropdown-menu">
+                        <a href="https://qava.ai/clienthowitworks" class="dropdown-item">
+                            <div class="dropdown-title">For Clients 🚀</div>
+                            <div class="dropdown-subtitle">Hiring for current or future work</div>
+                        </a>
+                        <a href="https://qava.ai/talenthowitworks" class="dropdown-item">
+                            <div class="dropdown-title">For Talent 👩‍💻</div>
+                            <div class="dropdown-subtitle">Interested in current or future work</div>
+                        </a>
+                    </div>
+                </div>
+                <a href="https://qava.ai/pricing" class="nav-item pricing">
+                    <div class="nav-text">Pricing</div>
+                </a>
+                <a href="https://qava.ai/about" class="nav-item about">
+                    <div class="nav-text">About</div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Auth section on the right -->
+        <div class="header-right">
+            <div class="auth-section">
+                <a href="https://qava.ai/demo" class="auth-item">
+                    <div class="nav-text">Request a demo</div>
+                </a>
+                <a href="https://app.qava.ai/" class="auth-item">
+                    <div class="nav-text">Log in</div>
+                </a>
+                <a href="https://app.qava.ai/" class="join-button">
+                    <div class="join-text">Join for free</div>
+                </a>
+            </div>
+
+            <!-- Hamburger Menu Icon -->
+            <div class="hamburger-menu" onclick="toggleMobileMenu()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
+        <a href="https://app.qava.ai/" class="mobile-nav-item">
+            <div class="nav-text">Create Listing</div>
+        </a>
+        <a href="https://app.qava.ai/projects" class="mobile-nav-item">
+            <div class="nav-text">Search Listings</div>
+        </a>
+        <div class="mobile-nav-item mobile-dropdown-toggle" onclick="toggleMobileDropdown()">
+            <div class="mobile-dropdown-header">
+                <div class="nav-text">How It Works</div>
+                <span class="mobile-dropdown-arrow">+</span>
+            </div>
+        </div>
+        <div class="mobile-dropdown-content" id="mobileDropdown">
+            <a href="https://qava.ai/clienthowitworks" class="mobile-dropdown-item">
+                <div class="dropdown-title">For Clients 🚀</div>
+                <div class="dropdown-subtitle">Hiring for current or future work</div>
+            </a>
+            <a href="https://qava.ai/talenthowitworks" class="mobile-dropdown-item">
+                <div class="dropdown-title">For Talent 👩‍💻</div>
+                <div class="dropdown-subtitle">Interested in current or future work</div>
+            </a>
+        </div>
+        <a href="https://qava.ai/pricing" class="mobile-nav-item">
+            <div class="nav-text">Pricing</div>
+        </a>
+        <a href="https://qava.ai/about" class="mobile-nav-item">
+            <div class="nav-text">About</div>
+        </a>
+        <div class="mobile-auth-section">
+            <a href="https://qava.ai/demo" class="mobile-nav-item">Request a demo</a>
+            <a href="https://app.qava.ai/" class="mobile-nav-item">Log in</a>
+            <a href="https://app.qava.ai/" class="join-button">
+                <div class="join-text">Join for free</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Blog Content -->
+    <main class="story-wrapper">
+        <header class="story-header">
+            <img src="Lumi/Lumi%20Logo.png" alt="Lumi" style="max-width: 120px; margin-bottom: 6px;" loading="lazy">
+            <h1 class="story-title">When Parenting Becomes a Systems Problem—and Finally Gets a Real Answer</h1>
+            <p class="story-subtitle" style="color: #666666;">When parents ask, "How am I going to get through this?", Lumi provides real-time, science-backed collaboration support designed for the way neurodiverse families actually live.</p>
+        </header>
+
+        <!-- Insights / Use cases section -->
+        <section class="max-w-5xl mt-6 mb-12 lg:flex lg:items-start lg:gap-6">
+            <!-- Left: Behind the Story -->
+            <div class="flex-1">
+                <h3 class="text-[11px] font-semibold tracking-[0.2em] uppercase text-gray-500 mb-4">
+                    Behind the Story
+                </h3>
+
+                <div class="flex flex-col items-start gap-6">
+                    <!-- Michael and Reed Langridge in a row -->
+                    <div class="flex flex-col sm:flex-row items-start gap-8">
+                        <!-- Michael -->
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 aspect-square rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+                                <img
+                                    src="Lumi/Michael.png"
+                                    alt="Michael"
+                                    class="w-full h-full object-cover object-center"
+                                    loading="lazy"
+                                />
+                            </div>
+                            <div class="text-left">
+                                <div class="text-sm font-medium text-gray-900">
+                                    Michael
+                                </div>
+                                <div class="text-xs text-gray-500 font-light">
+                                    Founder, Lumi
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Reed Langridge -->
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 aspect-square rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+                                <img
+                                    src="Reed%20Langridge%20Profile.jpg"
+                                    alt="Reed Langridge"
+                                    class="w-full h-full object-cover object-center"
+                                    loading="lazy"
+                                />
+                            </div>
+                            <div class="text-left">
+                                <div class="text-sm font-medium text-gray-900">
+                                    Reed Langridge
+                                </div>
+                                <div class="text-xs text-gray-500 font-light">
+                                    Founder, Qava
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Divider (desktop only) -->
+            <div class="hidden md:block w-px bg-gray-200 self-stretch mx-4" aria-hidden="true"></div>
+
+            <!-- Right: Focus Areas -->
+            <div class="flex-1 mt-10 lg:mt-0">
+                <h3 class="text-[11px] font-semibold tracking-[0.2em] uppercase text-gray-500 mb-2">
+                    Focus Areas
+                </h3>
+
+                <div style="font-size: 12px !important; line-height: 1.6; font-weight: 300;" class="text-gray-800">
+                    <div>Parenting Technology 👪</div>
+                    <div>Neurodiversity Support 🧠</div>
+                    <div>AI-Powered Coaching 🤖</div>
+                    <div>Family Collaboration 🏠</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="story-intro">
+            <p>When parents ask that question, they're rarely asking a philosophical one.</p>
+            
+            <p>They're asking at 7:45 a.m., when the morning routine has already unraveled.<br>
+            They're asking after homework dissolves into tears.<br>
+            They're asking when strategies that worked yesterday suddenly don't work today.</p>
+            
+            <p>For millions of families raising neurodiverse children, these moments aren't occasional—they're constant.</p>
+            
+            <p>And until now, there hasn't been a reliable in-the-moment answer.</p>
+        </section>
+
+        <section class="story-section">
+            <h2>A Problem Families Are Carrying Alone</h2>
+            <p>Some days feel like the same story on repeat:</p>
+            
+            <blockquote class="story-quote">
+                <p>"Sam, I've asked you three times to put on your shoes — we're going to be late again."</p>
+            </blockquote>
+            
+            <p style="font-weight: 300;">It's not just a routine glitch — it's a communication breakdown between minds that process the world very differently.</p>
+
+            <p>On top of this emotional friction, families invest heavily in support — therapy, coaching, tutoring, medical care — often spending thousands every year. Yet advice remains fragmented, episodic, and siloed from the rhythms of daily life.</p>
+            
+            <p>Parents are expected to translate clinical guidance into real moments. Children are expected to adapt to systems that weren't built for how their brains work. And when things fall apart — as they inevitably do — there's no tool to help families regain footing in the moment.</p>
+            
+            <p>This isn't lack of effort.<br>
+            This is a lack of coordination.</p>
+        </section>
+
+        <section class="story-section">
+            <h2>The Insight: This Is a Collaboration Problem</h2>
+            <p>Most support tools treat neurodiversity as a single-player challenge — one caregiver, one therapist, one strategy at a time.</p>
+            
+            <p style="font-weight: 300;">But families don't work that way.</p>
+            
+            <p>Lumi was built to shape the conversation instead of just offering tips. It acts as a real-time coach that translates between how parents think and how their kids learn, helping turn daily battles into breakthroughs with tailored support tools.</p>
+            
+            <p>Daily life isn't linear, and neither is behaviour. Routines, transitions, attention, and emotional regulation are all intertwined — and to make progress, families need a system that works for everyone's wiring.</p>
+            
+            <p style="font-weight: 300;">Lumi tackles the root cause: communication and collaboration across neurological differences.</p>
+        </section>
+
+        <section class="story-section">
+            <h2>How Lumi Works in Practice</h2>
+            <p>At its core, Lumi creates a shared visual system where the whole family sees the same picture of what needs to happen.</p>
+            
+            <p>Instead of overwhelming week-long calendars or endless reminders, Lumi breaks down the day into manageable, interactive steps children can navigate independently — transforming routines into journeys of agency and accomplishment.</p>
+            
+            <p>When families understand each other's wiring, conflict becomes connection. What once felt like defiance often reveals itself as differences in processing, attention, and memory — not behavior problems.</p>
+            
+            <p>Lumi bridges that gap, turning "Why won't you just…" into "What would help here…" — and helping families work with wiring differences rather than fighting them.</p>
+            
+            <p>Instead of nagging, childcare becomes partnership. Lumi holds routines, reminders, and responsibilities in a neutral space, freeing parents to guide rather than enforce. Homework support adapts to each child's strengths, not one-size-fits-all checklists.</p>
+            
+            <p>And when families accumulate small wins — wins that are visible and celebrated — momentum compounds. The child who once struggled to remember tasks begins to complete them independently. The family moves from surviving to thriving.</p>
+        </section>
+
+        <section class="story-section">
+            <h2>Real Family Transformation</h2>
+            <p>Lumi's website shares stories that make this shift tangible:</p>
+            
+            <blockquote class="story-quote">
+                <p>"My wife and I didn't have to remind our son to do a single thing — which has probably never happened before. No rushing or yelling to get him ready. He did it all by himself."</p>
+            </blockquote>
+            
+            <p>Another family said it best:</p>
+            
+            <blockquote class="story-quote">
+                <p>"This morning was freaking crazy. It was amazing. And I want this every single day."</p>
+            </blockquote>
+            
+            <p style="font-weight: 300;">These aren't marketing platitudes — they're breakthroughs in daily life, where progress is most real.</p>
+        </section>
+
+        <section class="story-section">
+            <h2>Why This Moment Matters</h2>
+            <p>Three forces are converging.</p>
+            
+            <p>First, neurodiverse populations are growing faster than supportive services can scale — and many regions have no local behavioral specialists at all, leaving families waiting months for help.</p>
+            
+            <p>Second, parents are embracing tool-assisted support that's in sync with life's tempo — not delayed appointments or abstract frameworks.</p>
+            
+            <p>Third, generative intelligence has matured to the point where expertise can be delivered instantly, adaptively, and at scale — not eventually, but exactly when it's needed.</p>
+            
+            <p style="font-weight: 300;">Lumi meets families where parenting actually happens: in the moment, not on a calendar.</p>
+        </section>
+
+        <section class="story-section">
+            <h2>A Systemic Opportunity</h2>
+            <p>Lumi isn't a behavior tracker, a chore app, or a visual schedule tool.</p>
+            
+            <p>It's a relationship system that integrates understanding, adaptation, and coaching into the flow of family life.</p>
+            
+            <p style="font-weight: 300;">This is not auxiliary support — this is infrastructure for collaboration that evolves as a family does.</p>
+        </section>
+
+        <section class="story-section">
+            <h2>A Reliable Answer</h2>
+            <p>Lumi doesn't promise perfect days. It doesn't erase challenges.</p>
+            
+            <p>What it offers is partnership — real-time, adaptive, and grounded in how families actually interact and communicate.</p>
+            
+            <p>When parents ask, "How am I going to get through this?", Lumi delivers something far more powerful than tips and reminders:</p>
+            
+            <p style="font-weight: 300;">A system that finally speaks everyone's language.</p>
+        </section>
+
+        <div class="story-cta">
+            <h3>Explore Opportunities</h3>
+            <p style="font-weight: 300;">Discover how you can contribute to innovative projects like Lumi on Qava.</p>
+            <div class="story-cta-actions">
+                <a href="https://app.qava.ai/projects" class="cta-button primary">Browse Projects</a>
+                <a href="https://qava.ai/" class="cta-button secondary">Learn More</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer-section">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="https://qava.ai/">
+                        <img src="qava-logo.svg" alt="Qava" class="footer-logo-img" />
+                    </a>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Welcome</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://app.qava.ai/" class="footer-link">Create Listing</a></li>
+                            <li><a href="https://app.qava.ai/projects" class="footer-link">Search Listings</a></li>
+                            <li><a href="https://qava.ai/clienthowitworks" class="footer-link">How It Works for Clients</a></li>
+                            <li><a href="https://qava.ai/talenthowitworks" class="footer-link">How It Works for Talent</a></li>
+                            <li><span class="footer-link disabled-link">What's New</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Get Started</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://qava.ai/request-demo" class="footer-link">Request a Demo</a></li>
+                            <li><a href="https://app.qava.ai/" class="footer-link">Sign Up</a></li>
+                            <li><a href="https://app.qava.ai/" class="footer-link">Log In</a></li>
+                            <li><span class="footer-link disabled-link">AI Prompts</span></li>
+                            <li><span class="footer-link disabled-link">Project Templates</span></li>
+                            <li><span class="footer-link disabled-link">Application Tips</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Resources</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://qava.ai/pricing" class="footer-link">Pricing</a></li>
+                            <li><a href="https://qava.ai/about" class="footer-link">About Us</a></li>
+                            <li><span class="footer-link disabled-link">Careers</span></li>
+                            <li><span class="footer-link disabled-link">Media Kit</span></li>
+                            <li><span class="footer-link disabled-link">Contact Us</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Learn</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://qava.ai/successstories" class="footer-link">Success Stories</a></li>
+                            <li><span class="footer-link disabled-link">Help Center</span></li>
+                            <li><span class="footer-link disabled-link">Webinars</span></li>
+                            <li><span class="footer-link disabled-link">Blog</span></li>
+                            <li><span class="footer-link disabled-link">Community</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Legal</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="terms" class="footer-link">Terms & Privacy</a></li>
+                            <li><a href="terms" class="footer-link">California Privacy Notice</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-copyright">
+                        © 2025 qava
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+            
+            // Prevent body scroll when mobile menu is open
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function toggleMobileDropdown() {
+            const dropdown = document.getElementById('mobileDropdown');
+            const toggle = document.querySelector('.mobile-dropdown-toggle');
+            
+            dropdown.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        function copyListingLink(listingId, button) {
+            const publicLink = `https://app.qava.ai/projects?listing=${listingId}`;
+            
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(publicLink).then(function() {
+                    const tooltip = button.querySelector('.copy-link-tooltip');
+                    const originalText = tooltip.textContent;
+                    tooltip.textContent = 'Copied!';
+                    setTimeout(function() {
+                        tooltip.textContent = originalText;
+                    }, 2000);
+                }).catch(function(err) {
+                    console.error('Failed to copy: ', err);
+                });
+            } else {
+                // Fallback for older browsers
+                const tempInput = document.createElement('input');
+                tempInput.value = publicLink;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+                const tooltip = button.querySelector('.copy-link-tooltip');
+                const originalText = tooltip.textContent;
+                tooltip.textContent = 'Copied!';
+                setTimeout(function() {
+                    tooltip.textContent = originalText;
+                }, 2000);
+            }
+        }
+    </script>
+</body>
+</html>
