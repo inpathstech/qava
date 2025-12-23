@@ -7379,16 +7379,18 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     },
                     {
                         name: 'System Migration',
+                        heading: 'Well-planned migrations reduce downtime costs by 30% <span style="font-weight: 300;">— Gartner</span>',
                         price: 240,
-                        purpose: 'Upgrade confidently with Qava engineers and analysts who plan and execute migrations using best-practice frameworks and risk controls.',
+                        purpose: 'Migrate confidently with Qava talent who plan and execute migrations using best-practice frameworks and risk controls.',
                         benefits: [
                             'Minimizes disruption and downtime',
                             'Enhances performance and reliability',
                             'Future-proofs your tech infrastructure'
                         ],
-                        stat: '📊 Well-planned migrations reduce downtime costs by 30% — Gartner',
-                        quote: '"Innovation distinguishes between a leader and a follower."',
-                        quoteAuthor: '— Steve Jobs'
+                        stat: null,
+                        quote: null,
+                        quoteAuthor: null,
+                        hasSystemMigration: true
                     },
                     {
                         name: 'Vendor Strategy',
@@ -7721,7 +7723,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         benefitItem.className = 'benefit-item';
                         
                         // Remove bottom margin/padding from last benefit when followed by visual
-                        if (index === project.benefits.length - 1 && (project.hasJourneyMap || project.grantBoxes || project.hasGTMChart || project.hasOperatingModel || project.hasProcessFlow || project.techRationalizationBoxes)) {
+                        if (index === project.benefits.length - 1 && (project.hasJourneyMap || project.grantBoxes || project.hasGTMChart || project.hasOperatingModel || project.hasProcessFlow || project.techRationalizationBoxes || project.hasSystemMigration)) {
                             benefitItem.style.marginBottom = '0';
                             benefitItem.style.paddingBottom = '0';
                         }
@@ -9511,10 +9513,230 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     previewBenefits.appendChild(flowContainer);
                 }
                 
+                // Add System Migration visualization if available (for System Migration)
+                if (project.hasSystemMigration) {
+                    const migrationContainer = document.createElement('div');
+                    migrationContainer.style.marginTop = '8px';
+                    
+                    // Create SVG for System Migration
+                    const migrationSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    migrationSvg.setAttribute('viewBox', '0 0 500 120');
+                    migrationSvg.style.width = '100%';
+                    migrationSvg.style.height = '120px';
+                    migrationSvg.style.maxWidth = '100%';
+                    
+                    // Cluster background (light blue)
+                    const clusterBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                    clusterBg.setAttribute('x', '180');
+                    clusterBg.setAttribute('y', '10');
+                    clusterBg.setAttribute('width', '140');
+                    clusterBg.setAttribute('height', '60');
+                    clusterBg.setAttribute('fill', '#EAF0FF');
+                    clusterBg.setAttribute('stroke', 'none');
+                    clusterBg.setAttribute('rx', '4');
+                    migrationSvg.appendChild(clusterBg);
+                    
+                    // Cluster label
+                    const clusterLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    clusterLabel.setAttribute('x', '250');
+                    clusterLabel.setAttribute('y', '8');
+                    clusterLabel.setAttribute('text-anchor', 'middle');
+                    clusterLabel.setAttribute('font-size', '8');
+                    clusterLabel.setAttribute('fill', '#666666');
+                    clusterLabel.textContent = 'Cluster';
+                    migrationSvg.appendChild(clusterLabel);
+                    
+                    // Users box (left)
+                    const usersBox = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                    usersBox.setAttribute('x', '10');
+                    usersBox.setAttribute('y', '30');
+                    usersBox.setAttribute('width', '45');
+                    usersBox.setAttribute('height', '25');
+                    usersBox.setAttribute('fill', '#FFFFFF');
+                    usersBox.setAttribute('stroke', '#D1D5DB');
+                    usersBox.setAttribute('stroke-width', '1');
+                    usersBox.setAttribute('rx', '3');
+                    migrationSvg.appendChild(usersBox);
+                    
+                    const usersText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    usersText.setAttribute('x', '32.5');
+                    usersText.setAttribute('y', '45');
+                    usersText.setAttribute('text-anchor', 'middle');
+                    usersText.setAttribute('font-size', '8');
+                    usersText.setAttribute('fill', '#000000');
+                    usersText.textContent = 'Users';
+                    migrationSvg.appendChild(usersText);
+                    
+                    // Load Balancer box
+                    const lbBox = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                    lbBox.setAttribute('x', '90');
+                    lbBox.setAttribute('y', '30');
+                    lbBox.setAttribute('width', '55');
+                    lbBox.setAttribute('height', '25');
+                    lbBox.setAttribute('fill', '#FFFFFF');
+                    lbBox.setAttribute('stroke', '#D1D5DB');
+                    lbBox.setAttribute('stroke-width', '1');
+                    lbBox.setAttribute('rx', '3');
+                    migrationSvg.appendChild(lbBox);
+                    
+                    const lbText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    lbText.setAttribute('x', '117.5');
+                    lbText.setAttribute('y', '45');
+                    lbText.setAttribute('text-anchor', 'middle');
+                    lbText.setAttribute('font-size', '8');
+                    lbText.setAttribute('fill', '#000000');
+                    lbText.textContent = 'Load Balancer';
+                    migrationSvg.appendChild(lbText);
+                    
+                    // App instances (3 in cluster)
+                    const appPositions = [
+                        { x: 190, y: 20 },
+                        { x: 190, y: 40 },
+                        { x: 190, y: 60 }
+                    ];
+                    
+                    appPositions.forEach((pos, idx) => {
+                        const appBox = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                        appBox.setAttribute('x', pos.x.toString());
+                        appBox.setAttribute('y', pos.y.toString());
+                        appBox.setAttribute('width', '50');
+                        appBox.setAttribute('height', '14');
+                        appBox.setAttribute('fill', '#FFFFFF');
+                        appBox.setAttribute('stroke', '#22C55E');
+                        appBox.setAttribute('stroke-width', '1');
+                        appBox.setAttribute('rx', '2');
+                        migrationSvg.appendChild(appBox);
+                        
+                        const appText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                        appText.setAttribute('x', (pos.x + 25).toString());
+                        appText.setAttribute('y', (pos.y + 9).toString());
+                        appText.setAttribute('text-anchor', 'middle');
+                        appText.setAttribute('font-size', '7');
+                        appText.setAttribute('fill', '#22C55E');
+                        appText.textContent = 'App v.2';
+                        migrationSvg.appendChild(appText);
+                        
+                        // Status indicator (green circle)
+                        const statusCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                        statusCircle.setAttribute('cx', (pos.x + 45).toString());
+                        statusCircle.setAttribute('cy', (pos.y + 7).toString());
+                        statusCircle.setAttribute('r', '2');
+                        statusCircle.setAttribute('fill', '#22C55E');
+                        migrationSvg.appendChild(statusCircle);
+                    });
+                    
+                    // Database box (right)
+                    const dbBox = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                    dbBox.setAttribute('x', '370');
+                    dbBox.setAttribute('y', '30');
+                    dbBox.setAttribute('width', '50');
+                    dbBox.setAttribute('height', '25');
+                    dbBox.setAttribute('fill', '#FFFFFF');
+                    dbBox.setAttribute('stroke', '#22C55E');
+                    dbBox.setAttribute('stroke-width', '1');
+                    dbBox.setAttribute('rx', '3');
+                    migrationSvg.appendChild(dbBox);
+                    
+                    const dbText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    dbText.setAttribute('x', '395');
+                    dbText.setAttribute('y', '40');
+                    dbText.setAttribute('text-anchor', 'middle');
+                    dbText.setAttribute('font-size', '8');
+                    dbText.setAttribute('fill', '#22C55E');
+                    dbText.textContent = 'Database';
+                    migrationSvg.appendChild(dbText);
+                    
+                    const dbVersion = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    dbVersion.setAttribute('x', '395');
+                    dbVersion.setAttribute('y', '48');
+                    dbVersion.setAttribute('text-anchor', 'middle');
+                    dbVersion.setAttribute('font-size', '7');
+                    dbVersion.setAttribute('fill', '#22C55E');
+                    dbVersion.textContent = 'v.2';
+                    migrationSvg.appendChild(dbVersion);
+                    
+                    // CI/CD box (bottom center)
+                    const cicdBox = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                    cicdBox.setAttribute('x', '230');
+                    cicdBox.setAttribute('y', '90');
+                    cicdBox.setAttribute('width', '50');
+                    cicdBox.setAttribute('height', '18');
+                    cicdBox.setAttribute('fill', '#FFFFFF');
+                    cicdBox.setAttribute('stroke', '#22C55E');
+                    cicdBox.setAttribute('stroke-width', '1');
+                    cicdBox.setAttribute('rx', '3');
+                    migrationSvg.appendChild(cicdBox);
+                    
+                    const cicdText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    cicdText.setAttribute('x', '255');
+                    cicdText.setAttribute('y', '101');
+                    cicdText.setAttribute('text-anchor', 'middle');
+                    cicdText.setAttribute('font-size', '8');
+                    cicdText.setAttribute('fill', '#22C55E');
+                    cicdText.textContent = 'CI / CD';
+                    migrationSvg.appendChild(cicdText);
+                    
+                    // Status indicator
+                    const cicdCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                    cicdCircle.setAttribute('cx', '274');
+                    cicdCircle.setAttribute('cy', '99');
+                    cicdCircle.setAttribute('r', '2');
+                    cicdCircle.setAttribute('fill', '#22C55E');
+                    migrationSvg.appendChild(cicdCircle);
+                    
+                    // Connection lines
+                    // Users to Load Balancer
+                    const line1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line1.setAttribute('x1', '55');
+                    line1.setAttribute('y1', '42.5');
+                    line1.setAttribute('x2', '90');
+                    line1.setAttribute('y2', '42.5');
+                    line1.setAttribute('stroke', '#D1D5DB');
+                    line1.setAttribute('stroke-width', '1.5');
+                    migrationSvg.appendChild(line1);
+                    
+                    // Load Balancer to Apps
+                    appPositions.forEach(pos => {
+                        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                        line.setAttribute('x1', '145');
+                        line.setAttribute('y1', '42.5');
+                        line.setAttribute('x2', pos.x.toString());
+                        line.setAttribute('y2', (pos.y + 7).toString());
+                        line.setAttribute('stroke', '#D1D5DB');
+                        line.setAttribute('stroke-width', '1.5');
+                        migrationSvg.appendChild(line);
+                    });
+                    
+                    // Apps to Database
+                    appPositions.forEach(pos => {
+                        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                        line.setAttribute('x1', '240');
+                        line.setAttribute('y1', (pos.y + 7).toString());
+                        line.setAttribute('x2', '370');
+                        line.setAttribute('y2', '42.5');
+                        line.setAttribute('stroke', '#D1D5DB');
+                        line.setAttribute('stroke-width', '1.5');
+                        migrationSvg.appendChild(line);
+                    });
+                    
+                    // CI/CD to Cluster (upward arrow)
+                    const cicdLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    cicdLine.setAttribute('x1', '255');
+                    cicdLine.setAttribute('y1', '90');
+                    cicdLine.setAttribute('x2', '255');
+                    cicdLine.setAttribute('y2', '72');
+                    cicdLine.setAttribute('stroke', '#22C55E');
+                    cicdLine.setAttribute('stroke-width', '1.5');
+                    migrationSvg.appendChild(cicdLine);
+                    
+                    migrationContainer.appendChild(migrationSvg);
+                    previewBenefits.appendChild(migrationContainer);
+                }
+                
                 // Add price box at the bottom, aligned to left
                 const priceSection = document.createElement('div');
-                // Adjust spacing for Grant Application, Customer Journey Map, GTM Chart, Growth Chart, Operating Model, Process Flow, and Tech Rationalization
-                priceSection.style.marginTop = project.grantBoxes ? '2px' : (project.hasJourneyMap ? '10px' : (project.hasGTMChart || project.hasGrowthChart || project.hasOperatingModel || project.hasProcessFlow || project.techRationalizationBoxes ? '16px' : '16px'));
+                // Adjust spacing for Grant Application, Customer Journey Map, GTM Chart, Growth Chart, Operating Model, Process Flow, Tech Rationalization, and System Migration
+                priceSection.style.marginTop = project.grantBoxes ? '2px' : (project.hasJourneyMap ? '10px' : (project.hasGTMChart || project.hasGrowthChart || project.hasOperatingModel || project.hasProcessFlow || project.techRationalizationBoxes || project.hasSystemMigration ? '16px' : '16px'));
                 
                 const priceBox = document.createElement('a');
                 priceBox.href = 'https://app.qava.ai/';
