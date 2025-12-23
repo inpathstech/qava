@@ -9397,29 +9397,43 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     flowSvg.style.height = '120px';
                     flowSvg.style.maxWidth = '100%';
                     
-                    // Process steps with connectors
+                    // Process steps with multiple paths
                     const steps = [
-                        { x: 20, y: 30, size: 35, highlight: false },
-                        { x: 100, y: 15, size: 35, highlight: true },
-                        { x: 180, y: 50, size: 30, highlight: false },
-                        { x: 260, y: 15, size: 35, highlight: true },
-                        { x: 340, y: 50, size: 30, highlight: false }
+                        { x: 20, y: 42, size: 35, highlight: false }, // Start
+                        { x: 100, y: 20, size: 35, highlight: true }, // Path 1 top
+                        { x: 100, y: 65, size: 35, highlight: false }, // Path 2 bottom
+                        { x: 180, y: 42, size: 35, highlight: true }, // Converge
+                        { x: 260, y: 20, size: 35, highlight: false }, // Path 1 top
+                        { x: 260, y: 65, size: 35, highlight: true }, // Path 2 bottom
+                        { x: 340, y: 42, size: 35, highlight: false } // End
+                    ];
+                    
+                    // Define connections (from index to index)
+                    const connections = [
+                        [0, 1], // Start to top path
+                        [0, 2], // Start to bottom path
+                        [1, 3], // Top path to converge
+                        [2, 3], // Bottom path to converge
+                        [3, 4], // Converge to top path
+                        [3, 5], // Converge to bottom path
+                        [4, 6], // Top path to end
+                        [5, 6]  // Bottom path to end
                     ];
                     
                     // Draw connecting lines between steps
-                    for (let i = 0; i < steps.length - 1; i++) {
-                        const currentStep = steps[i];
-                        const nextStep = steps[i + 1];
+                    connections.forEach(([fromIdx, toIdx]) => {
+                        const fromStep = steps[fromIdx];
+                        const toStep = steps[toIdx];
                         
                         const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                        line.setAttribute('x1', (currentStep.x + currentStep.size / 2).toString());
-                        line.setAttribute('y1', (currentStep.y + currentStep.size / 2).toString());
-                        line.setAttribute('x2', (nextStep.x + nextStep.size / 2).toString());
-                        line.setAttribute('y2', (nextStep.y + nextStep.size / 2).toString());
+                        line.setAttribute('x1', (fromStep.x + fromStep.size / 2).toString());
+                        line.setAttribute('y1', (fromStep.y + fromStep.size / 2).toString());
+                        line.setAttribute('x2', (toStep.x + toStep.size / 2).toString());
+                        line.setAttribute('y2', (toStep.y + toStep.size / 2).toString());
                         line.setAttribute('stroke', '#000000');
                         line.setAttribute('stroke-width', '1.5');
                         flowSvg.appendChild(line);
-                    }
+                    });
                     
                     // Draw process step boxes
                     steps.forEach((step, index) => {
