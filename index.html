@@ -7371,7 +7371,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         quote: null,
                         quoteAuthor: null,
                         techRationalizationBoxes: [
-                            { title: 'Understand what exists and why' },
+                            { title: 'Understand what exists/why' },
                             { title: 'Decide what\'s worth keeping' },
                             { title: 'Turn decisions into actions' },
                             { title: 'Make it real and lock in savings' }
@@ -9705,35 +9705,6 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     dbText.textContent = 'Database';
                     migrationSvg.appendChild(dbText);
                     
-                    // CI/CD box (bottom center)
-                    const cicdBox = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-                    cicdBox.setAttribute('x', '225');
-                    cicdBox.setAttribute('y', '90');
-                    cicdBox.setAttribute('width', '50');
-                    cicdBox.setAttribute('height', '18');
-                    cicdBox.setAttribute('fill', '#FFFFFF');
-                    cicdBox.setAttribute('stroke', '#D1D5DB');
-                    cicdBox.setAttribute('stroke-width', '1');
-                    cicdBox.setAttribute('rx', '3');
-                    migrationSvg.appendChild(cicdBox);
-                    
-                    const cicdText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                    cicdText.setAttribute('x', '250');
-                    cicdText.setAttribute('y', '101');
-                    cicdText.setAttribute('text-anchor', 'middle');
-                    cicdText.setAttribute('font-size', '8');
-                    cicdText.setAttribute('fill', '#000000');
-                    cicdText.textContent = 'CI / CD';
-                    migrationSvg.appendChild(cicdText);
-                    
-                    // Status indicator
-                    const cicdCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                    cicdCircle.setAttribute('cx', '269');
-                    cicdCircle.setAttribute('cy', '99');
-                    cicdCircle.setAttribute('r', '2');
-                    cicdCircle.setAttribute('fill', '#D1D5DB');
-                    migrationSvg.appendChild(cicdCircle);
-                    
                     // Connection lines
                     // Users to Load Balancer
                     const line1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
@@ -9768,16 +9739,6 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         line.setAttribute('stroke-width', '1.5');
                         migrationSvg.appendChild(line);
                     });
-                    
-                    // CI/CD to Cluster (upward arrow)
-                    const cicdLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                    cicdLine.setAttribute('x1', '250');
-                    cicdLine.setAttribute('y1', '90');
-                    cicdLine.setAttribute('x2', '250');
-                    cicdLine.setAttribute('y2', '72');
-                    cicdLine.setAttribute('stroke', '#D1D5DB');
-                    cicdLine.setAttribute('stroke-width', '1.5');
-                    migrationSvg.appendChild(cicdLine);
                     
                     migrationContainer.appendChild(migrationSvg);
                     previewBenefits.appendChild(migrationContainer);
