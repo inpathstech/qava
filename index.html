@@ -9353,24 +9353,23 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         });
                     });
                     
-                    // Margin section (right side) - white triangle with black border
+                    // Margin section (right side) - gray arrow pointing right
                     const marginPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                    marginPath.setAttribute('d', 'M 335 10 L 390 10 L 390 108 L 335 108 L 350 59 Z');
-                    marginPath.setAttribute('fill', '#FFFFFF');
-                    marginPath.setAttribute('stroke', '#000000');
-                    marginPath.setAttribute('stroke-width', '1');
+                    marginPath.setAttribute('d', 'M 335 10 L 370 10 L 390 59 L 370 108 L 335 108 Z');
+                    marginPath.setAttribute('fill', '#D1D5DB');
+                    marginPath.setAttribute('stroke', 'none');
                     modelSvg.appendChild(marginPath);
                     
                     // Add "Margin" text (rotated, black)
                     const marginText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                    marginText.setAttribute('x', '362');
+                    marginText.setAttribute('x', '355');
                     marginText.setAttribute('y', '59');
                     marginText.setAttribute('font-family', 'Inter, sans-serif');
                     marginText.setAttribute('font-size', '10');
                     marginText.setAttribute('font-weight', '600');
                     marginText.setAttribute('fill', '#000000');
                     marginText.setAttribute('text-anchor', 'middle');
-                    marginText.setAttribute('transform', 'rotate(90, 362, 59)');
+                    marginText.setAttribute('transform', 'rotate(90, 355, 59)');
                     marginText.textContent = 'Margin';
                     modelSvg.appendChild(marginText);
                     
