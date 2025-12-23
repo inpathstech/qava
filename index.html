@@ -7329,16 +7329,18 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                 oldProjects: [
                     {
                         name: 'Operating Model Design',
+                        heading: 'Companies that redesign their operating models grow 40% faster after Series A — McKinsey',
                         price: 220,
-                        purpose: 'Redesign how your business runs with Qava experts who apply leading frameworks and AI simulations to align people, process, and performance.',
+                        purpose: 'Redesign how your business runs with Qava talent who apply leading frameworks and AI simulations to align people, process, and performance.',
                         benefits: [
                             'Clarifies ownership and accountability',
                             'Aligns structure to strategy',
                             'Enables faster, more efficient execution'
                         ],
-                        stat: '📊 Companies that redesign their operating models grow 40% faster after Series A — McKinsey',
-                        quote: '"You do not build a business—you build people, and then people build the business."',
-                        quoteAuthor: '— Zig Ziglar'
+                        stat: null,
+                        quote: null,
+                        quoteAuthor: null,
+                        hasOperatingModel: true
                     },
                     {
                         name: 'Process Improvement',
@@ -7710,7 +7712,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         benefitItem.className = 'benefit-item';
                         
                         // Remove bottom margin/padding from last benefit when followed by visual
-                        if (index === project.benefits.length - 1 && (project.hasJourneyMap || project.grantBoxes || project.hasGTMChart)) {
+                        if (index === project.benefits.length - 1 && (project.hasJourneyMap || project.grantBoxes || project.hasGTMChart || project.hasOperatingModel)) {
                             benefitItem.style.marginBottom = '0';
                             benefitItem.style.paddingBottom = '0';
                         }
@@ -9269,10 +9271,116 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     previewBenefits.appendChild(quoteItem);
                 }
                 
+                // Add Operating Model visualization if available (for Operating Model Design)
+                if (project.hasOperatingModel) {
+                    const modelContainer = document.createElement('div');
+                    modelContainer.style.marginTop = '16px';
+                    
+                    // Create SVG for Operating Model (Value Chain)
+                    const modelSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    modelSvg.setAttribute('viewBox', '0 0 400 140');
+                    modelSvg.style.width = '100%';
+                    modelSvg.style.height = '140px';
+                    modelSvg.style.maxWidth = '100%';
+                    
+                    // Support activities (top section) - 4 horizontal bars
+                    const supportActivities = [
+                        { label: 'Firm Infrastructure', y: 10 },
+                        { label: 'Human Resource Management', y: 30 },
+                        { label: 'Technology Development', y: 50 },
+                        { label: 'Procurement', y: 70 }
+                    ];
+                    
+                    supportActivities.forEach(activity => {
+                        // Create rectangle for support activity
+                        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                        rect.setAttribute('x', '10');
+                        rect.setAttribute('y', activity.y.toString());
+                        rect.setAttribute('width', '320');
+                        rect.setAttribute('height', '16');
+                        rect.setAttribute('fill', '#E6D9F5');
+                        rect.setAttribute('stroke', 'none');
+                        rect.setAttribute('rx', '2');
+                        modelSvg.appendChild(rect);
+                        
+                        // Add text label
+                        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                        text.setAttribute('x', '170');
+                        text.setAttribute('y', (activity.y + 11).toString());
+                        text.setAttribute('font-family', 'Inter, sans-serif');
+                        text.setAttribute('font-size', '8');
+                        text.setAttribute('font-weight', '400');
+                        text.setAttribute('fill', '#000000');
+                        text.setAttribute('text-anchor', 'middle');
+                        text.textContent = activity.label;
+                        modelSvg.appendChild(text);
+                    });
+                    
+                    // Primary activities (bottom section) - 5 columns
+                    const primaryActivities = [
+                        { label: 'Inbound\nLogistics', x: 10, width: 60 },
+                        { label: 'Operations', x: 74, width: 60 },
+                        { label: 'Outbound\nLogistics', x: 138, width: 60 },
+                        { label: 'Marketing\n& Sales', x: 202, width: 60 },
+                        { label: 'Service', x: 266, width: 64 }
+                    ];
+                    
+                    primaryActivities.forEach(activity => {
+                        // Create rectangle for primary activity
+                        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                        rect.setAttribute('x', activity.x.toString());
+                        rect.setAttribute('y', '94');
+                        rect.setAttribute('width', activity.width.toString());
+                        rect.setAttribute('height', '36');
+                        rect.setAttribute('fill', '#E6D9F5');
+                        rect.setAttribute('stroke', 'none');
+                        rect.setAttribute('rx', '2');
+                        modelSvg.appendChild(rect);
+                        
+                        // Add text label (handle multiline)
+                        const lines = activity.label.split('\n');
+                        lines.forEach((line, index) => {
+                            const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                            text.setAttribute('x', (activity.x + activity.width / 2).toString());
+                            text.setAttribute('y', (106 + (index * 9)).toString());
+                            text.setAttribute('font-family', 'Inter, sans-serif');
+                            text.setAttribute('font-size', '8');
+                            text.setAttribute('font-weight', '400');
+                            text.setAttribute('fill', '#000000');
+                            text.setAttribute('text-anchor', 'middle');
+                            text.textContent = line;
+                            modelSvg.appendChild(text);
+                        });
+                    });
+                    
+                    // Margin section (right side) - purple trapezoid/arrow
+                    const marginPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    marginPath.setAttribute('d', 'M 335 10 L 390 10 L 390 130 L 335 130 L 350 70 Z');
+                    marginPath.setAttribute('fill', '#7C3AED');
+                    marginPath.setAttribute('stroke', 'none');
+                    modelSvg.appendChild(marginPath);
+                    
+                    // Add "Margin" text (rotated)
+                    const marginText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    marginText.setAttribute('x', '362');
+                    marginText.setAttribute('y', '70');
+                    marginText.setAttribute('font-family', 'Inter, sans-serif');
+                    marginText.setAttribute('font-size', '10');
+                    marginText.setAttribute('font-weight', '600');
+                    marginText.setAttribute('fill', '#FFFFFF');
+                    marginText.setAttribute('text-anchor', 'middle');
+                    marginText.setAttribute('transform', 'rotate(90, 362, 70)');
+                    marginText.textContent = 'Margin';
+                    modelSvg.appendChild(marginText);
+                    
+                    modelContainer.appendChild(modelSvg);
+                    previewBenefits.appendChild(modelContainer);
+                }
+                
                 // Add price box at the bottom, aligned to left
                 const priceSection = document.createElement('div');
-                // Adjust spacing for Grant Application, Customer Journey Map, GTM Chart, and Growth Chart
-                priceSection.style.marginTop = project.grantBoxes ? '2px' : (project.hasJourneyMap ? '10px' : (project.hasGTMChart || project.hasGrowthChart ? '16px' : '16px'));
+                // Adjust spacing for Grant Application, Customer Journey Map, GTM Chart, Growth Chart, and Operating Model
+                priceSection.style.marginTop = project.grantBoxes ? '2px' : (project.hasJourneyMap ? '10px' : (project.hasGTMChart || project.hasGrowthChart || project.hasOperatingModel ? '16px' : '16px'));
                 
                 const priceBox = document.createElement('a');
                 priceBox.href = 'https://app.qava.ai/';
