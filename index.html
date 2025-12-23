@@ -9337,17 +9337,23 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         rect.setAttribute('rx', '2');
                         modelSvg.appendChild(rect);
                         
-                        // Add text label (handle multiline)
+                        // Add text label (handle multiline) - centered vertically
                         const lines = activity.label.split('\n');
+                        const lineHeight = 9;
+                        const totalTextHeight = lines.length * lineHeight;
+                        const boxCenterY = 76 + 16; // y + height/2
+                        const startY = boxCenterY - (totalTextHeight / 2) + (lineHeight / 2);
+                        
                         lines.forEach((line, index) => {
                             const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                             text.setAttribute('x', (activity.x + activity.width / 2).toString());
-                            text.setAttribute('y', (86 + (index * 9)).toString());
+                            text.setAttribute('y', (startY + (index * lineHeight)).toString());
                             text.setAttribute('font-family', 'Inter, sans-serif');
                             text.setAttribute('font-size', '8');
                             text.setAttribute('font-weight', '400');
                             text.setAttribute('fill', '#000000');
                             text.setAttribute('text-anchor', 'middle');
+                            text.setAttribute('dominant-baseline', 'middle');
                             text.textContent = line;
                             modelSvg.appendChild(text);
                         });
