@@ -8617,16 +8617,17 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     const techContainer = document.createElement('div');
                     techContainer.style.display = 'flex';
                     techContainer.style.alignItems = 'center';
-                    techContainer.style.gap = '8px';
+                    techContainer.style.gap = '6px';
                     techContainer.style.marginTop = '16px';
                     techContainer.style.flexWrap = 'nowrap';
-                    techContainer.style.overflowX = 'auto';
+                    techContainer.style.width = '100%';
                     
                     project.techRationalizationBoxes.forEach((box, index) => {
                         // Create box
                         const boxElement = document.createElement('div');
-                        boxElement.style.width = '140px';
-                        boxElement.style.flexShrink = '0';
+                        boxElement.style.flex = '1 1 0';
+                        boxElement.style.minWidth = '130px';
+                        boxElement.style.maxWidth = '140px';
                         boxElement.style.padding = '12px 8px';
                         boxElement.style.border = '1px solid #D1D5DB';
                         boxElement.style.borderRadius = '4px';
@@ -8640,9 +8641,9 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         
                         // Add title with highlight
                         const titleSpan = document.createElement('span');
-                        titleSpan.style.backgroundColor = '#EAF0FF';
-                        titleSpan.style.padding = '2px 4px';
-                        titleSpan.style.borderRadius = '2px';
+                        titleSpan.style.background = 'linear-gradient(180deg, transparent 60%, rgba(15, 98, 254, 0.1) 60%)';
+                        titleSpan.style.padding = '0 4px';
+                        titleSpan.style.display = 'inline';
                         titleSpan.textContent = box.title;
                         boxElement.appendChild(titleSpan);
                         
