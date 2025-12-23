@@ -7344,16 +7344,18 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     },
                     {
                         name: 'Process Improvement',
+                        heading: 'Process redesign can increase productivity by up to 25% <span style="font-weight: 300;">— Forbes</span>',
                         price: 210,
-                        purpose: 'Streamline operations with Qava professionals who apply Lean and Six Sigma principles alongside automation tools for rapid efficiency gains.',
+                        purpose: 'Streamline operations with Qava talent who apply process principles alongside automation tools for rapid efficiency gains.',
                         benefits: [
                             'Removes bottlenecks and delays',
                             'Standardizes repeatable processes',
                             'Improves quality while reducing cost'
                         ],
-                        stat: '📊 Process redesign can increase productivity by up to 25% — Forbes',
-                        quote: '"Speed is useful only if you are heading in the right direction."',
-                        quoteAuthor: '— Mike Krzyzewski'
+                        stat: null,
+                        quote: null,
+                        quoteAuthor: null,
+                        hasProcessFlow: true
                     },
                     {
                         name: 'Technology Rationalization',
@@ -7712,7 +7714,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         benefitItem.className = 'benefit-item';
                         
                         // Remove bottom margin/padding from last benefit when followed by visual
-                        if (index === project.benefits.length - 1 && (project.hasJourneyMap || project.grantBoxes || project.hasGTMChart || project.hasOperatingModel)) {
+                        if (index === project.benefits.length - 1 && (project.hasJourneyMap || project.grantBoxes || project.hasGTMChart || project.hasOperatingModel || project.hasProcessFlow)) {
                             benefitItem.style.marginBottom = '0';
                             benefitItem.style.paddingBottom = '0';
                         }
@@ -9383,10 +9385,72 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     previewBenefits.appendChild(modelContainer);
                 }
                 
+                // Add Process Flow visualization if available (for Process Improvement)
+                if (project.hasProcessFlow) {
+                    const flowContainer = document.createElement('div');
+                    flowContainer.style.marginTop = '8px';
+                    
+                    // Create SVG for Process Flow
+                    const flowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    flowSvg.setAttribute('viewBox', '0 0 400 120');
+                    flowSvg.style.width = '100%';
+                    flowSvg.style.height = '120px';
+                    flowSvg.style.maxWidth = '100%';
+                    
+                    // Process steps with connectors
+                    const steps = [
+                        { x: 20, y: 30, size: 35, highlight: false },
+                        { x: 100, y: 15, size: 35, highlight: true },
+                        { x: 180, y: 50, size: 30, highlight: false },
+                        { x: 260, y: 15, size: 35, highlight: true },
+                        { x: 340, y: 50, size: 30, highlight: false }
+                    ];
+                    
+                    // Draw connecting lines between steps
+                    for (let i = 0; i < steps.length - 1; i++) {
+                        const currentStep = steps[i];
+                        const nextStep = steps[i + 1];
+                        
+                        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                        line.setAttribute('x1', (currentStep.x + currentStep.size / 2).toString());
+                        line.setAttribute('y1', (currentStep.y + currentStep.size / 2).toString());
+                        line.setAttribute('x2', (nextStep.x + nextStep.size / 2).toString());
+                        line.setAttribute('y2', (nextStep.y + nextStep.size / 2).toString());
+                        line.setAttribute('stroke', '#000000');
+                        line.setAttribute('stroke-width', '1.5');
+                        flowSvg.appendChild(line);
+                    }
+                    
+                    // Draw process step boxes
+                    steps.forEach((step, index) => {
+                        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                        rect.setAttribute('x', step.x.toString());
+                        rect.setAttribute('y', step.y.toString());
+                        rect.setAttribute('width', step.size.toString());
+                        rect.setAttribute('height', step.size.toString());
+                        rect.setAttribute('fill', step.highlight ? '#EAF0FF' : '#F3F4F6');
+                        rect.setAttribute('stroke', '#000000');
+                        rect.setAttribute('stroke-width', '1');
+                        rect.setAttribute('rx', '4');
+                        flowSvg.appendChild(rect);
+                        
+                        // Add small dot in center of each box
+                        const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                        dot.setAttribute('cx', (step.x + step.size / 2).toString());
+                        dot.setAttribute('cy', (step.y + step.size / 2).toString());
+                        dot.setAttribute('r', '3');
+                        dot.setAttribute('fill', '#000000');
+                        flowSvg.appendChild(dot);
+                    });
+                    
+                    flowContainer.appendChild(flowSvg);
+                    previewBenefits.appendChild(flowContainer);
+                }
+                
                 // Add price box at the bottom, aligned to left
                 const priceSection = document.createElement('div');
-                // Adjust spacing for Grant Application, Customer Journey Map, GTM Chart, Growth Chart, and Operating Model
-                priceSection.style.marginTop = project.grantBoxes ? '2px' : (project.hasJourneyMap ? '10px' : (project.hasGTMChart || project.hasGrowthChart || project.hasOperatingModel ? '16px' : '16px'));
+                // Adjust spacing for Grant Application, Customer Journey Map, GTM Chart, Growth Chart, Operating Model, and Process Flow
+                priceSection.style.marginTop = project.grantBoxes ? '2px' : (project.hasJourneyMap ? '10px' : (project.hasGTMChart || project.hasGrowthChart || project.hasOperatingModel || project.hasProcessFlow ? '16px' : '16px'));
                 
                 const priceBox = document.createElement('a');
                 priceBox.href = 'https://app.qava.ai/';
