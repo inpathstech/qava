@@ -7571,16 +7571,23 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     },
                     {
                         name: 'Tariff Impact Assessment',
+                        heading: 'Trade-related adjustments can impact up to 15% of total COGS <span style="font-weight: 300;">— World Bank</span>',
                         price: 170,
-                        purpose: 'Stay ahead of global changes with Qava economists who model tariff and policy impacts using data-driven forecasting tools.',
+                        purpose: 'Stay ahead of global changes with Qava talent who model tariff and policy impacts using data-driven forecasting tools.',
                         benefits: [
-                            'Identifies risk in your supply chain',
-                            'Supports pricing and sourcing strategy',
-                            'Protects profitability and margins'
+                            'Identify risk in your supply chain',
+                            'Support pricing and sourcing strategy',
+                            'Protect profitability and margins'
                         ],
-                        stat: '📊 Trade-related adjustments can impact up to 15% of total COGS — World Bank',
-                        quote: '"The essence of strategy is choosing what not to do."',
-                        quoteAuthor: '— Michael Porter'
+                        stat: null,
+                        quote: null,
+                        quoteAuthor: null,
+                        tariffAssessmentBoxes: [
+                            { title: 'Scope & Exposure Mapping' },
+                            { title: 'Quantify Financial Impact' },
+                            { title: 'Identify & Evaluate Options' },
+                            { title: 'Decide, Execute & Monitor' }
+                        ]
                     },
                     {
                         name: 'Pricing Strategy',
@@ -7772,7 +7779,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         benefitItem.className = 'benefit-item';
                         
                         // Remove bottom margin/padding from last benefit when followed by visual
-                        if (index === project.benefits.length - 1 && (project.hasJourneyMap || project.grantBoxes || project.hasGTMChart || project.hasOperatingModel || project.hasProcessFlow || project.techRationalizationBoxes || project.hasSystemMigration || project.vendorStrategyBoxes || project.orgDesignBoxes || project.costOptimizationBoxes || project.innovationProjectsBoxes || project.digitalTransformationBoxes || project.dataAnalysisBoxes || project.dataStrategyBoxes)) {
+                        if (index === project.benefits.length - 1 && (project.hasJourneyMap || project.grantBoxes || project.hasGTMChart || project.hasOperatingModel || project.hasProcessFlow || project.techRationalizationBoxes || project.hasSystemMigration || project.vendorStrategyBoxes || project.orgDesignBoxes || project.costOptimizationBoxes || project.innovationProjectsBoxes || project.digitalTransformationBoxes || project.dataAnalysisBoxes || project.dataStrategyBoxes || project.tariffAssessmentBoxes)) {
                             benefitItem.style.marginBottom = '0';
                             benefitItem.style.paddingBottom = '0';
                         }
@@ -9079,6 +9086,58 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                     previewBenefits.appendChild(strategyContainer);
                 }
                 
+                // Add Tariff Assessment boxes if available (for Tariff Impact Assessment)
+                if (project.tariffAssessmentBoxes && Array.isArray(project.tariffAssessmentBoxes)) {
+                    const tariffContainer = document.createElement('div');
+                    tariffContainer.style.display = 'flex';
+                    tariffContainer.style.alignItems = 'center';
+                    tariffContainer.style.gap = '6px';
+                    tariffContainer.style.marginTop = '16px';
+                    tariffContainer.style.flexWrap = 'nowrap';
+                    tariffContainer.style.justifyContent = 'flex-start';
+                    tariffContainer.style.maxWidth = '100%';
+                    tariffContainer.style.overflow = 'visible';
+                    
+                    project.tariffAssessmentBoxes.forEach((box, index) => {
+                        // Create box
+                        const boxElement = document.createElement('div');
+                        boxElement.style.width = '100px';
+                        boxElement.style.flexShrink = '0';
+                        boxElement.style.padding = '10px 6px';
+                        boxElement.style.border = '1px solid #D1D5DB';
+                        boxElement.style.borderRadius = '4px';
+                        boxElement.style.backgroundColor = '#FFFFFF';
+                        boxElement.style.textAlign = 'center';
+                        boxElement.style.fontSize = '10px';
+                        boxElement.style.fontWeight = '500';
+                        boxElement.style.color = '#000000';
+                        boxElement.style.lineHeight = '1.3';
+                        boxElement.style.whiteSpace = 'normal';
+                        
+                        // Add title with highlight
+                        const titleSpan = document.createElement('span');
+                        titleSpan.style.background = 'linear-gradient(180deg, transparent 60%, rgba(15, 98, 254, 0.1) 60%)';
+                        titleSpan.style.padding = '0 4px';
+                        titleSpan.style.display = 'inline';
+                        titleSpan.textContent = box.title;
+                        boxElement.appendChild(titleSpan);
+                        
+                        tariffContainer.appendChild(boxElement);
+                        
+                        // Add arrow between boxes (except after the last one)
+                        if (index < project.tariffAssessmentBoxes.length - 1) {
+                            const arrow = document.createElement('div');
+                            arrow.style.fontSize = '12px';
+                            arrow.style.color = '#D1D5DB';
+                            arrow.style.flexShrink = '0';
+                            arrow.textContent = '→';
+                            tariffContainer.appendChild(arrow);
+                        }
+                    });
+                    
+                    previewBenefits.appendChild(tariffContainer);
+                }
+                
                 // Add Pricing Matrix if available (for Pricing Strategy)
                 if (project.hasPricingMatrix) {
                     const matrixContainer = document.createElement('div');
@@ -10100,8 +10159,8 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                 
                 // Add price box at the bottom, aligned to left
                 const priceSection = document.createElement('div');
-                // Adjust spacing for Grant Application, Customer Journey Map, GTM Chart, Growth Chart, Operating Model, Process Flow, Tech Rationalization, System Migration, Vendor Strategy, Org Design, Cost Optimization, Innovation Projects, Digital Transformation, Data Analysis, and Data Strategy
-                priceSection.style.marginTop = project.grantBoxes ? '2px' : (project.hasJourneyMap ? '10px' : (project.hasGTMChart || project.hasGrowthChart || project.hasOperatingModel || project.hasProcessFlow || project.techRationalizationBoxes || project.hasSystemMigration || project.vendorStrategyBoxes || project.orgDesignBoxes || project.costOptimizationBoxes || project.innovationProjectsBoxes || project.digitalTransformationBoxes || project.dataAnalysisBoxes || project.dataStrategyBoxes ? '16px' : '16px'));
+                // Adjust spacing for Grant Application, Customer Journey Map, GTM Chart, Growth Chart, Operating Model, Process Flow, Tech Rationalization, System Migration, Vendor Strategy, Org Design, Cost Optimization, Innovation Projects, Digital Transformation, Data Analysis, Data Strategy, and Tariff Assessment
+                priceSection.style.marginTop = project.grantBoxes ? '2px' : (project.hasJourneyMap ? '10px' : (project.hasGTMChart || project.hasGrowthChart || project.hasOperatingModel || project.hasProcessFlow || project.techRationalizationBoxes || project.hasSystemMigration || project.vendorStrategyBoxes || project.orgDesignBoxes || project.costOptimizationBoxes || project.innovationProjectsBoxes || project.digitalTransformationBoxes || project.dataAnalysisBoxes || project.dataStrategyBoxes || project.tariffAssessmentBoxes ? '16px' : '16px'));
                 
                 const priceBox = document.createElement('a');
                 priceBox.href = 'https://app.qava.ai/';
