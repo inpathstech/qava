@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+`<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -500,7 +500,7 @@
         .hero-section {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 80px 24px 60px 24px;
+            padding: 80px 24px 16px 24px;
             text-align: center;
         }
 
@@ -532,6 +532,120 @@
         .hero-subtext strong {
             font-weight: 600;
             color: #111827;
+        }
+
+        .path-selection-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            max-width: 1100px;
+            margin: 48px auto 0 auto;
+            padding: 0 32px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%;
+        }
+
+        .path-selection-wrapper.has-selection {
+            margin-top: 24px;
+            padding: 0;
+            max-width: 100%;
+        }
+
+        .selected-button-container {
+            width: 100%;
+            max-width: 700px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+            padding: 0;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .selected-button-container .path-card {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .selected-description {
+            max-width: 700px;
+            margin: 16px auto 8px auto;
+            padding: 0;
+            text-align: left;
+            animation: fadeIn 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .selected-description p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #000000;
+            font-weight: 300;
+            margin: 0 0 4px 0;
+        }
+
+        .selected-description p:last-child {
+            margin-bottom: 0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .path-columns-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .path-section-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .path-section-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #000000;
+            margin: 0 0 20px 0;
+            padding: 0;
+            text-align: left;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 1;
+        }
+
+        .path-section-title.hidden {
+            opacity: 0;
+            margin: 0;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .path-section-title .highlight {
+            background: linear-gradient(180deg, transparent 60%, rgba(15, 98, 254, 0.1) 60%);
+            padding: 0 4px;
+            display: inline;
+        }
+
+        .path-selection-column {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hero-section .path-selection {
+            margin-top: 0;
         }
 
         /* Ideas Animation Styles */
@@ -685,320 +799,6 @@
             line-height: 1.6;
             max-width: 800px;
             margin: 0 auto 40px;
-        }
-
-        /* Stage Cards Styles - matching index.html */
-        .stage-cards-container {
-            display: flex;
-            align-items: stretch;
-            gap: 8px;
-            margin-top: 0;
-            max-width: 1100px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .stage-arrow {
-            font-size: 16px;
-            font-weight: 300;
-            color: #DEDEDE;
-            transition: color 0.2s ease;
-            user-select: none;
-            display: flex;
-            align-items: center;
-            padding-top: 8px;
-        }
-        
-        .stage-card.active + .stage-arrow {
-            color: #000000;
-        }
-
-        .stage-card {
-            background: #fafafa;
-            border-radius: 5px;
-            padding: 16px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            text-align: left;
-            transition: all 0.2s ease;
-            min-height: 32px;
-            height: auto;
-            cursor: pointer;
-            position: relative;
-            border: none;
-        }
-
-        .stage-card:hover {
-            background: white;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-        }
-
-        .stage-card.active {
-            background: white;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-        }
-
-        .stage-card-badge {
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            padding: 2px 12px;
-            font-family: 'Inter', sans-serif;
-            font-size: 10px;
-            font-weight: 400;
-            color: #ddd;
-            white-space: nowrap;
-            z-index: 1;
-            transition: all 0.2s ease;
-        }
-
-        .stage-card:hover .stage-card-badge,
-        .stage-card.active .stage-card-badge {
-            background: #0F62FE;
-            border: 1px solid #0F62FE;
-            color: #ffffff;
-        }
-
-        .stage-card-title {
-            font-family: 'Inter', sans-serif;
-            font-size: 16px;
-            font-weight: 600;
-            color: #000000;
-            margin: 0;
-            line-height: 1.3;
-        }
-
-        .stage-card-description {
-            font-family: 'Inter', sans-serif;
-            font-size: 12px;
-            font-weight: 300;
-            color: #6B6B6B;
-            line-height: 1.4;
-            margin: 8px 0 0 0;
-        }
-
-        /* Stage Details Panel - Exact index.html styles */
-        .stage-details-panel {
-            margin-top: 20px;
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            height: 400px;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            box-sizing: border-box;
-            max-width: 1400px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .preview-content {
-            display: flex;
-            gap: 40px;
-            overflow: visible;
-            align-items: stretch;
-        }
-
-        .preview-left {
-            flex: 0 0 260px;
-            padding-right: 30px;
-            overflow: visible;
-            border-right: 1px solid #d0d0d0;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .preview-projects-list {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            gap: 8px;
-            padding-bottom: 4px;
-            flex: 1;
-            align-content: flex-start;
-        }
-
-        .project-list-item {
-            font-family: 'Inter', sans-serif;
-            font-size: 13px;
-            font-weight: 300;
-            color: #000000;
-            padding: 6px 12px 6px 10px;
-            line-height: 1.4;
-            cursor: pointer;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            background: white;
-            display: flex;
-            align-items: center;
-            white-space: nowrap;
-        }
-
-        .project-list-item:hover {
-            background: #F3F4F6;
-            color: #000000;
-            font-weight: 300;
-        }
-        
-        .project-list-item.active-project {
-            background: #000000;
-            color: white;
-            font-weight: 300;
-        }
-
-        /* Checkbox styles */
-        .project-checkbox-wrapper {
-            display: inline-flex;
-            align-items: center;
-            margin-right: 8px;
-            width: 0;
-            opacity: 0;
-            overflow: hidden;
-            transition: width 0.3s ease, opacity 0.3s ease, margin-right 0.3s ease;
-        }
-
-        .project-checkbox-wrapper.visible {
-            width: 18px;
-            opacity: 1;
-            margin-right: 8px;
-        }
-
-        .project-checkbox {
-            width: 18px;
-            height: 18px;
-            border: 1px solid #d1d5db;
-            border-radius: 4px;
-            background: white;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .project-checkbox.checked {
-            background: #000000;
-            border-color: #000000;
-        }
-
-        .project-checkbox svg {
-            opacity: 0;
-            transform: scale(0);
-            transition: all 0.2s ease;
-        }
-
-        .project-checkbox.checked svg {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .project-list-item {
-            display: flex;
-            align-items: center;
-        }
-
-        /* Savings bars container */
-        .savings-bars-container {
-            margin-top: 12px;
-            display: none;
-        }
-
-        .savings-bars-container.visible {
-            display: block;
-        }
-
-        .savings-bar-item {
-            margin-bottom: 12px;
-            animation: slideInBar 0.3s ease;
-        }
-
-        @keyframes slideInBar {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .savings-bar-label {
-            font-size: 11px;
-            font-weight: 400;
-            color: #000;
-            margin-bottom: 4px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .savings-amount {
-            font-weight: 500;
-            color: #0F62FE;
-        }
-
-        .savings-bar-track {
-            width: 100%;
-            height: 8px;
-            background: #e5e7eb;
-            border-radius: 4px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .savings-bar-fill {
-            height: 100%;
-            background: #0F62FE;
-            border-radius: 4px;
-            transition: width 0.5s ease;
-            position: relative;
-        }
-
-        .preview-right {
-            flex: 1;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            text-align: left;
-        }
-
-        .preview-image {
-            display: none;
-        }
-
-        .preview-benefits {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            flex: 1;
-            text-align: left;
-        }
-
-        .benefit-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            font-weight: 300;
-            line-height: 1.4;
-            color: #333;
-        }
-
-        .benefit-checkmark {
-            flex-shrink: 0;
-            font-size: 14px;
         }
 
         .page-header {
@@ -1295,6 +1095,608 @@
             position: relative;
         }
 
+        /* Questionnaire Section */
+        .questionnaire-section {
+            background: transparent;
+            padding: 0px 24px 40px 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .questionnaire-container {
+            max-width: 700px;
+            width: 100%;
+        }
+
+        .questionnaire-title {
+            font-size: 36px;
+            font-weight: 600;
+            line-height: 1.2;
+            color: #000000;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .questionnaire-subtitle {
+            font-size: 18px;
+            font-weight: 400;
+            color: #666666;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .path-selection {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 0;
+        }
+
+        .path-card {
+            background: #fafafa;
+            border: none;
+            border-radius: 8px;
+            padding: 16px 16px 12px 16px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            text-align: left;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            height: auto;
+            min-height: 110px;
+            width: 100%;
+        }
+
+        .path-card.expanded {
+            height: auto;
+            min-height: auto;
+            width: 100%;
+            max-width: 100%;
+            padding: 14px 18px 12px 18px;
+        }
+
+        .path-card.expanded .path-card-content {
+            gap: 4px;
+        }
+
+        .path-card.expanded .path-text {
+            gap: 2px;
+            width: auto;
+        }
+
+        .path-card:hover {
+            background: white;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .path-card:focus {
+            outline: none;
+            background: white;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .path-card.selected {
+            background: white;
+            border: 1px solid #000000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+
+        .path-card-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .path-text {
+            flex: 1;
+            line-height: 1.4;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            width: 100%;
+        }
+
+        .path-card h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #000000;
+            margin: 0;
+            padding: 0;
+            padding-right: 28px;
+            line-height: 1.4;
+            letter-spacing: -0.01em;
+            text-align: left;
+        }
+
+        .path-subtext {
+            font-size: 12px;
+            font-weight: 300;
+            color: #666666;
+            line-height: 1.4;
+            margin: 0;
+            padding: 0;
+            display: block;
+            text-align: left;
+        }
+
+        .path-card h3 strong {
+            font-weight: 600;
+        }
+
+        .path-checkbox-visible {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 18px;
+            height: 18px;
+            border: 1.5px solid #d1d5db;
+            border-radius: 4px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            background: white;
+            pointer-events: none;
+        }
+
+        .path-card.selected .path-checkbox-visible {
+            background: #000000;
+            border-color: #000000;
+        }
+
+        .path-card.selected .path-checkbox-visible::after {
+            content: '';
+            width: 8px;
+            height: 4px;
+            border-left: 1.5px solid white;
+            border-bottom: 1.5px solid white;
+            transform: rotate(-45deg);
+            position: absolute;
+        }
+
+        .path-checkbox {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+            width: 1px;
+            height: 1px;
+        }
+
+        .question-flow {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .progress-bar {
+            width: 100%;
+            max-width: 700px;
+            margin: 32px auto 13px auto;
+            height: 2px;
+            background: #e5e7eb;
+            border-radius: 1px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #0F62FE, #0053E5);
+            transition: width 0.4s ease;
+            width: 0%;
+        }
+
+        .progress-text {
+            font-size: 14px;
+            font-weight: 300;
+            color: #666666;
+            text-align: center;
+            margin-bottom: 32px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .progress-text:hover {
+            color: #000000;
+        }
+
+        .question-card {
+            background: transparent;
+            border-radius: 0;
+            padding: 0;
+            box-shadow: none;
+            margin-bottom: 0;
+            border-top: none;
+        }
+
+        .question-card:first-child {
+            border-top: none;
+        }
+
+        #questionsContainer {
+            width: 100%;
+        }
+
+        .question-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+
+        .answer-options {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .answer-option {
+            background: #fafafa;
+            border: 1px solid transparent;
+            border-radius: 6px;
+            padding: 6px 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            flex-shrink: 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            color: #000000;
+            line-height: 1.4;
+        }
+
+        .answer-option:hover {
+            background: white;
+            color: #000000;
+        }
+
+        .answer-option .project-icon {
+            font-size: 14px;
+            line-height: 1;
+        }
+
+        .answer-option.selected {
+            background: white !important;
+            color: #000000;
+            font-weight: 300;
+            border: 1px solid #000000 !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+
+        .explanation-box {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            margin-top: 12px;
+            animation: slideIn 0.3s ease;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .explanation-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+            display: none;
+        }
+
+        .explanation-content h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 8px;
+            display: none;
+        }
+
+        .explanation-content p {
+            font-size: 16px;
+            color: #000000;
+            line-height: 1.6;
+            margin-bottom: 0;
+            font-weight: 300;
+            text-align: left;
+        }
+
+        .explanation-text {
+            font-size: 16px;
+            color: #000000;
+            line-height: 1.6;
+            margin-top: 12px;
+            padding-top: 0;
+            font-weight: 300;
+            text-align: left;
+            display: none;
+            border-top: none;
+        }
+
+        .explanation-text:first-of-type {
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .next-button {
+            background: #0F62FE;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            display: none;
+        }
+
+        .next-button:hover {
+            background: #0053E5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(15, 98, 254, 0.3);
+        }
+
+        .back-button {
+            background: transparent;
+            color: #666666;
+            border: none;
+            border-radius: 0;
+            padding: 8px 0px;
+            font-size: 14px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            margin-bottom: 16px;
+            display: none !important;
+            align-items: center;
+            gap: 4px;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            color: #000000;
+            text-decoration: underline;
+        }
+
+        .bottom-back-button {
+            background: transparent;
+            color: #666666;
+            border: none;
+            border-radius: 0;
+            padding: 8px 0px;
+            font-size: 14px;
+            font-weight: 300;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            text-decoration: none;
+        }
+
+        .bottom-back-button:hover {
+            color: #000000;
+            text-decoration: underline;
+        }
+
+        .bottom-next-button {
+            background: #0F62FE;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 13px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            font-family: 'Inter', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+            margin-left: auto;
+        }
+
+        .bottom-next-button:hover {
+            background: #0053E5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
+        }
+
+        .bottom-next-button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .question-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .summary-screen {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        .summary-icon {
+            font-size: 64px;
+            margin-bottom: 24px;
+        }
+
+        .summary-title {
+            font-size: 32px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 32px;
+        }
+
+        .summary-content {
+            background: transparent;
+            border-radius: 0;
+            padding: 32px 0;
+            box-shadow: none;
+            margin-bottom: 32px;
+            text-align: left;
+        }
+
+        .summary-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .summary-item-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .summary-item-text {
+            flex: 1;
+        }
+
+        .summary-item-text h5 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 4px;
+        }
+
+        .summary-item-text p {
+            font-size: 14px;
+            color: #666666;
+            line-height: 1.5;
+            font-weight: 300;
+        }
+
+        .summary-cta {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .restart-button {
+            background: transparent;
+            color: #666666;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .restart-button:hover {
+            color: #0F62FE;
+        }
+
+        @media (max-width: 768px) {
+            .path-columns-wrapper {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .path-selection-wrapper {
+                padding: 0 24px;
+            }
+
+            .questionnaire-title {
+                font-size: 28px;
+            }
+
+            .questionnaire-subtitle {
+                font-size: 16px;
+                margin-bottom: 24px;
+            }
+
+            .path-selection {
+                gap: 12px;
+            }
+
+            .path-card {
+                padding: 14px 14px 10px 14px;
+                min-height: 100px;
+            }
+
+            .path-icon {
+                font-size: 14px;
+            }
+
+            .path-card h3 {
+                font-size: 13px;
+            }
+
+            .path-subtext {
+                font-size: 11px;
+            }
+
+            .path-checkbox-visible {
+                top: 14px;
+                right: 14px;
+                width: 16px;
+                height: 16px;
+            }
+
+            .question-text {
+                font-size: 18px;
+            }
+
+            .summary-cta {
+                flex-direction: column;
+            }
+
+            .cta-button {
+                width: 100%;
+            }
+        }
+
         /* Talent CTA Section */
         .talent-cta-section {
             background: white;
@@ -1372,16 +1774,18 @@
         }
 
         .cta-button-secondary {
-            background: white;
-            color: #000;
+            background: transparent;
+            color: #666666;
             border: none;
             font-weight: 300;
             text-decoration: none;
             position: relative;
+            font-size: 14px;
         }
 
         .cta-button-secondary:hover {
-            text-decoration: underline;
+            background: rgba(0, 0, 0, 0.04);
+            color: #000000;
         }
 
         .comparison-header {
@@ -1797,6 +2201,14 @@
         }
 
         @media (max-width: 480px) {
+            .path-card h3 {
+                font-size: 12px;
+            }
+
+            .path-subtext {
+                font-size: 10px;
+            }
+
             .stage-details-panel {
                 margin-top: 12px;
                 padding: 16px 12px;
@@ -1967,234 +2379,155 @@
         <div class="hero-section">
             <h1 class="hero-title">How Qava Works</h1>
             <div class="hero-subtext">
-                <p>Get to know why we're the best—no strings attached.</p>
-            </div>
+                <p>Get to know why we're the best in 60 seconds or less.</p>
         </div>
 
-        <!-- Figure Out What You Need Section -->
-        <div class="needs-section">
-            <img src="Sign Post.png" alt="Sign Post" class="needs-icon">
-            <h2 class="needs-title">But your idea needs legs.</h2>
-            <p class="needs-subtitle">Where are you at?</p>
+            <!-- Progress Indicator -->
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+                </div>
+            <div class="progress-text" id="progressText" style="display: none;"></div>
             
-            <!-- Stage Cards -->
-            <div class="stage-cards-container">
-                <div class="stage-card active" data-stage="build">
-                    <div class="stage-card-badge">Starting Out</div>
-                    <h3 class="stage-card-title">I want to build or launch 🚀</h3>
-                    <p class="stage-card-description">Turn your idea into a real business.</p>
+            <!-- Path Selection Buttons -->
+            <div class="path-selection-wrapper">
+                <!-- Selected button container -->
+                <div id="selectedButtonContainer" class="selected-button-container" style="display: none;"></div>
+                
+                <!-- Description text under selected button -->
+                <div id="selectedDescription" class="selected-description" style="display: none;">
+                    <p>You're in the right place! Qava is the fastest way to turn an idea into something real. Get hands-on support from top business students, graduates, and experienced professionals who can help you prepare business plans, financial models, go-to-market strategies, and more.</p>
                 </div>
                 
-                <div class="stage-arrow">></div>
-
-                <div class="stage-card" data-stage="grow">
-                    <div class="stage-card-badge">Growing Out</div>
-                    <h3 class="stage-card-title">I want to grow or raise money 🌱</h3>
-                    <p class="stage-card-description">Expand reach, attract funding, and scale impact.</p>
+                <div class="path-columns-wrapper">
+                <div class="path-section-column">
+                    <h2 class="path-section-title"><span class="highlight">Clients</span></h2>
+                    <div id="pathSelection" class="path-selection-column">
+                <div class="path-card" data-path="build" role="button" tabindex="0">
+                    <input type="checkbox" class="path-checkbox" aria-label="I want to build or launch">
+                    <div class="path-card-content">
+                        <div class="path-text">
+                            <h3><strong>I want to build or launch 🚀</strong></h3>
+                            <p class="path-subtext">Turn my idea into a real business.</p>
                 </div>
-                
-                <div class="stage-arrow">></div>
-
-                <div class="stage-card" data-stage="scale">
-                    <div class="stage-card-badge">Scaling Up</div>
-                    <h3 class="stage-card-title">I want to scale or improve ⚙️</h3>
-                    <p class="stage-card-description">Streamline operations and strengthen your foundation.</p>
                 </div>
-                
-                <div class="stage-arrow">></div>
-
-                <div class="stage-card" data-stage="measure">
-                    <div class="stage-card-badge">Measuring</div>
-                    <h3 class="stage-card-title">I want to measure or optimize 📊</h3>
-                    <p class="stage-card-description">Track performance and make smarter decisions.</p>
-                </div>
+                    <div class="path-checkbox-visible"></div>
             </div>
-
-            <!-- Stage Details Panel - index.html structure -->
-            <div class="stage-details-panel">
-                <div class="preview-content">
-                    <!-- Left Side: Project List -->
-                    <div class="preview-left">
-                        <h4 style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; color: #666; margin: 0 0 12px 0; text-transform: uppercase; letter-spacing: 0.5px; text-align: left;">Helpful Projects</h4>
-                        <div class="preview-projects-list" id="previewProjectsList">
-                            <!-- Project names will be populated by JavaScript -->
+                <div class="path-card" data-path="grow" role="button" tabindex="0">
+                    <input type="checkbox" class="path-checkbox" aria-label="I want to grow or raise money">
+                    <div class="path-card-content">
+                        <div class="path-text">
+                            <h3><strong>I want to grow or raise money 🌱</strong></h3>
+                            <p class="path-subtext">Expand reach, attract funding, and scale impact.</p>
                         </div>
                     </div>
-
-                    <!-- Right Side: Benefits -->
-                    <div class="preview-right">
-                        <h4 style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; color: #666; margin: 0 0 12px 0; text-transform: uppercase; letter-spacing: 0.5px; text-align: left;">Why this helps</h4>
-                        <div class="preview-benefits" id="previewBenefits">
-                            <!-- Benefits will be populated by JavaScript -->
+                    <div class="path-checkbox-visible"></div>
                         </div>
-                        <div class="savings-bars-wrapper" id="savingsBarsWrapper" style="padding: 4px 24px 8px 24px; display: none; background: #f9fafb; border-radius: 8px; margin-top: 16px;">
-                            <div class="savings-bars-container visible" id="savingsBarsContainer"></div>
+                <div class="path-card" data-path="scale" role="button" tabindex="0">
+                    <input type="checkbox" class="path-checkbox" aria-label="I want to scale or improve">
+                    <div class="path-card-content">
+                        <div class="path-text">
+                            <h3><strong>I want to scale or improve ⚙️</strong></h3>
+                            <p class="path-subtext">Streamline operations and strengthen your foundation.</p>
                         </div>
                     </div>
+                    <div class="path-checkbox-visible"></div>
                 </div>
+                <div class="path-card" data-path="optimize" role="button" tabindex="0">
+                    <input type="checkbox" class="path-checkbox" aria-label="I want to measure or optimize">
+                    <div class="path-card-content">
+                        <div class="path-text">
+                            <h3><strong>I want to measure or optimize 📊</strong></h3>
+                            <p class="path-subtext">Track performance and make smarter decisions.</p>
+            </div>
+        </div>
+                    <div class="path-checkbox-visible"></div>
+        </div>
             </div>
         </div>
 
-        <!-- Qava Introduction Section -->
-        <div class="needs-section">
-            <img src="Rubiks Cube.png" alt="Rubiks Cube" style="width: 80px; height: 80px; margin: 0 auto 24px auto; display: block;">
-            <h2 class="needs-title">And that's where Qava helps you.</h2>
-            <p class="needs-subtitle">Qava connects you with top talent who can help you make real progress—fast.</p>
-            <div style="max-width: 100%; margin-top: 32px; position: relative;">
-                <img src="qava-platform-screenshot.png" alt="Qava Platform" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: block;">
-                <img src="How it works/iPhone Feedback quote.svg" alt="Mobile Feedback" style="position: absolute; bottom: -40px; right: -30px; width: 150px; height: auto; z-index: 10; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); border-radius: 25px;">
+                <!-- Talent Section -->
+                <div class="path-section-column">
+                    <h2 class="path-section-title"><span class="highlight">Talent</span></h2>
+                    <div id="talentSelection" class="path-selection-column">
+                <div class="path-card" data-path="experience" role="button" tabindex="0">
+                    <input type="checkbox" class="path-checkbox" aria-label="I want to build experience">
+                    <div class="path-card-content">
+                        <div class="path-text">
+                            <h3><strong>I want to build experience ✏️</strong></h3>
+                            <p class="path-subtext">Learn by doing on real-life projects</p>
+                    </div>
+                    </div>
+                    <div class="path-checkbox-visible"></div>
+                    </div>
+                <div class="path-card" data-path="skills" role="button" tabindex="0">
+                    <input type="checkbox" class="path-checkbox" aria-label="I want to work on real-life strategy">
+                    <div class="path-card-content">
+                        <div class="path-text">
+                            <h3><strong>I want to work on real-life strategy 🧠</strong></h3>
+                            <p class="path-subtext">Apply what I know to create real impact</p>
+                    </div>
+                    </div>
+                    <div class="path-checkbox-visible"></div>
+                </div>
+                <div class="path-card" data-path="meet" role="button" tabindex="0">
+                    <input type="checkbox" class="path-checkbox" aria-label="I want to meet smart people">
+                    <div class="path-card-content">
+                        <div class="path-text">
+                            <h3><strong>I want to meet smart people 🤝</strong></h3>
+                            <p class="path-subtext">Collaborate on interesting challenges together</p>
+            </div>
+                </div>
+                    <div class="path-checkbox-visible"></div>
+                </div>
+                <div class="path-card" data-path="team" role="button" tabindex="0">
+                    <input type="checkbox" class="path-checkbox" aria-label="We're a strategy team">
+                    <div class="path-card-content">
+                        <div class="path-text">
+                            <h3><strong>We're a strategy team 👫</strong></h3>
+                            <p class="path-subtext">We want to work together on a real project</p>
             </div>
         </div>
+                    <div class="path-checkbox-visible"></div>
+        </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
 
-        <!-- How we're different Section -->
-        <div class="comparison-wrapper">
-        <div class="comparison-section">
-            <div class="comparison-header">
-                <h2 class="comparison-title">How we're different</h2>
-                <p class="comparison-subtitle">Side-by-side comparison of qava vs traditional platforms</p>
-                
-                <!-- Competitor Platforms Animation -->
-                <div class="competitor-platforms-logos" id="competitorLogos">
-                    <div class="competitor-logo-item">
-                        <img src="Competitor Platform/Upwork.png" alt="Upwork" class="competitor-logo">
+        <!-- Interactive Questionnaire Section -->
+        <div class="questionnaire-section" id="questionnaireSection" style="display: none;">
+            <div class="questionnaire-container">
+                <!-- Question Flow Container -->
+                <div id="questionFlow" class="question-flow" style="display: none;">
+                    <!-- Questions will show here one at a time -->
+                    <div id="questionsContainer"></div>
+                    
+                    <!-- Navigation buttons at the bottom -->
+                    <div class="question-navigation" id="questionNavigation" style="display: none;">
+                        <button type="button" class="bottom-back-button" id="bottomBackButton" style="display: none;">← Back</button>
+                        <button type="button" class="bottom-next-button" id="bottomNextButton" style="display: none;">Next →</button>
                     </div>
-                    <div class="competitor-logo-item">
-                        <img src="Competitor Platform/Catalant.png" alt="Catalant" class="competitor-logo">
-                    </div>
-                    <div class="competitor-logo-item">
-                        <img src="Competitor Platform/Fiverr.png" alt="Fiverr" class="competitor-logo">
-                    </div>
-                    <div class="competitor-logo-item">
-                        <img src="Competitor Platform/LinkedIn.png" alt="LinkedIn" class="competitor-logo">
-                    </div>
-                    <div class="competitor-logo-item">
-                        <img src="Competitor Platform/Toptal.png" alt="Toptal" class="competitor-logo">
-                    </div>
-                </div>
-            </div>
             
-            <div class="comparison-grid">
-                <!-- Traditional platforms -->
-                <div class="comparison-card">
-                    <h3>Traditional platforms</h3>
-                    <ul class="comparison-list">
-                        <li>
-                            <span class="cross text-red-500 text-lg font-light flex-shrink-0"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 3L15 15M15 3L3 15" stroke="#EF4444" stroke-width="1" stroke-linecap="round"/></svg></span>
-                            <span>Offshore, low-cost talent</span>
-                        </li>
-                        <li>
-                            <span class="cross text-red-500 text-lg font-light flex-shrink-0"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 3L15 15M15 3L3 15" stroke="#EF4444" stroke-width="1" stroke-linecap="round"/></svg></span>
-                            <span>Limited local market knowledge</span>
-                        </li>
-                        <li>
-                            <span class="cross text-red-500 text-lg font-light flex-shrink-0"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 3L15 15M15 3L3 15" stroke="#EF4444" stroke-width="1" stroke-linecap="round"/></svg></span>
-                            <span>No verified professional credentials</span>
-                        </li>
-                        <li>
-                            <span class="cross text-red-500 text-lg font-light flex-shrink-0"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 3L15 15M15 3L3 15" stroke="#EF4444" stroke-width="1" stroke-linecap="round"/></svg></span>
-                            <span>No long-term alignment or skin in the game</span>
-                        </li>
-                        <li>
-                            <span class="cross text-red-500 text-lg font-light flex-shrink-0"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 3L15 15M15 3L3 15" stroke="#EF4444" stroke-width="1" stroke-linecap="round"/></svg></span>
-                            <span>Flood of unfiltered applicants</span>
-                        </li>
-                        <li>
-                            <span class="cross text-red-500 text-lg font-light flex-shrink-0"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 3L15 15M15 3L3 15" stroke="#EF4444" stroke-width="1" stroke-linecap="round"/></svg></span>
-                            <span>Takes large cut of freelancer earnings</span>
-                        </li>
-                        <li>
-                            <span class="cross text-red-500 text-lg font-light flex-shrink-0"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 3L15 15M15 3L3 15" stroke="#EF4444" stroke-width="1" stroke-linecap="round"/></svg></span>
-                            <span>Incentivizes shallow, high-volume work</span>
-                        </li>
-                        <li>
-                            <span class="cross text-red-500 text-lg font-light flex-shrink-0"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 3L15 15M15 3L3 15" stroke="#EF4444" stroke-width="1" stroke-linecap="round"/></svg></span>
-                            <span>No affiliation with trusted institutions</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Qava -->
-                <div class="comparison-card">
-                    <h3>Qava</h3>
-                    <ul class="comparison-list">
-                        <li>
-                            <img src="Yes tick-1.svg" alt="✓" class="checkmark" width="18" height="18" />
-                            <span>Top-tier MBA & experienced talent</span>
-                        </li>
-                        <li>
-                            <img src="Yes tick-1.svg" alt="✓" class="checkmark" width="18" height="18" />
-                            <span>Local understanding of market/industry</span>
-                        </li>
-                        <li>
-                            <img src="Yes tick-1.svg" alt="✓" class="checkmark" width="18" height="18" />
-                            <span>Embrace latest AI tools and prompts</span>
-                        </li>
-                        <li>
-                            <img src="Yes tick-1.svg" alt="✓" class="checkmark" width="18" height="18" />
-                            <span>Open to ongoing or repeat work</span>
-                        </li>
-                        <li>
-                            <img src="Yes tick-1.svg" alt="✓" class="checkmark" width="18" height="18" />
-                            <span>Curated shortlist of high-quality candidates</span>
-                        </li>
-                        <li>
-                            <img src="Yes tick-1.svg" alt="✓" class="checkmark" width="18" height="18" />
-                            <span>Fair model that encourages quality</span>
-                        </li>
-                        <li>
-                            <img src="Yes tick-1.svg" alt="✓" class="checkmark" width="18" height="18" />
-                            <span>Connected to top universities</span>
-                        </li>
-                        <li>
-                            <img src="Yes tick-1.svg" alt="✓" class="checkmark" width="18" height="18" />
-                            <span>Designed for deep, strategic engagement</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        </div>
-
-        <!-- Talent CTA Section -->
-        <div class="talent-cta-section">
-            <div class="talent-cta-container">
-                <p class="talent-cta-subheader">Reach 1,000s of talented business graduates and students in minutes.</p>
-                
-                <!-- University Logos -->
-                <div class="talent-cta-logos">
-                    <div class="talent-logo-item">
-                        <img src="Landing Page Trusted by/MIT.png" alt="MIT Sloan">
+                    <!-- Explanation Box (shown after answer) -->
+                    <div class="explanation-box" id="explanationBox" style="display: none;">
+                        <div class="explanation-icon">💡</div>
+                        <div class="explanation-content">
+                            <h4>What this means on Qava</h4>
+                            <p id="explanationText"></p>
                     </div>
-                    <div class="talent-logo-item">
-                        <img src="Landing Page Trusted by/Stern.png" alt="NYU Stern">
-                    </div>
-                    <div class="talent-logo-item">
-                        <img src="Landing Page Trusted by/Wharton.png" alt="Wharton">
-                    </div>
-                    <div class="talent-logo-item">
-                        <img src="Landing Page Trusted by/HBS.png" alt="Harvard Business School">
-                    </div>
-                    <div class="talent-logo-item">
-                        <img src="Landing Page Trusted by/Haas.png" alt="Berkeley Haas">
-                    </div>
-                    <div class="talent-logo-item">
-                        <img src="Landing Page Trusted by/Standford.png" alt="Stanford GSB">
-                    </div>
-                    <div class="talent-logo-item">
-                        <img src="Landing Page Trusted by/Kellogg.png" alt="Northwestern Kellogg">
-                    </div>
-                    <div class="talent-logo-item">
-                        <img src="Landing Page Trusted by/Said.png" alt="Oxford Saïd">
-                    </div>
-                    <div class="talent-logo-item">
-                        <img src="Landing Page Trusted by/AGSM.jpg" alt="AGSM UNSW Business School">
+                        <button class="next-button" id="nextButton">Next Question →</button>
                     </div>
                 </div>
 
-                <!-- CTA Buttons -->
-                <div class="matching-cta-buttons" style="margin-top: 40px;">
-                    <a href="https://app.qava.ai/" class="cta-button cta-button-primary">Join for free</a>
-                    <a href="https://qava.ai/demo" class="cta-button cta-button-secondary">Request a demo</a>
+                <!-- Summary Screen -->
+                <div id="summaryScreen" class="summary-screen" style="display: none;">
+                    <h3 class="summary-title">Here's how Qava helps you ✨</h3>
+                    <div class="summary-content" id="summaryContent"></div>
+                    <div class="summary-cta">
+                        <a href="#" class="cta-button cta-button-primary" id="primaryCTA">Get Started</a>
+                        <a href="#" class="cta-button cta-button-secondary" id="secondaryCTA">Learn More</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2358,1033 +2691,830 @@
             window.addEventListener('resize', updateLineWidth);
             updateLineWidth(); // Initial check
         }
+    });
 
-        // Stage data with projects for each stage - matching index.html structure
-        const stageData = {
+    // ====== QUESTIONNAIRE FUNCTIONALITY ======
+    document.addEventListener('DOMContentLoaded', function() {
+        // Questionnaire data structure
+        const questionnaireData = {
             build: {
-                projects: ['Business Plan 🚀', 'Pitch Deck 📊', 'Financial Model 📈', 'Competitor Analysis 🥷', 'Customer Segmentation 🧍', 'Industry Analysis 🔍', 'Product Roadmap 🧸', 'Value Proposition 💙', 'Custom Project 🧠'],
-                benefits: [
-                    'Validate your business idea with a clear roadmap',
-                    'Attract investors and secure funding faster',
-                    'Understand your market and competitive advantage',
-                    'Build a strong foundation for growth'
-                ],
-                oldProjects: [
+                questions: [
                     {
-                        name: 'Business Plan',
-                        price: 245,
-                        hours: 20,
-                        purpose: '"Startups with a plan are 2.5× more likely to get funded." — Harvard Business Review',
-                        benefits: [
-                            'Your business plan turns your idea into direction, and Qava connects you with independent, highly trained students and graduates from top programs who bring structure, data, and clarity so you move forward with a plan investors trust.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
+                        question: "Where are you starting from?",
+                        options: [
+                            { text: "Just an idea 🧠", explanation: "Pressure-test your idea with top business students and graduates from elite schools before spending real money building the wrong thing — without hiring anyone full-time." },
+                            { text: "MVP or prototype 🧪", explanation: "Get fast, affordable help from sharp business minds to validate and strengthen what you've already built." },
+                            { text: "Early-stage startup 🏗️", explanation: "Access high-quality strategy support from elite students and graduates at a fraction of typical consultant or freelancer costs." },
+                            { text: "Pivot or relaunch 🔄", explanation: "Bring in fresh strategic thinking on demand to rethink direction quickly — without long engagements or high fees." }
+                        ]
                     },
                     {
-                        name: 'Pitch Deck',
-                        price: 265,
-                        hours: 18,
-                        purpose: '"Investors decide in 2–3 minutes." — Y Combinator',
-                        benefits: [
-                            'Your deck is your first impression, and Qava matches you with independent storytellers from leading programs who craft clear, compelling narratives that grab investor attention fast.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
+                        question: "What do you need the most help with right now?",
+                        options: [
+                            { text: "Business plan 📊", explanation: "Post a project in minutes and work with business students and graduates trained in modern frameworks to build an investor-ready plan — up to 90% cheaper than consultants." },
+                            { text: "Financial model 💸", explanation: "Get clean, credible financials built by analytically strong talent without paying premium consulting rates." },
+                            { text: "Go-to-market strategy 📣", explanation: "Design a focused GTM plan with motivated business talent who can deliver real outputs quickly and affordably." },
+                            { text: "Customer validation 🧩", explanation: "Run structured discovery with curious business students and graduates — fast, flexible, and low-risk." },
+                            { text: "Strategy & structure 🧠", explanation: "Add disciplined thinking to your vision with on-demand strategy support instead of expensive advisory retainers." }
+                        ]
                     },
                     {
-                        name: 'Financial Model',
-                        price: 350,
-                        hours: 16,
-                        purpose: '"Without data, you\'re just another person with an opinion." — W. Edwards Deming',
-                        benefits: [
-                            'A strong model makes your growth believable, and Qava connects you with independent analysts trained in advanced finance who build investor-grade projections grounded in rigorous, defensible assumptions.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
-                    },
-                    {
-                        name: 'Competitor Analysis',
-                        price: 140,
-                        purpose: 'Companies that monitor competitors grow 2× faster. — Harvard Business Review',
-                        benefits: [
-                            'Knowing your competitive landscape is essential, and Qava links you with independent strategists who use AI-powered research to reveal where you stand out and where the real opportunities lie.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
-                    },
-                    {
-                        name: 'Customer Segmentation',
-                        price: 70,
-                        purpose: '80% of growth leaders rely on advanced segmentation. — McKinsey',
-                        benefits: [
-                            'Not every customer drives growth, and Qava gives you access to independent marketing and analytics talent who use data and AI to identify your highest-value segments so you focus where it counts most.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
-                    },
-                    {
-                        name: 'Industry Analysis',
-                        price: 160,
-                        purpose: '"Understanding your industry is understanding your destiny." — Bain',
-                        benefits: [
-                            'A clear industry view grounds your decisions, and Qava gives you independent analysts who combine academic rigor, trend data, and AI insights to map the market forces shaping your opportunity.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
-                    },
-                    {
-                        name: 'Product Roadmap',
-                        price: 165,
-                        purpose: 'Product-led companies grow 2× faster than competitors. — OpenView',
-                        benefits: [
-                            'A clear roadmap aligns your team and communicates your vision, and Qava connects you with independent product strategists who prioritize features, balance trade-offs, and map a path from idea to impact.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
-                    },
-                    {
-                        name: 'Value Proposition',
-                        price: 145,
-                        purpose: 'Strong value propositions increase conversion by 400%. — MarketingExperiments',
-                        benefits: [
-                            'Your value proposition is why customers choose you, and Qava connects you with independent strategists who use customer insights and competitive analysis to craft messaging that resonates and converts.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
-                    },
-                    {
-                        name: 'Custom Project',
-                        price: null,
-                        purpose: 'Custom solutions deliver 3× higher ROI than standardized ones. — Harvard Business Review',
-                        benefits: [
-                            'If you need something unique, Qava connects you with independent specialists from top programs who can research, analyze, or build exactly what your business needs—fast and flexibly.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
+                        question: "How do you want to work?",
+                        options: [
+                            { text: "One-on-one collaboration 🤝", explanation: "Work directly with a top business student or graduate focused on your project — without the overhead of hiring." },
+                            { text: "Small project team 👥", explanation: "Assemble a high-caliber team of business students and graduates to tackle different parts of the problem at once, for a fraction of agency costs." },
+                            { text: "Short sprint 🎯", explanation: "Post a project in as little as 2 minutes and get focused strategy support delivered quickly, without long-term commitments." },
+                            { text: "Ongoing support 🔁", explanation: "Get ongoing, cost-effective help from motivated business talent as your needs evolve — no full-time hires required." }
+                        ]
                     }
-                ]
+                ],
+                summary: {
+                    title: "Here's how Qava helps you build ✨",
+                    points: [
+                        { icon: "🚀", title: "Turn ideas into real momentum", text: "Connect with top business students and graduates from elite schools eager to help validate ideas, build plans, and move fast without doing everything alone." },
+                        { icon: "🧠", title: "Pressure-test before you commit", text: "Get diverse perspectives early to avoid common pitfalls and build something people actually want." },
+                        { icon: "📊", title: "Build investor-ready foundations", text: "From business plans to financial models, get practical support that turns ambition into structure." },
+                        { icon: "🤝", title: "Collaborate, don't guess", text: "Work hands-on with motivated talent who care about your mission and outcomes." }
+                    ],
+                    cta: {
+                        primary: { text: "Post Your Project", link: "https://app.qava.ai/" },
+                        secondary: { text: "Request a Demo", link: "https://qava.ai/request-demo" }
+                    }
+                }
             },
             grow: {
-                image: '',
-                projects: [
-                    'Go-To-Market Strategy 📍',
-                    'Growth Plan 🌿',
-                    'Customer Journey Map 🗺️',
-                    'Partnership Strategy 🤝',
-                    'Pricing Strategy 💵',
-                    'Sales & Marketing Strategy 🧾',
-                    'Grant Application 💰',
-                    'Strategic Finance 🎯',
-                    'Custom Project 🧠'
-                ],
-                benefits: [
-                    'Scale your customer base systematically',
-                    'Attract funding from investors',
-                    'Build strategic partnerships',
-                    'Optimize pricing for maximum growth'
-                ],
-                oldProjects: [
+                questions: [
                     {
-                        name: 'Go-To-Market Strategy',
-                        price: 140,
-                        purpose: 'Companies with a defined GTM process are 50% more likely to launch successfully. — Ignition PMM',
-                        benefits: [
-                            'A strong GTM turns your product into momentum, and Qava pairs you with independent strategists who use modern frameworks and data to align your audience, positioning, and launch plan.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
+                        question: "What's your primary goal?",
+                        options: [
+                            { text: "Raise capital 🚀", explanation: "Sharpen your pitch, numbers, and narrative with analytically strong business students and graduates — without paying investor-prep consultants." },
+                            { text: "Increase revenue 📈", explanation: "Improve pricing, positioning, and GTM execution with affordable, on-demand strategy support." },
+                            { text: "Enter new markets 🌍", explanation: "Validate expansion ideas with structured research from elite business students and graduates at a low cost." },
+                            { text: "Sharpen strategy 🧠", explanation: "Bring clarity to complex decisions with flexible strategy help — when you need it, not on a retainer." }
+                        ]
                     },
                     {
-                        name: 'Growth Plan',
-                        price: 190,
-                        purpose: 'Structured growth plans help startups scale 60% faster. — TechCrunch',
-                        benefits: [
-                            'You grow faster with a clear plan, and Qava connects you with independent analysts who pinpoint your biggest levers and map out the actions that drive compounding results.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
-                    },
-                    {
-                        name: 'Customer Journey Map',
-                        price: 125,
-                        purpose: 'Brands using journey mapping see 3× higher customer satisfaction. — Forrester',
-                        benefits: [
-                            'Your journey map shows how customers truly experience your brand, and Qava connects you with independent designers and strategists who uncover friction points and help you create a smoother, more loyal customer experience.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
-                    },
-                    {
-                        name: 'Partnership Strategy',
-                        price: 160,
-                        purpose: '80% of high-growth startups credit partnerships for success. — Deloitte',
-                        benefits: [
-                            'Partnerships expand your reach, and Qava matches you with independent strategists who identify win-win partners and structure deals that create new revenue streams.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
-                    },
-                    {
-                        name: 'Pricing Strategy',
-                        price: 210,
-                        purpose: 'A 1% price increase can generate 8% more profit. — McKinsey',
-                        benefits: [
-                            'Pricing is one of your biggest levers, and Qava connects you with independent pricing specialists who use data, psychology, and AI simulations to help you find the sweet spot.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
-                    },
-                    {
-                        name: 'Sales & Marketing Strategy',
-                        price: 140,
-                        purpose: 'Aligned teams see 38% higher win rates. — HubSpot',
-                        benefits: [
-                            'Sales and marketing must work together, and Qava links you with independent strategists who build plans that attract, convert, and retain customers—all tied to measurable outcomes.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
-                    },
-                    {
-                        name: 'Grant Application',
-                        price: 175,
-                        purpose: 'Well-structured proposals are 3× more likely to win funding. — Grant Professionals Association',
-                        benefits: [
-                            'A strong grant application requires clarity and evidence, and Qava matches you with independent researchers and writers who craft data-backed proposals that stand out to funders.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
-                    },
-                    {
-                        name: 'Strategic Finance',
-                        price: 280,
-                        purpose: 'Strong finance strategies improve ROI by 33%. — Deloitte',
-                        benefits: [
-                            'Scaling requires financial clarity, and Qava connects you with independent finance strategists who translate your goals into investor-ready numbers and capital allocation plans.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
-                    },
-                    {
-                        name: 'Custom Project',
-                        price: null,
-                        purpose: 'Custom solutions deliver 3× higher ROI than standardized ones. — Harvard Business Review',
-                        benefits: [
-                            'If your challenge doesn\'t fit a box, Qava gives you access to independent specialists who combine business acumen with modern tools to solve it quickly and strategically.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
+                        question: "What's holding you back?",
+                        options: [
+                            { text: "Weak or missing numbers 📊", explanation: "Build credible models quickly with business students and graduates trained in finance — up to 90% cheaper than consultants." },
+                            { text: "Unclear pitch or narrative 📣", explanation: "Refine your story with business talent who know how to translate complexity into clarity." },
+                            { text: "GTM uncertainty 🎯", explanation: "Pressure-test your go-to-market approach without committing to expensive agencies." },
+                            { text: "Investor access 🤝", explanation: "Get investor-ready fast so you can move when opportunities arise." },
+                            { text: "Time & bandwidth ⏳", explanation: "Add on-demand capacity without hiring, onboarding, or long-term cost." }
+                        ]
                     }
-                ]
+                ],
+                summary: {
+                    title: "Here's how Qava helps you grow ✨",
+                    points: [
+                        { icon: "📈", title: "Sharpen your growth story", text: "Collaborate with top business students and graduates from elite schools to refine your strategy, positioning, and numbers." },
+                        { icon: "💸", title: "Build confidence in your financials", text: "Develop models and insights that help investors and partners quickly understand your upside." },
+                        { icon: "🎯", title: "Clarify go-to-market execution", text: "Turn ideas into focused plans that actually convert customers and opportunities." },
+                        { icon: "🤝", title: "Add leverage without hiring full-time", text: "Get high-quality thinking and execution without slowing down or overbuilding your team." }
+                    ],
+                    cta: {
+                        primary: { text: "Post Your Project", link: "https://app.qava.ai/" },
+                        secondary: { text: "Request a Demo", link: "https://qava.ai/request-demo" }
+                    }
+                }
             },
             scale: {
-                image: '',
-                projects: [
-                    'Operating Model Design 📦',
-                    'Process Improvement ⚙️',
-                    'Technology Rationalization 📗',
-                    'Vendor Strategy 🚛',
-                    'Organizational Design 👏',
-                    'Cost Optimization 💸',
-                    'Innovation Projects 💡',
-                    'Digital Transformation 🦋',
-                    'Custom Project 🧠'
-                ],
-                benefits: [
-                    'Increase operational efficiency by 25%',
-                    'Reduce costs while maintaining quality',
-                    'Scale your systems and processes',
-                    'Build a strong organizational foundation'
-                ],
-                oldProjects: [
+                questions: [
                     {
-                        name: 'Operating Model Design',
-                        price: 220,
-                        purpose: 'Operating model redesigns drive 40% faster growth post–Series A. — McKinsey',
-                        benefits: [
-                            'Scaling requires clear roles and structure, and Qava connects you with independent strategists who redesign how your business operates so you can execute faster and more efficiently.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
+                        question: "What feels hardest right now?",
+                        options: [
+                            { text: "Operations & processes 🧱", explanation: "Clean up workflows with structured thinkers who can help fast — without consulting retainers." },
+                            { text: "Team structure 👥", explanation: "Get help designing roles and responsibilities from business students and graduates who see patterns clearly." },
+                            { text: "Visibility & reporting 📊", explanation: "Build dashboards and insights with analytically minded talent at a fraction of agency cost." },
+                            { text: "Strategic alignment 🧠", explanation: "Translate strategy into execution with on-demand business support instead of expensive advisors." },
+                            { text: "Everything feels messy 🔄", explanation: "Bring order to growth with flexible, affordable strategy help — exactly when you need it." }
+                        ]
                     },
                     {
-                        name: 'Process Improvement',
-                        price: 210,
-                        purpose: 'Process redesign can boost productivity by 25%. — Forbes',
-                        benefits: [
-                            'Your processes shape your results, and Qava links you with independent Lean- and Six Sigma–trained talent who remove bottlenecks and streamline workflows.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
-                    },
-                    {
-                        name: 'Technology Rationalization',
-                        price: 180,
-                        purpose: 'Optimized tech stacks save up to 20% annually. — Productiv',
-                        benefits: [
-                            'Too many tools slow you down, and Qava connects you with independent analysts who evaluate your stack and identify what to keep, cut, or consolidate.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
-                    },
-                    {
-                        name: 'Vendor Strategy',
-                        price: 175,
-                        purpose: 'Better vendor management cuts spend by 10–15%. — Procurement Leaders',
-                        benefits: [
-                            'Vendors impact cost and performance, and Qava connects you with independent sourcing specialists who evaluate value, negotiate stronger contracts, and hold partners accountable.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
-                    },
-                    {
-                        name: 'Organizational Design',
-                        price: 230,
-                        purpose: 'Clear org design boosts engagement by 25%. — Gallup',
-                        benefits: [
-                            'Growth requires the right structure, and Qava matches you with independent org design talent who define roles, reporting lines, and collaboration models that scale.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
-                    },
-                    {
-                        name: 'Cost Optimization',
-                        price: 210,
-                        purpose: 'Reduce spend without slowing growth — Qava analysts use financial modeling and AI analytics to pinpoint savings that strengthen profitability.',
-                        benefits: [
-                            'Finds hidden inefficiencies and overlaps',
-                            'Protects high-value investments',
-                            'Improves cash flow and margins'
-                        ],
-                        stat: '📊 Structured cost programs save 8–12% in the first year — Boston Consulting Group',
-                        quote: '"Revenue is vanity, profit is sanity, cash is reality."',
-                        quoteAuthor: '— Alan Miltz'
-                    },
-                    {
-                        name: 'Innovation Projects',
-                        price: 195,
-                        purpose: 'Unlock new value through innovation — Qava talent apply design thinking, agile methods, and AI to generate ideas that drive progress.',
-                        benefits: [
-                            'Encourages smart experimentation',
-                            'Builds a culture of curiosity and speed',
-                            'Turns ideas into measurable impact'
-                        ],
-                        stat: '📊 Innovative companies grow revenue 2.6× faster than competitors — PwC',
-                        quote: '"Innovation distinguishes between a leader and a follower."',
-                        quoteAuthor: '— Steve Jobs'
-                    },
-                    {
-                        name: 'Digital Transformation',
-                        price: 260,
-                        purpose: 'Transform your operations with Qava experts who integrate automation, analytics, and AI to power a faster, smarter organization.',
-                        benefits: [
-                            'Boosts productivity and data accuracy',
-                            'Enhances customer and employee experience',
-                            'Prepares your business for future growth'
-                        ],
-                        stat: '📊 Digitally mature firms are 23% more profitable than their peers — MIT Sloan',
-                        quote: '"The best way to predict the future is to invent it."',
-                        quoteAuthor: '— Alan Kay'
-                    },
-                    {
-                        name: 'Custom Project',
-                        price: null,
-                        purpose: 'Get the exact support you need — Qava connects you with proven specialists who design tailored improvement solutions for your goals.',
-                        benefits: [
-                            'Custom scope and approach',
-                            'Quick turnarounds and high impact',
-                            'Access to MBA-level strategic talent'
-                        ],
-                        stat: '💡 "No two companies scale the same way — customized solutions deliver 3× higher ROI than standardized ones." — Harvard Business Review',
-                        quote: null,
-                        quoteAuthor: null
+                        question: "What outcome matters most?",
+                        options: [
+                            { text: "Save time ⏱️", explanation: "Offload focused work to capable business students and graduates so you can stay focused on priorities." },
+                            { text: "Reduce costs 💰", explanation: "Identify inefficiencies with analytical talent without paying premium consulting fees." },
+                            { text: "Improve performance 📈", explanation: "Make targeted improvements backed by data and structured thinking." },
+                            { text: "Less stress 🧘", explanation: "Reduce decision fatigue by bringing in outside clarity on demand." },
+                            { text: "Prepare for next stage 🚀", explanation: "Strengthen foundations now with affordable strategy support before scaling further." }
+                        ]
                     }
-                ]
+                ],
+                summary: {
+                    title: "Here's how Qava helps you scale ✨",
+                    points: [
+                        { icon: "🧱", title: "Bring structure to growth", text: "Connect with top business students and graduates from elite schools eager to help clean up processes, roles, and priorities." },
+                        { icon: "📊", title: "Improve visibility and decision-making", text: "Build clearer reporting and insights so you can see what's working — and what's not." },
+                        { icon: "🧠", title: "Align teams around what matters", text: "Translate strategy into practical improvements your team can actually execute." },
+                        { icon: "🚀", title: "Prepare for your next stage", text: "Strengthen foundations now so scaling later is smoother and less stressful." }
+                    ],
+                    cta: {
+                        primary: { text: "Post Your Project", link: "https://app.qava.ai/" },
+                        secondary: { text: "Request a Demo", link: "https://qava.ai/request-demo" }
+                    }
+                }
             },
-            measure: {
-                image: '',
-                projects: [
-                    'Data Analysis 📈',
-                    'Data Strategy 💿',
-                    'Tariff Impact Assessment 🌍',
-                    'Pricing Strategy 💵',
-                    'Strategic Finance 🎯',
-                    'Operating Model Design 📦',
-                    'Board Updates 🗞️',
-                    'KPI Framework 🚏',
-                    'Custom Project 🧠'
-                ],
-                benefits: [
-                    'Make data-driven decisions confidently',
-                    'Track key metrics that matter',
-                    'Improve ROI by 33% with better forecasting',
-                    'Optimize performance across all functions'
-                ],
-                oldProjects: [
+            optimize: {
+                questions: [
                     {
-                        name: 'Data Analysis',
-                        price: 150,
-                        purpose: 'Data-driven companies are 19× more likely to be profitable. — McKinsey',
-                        benefits: [
-                            'Good decisions require insight, and Qava connects you with independent analysts who turn raw data into clear trends, visuals, and recommendations you can act on.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
-                    },
-                    {
-                        name: 'Data Strategy',
-                        price: 190,
-                        purpose: 'Unified data strategies make decisions 5× faster. — Accenture',
-                        benefits: [
-                            'Your data only works if it\'s structured, and Qava matches you with independent data strategists who build foundations for accuracy, access, and advanced analytics.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
-                    },
-                    {
-                        name: 'Tariff Impact Assessment',
-                        price: 170,
-                        purpose: 'Global adjustments can impact up to 15% of COGS. — World Bank',
-                        benefits: [
-                            'Global shifts affect your costs, and Qava connects you with independent economists who model tariff impacts so you can protect your margins and adjust your strategy early.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
-                    },
-                    {
-                        name: 'Pricing Strategy',
-                        price: 210,
-                        purpose: 'A 1% price increase can drive 8% profit. — McKinsey',
-                        benefits: [
-                            'Pricing confidence matters, and Qava gives you access to independent pricing talent who use AI testing and consumer data to refine your pricing for growth.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
-                    },
-                    {
-                        name: 'Strategic Finance',
-                        price: 280,
-                        purpose: 'Strong finance strategies boost ROI by 33%. — Deloitte',
-                        benefits: [
-                            'Measuring performance requires more than dashboards, and Qava connects you with independent finance specialists who model, track, and communicate your progress with investor-grade clarity.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
-                    },
-                    {
-                        name: 'Operating Model Design',
-                        price: 220,
-                        purpose: 'Cross-functional metrics improve delivery by 20–30%. — McKinsey',
-                        benefits: [
-                            'To measure well, your structure must support accountability, and Qava matches you with independent strategists who design operations that align to the metrics that matter.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
-                    },
-                    {
-                        name: 'Board Updates',
-                        price: 180,
-                        purpose: 'Clear board updates increase funding success by 40%. — Harvard Business Review',
-                        benefits: [
-                            'Your board needs clarity and confidence, and Qava connects you with independent analysts who transform data into compelling narratives that demonstrate progress and strategic direction.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
-                    },
-                    {
-                        name: 'KPI Framework',
-                        price: 195,
-                        purpose: 'Companies with defined KPIs outperform peers by 30%. — Bain & Company',
-                        benefits: [
-                            'The right metrics drive the right behavior, and Qava matches you with independent strategists who design KPI frameworks that align your team and track what truly matters for growth.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
-                    },
-                    {
-                        name: 'Custom Project',
-                        price: null,
-                        purpose: 'Custom solutions deliver 3× higher ROI. — Harvard Business Review',
-                        benefits: [
-                            'If you need tailored measurement or analysis, Qava connects you with independent analysts who blend academic precision with AI tools to deliver fast, clear results.'
-                        ],
-                        stat: null,
-                        quote: null,
-                        quoteAuthor: null
+                        question: "What do you want better visibility into?",
+                        options: [
+                            { text: "Revenue & growth 📈", explanation: "Analyze growth drivers with business students and graduates trained in financial and strategic analysis — without building an internal analytics team." },
+                            { text: "Costs & margins 💸", explanation: "Work with analytically strong talent to uncover where money is made or lost — cost-effectively." },
+                            { text: "Performance metrics 🎯", explanation: "Define and track the metrics that matter with structured thinkers on demand." },
+                            { text: "Trade-offs & priorities 🧠", explanation: "Clarify decisions with business minds trained to weigh ROI and impact." },
+                            { text: "Not sure yet 🤷", explanation: "Discover what to measure with analytical talent who help you ask better questions — quickly and affordably." }
+                        ]
                     }
-                ]
-            }
-        };
-
-        // Category-specific headings
-        const categoryHeadings = {
-            'build': '"Startups with a plan are 2.5× more likely to get funded." — Harvard Business Review',
-            'grow': 'Fuel your growth with capital planning and traction',
-            'scale': 'Strengthen your operations and build smarter',
-            'measure': 'Make better decisions with data-backed insights'
-        };
-
-        // Handle stage card active states and update project types
-        const stageCards = document.querySelectorAll('.stage-card');
-        const previewProjectsList = document.getElementById('previewProjectsList');
-        const previewBenefits = document.getElementById('previewBenefits');
-        let currentStage = 'build';
-        let benefitsCalculatorActive = false;
-        let selectedProjects = new Set();
-        
-        // Function to update savings bars
-        function updateSavingsBars() {
-            const container = document.getElementById('savingsBarsContainer');
-            const wrapper = document.getElementById('savingsBarsWrapper');
-            if (!container || !wrapper) return;
-            
-            // Clear existing bars
-            container.innerHTML = '';
-            
-            // If no projects selected, hide wrapper
-            if (selectedProjects.size === 0) {
-                wrapper.style.display = 'none';
-                return;
-            }
-            
-            // Show wrapper
-            wrapper.style.display = 'block';
-            
-            // Calculate aggregate savings
-            let totalConsultantCost = 0;
-            let totalQavaCost = 0;
-            let totalHours = 0;
-            const projectNames = [];
-            
-            selectedProjects.forEach(projectName => {
-                // Find the project data
-                let project = null;
-                for (const stage in stageData) {
-                    const found = stageData[stage].oldProjects.find(p => {
-                        const nameWithoutEmoji = projectName.replace(/[\u{1F300}-\u{1F9FF}]/gu, '').trim();
-                        return p.name === nameWithoutEmoji || 
-                               p.name.includes(nameWithoutEmoji) || 
-                               nameWithoutEmoji.includes(p.name.split('(')[0].trim());
-                    });
-                    if (found) {
-                        project = found;
-                        break;
+                ],
+                summary: {
+                    title: "Here's how Qava helps you decide better ✨",
+                    points: [
+                        { icon: "📈", title: "Turn data into direction", text: "Work with sharp, analytical talent to transform messy information into clear insights." },
+                        { icon: "🎯", title: "Focus on the metrics that matter", text: "Define what to measure, why it matters, and how to act on it." },
+                        { icon: "💡", title: "Make smarter trade-offs", text: "Use structured analysis to support confident decisions — not gut feel alone." },
+                        { icon: "⏱️", title: "Save time and reduce noise", text: "Get clarity faster without building heavy internal analytics teams." }
+                    ],
+                    cta: {
+                        primary: { text: "Start Measuring", link: "https://app.qava.ai/" },
+                        secondary: { text: "Learn More", link: "https://qava.ai/" }
                     }
                 }
-                
-                if (!project || !project.price) return;
-                
-                // Add to totals (middle of range is $3,250 per project: ($2,500 + $4,000) / 2)
-                totalConsultantCost += 3250;
-                totalQavaCost += project.price;
-                // Add hours (use project.hours or default to 10 if not specified)
-                totalHours += (project.hours || 10);
-                projectNames.push(projectName);
-            });
-            
-            const totalSavings = totalConsultantCost - totalQavaCost;
-            const savingsPercentage = (totalSavings / totalConsultantCost) * 100;
-            
-            // Create single aggregate bar
-            const barItem = document.createElement('div');
-            barItem.className = 'savings-bar-item';
-            
-            // Create values display
-            const valuesContainer = document.createElement('div');
-            valuesContainer.style.marginBottom = '8px';
-            
-            // What consultants can charge
-            const consultantCostDiv = document.createElement('div');
-            consultantCostDiv.style.fontSize = '14px';
-            consultantCostDiv.style.fontWeight = '300';
-            consultantCostDiv.style.color = '#666';
-            consultantCostDiv.style.marginBottom = '6px';
-            consultantCostDiv.innerHTML = `<span style="color: #000;">What consultants can charge:</span> <span style="font-weight: 500; color: #B45454;">$${totalConsultantCost.toLocaleString()}</span>`;
-            
-            // Estimated Qava cost
-            const qavaCostDiv = document.createElement('div');
-            qavaCostDiv.style.fontSize = '14px';
-            qavaCostDiv.style.fontWeight = '300';
-            qavaCostDiv.style.color = '#666';
-            qavaCostDiv.style.marginBottom = '6px';
-            qavaCostDiv.innerHTML = `<span style="color: #000;">Estimated Qava cost:</span> <span style="font-weight: 500; color: #000;">$${totalQavaCost.toLocaleString()}</span>`;
-            
-            // Your savings with hours
-            const savingsDiv = document.createElement('div');
-            savingsDiv.style.fontSize = '14px';
-            savingsDiv.style.fontWeight = '300';
-            savingsDiv.style.color = '#666';
-            savingsDiv.style.marginBottom = '6px';
-            savingsDiv.innerHTML = `<span style="color: #000;">Your savings:</span> <span style="font-weight: 600; color: #0F62FE; font-size: 14px;">$${totalSavings.toLocaleString()}</span> <span style="color: #000; font-weight: 300;">(~${totalHours} hours saved)</span>`;
-            
-            valuesContainer.appendChild(consultantCostDiv);
-            valuesContainer.appendChild(qavaCostDiv);
-            valuesContainer.appendChild(savingsDiv);
-            
-            // Create bar track
-            const barTrack = document.createElement('div');
-            barTrack.className = 'savings-bar-track';
-            
-            // Create bar fill
-            const barFill = document.createElement('div');
-            barFill.className = 'savings-bar-fill';
-            barFill.style.width = '0%';
-            
-            barTrack.appendChild(barFill);
-            
-            // Create project list text
-            const projectList = document.createElement('div');
-            projectList.style.fontSize = '11px';
-            projectList.style.color = '#666';
-            projectList.style.marginTop = '6px';
-            projectList.style.fontWeight = '300';
-            
-            // Format project names with commas and "and"
-            let projectText = '';
-            if (projectNames.length === 1) {
-                projectText = projectNames[0];
-            } else if (projectNames.length === 2) {
-                projectText = `${projectNames[0]} and ${projectNames[1]}`;
-            } else {
-                const lastProject = projectNames[projectNames.length - 1];
-                const otherProjects = projectNames.slice(0, -1).join(', ');
-                projectText = `${otherProjects} and ${lastProject}`;
+            },
+            experience: {
+                questions: [
+                    {
+                        question: "Where are you in your journey?",
+                        options: [
+                            { text: "Student 🎓", explanation: "Work on real projects where your contribution actually impacts a real business — and get paid while you learn." },
+                            { text: "Recent graduate 🧑‍🎓", explanation: "Build practical experience you can talk about in interviews, not just coursework." },
+                            { text: "Career switcher 🔄", explanation: "Prove your capability through real strategy work instead of just resumes." },
+                            { text: "Early professional 🚀", explanation: "Deepen your skills and earn on the side through flexible, project-based work." }
+                        ]
+                    },
+                    {
+                        question: "What do you want to learn by doing?",
+                        options: [
+                            { text: "Strategy & analysis 📊", explanation: "Apply frameworks to real decisions that founders actually act on." },
+                            { text: "Finance & modeling 💸", explanation: "Build models used by real businesses — not classroom exercises." },
+                            { text: "Go-to-market 📣", explanation: "Learn how products really reach customers and generate revenue." },
+                            { text: "Problem-solving 🧠", explanation: "Build confidence working through ambiguity where real growth happens." },
+                            { text: "Client collaboration 🤝", explanation: "Develop communication and stakeholder skills while delivering real value." }
+                        ]
+                    }
+                ],
+                summary: {
+                    title: "Here's how Qava helps you build your career ✨",
+                    points: [
+                        { icon: "🚀", title: "Work on real projects, not simulations", text: "Apply your skills to live business challenges where your work actually gets used." },
+                        { icon: "📄", title: "Build a portfolio that stands out", text: "Create tangible outputs you can talk about in interviews and applications." },
+                        { icon: "🤝", title: "Collaborate with founders and teams", text: "Learn how businesses really operate by working directly with decision-makers." },
+                        { icon: "🧠", title: "Learn faster by doing", text: "Accelerate your growth through hands-on problem solving, not just theory." }
+                    ],
+                    cta: {
+                        primary: { text: "Join as Talent", link: "https://app.qava.ai/" },
+                        secondary: { text: "Browse Projects", link: "https://app.qava.ai/projects" }
+                    }
+                }
+            },
+            skills: {
+                questions: [
+                    {
+                        question: "What kinds of problems excite you?",
+                        options: [
+                            { text: "Ambiguous challenges 🧩", explanation: "Work on messy, real-world problems where your thinking actually matters." },
+                            { text: "Growth questions 📈", explanation: "Help founders make decisions that directly affect revenue and scale." },
+                            { text: "Financial decisions 💸", explanation: "See how financial choices shape real business outcomes." },
+                            { text: "Market positioning 🎯", explanation: "Work on strategy that determines whether a product wins or disappears." },
+                            { text: "Pivots & turnarounds 🔄", explanation: "Gain experience where stakes are high and learning is fast — and get paid." }
+                        ]
+                    }
+                ],
+                summary: {
+                    title: "Here's how Qava helps you apply strategy ✨",
+                    points: [
+                        { icon: "🧩", title: "Tackle real, messy problems", text: "Work on challenges without perfect answers — just like the real world." },
+                        { icon: "📊", title: "Apply frameworks to live decisions", text: "See how strategy, finance, and GTM thinking actually play out in practice." },
+                        { icon: "🎯", title: "Make real impact", text: "Your thinking influences real outcomes, not just slides." },
+                        { icon: "🤝", title: "Build credibility through action", text: "Earn trust by delivering useful, thoughtful work." }
+                    ],
+                    cta: {
+                        primary: { text: "Join as Talent", link: "https://app.qava.ai/" },
+                        secondary: { text: "Browse Projects", link: "https://app.qava.ai/projects" }
+                    }
+                }
+            },
+            meet: {
+                questions: [
+                    {
+                        question: "Who do you want to collaborate with?",
+                        options: [
+                            { text: "Founders 🚀", explanation: "Work directly with people building real companies and learn how decisions get made." },
+                            { text: "MBAs & grads 🎓", explanation: "Collaborate with ambitious peers while building skills and income." },
+                            { text: "Operators 💼", explanation: "Learn how strategy turns into execution inside real businesses." },
+                            { text: "Investors & advisors 💡", explanation: "Gain exposure to how decisions are evaluated behind the scenes." },
+                            { text: "All of the above 🤝", explanation: "Build a strong network naturally by doing meaningful, paid work together." }
+                        ]
+                    }
+                ],
+                summary: {
+                    title: "Here's how Qava helps you build your network ✨",
+                    points: [
+                        { icon: "🤝", title: "Connect through shared work", text: "Form genuine relationships by collaborating on meaningful projects." },
+                        { icon: "🚀", title: "Meet founders, operators, and peers", text: "Work alongside driven people who are building interesting things." },
+                        { icon: "🧠", title: "Learn by proximity", text: "Grow faster by being close to smart, ambitious thinkers." },
+                        { icon: "🌱", title: "Let opportunities emerge naturally", text: "Great relationships form when you create value together." }
+                    ],
+                    cta: {
+                        primary: { text: "Join as Talent", link: "https://app.qava.ai/" },
+                        secondary: { text: "Browse Projects", link: "https://app.qava.ai/projects" }
+                    }
+                }
+            },
+            team: {
+                questions: [
+                    {
+                        question: "What best describes your team?",
+                        options: [
+                            { text: "MBA cohort 🎓", explanation: "Apply what you're learning together on real projects — and get paid for it." },
+                            { text: "Consulting-style team 🧠", explanation: "Deliver real outcomes for real companies, not mock cases." },
+                            { text: "Startup operators 🚀", explanation: "Work on meaningful projects where speed and ownership matter." },
+                            { text: "Career explorers 🔄", explanation: "Test paths together through low-risk, high-learning, paid projects." }
+                        ]
+                    }
+                ],
+                summary: {
+                    title: "Here's how Qava helps teams grow together ✨",
+                    points: [
+                        { icon: "👥", title: "Work as a unit on real problems", text: "Apply your collective skills to meaningful projects with real stakes." },
+                        { icon: "📄", title: "Build shared portfolio work", text: "Create outcomes your entire team can point to with pride." },
+                        { icon: "🧠", title: "Strengthen collaboration and trust", text: "Nothing bonds a team like solving hard problems together." },
+                        { icon: "🚀", title: "Stand out as a group", text: "Differentiate yourselves by showing real-world impact, not just credentials." }
+                    ],
+                    cta: {
+                        primary: { text: "Register Your Team", link: "https://app.qava.ai/" },
+                        secondary: { text: "View Team Projects", link: "https://app.qava.ai/projects" }
+                    }
+                }
             }
-            projectList.textContent = projectText;
+        };
+
+        let currentPath = '';
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+
+        // Get DOM elements
+        const pathSelection = document.getElementById('pathSelection');
+        const questionnaireSection = document.getElementById('questionnaireSection');
+        const questionFlow = document.getElementById('questionFlow');
+        const summaryScreen = document.getElementById('summaryScreen');
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+        const questionsContainer = document.getElementById('questionsContainer');
+        const questionNavigation = document.getElementById('questionNavigation');
+        const explanationBox = document.getElementById('explanationBox');
+        const explanationText = document.getElementById('explanationText');
+        const nextButton = document.getElementById('nextButton');
+        const backButton = document.getElementById('backButton');
+        const bottomBackButton = document.getElementById('bottomBackButton');
+        const bottomNextButton = document.getElementById('bottomNextButton');
+        const summaryContent = document.getElementById('summaryContent');
+        const primaryCTA = document.getElementById('primaryCTA');
+        const secondaryCTA = document.getElementById('secondaryCTA');
+        // const restartButton = document.getElementById('restartButton'); // Removed - button no longer exists
+
+        console.log('bottomNextButton:', bottomNextButton);
+        console.log('questionNavigation:', questionNavigation);
+
+        // Path selection handlers
+        const pathCards = document.querySelectorAll('.path-card');
+        
+        function selectPathCard(card) {
+            // Check if the card is already selected
+            const isAlreadySelected = card.classList.contains('selected');
             
-            barItem.appendChild(valuesContainer);
-            barItem.appendChild(barTrack);
-            barItem.appendChild(projectList);
-            container.appendChild(barItem);
+            const wrapper = document.querySelector('.path-selection-wrapper');
+            const columnsWrapper = document.querySelector('.path-columns-wrapper');
+            const selectedButtonContainer = document.getElementById('selectedButtonContainer');
+            const selectedDescription = document.getElementById('selectedDescription');
             
-            // Animate the fill
+            if (isAlreadySelected) {
+                // Deselect the card
+                card.classList.remove('selected', 'expanded');
+                currentPath = null;
+                currentQuestionIndex = 0;
+                userAnswers = [];
+                
+                // Show hero title and subtitle again
+                const heroTitle = document.querySelector('.hero-title');
+                const heroSubtext = document.querySelector('.hero-subtext');
+                if (heroTitle) heroTitle.style.display = 'block';
+                if (heroSubtext) heroSubtext.style.display = 'block';
+                
+                // Reset progress bar margin
+                const progressBar = document.querySelector('.progress-bar');
+                if (progressBar) {
+                    progressBar.style.marginTop = '32px';
+                }
+                
+                // Remove layout classes
+                wrapper.classList.remove('has-selection');
+                
+                // Hide selected button container and description
+                selectedButtonContainer.style.display = 'none';
+                selectedButtonContainer.innerHTML = '';
+                selectedDescription.style.display = 'none';
+                
+                // Show columns wrapper
+                columnsWrapper.style.display = 'grid';
+                
+                // Hide questionnaire section
+                questionnaireSection.style.display = 'none';
+                questionFlow.style.display = 'none';
+                summaryScreen.style.display = 'none';
+                
+                // Hide progress text
+                progressText.style.display = 'none';
+                progressFill.style.width = '0%';
+            } else {
+                // Remove selected class from all cards
+                pathCards.forEach(c => {
+                    c.classList.remove('selected', 'expanded');
+                });
+                
+                // Clone the selected card
+                const clonedCard = card.cloneNode(true);
+                clonedCard.classList.add('selected', 'expanded');
+                
+                // Add click handler to cloned card
+                clonedCard.addEventListener('click', function() {
+                    selectPathCard(card);
+                });
+                
+                // Show selected button at top
+                selectedButtonContainer.innerHTML = '';
+                selectedButtonContainer.appendChild(clonedCard);
+                selectedButtonContainer.style.display = 'block';
+                
+                // Show description text
+                selectedDescription.style.display = 'block';
+                
+                // Hide columns wrapper
+                columnsWrapper.style.display = 'none';
+                
+                // Apply layout changes
+                wrapper.classList.add('has-selection');
+                
+                // Mark original card as selected
+                card.classList.add('selected');
+                
+                currentPath = card.getAttribute('data-path');
+                
+                // Start questionnaire after a short delay to show selection
             setTimeout(() => {
-                barFill.style.width = `${savingsPercentage}%`;
-            }, 50);
+                    startQuestionnaire();
+                }, 300);
+            }
         }
         
-        function updateProjectDetails(projectName, categoryData) {
-            // Find the project details from oldProjects array
-            const project = categoryData.oldProjects.find(p => {
-                // Match by removing emoji from projectName
-                const nameWithoutEmoji = projectName.replace(/[\u{1F300}-\u{1F9FF}]/gu, '').trim();
-                return p.name === nameWithoutEmoji || 
-                       p.name.includes(nameWithoutEmoji) || 
-                       nameWithoutEmoji.includes(p.name.split('(')[0].trim());
+        pathCards.forEach(card => {
+            card.addEventListener('click', function() {
+                selectPathCard(this);
             });
             
-            if (!project) {
-                console.log('Project not found:', projectName);
-                return;
-            }
-            
-            // Update RIGHT side with project-specific details
-            previewBenefits.innerHTML = '';
-            
-            // Add project-specific heading from purpose (the quote)
-            if (project.purpose) {
-                const purposeHeading = document.createElement('div');
-                purposeHeading.style.fontWeight = '600';
-                purposeHeading.style.fontSize = '18px';
-                purposeHeading.style.color = '#000';
-                purposeHeading.style.marginBottom = '12px';
-                
-                // Split the text at the em dash to apply different styling
-                const parts = project.purpose.split('—');
-                if (parts.length === 2) {
-                    // Quote part (bold)
-                    const quoteSpan = document.createElement('span');
-                    quoteSpan.textContent = parts[0];
-                    quoteSpan.style.fontWeight = '600';
-                    
-                    // Source part (thin)
-                    const sourceSpan = document.createElement('span');
-                    sourceSpan.textContent = '— ' + parts[1].trim();
-                    sourceSpan.style.fontWeight = '300';
-                    
-                    purposeHeading.appendChild(quoteSpan);
-                    purposeHeading.appendChild(sourceSpan);
-                } else {
-                    // Fallback if no em dash found
-                    purposeHeading.textContent = project.purpose;
-                }
-                
-                previewBenefits.appendChild(purposeHeading);
-            }
-            
-            // Add benefits with checkmarks (only show checkmark if multiple benefits)
-            if (project.benefits && Array.isArray(project.benefits)) {
-                const showCheckmarks = project.benefits.length > 1;
-                
-                project.benefits.forEach(benefit => {
-                    if (showCheckmarks) {
-                        const benefitItem = document.createElement('div');
-                        benefitItem.className = 'benefit-item';
-                        
-                        const checkmark = document.createElement('div');
-                        checkmark.className = 'benefit-checkmark';
-                        checkmark.textContent = '✅';
-                        
-                        const benefitText = document.createElement('span');
-                        benefitText.textContent = benefit;
-                        
-                        benefitItem.appendChild(checkmark);
-                        benefitItem.appendChild(benefitText);
-                        previewBenefits.appendChild(benefitItem);
-                    } else {
-                        // Single paragraph - just display as text without checkmark
-                        const benefitParagraph = document.createElement('p');
-                        benefitParagraph.style.fontSize = '14px';
-                        benefitParagraph.style.lineHeight = '1.6';
-                        benefitParagraph.style.fontWeight = '300';
-                        benefitParagraph.style.color = '#333';
-                        benefitParagraph.style.marginBottom = '10px';
-                        benefitParagraph.style.marginTop = '0';
-                        benefitParagraph.textContent = benefit;
-                        previewBenefits.appendChild(benefitParagraph);
-                    }
-                });
-            }
-            
-            // Add stat if available
-            if (project.stat) {
-                const statItem = document.createElement('div');
-                statItem.style.marginTop = '10px';
-                statItem.style.fontSize = '13px';
-                statItem.style.fontWeight = '300';
-                statItem.style.lineHeight = '1.5';
-                statItem.style.color = '#333';
-                statItem.textContent = project.stat;
-                previewBenefits.appendChild(statItem);
-            }
-            
-            // Add quote if available
-            if (project.quote) {
-                const quoteItem = document.createElement('div');
-                quoteItem.style.marginTop = '10px';
-                quoteItem.style.fontSize = '13px';
-                quoteItem.style.fontWeight = '300';
-                quoteItem.style.lineHeight = '1.5';
-                quoteItem.style.color = '#333';
-                
-                // Add emoji (not italic)
-                const emoji = document.createElement('span');
-                emoji.textContent = '💬 ';
-                emoji.style.fontStyle = 'normal';
-                
-                // Add quote text (italic)
-                const quoteText = document.createElement('span');
-                quoteText.style.fontStyle = 'italic';
-                let quoteContent = project.quote;
-                if (project.quoteAuthor) {
-                    quoteContent += ` ${project.quoteAuthor}`;
-                }
-                quoteText.textContent = quoteContent;
-                
-                quoteItem.appendChild(emoji);
-                quoteItem.appendChild(quoteText);
-                previewBenefits.appendChild(quoteItem);
-            }
-            
-            // Add price box at the bottom
-            const priceSection = document.createElement('div');
-            priceSection.style.marginTop = '16px';
-            priceSection.style.textAlign = 'left';
-            
-            const priceBox = document.createElement('a');
-            priceBox.href = 'https://app.qava.ai/create';
-            priceBox.target = '_blank';
-            priceBox.style.padding = '6px 12px';
-            priceBox.style.background = 'white';
-            priceBox.style.border = '1px solid #0F62FE';
-            priceBox.style.borderRadius = '6px';
-            priceBox.style.fontSize = '13px';
-            priceBox.style.fontWeight = '500';
-            priceBox.style.color = '#0F62FE';
-            priceBox.style.textDecoration = 'none';
-            priceBox.style.cursor = 'pointer';
-            priceBox.style.transition = 'all 0.2s ease';
-            priceBox.style.display = 'inline-block';
-            priceBox.style.textAlign = 'center';
-            
-            // Add hover effect
-            priceBox.addEventListener('mouseenter', function() {
-                this.style.background = '#0F62FE';
-                this.style.color = 'white';
-            });
-            priceBox.addEventListener('mouseleave', function() {
-                this.style.background = 'white';
-                this.style.color = '#0F62FE';
-            });
-            
-            if (project.price) {
-                priceBox.textContent = `Post today, starting from $${project.price}`;
-                
-                // Create Benefits Calculator button (next to priceBox)
-                const benefitsCalcButton = document.createElement('button');
-                // Set text based on current state
-                benefitsCalcButton.textContent = benefitsCalculatorActive ? 'Turn Off Benefits Calculator' : 'Turn On Benefits Calculator';
-                benefitsCalcButton.style.marginLeft = '12px';
-                benefitsCalcButton.style.padding = '6px 12px';
-                benefitsCalcButton.style.background = 'transparent';
-                benefitsCalcButton.style.border = 'none';
-                benefitsCalcButton.style.fontFamily = "'Inter', sans-serif";
-                benefitsCalcButton.style.fontSize = '14px';
-                benefitsCalcButton.style.fontWeight = '300';
-                benefitsCalcButton.style.lineHeight = '1.6';
-                benefitsCalcButton.style.color = '#333';
-                benefitsCalcButton.style.cursor = 'pointer';
-                benefitsCalcButton.style.transition = 'all 0.2s ease';
-                benefitsCalcButton.style.display = 'inline-block';
-                benefitsCalcButton.style.textDecoration = 'none';
-                
-                // Add hover effect - underline
-                benefitsCalcButton.addEventListener('mouseenter', function() {
-                    this.style.textDecoration = 'underline';
-                });
-                benefitsCalcButton.addEventListener('mouseleave', function() {
-                    this.style.textDecoration = 'none';
-                });
-                
-                // Add click handler - toggle calculator mode
-                benefitsCalcButton.addEventListener('click', function(e) {
+            // Keyboard accessibility
+            card.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
-                    benefitsCalculatorActive = !benefitsCalculatorActive;
-                    
-                    // Update button text
-                    this.textContent = benefitsCalculatorActive ? 'Turn Off Benefits Calculator' : 'Turn On Benefits Calculator';
-                    
-                    // Toggle checkboxes
-                    const checkboxWrappers = document.querySelectorAll('.project-checkbox-wrapper');
-                    checkboxWrappers.forEach(wrapper => {
-                        if (benefitsCalculatorActive) {
-                            wrapper.classList.add('visible');
-                        } else {
-                            wrapper.classList.remove('visible');
-                        }
-                    });
-                    
-                    // Hide savings bars when turning off calculator
-                    if (!benefitsCalculatorActive) {
-                        const savingsWrapper = document.getElementById('savingsBarsWrapper');
-                        if (savingsWrapper) {
-                            savingsWrapper.style.display = 'none';
-                        }
-                    } else {
-                        // Show savings bars if there are selected projects
-                        if (selectedProjects.size > 0) {
-                            updateSavingsBars();
-                        }
-                    }
-                });
-                
-                // Calculate consultant rate
-                let consultantRateRange = '$2,500-$4,000';
-                
-                const consultantRateText = document.createElement('div');
-                consultantRateText.style.fontSize = '11px';
-                consultantRateText.style.fontWeight = '300';
-                consultantRateText.style.color = '#999';
-                consultantRateText.style.marginTop = '6px';
-                consultantRateText.style.display = 'none'; // Hidden
-                consultantRateText.textContent = `Est. consultant rate: ${consultantRateRange} 💸`;
-                
-                priceSection.appendChild(priceBox);
-                priceSection.appendChild(benefitsCalcButton);
-                priceSection.appendChild(consultantRateText);
-            } else {
-                priceBox.textContent = 'Get a custom quote';
-                
-                // Create Benefits Calculator button for custom projects too
-                const benefitsCalcButton = document.createElement('button');
-                // Set text based on current state
-                benefitsCalcButton.textContent = benefitsCalculatorActive ? 'Turn Off Benefits Calculator' : 'Turn On Benefits Calculator';
-                benefitsCalcButton.style.marginLeft = '12px';
-                benefitsCalcButton.style.padding = '6px 12px';
-                benefitsCalcButton.style.background = 'transparent';
-                benefitsCalcButton.style.border = 'none';
-                benefitsCalcButton.style.fontFamily = "'Inter', sans-serif";
-                benefitsCalcButton.style.fontSize = '14px';
-                benefitsCalcButton.style.fontWeight = '300';
-                benefitsCalcButton.style.lineHeight = '1.6';
-                benefitsCalcButton.style.color = '#333';
-                benefitsCalcButton.style.cursor = 'pointer';
-                benefitsCalcButton.style.transition = 'all 0.2s ease';
-                benefitsCalcButton.style.display = 'inline-block';
-                benefitsCalcButton.style.textDecoration = 'none';
-                
-                // Add hover effect - underline
-                benefitsCalcButton.addEventListener('mouseenter', function() {
-                    this.style.textDecoration = 'underline';
-                });
-                benefitsCalcButton.addEventListener('mouseleave', function() {
-                    this.style.textDecoration = 'none';
-                });
-                
-                // Add click handler - toggle calculator mode
-                benefitsCalcButton.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    benefitsCalculatorActive = !benefitsCalculatorActive;
-                    
-                    // Update button text
-                    this.textContent = benefitsCalculatorActive ? 'Turn Off Benefits Calculator' : 'Turn On Benefits Calculator';
-                    
-                    // Toggle checkboxes
-                    const checkboxWrappers = document.querySelectorAll('.project-checkbox-wrapper');
-                    checkboxWrappers.forEach(wrapper => {
-                        if (benefitsCalculatorActive) {
-                            wrapper.classList.add('visible');
-                        } else {
-                            wrapper.classList.remove('visible');
-                        }
-                    });
-                    
-                    // Hide savings bars when turning off calculator
-                    if (!benefitsCalculatorActive) {
-                        const savingsWrapper = document.getElementById('savingsBarsWrapper');
-                        if (savingsWrapper) {
-                            savingsWrapper.style.display = 'none';
-                        }
-                    } else {
-                        // Show savings bars if there are selected projects
-                        if (selectedProjects.size > 0) {
-                            updateSavingsBars();
-                        }
-                    }
-                });
-                
-                priceSection.appendChild(priceBox);
-                priceSection.appendChild(benefitsCalcButton);
-            }
-            
-            previewBenefits.appendChild(priceSection);
-        }
-        
-        function updateProjectTypes(stage) {
-            currentStage = stage;
-            const categoryData = stageData[stage];
-            const projects = categoryData.projects;
-            
-            // Clear existing items
-            previewProjectsList.innerHTML = '';
-            
-            // Add new items for the selected stage
-            projects.forEach((project, index) => {
-                const item = document.createElement('div');
-                item.className = 'project-list-item';
-                if (index === 0) item.classList.add('active-project');
-                
-                // Create checkbox wrapper
-                const checkboxWrapper = document.createElement('div');
-                checkboxWrapper.className = 'project-checkbox-wrapper';
-                if (benefitsCalculatorActive) {
-                    checkboxWrapper.classList.add('visible');
+                    selectPathCard(this);
                 }
-                
-                // Create checkbox
-                const checkbox = document.createElement('div');
-                checkbox.className = 'project-checkbox';
-                if (selectedProjects.has(project)) {
-                    checkbox.classList.add('checked');
-                }
-                
-                // Add checkmark SVG
-                checkbox.innerHTML = `
-                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                `;
-                
-                // Add checkbox click handler
-                checkbox.onclick = (e) => {
-                    e.stopPropagation();
-                    if (selectedProjects.has(project)) {
-                        selectedProjects.delete(project);
-                        checkbox.classList.remove('checked');
-                    } else {
-                        selectedProjects.add(project);
-                        checkbox.classList.add('checked');
-                    }
-                    // Update savings bars
-                    updateSavingsBars();
-                };
-                
-                checkboxWrapper.appendChild(checkbox);
-                
-                // Create text span
-                const textSpan = document.createElement('span');
-                textSpan.textContent = project;
-                
-                item.appendChild(checkboxWrapper);
-                item.appendChild(textSpan);
-                item.onclick = () => selectProjectType(project, stage);
-                previewProjectsList.appendChild(item);
-            });
-            
-            // Show details for first project
-            selectProjectType(projects[0], stage);
-        }
-        
-        function selectProjectType(projectName, stage) {
-            // Update active item
-            const items = previewProjectsList.querySelectorAll('.project-list-item');
-            items.forEach(item => {
-                const itemText = item.querySelector('span') ? item.querySelector('span').textContent : item.textContent;
-                item.classList.toggle('active-project', itemText === projectName);
-            });
-            
-            // Update project details
-            const categoryData = stageData[stage];
-            updateProjectDetails(projectName, categoryData);
-        }
-        
-        // Initialize with the first stage (build)
-        updateProjectTypes('build');
-        
-        stageCards.forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                // Remove active class from all cards
-                stageCards.forEach(c => c.classList.remove('active'));
-                // Add active class to hovered card
-                this.classList.add('active');
-                
-                // Update project types based on the selected stage
-                const stage = this.getAttribute('data-stage');
-                updateProjectTypes(stage);
             });
         });
+
+        // Path-specific intro messages
+        const pathIntroMessages = {
+            build: "You're in the right place — most businesses fail for preventable reasons, and here you can connect with top business students and graduates from elite schools eager to help pressure-test ideas and bring them to life faster.",
+            grow: "Growth comes from clarity — connect with top business students and graduates from elite schools eager to help sharpen your story, your numbers, and your strategy so opportunities actually convert.",
+            scale: "Scaling reveals what's working and what's not — connect with top business students and graduates from elite schools eager to help bring structure, focus, and fresh thinking before small issues become big ones.",
+            optimize: "Better decisions start with better insight — connect with top business students and graduates from elite schools eager to help turn messy data into clear direction and action.",
+            experience: "This is how real careers are built — work on meaningful projects alongside founders and teams, where your contribution actually matters.",
+            skills: "Strategy hits different when the stakes are real — work directly on live problems with founders who are eager for thoughtful, practical input.",
+            meet: "The best opportunities come from doing great work together — collaborate with driven founders, operators, and peers through real projects, not awkward networking.",
+            team: "Teams grow faster on real problems — take on meaningful projects together and build skills, trust, and credibility as a group."
+        };
+
+        function startQuestionnaire() {
+            currentQuestionIndex = -1; // Start at -1 to show intro screen
+            userAnswers = [];
+            
+            // Ensure hero section is visible (but hide title and subtitle)
+            const heroSection = document.querySelector('.hero-section');
+            if (heroSection) {
+                heroSection.style.display = 'block';
+            }
+            
+            // Hide hero title and subtitle
+            const heroTitle = document.querySelector('.hero-title');
+            const heroSubtext = document.querySelector('.hero-subtext');
+            if (heroTitle) heroTitle.style.display = 'none';
+            if (heroSubtext) heroSubtext.style.display = 'none';
+            
+            // Add top padding to progress bar when hero is hidden
+            const progressBar = document.querySelector('.progress-bar');
+            if (progressBar) {
+                progressBar.style.marginTop = '32px';
+            }
+            
+            // Hide the selected button but SHOW the description (intro message)
+            const selectedButtonContainer = document.getElementById('selectedButtonContainer');
+            const selectedDescription = document.getElementById('selectedDescription');
+            selectedButtonContainer.style.display = 'none';
+            selectedDescription.style.display = 'block';
+            
+            // Update the intro message based on the selected path
+            const introMessage = pathIntroMessages[currentPath] || pathIntroMessages.build;
+            selectedDescription.innerHTML = `<p>${introMessage}</p>`;
+            
+            // Keep path selection visible
+            questionnaireSection.style.display = 'flex';
+            questionFlow.style.display = 'block';
+            summaryScreen.style.display = 'none';
+            showIntroOrQuestion();
+        }
+
+        function showIntroOrQuestion() {
+            if (currentQuestionIndex === -1) {
+                // Show intro screen with description and Next/Back buttons
+                const selectedDescription = document.getElementById('selectedDescription');
+                selectedDescription.style.display = 'block';
+                questionsContainer.innerHTML = '';
+                questionNavigation.style.display = 'flex';
+                bottomBackButton.style.display = 'flex';
+                bottomNextButton.style.display = 'flex';
+                bottomNextButton.disabled = false;
+                progressFill.style.width = '0%';
+                    } else {
+                showQuestion();
+            }
+        }
+
+        function showQuestion() {
+            const pathData = questionnaireData[currentPath];
+            const question = pathData.questions[currentQuestionIndex];
+            
+            // Ensure hero section is visible
+            const heroSection = document.querySelector('.hero-section');
+            if (heroSection) {
+                heroSection.style.display = 'block';
+            }
+            
+            // Ensure progress bar is visible
+            const progressBar = document.querySelector('.progress-bar');
+            if (progressBar) {
+                progressBar.style.display = 'block';
+            }
+            
+            // Hide the intro description paragraph when showing questions
+            const selectedDescription = document.getElementById('selectedDescription');
+            selectedDescription.style.display = 'none';
+            
+            // Hide the selected button container during questions
+            const selectedButtonContainer = document.getElementById('selectedButtonContainer');
+            selectedButtonContainer.style.display = 'none';
+            
+            // Update progress
+            const progress = ((currentQuestionIndex + 1) / pathData.questions.length) * 100;
+            progressFill.style.width = progress + '%';
+            
+            // Clear container
+            questionsContainer.innerHTML = '';
+            
+            // Create question card
+            const questionCard = document.createElement('div');
+            questionCard.className = 'question-card';
+            questionCard.dataset.questionIndex = currentQuestionIndex;
+            if (question.multiSelect) {
+                questionCard.dataset.multiSelect = 'true';
+            }
+            
+            // Add question text
+            const questionTextEl = document.createElement('h3');
+            questionTextEl.className = 'question-text';
+            questionTextEl.textContent = question.question;
+            questionCard.appendChild(questionTextEl);
+            
+            // Add answer options
+            const answerOptionsEl = document.createElement('div');
+            answerOptionsEl.className = 'answer-options';
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'answer-option';
+                optionElement.textContent = option.text;
+                optionElement.dataset.optionText = option.text;
+                
+                // Check if this option was previously selected
+                if (userAnswers[currentQuestionIndex]) {
+                    if (question.multiSelect) {
+                        // For multi-select, check if in array
+                        if (userAnswers[currentQuestionIndex].some(a => a.text === option.text)) {
+                            optionElement.classList.add('selected');
+                        }
+                    } else {
+                        // For single-select, check if matches
+                        if (userAnswers[currentQuestionIndex].text === option.text) {
+                            optionElement.classList.add('selected');
+                        }
+                    }
+                }
+                
+                optionElement.addEventListener('click', function() {
+                    selectAnswer(option, optionElement, questionCard);
+                });
+                answerOptionsEl.appendChild(optionElement);
+            });
+            questionCard.appendChild(answerOptionsEl);
+            
+            // Add previously selected explanations if returning to this question
+            if (userAnswers[currentQuestionIndex]) {
+                if (question.multiSelect && Array.isArray(userAnswers[currentQuestionIndex])) {
+                    userAnswers[currentQuestionIndex].forEach(savedAnswer => {
+                        const explanationDiv = document.createElement('div');
+                        explanationDiv.className = 'explanation-text';
+                        explanationDiv.dataset.option = savedAnswer.text;
+                        explanationDiv.textContent = savedAnswer.explanation;
+                        explanationDiv.style.display = 'block';
+                        questionCard.appendChild(explanationDiv);
+                    });
+                } else if (!question.multiSelect) {
+                    const explanationDiv = document.createElement('div');
+                    explanationDiv.className = 'explanation-text';
+                    explanationDiv.textContent = userAnswers[currentQuestionIndex].explanation;
+                    explanationDiv.style.display = 'block';
+                    questionCard.appendChild(explanationDiv);
+                }
+            }
+            
+            // Append to container
+            questionsContainer.appendChild(questionCard);
+            
+            // Update navigation buttons - initially hide Next until answer selected
+            updateNavigationButtons();
+            
+            // Hide explanation box
+            explanationBox.style.display = 'none';
+        }
+
+        function updateNavigationButtons() {
+            const pathData = questionnaireData[currentPath];
+            const question = pathData.questions[currentQuestionIndex];
+            
+            // Show navigation container
+            questionNavigation.style.display = 'flex';
+            
+            // Always show back button for all questions (including first question)
+            bottomBackButton.style.display = 'flex';
+            
+            // Show/hide and enable/disable next button based on answers
+            const hasAnswer = userAnswers[currentQuestionIndex] && (
+                question.multiSelect 
+                    ? userAnswers[currentQuestionIndex].length > 0 
+                    : true
+            );
+            
+            if (hasAnswer) {
+                bottomNextButton.style.display = 'flex';
+                bottomNextButton.disabled = false;
+                        } else {
+                bottomNextButton.style.display = 'none';
+                bottomNextButton.disabled = true;
+            }
+        }
+
+        function selectAnswer(option, optionElement, questionCard) {
+            const isMultiSelect = questionCard.dataset.multiSelect === 'true';
+            
+            if (isMultiSelect) {
+                // Multi-select: toggle selection
+                const isSelected = optionElement.classList.contains('selected');
+                
+                if (isSelected) {
+                    // Deselect
+                    optionElement.classList.remove('selected');
+                    // Remove explanation for this option
+                    const explanationDiv = questionCard.querySelector(`.explanation-text[data-option="${option.text}"]`);
+                    if (explanationDiv) {
+                        explanationDiv.remove();
+                    }
+                    // Remove from stored answers
+                    if (userAnswers[currentQuestionIndex]) {
+                        userAnswers[currentQuestionIndex] = userAnswers[currentQuestionIndex].filter(a => a.text !== option.text);
+                        }
+                    } else {
+                    // Select
+                    optionElement.classList.add('selected');
+                    
+                    // Store answer (as array for multi-select)
+                    if (!userAnswers[currentQuestionIndex]) {
+                        userAnswers[currentQuestionIndex] = [];
+                    }
+                    userAnswers[currentQuestionIndex].push(option);
+                    
+                    // Create and show explanation below this question
+                    const explanationDiv = document.createElement('div');
+                    explanationDiv.className = 'explanation-text';
+                    explanationDiv.dataset.option = option.text;
+                    explanationDiv.textContent = option.explanation;
+                    explanationDiv.style.display = 'block';
+                    questionCard.appendChild(explanationDiv);
+                }
+                
+                // Update navigation buttons
+                updateNavigationButtons();
+            } else {
+                // Single select: deselect all others in this question
+                const optionsInCard = questionCard.querySelectorAll('.answer-option');
+                optionsInCard.forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                optionElement.classList.add('selected');
+                
+                // Store answer
+                userAnswers[currentQuestionIndex] = option;
+                
+                // Remove any existing explanations
+                const existingExplanations = questionCard.querySelectorAll('.explanation-text');
+                existingExplanations.forEach(exp => exp.remove());
+                
+                // Create and show explanation below this question
+                const explanationDiv = document.createElement('div');
+                explanationDiv.className = 'explanation-text';
+                explanationDiv.textContent = option.explanation;
+                explanationDiv.style.display = 'block';
+                questionCard.appendChild(explanationDiv);
+                
+                // Update navigation buttons
+                updateNavigationButtons();
+            }
+        }
+
+        nextButton.addEventListener('click', function() {
+            const pathData = questionnaireData[currentPath];
+            
+            if (currentQuestionIndex < pathData.questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+                        } else {
+                showSummary();
+            }
+        });
+
+        // backButton no longer exists - removed
+        // backButton.addEventListener('click', function() {
+        //     if (currentQuestionIndex > 0) {
+        //         currentQuestionIndex--;
+        //         showQuestion();
+        //     }
+        // });
+
+        // Bottom navigation buttons
+        bottomNextButton.addEventListener('click', function() {
+            console.log('Next button clicked!', currentQuestionIndex, currentPath);
+            
+            if (currentQuestionIndex === -1) {
+                // Moving from intro to first question
+                currentQuestionIndex = 0;
+                showQuestion();
+                return;
+            }
+            
+            const pathData = questionnaireData[currentPath];
+            
+            if (currentQuestionIndex < pathData.questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+                        } else {
+                showSummary();
+            }
+        });
+
+        bottomBackButton.addEventListener('click', function() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            } else if (currentQuestionIndex === 0) {
+                // Go back to intro screen
+                currentQuestionIndex = -1;
+                
+                // Ensure questionnaire section and question flow are visible
+                questionnaireSection.style.display = 'flex';
+                questionFlow.style.display = 'block';
+                
+                showIntroOrQuestion();
+            } else if (currentQuestionIndex === -1) {
+                // Go back to path selection from intro screen
+                const selectedCard = document.querySelector('.path-card.selected');
+                if (selectedCard) {
+                    selectPathCard(selectedCard);
+                        }
+                    }
+                });
+                
+        // Make progress text clickable as back button
+        progressText.addEventListener('click', function() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        });
+
+        function showSummary() {
+            questionFlow.style.display = 'none';
+            summaryScreen.style.display = 'block';
+            
+            // Hide hero section (title, subtitle, progress bar)
+            const heroSection = document.querySelector('.hero-section');
+            if (heroSection) {
+                heroSection.style.display = 'none';
+            }
+            
+            const pathData = questionnaireData[currentPath];
+            const summary = pathData.summary;
+            
+            // Populate summary content
+            summaryContent.innerHTML = '';
+            summary.points.forEach(point => {
+                const item = document.createElement('div');
+                item.className = 'summary-item';
+                item.innerHTML = `
+                    <div class="summary-item-icon">${point.icon}</div>
+                    <div class="summary-item-text">
+                        <h5>${point.title}</h5>
+                        <p>${point.text}</p>
+                    </div>
+                `;
+                summaryContent.appendChild(item);
+            });
+            
+            // Update CTAs
+            primaryCTA.textContent = 'Get Started in 2-mins!';
+            primaryCTA.href = summary.cta.primary.link;
+            secondaryCTA.textContent = '← Back';
+            secondaryCTA.href = '#';
+            
+            // Add click handler for Back button
+            secondaryCTA.onclick = function(e) {
+                e.preventDefault();
+                // Go back to last question
+                currentQuestionIndex = pathData.questions.length - 1;
+                summaryScreen.style.display = 'none';
+                
+                // Keep hero title and subtitle hidden (they should stay hidden during questions)
+                const heroTitle = document.querySelector('.hero-title');
+                const heroSubtext = document.querySelector('.hero-subtext');
+                if (heroTitle) heroTitle.style.display = 'none';
+                if (heroSubtext) heroSubtext.style.display = 'none';
+                
+                // Keep progress bar margin at 32px for questions
+                const progressBar = document.querySelector('.progress-bar');
+                if (progressBar) {
+                    progressBar.style.marginTop = '32px';
+                }
+                
+                questionFlow.style.display = 'block';
+                showQuestion();
+            };
+        }
+
+        // Restart button removed - no longer needed
+        /*
+        restartButton.addEventListener('click', function() {
+            currentPath = '';
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            
+            // Remove selected class from all path cards
+            pathCards.forEach(c => c.classList.remove('selected'));
+            
+            // Keep path selection visible, hide questionnaire
+            questionnaireSection.style.display = 'none';
+            questionFlow.style.display = 'none';
+            summaryScreen.style.display = 'none';
+            
+            // Clear questions container
+            questionsContainer.innerHTML = '';
+            
+            // Show path selection
+            pathSelectionWrapper.classList.remove('has-selection');
+            selectedButtonContainer.style.display = 'none';
+            selectedDescription.style.display = 'none';
+            pathColumnsWrapper.style.display = 'flex';
+        });
+        */
+
     });
     </script>
 </body>
+</html>
+
 </html>
