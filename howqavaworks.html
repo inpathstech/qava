@@ -3365,6 +3365,29 @@
                 selectPathCard(this);
             });
             
+            // Hover effect to preview progress
+            card.addEventListener('mouseenter', function() {
+                // Only show preview if no path is selected yet
+                if (!currentPath) {
+                    const path = this.getAttribute('data-path');
+                    if (path && questionnaireData[path]) {
+                        const pathData = questionnaireData[path];
+                        const totalSteps = pathData.questions.length + 1;
+                        const previewProgress = (1 / totalSteps) * 100;
+                        progressFill.style.transition = 'width 0.3s ease';
+                        progressFill.style.width = previewProgress + '%';
+                    }
+                }
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                // Reset progress bar if no path is selected
+                if (!currentPath) {
+                    progressFill.style.transition = 'width 0.3s ease';
+                    progressFill.style.width = '0%';
+                }
+            });
+            
             // Keyboard accessibility
             card.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter' || e.key === ' ') {
