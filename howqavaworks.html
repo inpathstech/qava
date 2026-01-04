@@ -2487,9 +2487,9 @@
     <main class="client-how-it-works-page">
         <!-- New Hero Section -->
         <div class="hero-section">
-            <h1 class="hero-title">How Qava Works</h1>
+            <h1 class="hero-title">We start with you</h1>
             <div class="hero-subtext">
-                <p>Get to know why we're the best in 60 seconds or less.</p>
+                <p>Tell us what you're here to do.</p>
         </div>
 
             <!-- Progress Indicator -->
@@ -2638,6 +2638,7 @@
                     <!-- Single Show More button centered below both sections -->
                     <div style="display: flex; justify-content: center; width: 100%; margin-top: 16px;">
                         <button class="show-more-button" id="showMoreButton">Show More</button>
+                        <button class="show-more-button hidden" id="showLessButton">Show Less</button>
                     </div>
                     </div>
 
@@ -3665,6 +3666,8 @@
 
         // Show More functionality for both Clients and Talent sections
         const showMoreBtn = document.getElementById('showMoreButton');
+        const showLessBtn = document.getElementById('showLessButton');
+        
         if (showMoreBtn) {
             showMoreBtn.addEventListener('click', function() {
                 const clientSection = document.getElementById('pathSelection');
@@ -3682,8 +3685,34 @@
                     card.classList.remove('hidden-initially');
                 });
                 
-                // Hide the show more button
+                // Hide Show More button and show Show Less button
                 showMoreBtn.classList.add('hidden');
+                if (showLessBtn) {
+                    showLessBtn.classList.remove('hidden');
+                }
+            });
+        }
+
+        if (showLessBtn) {
+            showLessBtn.addEventListener('click', function() {
+                const clientSection = document.getElementById('pathSelection');
+                const talentSection = document.getElementById('talentSelection');
+                
+                // Get the cards that should be hidden again
+                const clientCards = clientSection.querySelectorAll('.path-card');
+                const talentCards = talentSection.querySelectorAll('.path-card');
+                
+                // Hide the 2nd and 4th cards in client section (grow and optimize)
+                if (clientCards[1]) clientCards[1].classList.add('hidden-initially');
+                if (clientCards[3]) clientCards[3].classList.add('hidden-initially');
+                
+                // Hide the 3rd and 4th cards in talent section (meet and team)
+                if (talentCards[2]) talentCards[2].classList.add('hidden-initially');
+                if (talentCards[3]) talentCards[3].classList.add('hidden-initially');
+                
+                // Hide Show Less button and show Show More button
+                showLessBtn.classList.add('hidden');
+                showMoreBtn.classList.remove('hidden');
             });
         }
 
