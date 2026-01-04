@@ -701,6 +701,35 @@
             flex-direction: column;
         }
 
+        .path-card.hidden-initially {
+            display: none;
+        }
+
+        .show-more-button {
+            margin-top: 12px;
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            color: #000000;
+            align-self: center;
+            width: fit-content;
+        }
+
+        .show-more-button:hover {
+            background: rgba(0, 0, 0, 0.04);
+            border-color: rgba(0, 0, 0, 0.25);
+        }
+
+        .show-more-button.hidden {
+            display: none;
+        }
+
         .path-section-title {
             font-family: 'Inter', sans-serif;
             font-size: 18px;
@@ -2493,7 +2522,7 @@
                         </svg>
             </div>
                         </div>
-                <div class="path-card" data-path="grow" role="button" tabindex="0">
+                <div class="path-card hidden-initially" data-path="grow" role="button" tabindex="0">
                     <input type="checkbox" class="path-checkbox" aria-label="I want to grow or raise money">
                     <div class="path-card-content">
                         <div class="path-text">
@@ -2521,7 +2550,7 @@
                         </svg>
         </div>
                 </div>
-                <div class="path-card" data-path="optimize" role="button" tabindex="0">
+                <div class="path-card hidden-initially" data-path="optimize" role="button" tabindex="0">
                     <input type="checkbox" class="path-checkbox" aria-label="I want to measure or optimize">
                     <div class="path-card-content">
                         <div class="path-text">
@@ -2536,6 +2565,7 @@
                     </div>
         </div>
             </div>
+                    <button class="show-more-button" id="clientsShowMore">Show More</button>
         </div>
 
                 <!-- Talent Section -->
@@ -2570,7 +2600,7 @@
                         </svg>
             </div>
                 </div>
-                <div class="path-card" data-path="meet" role="button" tabindex="0">
+                <div class="path-card hidden-initially" data-path="meet" role="button" tabindex="0">
                     <input type="checkbox" class="path-checkbox" aria-label="I want to meet smart people">
                     <div class="path-card-content">
                         <div class="path-text">
@@ -2584,7 +2614,7 @@
                         </svg>
         </div>
         </div>
-                <div class="path-card" data-path="team" role="button" tabindex="0">
+                <div class="path-card hidden-initially" data-path="team" role="button" tabindex="0">
                     <input type="checkbox" class="path-checkbox" aria-label="We're a strategy team">
                     <div class="path-card-content">
                         <div class="path-text">
@@ -2599,6 +2629,7 @@
                     </div>
                     </div>
                     </div>
+                    <button class="show-more-button" id="talentShowMore">Show More</button>
                     </div>
                     </div>
                     </div>
@@ -3625,6 +3656,36 @@
             pathColumnsWrapper.style.display = 'flex';
         });
         */
+
+        // Show More functionality for Clients section
+        const clientsShowMoreBtn = document.getElementById('clientsShowMore');
+        if (clientsShowMoreBtn) {
+            clientsShowMoreBtn.addEventListener('click', function() {
+                const clientSection = document.getElementById('pathSelection');
+                const hiddenCards = clientSection.querySelectorAll('.path-card.hidden-initially');
+                
+                hiddenCards.forEach(card => {
+                    card.classList.remove('hidden-initially');
+                });
+                
+                clientsShowMoreBtn.classList.add('hidden');
+            });
+        }
+
+        // Show More functionality for Talent section
+        const talentShowMoreBtn = document.getElementById('talentShowMore');
+        if (talentShowMoreBtn) {
+            talentShowMoreBtn.addEventListener('click', function() {
+                const talentSection = document.getElementById('talentSelection');
+                const hiddenCards = talentSection.querySelectorAll('.path-card.hidden-initially');
+                
+                hiddenCards.forEach(card => {
+                    card.classList.remove('hidden-initially');
+                });
+                
+                talentShowMoreBtn.classList.add('hidden');
+            });
+        }
 
     });
     </script>
