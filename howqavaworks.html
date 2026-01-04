@@ -1286,7 +1286,7 @@
             right: 16px;
             width: 18px;
             height: 18px;
-            border: 1.5px solid #d1d5db;
+            border: 1px solid #d1d5db;
             border-radius: 4px;
             flex-shrink: 0;
             display: flex;
@@ -1302,14 +1302,15 @@
             border-color: #000000;
         }
 
-        .path-card.selected .path-checkbox-visible::after {
-            content: '';
-            width: 8px;
-            height: 4px;
-            border-left: 1.5px solid white;
-            border-bottom: 1.5px solid white;
-            transform: rotate(-45deg);
-            position: absolute;
+        .path-checkbox-visible svg {
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.2s ease;
+        }
+
+        .path-card.selected .path-checkbox-visible svg {
+            opacity: 1;
+            transform: scale(1);
         }
 
         .path-checkbox {
@@ -2446,7 +2447,11 @@
                             <p class="path-subtext">Turn my idea into a real business.</p>
                 </div>
                 </div>
-                    <div class="path-checkbox-visible"></div>
+                    <div class="path-checkbox-visible">
+                        <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
             </div>
                 <div class="path-card" data-path="grow" role="button" tabindex="0">
                     <input type="checkbox" class="path-checkbox" aria-label="I want to grow or raise money">
@@ -2456,7 +2461,11 @@
                             <p class="path-subtext">Expand reach, attract funding, and scale impact.</p>
                         </div>
                     </div>
-                    <div class="path-checkbox-visible"></div>
+                    <div class="path-checkbox-visible">
+                        <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
                         </div>
                 <div class="path-card" data-path="scale" role="button" tabindex="0">
                     <input type="checkbox" class="path-checkbox" aria-label="I want to scale or improve">
@@ -2466,7 +2475,11 @@
                             <p class="path-subtext">Streamline operations and strengthen your foundation.</p>
                         </div>
                     </div>
-                    <div class="path-checkbox-visible"></div>
+                    <div class="path-checkbox-visible">
+                        <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
                 </div>
                 <div class="path-card" data-path="optimize" role="button" tabindex="0">
                     <input type="checkbox" class="path-checkbox" aria-label="I want to measure or optimize">
@@ -2476,7 +2489,11 @@
                             <p class="path-subtext">Track performance and make smarter decisions.</p>
             </div>
         </div>
-                    <div class="path-checkbox-visible"></div>
+                    <div class="path-checkbox-visible">
+                        <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
         </div>
             </div>
         </div>
@@ -2493,7 +2510,11 @@
                             <p class="path-subtext">Learn by doing on real-life projects</p>
                     </div>
                     </div>
-                    <div class="path-checkbox-visible"></div>
+                    <div class="path-checkbox-visible">
+                        <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
                     </div>
                 <div class="path-card" data-path="skills" role="button" tabindex="0">
                     <input type="checkbox" class="path-checkbox" aria-label="I want to work on real-life strategy">
@@ -2503,7 +2524,11 @@
                             <p class="path-subtext">Apply what I know to create real impact</p>
                     </div>
                     </div>
-                    <div class="path-checkbox-visible"></div>
+                    <div class="path-checkbox-visible">
+                        <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
                 </div>
                 <div class="path-card" data-path="meet" role="button" tabindex="0">
                     <input type="checkbox" class="path-checkbox" aria-label="I want to meet smart people">
@@ -2513,7 +2538,11 @@
                             <p class="path-subtext">Collaborate on interesting challenges together</p>
             </div>
                 </div>
-                    <div class="path-checkbox-visible"></div>
+                    <div class="path-checkbox-visible">
+                        <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
                 </div>
                 <div class="path-card" data-path="team" role="button" tabindex="0">
                     <input type="checkbox" class="path-checkbox" aria-label="We're a strategy team">
@@ -2523,7 +2552,11 @@
                             <p class="path-subtext">We want to work together on a real project</p>
             </div>
         </div>
-                    <div class="path-checkbox-visible"></div>
+                    <div class="path-checkbox-visible">
+                        <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
         </div>
                     </div>
                     </div>
