@@ -1356,7 +1356,7 @@
         .progress-bar {
             width: 100%;
             max-width: 700px;
-            margin: 32px auto 13px auto;
+            margin: 32px auto 24px auto;
             height: 2px;
             background: #e5e7eb;
             border-radius: 1px;
@@ -1620,7 +1620,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 24px;
+            margin-top: 32px;
             width: 100%;
             max-width: 700px;
             margin-left: auto;
@@ -2479,35 +2479,35 @@
                         <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                    </div>
             </div>
+                        </div>
                 <div class="path-card" data-path="grow" role="button" tabindex="0">
                     <input type="checkbox" class="path-checkbox" aria-label="I want to grow or raise money">
                     <div class="path-card-content">
                         <div class="path-text">
                             <h3><strong>I want to grow or raise money 🌱</strong></h3>
                             <p class="path-subtext">Expand reach, attract funding, and scale impact.</p>
-                        </div>
                     </div>
+                        </div>
                     <div class="path-checkbox-visible">
                         <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                    </div>
                         </div>
+                    </div>
                 <div class="path-card" data-path="scale" role="button" tabindex="0">
                     <input type="checkbox" class="path-checkbox" aria-label="I want to scale or improve">
                     <div class="path-card-content">
                         <div class="path-text">
                             <h3><strong>I want to scale or improve ⚙️</strong></h3>
                             <p class="path-subtext">Streamline operations and strengthen your foundation.</p>
-                        </div>
-                    </div>
+                </div>
+            </div>
                     <div class="path-checkbox-visible">
                         <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                    </div>
+        </div>
                 </div>
                 <div class="path-card" data-path="optimize" role="button" tabindex="0">
                     <input type="checkbox" class="path-checkbox" aria-label="I want to measure or optimize">
@@ -2551,12 +2551,12 @@
                             <h3><strong>I want to work on real-life strategy 🧠</strong></h3>
                             <p class="path-subtext">Apply what I know to create real impact</p>
                     </div>
-                    </div>
+                </div>
                     <div class="path-checkbox-visible">
                         <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                    </div>
+            </div>
                 </div>
                 <div class="path-card" data-path="meet" role="button" tabindex="0">
                     <input type="checkbox" class="path-checkbox" aria-label="I want to meet smart people">
@@ -2564,28 +2564,28 @@
                         <div class="path-text">
                             <h3><strong>I want to meet smart people 🤝</strong></h3>
                             <p class="path-subtext">Collaborate on interesting challenges together</p>
-            </div>
                 </div>
+            </div>
                     <div class="path-checkbox-visible">
                         <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                    </div>
-                </div>
+        </div>
+        </div>
                 <div class="path-card" data-path="team" role="button" tabindex="0">
                     <input type="checkbox" class="path-checkbox" aria-label="We're a strategy team">
                     <div class="path-card-content">
                         <div class="path-text">
                             <h3><strong>We're a strategy team 👫</strong></h3>
                             <p class="path-subtext">We want to work together on a real project</p>
-            </div>
-        </div>
+                    </div>
+                    </div>
                     <div class="path-checkbox-visible">
                         <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
-        </div>
+                    </div>
                     </div>
                     </div>
                     </div>
@@ -2604,8 +2604,8 @@
                     <div class="question-navigation" id="questionNavigation" style="display: none;">
                         <button type="button" class="bottom-back-button" id="bottomBackButton" style="display: none;">← Back</button>
                         <button type="button" class="bottom-next-button" id="bottomNextButton" style="display: none;">Next →</button>
-                    </div>
-            
+                </div>
+
                     <!-- Explanation Box (shown after answer) -->
                     <div class="explanation-box" id="explanationBox" style="display: none;">
                         <div class="explanation-icon">💡</div>
@@ -3255,7 +3255,7 @@
                 bottomNextButton.style.display = 'flex';
                 bottomNextButton.disabled = false;
                 progressFill.style.width = '0%';
-            } else {
+                    } else {
                 showQuestion();
             }
         }
@@ -3517,9 +3517,9 @@
                 const selectedCard = document.querySelector('.path-card.selected');
                 if (selectedCard) {
                     selectPathCard(selectedCard);
-                }
-            }
-        });
+                        }
+                    }
+                });
                 
         // Make progress text clickable as back button
         progressText.addEventListener('click', function() {
