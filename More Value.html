@@ -1,0 +1,2265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savings Calculator | Qava</title>
+    <link rel="icon" type="image/svg+xml" href="qava-logo.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @font-face {
+            font-family: 'Jonathan';
+            src: url('jonathan_signature (1)/JonathanSignature.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f1f1f;
+        }
+        
+        /* Cache buster v2 - Updated styling */
+
+        /* NAVBAR STYLES - Copied from index.html */
+        .header-container {
+            width: 100%;
+            padding: 16px 32px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 64px;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            overflow: visible;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .header-center {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex: 1;
+            margin-left: 40px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 36px;
+            height: 36px;
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1;
+            height: 25px;
+            color: #000000;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+            gap: 4px;
+            text-decoration: none;
+            vertical-align: middle;
+            box-sizing: border-box;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .nav-item:visited {
+            color: #000000;
+        }
+
+        .nav-item:active {
+            color: #000000;
+        }
+
+        .dropdown-arrow {
+            color: #000000;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover .dropdown-arrow {
+            color: #000000;
+        }
+
+        .nav-text {
+            color: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            white-space: nowrap;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 8px;
+            min-width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 10000;
+        }
+
+        .nav-item.has-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-item {
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.04);
+        }
+
+        .dropdown-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 2px;
+        }
+
+        .dropdown-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 300;
+            color: #6B6B6B;
+        }
+
+        .auth-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .auth-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1;
+            height: 25px;
+            color: #000000;
+            text-decoration: none;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .auth-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+        }
+
+        .join-button {
+            background-color: #0F62FE;
+            color: white;
+            padding: 7px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1;
+            height: 28px;
+            text-decoration: none;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 3px rgba(15, 98, 254, 0.3);
+        }
+
+        .join-button:hover {
+            background-color: #0047C3;
+            box-shadow: 0 2px 6px rgba(15, 98, 254, 0.4);
+        }
+
+        .join-text {
+            color: white;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            gap: 3px;
+            cursor: pointer;
+            padding: 6px;
+            z-index: 1001;
+        }
+
+        .hamburger-line {
+            width: 20px;
+            height: 2px;
+            background-color: #000000;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: white;
+            z-index: 999;
+            display: none;
+            flex-direction: column;
+            padding: 80px 32px 32px 32px;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 20px;
+            right: 32px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #000000;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-nav-item {
+            padding: 16px 0;
+            font-size: 16px;
+            font-weight: 400;
+            color: #000000;
+            text-decoration: none;
+            border-bottom: 1px solid #EBEBEB;
+        }
+
+        .mobile-dropdown-toggle {
+            cursor: pointer;
+        }
+
+        .mobile-dropdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mobile-dropdown-arrow {
+            font-size: 18px;
+            transition: transform 0.2s ease;
+        }
+
+        .mobile-dropdown-toggle.active .mobile-dropdown-arrow {
+            transform: rotate(45deg);
+        }
+
+        .mobile-dropdown-content {
+            display: none;
+            flex-direction: column;
+            padding-left: 16px;
+        }
+
+        .mobile-dropdown-content.active {
+            display: flex;
+        }
+
+        .mobile-dropdown-item {
+            padding: 12px 0;
+            text-decoration: none;
+            border-bottom: 1px solid #F5F5F5;
+        }
+
+        .mobile-auth-section {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding-top: 24px;
+        }
+
+        /* Fix navbar underline issue */
+        .navigation .nav-item,
+        .navigation .nav-item:link,
+        .navigation .nav-item:visited,
+        .navigation .nav-item:hover,
+        .navigation .nav-item:active,
+        .navigation .nav-item:focus {
+            text-decoration: none !important;
+        }
+
+        /* FOOTER STYLES - Copied from index.html */
+        .footer-section {
+            background: white;
+            width: 100%;
+            max-width: 1070px;
+            margin: 0 auto;
+            padding: 78px 0 46px 0;
+            margin-top: 50px;
+            border-top: 1px solid #EBEBEB;
+        }
+
+        .footer-container {
+            max-width: 940px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .footer-logo {
+            width: 39%;
+            padding: 2px 15px 0 0;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo-img {
+            width: 40px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            width: 60%;
+            gap: 16px 25px;
+            padding: 0 15px 0 10px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-heading {
+            font-family: 'Inter', sans-serif;
+            font-size: 17px;
+            color: #000000;
+            margin-bottom: 8px;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+        }
+
+        .footer-link-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .footer-link-list li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+            text-decoration: none;
+            line-height: 1.2;
+            transition: text-decoration 0.2s ease;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer-link.disabled-link {
+            cursor: not-allowed;
+            opacity: 0.6;
+            position: relative;
+        }
+
+        .footer-link.disabled-link:hover {
+            text-decoration: none;
+            opacity: 0.8;
+            color: #999999;
+        }
+
+        .footer-link.disabled-link:hover::before {
+            content: "Coming Soon";
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000000;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+            white-space: nowrap;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .footer-copyright {
+            grid-column: 1 / -1;
+            margin-top: 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+        }
+
+        /* BLOG POST STYLES */
+        .story-wrapper {
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 56px 24px 90px;
+        }
+
+        .story-header {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 0;
+        }
+
+        .story-title {
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .story-subtitle {
+            font-size: 20px;
+            font-weight: 300;
+            color: #4a4a4a;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        .story-categories {
+            display: flex;
+            gap: 8px;
+            margin: 0 0 20px 0;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .story-category-pill {
+            display: inline-flex;
+            align-items: center;
+            background: transparent;
+            color: #000000;
+            font-size: 11px;
+            font-weight: 400;
+            padding: 2px 4px;
+            border-radius: 0;
+            border: none;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .story-project-badges {
+            display: flex;
+            gap: 8px;
+            margin: 2px 0 3px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .story-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            background: #fafafa;
+            color: #000000;
+            font-size: 11px;
+            font-weight: 400;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-decoration: none;
+        }
+
+        .story-badge-pill span {
+            color: #000000;
+        }
+
+        .story-badge-separator {
+            font-size: 11px;
+            font-weight: 400;
+            color: #000000;
+        }
+
+        .story-hero {
+            width: 100%;
+            margin: 32px 0 40px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .story-hero img {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        /* ===== SPACING SYSTEM - Professional & Consistent ===== */
+        
+        /* Intro section - appears after hero image */
+        .story-intro {
+            padding: 0 !important;
+            margin: 0 0 32px !important;
+        }
+
+        .story-intro p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 16px;
+        }
+
+        .story-intro p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Table of Contents - compact spacing */
+        .story-toc {
+            padding: 0 !important;
+            margin: 32px 0 48px !important;
+        }
+
+        .story-toc ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding: 0;
+        }
+
+        .story-toc li a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 300;
+            color: #2e2e2e;
+            line-height: 1.65;
+            text-decoration: none;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .story-toc li a:hover {
+            color: #111111;
+            transform: translateX(4px);
+        }
+
+        .story-toc li .index {
+            font-size: 13px;
+            font-weight: 500;
+            color: #6b6b6b;
+            letter-spacing: 0.08em;
+        }
+
+        /* Main content sections */
+        .story-section {
+            padding: 0 !important;
+            margin: 56px 0 0 0 !important;
+        }
+
+        .story-section:first-of-type {
+            margin-top: 0 !important;
+        }
+ 
+        .story-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 0 24px !important;
+            padding-top: 28px !important;
+            letter-spacing: -0.01em;
+            color: #000000;
+            border-top: 1px solid #e0e0e0 !important;
+        }
+
+        .story-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #111;
+        }
+
+        /* All paragraphs - consistent spacing */
+        .story-wrapper p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 14px;
+        }
+
+        .story-section p,
+        .story-intro p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+        }
+
+        /* Q&A blocks - consistent spacing */
+        .qa-block {
+            margin-bottom: 36px !important;
+        }
+
+        .qa-block:last-child {
+            margin-bottom: 0 !important;
+        }
+
+        .qa-question {
+            font-size: 16px !important;
+            font-weight: 600 !important;
+            margin-bottom: 14px !important;
+            color: #0F62FE !important;
+        }
+
+        .qa-answer {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 14px;
+        }
+
+        .qa-answer:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Pull quotes - centered with breathing room */
+        blockquote {
+            margin: 40px auto !important;
+            padding: 14px 24px !important;
+            width: fit-content;
+            max-width: 90%;
+            font-size: 35px !important;
+            line-height: 1.3 !important;
+            color: #000000 !important;
+            font-weight: 300 !important;
+            font-style: normal !important;
+            text-align: center;
+            background: transparent;
+            white-space: normal;
+            display: block;
+            font-family: 'Jonathan', 'Kalam', 'Brush Script MT', cursive;
+        }
+
+        blockquote::before {
+            content: "";
+        }
+
+        /* Images with captions */
+        .story-media {
+            margin: 24px 0 28px;
+            text-align: center;
+        }
+
+        .story-media img {
+            width: 100%;
+            border-radius: 16px;
+            display: block;
+        }
+
+        .story-media-caption {
+            margin-top: 0px;
+            font-size: 13px;
+            color: #585858;
+            font-style: italic;
+            text-align: center;
+        }
+
+        .story-media-caption a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .story-media-caption a:hover {
+            text-decoration: underline;
+        }
+
+        /* Links within story content */
+        .qa-answer a {
+            color: inherit;
+            text-decoration: none;
+            transition: text-decoration 0.2s ease;
+        }
+
+        .qa-answer a:hover {
+            text-decoration: underline;
+        }
+
+        .story-cta {
+            margin-top: 48px;
+            text-align: center;
+            padding: 32px 48px;
+            border-radius: 14px;
+            background: #fafafa;
+        }
+
+        .story-cta h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .story-cta p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #3b3b3b;
+            margin-bottom: 0;
+            font-weight: 300;
+        }
+
+        .story-cta p:first-of-type {
+            margin-bottom: 4px;
+        }
+
+        .story-cta p:last-of-type {
+            margin-bottom: 28px;
+        }
+
+        .story-cta-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        /* Primary button - Join for free (matches hero) */
+        .story-cta .cta-button.primary {
+            padding: 6px 12px;
+            background: #0F62FE;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            font-family: inherit;
+            height: 27.6px;
+            text-decoration: none;
+            color: white;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .story-cta .cta-button.primary:hover {
+            background: #0053E5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
+        }
+
+        /* Secondary button - Request a demo (matches hero) */
+        .story-cta .cta-button.secondary {
+            padding: 6px 12px;
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            height: 27.6px;
+            text-decoration: none;
+            color: #000000;
+            font-size: 13px;
+            font-weight: 300;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .story-cta .cta-button.secondary::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 12px;
+            right: 12px;
+            height: 1px;
+            background-color: #000000;
+            transform: scaleX(0);
+            transition: transform 0.2s ease;
+        }
+
+        .story-cta .cta-button.secondary:hover::after {
+            transform: scaleX(1);
+        }
+
+        .story-cta .cta-button.secondary:visited {
+            color: #000000;
+        }
+
+        .story-cta .cta-button.secondary:active {
+            color: #000000;
+        }
+
+        /* Calculator Section Styles */
+        .calculator-checkbox-wrapper {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 8px;
+            flex-shrink: 0;
+        }
+
+        .calculator-checkbox {
+            width: 18px;
+            height: 18px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .calculator-checkbox.checked {
+            background: #000000;
+            border-color: #000000;
+        }
+
+        .calculator-checkbox svg {
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.2s ease;
+        }
+
+        .calculator-checkbox.checked svg {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .calculator-checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .calculator-section {
+            max-width: 900px;
+            margin: 48px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .calculator-section {
+                padding: 24px 20px;
+                margin: 24px 16px;
+            }
+
+            .calculator-checkboxes-grid {
+                grid-template-columns: 1fr !important;
+                gap: 16px !important;
+            }
+
+            .calculator-results-grid {
+                grid-template-columns: 1fr !important;
+                gap: 24px !important;
+            }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1100px) {
+
+        /* FLOATING HELP BUBBLE STYLES */
+        .help-bubble-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+        }
+
+        .help-bubble-main {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #000000;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 10;
+        }
+
+        .help-bubble-main:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .help-bubble-main.active {
+            background: #333333;
+        }
+
+        .help-option {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #0F62FE;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            text-align: center;
+            padding: 8px;
+            line-height: 1.2;
+        }
+
+        .help-option:hover {
+            transform: scale(1.1) !important;
+            background: #0047C3;
+        }
+
+        .help-bubble-container.expanded .help-option {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: all;
+        }
+
+        .help-option-1 {
+            bottom: 5px;
+            right: 5px;
+        }
+
+        .help-bubble-container.expanded .help-option-1 {
+            transform: rotate(135deg) translateX(90px) rotate(-135deg);
+        }
+
+        .help-option-2 {
+            bottom: 5px;
+            right: 5px;
+        }
+
+        .help-bubble-container.expanded .help-option-2 {
+            transform: rotate(90deg) translateX(90px) rotate(-90deg);
+        }
+
+        .help-option-3 {
+            bottom: 5px;
+            right: 5px;
+        }
+
+        .help-bubble-container.expanded .help-option-3 {
+            transform: rotate(45deg) translateX(90px) rotate(-45deg);
+        }
+
+        /* MODAL STYLES */
+        .help-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+            display: none !important;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .help-modal-overlay.active {
+            display: flex !important;
+        }
+
+        .help-modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .help-modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #f5f5f5;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease;
+        }
+
+        .help-modal-close:hover {
+            background: #e5e5e5;
+        }
+
+        .help-modal-content h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #111827;
+        }
+
+        .help-modal-content p {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .help-form-group {
+            margin-bottom: 20px;
+        }
+
+        .help-form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .help-form-input,
+        .help-form-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.2s ease;
+        }
+
+        .help-form-input:focus,
+        .help-form-textarea:focus {
+            outline: none;
+            border-color: #0F62FE;
+        }
+
+        .help-form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .help-form-button {
+            background: #0F62FE;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .help-form-button:hover {
+            background: #0047C3;
+        }
+
+        .help-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .help-link-item {
+            padding: 16px;
+            background: #f9fafb;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #111827;
+            transition: background 0.2s ease;
+        }
+
+        .help-link-item:hover {
+            background: #f3f4f6;
+        }
+
+        .help-link-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .help-link-desc {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1100px) {
+            .header-container {
+                padding: 12px 20px;
+            }
+
+            .navigation {
+                display: none;
+            }
+
+            .auth-section {
+                display: none;
+            }
+
+            .hamburger-menu {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .story-wrapper {
+                padding: 40px 20px 80px;
+            }
+
+            .story-categories {
+                margin: 0 0 16px;
+                gap: 6px;
+            }
+
+            .story-category-pill {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .story-project-badges {
+                margin: 8px 0 8px;
+                gap: 6px;
+            }
+
+            .story-badge-pill {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .story-title {
+                font-size: 32px;
+                line-height: 1.15;
+            }
+
+            .story-subtitle {
+                font-size: 17px;
+                line-height: 1.45;
+            }
+
+            .story-hero {
+                margin: 24px 0 32px;
+                border-radius: 8px;
+            }
+
+            .story-intro,
+            .story-section {
+                padding: 0;
+            }
+
+            .story-section {
+                margin: 48px 0 0 0 !important;
+            }
+
+            .story-section h2 {
+                font-size: 22px;
+                padding-top: 24px !important;
+                margin-bottom: 20px !important;
+            }
+
+            .story-toc {
+                padding: 0;
+                margin: 28px 0 40px;
+            }
+
+            .story-toc ul {
+                gap: 8px;
+            }
+
+            .story-toc li a {
+                font-size: 15px;
+            }
+
+            .qa-block {
+                margin-bottom: 32px !important;
+            }
+
+            blockquote {
+                margin: 32px auto !important;
+                padding: 12px 18px !important;
+                font-size: 15px !important;
+                max-width: 90%;
+            }
+
+            .story-media {
+                margin: 20px 0 24px;
+            }
+
+            .story-media img {
+                border-radius: 12px;
+            }
+            
+            /* Mobile: Make partner boxes horizontally scrollable */
+            .partner-boxes-container {
+                display: flex !important;
+                grid-template-columns: none !important;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                gap: 16px !important;
+                padding-bottom: 10px;
+            }
+            
+            .partner-boxes-container > div {
+                flex: 0 0 85%;
+                scroll-snap-align: start;
+                min-width: 280px;
+            }
+
+            .story-cta {
+                padding: 32px 24px;
+                margin-top: 40px;
+            }
+
+            .story-cta h3 {
+                font-size: 20px;
+                margin-bottom: 14px;
+            }
+
+            .story-cta p {
+                font-size: 15px;
+                margin-bottom: 24px;
+            }
+
+            .story-cta-actions {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+                align-items: center;
+            }
+
+            .story-cta .cta-button {
+                width: auto;
+                max-width: 280px;
+                min-width: fit-content;
+                padding: 8px 16px;
+            }
+
+            .footer-section {
+                padding: 60px 24px 40px 24px;
+            }
+
+            .footer-logo {
+                width: 100%;
+                padding: 0;
+                margin-bottom: 32px;
+            }
+
+            .footer-links {
+                width: 100%;
+                grid-template-columns: 1fr;
+                padding: 0;
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .story-wrapper {
+                padding: 32px 18px 70px;
+            }
+
+            .story-title {
+                font-size: 28px;
+            }
+
+            .story-subtitle {
+                font-size: 16px;
+            }
+
+            .story-hero {
+                margin: 20px 0 28px;
+            }
+
+            .story-section h2 {
+                font-size: 20px;
+            }
+
+            .story-toc li a {
+                font-size: 14px;
+            }
+
+            .story-wrapper p,
+            .qa-question,
+            .qa-answer {
+                font-size: 15px !important;
+            }
+
+            blockquote {
+                font-size: 14px !important;
+                padding: 10px 16px !important;
+            }
+
+            .story-cta {
+                padding: 28px 20px;
+            }
+
+            .story-cta h3 {
+                font-size: 18px;
+            }
+
+            .story-cta p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="header-container">
+        <!-- Logo on the left -->
+        <div class="header-logo">
+            <div class="logo-container">
+                <div class="logo">
+                    <a href="https://qava.ai/">
+                        <img src="qava-logo.svg" alt="Qava Logo">
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation in the center -->
+        <div class="header-center">
+            <div class="navigation">
+                <a href="https://app.qava.ai/" class="nav-item create-listing">
+                    <div class="nav-text">Create Listing</div>
+                </a>
+                <a href="https://app.qava.ai/projects" class="nav-item search-listings">
+                    <div class="nav-text">Search Listings</div>
+                </a>
+                <div class="nav-item how-it-works has-dropdown">
+                    <div class="nav-text">How It Works</div>
+                    <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M6 3v6M3 6h6" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <div class="dropdown-menu">
+                        <a href="https://qava.ai/clienthowitworks" class="dropdown-item">
+                            <div class="dropdown-title">For Clients 🚀</div>
+                            <div class="dropdown-subtitle">Hiring for current or future work</div>
+                        </a>
+                        <a href="https://qava.ai/talenthowitworks" class="dropdown-item">
+                            <div class="dropdown-title">For Talent 👩‍💻</div>
+                            <div class="dropdown-subtitle">Interested in current or future work</div>
+                        </a>
+                    </div>
+                </div>
+                <a href="https://qava.ai/pricing" class="nav-item pricing">
+                    <div class="nav-text">Pricing</div>
+                </a>
+                <a href="https://qava.ai/about" class="nav-item about">
+                    <div class="nav-text">About</div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Auth section on the right -->
+        <div class="header-right">
+            <div class="auth-section">
+                <a href="https://qava.ai/demo" class="auth-item">
+                    <div class="nav-text">Request a demo</div>
+                </a>
+                <a href="https://app.qava.ai/" class="auth-item">
+                    <div class="nav-text">Log in</div>
+                </a>
+                <a href="https://app.qava.ai/" class="join-button">
+                    <div class="join-text">Join for free</div>
+                </a>
+            </div>
+
+            <!-- Hamburger Menu Icon -->
+            <div class="hamburger-menu" onclick="toggleMobileMenu()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
+        <a href="https://app.qava.ai/" class="mobile-nav-item">
+            <div class="nav-text">Create Listing</div>
+        </a>
+        <a href="https://app.qava.ai/projects" class="mobile-nav-item">
+            <div class="nav-text">Search Listings</div>
+        </a>
+        <div class="mobile-nav-item mobile-dropdown-toggle" onclick="toggleMobileDropdown()">
+            <div class="mobile-dropdown-header">
+                <div class="nav-text">How It Works</div>
+                <span class="mobile-dropdown-arrow">+</span>
+            </div>
+        </div>
+        <div class="mobile-dropdown-content" id="mobileDropdown">
+            <a href="https://qava.ai/clienthowitworks" class="mobile-dropdown-item">
+                <div class="dropdown-title">For Clients 🚀</div>
+                <div class="dropdown-subtitle">Hiring for current or future work</div>
+            </a>
+            <a href="https://qava.ai/talenthowitworks" class="mobile-dropdown-item">
+                <div class="dropdown-title">For Talent 👩‍💻</div>
+                <div class="dropdown-subtitle">Interested in current or future work</div>
+            </a>
+        </div>
+        <a href="https://qava.ai/pricing" class="mobile-nav-item">
+            <div class="nav-text">Pricing</div>
+        </a>
+        <a href="https://qava.ai/about" class="mobile-nav-item">
+            <div class="nav-text">About</div>
+        </a>
+        <div class="mobile-auth-section">
+            <a href="https://qava.ai/demo" class="mobile-nav-item">Request a demo</a>
+            <a href="https://app.qava.ai/" class="mobile-nav-item">Log in</a>
+            <a href="https://app.qava.ai/" class="join-button">
+                <div class="join-text">Join for free</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="story-wrapper">
+
+        <!-- Calculator Section -->
+        <section class="calculator-section">
+            
+            <!-- Header in gray box -->
+            <div style="background: #f9fafb; padding: 32px; border-radius: 8px; margin-bottom: 32px; text-align: left;">
+                <h1 style="font-size: 48px; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 12px 0;">More value.<br>More control.</h1>
+                <p style="color: #666666; font-size: 16px; font-weight: 300; margin: 0 0 12px 0;">Your one-stop-shop for on-demand strategy work. Calculate savings below.</p>
+                <a href="https://qava.ai/pricing" style="display: inline-flex; align-items: center; gap: 6px; color: #0F62FE; text-decoration: none; font-size: 14px; font-weight: 500;">
+                    See pricing plans →
+                </a>
+        </div>
+
+            <!-- Three columns of checkboxes -->
+            <div class="calculator-checkboxes-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 48px;">
+                
+                <!-- Column 1: Core Strategy -->
+                <div>
+                    <h3 style="font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; padding-left: 8px;">Core Strategy</h3>
+                    <div style="display: flex; flex-direction: column; gap: 2px;">
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="12">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                        </div>
+                            </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Business Plan 🚀</span>
+                        </label>
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="9">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                            </div>
+                        </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Financial Model 📊</span>
+                        </label>
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="7">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+        </div>
+                </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Competitor Analysis 🔍</span>
+                        </label>
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="8">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+            </div>
+                </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Industry Analysis 🔎</span>
+                        </label>
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="5">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Pitch Deck 🚀</span>
+                        </label>
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="8">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                </div>
+            </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Pricing Strategy 💲</span>
+                        </label>
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="10">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+            </div>
+            </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Product Strategy 👤</span>
+                        </label>
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="8">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+            </div>
+                                </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Customer Segmentation 🎯</span>
+                        </label>
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="8">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Cost Optimization 💸</span>
+                        </label>
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="7">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                        </div>
+            </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Grant Application 💰</span>
+                        </label>
+                        </div>
+                    </div>
+                    
+                <!-- Column 2: Growth Strategy -->
+                <div>
+                    <h3 style="font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; padding-left: 8px;">Growth Strategy</h3>
+                    <div style="display: flex; flex-direction: column; gap: 2px;">
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="11">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                        </div>
+                                    </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Go-To-Market Strategy 📍</span>
+                        </label>
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="11">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                    </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Sales & Marketing Strategy 💰</span>
+                        </label>
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="10">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    </div>
+                                    </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Growth Plan 🌱</span>
+                        </label>
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="9">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Partnership Strategy 🤝</span>
+                        </label>
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="9">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                        </div>
+                                </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Creative Strategy 🧠</span>
+                        </label>
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="10">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Strategic Finance 💼</span>
+                        </label>
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="12">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Innovation Projects 💡</span>
+                        </label>
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="11">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Organizational Design 👋</span>
+                        </label>
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="9">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Supply Chain Analysis 🚚</span>
+                        </label>
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="4">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Virtual Workshop 🖥️</span>
+                        </label>
+                        </div>
+                    </div>
+                    
+                <!-- Column 3: Advanced/Technical -->
+                <div>
+                    <h3 style="font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; padding-left: 8px;">Advanced/Technical</h3>
+                    <div style="display: flex; flex-direction: column; gap: 2px;">
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="14">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                    </div>
+                </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Digital Transformation 🦋</span>
+                        </label>
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="11">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+            </div>
+            </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Cyber Security 🛡️</span>
+                        </label>
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="6">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+            </div>
+                            </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Data Analysis 📊</span>
+                        </label>
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="10">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+            </div>
+                        </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Data Strategy 🚪</span>
+                        </label>
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="10">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+            </div>
+                </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">System Migration 💻</span>
+                        </label>
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="13">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+            </div>
+                                </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Operating Model Design 💼</span>
+                        </label>
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="7">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                            </div>
+            </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Process Improvement ⚙️</span>
+                        </label>
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="8">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+            </div>
+            </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Technology Rationalization 💻</span>
+                        </label>
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="6">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+            </div>
+                                </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Tariff Impact Assessment 🌎</span>
+                        </label>
+                        <label class="calculator-checkbox-label">
+                            <div class="calculator-checkbox-wrapper">
+                                <div class="calculator-checkbox" data-hours="7">
+                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                            </div>
+                                </div>
+                            <span style="font-size: 14px; font-weight: 400; color: #1f1f1f;">Vendor Strategy 🚛</span>
+                        </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+            <!-- Results Row -->
+            <div class="calculator-results-grid" style="display: flex; justify-content: center; align-items: center; gap: 64px; padding-top: 32px; border-top: 1px solid #e5e7eb;">
+                
+                <!-- Market Consultant Rate -->
+                <div style="text-align: center; min-width: 160px;">
+                    <div style="font-size: 11px; font-weight: 500; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">Market Consultant Rate</div>
+                    <div id="consultantRate" style="font-size: 32px; font-weight: 600; color: #6b7280; line-height: 1.2;">$0</div>
+                            </div>
+                            
+                <!-- Vertical Divider -->
+                <div style="width: 1px; height: 60px; background-color: #e5e7eb;"></div>
+
+                <!-- Estimated Savings -->
+                <div style="text-align: center; min-width: 160px;">
+                    <div style="font-size: 11px; font-weight: 500; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">Estimated Savings</div>
+                    <div id="estimatedSavings" style="font-size: 32px; font-weight: 600; color: #111827; line-height: 1.2;">$0</div>
+                            </div>
+                            
+                <!-- Time Saved -->
+                <div style="text-align: center; min-width: 140px;">
+                    <div style="font-size: 11px; font-weight: 500; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">Time Saved</div>
+                    <div id="timeSaved" style="font-size: 32px; font-weight: 600; color: #111827; line-height: 1.2;">0 hours</div>
+                                </div>
+                                </div>
+        </section>
+
+        <script>
+        // Store current values for animation
+        let currentConsultantRate = 0;
+        let currentSavings = 0;
+        let currentHours = 0;
+        let consultantRateTimer = null;
+        let savingsTimer = null;
+        let hoursTimer = null;
+        
+        // Animate number counting up
+        function animateValue(element, start, end, duration, prefix = '', suffix = '', timerRef) {
+            // Clear existing timer if any
+            if (timerRef) {
+                clearInterval(timerRef);
+            }
+            
+            if (start === end) {
+                if (suffix === ' hours') {
+                    element.textContent = end + suffix;
+                } else {
+                    element.textContent = prefix + end.toLocaleString();
+                }
+                return null;
+            }
+            
+            const range = end - start;
+            const startTime = Date.now();
+            
+            const timer = setInterval(() => {
+                const elapsed = Date.now() - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Easing function for smooth animation
+                const easeProgress = progress < 0.5 
+                    ? 2 * progress * progress 
+                    : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+                
+                const current = start + (range * easeProgress);
+                
+                if (progress >= 1) {
+                    clearInterval(timer);
+                    if (suffix === ' hours') {
+                        element.textContent = end + suffix;
+                    } else {
+                        element.textContent = prefix + end.toLocaleString();
+                    }
+                } else {
+                    if (suffix === ' hours') {
+                        element.textContent = Math.round(current) + suffix;
+                    } else {
+                        element.textContent = prefix + Math.round(current).toLocaleString();
+                    }
+                }
+            }, 16);
+            
+            return timer;
+        }
+        
+        // Calculator logic
+        function calculateSavings() {
+            const checkedBoxes = document.querySelectorAll('.calculator-checkbox.checked');
+            
+            // Calculate total hours
+            let totalHours = 0;
+            checkedBoxes.forEach(cb => {
+                totalHours += parseInt(cb.getAttribute('data-hours'));
+            });
+            
+            // Calculate costs
+            const consultantCost = totalHours * 150; // Market consultant rate at $150/hour
+            const qavaCost = totalHours * 79; // Average Qava rate
+            const savings = consultantCost - qavaCost;
+            
+            // Animate the values
+            const consultantRateElement = document.getElementById('consultantRate');
+            const savingsElement = document.getElementById('estimatedSavings');
+            const hoursElement = document.getElementById('timeSaved');
+            
+            // Clear existing timers
+            if (consultantRateTimer) clearInterval(consultantRateTimer);
+            if (savingsTimer) clearInterval(savingsTimer);
+            if (hoursTimer) clearInterval(hoursTimer);
+            
+            consultantRateTimer = animateValue(consultantRateElement, currentConsultantRate, consultantCost, 1200, '$', '', consultantRateTimer);
+            savingsTimer = animateValue(savingsElement, currentSavings, savings, 1200, '$', '', savingsTimer);
+            hoursTimer = animateValue(hoursElement, currentHours, totalHours, 1200, '', ' hours', hoursTimer);
+            
+            // Update current values
+            currentConsultantRate = consultantCost;
+            currentSavings = savings;
+            currentHours = totalHours;
+        }
+        
+        // Add click handlers to all labels (so clicking anywhere toggles the checkbox)
+        document.querySelectorAll('.calculator-checkbox-label').forEach(label => {
+            label.addEventListener('click', function(e) {
+                e.preventDefault();
+                const checkbox = this.querySelector('.calculator-checkbox');
+                checkbox.classList.toggle('checked');
+                calculateSavings();
+            });
+        });
+        
+        // Initialize with default values
+        calculateSavings();
+        </script>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer-section">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="https://qava.ai/">
+                        <img src="qava-logo.svg" alt="Qava" class="footer-logo-img" />
+                    </a>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Welcome</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://app.qava.ai/" class="footer-link">Create Listing</a></li>
+                            <li><a href="https://app.qava.ai/projects" class="footer-link">Search Listings</a></li>
+                            <li><a href="https://qava.ai/clienthowitworks" class="footer-link">How It Works for Clients</a></li>
+                            <li><a href="https://qava.ai/talenthowitworks" class="footer-link">How It Works for Talent</a></li>
+                            <li><span class="footer-link disabled-link">What's New</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Get Started</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://qava.ai/demo" class="footer-link">Request a Demo</a></li>
+                            <li><a href="https://app.qava.ai/" class="footer-link">Sign Up</a></li>
+                            <li><a href="https://app.qava.ai/" class="footer-link">Log In</a></li>
+                            <li><span class="footer-link disabled-link">AI Prompts</span></li>
+                            <li><span class="footer-link disabled-link">Project Templates</span></li>
+                            <li><span class="footer-link disabled-link">Application Tips</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Resources</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://qava.ai/pricing" class="footer-link">Pricing</a></li>
+                            <li><a href="https://qava.ai/about" class="footer-link">About Us</a></li>
+                            <li><span class="footer-link disabled-link">Careers</span></li>
+                            <li><span class="footer-link disabled-link">Media Kit</span></li>
+                            <li><span class="footer-link disabled-link">Contact Us</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Learn</h4>
+                        <ul class="footer-link-list">
+                            <li><span class="footer-link disabled-link">Success Stories</span></li>
+                            <li><span class="footer-link disabled-link">Help Center</span></li>
+                            <li><span class="footer-link disabled-link">Webinars</span></li>
+                            <li><span class="footer-link disabled-link">Blog</span></li>
+                            <li><span class="footer-link disabled-link">Community</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Legal</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="terms" class="footer-link">Terms & Privacy</a></li>
+                            <li><a href="terms" class="footer-link">California Privacy Notice</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-copyright">
+                        © 2025 qava
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+            
+            // Prevent body scroll when mobile menu is open
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function toggleMobileDropdown() {
+            const dropdown = document.getElementById('mobileDropdown');
+            const toggle = document.querySelector('.mobile-dropdown-toggle');
+            
+            dropdown.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+    </script>
+
+    <!-- Floating Help Bubble -->
+    <div class="help-bubble-container" id="helpBubble">
+        <div class="help-bubble-main" id="helpBubbleMain">
+            Q
+        </div>
+        <div class="help-option help-option-1" id="helpOption1">
+            Ask a Question
+        </div>
+        <div class="help-option help-option-2" id="helpOption2">
+            Share Feedback
+        </div>
+        <div class="help-option help-option-3" id="helpOption3">
+            Learn More
+        </div>
+    </div>
+
+    <!-- Ask a Question Modal -->
+    <div class="help-modal-overlay" id="questionModal">
+        <div class="help-modal-content">
+            <button class="help-modal-close" onclick="closeModal('questionModal')">✕</button>
+            <h3>Ask a Question</h3>
+            <p>Have a question about Qava? We're here to help!</p>
+            <form onsubmit="handleQuestionSubmit(event)">
+                <div class="help-form-group">
+                    <label class="help-form-label" for="questionName">Your Name</label>
+                    <input type="text" id="questionName" class="help-form-input" placeholder="Enter your name" required>
+                </div>
+                <div class="help-form-group">
+                    <label class="help-form-label" for="questionEmail">Your Email</label>
+                    <input type="email" id="questionEmail" class="help-form-input" placeholder="your@email.com" required>
+                </div>
+                <div class="help-form-group">
+                    <label class="help-form-label" for="questionText">Your Question</label>
+                    <textarea id="questionText" class="help-form-textarea" placeholder="What would you like to know?" required></textarea>
+                </div>
+                <button type="submit" class="help-form-button">Send Question</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Share Feedback Modal -->
+    <div class="help-modal-overlay" id="feedbackModal">
+        <div class="help-modal-content">
+            <button class="help-modal-close" onclick="closeModal('feedbackModal')">✕</button>
+            <h3>Share Feedback</h3>
+            <p>We'd love to hear your thoughts on how we can improve!</p>
+            <form onsubmit="handleFeedbackSubmit(event)">
+                <div class="help-form-group">
+                    <label class="help-form-label" for="feedbackName">Your Name (Optional)</label>
+                    <input type="text" id="feedbackName" class="help-form-input" placeholder="Enter your name">
+                </div>
+                <div class="help-form-group">
+                    <label class="help-form-label" for="feedbackEmail">Your Email (Optional)</label>
+                    <input type="email" id="feedbackEmail" class="help-form-input" placeholder="your@email.com">
+                </div>
+                <div class="help-form-group">
+                    <label class="help-form-label" for="feedbackText">Your Feedback</label>
+                    <textarea id="feedbackText" class="help-form-textarea" placeholder="Share your thoughts..." required></textarea>
+                </div>
+                <button type="submit" class="help-form-button">Send Feedback</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Learn More Modal -->
+    <div class="help-modal-overlay" id="learnMoreModal">
+        <div class="help-modal-content">
+            <button class="help-modal-close" onclick="closeModal('learnMoreModal')">✕</button>
+            <h3>Learn More About Qava</h3>
+            <p>Explore our resources to get started with on-demand strategy work.</p>
+            <div class="help-links">
+                <a href="https://qava.ai/pricing" class="help-link-item">
+                    <div class="help-link-title">📊 Pricing Plans</div>
+                    <div class="help-link-desc">See our transparent pricing for on-demand strategy work</div>
+                </a>
+                <a href="https://qava.ai/clienthowitworks" class="help-link-item">
+                    <div class="help-link-title">🚀 How It Works for Clients</div>
+                    <div class="help-link-desc">Learn how to post projects and hire top talent</div>
+                </a>
+                <a href="https://qava.ai/talenthowitworks" class="help-link-item">
+                    <div class="help-link-title">👩‍💻 How It Works for Talent</div>
+                    <div class="help-link-desc">Discover opportunities as a strategy professional</div>
+                </a>
+                <a href="https://app.qava.ai/" class="help-link-item">
+                    <div class="help-link-title">✨ Get Started</div>
+                    <div class="help-link-desc">Create your free account and start today</div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Help Bubble Functionality
+        const helpBubble = document.getElementById('helpBubble');
+        const helpBubbleMain = document.getElementById('helpBubbleMain');
+        const helpOption1 = document.getElementById('helpOption1');
+        const helpOption2 = document.getElementById('helpOption2');
+        const helpOption3 = document.getElementById('helpOption3');
+
+        // Toggle bubble expansion
+        helpBubbleMain.addEventListener('click', function(e) {
+            e.stopPropagation();
+            helpBubble.classList.toggle('expanded');
+        });
+
+        // Show modals
+        helpOption1.addEventListener('click', function(e) {
+            e.stopPropagation();
+            document.getElementById('questionModal').classList.add('active');
+            helpBubble.classList.remove('expanded');
+        });
+
+        helpOption2.addEventListener('click', function(e) {
+            e.stopPropagation();
+            document.getElementById('feedbackModal').classList.add('active');
+            helpBubble.classList.remove('expanded');
+        });
+
+        helpOption3.addEventListener('click', function(e) {
+            e.stopPropagation();
+            document.getElementById('learnMoreModal').classList.add('active');
+            helpBubble.classList.remove('expanded');
+        });
+
+        // Close modals
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Close modal on overlay click
+        document.querySelectorAll('.help-modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) {
+                    closeModal(overlay.id);
+                }
+            });
+        });
+
+        // Close bubble when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!helpBubble.contains(e.target)) {
+                helpBubble.classList.remove('expanded');
+            }
+        });
+
+        // Handle form submissions
+        function handleQuestionSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('questionName').value;
+            const email = document.getElementById('questionEmail').value;
+            const question = document.getElementById('questionText').value;
+            
+            // Here you would typically send this to your backend
+            console.log('Question submitted:', { name, email, question });
+            
+            alert('Thank you! Your question has been submitted. We\'ll get back to you soon!');
+            closeModal('questionModal');
+            e.target.reset();
+        }
+
+        function handleFeedbackSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('feedbackName').value;
+            const email = document.getElementById('feedbackEmail').value;
+            const feedback = document.getElementById('feedbackText').value;
+            
+            // Here you would typically send this to your backend
+            console.log('Feedback submitted:', { name, email, feedback });
+            
+            alert('Thank you for your feedback! We appreciate you helping us improve.');
+            closeModal('feedbackModal');
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>

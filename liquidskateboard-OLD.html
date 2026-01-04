@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The AI Startup Bringing Real-Time Support to Neurodiverse Families | Qava</title>
+    <title>Liquid Skateboard Story | Qava</title>
     <link rel="icon" type="image/svg+xml" href="qava-logo.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400&display=swap" rel="stylesheet">
@@ -32,7 +32,7 @@
             color: #1f1f1f;
         }
         
-        /* Cache buster v3 - Updated for No One's Ark */
+        /* Cache buster v2 - Updated styling */
 
         /* NAVBAR STYLES - Copied from index.html */
         .header-container {
@@ -509,6 +509,59 @@
             margin-bottom: 0;
         }
 
+        .story-categories {
+            display: flex;
+            gap: 8px;
+            margin: 0 0 20px 0;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .story-category-pill {
+            display: inline-flex;
+            align-items: center;
+            background: transparent;
+            color: #000000;
+            font-size: 11px;
+            font-weight: 400;
+            padding: 2px 4px;
+            border-radius: 0;
+            border: none;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .story-project-badges {
+            display: flex;
+            gap: 8px;
+            margin: 2px 0 3px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .story-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            background: #fafafa;
+            color: #000000;
+            font-size: 11px;
+            font-weight: 400;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-decoration: none;
+        }
+
+        .story-badge-pill span {
+            color: #000000;
+        }
+
+        .story-badge-separator {
+            font-size: 11px;
+            font-weight: 400;
+            color: #000000;
+        }
+
         .story-hero {
             width: 100%;
             margin: 32px 0 40px;
@@ -522,6 +575,8 @@
             height: auto;
             object-fit: cover;
         }
+
+        /* ===== SPACING SYSTEM - Professional & Consistent ===== */
         
         /* Intro section - appears after hero image */
         .story-intro {
@@ -539,6 +594,44 @@
 
         .story-intro p:last-child {
             margin-bottom: 0;
+        }
+
+        /* Table of Contents - compact spacing */
+        .story-toc {
+            padding: 0 !important;
+            margin: 32px 0 48px !important;
+        }
+
+        .story-toc ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 0;
+        }
+
+        .story-toc li a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 300;
+            color: #2e2e2e;
+            line-height: 1.65;
+            text-decoration: none;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .story-toc li a:hover {
+            color: #111111;
+            transform: translateX(4px);
+        }
+
+        .story-toc li .index {
+            font-size: 13px;
+            font-weight: 500;
+            color: #6b6b6b;
+            letter-spacing: 0.08em;
         }
 
         /* Main content sections */
@@ -585,13 +678,41 @@
             font-weight: 300;
         }
 
-        /* Pull quotes */
+        /* Q&A blocks - consistent spacing */
+        .qa-block {
+            margin-bottom: 36px !important;
+        }
+
+        .qa-block:last-child {
+            margin-bottom: 0 !important;
+        }
+
+        .qa-question {
+            font-size: 16px !important;
+            font-weight: 600 !important;
+            margin-bottom: 14px !important;
+            color: #0F62FE !important;
+        }
+
+        .qa-answer {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 14px;
+        }
+
+        .qa-answer:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Pull quotes - centered with breathing room */
         blockquote {
             margin: 40px auto !important;
             padding: 14px 24px !important;
             width: fit-content;
             max-width: 90%;
-            font-size: 48px !important;
+            font-size: 35px !important;
             line-height: 1.3 !important;
             color: #000000 !important;
             font-weight: 300 !important;
@@ -601,16 +722,6 @@
             white-space: normal;
             display: block;
             font-family: 'Jonathan', 'Kalam', 'Brush Script MT', cursive;
-        }
-
-        blockquote p {
-            font-size: inherit !important;
-            line-height: inherit !important;
-            color: inherit !important;
-            font-weight: inherit !important;
-            font-style: inherit !important;
-            font-family: inherit !important;
-            margin: 0 !important;
         }
 
         blockquote::before {
@@ -630,11 +741,9 @@
         }
 
         .story-media-caption {
-            margin-top: 0px;
+            margin-top: 10px;
             font-size: 13px;
             color: #585858;
-            font-style: italic;
-            text-align: center;
         }
 
         .story-media-caption a {
@@ -646,131 +755,14 @@
             text-decoration: underline;
         }
 
-        /* Project cards */
-        .project-card {
-            background: white;
-            border: none;
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 20px;
-            transition: all 0.2s ease;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-        }
-
-        .project-card:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
-
-        .project-card h3 {
-            font-size: 18px;
-            font-weight: 600;
-            color: #0F62FE;
-            margin-bottom: 12px;
-        }
-
-        .project-card p {
-            margin-bottom: 8px;
-        }
-
-        .project-card ul {
-            margin: 12px 0;
-            padding-left: 20px;
-        }
-
-        .project-card ul li {
-            margin-bottom: 6px;
-            color: #2e2e2e;
-            line-height: 1.6;
-        }
-
-        .project-card-actions {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 16px;
-        }
-
-        .view-listing-button {
-            padding: 6px 12px;
-            background: #0F62FE;
-            color: white !important;
-            border-radius: 6px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-            transition: all 0.15s ease;
-            border: none;
-            font-family: inherit;
-            font-size: 13px;
-            font-weight: 400;
-            line-height: 1.2;
-            text-decoration: none;
-            white-space: nowrap;
-        }
-
-        .view-listing-button:hover {
-            background: #0053E5;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
-        }
-
-        .copy-link-button {
-            padding: 6px;
-            background: transparent;
-            border: none;
-            border-radius: 6px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            color: #767676;
-            width: 28px;
-            height: 28px;
-            position: relative;
-        }
-
-        .copy-link-button:hover {
-            color: #111111;
-        }
-
-        .copy-link-button svg {
-            width: 14px;
-            height: 14px;
-        }
-
-        .copy-link-tooltip {
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            margin-bottom: 8px;
-            padding: 4px 8px;
-            background: #000000;
-            color: white;
-            font-size: 11px;
-            border-radius: 4px;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.2s ease;
-        }
-
-        .copy-link-button:hover .copy-link-tooltip {
-            opacity: 1;
-        }
-
-        /* Links within content */
-        .story-section a,
-        .story-intro a {
+        /* Links within story content */
+        .qa-answer a {
             color: inherit;
             text-decoration: none;
             transition: text-decoration 0.2s ease;
         }
 
-        .story-section a:hover,
-        .story-intro a:hover {
+        .qa-answer a:hover {
             text-decoration: underline;
         }
 
@@ -906,6 +898,26 @@
                 padding: 40px 20px 80px;
             }
 
+            .story-categories {
+                margin: 0 0 16px;
+                gap: 6px;
+            }
+
+            .story-category-pill {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .story-project-badges {
+                margin: 8px 0 8px;
+                gap: 6px;
+            }
+
+            .story-badge-pill {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
             .story-title {
                 font-size: 32px;
                 line-height: 1.15;
@@ -921,6 +933,11 @@
                 border-radius: 8px;
             }
 
+            .story-intro,
+            .story-section {
+                padding: 0;
+            }
+
             .story-section {
                 margin: 48px 0 0 0 !important;
             }
@@ -931,15 +948,28 @@
                 margin-bottom: 20px !important;
             }
 
+            .story-toc {
+                padding: 0;
+                margin: 28px 0 40px;
+            }
+
+            .story-toc ul {
+                gap: 8px;
+            }
+
+            .story-toc li a {
+                font-size: 15px;
+            }
+
+            .qa-block {
+                margin-bottom: 32px !important;
+            }
+
             blockquote {
                 margin: 32px auto !important;
                 padding: 12px 18px !important;
-                font-size: 36px !important;
+                font-size: 15px !important;
                 max-width: 90%;
-            }
-
-            blockquote p {
-                font-size: inherit !important;
             }
 
             .story-media {
@@ -1018,17 +1048,19 @@
                 font-size: 20px;
             }
 
-            .story-wrapper p {
+            .story-toc li a {
+                font-size: 14px;
+            }
+
+            .story-wrapper p,
+            .qa-question,
+            .qa-answer {
                 font-size: 15px !important;
             }
 
             blockquote {
-                font-size: 28px !important;
+                font-size: 14px !important;
                 padding: 10px 16px !important;
-            }
-
-            blockquote p {
-                font-size: inherit !important;
             }
 
             .story-cta {
@@ -1068,9 +1100,22 @@
                 <a href="https://app.qava.ai/projects" class="nav-item search-listings">
                     <div class="nav-text">Search Listings</div>
                 </a>
-                <a href="https://qava.ai/howqavaworks" class="nav-item">
-                    <div class="nav-text">How Qava Works</div>
-                </a>
+                <div class="nav-item how-it-works has-dropdown">
+                    <div class="nav-text">How It Works</div>
+                    <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M6 3v6M3 6h6" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <div class="dropdown-menu">
+                        <a href="https://qava.ai/clienthowitworks" class="dropdown-item">
+                            <div class="dropdown-title">For Clients 🚀</div>
+                            <div class="dropdown-subtitle">Hiring for current or future work</div>
+                        </a>
+                        <a href="https://qava.ai/talenthowitworks" class="dropdown-item">
+                            <div class="dropdown-title">For Talent 👩‍💻</div>
+                            <div class="dropdown-subtitle">Interested in current or future work</div>
+                        </a>
+                    </div>
+                </div>
                 <a href="https://qava.ai/pricing" class="nav-item pricing">
                     <div class="nav-text">Pricing</div>
                 </a>
@@ -1146,225 +1191,140 @@
     <!-- Blog Content -->
     <main class="story-wrapper">
         <header class="story-header">
-            <img src="Lumi/Lumi%20Logo.png" alt="Lumi" style="max-width: 120px; margin-bottom: 6px;" loading="lazy">
-            <h1 class="story-title">The AI Startup Bringing Real-Time Support to Neurodiverse Families</h1>
-            <p class="story-subtitle" style="color: #666666;">When families ask, "How are we going to get through this?", Lumi offers real-time, science-backed support designed to help neurodiverse households manage daily routines, communication, and challenges more effectively.</p>
+            <h1 class="story-title">Alexis Built One of the Most Original E-Skateboards—Now He's Taking It Global</h1>
+            <p class="story-subtitle">After perfecting the board and closing out a successful Kickstarter, Alexis is now shifting his focus to scaling production and expanding globally. I recently rode the board with him in Copenhagen—yes, it lives up to the hype—and heard about the rollout he's planning.</p>
         </header>
 
-        <!-- Insights / Use cases section -->
-        <section class="max-w-5xl mt-6 mb-12 lg:flex lg:items-start lg:gap-6">
-            <!-- Left: Behind the Story -->
-            <div class="flex-1">
-                <h3 class="text-[11px] font-semibold tracking-[0.2em] uppercase text-gray-500 mb-4">
-                    Behind the Story
-                </h3>
+        <div class="story-categories">
+            <span class="story-category-pill">#🛠️ProductDesign</span>
+            <span class="story-category-pill">#🚀Go-To-Market</span>
+            <span class="story-category-pill">#🌍GlobalDistribution</span>
+            <span class="story-category-pill">#🤝PartnershipStrategy</span>
+        </div>
 
-                <div class="flex flex-col items-start gap-6">
-                    <!-- Michael and Reed Langridge in a row -->
-                    <div class="flex flex-col sm:flex-row items-start gap-8">
-                        <!-- Michael -->
-                        <div class="flex items-center gap-4">
-                            <div class="w-14 h-14 aspect-square rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
-                                <img
-                                    src="Lumi/Michael.png"
-                                    alt="Michael"
-                                    class="w-full h-full object-cover object-center"
-                                    loading="lazy"
-                                />
-                            </div>
-                            <div class="text-left" style="white-space: nowrap;">
-                                <div class="text-sm font-medium text-gray-900">
-                                    Michael Caton
-                                </div>
-                                <div class="text-xs text-gray-500 font-light">
-                                    CEO, Lumi
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Reed Langridge -->
-                        <div class="flex items-center gap-4">
-                            <div class="w-14 h-14 aspect-square rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
-                                <img
-                                    src="Reed%20Langridge%20Profile.jpg"
-                                    alt="Reed Langridge"
-                                    class="w-full h-full object-cover object-center"
-                                    loading="lazy"
-                                />
-                            </div>
-                            <div class="text-left" style="white-space: nowrap;">
-                                <div class="text-sm font-medium text-gray-900">
-                                    Reed Langridge
-                                </div>
-                                <div class="text-xs text-gray-500 font-light">
-                                    Founder, Qava
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Divider (desktop only) -->
-            <div class="hidden md:block w-px bg-gray-200 self-stretch mx-4" aria-hidden="true"></div>
-
-            <!-- Right: Focus Areas -->
-            <div class="flex-1 mt-10 lg:mt-0">
-                <h3 class="text-[11px] font-semibold tracking-[0.2em] uppercase text-gray-500 mb-2">
-                    Focus Areas
-                </h3>
-
-                <div style="font-size: 12px !important; line-height: 1.6; font-weight: 300;" class="text-gray-800">
-                    <div>Parenting Technology 👪</div>
-                    <div>Neurodiversity Support 🧠</div>
-                    <div>AI-Powered Coaching 🤖</div>
-                    <div>Family Collaboration 🏠</div>
-                </div>
-            </div>
-        </section>
+        <figure class="story-hero">
+            <img src="liquid-skateboard-images/alexis-liquid-skateboard.jpg" alt="Alexis with Liquid Skateboard" loading="lazy">
+        </figure>
 
         <section class="story-intro">
-            <p>For neurodiverse families, daily routines often break down. Mornings, homework, and bedtime can become repeated sources of stress, even when everyone is giving their all. For families raising neurodiverse kids, this is part of everyday life—and most support systems don't help in the moment.</p>
+            <p>We share stories of partners who turn ambition into action—hoping to inspire others or offer the practical know-how to do the same. This month, we spotlight Alexis, the Founder of Liquid Skateboard.</p>
+            <p>What began as a passion project has become the most authentic electric skateboard in the $4B+ market growing at 12.1% CAGR. Along the way, Alexis has stayed loyal to the experience of riding a traditional skateboard—bringing in technology only where it enhanced the natural feeling of cruising. Recently, I had the chance to ride his board with him in Copenhagen, and the experience was unlike anything else.</p>
+            <p>Here's how Alexis went from prototype to production—and now sets his sights on the world.</p>
         </section>
-            
-        <section class="story-section">
-            <h2>The Problem Families Face</h2>
-            <p>Many families invest heavily in support. In the U.S., millions of parents spend 12+ hours each week managing conflict around everyday tasks like routines, transitions, and schoolwork. On top of that, families often spend thousands of dollars per year on therapy, coaching, tutoring, and medical services.</p>
-            
-            <p>Yet despite the time, effort, and financial investment, daily life can still feel difficult and unpredictable.</p>
-            
-            <p>The challenge isn't a lack of resources—it's how those resources show up. Support is often delivered after problems occur, shared in ways that are hard to apply during stressful moments, or limited to short sessions that don't extend into everyday life.</p>
 
-            <p>As a result, parents are left to interpret expert guidance on their own, while children are expected to follow systems that don't align with how their brains process information. When routines break down, families have little support in the moment—and end up starting over again.</p>
-            
-            <p>This isn't about motivation or effort.</p>
-            
-            <p style="font-weight: 300;">It's about having the right support, available when it's actually needed.</p>
-            
-            <div style="text-align: center; margin-top: 40px;">
-                <img src="Lumi/Family.jpg" alt="Family" style="width: 100%; max-width: 800px; border-radius: 12px;" loading="lazy">
+        <nav class="story-toc" aria-label="Table of contents">
+            <ul>
+                <li><a href="#the-beginning"><span class="index">1.</span><span>The Beginning</span></a></li>
+                <li><a href="#the-industry"><span class="index">2.</span><span>The Industry</span></a></li>
+                <li><a href="#dialing-in-performance"><span class="index">3.</span><span>Dialing In Performance</span></a></li>
+                <li><a href="#scaling-up"><span class="index">4.</span><span>Scaling Up</span></a></li>
+                <li><a href="#going-global"><span class="index">5.</span><span>Going Global</span></a></li>
+            </ul>
+        </nav>
+
+        <section class="story-section" id="the-beginning">
+            <h2>The Beginning</h2>
+            <p>After years of riding regular boards and testing nearly every electric skateboard available, Alexis kept running into the same issues: great speed but poor handling, solid range but weak build quality, smart features but inconsistent performance. Nothing felt <em>complete</em>.</p>
+            <blockquote>I just wanted something that felt real under my feet.</blockquote>
+            <p>To address the gap he found, Alexis began building his own board, and after countless prototypes, long nights, and endless trial-and-error, he landed on a design that felt real—smooth acceleration, responsive braking, and reliably stable.</p>
+            <p>From that point on, friends asked to buy one. Strangers stopped him at skateparks. Word spread. Liquid Skateboard was born.</p>
+            <div class="story-media">
+                <img src="liquid-skateboard-images/early-design-iterations.jpg" alt="Early design iterations" loading="lazy">
+                <p class="story-media-caption">Early design iterations</p>
             </div>
         </section>
 
-        <section class="story-section">
-            <h2>Lumi's Point of View</h2>
-            <p>Most tools approach neurodiversity as an individual issue—focusing on the child, the parent, or a professional in isolation. While these supports can be helpful, they often overlook how family life actually works from day to day.</p>
+        <section class="story-section" id="the-industry">
+            <h2>The Industry</h2>
+            <p>As Alexis refined his board, the broader market was accelerating. The electric skateboard category—once a niche curiosity—had quietly grown into a global industry poised for exponential expansion.</p>
             
-            <p>In reality, routines, communication, expectations, and emotional regulation are shared across the household. A breakdown in one area—such as a missed transition or misunderstood expectation—can quickly affect everyone. These moments aren't the result of a lack of effort, but of systems that aren't designed for different ways of processing information.</p>
+            <h3>Electric Skateboard Market</h3>
+            <p><strong>Market Summary:</strong></p>
+            <p>• Study period: 2025–2031<br>
+            • Base year: 2024<br>
+            • CAGR: 12.1%<br>
+            • Market size 2024: $4,094.56M<br>
+            • Market size 2031: $9,108.49M</p>
             
-            <p>Lumi is built around this understanding. Instead of supporting one person at a time, it's designed to help the entire family align around shared routines, clearer communication, and practical tools that make collaboration easier during everyday moments—not just during scheduled appointments or check-ins.</p>
+            <p><strong>Market Structure:</strong> Fragmented — Highly competitive without dominant players</p>
+            
+            <p><strong>Major Players:</strong> Skatebolt, Inboard Technology, Blitzart Inc., ACTON Inc., Teamgee Skateboard, RideRiptide Electric Skateboard, Atom Longboards, Boosted Inc., Swagtron, Evolve Skateboards Australia</p>
+            
+            <p>For Alexis, these numbers validated what he already knew from the streets: riders were searching for something real. His timing couldn't have been better.</p>
         </section>
 
-        <section class="story-section">
-            <h2>What Lumi Does</h2>
-            <p>Lumi is a real-time coaching and collaboration platform designed to support neurodiverse families in everyday life.</p>
+        <section class="story-section" id="dialing-in-performance">
+            <h2>Dialing In Performance</h2>
+            <p>Before Alexis could think about scaling, the board had to hit the same performance marks every time. That meant months of tuning—testing motor setups, refining battery layouts, adjusting deck flex, experimenting with materials, and logging ride after ride in different conditions. His workshop became a kind of performance archive: shelves full of past iterations, stress-tested components, and the lessons that pushed the board closer to the quality he was looking for.</p>
             
-            <p>It helps families better understand how each person processes information, attention, and expectations, so routines can be built in ways that actually work. Instead of relying on generic plans, Lumi supports families in creating routines that match a child's executive function and adapt as needs change.</p>
+            <p>Eventually, the board began delivering a consistently high performance experience:</p>
+            <p>• ⚡️ Smooth acceleration up to ~28 mph<br>
+            • 🔋 ~25 miles of range per charge<br>
+            • 🪶 Lightweight but structurally solid<br>
+            • 🌊 A ride that feels intuitive and connected to the road</p>
             
-            <p>Lumi provides guidance when things go off track—not weeks later, but in the moment. Families can see what's working, track progress over time, and reinforce strategies that lead to smoother days.</p>
-            
-            <p>Lumi begins by learning how a family works through short assessments and ongoing use. Based on that understanding, it suggests routines, strategies, and adjustments tailored to each household.</p>
-            
-            <p>When a routine breaks down, Lumi helps families reset before frustration escalates. Over time, the system continues to improve by learning which approaches are most effective across similar situations, helping families move forward with greater confidence and consistency.</p>
-            
-            <div style="text-align: center; margin-top: 40px;">
-                <img src="Lumi/Flywheel.png" alt="Lumi Flywheel" style="width: 100%; max-width: 800px; border-radius: 12px;" loading="lazy">
-            </div>
-        </section>
-
-        <section class="story-section">
-            <h2>How This Changes Daily Life</h2>
-            <p>Through Lumi's easy-to-follow dashboard and platform capabilities, families can manage routines, respond to challenges as they happen, and see meaningful improvements in how daily life feels and functions.</p>
+            <p>More riders picked up on it quickly. Reviews started appearing on YouTube and Reddit, and within 6 months Alexis had sold more than 200 boards—each one hand-built and personally tested.</p>
             
             <div class="story-media">
-                <video autoplay loop muted playsinline style="width: 100%; max-width: 800px; border-radius: 12px;">
-                    <source src="https://www.ciaolumi.com/product_videos/ConflictToConnection.mp4" type="video/mp4">
-                </video>
-                <p class="story-media-caption">When families understand each other's wiring, friction transforms into empathy</p>
+                <img src="liquid-skateboard-images/liquid-skateboard-review.jpg" alt="Liquid Skateboard review" loading="lazy">
+                <p class="story-media-caption">Liquid Skateboard review on YouTube</p>
             </div>
             
-            <p>Routines become clearer and more predictable. Children know what's expected, and parents spend less time managing every step. With real-time prompts and guidance tailored to each child's needs, repeated arguments decrease and emotional fatigue is reduced for everyone.</p>
+            <p>But demand was growing faster than the company's operations could support. The hand-built approach wasn't scalable, and interest from riders began to exceed what small-batch production could handle.</p>
+        </section>
+
+        <section class="story-section" id="scaling-up">
+            <h2>Scaling Up</h2>
+            <p>Moving from research and development into true scale is one of the hardest steps in any hardware journey. Alexis had the engineering locked in, but bringing an electric skateboard to the world requires more than a great product—it requires the operational backbone to build it consistently, move it reliably, and get it into the hands of riders across different markets.</p>
+            
+            <p>Scaling up meant shifting from hands-on craftsmanship to a dynamic system of suppliers, manufacturing partners, logistics networks, and retail channels. It's a completely different capability: standardizing parts, formalizing processes, qualifying vendors, planning inventory, coordinating freight, meeting certifications, and building partnerships that can support growth without compromising the feel of the board.</p>
+            
+            <h3>The Scale-Up Stack</h3>
+            <p><strong>Manufacturing Partners:</strong></p>
+            <p>• Component Suppliers 📦<br>
+            • Assembly Partners 🏭<br>
+            • Quality Control & Testing ✅<br>
+            • Production Forecasting & Planning 📊</p>
+            
+            <p><strong>Distribution Partners:</strong></p>
+            <p>• Freight & Logistics 🚚<br>
+            • Warehousing & Fulfillment 🏢<br>
+            • Import/Export Compliance 📋<br>
+            • Market-by-Market Certifications 🏅</p>
+            
+            <p><strong>Retail Partners:</strong></p>
+            <p>• Local Skate Shops & Specialty Stores 🛹<br>
+            • Online Retailers 💻<br>
+            • Demo & Test-Ride Locations 🏄<br>
+            • Creators & Regional Ambassadors 🎥</p>
             
             <div class="story-media">
-                <video autoplay loop muted playsinline style="width: 100%; max-width: 800px; border-radius: 12px;">
-                    <source src="https://www.ciaolumi.com/product_videos/NaggingToPartnership.mp4" type="video/mp4">
-                </video>
-                <p class="story-media-caption">When the system holds the reminders, parents return to being guides rather than guards</p>
-                </div>
-                
-            <p>Many parents see their children become more independent. Because routines are designed around how a child processes information, kids are better able to follow through on their own. Small wins—getting ready on time, finishing homework—happen more consistently.</p>
-            
-            <p>Communication also improves. When Lumi holds routines and expectations in a neutral system, parents don't have to act as constant enforcers. Conversations shift away from nagging and toward guidance and problem-solving.</p>
-            
-            <div class="story-media">
-                <video autoplay loop muted playsinline style="width: 100%; max-width: 800px; border-radius: 12px;">
-                    <source src="https://www.ciaolumi.com/product_videos/SurvivingToThriving.mp4" type="video/mp4">
-                </video>
-                <p class="story-media-caption">When small wins accumulate systematically, the family momentum shifts</p>
-                </div>
-                
-            <p>Over time, families report having more energy for the parts of life that matter most. Less effort goes into managing chaos, and more goes into connection, rest, and enjoyment.</p>
-            
-            <p style="font-weight: 300;">The goal isn't perfect days. It's making everyday life more manageable.</p>
-        </section>
-
-        <section class="story-section">
-            <h2>Why Lumi Matters Now</h2>
-            <p>Demand for neurodiverse support is growing. ADHD, autism, anxiety, and learning differences are being diagnosed more frequently, but access to specialists has not kept pace.</p>
-            
-            <p>As a result, many families face long waitlists, limited local resources, and high ongoing costs. Even when support is available, it often comes in short sessions that don't extend into daily life.</p>
-            
-            <p>At the same time, parents are already turning to technology for help in real time. They want guidance that fits into everyday routines and responds when challenges arise—not generic advice delivered days or weeks later.</p>
-            
-            <p style="font-weight: 300;">Lumi is built for this reality.</p>
-        </section>
-
-        <section class="story-section">
-            <h2>Where Lumi Fits</h2>
-            <p>Lumi sits within a large and growing market for pediatric behavioral support and family-centered tools. In the broader context of children's mental and behavioral health, global pediatric mental health markets are projected to expand significantly over the next decade — for example, estimates suggest the pediatric mental health market could grow from around $450 billion in 2026 to over $900 billion by 2035, at a roughly 5.5% CAGR as awareness and demand increase.</p>
-            
-            <p>More specifically, the $95 billion U.S. pediatric behavioral therapy market reflects the current scale of services like therapy, coaching, and clinical support for conditions such as ADHD, autism, anxiety, and related differences. Lumi does not seek to replace therapists or clinicians in this space; rather, it complements existing care by helping families apply strategies in real time, in between appointments, and in the everyday moments where most progress is lived. This kind of real-time, accessible support is what families need most when routines break down, and clinicians are not physically present.</p>
-            
-            <p>By providing structure, coordination, and moment-by-moment guidance, Lumi helps families make therapeutic progress part of their day-to-day life — an approach increasingly necessary as the underlying demand for pediatric behavioral support continues to grow.</p>
-        </section>
-
-        <section class="story-section">
-            <h2>The Team Behind Lumi</h2>
-            <p>Lumi is built by a team with deep experience in software, AI, design, and education—and firsthand understanding of neurodiverse family life.</p>
-            
-            <p style="font-weight: 300;">They've led 0-to-1 products and built complex platforms at companies like Juno and WeWork. Now, they're applying that experience to create practical tools that help families navigate daily routines with less friction and more confidence.</p>
-            
-            <div style="display: flex; justify-content: center; gap: 80px; margin-top: 40px; flex-wrap: wrap;">
-                <div style="text-align: center;">
-                    <img src="Lumi/Michael.png" alt="Michael Caton" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 12px;" loading="lazy">
-                    <div style="font-weight: 500; font-size: 16px; margin-bottom: 4px;">Michael Caton <span style="font-weight: 300; color: #666;">CEO</span></div>
-                </div>
-                <div style="text-align: center;">
-                    <img src="Lumi/Kate%20Meagher.png" alt="Kate Meagher" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 12px;" loading="lazy">
-                    <div style="font-weight: 500; font-size: 16px; margin-bottom: 4px;">Kate Meagher <span style="font-weight: 300; color: #666;">COO</span></div>
-                </div>
-                <div style="text-align: center;">
-                    <img src="Lumi/Chris%20Chan.png" alt="Chris Chan" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 12px;" loading="lazy">
-                    <div style="font-weight: 500; font-size: 16px; margin-bottom: 4px;">Chris Chan <span style="font-weight: 300; color: #666;">CTO</span></div>
-                </div>
+                <img src="liquid-skateboard-images/liquid-components.jpg" alt="Liquid components & materials" loading="lazy">
+                <p class="story-media-caption">Liquid components & materials</p>
             </div>
         </section>
 
-        <section class="story-section">
-            <h2>A Clear Goal</h2>
-            <p>Lumi doesn't promise to eliminate challenges or make parenting easy. Instead, it helps families reduce daily conflict, improve communication, build routines that actually work, and support independence and growth over time.</p>
+        <section class="story-section" id="going-global">
+            <h2>Going Global</h2>
+            <p>Going global is one of the most exciting steps a company can take—but it's also one of the most complex. New markets introduce new regulations, new logistics paths, new testing standards, and entirely new expectations from customers. What worked at home rarely works the same way abroad, and the gaps become obvious fast.</p>
             
-            <p>When families wonder how they're going to get through the day, Lumi offers a practical answer: support that shows up when it's needed.</p>
+            <p>But complexity isn't the enemy—it's the gateway. Each new region opens up fresh demand, new types of customers, and distribution channels that simply don't exist in a single-market model. For hardware, especially, global expansion can transform a niche product into a category-defining one.</p>
             
-            <p style="margin-top: 30px;">Learn more at <a href="https://www.ciaolumi.com/" target="_blank" rel="noopener noreferrer" style="color: #0F62FE; text-decoration: none; transition: text-decoration 0.2s ease;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">www.ciaolumi.com</a></p>
+            <p>The key is having the right systems in place. When your manufacturing, distribution, and retail foundations are structured for scale, the complexity stops being a burden and becomes an advantage. With the right partners and infrastructure, going global isn't chaos—it's a massive multiplier for growth.</p>
+            
+            <div class="story-media">
+                <img src="liquid-skateboard-images/liquid-production.jpg" alt="Preparing for scale" loading="lazy">
+                <p class="story-media-caption">Preparing for scale</p>
+            </div>
         </section>
 
         <div class="story-cta">
-            <h3>Explore Opportunities</h3>
-            <p style="font-weight: 300;">Discover how you can contribute to innovative projects like Lumi on Qava.</p>
+            <h3>Turn ideas into something.</h3>
+            <p style="font-weight: 300;">Liquid Skateboard continues to scale because Alexis built smart.</p>
+            <p style="font-weight: 300;">Start your journey today with Qava.</p>
             <div class="story-cta-actions">
-                <a href="https://app.qava.ai/projects" class="cta-button primary">Browse Projects</a>
-                <a href="https://qava.ai/" class="cta-button secondary">Learn More</a>
+                <a href="https://app.qava.ai/" class="cta-button primary">Join for free</a>
+                <a href="https://qava.ai/demo" class="cta-button secondary">Request a demo</a>
             </div>
         </div>
     </main>
@@ -1392,7 +1352,7 @@
                     <div class="footer-column">
                         <h4 class="footer-heading">Get Started</h4>
                         <ul class="footer-link-list">
-                            <li><a href="https://qava.ai/request-demo" class="footer-link">Request a Demo</a></li>
+                            <li><a href="https://qava.ai/demo" class="footer-link">Request a Demo</a></li>
                             <li><a href="https://app.qava.ai/" class="footer-link">Sign Up</a></li>
                             <li><a href="https://app.qava.ai/" class="footer-link">Log In</a></li>
                             <li><span class="footer-link disabled-link">AI Prompts</span></li>
@@ -1413,7 +1373,7 @@
                     <div class="footer-column">
                         <h4 class="footer-heading">Learn</h4>
                         <ul class="footer-link-list">
-                            <li><a href="https://qava.ai/successstories" class="footer-link">Success Stories</a></li>
+                            <li><span class="footer-link disabled-link">Success Stories</span></li>
                             <li><span class="footer-link disabled-link">Help Center</span></li>
                             <li><span class="footer-link disabled-link">Webinars</span></li>
                             <li><span class="footer-link disabled-link">Blog</span></li>
@@ -1454,37 +1414,6 @@
             
             dropdown.classList.toggle('active');
             toggle.classList.toggle('active');
-        }
-
-        function copyListingLink(listingId, button) {
-            const publicLink = `https://app.qava.ai/projects?listing=${listingId}`;
-            
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(publicLink).then(function() {
-                    const tooltip = button.querySelector('.copy-link-tooltip');
-                    const originalText = tooltip.textContent;
-                    tooltip.textContent = 'Copied!';
-                    setTimeout(function() {
-                        tooltip.textContent = originalText;
-                    }, 2000);
-                }).catch(function(err) {
-                    console.error('Failed to copy: ', err);
-                });
-            } else {
-                // Fallback for older browsers
-                const tempInput = document.createElement('input');
-                tempInput.value = publicLink;
-                document.body.appendChild(tempInput);
-                tempInput.select();
-                document.execCommand('copy');
-                document.body.removeChild(tempInput);
-                const tooltip = button.querySelector('.copy-link-tooltip');
-                const originalText = tooltip.textContent;
-                tooltip.textContent = 'Copied!';
-                setTimeout(function() {
-                    tooltip.textContent = originalText;
-                }, 2000);
-            }
         }
     </script>
 </body>
