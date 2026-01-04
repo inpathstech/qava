@@ -3088,10 +3088,10 @@
                     selectPathCard(card);
                 });
                 
-                // Show selected button at top
+                // Prepare selected button (but don't show it yet)
                 selectedButtonContainer.innerHTML = '';
                 selectedButtonContainer.appendChild(clonedCard);
-                selectedButtonContainer.style.display = 'block';
+                selectedButtonContainer.style.display = 'none'; // Keep hidden - will show in questionnaire if needed
                 
                 // Show description text
                 selectedDescription.style.display = 'block';
@@ -3107,10 +3107,8 @@
                 
                 currentPath = card.getAttribute('data-path');
                 
-                // Start questionnaire after a short delay to show selection
-            setTimeout(() => {
-                    startQuestionnaire();
-                }, 300);
+                // Start questionnaire immediately (no delay to prevent flash)
+                startQuestionnaire();
             }
         }
         
@@ -3141,7 +3139,7 @@
         };
 
         function startQuestionnaire() {
-            currentQuestionIndex = 0; // Start at 0 to go directly to first question
+            currentQuestionIndex = -1; // Start at -1 to show intro screen
             userAnswers = [];
             
             // Ensure hero section is visible (but hide title and subtitle)
@@ -3162,17 +3160,37 @@
                 progressBar.style.marginTop = '32px';
             }
             
-            // Hide both the selected button and description
+            // IMMEDIATELY hide the selected button, SHOW the description (intro message)
             const selectedButtonContainer = document.getElementById('selectedButtonContainer');
             const selectedDescription = document.getElementById('selectedDescription');
-            selectedButtonContainer.style.display = 'none';
-            selectedDescription.style.display = 'none';
+            selectedButtonContainer.style.display = 'none'; // Hide immediately to prevent flash
+            selectedDescription.style.display = 'block';
+            
+            // Update the intro message based on the selected path
+            const introMessage = pathIntroMessages[currentPath] || pathIntroMessages.build;
+            selectedDescription.innerHTML = `<p>${introMessage}</p>`;
             
             // Keep path selection visible
             questionnaireSection.style.display = 'flex';
             questionFlow.style.display = 'block';
             summaryScreen.style.display = 'none';
-            showQuestion();
+            showIntroOrQuestion();
+        }
+
+        function showIntroOrQuestion() {
+            if (currentQuestionIndex === -1) {
+                // Show intro screen with description and Next/Back buttons
+                const selectedDescription = document.getElementById('selectedDescription');
+                selectedDescription.style.display = 'block';
+                questionsContainer.innerHTML = '';
+                questionNavigation.style.display = 'flex';
+                bottomBackButton.style.display = 'flex';
+                bottomNextButton.style.display = 'flex';
+                bottomNextButton.disabled = false;
+                progressFill.style.width = '0%';
+            } else {
+                showQuestion();
+            }
         }
 
         function showQuestion() {
@@ -3419,7 +3437,16 @@
                 currentQuestionIndex--;
                 showQuestion();
             } else if (currentQuestionIndex === 0) {
-                // Go back to path selection from first question
+                // Go back to intro screen
+                currentQuestionIndex = -1;
+                
+                // Ensure questionnaire section and question flow are visible
+                questionnaireSection.style.display = 'flex';
+                questionFlow.style.display = 'block';
+                
+                showIntroOrQuestion();
+            } else if (currentQuestionIndex === -1) {
+                // Go back to path selection from intro screen
                 const selectedCard = document.querySelector('.path-card.selected');
                 if (selectedCard) {
                     selectPathCard(selectedCard);
