@@ -2527,7 +2527,7 @@
                         </svg>
             </div>
                         </div>
-                <div class="path-card hidden-initially" data-path="grow" role="button" tabindex="0">
+                <div class="path-card" data-path="grow" role="button" tabindex="0">
                     <input type="checkbox" class="path-checkbox" aria-label="I want to grow or raise money">
                     <div class="path-card-content">
                         <div class="path-text">
@@ -2541,7 +2541,7 @@
                         </svg>
                         </div>
                     </div>
-                <div class="path-card" data-path="scale" role="button" tabindex="0">
+                <div class="path-card hidden-initially" data-path="scale" role="button" tabindex="0">
                     <input type="checkbox" class="path-checkbox" aria-label="I want to scale or improve">
                     <div class="path-card-content">
                         <div class="path-text">
@@ -3724,8 +3724,8 @@
                 const clientCards = clientSection.querySelectorAll('.path-card');
                 const talentCards = talentSection.querySelectorAll('.path-card');
                 
-                // Hide the 2nd and 4th cards in client section (grow and optimize)
-                if (clientCards[1]) clientCards[1].classList.add('hidden-initially');
+                // Hide the 3rd and 4th cards in client section (scale and optimize)
+                if (clientCards[2]) clientCards[2].classList.add('hidden-initially');
                 if (clientCards[3]) clientCards[3].classList.add('hidden-initially');
                 
                 // Hide the 3rd and 4th cards in talent section (meet and team)
