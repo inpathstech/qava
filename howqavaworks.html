@@ -742,6 +742,10 @@
             opacity: 1;
         }
 
+        .path-section-title .thin-text {
+            font-weight: 300;
+        }
+
         .path-section-title.hidden {
             opacity: 0;
             margin: 0;
@@ -2506,7 +2510,7 @@
                 
                 <div class="path-columns-wrapper">
                 <div class="path-section-column">
-                    <h2 class="path-section-title"><span class="highlight">Clients</span></h2>
+                    <h2 class="path-section-title"><span class="thin-text">I'm a </span><span class="highlight">Client</span></h2>
                     <div id="pathSelection" class="path-selection-column">
                 <div class="path-card" data-path="build" role="button" tabindex="0">
                     <input type="checkbox" class="path-checkbox" aria-label="I want to build or launch">
@@ -2565,12 +2569,11 @@
                     </div>
         </div>
             </div>
-                    <button class="show-more-button" id="clientsShowMore">Show More</button>
         </div>
 
                 <!-- Talent Section -->
                 <div class="path-section-column">
-                    <h2 class="path-section-title"><span class="highlight">Talent</span></h2>
+                    <h2 class="path-section-title"><span class="thin-text">I'm </span><span class="highlight">Talent</span></h2>
                     <div id="talentSelection" class="path-selection-column">
                 <div class="path-card" data-path="experience" role="button" tabindex="0">
                     <input type="checkbox" class="path-checkbox" aria-label="I want to build experience">
@@ -2629,9 +2632,12 @@
                     </div>
                     </div>
                     </div>
-                    <button class="show-more-button" id="talentShowMore">Show More</button>
                     </div>
                     </div>
+                    </div>
+                    <!-- Single Show More button centered below both sections -->
+                    <div style="display: flex; justify-content: center; width: 100%; margin-top: 16px;">
+                        <button class="show-more-button" id="showMoreButton">Show More</button>
                     </div>
                     </div>
 
@@ -3657,33 +3663,27 @@
         });
         */
 
-        // Show More functionality for Clients section
-        const clientsShowMoreBtn = document.getElementById('clientsShowMore');
-        if (clientsShowMoreBtn) {
-            clientsShowMoreBtn.addEventListener('click', function() {
+        // Show More functionality for both Clients and Talent sections
+        const showMoreBtn = document.getElementById('showMoreButton');
+        if (showMoreBtn) {
+            showMoreBtn.addEventListener('click', function() {
                 const clientSection = document.getElementById('pathSelection');
-                const hiddenCards = clientSection.querySelectorAll('.path-card.hidden-initially');
-                
-                hiddenCards.forEach(card => {
-                    card.classList.remove('hidden-initially');
-                });
-                
-                clientsShowMoreBtn.classList.add('hidden');
-            });
-        }
-
-        // Show More functionality for Talent section
-        const talentShowMoreBtn = document.getElementById('talentShowMore');
-        if (talentShowMoreBtn) {
-            talentShowMoreBtn.addEventListener('click', function() {
                 const talentSection = document.getElementById('talentSelection');
-                const hiddenCards = talentSection.querySelectorAll('.path-card.hidden-initially');
                 
-                hiddenCards.forEach(card => {
+                // Show all hidden cards in both sections
+                const clientHiddenCards = clientSection.querySelectorAll('.path-card.hidden-initially');
+                const talentHiddenCards = talentSection.querySelectorAll('.path-card.hidden-initially');
+                
+                clientHiddenCards.forEach(card => {
                     card.classList.remove('hidden-initially');
                 });
                 
-                talentShowMoreBtn.classList.add('hidden');
+                talentHiddenCards.forEach(card => {
+                    card.classList.remove('hidden-initially');
+                });
+                
+                // Hide the show more button
+                showMoreBtn.classList.add('hidden');
             });
         }
 
