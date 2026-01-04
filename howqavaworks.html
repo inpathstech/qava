@@ -3038,6 +3038,13 @@
             if (isAlreadySelected) {
                 // Deselect the card
                 card.classList.remove('selected', 'expanded');
+                
+                // Uncheck the checkbox input
+                const checkbox = card.querySelector('.path-checkbox');
+                if (checkbox) {
+                    checkbox.checked = false;
+                }
+                
                 currentPath = null;
                 currentQuestionIndex = 0;
                 userAnswers = [];
