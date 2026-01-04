@@ -3286,7 +3286,7 @@
                     infoSection.classList.remove('hidden');
                 }
                 
-                // Show Show More button (if cards are hidden)
+                // Show Show More/Less button based on current state
                 const showMoreBtn = document.getElementById('showMoreButton');
                 const showLessBtn = document.getElementById('showLessButton');
                 const clientSection = document.getElementById('pathSelection');
@@ -3294,11 +3294,16 @@
                 const hasHiddenCards = clientSection.querySelectorAll('.path-card.hidden-initially').length > 0 || 
                                        talentSection.querySelectorAll('.path-card.hidden-initially').length > 0;
                 
-                if (showMoreBtn) {
-                    showMoreBtn.style.display = hasHiddenCards ? 'inline-flex' : 'none';
-                }
-                if (showLessBtn) {
-                    showLessBtn.style.display = !hasHiddenCards ? 'inline-flex' : 'none';
+                if (showMoreBtn && showLessBtn) {
+                    if (hasHiddenCards) {
+                        // Cards are collapsed - show "Show More"
+                        showMoreBtn.style.display = 'inline-flex';
+                        showLessBtn.style.display = 'none';
+                    } else {
+                        // Cards are expanded - show "Show Less"
+                        showMoreBtn.style.display = 'none';
+                        showLessBtn.style.display = 'inline-flex';
+                    }
                 }
                 
                 // Hide questionnaire section
