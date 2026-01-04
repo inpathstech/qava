@@ -3421,7 +3421,13 @@
                 bottomBackButton.style.display = 'flex';
                 bottomNextButton.style.display = 'flex';
                 bottomNextButton.disabled = false;
-                progressFill.style.width = '0%';
+                
+                // Show initial progress for intro screen
+                // Calculate as 1 step out of (total questions + 1 for intro)
+                const pathData = questionnaireData[currentPath];
+                const totalSteps = pathData.questions.length + 1; // +1 for intro
+                const progress = (1 / totalSteps) * 100;
+                progressFill.style.width = progress + '%';
                     } else {
                 showQuestion();
             }
@@ -3451,8 +3457,9 @@
             const selectedButtonContainer = document.getElementById('selectedButtonContainer');
             selectedButtonContainer.style.display = 'none';
             
-            // Update progress
-            const progress = ((currentQuestionIndex + 1) / pathData.questions.length) * 100;
+            // Update progress - account for intro step (+1 to current, +1 to total)
+            const totalSteps = pathData.questions.length + 1; // +1 for intro
+            const progress = ((currentQuestionIndex + 2) / totalSteps) * 100; // +2 because intro is step 1, first question is step 2
             progressFill.style.width = progress + '%';
             
             // Clear container
