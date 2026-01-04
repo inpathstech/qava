@@ -731,6 +731,76 @@
             display: none;
         }
 
+        /* Info section below path selection */
+        .info-section {
+            max-width: 1100px;
+            margin: 60px auto 0 auto;
+            padding: 0 32px 40px 32px;
+            text-align: center;
+        }
+
+        .info-section.hidden {
+            display: none;
+        }
+
+        .info-section-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 12px;
+        }
+
+        .info-section-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 300;
+            color: #000000;
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        .info-section-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .info-section-item {
+            text-align: left;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 300;
+            color: #1f1f1f;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .info-section {
+                padding: 0 24px 40px 24px;
+                margin-top: 40px;
+            }
+
+            .info-section-title {
+                font-size: 20px;
+            }
+
+            .info-section-subtitle {
+                font-size: 16px;
+            }
+
+            .info-section-list {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .info-section-item {
+                font-size: 15px;
+            }
+        }
+
         .path-section-title {
             font-family: 'Inter', sans-serif;
             font-size: 18px;
@@ -2643,6 +2713,18 @@
                     </div>
                     </div>
 
+        <!-- Info Section -->
+        <div class="info-section" id="infoSection">
+            <h3 class="info-section-title">We built this page</h3>
+            <p class="info-section-subtitle">So you know exactly how Qava can help — before you commit</p>
+            <div class="info-section-list">
+                <div class="info-section-item">🧭 See how Qava fits your goal</div>
+                <div class="info-section-item">🤝 Understand how collaboration works</div>
+                <div class="info-section-item">⚡ Know what happens next, upfront</div>
+                <div class="info-section-item">🔁 Adjust as you go — no lock-in</div>
+            </div>
+        </div>
+
         <!-- Interactive Questionnaire Section -->
         <div class="questionnaire-section" id="questionnaireSection" style="display: none;">
             <div class="questionnaire-container">
@@ -3184,6 +3266,12 @@
                 // Show columns wrapper
                 columnsWrapper.style.display = 'grid';
                 
+                // Show info section
+                const infoSection = document.getElementById('infoSection');
+                if (infoSection) {
+                    infoSection.classList.remove('hidden');
+                }
+                
                 // Show Show More button (if cards are hidden)
                 const showMoreBtn = document.getElementById('showMoreButton');
                 const showLessBtn = document.getElementById('showLessButton');
@@ -3232,6 +3320,12 @@
                 
                 // Hide columns wrapper
                 columnsWrapper.style.display = 'none';
+                
+                // Hide info section
+                const infoSection = document.getElementById('infoSection');
+                if (infoSection) {
+                    infoSection.classList.add('hidden');
+                }
                 
                 // Hide Show More/Less buttons
                 const showMoreBtn = document.getElementById('showMoreButton');
