@@ -719,6 +719,7 @@
             color: #000000;
             align-self: center;
             width: fit-content;
+            display: inline-flex;
         }
 
         .show-more-button:hover {
@@ -3183,6 +3184,21 @@
                 // Show columns wrapper
                 columnsWrapper.style.display = 'grid';
                 
+                // Show Show More button (if cards are hidden)
+                const showMoreBtn = document.getElementById('showMoreButton');
+                const showLessBtn = document.getElementById('showLessButton');
+                const clientSection = document.getElementById('pathSelection');
+                const talentSection = document.getElementById('talentSelection');
+                const hasHiddenCards = clientSection.querySelectorAll('.path-card.hidden-initially').length > 0 || 
+                                       talentSection.querySelectorAll('.path-card.hidden-initially').length > 0;
+                
+                if (showMoreBtn) {
+                    showMoreBtn.style.display = hasHiddenCards ? 'inline-flex' : 'none';
+                }
+                if (showLessBtn) {
+                    showLessBtn.style.display = !hasHiddenCards ? 'inline-flex' : 'none';
+                }
+                
                 // Hide questionnaire section
                 questionnaireSection.style.display = 'none';
                 questionFlow.style.display = 'none';
@@ -3216,6 +3232,12 @@
                 
                 // Hide columns wrapper
                 columnsWrapper.style.display = 'none';
+                
+                // Hide Show More/Less buttons
+                const showMoreBtn = document.getElementById('showMoreButton');
+                const showLessBtn = document.getElementById('showLessButton');
+                if (showMoreBtn) showMoreBtn.style.display = 'none';
+                if (showLessBtn) showLessBtn.style.display = 'none';
                 
                 // Apply layout changes
                 wrapper.classList.add('has-selection');
