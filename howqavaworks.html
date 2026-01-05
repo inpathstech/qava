@@ -834,8 +834,29 @@
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
             text-transform: uppercase;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: 4px;
+        }
+
+        .header-subtext {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 300;
+            color: #666666;
+            text-transform: none;
+            line-height: 1.3;
+        }
+
+        .table-supporting-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            color: #666666;
+            text-align: center;
+            margin-top: 20px;
+            line-height: 1.5;
         }
 
         .header-cell:first-child {
@@ -963,6 +984,15 @@
                 font-size: 13px;
                 padding: 12px 8px;
                 font-weight: 500;
+            }
+
+            .header-subtext {
+                font-size: 9px;
+            }
+
+            .table-supporting-text {
+                font-size: 12px;
+                margin-top: 16px;
             }
 
             .table-row {
@@ -2921,62 +2951,72 @@
             <div class="info-section-content">
                 <!-- Left Column: Transparency Matters -->
                 <div class="transparency-column">
-                    <h3 class="transparency-title">Transparency Matters</h3>
-                    <p class="transparency-subtitle">Know exactly how Qava can help</p>
+                    <h3 class="transparency-title">Transparency, by design</h3>
+                    <p class="transparency-subtitle">Know exactly how Qava helps — before you commit</p>
                     <ul class="transparency-list">
                         <li>🧭 See how Qava accelerates your specific goal</li>
                         <li>🤝 Understand how collaboration actually works</li>
-                        <li>⚡ Know what happens next, upfront</li>
+                        <li>⚡ Know what happens next — upfront</li>
+                        <li>🔁 Adjust as you go, with no lock-in</li>
                     </ul>
                 </div>
 
                 <!-- Right Column: Comparison Table -->
                 <div class="comparison-column">
-                    <h3 class="comparison-title">Why teams choose Qava</h3>
+                    <h3 class="comparison-title">Why teams choose Qava over alternatives</h3>
                     <div class="comparison-table">
                         <div class="table-header">
                             <div class="header-cell"></div>
-                            <div class="header-cell qava-header">Qava</div>
-                            <div class="header-cell">Jobs Boards</div>
-                            <div class="header-cell">Freelancer Platforms</div>
+                            <div class="header-cell qava-header">
+                                <span>Qava</span>
+                                <span class="header-subtext">(Strategy-first collaboration)</span>
                 </div>
-                        
+                            <div class="header-cell">
+                                <span>Jobs Boards</span>
+                                <span class="header-subtext">(Pay to promote)</span>
+            </div>
+                            <div class="header-cell">
+                                <span>Freelancer Platforms</span>
+                                <span class="header-subtext">(Bid-driven marketplaces)</span>
+        </div>
+        </div>
+
                         <div class="table-row">
-                            <div class="row-label">Upfront cost clarity</div>
+                            <div class="row-label">Upfront cost clarity <span class="sub-text">(no surprise fees)</span></div>
                             <div class="table-cell qava-cell"><img src="Yes tick-1.svg" alt="✓" class="checkmark" width="18" height="18" /></div>
                             <div class="table-cell">
                                 <span class="dollar-signs">$$$</span>
                                 <span class="sub-text">(pay to promote)</span>
-            </div>
+                            </div>
                             <div class="table-cell">
                                 <span class="dollar-signs">$$–$$$</span>
                                 <span class="sub-text">(hidden fees)</span>
-        </div>
-        </div>
-
-                        <div class="table-row">
-                            <div class="row-label">Aligned incentives</div>
-                            <div class="table-cell qava-cell"><img src="Yes tick-1.svg" alt="✓" class="checkmark" width="18" height="18" /></div>
-                            <div class="table-cell">
-                                <span class="xmark">✕</span>
-                                <span class="sub-text">(race to lowest bid)</span>
-                            </div>
-                            <div class="table-cell">
-                                <span class="xmark">✕</span>
-                                <span class="sub-text">(race to lowest bid)</span>
                             </div>
                         </div>
 
                         <div class="table-row">
-                            <div class="row-label">High-caliber talent</div>
+                            <div class="row-label">Aligned incentives for outcomes</div>
                             <div class="table-cell qava-cell"><img src="Yes tick-1.svg" alt="✓" class="checkmark" width="18" height="18" /></div>
                             <div class="table-cell">
                                 <span class="xmark">✕</span>
-                                <span class="sub-text">(quantity > quality)</span>
+                                <span class="sub-text">(attention-driven)</span>
                     </div>
                             <div class="table-cell">
                                 <span class="xmark">✕</span>
-                                <span class="sub-text">(cost > quality)</span>
+                                <span class="sub-text">(race to lowest bid)</span>
+                    </div>
+                    </div>
+
+                        <div class="table-row">
+                            <div class="row-label">High-caliber business talent</div>
+                            <div class="table-cell qava-cell"><img src="Yes tick-1.svg" alt="✓" class="checkmark" width="18" height="18" /></div>
+                            <div class="table-cell">
+                                <span class="xmark">✕</span>
+                                <span class="sub-text">(quantity over quality)</span>
+                    </div>
+                            <div class="table-cell">
+                                <span class="xmark">✕</span>
+                                <span class="sub-text">(cost over context)</span>
                     </div>
                     </div>
 
@@ -2984,18 +3024,19 @@
                             <div class="row-label">Low-risk by design</div>
                             <div class="table-cell qava-cell">
                                 <img src="Yes tick-1.svg" alt="✓" class="checkmark" width="18" height="18" />
-                                <span class="sub-text">Fully Refundable*</span>
+                                <span class="sub-text">Fully refundable</span>
                     </div>
                             <div class="table-cell">
                                 <span class="xmark">✕</span>
-                                <span class="sub-text">(quantity > quality)</span>
+                                <span class="sub-text">(pay before results)</span>
                     </div>
                             <div class="table-cell">
                                 <span class="xmark">✕</span>
-                                <span class="sub-text">(cost > quality)</span>
+                                <span class="sub-text">(long engagements)</span>
+                            </div>
+                        </div>
                     </div>
-                    </div>
-                    </div>
+                    <p class="table-supporting-text">Qava isn't a job board or a freelancer marketplace — it's a faster, more human way to get real strategy work done.</p>
                 </div>
                     </div>
                 </div>
