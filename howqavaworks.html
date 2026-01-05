@@ -888,10 +888,17 @@
             font-weight: 400;
             color: #1f1f1f;
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
             padding: 12px 0 12px 0;
             line-height: 1.4;
-            white-space: nowrap;
+            gap: 2px;
+        }
+
+        .row-label .sub-text {
+            display: block;
+            white-space: normal;
         }
 
         .table-cell {
@@ -1010,7 +1017,11 @@
                 font-size: 11px;
                 padding: 10px 0;
                 line-height: 1.4;
-                white-space: nowrap;
+                gap: 2px;
+            }
+
+            .row-label .sub-text {
+                white-space: normal;
             }
 
             .table-cell {
@@ -2991,7 +3002,10 @@
         </div>
 
                         <div class="table-row">
-                            <div class="row-label">Upfront cost clarity <span class="sub-text">(know what you're paying, upfront)</span></div>
+                            <div class="row-label">
+                                <span>Upfront cost clarity</span>
+                                <span class="sub-text">(know what you're paying, upfront)</span>
+                            </div>
                             <div class="table-cell qava-cell"><span class="checkmark">✅</span></div>
                             <div class="table-cell">
                                 <span class="dollar-signs">$$$</span>
@@ -3004,7 +3018,10 @@
                         </div>
 
                         <div class="table-row">
-                            <div class="row-label">Aligned incentives <span class="sub-text">(focused on outcomes, not clicks or bids)</span></div>
+                            <div class="row-label">
+                                <span>Aligned incentives</span>
+                                <span class="sub-text">(focused on outcomes, not clicks or bids)</span>
+                    </div>
                             <div class="table-cell qava-cell"><span class="checkmark">✅</span></div>
                             <div class="table-cell">
                                 <span class="xmark">✕</span>
@@ -3017,7 +3034,10 @@
                     </div>
 
                         <div class="table-row">
-                            <div class="row-label">High-caliber business talent <span class="sub-text">(strategy-capable, not generic profiles)</span></div>
+                            <div class="row-label">
+                                <span>High-caliber business talent</span>
+                                <span class="sub-text">(strategy-capable, not generic profiles)</span>
+                    </div>
                             <div class="table-cell qava-cell"><span class="checkmark">✅</span></div>
                             <div class="table-cell">
                                 <span class="xmark">✕</span>
@@ -3030,7 +3050,10 @@
                     </div>
 
                         <div class="table-row">
-                            <div class="row-label">Low-risk by design <span class="sub-text">(try, learn, adjust — fully refundable)</span></div>
+                            <div class="row-label">
+                                <span>Low-risk by design</span>
+                                <span class="sub-text">(try, learn, adjust — fully refundable)</span>
+                            </div>
                             <div class="table-cell qava-cell">
                                 <span class="checkmark">✅</span>
                     </div>
