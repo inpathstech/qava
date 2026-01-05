@@ -3297,12 +3297,12 @@
                 if (showMoreBtn && showLessBtn) {
                     if (hasHiddenCards) {
                         // Cards are collapsed - show "Show More"
-                        showMoreBtn.style.display = 'inline-flex';
-                        showLessBtn.style.display = 'none';
+                        showMoreBtn.classList.remove('hidden');
+                        showLessBtn.classList.add('hidden');
                     } else {
                         // Cards are expanded - show "Show Less"
-                        showMoreBtn.style.display = 'none';
-                        showLessBtn.style.display = 'inline-flex';
+                        showMoreBtn.classList.add('hidden');
+                        showLessBtn.classList.remove('hidden');
                     }
                 }
                 
@@ -3349,8 +3349,8 @@
                 // Hide Show More/Less buttons
                 const showMoreBtn = document.getElementById('showMoreButton');
                 const showLessBtn = document.getElementById('showLessButton');
-                if (showMoreBtn) showMoreBtn.style.display = 'none';
-                if (showLessBtn) showLessBtn.style.display = 'none';
+                if (showMoreBtn) showMoreBtn.classList.add('hidden');
+                if (showLessBtn) showLessBtn.classList.add('hidden');
                 
                 // Apply layout changes
                 wrapper.classList.add('has-selection');
