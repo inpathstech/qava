@@ -733,10 +733,9 @@
 
         /* Info section below path selection */
         .info-section {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 60px auto 0 auto;
-            padding: 20px 32px 40px 32px;
-            text-align: center;
+            padding: 20px 32px 60px 32px;
             position: relative;
         }
 
@@ -755,40 +754,147 @@
             display: none;
         }
 
-        .info-section-title {
+        .info-section-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        /* Left Column - Transparency Matters */
+        .transparency-column {
+            text-align: left;
+            padding-right: 20px;
+            border-right: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .transparency-title {
             font-family: 'Inter', sans-serif;
             font-size: 24px;
             font-weight: 700;
             color: #000000;
-            margin-bottom: 12px;
-            text-align: center;
+            margin-bottom: 8px;
         }
 
-        .info-section-subtitle {
-            font-family: 'Inter', sans-serif;
-            font-size: 18px;
-            font-weight: 300;
-            color: #000000;
-            margin-bottom: 32px;
-            line-height: 1.5;
-            text-align: center;
-        }
-
-        .info-section-list {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .info-section-item {
-            text-align: center;
+        .transparency-subtitle {
             font-family: 'Inter', sans-serif;
             font-size: 16px;
             font-weight: 300;
+            color: #666666;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .transparency-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .transparency-list li {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 300;
             color: #1f1f1f;
             line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        /* Right Column - Comparison Table */
+        .comparison-column {
+            text-align: left;
+        }
+
+        .comparison-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 24px;
+        }
+
+        .comparison-table {
+            width: 100%;
+        }
+
+        .table-header {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .header-cell {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1f1f1f;
+            text-align: center;
+            padding: 12px 8px;
+        }
+
+        .qava-header {
+            background-color: #f5f5f5;
+            border-radius: 6px;
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .row-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 400;
+            color: #1f1f1f;
+            display: flex;
+            align-items: center;
+        }
+
+        .table-cell {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 4px;
+        }
+
+        .qava-cell {
+            background-color: #f5f5f5;
+            border-radius: 6px;
+            padding: 8px;
+        }
+
+        .checkmark {
+            color: #0F62FE;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .xmark {
+            color: #1f1f1f;
+            font-size: 20px;
+            font-weight: 300;
+        }
+
+        .dollar-signs {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1f1f1f;
+        }
+
+        .sub-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 300;
+            color: #666666;
         }
 
         @media (max-width: 768px) {
@@ -797,21 +903,62 @@
                 margin-top: 40px;
             }
 
-            .info-section-title {
+            .info-section-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .transparency-column {
+                border-right: none;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                padding-right: 0;
+                padding-bottom: 30px;
+            }
+
+            .transparency-title,
+            .comparison-title {
                 font-size: 20px;
             }
 
-            .info-section-subtitle {
+            .transparency-subtitle {
+                font-size: 15px;
+            }
+
+            .transparency-list li {
+                font-size: 14px;
+            }
+
+            .table-header {
+                grid-template-columns: 1.5fr 1fr 1fr 1fr;
+                gap: 8px;
+            }
+
+            .header-cell {
+                font-size: 12px;
+                padding: 8px 4px;
+            }
+
+            .table-row {
+                grid-template-columns: 1.5fr 1fr 1fr 1fr;
+                gap: 8px;
+                padding: 12px 0;
+            }
+
+            .row-label {
+                font-size: 13px;
+            }
+
+            .checkmark,
+            .xmark {
                 font-size: 16px;
             }
 
-            .info-section-list {
-                grid-template-columns: 1fr;
-                gap: 12px;
+            .dollar-signs {
+                font-size: 12px;
             }
 
-            .info-section-item {
-                font-size: 15px;
+            .sub-text {
+                font-size: 10px;
             }
         }
 
@@ -2735,13 +2882,84 @@
 
         <!-- Info Section -->
         <div class="info-section" id="infoSection">
-            <h3 class="info-section-title">We built this page</h3>
-            <p class="info-section-subtitle">So you know exactly how Qava can help — before you commit</p>
-            <div class="info-section-list">
-                <div class="info-section-item">See how Qava accelerates your goals 🧭</div>
-                <div class="info-section-item">Understand how collaboration works 🤝</div>
-                <div class="info-section-item">Know what happens next, upfront ⚡</div>
-                <div class="info-section-item">Adjust as you go — no lock-in 🔁</div>
+            <div class="info-section-content">
+                <!-- Left Column: Transparency Matters -->
+                <div class="transparency-column">
+                    <h3 class="transparency-title">Transparency Matters</h3>
+                    <p class="transparency-subtitle">Know exactly how Qava can help</p>
+                    <ul class="transparency-list">
+                        <li>🧭 See how Qava accelerates your specific goal</li>
+                        <li>🤝 Understand how collaboration actually works</li>
+                        <li>⚡ Know what happens next, upfront</li>
+                    </ul>
+                </div>
+
+                <!-- Right Column: Comparison Table -->
+                <div class="comparison-column">
+                    <h3 class="comparison-title">Why teams choose Qava</h3>
+                    <div class="comparison-table">
+                        <div class="table-header">
+                            <div class="header-cell qava-header">Qava</div>
+                            <div class="header-cell">Jobs Boards</div>
+                            <div class="header-cell">Freelancer Platforms</div>
+                        </div>
+                        
+                        <div class="table-row">
+                            <div class="row-label">Upfront cost clarity</div>
+                            <div class="table-cell qava-cell"><span class="checkmark">✓</span></div>
+                            <div class="table-cell">
+                                <span class="dollar-signs">$$$</span>
+                                <span class="sub-text">(pay to promote)</span>
+                            </div>
+                            <div class="table-cell">
+                                <span class="dollar-signs">$$–$$$</span>
+                                <span class="sub-text">(hidden fees)</span>
+                            </div>
+                        </div>
+
+                        <div class="table-row">
+                            <div class="row-label">Aligned incentives</div>
+                            <div class="table-cell qava-cell"><span class="checkmark">✓</span></div>
+                            <div class="table-cell">
+                                <span class="xmark">✗</span>
+                                <span class="sub-text">(race to lowest bid)</span>
+                            </div>
+                            <div class="table-cell">
+                                <span class="xmark">✗</span>
+                                <span class="sub-text">(race to lowest bid)</span>
+                            </div>
+                        </div>
+
+                        <div class="table-row">
+                            <div class="row-label">High-caliber talent</div>
+                            <div class="table-cell qava-cell"><span class="checkmark">✓</span></div>
+                            <div class="table-cell">
+                                <span class="xmark">✗</span>
+                                <span class="sub-text">(quantity > quality)</span>
+                            </div>
+                            <div class="table-cell">
+                                <span class="xmark">✗</span>
+                                <span class="sub-text">(cost > quality)</span>
+                            </div>
+                        </div>
+
+                        <div class="table-row">
+                            <div class="row-label">Low-risk by design</div>
+                            <div class="table-cell qava-cell">
+                                <span class="checkmark">✓</span>
+                                <span class="sub-text">Fully Refundable*</span>
+                            </div>
+                            <div class="table-cell">
+                                <span class="xmark">✗</span>
+                                <span class="sub-text">(quantity > quality)</span>
+                            </div>
+                            <div class="table-cell">
+                                <span class="xmark">✗</span>
+                                <span class="sub-text">(cost > quality)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
