@@ -84,3 +84,4 @@ print("\n✅ All Jobs and Internships images updated!")
 
 
 
+
