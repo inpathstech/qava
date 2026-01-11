@@ -3633,8 +3633,6 @@
             
             const wrapper = document.querySelector('.path-selection-wrapper');
             const columnsWrapper = document.querySelector('.path-columns-wrapper');
-            const selectedButtonContainer = document.getElementById('selectedButtonContainer');
-            const selectedDescription = document.getElementById('selectedDescription');
             
             if (isAlreadySelected) {
                 // Deselect the card
@@ -3681,8 +3679,6 @@
                 }
                 
                 // Show Show More/Less button based on current state
-                const showMoreBtn = document.getElementById('showMoreButton');
-                const showLessBtn = document.getElementById('showLessButton');
                 const clientSection = document.getElementById('pathSelection');
                 const talentSection = document.getElementById('talentSelection');
                 const hasHiddenCards = clientSection.querySelectorAll('.path-card.hidden-initially').length > 0 || 
@@ -3741,8 +3737,6 @@
                 // }
                 
                 // Hide Show More/Less buttons
-                const showMoreBtn = document.getElementById('showMoreButton');
-                const showLessBtn = document.getElementById('showLessButton');
                 if (showMoreBtn) showMoreBtn.style.display = 'none';
                 if (showLessBtn) showLessBtn.style.display = 'none';
                 
