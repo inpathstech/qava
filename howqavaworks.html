@@ -3670,6 +3670,10 @@
                 selectedButtonContainer.innerHTML = '';
                 selectedDescription.style.display = 'none';
                 
+                // Hide inline questionnaire elements
+                inlineQuestionsContainer.style.display = 'none';
+                inlineQuestionNavigation.style.display = 'none';
+                
                 // Show columns wrapper
                 columnsWrapper.style.display = 'grid';
                 
@@ -4160,7 +4164,29 @@
                 // Go back to path selection from intro screen
                 const selectedCard = document.querySelector('.path-card.selected');
                 if (selectedCard) {
-                    selectPathCard(selectedCard);
+                    // Reset state
+                    currentPath = null;
+                    currentQuestionIndex = 0;
+                    userAnswers = [];
+                    
+                    // Hide intro and navigation
+                    selectedDescription.style.display = 'none';
+                    selectedButtonContainer.style.display = 'none';
+                    inlineQuestionsContainer.style.display = 'none';
+                    inlineQuestionNavigation.style.display = 'none';
+                    
+                    // Show path cards
+                    pathColumnsWrapper.style.display = 'grid';
+                    
+                    // Deselect the card
+                    selectedCard.classList.remove('selected', 'expanded');
+                    const checkbox = selectedCard.querySelector('.path-checkbox');
+                    if (checkbox) {
+                        checkbox.checked = false;
+                    }
+                    
+                    // Reset progress
+                    progressFill.style.width = '0%';
                 }
             }
         });
