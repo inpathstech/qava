@@ -3661,10 +3661,11 @@
                 // Show columns wrapper
                 columnsWrapper.style.display = 'grid';
                 
-                // Show info section
+                // Keep info section visible (it should always be visible)
                 const infoSection = document.getElementById('infoSection');
                 if (infoSection) {
                     infoSection.classList.remove('hidden');
+                    infoSection.style.display = 'block';
                 }
                 
                 // Show Show More/Less button based on current state
@@ -3721,17 +3722,17 @@
                 // Hide columns wrapper
                 columnsWrapper.style.display = 'none';
                 
-                // Hide info section
-                const infoSection = document.getElementById('infoSection');
-                if (infoSection) {
-                    infoSection.classList.add('hidden');
-                }
+                // Keep info section visible (don't hide it)
+                // const infoSection = document.getElementById('infoSection');
+                // if (infoSection) {
+                //     infoSection.classList.add('hidden');
+                // }
                 
                 // Hide Show More/Less buttons
                 const showMoreBtn = document.getElementById('showMoreButton');
                 const showLessBtn = document.getElementById('showLessButton');
-                if (showMoreBtn) showMoreBtn.classList.add('hidden');
-                if (showLessBtn) showLessBtn.classList.add('hidden');
+                if (showMoreBtn) showMoreBtn.style.display = 'none';
+                if (showLessBtn) showLessBtn.style.display = 'none';
                 
                 // Apply layout changes
                 wrapper.classList.add('has-selection');
@@ -3814,10 +3815,10 @@
             const introMessage = pathIntroMessages[currentPath] || pathIntroMessages.build;
             selectedDescription.innerHTML = introMessage;
             
-            // Hide info section
-            if (infoSection) {
-                infoSection.style.display = 'none';
-            }
+            // Keep info section visible (don't hide it)
+            // if (infoSection) {
+            //     infoSection.style.display = 'none';
+            // }
             
             // Show inline navigation buttons for intro screen
             inlineQuestionNavigation.style.display = 'flex';
