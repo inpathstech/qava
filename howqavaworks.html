@@ -4190,61 +4190,51 @@
 
         function showSummary() {
             // Hide inline questions
-            inlineQuestionsContainer.style.display = 'none';
+            inlineQuestionsContainer.innerHTML = '';
             
-            // Hide inline navigation
-            inlineQuestionNavigation.style.display = 'none';
-            
-            // Show summary in the separate section (keeping old behavior for now)
-            questionFlow.style.display = 'none';
-            summaryScreen.style.display = 'block';
-            
-            // Keep hero section visible (don't hide it)
-            // const heroSection = document.querySelector('.hero-section');
-            // if (heroSection) {
-            //     heroSection.style.display = 'none';
-            // }
-            
+            // Build summary HTML
             const pathData = questionnaireData[currentPath];
             const summary = pathData.summary;
             
-            // Populate summary content
-            summaryContent.innerHTML = '';
-            summary.points.forEach(point => {
-                const item = document.createElement('div');
-                item.className = 'summary-item';
-                item.innerHTML = `
-                    <div class="summary-item-icon">${point.icon}</div>
-                    <div class="summary-item-text">
-                        <h5>${point.title}</h5>
-                        <p>${point.text}</p>
+            // Create summary content inline
+            const summaryHTML = `
+                <div class="summary-screen">
+                    <h3 class="summary-title">Here's how Qava helps you ✨</h3>
+                    <div class="summary-content">
+                        ${summary.points.map(point => `
+                            <div class="summary-item">
+                                <div class="summary-item-icon">${point.icon}</div>
+                                <div class="summary-item-text">
+                                    <h5>${point.title}</h5>
+                                    <p>${point.text}</p>
+                                </div>
+                            </div>
+                        `).join('')}
                     </div>
-                `;
-                summaryContent.appendChild(item);
-            });
+                    <div class="summary-cta">
+                        <a href="${summary.cta.primary.link}" class="cta-button cta-button-primary">Get Started in 2-mins!</a>
+                        <a href="#" class="cta-button cta-button-secondary" id="inlineSummaryBack">← Back</a>
+                    </div>
+                </div>
+            `;
             
-            // Update CTAs
-            primaryCTA.textContent = 'Get Started in 2-mins!';
-            primaryCTA.href = summary.cta.primary.link;
-            secondaryCTA.textContent = '← Back';
-            secondaryCTA.href = '#';
+            inlineQuestionsContainer.innerHTML = summaryHTML;
+            inlineQuestionsContainer.style.display = 'block';
+            
+            // Hide navigation buttons
+            inlineQuestionNavigation.style.display = 'none';
             
             // Add click handler for Back button
-            secondaryCTA.onclick = function(e) {
-                e.preventDefault();
-                // Go back to last question
-                currentQuestionIndex = pathData.questions.length - 1;
-                summaryScreen.style.display = 'none';
-                questionFlow.style.display = 'none';
-                
-                // Show inline questions and navigation again
-                inlineQuestionsContainer.style.display = 'block';
-                inlineQuestionNavigation.style.display = 'flex';
-                
-                // Keep hero section visible (don't hide title/subtitle)
-                
-                showQuestion();
-            };
+            const backButton = document.getElementById('inlineSummaryBack');
+            if (backButton) {
+                backButton.onclick = function(e) {
+                    e.preventDefault();
+                    // Go back to last question
+                    currentQuestionIndex = pathData.questions.length - 1;
+                    inlineQuestionsContainer.innerHTML = '';
+                    showQuestion();
+                };
+            }
         }
 
         // Restart button removed - no longer needed
