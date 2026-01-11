@@ -2997,6 +2997,14 @@
                 </div>
             </div>
             
+            <!-- Questions Container (shows when questionnaire is active) -->
+            <div id="inlineQuestionsContainer" style="display: none;"></div>
+            <div class="question-navigation" id="inlineQuestionNavigation" style="display: none;">
+                <button type="button" class="bottom-back-button" id="inlineBackButton" style="display: none;">← Back</button>
+                <button type="button" class="bottom-next-button" id="inlineNextButton" style="display: none;">Next</button>
+            </div>
+            </div>
+            
         <!-- Info Section Wrapper -->
         <div class="info-section-wrapper">
         <!-- Info Section -->
@@ -3594,6 +3602,12 @@
         const primaryCTA = document.getElementById('primaryCTA');
         const secondaryCTA = document.getElementById('secondaryCTA');
         // const restartButton = document.getElementById('restartButton'); // Removed - button no longer exists
+        
+        // Inline questionnaire elements (shown in path selection area)
+        const inlineQuestionsContainer = document.getElementById('inlineQuestionsContainer');
+        const inlineQuestionNavigation = document.getElementById('inlineQuestionNavigation');
+        const inlineBackButton = document.getElementById('inlineBackButton');
+        const inlineNextButton = document.getElementById('inlineNextButton');
 
         console.log('bottomNextButton:', bottomNextButton);
         console.log('questionNavigation:', questionNavigation);
@@ -3785,39 +3799,37 @@
             currentQuestionIndex = -1; // Start at -1 to show intro screen
             userAnswers = [];
             
-            // Ensure hero section is visible (but hide title and subtitle)
-            const heroSection = document.querySelector('.hero-section');
-            if (heroSection) {
-                heroSection.style.display = 'block';
-            }
+            // Hide path columns wrapper
+            pathColumnsWrapper.style.display = 'none';
             
-            // Hide hero title and subtitle
-            const heroTitle = document.querySelector('.hero-title');
-            const heroSubtext = document.querySelector('.hero-subtext');
-            if (heroTitle) heroTitle.style.display = 'none';
-            if (heroSubtext) heroSubtext.style.display = 'none';
+            // Hide show more/less buttons
+            showMoreBtn.style.display = 'none';
+            showLessBtn.style.display = 'none';
             
-            // Add top padding to progress bar when hero is hidden
-            const progressBar = document.querySelector('.progress-bar');
-            if (progressBar) {
-                progressBar.style.marginTop = '32px';
-            }
-            
-            // IMMEDIATELY hide the selected button, SHOW the description (intro message)
-            const selectedButtonContainer = document.getElementById('selectedButtonContainer');
-            const selectedDescription = document.getElementById('selectedDescription');
-            selectedButtonContainer.style.display = 'none'; // Hide immediately to prevent flash
+            // Show the selected button and intro description
+            selectedButtonContainer.style.display = 'flex';
             selectedDescription.style.display = 'block';
             
             // Update the intro message based on the selected path
             const introMessage = pathIntroMessages[currentPath] || pathIntroMessages.build;
             selectedDescription.innerHTML = introMessage;
             
-            // Keep path selection visible
-            questionnaireSection.style.display = 'flex';
-            questionFlow.style.display = 'block';
-            summaryScreen.style.display = 'none';
-            showIntroOrQuestion();
+            // Hide info section
+            if (infoSection) {
+                infoSection.style.display = 'none';
+            }
+            
+            // Show inline navigation buttons for intro screen
+            inlineQuestionNavigation.style.display = 'flex';
+            inlineBackButton.style.display = 'flex';
+            inlineNextButton.style.display = 'flex';
+            inlineNextButton.disabled = false;
+            
+            // Show initial progress for intro screen
+            const pathData = questionnaireData[currentPath];
+            const totalSteps = pathData.questions.length + 1; // +1 for intro
+            const progress = (1 / totalSteps) * 100;
+            progressFill.style.width = progress + '%';
         }
 
         function showIntroOrQuestion() {
@@ -3846,25 +3858,12 @@
             const pathData = questionnaireData[currentPath];
             const question = pathData.questions[currentQuestionIndex];
             
-            // Ensure hero section is visible
-            const heroSection = document.querySelector('.hero-section');
-            if (heroSection) {
-                heroSection.style.display = 'block';
-            }
-            
-            // Ensure progress bar is visible
-            const progressBar = document.querySelector('.progress-bar');
-            if (progressBar) {
-                progressBar.style.display = 'block';
-            }
-            
-            // Hide the intro description paragraph when showing questions
-            const selectedDescription = document.getElementById('selectedDescription');
+            // Hide the intro description and selected button when showing questions
             selectedDescription.style.display = 'none';
-            
-            // Hide the selected button container during questions
-            const selectedButtonContainer = document.getElementById('selectedButtonContainer');
             selectedButtonContainer.style.display = 'none';
+            
+            // Show the inline questions container
+            inlineQuestionsContainer.style.display = 'block';
             
             // Update progress - account for intro step (+1 to current, +1 to total)
             const totalSteps = pathData.questions.length + 1; // +1 for intro
@@ -3872,7 +3871,7 @@
             progressFill.style.width = progress + '%';
             
             // Clear container
-            questionsContainer.innerHTML = '';
+            inlineQuestionsContainer.innerHTML = '';
             
             // Create question card
             const questionCard = document.createElement('div');
@@ -3940,24 +3939,29 @@
             }
             
             // Append to container
-            questionsContainer.appendChild(questionCard);
+            inlineQuestionsContainer.appendChild(questionCard);
+            
+            // Show inline navigation
+            inlineQuestionNavigation.style.display = 'flex';
             
             // Update navigation buttons - initially hide Next until answer selected
             updateNavigationButtons();
             
             // Hide explanation box
-            explanationBox.style.display = 'none';
+            if (explanationBox) {
+                explanationBox.style.display = 'none';
+            }
         }
 
         function updateNavigationButtons() {
             const pathData = questionnaireData[currentPath];
             const question = pathData.questions[currentQuestionIndex];
             
-            // Show navigation container
-            questionNavigation.style.display = 'flex';
+            // Show inline navigation container
+            inlineQuestionNavigation.style.display = 'flex';
             
             // Always show back button for all questions (including first question)
-            bottomBackButton.style.display = 'flex';
+            inlineBackButton.style.display = 'flex';
             
             // Show/hide and enable/disable next button based on answers
             const hasAnswer = userAnswers[currentQuestionIndex] && (
@@ -3967,11 +3971,11 @@
             );
             
             if (hasAnswer) {
-                bottomNextButton.style.display = 'flex';
-                bottomNextButton.disabled = false;
+                inlineNextButton.style.display = 'flex';
+                inlineNextButton.disabled = false;
                         } else {
-                bottomNextButton.style.display = 'none';
-                bottomNextButton.disabled = true;
+                inlineNextButton.style.display = 'none';
+                inlineNextButton.disabled = true;
             }
         }
 
@@ -4103,6 +4107,54 @@
                         }
                     }
                 });
+        
+        // Inline navigation buttons (shown in path selection area)
+        inlineNextButton.addEventListener('click', function() {
+            console.log('Inline Next button clicked!', currentQuestionIndex, currentPath);
+            
+            if (currentQuestionIndex === -1) {
+                // Moving from intro to first question
+                currentQuestionIndex = 0;
+                showQuestion();
+                return;
+            }
+            
+            const pathData = questionnaireData[currentPath];
+            
+            if (currentQuestionIndex < pathData.questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            } else {
+                showSummary();
+            }
+        });
+
+        inlineBackButton.addEventListener('click', function() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            } else if (currentQuestionIndex === 0) {
+                // Go back to intro screen
+                currentQuestionIndex = -1;
+                
+                // Hide questions, show intro description
+                inlineQuestionsContainer.style.display = 'none';
+                selectedDescription.style.display = 'block';
+                selectedButtonContainer.style.display = 'flex';
+                
+                // Reset progress
+                const pathData = questionnaireData[currentPath];
+                const totalSteps = pathData.questions.length + 1;
+                const progress = (1 / totalSteps) * 100;
+                progressFill.style.width = progress + '%';
+            } else if (currentQuestionIndex === -1) {
+                // Go back to path selection from intro screen
+                const selectedCard = document.querySelector('.path-card.selected');
+                if (selectedCard) {
+                    selectPathCard(selectedCard);
+                }
+            }
+        });
                 
         // Make progress text clickable as back button
         progressText.addEventListener('click', function() {
