@@ -4203,11 +4203,11 @@
             questionFlow.style.display = 'none';
             summaryScreen.style.display = 'block';
             
-            // Hide hero section (title, subtitle, progress bar)
-            const heroSection = document.querySelector('.hero-section');
-            if (heroSection) {
-                heroSection.style.display = 'none';
-            }
+            // Keep hero section visible (don't hide it)
+            // const heroSection = document.querySelector('.hero-section');
+            // if (heroSection) {
+            //     heroSection.style.display = 'none';
+            // }
             
             const pathData = questionnaireData[currentPath];
             const summary = pathData.summary;
@@ -4240,17 +4240,7 @@
                 currentQuestionIndex = pathData.questions.length - 1;
                 summaryScreen.style.display = 'none';
                 
-                // Keep hero title and subtitle hidden (they should stay hidden during questions)
-                const heroTitle = document.querySelector('.hero-title');
-                const heroSubtext = document.querySelector('.hero-subtext');
-                if (heroTitle) heroTitle.style.display = 'none';
-                if (heroSubtext) heroSubtext.style.display = 'none';
-                
-                // Keep progress bar margin at 32px for questions
-                const progressBar = document.querySelector('.progress-bar');
-                if (progressBar) {
-                    progressBar.style.marginTop = '32px';
-                }
+                // Keep hero section visible (don't hide title/subtitle)
                 
                 questionFlow.style.display = 'block';
                 showQuestion();
