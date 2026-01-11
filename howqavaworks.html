@@ -4189,6 +4189,13 @@
         });
 
         function showSummary() {
+            // Hide inline questions
+            inlineQuestionsContainer.style.display = 'none';
+            
+            // Hide inline navigation
+            inlineQuestionNavigation.style.display = 'none';
+            
+            // Show summary in the separate section (keeping old behavior for now)
             questionFlow.style.display = 'none';
             summaryScreen.style.display = 'block';
             
@@ -4228,10 +4235,14 @@
                 // Go back to last question
                 currentQuestionIndex = pathData.questions.length - 1;
                 summaryScreen.style.display = 'none';
+                questionFlow.style.display = 'none';
+                
+                // Show inline questions and navigation again
+                inlineQuestionsContainer.style.display = 'block';
+                inlineQuestionNavigation.style.display = 'flex';
                 
                 // Keep hero section visible (don't hide title/subtitle)
                 
-                questionFlow.style.display = 'block';
                 showQuestion();
             };
         }
