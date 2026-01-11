@@ -3620,6 +3620,12 @@
 
         // Path selection handlers
         const pathCards = document.querySelectorAll('.path-card');
+        const pathColumnsWrapper = document.querySelector('.path-columns-wrapper');
+        const selectedButtonContainer = document.getElementById('selectedButtonContainer');
+        const selectedDescription = document.getElementById('selectedDescription');
+        const showMoreBtn = document.getElementById('showMoreButton');
+        const showLessBtn = document.getElementById('showLessButton');
+        const infoSection = document.getElementById('infoSection');
         
         function selectPathCard(card) {
             // Check if the card is already selected
