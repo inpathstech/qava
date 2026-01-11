@@ -4189,6 +4189,12 @@
         });
 
         function showSummary() {
+            // Hide hero title and subtitle for summary
+            const heroTitle = document.querySelector('.hero-title');
+            const heroSubtext = document.querySelector('.hero-subtext');
+            if (heroTitle) heroTitle.style.display = 'none';
+            if (heroSubtext) heroSubtext.style.display = 'none';
+            
             // Hide inline questions
             inlineQuestionsContainer.innerHTML = '';
             
@@ -4229,6 +4235,10 @@
             if (backButton) {
                 backButton.onclick = function(e) {
                     e.preventDefault();
+                    // Show hero section again
+                    if (heroTitle) heroTitle.style.display = 'block';
+                    if (heroSubtext) heroSubtext.style.display = 'block';
+                    
                     // Go back to last question
                     currentQuestionIndex = pathData.questions.length - 1;
                     inlineQuestionsContainer.innerHTML = '';
