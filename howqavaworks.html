@@ -1543,15 +1543,23 @@
         /* Questionnaire Section */
         .questionnaire-section {
             background: transparent;
-            padding: 0px 24px 100px 24px;
+            padding: 0px 32px 60px 32px;
             display: flex;
             justify-content: center;
             align-items: flex-start;
         }
 
         .questionnaire-container {
-            max-width: 700px;
+            max-width: 1200px;
             width: 100%;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+            padding: 48px 60px;
+            margin-bottom: 0px;
+            min-height: auto;
+            max-height: none;
+            overflow-y: auto;
         }
 
         .questionnaire-title {
@@ -2096,6 +2104,15 @@
 
             .questionnaire-title {
                 font-size: 28px;
+            }
+
+            .questionnaire-section {
+                padding: 0px 24px 40px 24px;
+            }
+
+            .questionnaire-container {
+                padding: 32px 24px;
+                border-radius: 8px;
             }
 
             .questionnaire-subtitle {
