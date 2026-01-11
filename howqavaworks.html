@@ -731,14 +731,20 @@
             display: none;
         }
 
+        /* Info section wrapper - full width gray background */
+        .info-section-wrapper {
+            background: #fafafa;
+            width: 100%;
+            padding: 60px 0;
+            margin-top: 60px;
+        }
+
         /* Info section below path selection */
         .info-section {
             max-width: 1200px;
-            margin: 60px auto 0 auto;
-            padding: 20px 32px 60px 32px;
+            margin: 0 auto;
+            padding: 0 32px;
             position: relative;
-            background: #fafafa;
-            border-radius: 12px;
         }
 
         .info-section::before {
@@ -956,9 +962,13 @@
         }
 
         @media (max-width: 768px) {
-            .info-section {
-                padding: 20px 24px 40px 24px;
+            .info-section-wrapper {
+                padding: 40px 0;
                 margin-top: 40px;
+            }
+
+            .info-section {
+                padding: 0 24px;
             }
 
             .info-section-content {
@@ -2987,6 +2997,8 @@
                 </div>
             </div>
             
+        <!-- Info Section Wrapper -->
+        <div class="info-section-wrapper">
         <!-- Info Section -->
         <div class="info-section" id="infoSection">
             <div class="info-section-content">
@@ -3092,6 +3104,7 @@
                 </div>
                     </div>
                 </div>
+        </div><!-- Close info-section-wrapper -->
 
         <!-- Interactive Questionnaire Section -->
         <div class="questionnaire-section" id="questionnaireSection" style="display: none;">
