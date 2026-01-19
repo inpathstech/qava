@@ -622,7 +622,23 @@
         }
 
         /* Responsive Design */
+        @media (max-width: 1400px) {
+            .header-container {
+                padding: 16px 24px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .header-container {
+                padding: 16px 20px;
+            }
+        }
+
         @media (max-width: 1100px) {
+            .header-container {
+                padding: 12px 20px;
+            }
+
             .header-center {
                 display: none;
             }
@@ -633,6 +649,10 @@
         }
 
         @media (max-width: 768px) {
+            .header-container {
+                padding: 12px 16px;
+            }
+
             .main-content {
                 padding: 60px 24px 40px 24px;
             }
@@ -696,22 +716,6 @@
                 </div>
                 <div class="nav-item search-listings">
                     <div class="nav-text">Search Listings</div>
-                </div>
-                <div class="nav-item how-it-works has-dropdown">
-                    <div class="nav-text">How It Works</div>
-                    <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                        <path d="M6 3v6M3 6h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <div class="dropdown-menu">
-                        <div class="dropdown-item">
-                            <div class="dropdown-title">For Clients 🚀</div>
-                            <div class="dropdown-subtitle">Hiring for current or future work</div>
-                        </div>
-                        <div class="dropdown-item">
-                            <div class="dropdown-title">For Talent 👩‍💻</div>
-                            <div class="dropdown-subtitle">Interested in current or future work</div>
-                        </div>
-                    </div>
                 </div>
                 <div class="nav-item why-qava">
                     <div class="nav-text">Why Qava</div>
@@ -1025,7 +1029,7 @@
         <div class="footer-container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <a href="complete-page.html">
+                    <a href="https://qava.ai/">
                         <img src="qava-logo.svg" alt="Qava" class="footer-logo-img" />
                     </a>
                 </div>
@@ -1033,61 +1037,49 @@
                     <div class="footer-column">
                         <h4 class="footer-heading">Welcome</h4>
                         <ul class="footer-link-list">
-                            <li><a href="https://app.qava.ai/guest" class="footer-link">Create Listing</a></li>
-                            <li><a href="#" class="footer-link">Search Listings</a></li>
-                            <li class="footer-dropdown-item">
-                                <a href="#" class="footer-link">How It Works +</a>
-                                <div class="footer-dropdown-menu">
-                                    <div class="footer-dropdown-item">
-                                        <div class="dropdown-title">For Clients 🚀</div>
-                                        <div class="dropdown-subtitle">Hiring for current or future work</div>
-                                    </div>
-                                    <div class="footer-dropdown-item">
-                                        <div class="dropdown-title">For Talent 👩‍💻</div>
-                                        <div class="dropdown-subtitle">Interested in current or future work</div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li><a href="#" class="footer-link">Why Qava</a></li>
-                            <li><a href="#" class="footer-link">What's New</a></li>
+                            <li><a href="https://app.qava.ai/" class="footer-link">Create Listing</a></li>
+                            <li><a href="https://app.qava.ai/projects" class="footer-link">Search Listings</a></li>
+                            <li><a href="https://qava.ai/howqavaworks" class="footer-link">How Qava Works</a></li>
+                            <li><span class="footer-link disabled-link">What's New</span></li>
                         </ul>
                     </div>
                     <div class="footer-column">
                         <h4 class="footer-heading">Get Started</h4>
                         <ul class="footer-link-list">
-                            <li><a href="#" class="footer-link">AI Prompts</a></li>
-                            <li><a href="#" class="footer-link">Project Templates</a></li>
-                            <li><a href="#" class="footer-link">Application Tips</a></li>
-                            <li><a href="#" class="footer-link">Request a Demo</a></li>
-                            <li><a href="#" class="footer-link">Sign Up</a></li>
-                            <li><a href="#" class="footer-link">Log In</a></li>
+                            <li><a href="https://app.qava.ai/" class="footer-link">Sign Up</a></li>
+                            <li><a href="https://app.qava.ai/" class="footer-link">Log In</a></li>
+                            <li><span class="footer-link disabled-link">AI Prompts</span></li>
+                            <li><span class="footer-link disabled-link">Project Templates</span></li>
+                            <li><span class="footer-link disabled-link">Application Tips</span></li>
                         </ul>
                     </div>
                     <div class="footer-column">
                         <h4 class="footer-heading">Resources</h4>
                         <ul class="footer-link-list">
-                            <li><a href="#" class="footer-link">Pricing</a></li>
-                            <li><a href="#" class="footer-link">About Us</a></li>
-                            <li><a href="#" class="footer-link">Careers</a></li>
-                            <li><a href="#" class="footer-link">Media Kit</a></li>
-                            <li><a href="#" class="footer-link">Contact Us</a></li>
+                            <li><a href="https://qava.ai/request-demo" class="footer-link">Request a Demo</a></li>
+                            <li><a href="https://qava.ai/pricing" class="footer-link">Pricing</a></li>
+                            <li><a href="https://qava.ai/about" class="footer-link">About Us</a></li>
+                            <li><a href="https://qava.ai/aialoneisnotenough" class="footer-link">AI Not Enough</a></li>
+                            <li><span class="footer-link disabled-link">Careers</span></li>
+                            <li><span class="footer-link disabled-link">Media Kit</span></li>
+                            <li><span class="footer-link disabled-link">Contact Us</span></li>
                         </ul>
                     </div>
                     <div class="footer-column">
                         <h4 class="footer-heading">Learn</h4>
                         <ul class="footer-link-list">
-                            <li><a href="#" class="footer-link">Success Stories</a></li>
-                            <li><a href="#" class="footer-link">Help Center</a></li>
-                            <li><a href="#" class="footer-link">Webinars</a></li>
-                            <li><a href="#" class="footer-link">Blog</a></li>
-                            <li><a href="#" class="footer-link">Community</a></li>
+                            <li><a href="https://qava.ai/successstories" class="footer-link">Success Stories</a></li>
+                            <li><span class="footer-link disabled-link">Help Center</span></li>
+                            <li><span class="footer-link disabled-link">Webinars</span></li>
+                            <li><span class="footer-link disabled-link">Blog</span></li>
+                            <li><span class="footer-link disabled-link">Community</span></li>
                         </ul>
                     </div>
                     <div class="footer-column">
                         <h4 class="footer-heading">Legal</h4>
                         <ul class="footer-link-list">
-                            <li><a href="#" class="footer-link">Terms & Privacy</a></li>
-                            <li><a href="#" class="footer-link">California Privacy Notice</a></li>
+                            <li><a href="terms" class="footer-link">Terms & Privacy</a></li>
+                            <li><a href="terms" class="footer-link">California Privacy Notice</a></li>
                         </ul>
                     </div>
                     <div class="footer-copyright">
@@ -1151,3 +1143,4 @@
     </script>
 </body>
 </html>
+
