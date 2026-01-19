@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pirates for the Planet: No One's Ark | Qava</title>
+    <link rel="icon" type="image/svg+xml" href="qava-logo.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @font-face {
+            font-family: 'Jonathan';
+            src: url('jonathan_signature (1)/JonathanSignature.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f1f1f;
+        }
+        
+        /* Cache buster v3 - Updated for No One's Ark */
+
+        /* NAVBAR STYLES - Copied from index.html */
+        .header-container {
+            width: 100%;
+            padding: 16px 32px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 64px;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            overflow: visible;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .header-center {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex: 1;
+            margin-left: 40px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 36px;
+            height: 36px;
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1;
+            height: 25px;
+            color: #000000;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+            gap: 4px;
+            text-decoration: none;
+            vertical-align: middle;
+            box-sizing: border-box;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .nav-item:visited {
+            color: #000000;
+        }
+
+        .nav-item:active {
+            color: #000000;
+        }
+
+        .dropdown-arrow {
+            color: #000000;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover .dropdown-arrow {
+            color: #000000;
+        }
+
+        .nav-text {
+            color: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            white-space: nowrap;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 8px;
+            min-width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 10000;
+        }
+
+        .nav-item.has-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-item {
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.04);
+        }
+
+        .dropdown-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 2px;
+        }
+
+        .dropdown-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 300;
+            color: #6B6B6B;
+        }
+
+        .auth-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .auth-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1;
+            height: 25px;
+            color: #000000;
+            text-decoration: none;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .auth-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+        }
+
+        .join-button {
+            background-color: #0F62FE;
+            color: white;
+            padding: 7px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1;
+            height: 28px;
+            text-decoration: none;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 3px rgba(15, 98, 254, 0.3);
+        }
+
+        .join-button:hover {
+            background-color: #0047C3;
+            box-shadow: 0 2px 6px rgba(15, 98, 254, 0.4);
+        }
+
+        .join-text {
+            color: white;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            gap: 3px;
+            cursor: pointer;
+            padding: 6px;
+            z-index: 1001;
+        }
+
+        .hamburger-line {
+            width: 20px;
+            height: 2px;
+            background-color: #000000;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: white;
+            z-index: 999;
+            display: none;
+            flex-direction: column;
+            padding: 80px 32px 32px 32px;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 20px;
+            right: 32px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #000000;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-nav-item {
+            padding: 16px 0;
+            font-size: 16px;
+            font-weight: 400;
+            color: #000000;
+            text-decoration: none;
+            border-bottom: 1px solid #EBEBEB;
+        }
+
+        .mobile-dropdown-toggle {
+            cursor: pointer;
+        }
+
+        .mobile-dropdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mobile-dropdown-arrow {
+            font-size: 18px;
+            transition: transform 0.2s ease;
+        }
+
+        .mobile-dropdown-toggle.active .mobile-dropdown-arrow {
+            transform: rotate(45deg);
+        }
+
+        .mobile-dropdown-content {
+            display: none;
+            flex-direction: column;
+            padding-left: 16px;
+        }
+
+        .mobile-dropdown-content.active {
+            display: flex;
+        }
+
+        .mobile-dropdown-item {
+            padding: 12px 0;
+            text-decoration: none;
+            border-bottom: 1px solid #F5F5F5;
+        }
+
+        .mobile-auth-section {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding-top: 24px;
+        }
+
+        /* Fix navbar underline issue */
+        .navigation .nav-item,
+        .navigation .nav-item:link,
+        .navigation .nav-item:visited,
+        .navigation .nav-item:hover,
+        .navigation .nav-item:active,
+        .navigation .nav-item:focus {
+            text-decoration: none !important;
+        }
+
+        /* FOOTER STYLES - Copied from index.html */
+        .footer-section {
+            background: white;
+            width: 100%;
+            max-width: 1070px;
+            margin: 0 auto;
+            padding: 78px 0 46px 0;
+            margin-top: 50px;
+            border-top: 1px solid #EBEBEB;
+        }
+
+        .footer-container {
+            max-width: 940px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .footer-logo {
+            width: 39%;
+            padding: 2px 15px 0 0;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo-img {
+            width: 40px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            width: 60%;
+            gap: 16px 25px;
+            padding: 0 15px 0 10px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-heading {
+            font-family: 'Inter', sans-serif;
+            font-size: 17px;
+            color: #000000;
+            margin-bottom: 8px;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+        }
+
+        .footer-link-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .footer-link-list li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+            text-decoration: none;
+            line-height: 1.2;
+            transition: text-decoration 0.2s ease;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer-link.disabled-link {
+            cursor: not-allowed;
+            opacity: 0.6;
+            position: relative;
+        }
+
+        .footer-link.disabled-link:hover {
+            text-decoration: none;
+            opacity: 0.8;
+            color: #999999;
+        }
+
+        .footer-link.disabled-link:hover::before {
+            content: "Coming Soon";
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000000;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+            white-space: nowrap;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .footer-copyright {
+            grid-column: 1 / -1;
+            margin-top: 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+        }
+
+        /* BLOG POST STYLES */
+        .story-wrapper {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 56px 24px 90px;
+        }
+
+        .story-header {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 0;
+        }
+
+        .story-title {
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .story-subtitle {
+            font-size: 20px;
+            font-weight: 300;
+            color: #4a4a4a;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        .story-hero {
+            width: 100%;
+            margin: 32px 0 40px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .story-hero img {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+        
+        /* Intro section - appears after hero image */
+        .story-intro {
+            padding: 0 !important;
+            margin: 0 0 32px !important;
+        }
+
+        .story-intro p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 16px;
+        }
+
+        .story-intro p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Main content sections */
+        .story-section {
+            padding: 0 !important;
+            margin: 56px 0 0 0 !important;
+        }
+
+        .story-section:first-of-type {
+            margin-top: 0 !important;
+        }
+ 
+        .story-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 0 24px !important;
+            padding-top: 28px !important;
+            letter-spacing: -0.01em;
+            color: #000000;
+            border-top: 1px solid #e0e0e0 !important;
+        }
+
+        .story-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #111;
+        }
+
+        /* All paragraphs - consistent spacing */
+        .story-wrapper p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 14px;
+        }
+
+        .story-section p,
+        .story-intro p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+        }
+
+        /* Pull quotes */
+        blockquote {
+            margin: 40px auto !important;
+            padding: 14px 24px !important;
+            width: fit-content;
+            max-width: 90%;
+            font-size: 48px !important;
+            line-height: 1.3 !important;
+            color: #000000 !important;
+            font-weight: 300 !important;
+            font-style: normal !important;
+            text-align: center;
+            background: transparent;
+            white-space: normal;
+            display: block;
+            font-family: 'Jonathan', 'Kalam', 'Brush Script MT', cursive;
+        }
+
+        blockquote p {
+            font-size: inherit !important;
+            line-height: inherit !important;
+            color: inherit !important;
+            font-weight: inherit !important;
+            font-style: inherit !important;
+            font-family: inherit !important;
+            margin: 0 !important;
+        }
+
+        blockquote::before {
+            content: "";
+        }
+
+        /* Images with captions */
+        .story-media {
+            margin: 24px 0 28px;
+            text-align: center;
+        }
+
+        .story-media img {
+            width: 100%;
+            border-radius: 16px;
+            display: block;
+        }
+
+        .story-media-caption {
+            margin-top: 0px;
+            font-size: 13px;
+            color: #585858;
+            font-style: italic;
+            text-align: center;
+        }
+
+        .story-media-caption a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .story-media-caption a:hover {
+            text-decoration: underline;
+        }
+
+        /* Project cards */
+        .project-card {
+            background: white;
+            border: none;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        }
+
+        .project-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .project-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0F62FE;
+            margin-bottom: 12px;
+        }
+
+        .project-card p {
+            margin-bottom: 8px;
+        }
+
+        .project-card ul {
+            margin: 12px 0;
+            padding-left: 20px;
+        }
+
+        .project-card ul li {
+            margin-bottom: 6px;
+            color: #2e2e2e;
+            line-height: 1.6;
+        }
+
+        .project-card-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .view-listing-button {
+            padding: 6px 12px;
+            background: #0F62FE;
+            color: white !important;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .view-listing-button:hover {
+            background: #0053E5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
+        }
+
+        .copy-link-button {
+            padding: 6px;
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #767676;
+            width: 28px;
+            height: 28px;
+            position: relative;
+        }
+
+        .copy-link-button:hover {
+            color: #111111;
+        }
+
+        .copy-link-button svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .copy-link-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 8px;
+            padding: 4px 8px;
+            background: #000000;
+            color: white;
+            font-size: 11px;
+            border-radius: 4px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .copy-link-button:hover .copy-link-tooltip {
+            opacity: 1;
+        }
+
+        /* Links within content */
+        .story-section a,
+        .story-intro a {
+            color: inherit;
+            text-decoration: none;
+            transition: text-decoration 0.2s ease;
+        }
+
+        .story-section a:hover,
+        .story-intro a:hover {
+            text-decoration: underline;
+        }
+
+        .story-cta {
+            margin-top: 48px;
+            text-align: center;
+            padding: 32px 48px;
+            border-radius: 14px;
+            background: #fafafa;
+        }
+
+        .story-cta h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .story-cta p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #3b3b3b;
+            margin-bottom: 0;
+            font-weight: 300;
+        }
+
+        .story-cta p:first-of-type {
+            margin-bottom: 4px;
+        }
+
+        .story-cta p:last-of-type {
+            margin-bottom: 28px;
+        }
+
+        .story-cta-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        /* Primary button - Join for free (matches hero) */
+        .story-cta .cta-button.primary {
+            padding: 6px 12px;
+            background: #0F62FE;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            font-family: inherit;
+            height: 27.6px;
+            text-decoration: none;
+            color: white;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .story-cta .cta-button.primary:hover {
+            background: #0053E5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
+        }
+
+        /* Secondary button - Request a demo (matches hero) */
+        .story-cta .cta-button.secondary {
+            padding: 6px 12px;
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            height: 27.6px;
+            text-decoration: none;
+            color: #000000;
+            font-size: 13px;
+            font-weight: 300;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .story-cta .cta-button.secondary::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 12px;
+            right: 12px;
+            height: 1px;
+            background-color: #000000;
+            transform: scaleX(0);
+            transition: transform 0.2s ease;
+        }
+
+        .story-cta .cta-button.secondary:hover::after {
+            transform: scaleX(1);
+        }
+
+        .story-cta .cta-button.secondary:visited {
+            color: #000000;
+        }
+
+        .story-cta .cta-button.secondary:active {
+            color: #000000;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1400px) {
+            .header-container {
+                padding: 16px 24px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .header-container {
+                padding: 16px 20px;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .header-container {
+                padding: 12px 20px;
+            }
+
+            .navigation {
+                display: none;
+            }
+
+            .auth-section {
+                display: none;
+            }
+
+            .hamburger-menu {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .story-wrapper {
+                padding: 40px 20px 80px;
+            }
+
+            .story-title {
+                font-size: 32px;
+                line-height: 1.15;
+            }
+
+            .story-subtitle {
+                font-size: 17px;
+                line-height: 1.45;
+            }
+
+            .story-hero {
+                margin: 24px 0 32px;
+                border-radius: 8px;
+            }
+
+            .story-section {
+                margin: 48px 0 0 0 !important;
+            }
+
+            .story-section h2 {
+                font-size: 22px;
+                padding-top: 24px !important;
+                margin-bottom: 20px !important;
+            }
+
+            blockquote {
+                margin: 32px auto !important;
+                padding: 12px 18px !important;
+                font-size: 36px !important;
+                max-width: 90%;
+            }
+
+            blockquote p {
+                font-size: inherit !important;
+            }
+
+            .story-media {
+                margin: 20px 0 24px;
+            }
+
+            .story-media img {
+                border-radius: 12px;
+            }
+
+            .story-cta {
+                padding: 32px 24px;
+                margin-top: 40px;
+            }
+
+            .story-cta h3 {
+                font-size: 20px;
+                margin-bottom: 14px;
+            }
+
+            .story-cta p {
+                font-size: 15px;
+                margin-bottom: 24px;
+            }
+
+            .story-cta-actions {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+                align-items: center;
+            }
+
+            .story-cta .cta-button {
+                width: auto;
+                max-width: 280px;
+                min-width: fit-content;
+                padding: 8px 16px;
+            }
+
+            .footer-section {
+                padding: 60px 24px 40px 24px;
+            }
+
+            .footer-logo {
+                width: 100%;
+                padding: 0;
+                margin-bottom: 32px;
+            }
+
+            .footer-links {
+                width: 100%;
+                grid-template-columns: 1fr;
+                padding: 0;
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .story-wrapper {
+                padding: 32px 18px 70px;
+            }
+
+            .story-title {
+                font-size: 28px;
+            }
+
+            .story-subtitle {
+                font-size: 16px;
+            }
+
+            .story-hero {
+                margin: 20px 0 28px;
+            }
+
+            .story-section h2 {
+                font-size: 20px;
+            }
+
+            .story-wrapper p {
+                font-size: 15px !important;
+            }
+
+            blockquote {
+                font-size: 28px !important;
+                padding: 10px 16px !important;
+            }
+
+            blockquote p {
+                font-size: inherit !important;
+            }
+
+            .story-cta {
+                padding: 28px 20px;
+            }
+
+            .story-cta h3 {
+                font-size: 18px;
+            }
+
+            .story-cta p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="header-container">
+        <!-- Logo on the left -->
+        <div class="header-logo">
+            <div class="logo-container">
+                <div class="logo">
+                    <a href="https://qava.ai/">
+                        <img src="qava-logo.svg" alt="Qava Logo">
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation in the center -->
+        <div class="header-center">
+            <div class="navigation">
+                <a href="https://app.qava.ai/" class="nav-item create-listing">
+                    <div class="nav-text">Create Listing</div>
+                </a>
+                <a href="https://app.qava.ai/projects" class="nav-item search-listings">
+                    <div class="nav-text">Search Listings</div>
+                </a>
+                <a href="https://qava.ai/pricing" class="nav-item pricing">
+                    <div class="nav-text">Pricing</div>
+                </a>
+                <a href="https://qava.ai/about" class="nav-item about">
+                    <div class="nav-text">About</div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Auth section on the right -->
+        <div class="header-right">
+            <div class="auth-section">
+                <a href="https://qava.ai/howqavaworks" class="auth-item">
+                    <div class="nav-text">How Qava Works</div>
+                </a>
+                <a href="https://app.qava.ai/" class="auth-item">
+                    <div class="nav-text">Log in</div>
+                </a>
+                <a href="https://app.qava.ai/" class="join-button">
+                    <div class="join-text">Join for free</div>
+                </a>
+            </div>
+
+            <!-- Hamburger Menu Icon -->
+            <div class="hamburger-menu" onclick="toggleMobileMenu()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
+        <a href="https://app.qava.ai/" class="mobile-nav-item">
+            <div class="nav-text">Create Listing</div>
+        </a>
+        <a href="https://app.qava.ai/projects" class="mobile-nav-item">
+            <div class="nav-text">Search Listings</div>
+        </a>
+        <div class="mobile-nav-item mobile-dropdown-toggle" onclick="toggleMobileDropdown()">
+            <div class="mobile-dropdown-header">
+                <div class="nav-text">How It Works</div>
+                <span class="mobile-dropdown-arrow">+</span>
+            </div>
+        </div>
+        <div class="mobile-dropdown-content" id="mobileDropdown">
+            <a href="https://qava.ai/clienthowitworks" class="mobile-dropdown-item">
+                <div class="dropdown-title">For Clients 🚀</div>
+                <div class="dropdown-subtitle">Hiring for current or future work</div>
+            </a>
+            <a href="https://qava.ai/talenthowitworks" class="mobile-dropdown-item">
+                <div class="dropdown-title">For Talent 👩‍💻</div>
+                <div class="dropdown-subtitle">Interested in current or future work</div>
+            </a>
+        </div>
+        <a href="https://qava.ai/pricing" class="mobile-nav-item">
+            <div class="nav-text">Pricing</div>
+        </a>
+        <a href="https://qava.ai/about" class="mobile-nav-item">
+            <div class="nav-text">About</div>
+        </a>
+        <div class="mobile-auth-section">
+            <a href="https://app.qava.ai/" class="mobile-nav-item">Log in</a>
+            <a href="https://app.qava.ai/" class="join-button">
+                <div class="join-text">Join for free</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Blog Content -->
+    <main class="story-wrapper">
+        <header class="story-header">
+            <img src="No One's Ark/NOA logo files-39-1.png" alt="No One's Ark" style="max-width: 120px; margin-bottom: 6px;" loading="lazy">
+            <h1 class="story-title">Pirates for the Planet: The Story of No One's Ark—and the Strategic Projects Powering Their Mission</h1>
+            <p class="story-subtitle" style="color: #666666;">Some ideas arrive quietly. Others show up with a 270-ton retired ferry, a pirate brigade, and a vision bold enough to rewrite the future of one of New York City's most polluted waterways. No One's Ark is here to make a statement.</p>
+        </header>
+
+        <!-- Insights / Use cases section -->
+        <section class="max-w-5xl mt-6 mb-12 lg:flex lg:items-start lg:gap-6">
+            <!-- Left: Behind the Story -->
+            <div class="flex-1">
+                <h3 class="text-[11px] font-semibold tracking-[0.2em] uppercase text-gray-500 mb-4">
+                    Behind the Story
+                </h3>
+
+                <div class="flex flex-col items-start gap-6">
+                    <!-- Joe Leone and Sean Leone in a row -->
+                <div class="flex flex-col sm:flex-row items-start gap-8">
+                        <!-- Joe Leone -->
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 aspect-square rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+                            <img
+                                    src="No One's Ark/Joe Leone.jpg"
+                                    alt="Joe Leone"
+                                class="w-full h-full object-cover object-center"
+                                loading="lazy"
+                            />
+                        </div>
+                        <div class="text-left whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900">
+                                    Joe Leone
+                            </div>
+                            <div class="text-xs text-gray-500 font-light">
+                                    Co-Founder, No One's Ark
+                            </div>
+                        </div>
+        </div>
+
+                        <!-- Sean Leone -->
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 aspect-square rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+                                <img
+                                    src="No One's Ark/Sean Leone.jpg"
+                                    alt="Sean Leone"
+                                    class="w-full h-full object-cover object-center"
+                                    loading="lazy"
+                                />
+                            </div>
+                            <div class="text-left whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900">
+                                    Sean Leone
+                                </div>
+                                <div class="text-xs text-gray-500 font-light">
+                                    Co-Founder, No One's Ark
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reed Langridge in second row -->
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+                            <img
+                                src="Reed Langridge Profile.jpg"
+                                alt="Reed Langridge"
+                                class="w-full h-full object-cover object-center"
+                                loading="lazy"
+                            />
+                        </div>
+                        <div class="text-left whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900">
+                                Reed Langridge
+                            </div>
+                            <div class="text-xs text-gray-500 font-light">
+                                Founder, Qava
+                            </div>
+                        </div>
+        </div>
+                </div>
+            </div>
+
+            <!-- Divider (desktop only) -->
+            <div class="hidden md:block w-px bg-gray-200 self-stretch mx-4" aria-hidden="true"></div>
+
+            <!-- Right: Focus Areas -->
+            <div class="flex-1 mt-10 lg:mt-0">
+                <h3 class="text-[11px] font-semibold tracking-[0.2em] uppercase text-gray-500 mb-2">
+                    Focus Areas
+                </h3>
+
+                <div style="font-size: 12px !important; line-height: 1.6; font-weight: 300;" class="text-gray-800">
+                    <div>Non-Profit 🌳</div>
+                    <div>Fundraising 💰</div>
+                    <div>Investor Relations 🤝</div>
+                    <div>Custom Project 🎯</div>
+                </div>
+            </div>
+        </section>
+
+        <figure class="story-hero">
+            <a href="https://www.youtube.com/watch?v=4Ryfe1fjfSk&t=132s" target="_blank" rel="noopener noreferrer" style="display: block; text-decoration: none; position: relative;">
+                <img src="https://img.youtube.com/vi/4Ryfe1fjfSk/maxresdefault.jpg" alt="No One's Ark Video" loading="lazy">
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 56px; background-color: rgba(0, 0, 0, 0.8); border-radius: 14px; display: flex; align-items: center; justify-content: center; pointer-events: none;">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                </div>
+            </a>
+        </figure>
+
+        <section class="story-intro">
+            <p style="background-color: #f5f5f5; padding: 20px; border-radius: 8px; border: none; margin-bottom: 20px;">We share stories of people who turn ambition into action—hoping to inspire others or offer the practical know-how to do the same. We're especially proud to spotlight non-profit founders whose journeys reshape what success looks like. This month, we spotlight Joe and Sean Leone, Co-Founders of No One's Ark.</p>
+            <p>Founded by twin brothers <a href="https://www.kickstarter.com/projects/noonesark/no-ones-ark-the-most-biblical-campaign-ever" target="_blank" rel="noopener noreferrer">Sean and Joe Leone</a>—writers, comedians, climate activists, community curators—No One's Ark is part environmental mission, part artistic movement, and part joyful rebellion against the idea that "ordinary people can't fix big problems." They're proving that community, creativity, and radical optimism can achieve what traditional systems haven't: meaningful restoration of New York's forgotten waters.</p>
+            <p>And now, for the first time, students and graduates on Qava can join the crew.</p>
+        </section>
+
+        <section class="story-section">
+            <h2>Restoring a Waterway with a History That Can't Be Ignored</h2>
+            <p>Between Brooklyn and Queens, <a href="https://wbsm.com/new-bedford-vineyard-ferry-schamonchi-today-sinking/" target="_blank" rel="noopener noreferrer">Newtown Creek</a> tells a story of industrial boom, environmental damage, and decades of neglect. Oil spills, chemical runoff, and heavy industry transformed the creek into one of the most polluted waterways in the United States.</p>
+            <p>For most people, this would be the end of the story. For the Leone brothers, it was the beginning.</p>
+            <p><strong>Their vision:</strong> Transform a historic ferry into a floating environmental center—powered by art, community, and education—and use it to fund and support ecological restoration throughout New York City.</p>
+            <p>They call it No One's Ark, and it's exactly what it sounds like: a vessel for hope, imagination, and real environmental change.</p>
+        </section>
+
+        <section class="story-section">
+            <h2>A Pirate-Inspired Movement Rooted in Community</h2>
+            <p>No One's Ark leans proudly into its identity as <em>Pirates for the Planet</em>—a playful yet powerful call to action.</p>
+            <p>The "pirates" show up where it matters:</p>
+            <ul style="margin-left: 20px; margin-bottom: 20px; list-style-type: none; padding-left: 0;">
+                <li style="margin-bottom: 8px; font-weight: 300;">🏛 Public hearings</li>
+                <li style="margin-bottom: 8px; font-weight: 300;">🌳 Park takeovers</li>
+                <li style="margin-bottom: 8px; font-weight: 300;">📚 School workshops</li>
+                <li style="margin-bottom: 8px; font-weight: 300;">🤝 Community meetings</li>
+                <li style="margin-bottom: 8px; font-weight: 300;">🌍 Local environmental campaigns</li>
+            </ul>
+            <p>Kids join them. Adults join them. Artists join them. <a href="https://www.reddit.com/r/avesNYC/comments/z7ijxs/the_brooklyn_boat/" target="_blank" rel="noopener noreferrer">Their events</a> blend activism with creativity—protests with performances, education with culture, optimism with urgency.</p>
+                <blockquote class="story-quote">
+                <p>Restore the relationship between<br>New Yorkers and the waterways<br>that sustain their communities</p>
+                </blockquote>
+        </section>
+
+        <section class="story-section">
+            <h2>The Ark: A Floating Home for Environmental Imagination</h2>
+            <p>At the center of the movement stands a remarkable vessel: The Schamonchi—a <a href="https://vineyardgazette.com/news/2005/07/04/old-ferry-sails-new-york-schamonchi-reborn-party-boat" target="_blank" rel="noopener noreferrer">9,000 sq ft, four-deck ferry</a> with a 650-person capacity.</p>
+                
+            <div class="story-media">
+                <img src="No One's Ark/Then&Now, Schamonchi.png" alt="The Schamonchi ferry before and after" loading="lazy">
+                <p class="story-media-caption">The Schamonchi: <a href="https://www.southcoasttoday.com/story/news/history/2022/03/22/schamonchi-ferry-new-bedford-vineyard-newtown-creek-vessel-boat/7061741001/" target="_blank" rel="noopener noreferrer">Then & Now</a></p>
+            </div>
+                    
+            <p>Once a passenger ferry to Martha's Vineyard, it is now being reimagined as a permanent anchor for community-driven environmental restoration. Once restored, it will host:</p>
+            <ul style="margin-left: 20px; margin-bottom: 20px; list-style-type: none; padding-left: 0;">
+                <li style="margin-bottom: 6px; font-weight: 300;">📖 Educational workshops and conferences</li>
+                <li style="margin-bottom: 6px; font-weight: 300;">🎭 Live performances and cultural programming</li>
+                <li style="margin-bottom: 6px; font-weight: 300;">🧘 Wellness and environmental retreats</li>
+                <li style="margin-bottom: 6px; font-weight: 300;">🌱 A greenhouse and vertical farm</li>
+                <li style="margin-bottom: 6px; font-weight: 300;">💼 Shared workspace</li>
+                <li style="margin-bottom: 6px; font-weight: 300;">💰 Continuous fundraising events for ecological cleanup</li>
+            </ul>
+            <p>The Ark becomes the engine—and symbol—of a broader dream: <a href="https://bedfordandbowery.com/2019/05/brooklyns-secret-party-boat-says-save-our-ship/" target="_blank" rel="noopener noreferrer">land reclamation, rewilding, and a greener future for New York City</a>.</p>
+            <p>But behind even the most inspiring mission, there must be rigor, structure, and financial clarity.</p>
+            <p style="font-weight: 300; color: #000000;">That is where Qava talent comes in.</p>
+        </section>
+
+        <section class="story-section">
+            <h2>Three Strategic Projects on Qava That Will Bring the Ark to Life</h2>
+            <p>No One's Ark is entering a critical growth phase. With repairs about to start, donor interest rising, and partnerships forming, they need support on the strategic and financial foundations that will carry the mission forward.</p>
+            <p>They've opened <strong>three live projects on Qava</strong> where MBA students and graduates can contribute directly to one of New York's most exciting environmental initiatives:</p>
+                
+            <div class="project-card">
+                <h3>1. Financial Model Review for a New York–Based Non-Profit</h3>
+                <p>The team has developed a multi-year projection covering repairs, operations, event revenue, and long-term environmental programming. They now need a sharp review to ensure the model aligns with the investor narrative and philanthropic funding requirements.</p>
+                <p style="font-weight: 300;">What you'll do:</p>
+                <ul style="margin-top: 4px; margin-bottom: 12px;">
+                    <li style="margin-bottom: 2px; font-weight: 300;">✅ Validate assumptions</li>
+                    <li style="margin-bottom: 2px; font-weight: 300;">💼 Strengthen financial logic</li>
+                    <li style="margin-bottom: 2px; font-weight: 300;">📊 Improve clarity for partners and donors</li>
+                    <li style="margin-bottom: 2px; font-weight: 300;">🤝 Prepare the model for investor conversations</li>
+                </ul>
+                <p><em>Great for analytically minded MBAs, finance professionals, or anyone who loves turning vision into numbers.</em></p>
+                <div class="project-card-actions">
+                    <a href="https://app.qava.ai/projects?listing=QA00518" target="_blank" rel="noopener noreferrer" class="view-listing-button">View Listing</a>
+                    <button class="copy-link-button" onclick="copyListingLink('QA00518', this)" aria-label="Copy shareable link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                            </svg>
+                        <span class="copy-link-tooltip">Copy link</span>
+                    </button>
+            </div>
+            </div>
+
+            <div class="project-card">
+                <h3>2. Review Investor Pack for New York–Based Non-Profit</h3>
+                <p>The No One's Ark story is powerful, visual, emotional—and big. As they enter conversations with mission-aligned investors and advisors, they need their investor materials to be clear, compelling, and airtight.</p>
+                <p style="font-weight: 300;">What you'll do:</p>
+                <ul style="margin-top: 4px; margin-bottom: 12px;">
+                    <li style="margin-bottom: 2px; font-weight: 300;">🔍 Identify missing elements or inconsistencies</li>
+                    <li style="margin-bottom: 2px; font-weight: 300;">✨ Strengthen the visual and narrative flow</li>
+                    <li style="margin-bottom: 2px; font-weight: 300;">📈 Ensure key metrics and impact statements land clearly</li>
+                    <li style="margin-bottom: 2px; font-weight: 300;">⭐ Highlight what matters most for early supporters</li>
+                </ul>
+                <p><em>Perfect for students with experience in VC, strategy, consulting, storytelling, or pitch deck refinement.</em></p>
+                <div class="project-card-actions">
+                    <a href="https://app.qava.ai/projects?listing=QA00519" target="_blank" rel="noopener noreferrer" class="view-listing-button">View Listing</a>
+                    <button class="copy-link-button" onclick="copyListingLink('QA00519', this)" aria-label="Copy shareable link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                        </svg>
+                        <span class="copy-link-tooltip">Copy link</span>
+                            </button>
+                        </div>
+                </div>
+                    
+            <div class="project-card">
+                <h3>3. Economic Impact Analysis — Newtown Creek Restoration</h3>
+                <p>Inspired by the economic valuation of Central Park, the team is conducting a similar study for Newtown Creek—an area nearly four times larger. Your analysis will strengthen their case for funding, partnerships, and policy support.</p>
+                <p style="font-weight: 300;">What you'll do:</p>
+                <ul style="margin-top: 4px; margin-bottom: 12px;">
+                    <li style="margin-bottom: 2px; font-weight: 300;">💰 Support grant applications</li>
+                    <li style="margin-bottom: 2px; font-weight: 300;">🏛️ Inform government partnerships</li>
+                    <li style="margin-bottom: 2px; font-weight: 300;">🤲 Enable large-scale philanthropic outreach</li>
+                    <li style="margin-bottom: 2px; font-weight: 300;">📋 Strengthen policy discussions</li>
+                    <li style="margin-bottom: 2px; font-weight: 300;">📢 Power public awareness campaigns</li>
+                </ul>
+                <p><em>This work could literally reshape the environmental landscape of New York City and beyond.</em></p>
+                <div class="project-card-actions">
+                    <a href="https://app.qava.ai/projects?listing=QA00520" target="_blank" rel="noopener noreferrer" class="view-listing-button">View Listing</a>
+                    <button class="copy-link-button" onclick="copyListingLink('QA00520', this)" aria-label="Copy shareable link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                        </svg>
+                        <span class="copy-link-tooltip">Copy link</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="story-section">
+            <h2>Why This Work Matters</h2>
+            <p>No One's Ark isn't just building a ship. They're building belief—belief that communities can restore what was damaged, that art and activism can live side by side, and that the future of New York's waterways doesn't have to mirror its past.</p>
+            <blockquote class="story-quote">
+                <p>They tell us our dreams are too big.<br>We say: exactly.</p>
+            </blockquote>
+            <p>Through Qava, students and graduates can help shape the financial, strategic, and analytical foundations behind this audacious vision.</p>
+            <p style="font-weight: 300;">This is hands-on experience with purpose.<br>
+            Real impact.<br>
+            Real responsibility.<br>
+            Real transformation.</p>
+        </section>
+
+        <div class="story-cta">
+            <h3>Join the Crew</h3>
+            <p style="font-weight: 300;">Explore live projects on Qava and lend your skills to a mission that blends environmental restoration, community imagination, and strategy.</p>
+            <div class="story-cta-actions">
+                <a href="https://app.qava.ai/projects" class="cta-button primary">Explore Projects</a>
+                <a href="https://www.kickstarter.com/projects/noonesark/no-ones-ark-the-most-biblical-campaign-ever" class="cta-button secondary" target="_blank" rel="noopener noreferrer">Learn More</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer-section">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="https://qava.ai/">
+                        <img src="qava-logo.svg" alt="Qava" class="footer-logo-img" />
+                    </a>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Welcome</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://app.qava.ai/" class="footer-link">Create Listing</a></li>
+                            <li><a href="https://app.qava.ai/projects" class="footer-link">Search Listings</a></li>
+                            <li><a href="https://qava.ai/howqavaworks" class="footer-link">How Qava Works</a></li>
+                            <li><span class="footer-link disabled-link">What's New</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Get Started</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://app.qava.ai/" class="footer-link">Sign Up</a></li>
+                            <li><a href="https://app.qava.ai/" class="footer-link">Log In</a></li>
+                            <li><span class="footer-link disabled-link">AI Prompts</span></li>
+                            <li><span class="footer-link disabled-link">Project Templates</span></li>
+                            <li><span class="footer-link disabled-link">Application Tips</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Resources</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://qava.ai/request-demo" class="footer-link">Request a Demo</a></li>
+                            <li><a href="https://qava.ai/pricing" class="footer-link">Pricing</a></li>
+                            <li><a href="https://qava.ai/about" class="footer-link">About Us</a></li>
+                            <li><a href="https://qava.ai/aialoneisnotenough" class="footer-link">AI Not Enough</a></li>
+                            <li><span class="footer-link disabled-link">Careers</span></li>
+                            <li><span class="footer-link disabled-link">Media Kit</span></li>
+                            <li><span class="footer-link disabled-link">Contact Us</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Learn</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://qava.ai/successstories" class="footer-link">Success Stories</a></li>
+                            <li><span class="footer-link disabled-link">Help Center</span></li>
+                            <li><span class="footer-link disabled-link">Webinars</span></li>
+                            <li><span class="footer-link disabled-link">Blog</span></li>
+                            <li><span class="footer-link disabled-link">Community</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Legal</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="terms" class="footer-link">Terms & Privacy</a></li>
+                            <li><a href="terms" class="footer-link">California Privacy Notice</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-copyright">
+                        © 2025 qava
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+            
+            // Prevent body scroll when mobile menu is open
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function toggleMobileDropdown() {
+            const dropdown = document.getElementById('mobileDropdown');
+            const toggle = document.querySelector('.mobile-dropdown-toggle');
+            
+            dropdown.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        function copyListingLink(listingId, button) {
+            const publicLink = `https://app.qava.ai/projects?listing=${listingId}`;
+            
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(publicLink).then(function() {
+                    const tooltip = button.querySelector('.copy-link-tooltip');
+                    const originalText = tooltip.textContent;
+                    tooltip.textContent = 'Copied!';
+                    setTimeout(function() {
+                        tooltip.textContent = originalText;
+                    }, 2000);
+                }).catch(function(err) {
+                    console.error('Failed to copy: ', err);
+                });
+            } else {
+                // Fallback for older browsers
+                const tempInput = document.createElement('input');
+                tempInput.value = publicLink;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+                const tooltip = button.querySelector('.copy-link-tooltip');
+                const originalText = tooltip.textContent;
+                tooltip.textContent = 'Copied!';
+                setTimeout(function() {
+                    tooltip.textContent = originalText;
+                }, 2000);
+            }
+        }
+    </script>
+</body>
+</html>

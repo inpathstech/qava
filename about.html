@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link rel="icon" type="image/svg+xml" href="qava-logo.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+        }
+
+        /* NAVBAR STYLES */
+        .header-container {
+            width: 100%;
+            padding: 16px 32px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 64px;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            overflow: visible;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .header-center {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex: 1;
+            margin-left: 40px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 36px;
+            height: 36px;
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1;
+            height: 25px;
+            color: #000000;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+            gap: 4px;
+            text-decoration: none;
+            vertical-align: middle;
+            box-sizing: border-box;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .nav-item:visited {
+            color: #000000;
+        }
+
+        .nav-item:active {
+            color: #000000;
+        }
+
+        .dropdown-arrow {
+            color: #000000;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover .dropdown-arrow {
+            color: #000000;
+        }
+
+        .nav-text {
+            color: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            white-space: nowrap;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 8px;
+            min-width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 10000;
+        }
+
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-item {
+            display: flex;
+            flex-direction: column;
+            padding: 12px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            text-decoration: none;
+            gap: 2px;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(0, 0, 0, 0.04);
+        }
+
+        .dropdown-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 2px;
+        }
+
+        .dropdown-subtitle {
+            font-size: 12px;
+            font-weight: 300;
+            color: #666666;
+        }
+
+        .auth-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .auth-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 400;
+            color: #000000;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .auth-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+        }
+
+        .join-button {
+            padding: 6px 12px;
+            background: #0F62FE;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            font-family: inherit;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .join-button:hover {
+            background: #0053E5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
+        }
+
+        .join-text {
+            color: white;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger-line {
+            width: 20px;
+            height: 2px;
+            background-color: #000000;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100%;
+            background: white;
+            z-index: 10001;
+            transition: right 0.3s ease;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .close-menu {
+            font-size: 24px;
+            cursor: pointer;
+            align-self: flex-end;
+            margin-bottom: 16px;
+        }
+
+        .mobile-nav-item {
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            font-weight: 400;
+            color: #000000;
+            text-decoration: none;
+        }
+
+        .mobile-nav-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+        }
+
+        .mobile-dropdown-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mobile-dropdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .mobile-dropdown-arrow {
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-dropdown-toggle.active .mobile-dropdown-arrow {
+            transform: rotate(45deg);
+        }
+
+        .mobile-dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding-left: 12px;
+        }
+
+        .mobile-dropdown-content.active {
+            max-height: 200px;
+        }
+
+        .mobile-dropdown-item {
+            display: flex;
+            flex-direction: column;
+            padding: 12px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            text-decoration: none;
+            gap: 2px;
+        }
+
+        .mobile-dropdown-item:hover {
+            background-color: rgba(0, 0, 0, 0.04);
+        }
+
+        .mobile-menu-join-button {
+            margin-top: 16px;
+        }
+
+        @media (max-width: 1400px) {
+            .header-container {
+                padding: 16px 24px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .header-container {
+                padding: 16px 20px;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .header-container {
+                padding: 12px 20px;
+            }
+
+            .header-center {
+                display: none;
+            }
+
+            .auth-section {
+                display: none;
+            }
+
+            .hamburger-menu {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 12px 16px;
+            }
+        }
+
+        /* ABOUT PAGE STYLES */
+        .about-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 32px;
+        }
+
+        .about-section {
+            margin-bottom: 60px;
+        }
+
+        .about-title {
+            font-size: 42px;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 40px;
+            line-height: 1.2;
+        }
+
+        .section-heading {
+            font-size: 22px;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .section-subheading {
+            font-size: 16px;
+            font-weight: 300;
+            color: #333;
+            margin-bottom: 24px;
+            margin-top: 0;
+        }
+
+        .about-text {
+            font-size: 16px;
+            font-weight: 300;
+            color: #000;
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .about-list {
+            list-style: none;
+            padding: 0;
+            margin: 24px 0;
+        }
+
+        .about-list li {
+            font-size: 16px;
+            font-weight: 300;
+            color: #000;
+            line-height: 1.4;
+            margin-bottom: 8px;
+            padding-left: 0;
+        }
+
+        .highlight-box {
+            background: transparent;
+            border-radius: 12px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .highlight-text {
+            font-size: 16px;
+            font-weight: 300;
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+
+        .beliefs-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .belief-item {
+            font-size: 16px;
+            font-weight: 400;
+            color: #000;
+            line-height: 1.6;
+        }
+
+        .two-column-text {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        .cta-link {
+            font-size: 16px;
+            font-weight: 300;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .cta-link:hover {
+            color: #000;
+            text-decoration: underline;
+        }
+
+        /* Landing-page highlight style (used on "deserves") */
+        .highlight {
+            background: linear-gradient(180deg, transparent 60%, rgba(15, 98, 254, 0.1) 60%);
+            padding: 0 4px;
+            display: inline;
+        }
+
+        /* Notion-like blocks */
+        .quote-card {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            margin: 0 0 28px 0;
+        }
+
+        .quote-text {
+            font-size: 26px;
+            font-weight: 600;
+            color: #111;
+            line-height: 1.35;
+            margin: 0 0 12px 0;
+        }
+
+        .quote-author {
+            font-size: 14px;
+            font-weight: 300;
+            color: #6B6B6B;
+            margin: 0;
+        }
+
+        .micro-heading {
+            font-size: 16px;
+            font-weight: 300;
+            color: #111;
+            letter-spacing: 0.01em;
+            margin: 22px 0 12px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin: 12px 0 22px 0;
+        }
+
+        /* Keep stats readable on smaller desktop/tablet widths */
+        @media (max-width: 900px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid #EBEBEB;
+            border-radius: 14px;
+            padding: 14px 16px;
+        }
+
+        .stat-top {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .stat-emoji {
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .stat-number {
+            font-size: 18px;
+            font-weight: 700;
+            color: #111;
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            font-weight: 300;
+            color: #6B6B6B;
+            line-height: 1.4;
+        }
+
+        .callout-card {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            margin: 18px 0 0 0;
+            color: #111;
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .cta-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        .cta-card {
+            background: white;
+            border: 1px solid #EBEBEB;
+            border-radius: 14px;
+            padding: 14px 16px;
+        }
+
+        .cta-card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111;
+            margin: 0 0 6px 0;
+        }
+
+        .cta-card-body {
+            font-size: 14px;
+            font-weight: 300;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid #EBEBEB;
+            background: white;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #111;
+            transition: all 0.15s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+        }
+
+        .cta-button:hover {
+            background: #FAFAFA;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+        }
+
+        .cta-button.primary {
+            background: #0F62FE;
+            border-color: #0F62FE;
+            color: white;
+        }
+
+        .cta-button.primary:hover {
+            background: #0053E5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
+        }
+
+        @media (max-width: 768px) {
+            .about-container {
+                padding: 60px 24px;
+            }
+
+            .about-title {
+                font-size: 32px;
+            }
+
+            .section-heading {
+                font-size: 24px;
+            }
+
+            .section-subheading {
+                font-size: 18px;
+            }
+
+            .about-text, .about-list li {
+                font-size: 14px;
+            }
+
+            .highlight-text, .belief-item {
+                font-size: 16px;
+            }
+
+            .highlight-box {
+                padding: 24px;
+            }
+
+            .two-column-text {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* FOOTER STYLES */
+        .footer-section {
+            background: white;
+            width: 100%;
+            max-width: 1070px;
+            margin: 0 auto;
+            padding: 78px 0 46px 0;
+            margin-top: 50px;
+            border-top: 1px solid #EBEBEB;
+        }
+
+        .footer-container {
+            max-width: 940px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .footer-logo {
+            width: 39%;
+            padding: 2px 15px 0 0;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo-img {
+            width: 40px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            width: 60%;
+            gap: 16px 25px;
+            padding: 0 15px 0 10px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-heading {
+            font-family: 'Inter', sans-serif;
+            font-size: 17px;
+            color: #000000;
+            margin-bottom: 8px;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+        }
+
+        .footer-link-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .footer-link-list li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+            text-decoration: none;
+            line-height: 1.2;
+            transition: text-decoration 0.2s ease;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Disabled footer links with hover effects */
+        .footer-link.disabled-link {
+            cursor: not-allowed;
+            opacity: 0.6;
+            position: relative;
+        }
+
+        .footer-link.disabled-link:hover {
+            text-decoration: none;
+            opacity: 0.8;
+            color: #999999;
+        }
+
+        .footer-link.disabled-link:hover::before {
+            content: "Coming Soon";
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000000;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+            white-space: nowrap;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Footer Dropdown Styles */
+        .footer-dropdown-item {
+            position: relative;
+        }
+
+        .footer-dropdown-menu {
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 8px;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 10000;
+        }
+
+        .footer-dropdown-item:hover .footer-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .footer-dropdown-menu .footer-dropdown-item {
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            text-decoration: none;
+            display: block;
+        }
+
+        .footer-dropdown-menu .footer-dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.04);
+        }
+
+        /* Ensure footer dropdown links work properly */
+        .footer-dropdown-menu .footer-dropdown-item:visited {
+            color: inherit;
+        }
+
+        .footer-dropdown-menu .footer-dropdown-item:active {
+            color: inherit;
+        }
+
+        .footer-copyright {
+            grid-column: 1 / -1;
+            margin-top: 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+        }
+
+        @media (max-width: 768px) {
+            .footer-section {
+                padding: 40px 0 30px 0;
+                margin-top: 30px;
+            }
+
+            .footer-logo {
+                width: 100%;
+                margin-bottom: 24px;
+            }
+
+            .footer-links {
+                width: 100%;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px 16px;
+            }
+
+            .footer-copyright {
+                margin-top: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-links {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .footer-section {
+                padding: 30px 20px 24px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="header-container">
+        <!-- Logo on the left -->
+        <div class="header-logo">
+            <div class="logo-container">
+                <div class="logo">
+                    <a href="https://qava.ai/">
+                        <img src="qava-logo.svg" alt="Qava Logo">
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation in the center -->
+        <div class="header-center">
+            <div class="navigation">
+                <a href="https://app.qava.ai/" class="nav-item create-listing">
+                    <div class="nav-text">Create Listing</div>
+                </a>
+                <a href="https://app.qava.ai/projects" class="nav-item search-listings">
+                    <div class="nav-text">Search Listings</div>
+                </a>
+                <a href="https://qava.ai/pricing" class="nav-item pricing">
+                    <div class="nav-text">Pricing</div>
+                </a>
+                <a href="https://qava.ai/about" class="nav-item about">
+                    <div class="nav-text">About</div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Auth section on the right -->
+        <div class="header-right">
+            <div class="auth-section">
+                <a href="https://qava.ai/howqavaworks" class="auth-item">
+                    <div class="nav-text">How Qava Works</div>
+                </a>
+                <a href="https://app.qava.ai/" class="auth-item">
+                    <div class="nav-text">Log in</div>
+                </a>
+                <a href="https://app.qava.ai/" class="join-button">
+                    <div class="join-text">Join for free</div>
+                </a>
+            </div>
+            
+            <!-- Hamburger Menu Button -->
+            <div class="hamburger-menu" onclick="toggleMobileMenu()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
+        <a href="https://app.qava.ai/" class="mobile-nav-item">
+            <div class="nav-text">Create Listing</div>
+        </a>
+        <a href="https://app.qava.ai/projects" class="mobile-nav-item">
+            <div class="nav-text">Search Listings</div>
+        </a>
+        <div class="mobile-nav-item mobile-dropdown-toggle" onclick="toggleMobileDropdown()">
+            <div class="mobile-dropdown-header">
+                <div class="nav-text">How It Works</div>
+                <span class="mobile-dropdown-arrow">+</span>
+            </div>
+        </div>
+        <div class="mobile-dropdown-content" id="mobileDropdown">
+            <a href="https://qava.ai/clienthowitworks" class="mobile-dropdown-item">
+                <div class="dropdown-title">For Clients 🚀</div>
+                <div class="dropdown-subtitle">Hiring for current or future work</div>
+            </a>
+            <a href="https://qava.ai/talenthowitworks" class="mobile-dropdown-item">
+                <div class="dropdown-title">For Talent 👩‍💻</div>
+                <div class="dropdown-subtitle">Interested in current or future work</div>
+            </a>
+        </div>
+        <a href="https://qava.ai/pricing" class="mobile-nav-item">
+            <div class="nav-text">Pricing</div>
+        </a>
+        <a href="https://app.qava.ai/" class="mobile-nav-item">Log in</a>
+        <a href="https://app.qava.ai/" class="join-button mobile-menu-join-button">
+            <div class="join-text">Join for free</div>
+        </a>
+    </div>
+
+    <!-- About Page Content -->
+    <div class="about-container">
+        <div class="about-section">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <img src="About%20image.png" alt="About Qava" style="width: 100%; max-width: 800px; border-radius: 12px;" loading="lazy">
+            </div>
+            
+            <div class="quote-card">
+                <p class="quote-text">Everything around you that you call life was made up by people that were <span class="highlight">no smarter than you</span>—and you can change it, you can influence it, you can <span class="highlight">build your own things</span> that other people can use.</p>
+                <p class="quote-author">— Steve Jobs</p>
+            </div>
+
+            <p class="about-text">I started <strong>Qava</strong> because I believe in the limitless potential of people to <span class="highlight">create a brighter future</span>.</p>
+
+            <p class="about-text">Nothing lights me up more than hearing about someone’s mission to build a new product, pursue their passion, 5x their income, and I love helping them do this.</p>
+
+            <p class="about-text">But I see the same patterns repeat themselves. Founders and operators get stuck—<span class="highlight">short on time, short on budget, unsure who to trust</span>.</p>
+
+            <p class="about-text">At the same time, I see incredibly smart people on the sidelines—MBAs, graduates, career-changers—ready to help, but crowded out of meaningful opportunities.</p>
+
+            <p class="about-text">The problem wasn’t talent. The problem was connectivity.</p>
+
+            <p class="about-text">So I ran a pilot. No code. No automation. Just connecting <span class="highlight">smart people with smart people</span>.</p>
+
+            <div class="micro-heading">What happened next?</div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-emoji">🤝</div>
+                        <div class="stat-number">$2.4M+</div>
+                    </div>
+                    <div class="stat-label">in sales influenced</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-emoji">🚀</div>
+                        <div class="stat-number">$6.1M+</div>
+                    </div>
+                    <div class="stat-label">in capital &amp; grants raised</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-emoji">🔓</div>
+                        <div class="stat-number">120+</div>
+                    </div>
+                    <div class="stat-label">careers unlocked</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-emoji">📣</div>
+                        <div class="stat-number">200+</div>
+                    </div>
+                    <div class="stat-label">public LinkedIn testimonials</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-emoji">🔁</div>
+                        <div class="stat-number">98%</div>
+                    </div>
+                    <div class="stat-label">of users return for a second project</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-emoji">📈</div>
+                        <div class="stat-number">200+</div>
+                    </div>
+                    <div class="stat-label">strategic projects completed</div>
+                </div>
+            </div>
+
+            <div class="callout-card"><span class="highlight">When you connect the right minds to the right opportunities, magic happens.</span></div>
+        </div>
+
+        <div class="about-section">
+            <h2 class="section-heading">What is Qava?</h2>
+            
+            <p class="about-text">
+                Qava is an <span class="highlight">AI-powered platform</span> that connects talent with real-world opportunities—fast.
+            </p>
+
+            <h3 class="section-subheading">We focus on clearly scoped, high-impact work where thinking matters:</h3>
+
+            <ul class="about-list">
+                <li>📊 Financial modeling</li>
+                <li>📝 Business plans</li>
+                <li>🚀 Go-to-market strategy</li>
+                <li>🔍 Customer segmentation & market research</li>
+                <li>🧭 Pricing, operations, & competitor analysis</li>
+                <li>💼 Internships, fractional roles, and one-off strategic projects</li>
+            </ul>
+
+            <p class="about-text">
+                Whether you’re launching something new, scaling what’s working, or cleaning up a mess, Qava gives you the <span class="highlight">thinking power to move forward</span>—without hiring full-time or paying bloated consulting fees.
+            </p>
+        </div>
+
+        <div class="about-section">
+            <h2 class="section-heading">Why it works</h2>
+            
+            <p class="about-text">There’s an entire industry built on friction between people and opportunity. We built Qava to remove it:</p>
+            
+            <ul class="about-list">
+                <li>❌ No expensive retainers</li>
+                <li>❌ No spray-and-pray job boards</li>
+                <li>❌ No ghosting or unclear expectations</li>
+            </ul>
+
+            <p class="about-text">Instead, you get:</p>
+
+            <ul class="about-list">
+                <li>✅ Business-trained, motivated talent</li>
+                <li>✅ Projects designed around real outcomes—not busywork</li>
+                <li>✅ Public proof of work that helps talent get noticed</li>
+                <li>✅ Tools that help companies find the right fit, faster</li>
+            </ul>
+
+            <div class="callout-card"><span class="highlight">This isn't about filling roles. It's about solving real problems—together.</span></div>
+        </div>
+
+
+        <div class="about-section">
+            <h2 class="section-heading">Ready to get started?</h2>
+            
+            <div class="cta-cards">
+                <div class="cta-card">
+                    <div class="cta-card-title">🧠 If you’re talent</div>
+                    <p class="cta-card-body">Work on real projects that build your skills, your network, and your story.</p>
+                </div>
+                <div class="cta-card">
+                    <div class="cta-card-title">🚀 If you’re a company</div>
+                    <p class="cta-card-body">Post a project and get matched with sharp, motivated people ready to help you build.</p>
+                </div>
+            </div>
+
+            <div class="cta-buttons">
+                <a href="https://app.qava.ai/" class="cta-button primary">📣 Post a project</a>
+                <a href="https://app.qava.ai/projects" class="cta-button">🔦 Explore open projects</a>
+                <a href="https://app.qava.ai/" class="cta-button">🚪 Join as talent</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer-section">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="https://qava.ai/">
+                        <img src="qava-logo.svg" alt="Qava" class="footer-logo-img" />
+                    </a>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Welcome</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://app.qava.ai/" class="footer-link">Create Listing</a></li>
+                            <li><a href="https://app.qava.ai/projects" class="footer-link">Search Listings</a></li>
+                            <li><a href="https://qava.ai/howqavaworks" class="footer-link">How Qava Works</a></li>
+                            <li><span class="footer-link disabled-link">What's New</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Get Started</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://app.qava.ai/" class="footer-link">Sign Up</a></li>
+                            <li><a href="https://app.qava.ai/" class="footer-link">Log In</a></li>
+                            <li><span class="footer-link disabled-link">AI Prompts</span></li>
+                            <li><span class="footer-link disabled-link">Project Templates</span></li>
+                            <li><span class="footer-link disabled-link">Application Tips</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Resources</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://qava.ai/request-demo" class="footer-link">Request a Demo</a></li>
+                            <li><a href="https://qava.ai/pricing" class="footer-link">Pricing</a></li>
+                            <li><a href="https://qava.ai/about" class="footer-link">About Us</a></li>
+                            <li><a href="https://qava.ai/aialoneisnotenough" class="footer-link">AI Not Enough</a></li>
+                            <li><span class="footer-link disabled-link">Careers</span></li>
+                            <li><span class="footer-link disabled-link">Media Kit</span></li>
+                            <li><span class="footer-link disabled-link">Contact Us</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Learn</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://qava.ai/successstories" class="footer-link">Success Stories</a></li>
+                            <li><span class="footer-link disabled-link">Help Center</span></li>
+                            <li><span class="footer-link disabled-link">Webinars</span></li>
+                            <li><span class="footer-link disabled-link">Blog</span></li>
+                            <li><span class="footer-link disabled-link">Community</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Legal</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="terms" class="footer-link">Terms & Privacy</a></li>
+                            <li><a href="terms" class="footer-link">California Privacy Notice</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-copyright">
+                        © 2025 qava
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+            
+            // Prevent body scroll when mobile menu is open
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function toggleMobileDropdown() {
+            const dropdown = document.getElementById('mobileDropdown');
+            const toggle = document.querySelector('.mobile-dropdown-toggle');
+            
+            dropdown.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+            
+            if (mobileMenu.classList.contains('active') && 
+                !mobileMenu.contains(event.target) && 
+                !hamburgerMenu.contains(event.target)) {
+                toggleMobileMenu();
+            }
+        });
+
+        // Prevent scroll on mobile when menu is open
+        document.addEventListener('touchmove', function(e) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu.classList.contains('active')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Handle responsive behavior
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 1100) {
+                const mobileMenu = document.getElementById('mobileMenu');
+                if (mobileMenu.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            }
+        });
+    </script>
+
+    <script>
+    (() => {
+        // Get current page from URL (works for both qava.ai and local paths)
+        const currentPath = window.location.pathname;
+        const hostname = window.location.hostname;
+        
+        // Map pages to nav items
+        if (currentPath.includes('/pricing') || currentPath === '/pricing.html') {
+            document.querySelector('.nav-item.pricing')?.classList.add('active');
+        } else if (currentPath.includes('/whyqava')) {
+            document.querySelector('.nav-item.why-qava')?.classList.add('active');
+        } else if (currentPath.includes('/about')) {
+            document.querySelector('.nav-item.about')?.classList.add('active');
+        } else if (currentPath.includes('/clienthowitworks') || currentPath.includes('/talenthowitworks')) {
+            document.querySelector('.nav-item.how-it-works')?.classList.add('active');
+        }
+        // Note: Homepage (index.html) doesn't have a nav item to highlight
+    })();
+    </script>
+</body>
+</html>
+

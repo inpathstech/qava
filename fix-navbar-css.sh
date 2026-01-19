@@ -124,3 +124,5 @@ for page in "${MAIN_PAGES[@]}"; do
 done
 
 echo "All navbar CSS fixes completed!"
+
+

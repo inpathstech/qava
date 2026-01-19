@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The AI Startup Bringing Real-Time Support to Neurodiverse Families | Qava</title>
+    <link rel="icon" type="image/svg+xml" href="qava-logo.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @font-face {
+            font-family: 'Jonathan';
+            src: url('jonathan_signature (1)/JonathanSignature.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f1f1f;
+        }
+        
+        /* Cache buster v3 - Updated for No One's Ark */
+
+        /* NAVBAR STYLES - Copied from index.html */
+        .header-container {
+            width: 100%;
+            padding: 16px 32px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 64px;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            overflow: visible;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .header-center {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex: 1;
+            margin-left: 40px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 36px;
+            height: 36px;
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1;
+            height: 25px;
+            color: #000000;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+            gap: 4px;
+            text-decoration: none;
+            vertical-align: middle;
+            box-sizing: border-box;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .nav-item:visited {
+            color: #000000;
+        }
+
+        .nav-item:active {
+            color: #000000;
+        }
+
+        .dropdown-arrow {
+            color: #000000;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover .dropdown-arrow {
+            color: #000000;
+        }
+
+        .nav-text {
+            color: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            white-space: nowrap;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 8px;
+            min-width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 10000;
+        }
+
+        .nav-item.has-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-item {
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.04);
+        }
+
+        .dropdown-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 2px;
+        }
+
+        .dropdown-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 300;
+            color: #6B6B6B;
+        }
+
+        .auth-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .auth-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1;
+            height: 25px;
+            color: #000000;
+            text-decoration: none;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .auth-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+        }
+
+        .join-button {
+            background-color: #0F62FE;
+            color: white;
+            padding: 7px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1;
+            height: 28px;
+            text-decoration: none;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 3px rgba(15, 98, 254, 0.3);
+        }
+
+        .join-button:hover {
+            background-color: #0047C3;
+            box-shadow: 0 2px 6px rgba(15, 98, 254, 0.4);
+        }
+
+        .join-text {
+            color: white;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            gap: 3px;
+            cursor: pointer;
+            padding: 6px;
+            z-index: 1001;
+        }
+
+        .hamburger-line {
+            width: 20px;
+            height: 2px;
+            background-color: #000000;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: white;
+            z-index: 999;
+            display: none;
+            flex-direction: column;
+            padding: 80px 32px 32px 32px;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 20px;
+            right: 32px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #000000;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-nav-item {
+            padding: 16px 0;
+            font-size: 16px;
+            font-weight: 400;
+            color: #000000;
+            text-decoration: none;
+            border-bottom: 1px solid #EBEBEB;
+        }
+
+        .mobile-dropdown-toggle {
+            cursor: pointer;
+        }
+
+        .mobile-dropdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mobile-dropdown-arrow {
+            font-size: 18px;
+            transition: transform 0.2s ease;
+        }
+
+        .mobile-dropdown-toggle.active .mobile-dropdown-arrow {
+            transform: rotate(45deg);
+        }
+
+        .mobile-dropdown-content {
+            display: none;
+            flex-direction: column;
+            padding-left: 16px;
+        }
+
+        .mobile-dropdown-content.active {
+            display: flex;
+        }
+
+        .mobile-dropdown-item {
+            padding: 12px 0;
+            text-decoration: none;
+            border-bottom: 1px solid #F5F5F5;
+        }
+
+        .mobile-auth-section {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding-top: 24px;
+        }
+
+        /* Fix navbar underline issue */
+        .navigation .nav-item,
+        .navigation .nav-item:link,
+        .navigation .nav-item:visited,
+        .navigation .nav-item:hover,
+        .navigation .nav-item:active,
+        .navigation .nav-item:focus {
+            text-decoration: none !important;
+        }
+
+        /* FOOTER STYLES - Copied from index.html */
+        .footer-section {
+            background: white;
+            width: 100%;
+            max-width: 1070px;
+            margin: 0 auto;
+            padding: 78px 0 46px 0;
+            margin-top: 50px;
+            border-top: 1px solid #EBEBEB;
+        }
+
+        .footer-container {
+            max-width: 940px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .footer-logo {
+            width: 39%;
+            padding: 2px 15px 0 0;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo-img {
+            width: 40px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            width: 60%;
+            gap: 16px 25px;
+            padding: 0 15px 0 10px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-heading {
+            font-family: 'Inter', sans-serif;
+            font-size: 17px;
+            color: #000000;
+            margin-bottom: 8px;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+        }
+
+        .footer-link-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .footer-link-list li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+            text-decoration: none;
+            line-height: 1.2;
+            transition: text-decoration 0.2s ease;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer-link.disabled-link {
+            cursor: not-allowed;
+            opacity: 0.6;
+            position: relative;
+        }
+
+        .footer-link.disabled-link:hover {
+            text-decoration: none;
+            opacity: 0.8;
+            color: #999999;
+        }
+
+        .footer-link.disabled-link:hover::before {
+            content: "Coming Soon";
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000000;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+            white-space: nowrap;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .footer-copyright {
+            grid-column: 1 / -1;
+            margin-top: 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+        }
+
+        /* BLOG POST STYLES */
+        .story-wrapper {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 56px 24px 90px;
+        }
+
+        .story-header {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 0;
+        }
+
+        .story-title {
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .story-subtitle {
+            font-size: 20px;
+            font-weight: 300;
+            color: #4a4a4a;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        .story-hero {
+            width: 100%;
+            margin: 32px 0 40px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .story-hero img {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+        
+        /* Intro section - appears after hero image */
+        .story-intro {
+            padding: 0 !important;
+            margin: 0 0 32px !important;
+        }
+
+        .story-intro p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 16px;
+        }
+
+        .story-intro p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Main content sections */
+        .story-section {
+            padding: 0 !important;
+            margin: 56px 0 0 0 !important;
+        }
+
+        .story-section:first-of-type {
+            margin-top: 0 !important;
+        }
+ 
+        .story-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 0 24px !important;
+            padding-top: 28px !important;
+            letter-spacing: -0.01em;
+            color: #000000;
+            border-top: 1px solid #e0e0e0 !important;
+        }
+
+        .story-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #111;
+        }
+
+        /* All paragraphs - consistent spacing */
+        .story-wrapper p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 14px;
+        }
+
+        .story-section p,
+        .story-intro p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+        }
+
+        /* Pull quotes */
+        blockquote {
+            margin: 40px auto !important;
+            padding: 14px 24px !important;
+            width: fit-content;
+            max-width: 90%;
+            font-size: 48px !important;
+            line-height: 1.3 !important;
+            color: #000000 !important;
+            font-weight: 300 !important;
+            font-style: normal !important;
+            text-align: center;
+            background: transparent;
+            white-space: normal;
+            display: block;
+            font-family: 'Jonathan', 'Kalam', 'Brush Script MT', cursive;
+        }
+
+        blockquote p {
+            font-size: inherit !important;
+            line-height: inherit !important;
+            color: inherit !important;
+            font-weight: inherit !important;
+            font-style: inherit !important;
+            font-family: inherit !important;
+            margin: 0 !important;
+        }
+
+        blockquote::before {
+            content: "";
+        }
+
+        /* Images with captions */
+        .story-media {
+            margin: 24px 0 28px;
+            text-align: center;
+        }
+
+        .story-media img {
+            width: 100%;
+            border-radius: 16px;
+            display: block;
+        }
+
+        .story-media-caption {
+            margin-top: 0px;
+            font-size: 13px;
+            color: #585858;
+            font-style: italic;
+            text-align: center;
+        }
+
+        .story-media-caption a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .story-media-caption a:hover {
+            text-decoration: underline;
+        }
+
+        /* Project cards */
+        .project-card {
+            background: white;
+            border: none;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        }
+
+        .project-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .project-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0F62FE;
+            margin-bottom: 12px;
+        }
+
+        .project-card p {
+            margin-bottom: 8px;
+        }
+
+        .project-card ul {
+            margin: 12px 0;
+            padding-left: 20px;
+        }
+
+        .project-card ul li {
+            margin-bottom: 6px;
+            color: #2e2e2e;
+            line-height: 1.6;
+        }
+
+        .project-card-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .view-listing-button {
+            padding: 6px 12px;
+            background: #0F62FE;
+            color: white !important;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .view-listing-button:hover {
+            background: #0053E5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
+        }
+
+        .copy-link-button {
+            padding: 6px;
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #767676;
+            width: 28px;
+            height: 28px;
+            position: relative;
+        }
+
+        .copy-link-button:hover {
+            color: #111111;
+        }
+
+        .copy-link-button svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .copy-link-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 8px;
+            padding: 4px 8px;
+            background: #000000;
+            color: white;
+            font-size: 11px;
+            border-radius: 4px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .copy-link-button:hover .copy-link-tooltip {
+            opacity: 1;
+        }
+
+        /* Links within content */
+        .story-section a,
+        .story-intro a {
+            color: inherit;
+            text-decoration: none;
+            transition: text-decoration 0.2s ease;
+        }
+
+        .story-section a:hover,
+        .story-intro a:hover {
+            text-decoration: underline;
+        }
+
+        .story-cta {
+            margin-top: 48px;
+            text-align: center;
+            padding: 32px 48px;
+            border-radius: 14px;
+            background: #fafafa;
+        }
+
+        .story-cta h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .story-cta p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #3b3b3b;
+            margin-bottom: 0;
+            font-weight: 300;
+        }
+
+        .story-cta p:first-of-type {
+            margin-bottom: 4px;
+        }
+
+        .story-cta p:last-of-type {
+            margin-bottom: 28px;
+        }
+
+        .story-cta-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        /* Primary button - Join for free (matches hero) */
+        .story-cta .cta-button.primary {
+            padding: 6px 12px;
+            background: #0F62FE;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            font-family: inherit;
+            height: 27.6px;
+            text-decoration: none;
+            color: white;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .story-cta .cta-button.primary:hover {
+            background: #0053E5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
+        }
+
+        /* Secondary button - Request a demo (matches hero) */
+        .story-cta .cta-button.secondary {
+            padding: 6px 12px;
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            height: 27.6px;
+            text-decoration: none;
+            color: #000000;
+            font-size: 13px;
+            font-weight: 300;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .story-cta .cta-button.secondary::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 12px;
+            right: 12px;
+            height: 1px;
+            background-color: #000000;
+            transform: scaleX(0);
+            transition: transform 0.2s ease;
+        }
+
+        .story-cta .cta-button.secondary:hover::after {
+            transform: scaleX(1);
+        }
+
+        .story-cta .cta-button.secondary:visited {
+            color: #000000;
+        }
+
+        .story-cta .cta-button.secondary:active {
+            color: #000000;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1400px) {
+            .header-container {
+                padding: 16px 24px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .header-container {
+                padding: 16px 20px;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .header-container {
+                padding: 12px 20px;
+            }
+
+            .navigation {
+                display: none;
+            }
+
+            .auth-section {
+                display: none;
+            }
+
+            .hamburger-menu {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .story-wrapper {
+                padding: 40px 20px 80px;
+            }
+
+            .story-title {
+                font-size: 32px;
+                line-height: 1.15;
+            }
+
+            .story-subtitle {
+                font-size: 17px;
+                line-height: 1.45;
+            }
+
+            .story-hero {
+                margin: 24px 0 32px;
+                border-radius: 8px;
+            }
+
+            .story-section {
+                margin: 48px 0 0 0 !important;
+            }
+
+            .story-section h2 {
+                font-size: 22px;
+                padding-top: 24px !important;
+                margin-bottom: 20px !important;
+            }
+
+            blockquote {
+                margin: 32px auto !important;
+                padding: 12px 18px !important;
+                font-size: 36px !important;
+                max-width: 90%;
+            }
+
+            blockquote p {
+                font-size: inherit !important;
+            }
+
+            .story-media {
+                margin: 20px 0 24px;
+            }
+
+            .story-media img {
+                border-radius: 12px;
+            }
+
+            .story-cta {
+                padding: 32px 24px;
+                margin-top: 40px;
+            }
+
+            .story-cta h3 {
+                font-size: 20px;
+                margin-bottom: 14px;
+            }
+
+            .story-cta p {
+                font-size: 15px;
+                margin-bottom: 24px;
+            }
+
+            .story-cta-actions {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+                align-items: center;
+            }
+
+            .story-cta .cta-button {
+                width: auto;
+                max-width: 280px;
+                min-width: fit-content;
+                padding: 8px 16px;
+            }
+
+            .footer-section {
+                padding: 60px 24px 40px 24px;
+            }
+
+            .footer-logo {
+                width: 100%;
+                padding: 0;
+                margin-bottom: 32px;
+            }
+
+            .footer-links {
+                width: 100%;
+                grid-template-columns: 1fr;
+                padding: 0;
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .story-wrapper {
+                padding: 32px 18px 70px;
+            }
+
+            .story-title {
+                font-size: 28px;
+            }
+
+            .story-subtitle {
+                font-size: 16px;
+            }
+
+            .story-hero {
+                margin: 20px 0 28px;
+            }
+
+            .story-section h2 {
+                font-size: 20px;
+            }
+
+            .story-wrapper p {
+                font-size: 15px !important;
+            }
+
+            blockquote {
+                font-size: 28px !important;
+                padding: 10px 16px !important;
+            }
+
+            blockquote p {
+                font-size: inherit !important;
+            }
+
+            .story-cta {
+                padding: 28px 20px;
+            }
+
+            .story-cta h3 {
+                font-size: 18px;
+            }
+
+            .story-cta p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="header-container">
+        <!-- Logo on the left -->
+        <div class="header-logo">
+            <div class="logo-container">
+                <div class="logo">
+                    <a href="https://qava.ai/">
+                        <img src="qava-logo.svg" alt="Qava Logo">
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation in the center -->
+        <div class="header-center">
+            <div class="navigation">
+                <a href="https://app.qava.ai/" class="nav-item create-listing">
+                    <div class="nav-text">Create Listing</div>
+                </a>
+                <a href="https://app.qava.ai/projects" class="nav-item search-listings">
+                    <div class="nav-text">Search Listings</div>
+                </a>
+                <a href="https://qava.ai/pricing" class="nav-item pricing">
+                    <div class="nav-text">Pricing</div>
+                </a>
+                <a href="https://qava.ai/about" class="nav-item about">
+                    <div class="nav-text">About</div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Auth section on the right -->
+        <div class="header-right">
+            <div class="auth-section">
+                <a href="https://qava.ai/howqavaworks" class="auth-item">
+                    <div class="nav-text">How Qava Works</div>
+                </a>
+                <a href="https://app.qava.ai/" class="auth-item">
+                    <div class="nav-text">Log in</div>
+                </a>
+                <a href="https://app.qava.ai/" class="join-button">
+                    <div class="join-text">Join for free</div>
+                </a>
+            </div>
+
+            <!-- Hamburger Menu Icon -->
+            <div class="hamburger-menu" onclick="toggleMobileMenu()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
+        <a href="https://app.qava.ai/" class="mobile-nav-item">
+            <div class="nav-text">Create Listing</div>
+        </a>
+        <a href="https://app.qava.ai/projects" class="mobile-nav-item">
+            <div class="nav-text">Search Listings</div>
+        </a>
+        <div class="mobile-nav-item mobile-dropdown-toggle" onclick="toggleMobileDropdown()">
+            <div class="mobile-dropdown-header">
+                <div class="nav-text">How It Works</div>
+                <span class="mobile-dropdown-arrow">+</span>
+            </div>
+        </div>
+        <div class="mobile-dropdown-content" id="mobileDropdown">
+            <a href="https://qava.ai/clienthowitworks" class="mobile-dropdown-item">
+                <div class="dropdown-title">For Clients 🚀</div>
+                <div class="dropdown-subtitle">Hiring for current or future work</div>
+            </a>
+            <a href="https://qava.ai/talenthowitworks" class="mobile-dropdown-item">
+                <div class="dropdown-title">For Talent 👩‍💻</div>
+                <div class="dropdown-subtitle">Interested in current or future work</div>
+            </a>
+        </div>
+        <a href="https://qava.ai/pricing" class="mobile-nav-item">
+            <div class="nav-text">Pricing</div>
+        </a>
+        <a href="https://qava.ai/about" class="mobile-nav-item">
+            <div class="nav-text">About</div>
+        </a>
+        <div class="mobile-auth-section">
+            <a href="https://app.qava.ai/" class="mobile-nav-item">Log in</a>
+            <a href="https://app.qava.ai/" class="join-button">
+                <div class="join-text">Join for free</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Blog Content -->
+    <main class="story-wrapper">
+        <header class="story-header">
+            <img src="Lumi/Lumi%20Logo.png" alt="Lumi" style="max-width: 120px; margin-bottom: 6px;" loading="lazy">
+            <h1 class="story-title">The AI Startup Bringing Real-Time Support to Neurodiverse Families</h1>
+            <p class="story-subtitle" style="color: #666666;">When families ask, "How are we going to get through this?", Lumi offers real-time, science-backed support designed to help neurodiverse households manage daily routines, communication, and challenges more effectively.</p>
+        </header>
+
+        <!-- Insights / Use cases section -->
+        <section class="max-w-5xl mt-6 mb-12 lg:flex lg:items-start lg:gap-6">
+            <!-- Left: Behind the Story -->
+            <div class="flex-1">
+                <h3 class="text-[11px] font-semibold tracking-[0.2em] uppercase text-gray-500 mb-4">
+                    Behind the Story
+                </h3>
+
+                <div class="flex flex-col items-start gap-6">
+                    <!-- Michael and Reed Langridge in a row -->
+                    <div class="flex flex-col sm:flex-row items-start gap-8">
+                        <!-- Michael -->
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 aspect-square rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+                                <img
+                                    src="Lumi/Michael.png"
+                                    alt="Michael"
+                                    class="w-full h-full object-cover object-center"
+                                    loading="lazy"
+                                />
+                            </div>
+                            <div class="text-left" style="white-space: nowrap;">
+                                <div class="text-sm font-medium text-gray-900">
+                                    Michael Caton
+                                </div>
+                                <div class="text-xs text-gray-500 font-light">
+                                    CEO, Lumi
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Reed Langridge -->
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 aspect-square rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+                                <img
+                                    src="Reed%20Langridge%20Profile.jpg"
+                                    alt="Reed Langridge"
+                                    class="w-full h-full object-cover object-center"
+                                    loading="lazy"
+                                />
+                            </div>
+                            <div class="text-left" style="white-space: nowrap;">
+                                <div class="text-sm font-medium text-gray-900">
+                                    Reed Langridge
+                                </div>
+                                <div class="text-xs text-gray-500 font-light">
+                                    Founder, Qava
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Divider (desktop only) -->
+            <div class="hidden md:block w-px bg-gray-200 self-stretch mx-4" aria-hidden="true"></div>
+
+            <!-- Right: Focus Areas -->
+            <div class="flex-1 mt-10 lg:mt-0">
+                <h3 class="text-[11px] font-semibold tracking-[0.2em] uppercase text-gray-500 mb-2">
+                    Focus Areas
+                </h3>
+
+                <div style="font-size: 12px !important; line-height: 1.6; font-weight: 300;" class="text-gray-800">
+                    <div>Parenting Technology 👪</div>
+                    <div>Neurodiversity Support 🧠</div>
+                    <div>AI-Powered Coaching 🤖</div>
+                    <div>Family Collaboration 🏠</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="story-intro">
+            <p>For neurodiverse families, daily routines often break down. Mornings, homework, and bedtime can become repeated sources of stress, even when everyone is giving their all. For families raising neurodiverse kids, this is part of everyday life—and most support systems don't help in the moment.</p>
+        </section>
+            
+        <section class="story-section">
+            <h2>The Problem Families Face</h2>
+            <p>Many families invest heavily in support. In the U.S., millions of parents spend 12+ hours each week managing conflict around everyday tasks like routines, transitions, and schoolwork. On top of that, families often spend thousands of dollars per year on therapy, coaching, tutoring, and medical services.</p>
+            
+            <p>Yet despite the time, effort, and financial investment, daily life can still feel difficult and unpredictable.</p>
+            
+            <p>The challenge isn't a lack of resources—it's how those resources show up. Support is often delivered after problems occur, shared in ways that are hard to apply during stressful moments, or limited to short sessions that don't extend into everyday life.</p>
+
+            <p>As a result, parents are left to interpret expert guidance on their own, while children are expected to follow systems that don't align with how their brains process information. When routines break down, families have little support in the moment—and end up starting over again.</p>
+            
+            <p>This isn't about motivation or effort.</p>
+            
+            <p style="font-weight: 300;">It's about having the right support, available when it's actually needed.</p>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <img src="Lumi/Family.jpg" alt="Family" style="width: 100%; max-width: 800px; border-radius: 12px;" loading="lazy">
+            </div>
+        </section>
+
+        <section class="story-section">
+            <h2>Lumi's Point of View</h2>
+            <p>Most tools approach neurodiversity as an individual issue—focusing on the child, the parent, or a professional in isolation. While these supports can be helpful, they often overlook how family life actually works from day to day.</p>
+            
+            <p>In reality, routines, communication, expectations, and emotional regulation are shared across the household. A breakdown in one area—such as a missed transition or misunderstood expectation—can quickly affect everyone. These moments aren't the result of a lack of effort, but of systems that aren't designed for different ways of processing information.</p>
+            
+            <p>Lumi is built around this understanding. Instead of supporting one person at a time, it's designed to help the entire family align around shared routines, clearer communication, and practical tools that make collaboration easier during everyday moments—not just during scheduled appointments or check-ins.</p>
+        </section>
+
+        <section class="story-section">
+            <h2>What Lumi Does</h2>
+            <p>Lumi is a real-time coaching and collaboration platform designed to support neurodiverse families in everyday life.</p>
+            
+            <p>It helps families better understand how each person processes information, attention, and expectations, so routines can be built in ways that actually work. Instead of relying on generic plans, Lumi supports families in creating routines that match a child's executive function and adapt as needs change.</p>
+            
+            <p>Lumi provides guidance when things go off track—not weeks later, but in the moment. Families can see what's working, track progress over time, and reinforce strategies that lead to smoother days.</p>
+            
+            <p>Lumi begins by learning how a family works through short assessments and ongoing use. Based on that understanding, it suggests routines, strategies, and adjustments tailored to each household.</p>
+            
+            <p>When a routine breaks down, Lumi helps families reset before frustration escalates. Over time, the system continues to improve by learning which approaches are most effective across similar situations, helping families move forward with greater confidence and consistency.</p>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <img src="Lumi/Flywheel.png" alt="Lumi Flywheel" style="width: 100%; max-width: 800px; border-radius: 12px;" loading="lazy">
+            </div>
+        </section>
+
+        <section class="story-section">
+            <h2>How This Changes Daily Life</h2>
+            <p>Through Lumi's easy-to-follow dashboard and platform capabilities, families can manage routines, respond to challenges as they happen, and see meaningful improvements in how daily life feels and functions.</p>
+            
+            <div class="story-media">
+                <video autoplay loop muted playsinline style="width: 100%; max-width: 800px; border-radius: 12px;">
+                    <source src="https://www.ciaolumi.com/product_videos/ConflictToConnection.mp4" type="video/mp4">
+                </video>
+                <p class="story-media-caption">When families understand each other's wiring, friction transforms into empathy</p>
+            </div>
+            
+            <p>Routines become clearer and more predictable. Children know what's expected, and parents spend less time managing every step. With real-time prompts and guidance tailored to each child's needs, repeated arguments decrease and emotional fatigue is reduced for everyone.</p>
+            
+            <div class="story-media">
+                <video autoplay loop muted playsinline style="width: 100%; max-width: 800px; border-radius: 12px;">
+                    <source src="https://www.ciaolumi.com/product_videos/NaggingToPartnership.mp4" type="video/mp4">
+                </video>
+                <p class="story-media-caption">When the system holds the reminders, parents return to being guides rather than guards</p>
+                </div>
+                
+            <p>Many parents see their children become more independent. Because routines are designed around how a child processes information, kids are better able to follow through on their own. Small wins—getting ready on time, finishing homework—happen more consistently.</p>
+            
+            <p>Communication also improves. When Lumi holds routines and expectations in a neutral system, parents don't have to act as constant enforcers. Conversations shift away from nagging and toward guidance and problem-solving.</p>
+            
+            <div class="story-media">
+                <video autoplay loop muted playsinline style="width: 100%; max-width: 800px; border-radius: 12px;">
+                    <source src="https://www.ciaolumi.com/product_videos/SurvivingToThriving.mp4" type="video/mp4">
+                </video>
+                <p class="story-media-caption">When small wins accumulate systematically, the family momentum shifts</p>
+                </div>
+                
+            <p>Over time, families report having more energy for the parts of life that matter most. Less effort goes into managing chaos, and more goes into connection, rest, and enjoyment.</p>
+            
+            <p style="font-weight: 300;">The goal isn't perfect days. It's making everyday life more manageable.</p>
+        </section>
+
+        <section class="story-section">
+            <h2>Why Lumi Matters Now</h2>
+            <p>Demand for neurodiverse support is growing. ADHD, autism, anxiety, and learning differences are being diagnosed more frequently, but access to specialists has not kept pace.</p>
+            
+            <p>As a result, many families face long waitlists, limited local resources, and high ongoing costs. Even when support is available, it often comes in short sessions that don't extend into daily life.</p>
+            
+            <p>At the same time, parents are already turning to technology for help in real time. They want guidance that fits into everyday routines and responds when challenges arise—not generic advice delivered days or weeks later.</p>
+            
+            <p style="font-weight: 300;">Lumi is built for this reality.</p>
+        </section>
+
+        <section class="story-section">
+            <h2>Where Lumi Fits</h2>
+            <p>Lumi sits within a large and growing market for pediatric behavioral support and family-centered tools. In the broader context of children's mental and behavioral health, global pediatric mental health markets are projected to expand significantly over the next decade — for example, estimates suggest the pediatric mental health market could grow from around $450 billion in 2026 to over $900 billion by 2035, at a roughly 5.5% CAGR as awareness and demand increase.</p>
+            
+            <p>More specifically, the $95 billion U.S. pediatric behavioral therapy market reflects the current scale of services like therapy, coaching, and clinical support for conditions such as ADHD, autism, anxiety, and related differences. Lumi does not seek to replace therapists or clinicians in this space; rather, it complements existing care by helping families apply strategies in real time, in between appointments, and in the everyday moments where most progress is lived. This kind of real-time, accessible support is what families need most when routines break down, and clinicians are not physically present.</p>
+            
+            <p>By providing structure, coordination, and moment-by-moment guidance, Lumi helps families make therapeutic progress part of their day-to-day life — an approach increasingly necessary as the underlying demand for pediatric behavioral support continues to grow.</p>
+        </section>
+
+        <section class="story-section">
+            <h2>The Team Behind Lumi</h2>
+            <p>Lumi is built by a team with deep experience in software, AI, design, and education—and firsthand understanding of neurodiverse family life.</p>
+            
+            <p style="font-weight: 300;">They've led 0-to-1 products and built complex platforms at companies like Juno and WeWork. Now, they're applying that experience to create practical tools that help families navigate daily routines with less friction and more confidence.</p>
+            
+            <div style="display: flex; justify-content: center; gap: 80px; margin-top: 40px; flex-wrap: wrap;">
+                <div style="text-align: center;">
+                    <img src="Lumi/Michael.png" alt="Michael Caton" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 12px;" loading="lazy">
+                    <div style="font-weight: 500; font-size: 16px; margin-bottom: 4px;">Michael Caton <span style="font-weight: 300; color: #666;">CEO</span></div>
+                </div>
+                <div style="text-align: center;">
+                    <img src="Lumi/Kate%20Meagher.png" alt="Kate Meagher" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 12px;" loading="lazy">
+                    <div style="font-weight: 500; font-size: 16px; margin-bottom: 4px;">Kate Meagher <span style="font-weight: 300; color: #666;">COO</span></div>
+                </div>
+                <div style="text-align: center;">
+                    <img src="Lumi/Chris%20Chan.png" alt="Chris Chan" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 12px;" loading="lazy">
+                    <div style="font-weight: 500; font-size: 16px; margin-bottom: 4px;">Chris Chan <span style="font-weight: 300; color: #666;">CTO</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="story-section">
+            <h2>A Clear Goal</h2>
+            <p>Lumi doesn't promise to eliminate challenges or make parenting easy. Instead, it helps families reduce daily conflict, improve communication, build routines that actually work, and support independence and growth over time.</p>
+            
+            <p>When families wonder how they're going to get through the day, Lumi offers a practical answer: support that shows up when it's needed.</p>
+            
+            <p style="margin-top: 30px;">Learn more at <a href="https://www.ciaolumi.com/" target="_blank" rel="noopener noreferrer" style="color: #0F62FE; text-decoration: none; transition: text-decoration 0.2s ease;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">www.ciaolumi.com</a></p>
+        </section>
+
+        <div class="story-cta">
+            <h3>Explore Opportunities</h3>
+            <p style="font-weight: 300;">Discover how you can contribute to innovative projects like Lumi on Qava.</p>
+            <div class="story-cta-actions">
+                <a href="https://app.qava.ai/projects" class="cta-button primary">Browse Projects</a>
+                <a href="https://qava.ai/" class="cta-button secondary">Learn More</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer-section">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="https://qava.ai/">
+                        <img src="qava-logo.svg" alt="Qava" class="footer-logo-img" />
+                    </a>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Welcome</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://app.qava.ai/" class="footer-link">Create Listing</a></li>
+                            <li><a href="https://app.qava.ai/projects" class="footer-link">Search Listings</a></li>
+                            <li><a href="https://qava.ai/howqavaworks" class="footer-link">How Qava Works</a></li>
+                            <li><span class="footer-link disabled-link">What's New</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Get Started</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://app.qava.ai/" class="footer-link">Sign Up</a></li>
+                            <li><a href="https://app.qava.ai/" class="footer-link">Log In</a></li>
+                            <li><span class="footer-link disabled-link">AI Prompts</span></li>
+                            <li><span class="footer-link disabled-link">Project Templates</span></li>
+                            <li><span class="footer-link disabled-link">Application Tips</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Resources</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://qava.ai/request-demo" class="footer-link">Request a Demo</a></li>
+                            <li><a href="https://qava.ai/pricing" class="footer-link">Pricing</a></li>
+                            <li><a href="https://qava.ai/about" class="footer-link">About Us</a></li>
+                            <li><a href="https://qava.ai/aialoneisnotenough" class="footer-link">AI Not Enough</a></li>
+                            <li><span class="footer-link disabled-link">Careers</span></li>
+                            <li><span class="footer-link disabled-link">Media Kit</span></li>
+                            <li><span class="footer-link disabled-link">Contact Us</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Learn</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://qava.ai/successstories" class="footer-link">Success Stories</a></li>
+                            <li><span class="footer-link disabled-link">Help Center</span></li>
+                            <li><span class="footer-link disabled-link">Webinars</span></li>
+                            <li><span class="footer-link disabled-link">Blog</span></li>
+                            <li><span class="footer-link disabled-link">Community</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Legal</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="terms" class="footer-link">Terms & Privacy</a></li>
+                            <li><a href="terms" class="footer-link">California Privacy Notice</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-copyright">
+                        © 2025 qava
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+            
+            // Prevent body scroll when mobile menu is open
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function toggleMobileDropdown() {
+            const dropdown = document.getElementById('mobileDropdown');
+            const toggle = document.querySelector('.mobile-dropdown-toggle');
+            
+            dropdown.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        function copyListingLink(listingId, button) {
+            const publicLink = `https://app.qava.ai/projects?listing=${listingId}`;
+            
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(publicLink).then(function() {
+                    const tooltip = button.querySelector('.copy-link-tooltip');
+                    const originalText = tooltip.textContent;
+                    tooltip.textContent = 'Copied!';
+                    setTimeout(function() {
+                        tooltip.textContent = originalText;
+                    }, 2000);
+                }).catch(function(err) {
+                    console.error('Failed to copy: ', err);
+                });
+            } else {
+                // Fallback for older browsers
+                const tempInput = document.createElement('input');
+                tempInput.value = publicLink;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+                const tooltip = button.querySelector('.copy-link-tooltip');
+                const originalText = tooltip.textContent;
+                tooltip.textContent = 'Copied!';
+                setTimeout(function() {
+                    tooltip.textContent = originalText;
+                }, 2000);
+            }
+        }
+    </script>
+</body>
+</html>

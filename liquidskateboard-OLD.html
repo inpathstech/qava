@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liquid Skateboard Story | Qava</title>
+    <link rel="icon" type="image/svg+xml" href="qava-logo.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @font-face {
+            font-family: 'Jonathan';
+            src: url('jonathan_signature (1)/JonathanSignature.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f1f1f;
+        }
+        
+        /* Cache buster v2 - Updated styling */
+
+        /* NAVBAR STYLES - Copied from index.html */
+        .header-container {
+            width: 100%;
+            padding: 16px 32px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 64px;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            overflow: visible;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .header-center {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex: 1;
+            margin-left: 40px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 36px;
+            height: 36px;
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1;
+            height: 25px;
+            color: #000000;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+            gap: 4px;
+            text-decoration: none;
+            vertical-align: middle;
+            box-sizing: border-box;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .nav-item:visited {
+            color: #000000;
+        }
+
+        .nav-item:active {
+            color: #000000;
+        }
+
+        .dropdown-arrow {
+            color: #000000;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover .dropdown-arrow {
+            color: #000000;
+        }
+
+        .nav-text {
+            color: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            white-space: nowrap;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 8px;
+            min-width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 10000;
+        }
+
+        .nav-item.has-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-item {
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.04);
+        }
+
+        .dropdown-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 2px;
+        }
+
+        .dropdown-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 300;
+            color: #6B6B6B;
+        }
+
+        .auth-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .auth-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1;
+            height: 25px;
+            color: #000000;
+            text-decoration: none;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .auth-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+        }
+
+        .join-button {
+            background-color: #0F62FE;
+            color: white;
+            padding: 7px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1;
+            height: 28px;
+            text-decoration: none;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 3px rgba(15, 98, 254, 0.3);
+        }
+
+        .join-button:hover {
+            background-color: #0047C3;
+            box-shadow: 0 2px 6px rgba(15, 98, 254, 0.4);
+        }
+
+        .join-text {
+            color: white;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            gap: 3px;
+            cursor: pointer;
+            padding: 6px;
+            z-index: 1001;
+        }
+
+        .hamburger-line {
+            width: 20px;
+            height: 2px;
+            background-color: #000000;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: white;
+            z-index: 999;
+            display: none;
+            flex-direction: column;
+            padding: 80px 32px 32px 32px;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 20px;
+            right: 32px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #000000;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-nav-item {
+            padding: 16px 0;
+            font-size: 16px;
+            font-weight: 400;
+            color: #000000;
+            text-decoration: none;
+            border-bottom: 1px solid #EBEBEB;
+        }
+
+        .mobile-dropdown-toggle {
+            cursor: pointer;
+        }
+
+        .mobile-dropdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mobile-dropdown-arrow {
+            font-size: 18px;
+            transition: transform 0.2s ease;
+        }
+
+        .mobile-dropdown-toggle.active .mobile-dropdown-arrow {
+            transform: rotate(45deg);
+        }
+
+        .mobile-dropdown-content {
+            display: none;
+            flex-direction: column;
+            padding-left: 16px;
+        }
+
+        .mobile-dropdown-content.active {
+            display: flex;
+        }
+
+        .mobile-dropdown-item {
+            padding: 12px 0;
+            text-decoration: none;
+            border-bottom: 1px solid #F5F5F5;
+        }
+
+        .mobile-auth-section {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding-top: 24px;
+        }
+
+        /* Fix navbar underline issue */
+        .navigation .nav-item,
+        .navigation .nav-item:link,
+        .navigation .nav-item:visited,
+        .navigation .nav-item:hover,
+        .navigation .nav-item:active,
+        .navigation .nav-item:focus {
+            text-decoration: none !important;
+        }
+
+        /* FOOTER STYLES - Copied from index.html */
+        .footer-section {
+            background: white;
+            width: 100%;
+            max-width: 1070px;
+            margin: 0 auto;
+            padding: 78px 0 46px 0;
+            margin-top: 50px;
+            border-top: 1px solid #EBEBEB;
+        }
+
+        .footer-container {
+            max-width: 940px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .footer-logo {
+            width: 39%;
+            padding: 2px 15px 0 0;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo-img {
+            width: 40px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            width: 60%;
+            gap: 16px 25px;
+            padding: 0 15px 0 10px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-heading {
+            font-family: 'Inter', sans-serif;
+            font-size: 17px;
+            color: #000000;
+            margin-bottom: 8px;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+        }
+
+        .footer-link-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .footer-link-list li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+            text-decoration: none;
+            line-height: 1.2;
+            transition: text-decoration 0.2s ease;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer-link.disabled-link {
+            cursor: not-allowed;
+            opacity: 0.6;
+            position: relative;
+        }
+
+        .footer-link.disabled-link:hover {
+            text-decoration: none;
+            opacity: 0.8;
+            color: #999999;
+        }
+
+        .footer-link.disabled-link:hover::before {
+            content: "Coming Soon";
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000000;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+            white-space: nowrap;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .footer-copyright {
+            grid-column: 1 / -1;
+            margin-top: 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+        }
+
+        /* BLOG POST STYLES */
+        .story-wrapper {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 56px 24px 90px;
+        }
+
+        .story-header {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 0;
+        }
+
+        .story-title {
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .story-subtitle {
+            font-size: 20px;
+            font-weight: 300;
+            color: #4a4a4a;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        .story-categories {
+            display: flex;
+            gap: 8px;
+            margin: 0 0 20px 0;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .story-category-pill {
+            display: inline-flex;
+            align-items: center;
+            background: transparent;
+            color: #000000;
+            font-size: 11px;
+            font-weight: 400;
+            padding: 2px 4px;
+            border-radius: 0;
+            border: none;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .story-project-badges {
+            display: flex;
+            gap: 8px;
+            margin: 2px 0 3px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .story-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            background: #fafafa;
+            color: #000000;
+            font-size: 11px;
+            font-weight: 400;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-decoration: none;
+        }
+
+        .story-badge-pill span {
+            color: #000000;
+        }
+
+        .story-badge-separator {
+            font-size: 11px;
+            font-weight: 400;
+            color: #000000;
+        }
+
+        .story-hero {
+            width: 100%;
+            margin: 32px 0 40px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .story-hero img {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        /* ===== SPACING SYSTEM - Professional & Consistent ===== */
+        
+        /* Intro section - appears after hero image */
+        .story-intro {
+            padding: 0 !important;
+            margin: 0 0 32px !important;
+        }
+
+        .story-intro p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 16px;
+        }
+
+        .story-intro p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Table of Contents - compact spacing */
+        .story-toc {
+            padding: 0 !important;
+            margin: 32px 0 48px !important;
+        }
+
+        .story-toc ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 0;
+        }
+
+        .story-toc li a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 300;
+            color: #2e2e2e;
+            line-height: 1.65;
+            text-decoration: none;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .story-toc li a:hover {
+            color: #111111;
+            transform: translateX(4px);
+        }
+
+        .story-toc li .index {
+            font-size: 13px;
+            font-weight: 500;
+            color: #6b6b6b;
+            letter-spacing: 0.08em;
+        }
+
+        /* Main content sections */
+        .story-section {
+            padding: 0 !important;
+            margin: 56px 0 0 0 !important;
+        }
+
+        .story-section:first-of-type {
+            margin-top: 0 !important;
+        }
+ 
+        .story-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 0 24px !important;
+            padding-top: 28px !important;
+            letter-spacing: -0.01em;
+            color: #000000;
+            border-top: 1px solid #e0e0e0 !important;
+        }
+
+        .story-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #111;
+        }
+
+        /* All paragraphs - consistent spacing */
+        .story-wrapper p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 14px;
+        }
+
+        .story-section p,
+        .story-intro p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+        }
+
+        /* Q&A blocks - consistent spacing */
+        .qa-block {
+            margin-bottom: 36px !important;
+        }
+
+        .qa-block:last-child {
+            margin-bottom: 0 !important;
+        }
+
+        .qa-question {
+            font-size: 16px !important;
+            font-weight: 600 !important;
+            margin-bottom: 14px !important;
+            color: #0F62FE !important;
+        }
+
+        .qa-answer {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 14px;
+        }
+
+        .qa-answer:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Pull quotes - centered with breathing room */
+        blockquote {
+            margin: 40px auto !important;
+            padding: 14px 24px !important;
+            width: fit-content;
+            max-width: 90%;
+            font-size: 35px !important;
+            line-height: 1.3 !important;
+            color: #000000 !important;
+            font-weight: 300 !important;
+            font-style: normal !important;
+            text-align: center;
+            background: transparent;
+            white-space: normal;
+            display: block;
+            font-family: 'Jonathan', 'Kalam', 'Brush Script MT', cursive;
+        }
+
+        blockquote::before {
+            content: "";
+        }
+
+        /* Images with captions */
+        .story-media {
+            margin: 24px 0 28px;
+            text-align: center;
+        }
+
+        .story-media img {
+            width: 100%;
+            border-radius: 16px;
+            display: block;
+        }
+
+        .story-media-caption {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #585858;
+        }
+
+        .story-media-caption a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .story-media-caption a:hover {
+            text-decoration: underline;
+        }
+
+        /* Links within story content */
+        .qa-answer a {
+            color: inherit;
+            text-decoration: none;
+            transition: text-decoration 0.2s ease;
+        }
+
+        .qa-answer a:hover {
+            text-decoration: underline;
+        }
+
+        .story-cta {
+            margin-top: 48px;
+            text-align: center;
+            padding: 32px 48px;
+            border-radius: 14px;
+            background: #fafafa;
+        }
+
+        .story-cta h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .story-cta p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #3b3b3b;
+            margin-bottom: 0;
+            font-weight: 300;
+        }
+
+        .story-cta p:first-of-type {
+            margin-bottom: 4px;
+        }
+
+        .story-cta p:last-of-type {
+            margin-bottom: 28px;
+        }
+
+        .story-cta-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        /* Primary button - Join for free (matches hero) */
+        .story-cta .cta-button.primary {
+            padding: 6px 12px;
+            background: #0F62FE;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            font-family: inherit;
+            height: 27.6px;
+            text-decoration: none;
+            color: white;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .story-cta .cta-button.primary:hover {
+            background: #0053E5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
+        }
+
+        /* Secondary button - Request a demo (matches hero) */
+        .story-cta .cta-button.secondary {
+            padding: 6px 12px;
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            height: 27.6px;
+            text-decoration: none;
+            color: #000000;
+            font-size: 13px;
+            font-weight: 300;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .story-cta .cta-button.secondary::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 12px;
+            right: 12px;
+            height: 1px;
+            background-color: #000000;
+            transform: scaleX(0);
+            transition: transform 0.2s ease;
+        }
+
+        .story-cta .cta-button.secondary:hover::after {
+            transform: scaleX(1);
+        }
+
+        .story-cta .cta-button.secondary:visited {
+            color: #000000;
+        }
+
+        .story-cta .cta-button.secondary:active {
+            color: #000000;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1100px) {
+            .header-container {
+                padding: 12px 20px;
+            }
+
+            .navigation {
+                display: none;
+            }
+
+            .auth-section {
+                display: none;
+            }
+
+            .hamburger-menu {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .story-wrapper {
+                padding: 40px 20px 80px;
+            }
+
+            .story-categories {
+                margin: 0 0 16px;
+                gap: 6px;
+            }
+
+            .story-category-pill {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .story-project-badges {
+                margin: 8px 0 8px;
+                gap: 6px;
+            }
+
+            .story-badge-pill {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .story-title {
+                font-size: 32px;
+                line-height: 1.15;
+            }
+
+            .story-subtitle {
+                font-size: 17px;
+                line-height: 1.45;
+            }
+
+            .story-hero {
+                margin: 24px 0 32px;
+                border-radius: 8px;
+            }
+
+            .story-intro,
+            .story-section {
+                padding: 0;
+            }
+
+            .story-section {
+                margin: 48px 0 0 0 !important;
+            }
+
+            .story-section h2 {
+                font-size: 22px;
+                padding-top: 24px !important;
+                margin-bottom: 20px !important;
+            }
+
+            .story-toc {
+                padding: 0;
+                margin: 28px 0 40px;
+            }
+
+            .story-toc ul {
+                gap: 8px;
+            }
+
+            .story-toc li a {
+                font-size: 15px;
+            }
+
+            .qa-block {
+                margin-bottom: 32px !important;
+            }
+
+            blockquote {
+                margin: 32px auto !important;
+                padding: 12px 18px !important;
+                font-size: 15px !important;
+                max-width: 90%;
+            }
+
+            .story-media {
+                margin: 20px 0 24px;
+            }
+
+            .story-media img {
+                border-radius: 12px;
+            }
+
+            .story-cta {
+                padding: 32px 24px;
+                margin-top: 40px;
+            }
+
+            .story-cta h3 {
+                font-size: 20px;
+                margin-bottom: 14px;
+            }
+
+            .story-cta p {
+                font-size: 15px;
+                margin-bottom: 24px;
+            }
+
+            .story-cta-actions {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+                align-items: center;
+            }
+
+            .story-cta .cta-button {
+                width: auto;
+                max-width: 280px;
+                min-width: fit-content;
+                padding: 8px 16px;
+            }
+
+            .footer-section {
+                padding: 60px 24px 40px 24px;
+            }
+
+            .footer-logo {
+                width: 100%;
+                padding: 0;
+                margin-bottom: 32px;
+            }
+
+            .footer-links {
+                width: 100%;
+                grid-template-columns: 1fr;
+                padding: 0;
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .story-wrapper {
+                padding: 32px 18px 70px;
+            }
+
+            .story-title {
+                font-size: 28px;
+            }
+
+            .story-subtitle {
+                font-size: 16px;
+            }
+
+            .story-hero {
+                margin: 20px 0 28px;
+            }
+
+            .story-section h2 {
+                font-size: 20px;
+            }
+
+            .story-toc li a {
+                font-size: 14px;
+            }
+
+            .story-wrapper p,
+            .qa-question,
+            .qa-answer {
+                font-size: 15px !important;
+            }
+
+            blockquote {
+                font-size: 14px !important;
+                padding: 10px 16px !important;
+            }
+
+            .story-cta {
+                padding: 28px 20px;
+            }
+
+            .story-cta h3 {
+                font-size: 18px;
+            }
+
+            .story-cta p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="header-container">
+        <!-- Logo on the left -->
+        <div class="header-logo">
+            <div class="logo-container">
+                <div class="logo">
+                    <a href="https://qava.ai/">
+                        <img src="qava-logo.svg" alt="Qava Logo">
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation in the center -->
+        <div class="header-center">
+            <div class="navigation">
+                <a href="https://app.qava.ai/" class="nav-item create-listing">
+                    <div class="nav-text">Create Listing</div>
+                </a>
+                <a href="https://app.qava.ai/projects" class="nav-item search-listings">
+                    <div class="nav-text">Search Listings</div>
+                </a>
+                <div class="nav-item how-it-works has-dropdown">
+                    <div class="nav-text">How It Works</div>
+                    <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M6 3v6M3 6h6" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <div class="dropdown-menu">
+                        <a href="https://qava.ai/clienthowitworks" class="dropdown-item">
+                            <div class="dropdown-title">For Clients 🚀</div>
+                            <div class="dropdown-subtitle">Hiring for current or future work</div>
+                        </a>
+                        <a href="https://qava.ai/talenthowitworks" class="dropdown-item">
+                            <div class="dropdown-title">For Talent 👩‍💻</div>
+                            <div class="dropdown-subtitle">Interested in current or future work</div>
+                        </a>
+                    </div>
+                </div>
+                <a href="https://qava.ai/pricing" class="nav-item pricing">
+                    <div class="nav-text">Pricing</div>
+                </a>
+                <a href="https://qava.ai/about" class="nav-item about">
+                    <div class="nav-text">About</div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Auth section on the right -->
+        <div class="header-right">
+            <div class="auth-section">
+                <a href="https://qava.ai/demo" class="auth-item">
+                    <div class="nav-text">Request a demo</div>
+                </a>
+                <a href="https://app.qava.ai/" class="auth-item">
+                    <div class="nav-text">Log in</div>
+                </a>
+                <a href="https://app.qava.ai/" class="join-button">
+                    <div class="join-text">Join for free</div>
+                </a>
+            </div>
+
+            <!-- Hamburger Menu Icon -->
+            <div class="hamburger-menu" onclick="toggleMobileMenu()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
+        <a href="https://app.qava.ai/" class="mobile-nav-item">
+            <div class="nav-text">Create Listing</div>
+        </a>
+        <a href="https://app.qava.ai/projects" class="mobile-nav-item">
+            <div class="nav-text">Search Listings</div>
+        </a>
+        <div class="mobile-nav-item mobile-dropdown-toggle" onclick="toggleMobileDropdown()">
+            <div class="mobile-dropdown-header">
+                <div class="nav-text">How It Works</div>
+                <span class="mobile-dropdown-arrow">+</span>
+            </div>
+        </div>
+        <div class="mobile-dropdown-content" id="mobileDropdown">
+            <a href="https://qava.ai/clienthowitworks" class="mobile-dropdown-item">
+                <div class="dropdown-title">For Clients 🚀</div>
+                <div class="dropdown-subtitle">Hiring for current or future work</div>
+            </a>
+            <a href="https://qava.ai/talenthowitworks" class="mobile-dropdown-item">
+                <div class="dropdown-title">For Talent 👩‍💻</div>
+                <div class="dropdown-subtitle">Interested in current or future work</div>
+            </a>
+        </div>
+        <a href="https://qava.ai/pricing" class="mobile-nav-item">
+            <div class="nav-text">Pricing</div>
+        </a>
+        <a href="https://qava.ai/about" class="mobile-nav-item">
+            <div class="nav-text">About</div>
+        </a>
+        <div class="mobile-auth-section">
+            <a href="https://qava.ai/demo" class="mobile-nav-item">Request a demo</a>
+            <a href="https://app.qava.ai/" class="mobile-nav-item">Log in</a>
+            <a href="https://app.qava.ai/" class="join-button">
+                <div class="join-text">Join for free</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Blog Content -->
+    <main class="story-wrapper">
+        <header class="story-header">
+            <h1 class="story-title">Alexis Built One of the Most Original E-Skateboards—Now He's Taking It Global</h1>
+            <p class="story-subtitle">After perfecting the board and closing out a successful Kickstarter, Alexis is now shifting his focus to scaling production and expanding globally. I recently rode the board with him in Copenhagen—yes, it lives up to the hype—and heard about the rollout he's planning.</p>
+        </header>
+
+        <div class="story-categories">
+            <span class="story-category-pill">#🛠️ProductDesign</span>
+            <span class="story-category-pill">#🚀Go-To-Market</span>
+            <span class="story-category-pill">#🌍GlobalDistribution</span>
+            <span class="story-category-pill">#🤝PartnershipStrategy</span>
+        </div>
+
+        <figure class="story-hero">
+            <img src="liquid-skateboard-images/alexis-liquid-skateboard.jpg" alt="Alexis with Liquid Skateboard" loading="lazy">
+        </figure>
+
+        <section class="story-intro">
+            <p>We share stories of partners who turn ambition into action—hoping to inspire others or offer the practical know-how to do the same. This month, we spotlight Alexis, the Founder of Liquid Skateboard.</p>
+            <p>What began as a passion project has become the most authentic electric skateboard in the $4B+ market growing at 12.1% CAGR. Along the way, Alexis has stayed loyal to the experience of riding a traditional skateboard—bringing in technology only where it enhanced the natural feeling of cruising. Recently, I had the chance to ride his board with him in Copenhagen, and the experience was unlike anything else.</p>
+            <p>Here's how Alexis went from prototype to production—and now sets his sights on the world.</p>
+        </section>
+
+        <nav class="story-toc" aria-label="Table of contents">
+            <ul>
+                <li><a href="#the-beginning"><span class="index">1.</span><span>The Beginning</span></a></li>
+                <li><a href="#the-industry"><span class="index">2.</span><span>The Industry</span></a></li>
+                <li><a href="#dialing-in-performance"><span class="index">3.</span><span>Dialing In Performance</span></a></li>
+                <li><a href="#scaling-up"><span class="index">4.</span><span>Scaling Up</span></a></li>
+                <li><a href="#going-global"><span class="index">5.</span><span>Going Global</span></a></li>
+            </ul>
+        </nav>
+
+        <section class="story-section" id="the-beginning">
+            <h2>The Beginning</h2>
+            <p>After years of riding regular boards and testing nearly every electric skateboard available, Alexis kept running into the same issues: great speed but poor handling, solid range but weak build quality, smart features but inconsistent performance. Nothing felt <em>complete</em>.</p>
+            <blockquote>I just wanted something that felt real under my feet.</blockquote>
+            <p>To address the gap he found, Alexis began building his own board, and after countless prototypes, long nights, and endless trial-and-error, he landed on a design that felt real—smooth acceleration, responsive braking, and reliably stable.</p>
+            <p>From that point on, friends asked to buy one. Strangers stopped him at skateparks. Word spread. Liquid Skateboard was born.</p>
+            <div class="story-media">
+                <img src="liquid-skateboard-images/early-design-iterations.jpg" alt="Early design iterations" loading="lazy">
+                <p class="story-media-caption">Early design iterations</p>
+            </div>
+        </section>
+
+        <section class="story-section" id="the-industry">
+            <h2>The Industry</h2>
+            <p>As Alexis refined his board, the broader market was accelerating. The electric skateboard category—once a niche curiosity—had quietly grown into a global industry poised for exponential expansion.</p>
+            
+            <h3>Electric Skateboard Market</h3>
+            <p><strong>Market Summary:</strong></p>
+            <p>• Study period: 2025–2031<br>
+            • Base year: 2024<br>
+            • CAGR: 12.1%<br>
+            • Market size 2024: $4,094.56M<br>
+            • Market size 2031: $9,108.49M</p>
+            
+            <p><strong>Market Structure:</strong> Fragmented — Highly competitive without dominant players</p>
+            
+            <p><strong>Major Players:</strong> Skatebolt, Inboard Technology, Blitzart Inc., ACTON Inc., Teamgee Skateboard, RideRiptide Electric Skateboard, Atom Longboards, Boosted Inc., Swagtron, Evolve Skateboards Australia</p>
+            
+            <p>For Alexis, these numbers validated what he already knew from the streets: riders were searching for something real. His timing couldn't have been better.</p>
+        </section>
+
+        <section class="story-section" id="dialing-in-performance">
+            <h2>Dialing In Performance</h2>
+            <p>Before Alexis could think about scaling, the board had to hit the same performance marks every time. That meant months of tuning—testing motor setups, refining battery layouts, adjusting deck flex, experimenting with materials, and logging ride after ride in different conditions. His workshop became a kind of performance archive: shelves full of past iterations, stress-tested components, and the lessons that pushed the board closer to the quality he was looking for.</p>
+            
+            <p>Eventually, the board began delivering a consistently high performance experience:</p>
+            <p>• ⚡️ Smooth acceleration up to ~28 mph<br>
+            • 🔋 ~25 miles of range per charge<br>
+            • 🪶 Lightweight but structurally solid<br>
+            • 🌊 A ride that feels intuitive and connected to the road</p>
+            
+            <p>More riders picked up on it quickly. Reviews started appearing on YouTube and Reddit, and within 6 months Alexis had sold more than 200 boards—each one hand-built and personally tested.</p>
+            
+            <div class="story-media">
+                <img src="liquid-skateboard-images/liquid-skateboard-review.jpg" alt="Liquid Skateboard review" loading="lazy">
+                <p class="story-media-caption">Liquid Skateboard review on YouTube</p>
+            </div>
+            
+            <p>But demand was growing faster than the company's operations could support. The hand-built approach wasn't scalable, and interest from riders began to exceed what small-batch production could handle.</p>
+        </section>
+
+        <section class="story-section" id="scaling-up">
+            <h2>Scaling Up</h2>
+            <p>Moving from research and development into true scale is one of the hardest steps in any hardware journey. Alexis had the engineering locked in, but bringing an electric skateboard to the world requires more than a great product—it requires the operational backbone to build it consistently, move it reliably, and get it into the hands of riders across different markets.</p>
+            
+            <p>Scaling up meant shifting from hands-on craftsmanship to a dynamic system of suppliers, manufacturing partners, logistics networks, and retail channels. It's a completely different capability: standardizing parts, formalizing processes, qualifying vendors, planning inventory, coordinating freight, meeting certifications, and building partnerships that can support growth without compromising the feel of the board.</p>
+            
+            <h3>The Scale-Up Stack</h3>
+            <p><strong>Manufacturing Partners:</strong></p>
+            <p>• Component Suppliers 📦<br>
+            • Assembly Partners 🏭<br>
+            • Quality Control & Testing ✅<br>
+            • Production Forecasting & Planning 📊</p>
+            
+            <p><strong>Distribution Partners:</strong></p>
+            <p>• Freight & Logistics 🚚<br>
+            • Warehousing & Fulfillment 🏢<br>
+            • Import/Export Compliance 📋<br>
+            • Market-by-Market Certifications 🏅</p>
+            
+            <p><strong>Retail Partners:</strong></p>
+            <p>• Local Skate Shops & Specialty Stores 🛹<br>
+            • Online Retailers 💻<br>
+            • Demo & Test-Ride Locations 🏄<br>
+            • Creators & Regional Ambassadors 🎥</p>
+            
+            <div class="story-media">
+                <img src="liquid-skateboard-images/liquid-components.jpg" alt="Liquid components & materials" loading="lazy">
+                <p class="story-media-caption">Liquid components & materials</p>
+            </div>
+        </section>
+
+        <section class="story-section" id="going-global">
+            <h2>Going Global</h2>
+            <p>Going global is one of the most exciting steps a company can take—but it's also one of the most complex. New markets introduce new regulations, new logistics paths, new testing standards, and entirely new expectations from customers. What worked at home rarely works the same way abroad, and the gaps become obvious fast.</p>
+            
+            <p>But complexity isn't the enemy—it's the gateway. Each new region opens up fresh demand, new types of customers, and distribution channels that simply don't exist in a single-market model. For hardware, especially, global expansion can transform a niche product into a category-defining one.</p>
+            
+            <p>The key is having the right systems in place. When your manufacturing, distribution, and retail foundations are structured for scale, the complexity stops being a burden and becomes an advantage. With the right partners and infrastructure, going global isn't chaos—it's a massive multiplier for growth.</p>
+            
+            <div class="story-media">
+                <img src="liquid-skateboard-images/liquid-production.jpg" alt="Preparing for scale" loading="lazy">
+                <p class="story-media-caption">Preparing for scale</p>
+            </div>
+        </section>
+
+        <div class="story-cta">
+            <h3>Turn ideas into something.</h3>
+            <p style="font-weight: 300;">Liquid Skateboard continues to scale because Alexis built smart.</p>
+            <p style="font-weight: 300;">Start your journey today with Qava.</p>
+            <div class="story-cta-actions">
+                <a href="https://app.qava.ai/" class="cta-button primary">Join for free</a>
+                <a href="https://qava.ai/demo" class="cta-button secondary">Request a demo</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer-section">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="https://qava.ai/">
+                        <img src="qava-logo.svg" alt="Qava" class="footer-logo-img" />
+                    </a>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Welcome</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://app.qava.ai/" class="footer-link">Create Listing</a></li>
+                            <li><a href="https://app.qava.ai/projects" class="footer-link">Search Listings</a></li>
+                            <li><a href="https://qava.ai/clienthowitworks" class="footer-link">How It Works for Clients</a></li>
+                            <li><a href="https://qava.ai/talenthowitworks" class="footer-link">How It Works for Talent</a></li>
+                            <li><span class="footer-link disabled-link">What's New</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Get Started</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://qava.ai/demo" class="footer-link">Request a Demo</a></li>
+                            <li><a href="https://app.qava.ai/" class="footer-link">Sign Up</a></li>
+                            <li><a href="https://app.qava.ai/" class="footer-link">Log In</a></li>
+                            <li><span class="footer-link disabled-link">AI Prompts</span></li>
+                            <li><span class="footer-link disabled-link">Project Templates</span></li>
+                            <li><span class="footer-link disabled-link">Application Tips</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Resources</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://qava.ai/pricing" class="footer-link">Pricing</a></li>
+                            <li><a href="https://qava.ai/about" class="footer-link">About Us</a></li>
+                            <li><span class="footer-link disabled-link">Careers</span></li>
+                            <li><span class="footer-link disabled-link">Media Kit</span></li>
+                            <li><span class="footer-link disabled-link">Contact Us</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Learn</h4>
+                        <ul class="footer-link-list">
+                            <li><span class="footer-link disabled-link">Success Stories</span></li>
+                            <li><span class="footer-link disabled-link">Help Center</span></li>
+                            <li><span class="footer-link disabled-link">Webinars</span></li>
+                            <li><span class="footer-link disabled-link">Blog</span></li>
+                            <li><span class="footer-link disabled-link">Community</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Legal</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="terms" class="footer-link">Terms & Privacy</a></li>
+                            <li><a href="terms" class="footer-link">California Privacy Notice</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-copyright">
+                        © 2025 qava
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+            
+            // Prevent body scroll when mobile menu is open
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function toggleMobileDropdown() {
+            const dropdown = document.getElementById('mobileDropdown');
+            const toggle = document.querySelector('.mobile-dropdown-toggle');
+            
+            dropdown.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

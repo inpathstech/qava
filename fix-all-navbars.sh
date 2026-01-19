@@ -51,3 +51,5 @@ done
 
 echo "All navbar fixes completed!"
 echo "Please review the changes and test the dropdown functionality."
+
+

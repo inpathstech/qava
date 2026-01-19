@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q&A with Emma Burke | Qava</title>
+    <link rel="icon" type="image/svg+xml" href="qava-logo.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f1f1f;
+        }
+        
+        /* Cache buster v2 - Updated styling */
+
+        /* NAVBAR STYLES - Copied from index.html */
+        .header-container {
+            width: 100%;
+            padding: 16px 32px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 64px;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            overflow: visible;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .header-center {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex: 1;
+            margin-left: 40px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 36px;
+            height: 36px;
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1;
+            height: 25px;
+            color: #000000;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+            gap: 4px;
+            text-decoration: none;
+            vertical-align: middle;
+            box-sizing: border-box;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .nav-item:visited {
+            color: #000000;
+        }
+
+        .nav-item:active {
+            color: #000000;
+        }
+
+        .dropdown-arrow {
+            color: #000000;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover .dropdown-arrow {
+            color: #000000;
+        }
+
+        .nav-text {
+            color: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            white-space: nowrap;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 8px;
+            min-width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 10000;
+        }
+
+        .nav-item.has-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-item {
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.04);
+        }
+
+        .dropdown-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 2px;
+        }
+
+        .dropdown-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 300;
+            color: #6B6B6B;
+        }
+
+        .auth-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .auth-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1;
+            height: 25px;
+            color: #000000;
+            text-decoration: none;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .auth-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+        }
+
+        .join-button {
+            background-color: #0F62FE;
+            color: white;
+            padding: 7px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1;
+            height: 28px;
+            text-decoration: none;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 3px rgba(15, 98, 254, 0.3);
+        }
+
+        .join-button:hover {
+            background-color: #0047C3;
+            box-shadow: 0 2px 6px rgba(15, 98, 254, 0.4);
+        }
+
+        .join-text {
+            color: white;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            gap: 3px;
+            cursor: pointer;
+            padding: 6px;
+            z-index: 1001;
+        }
+
+        .hamburger-line {
+            width: 20px;
+            height: 2px;
+            background-color: #000000;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: white;
+            z-index: 999;
+            display: none;
+            flex-direction: column;
+            padding: 80px 32px 32px 32px;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 20px;
+            right: 32px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #000000;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-nav-item {
+            padding: 16px 0;
+            font-size: 16px;
+            font-weight: 400;
+            color: #000000;
+            text-decoration: none;
+            border-bottom: 1px solid #EBEBEB;
+        }
+
+        .mobile-dropdown-toggle {
+            cursor: pointer;
+        }
+
+        .mobile-dropdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mobile-dropdown-arrow {
+            font-size: 18px;
+            transition: transform 0.2s ease;
+        }
+
+        .mobile-dropdown-toggle.active .mobile-dropdown-arrow {
+            transform: rotate(45deg);
+        }
+
+        .mobile-dropdown-content {
+            display: none;
+            flex-direction: column;
+            padding-left: 16px;
+        }
+
+        .mobile-dropdown-content.active {
+            display: flex;
+        }
+
+        .mobile-dropdown-item {
+            padding: 12px 0;
+            text-decoration: none;
+            border-bottom: 1px solid #F5F5F5;
+        }
+
+        .mobile-auth-section {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding-top: 24px;
+        }
+
+        /* Fix navbar underline issue */
+        .navigation .nav-item,
+        .navigation .nav-item:link,
+        .navigation .nav-item:visited,
+        .navigation .nav-item:hover,
+        .navigation .nav-item:active,
+        .navigation .nav-item:focus {
+            text-decoration: none !important;
+        }
+
+        /* FOOTER STYLES - Copied from index.html */
+        .footer-section {
+            background: white;
+            width: 100%;
+            max-width: 1070px;
+            margin: 0 auto;
+            padding: 78px 0 46px 0;
+            margin-top: 50px;
+            border-top: 1px solid #EBEBEB;
+        }
+
+        .footer-container {
+            max-width: 940px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .footer-logo {
+            width: 39%;
+            padding: 2px 15px 0 0;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo-img {
+            width: 40px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            width: 60%;
+            gap: 16px 25px;
+            padding: 0 15px 0 10px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-heading {
+            font-family: 'Inter', sans-serif;
+            font-size: 17px;
+            color: #000000;
+            margin-bottom: 8px;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+        }
+
+        .footer-link-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .footer-link-list li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+            text-decoration: none;
+            line-height: 1.2;
+            transition: text-decoration 0.2s ease;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer-link.disabled-link {
+            cursor: not-allowed;
+            opacity: 0.6;
+            position: relative;
+        }
+
+        .footer-link.disabled-link:hover {
+            text-decoration: none;
+            opacity: 0.8;
+            color: #999999;
+        }
+
+        .footer-link.disabled-link:hover::before {
+            content: "Coming Soon";
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000000;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+            white-space: nowrap;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .footer-copyright {
+            grid-column: 1 / -1;
+            margin-top: 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+        }
+
+        /* BLOG POST STYLES */
+        .story-wrapper {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 56px 24px 90px;
+        }
+
+        .story-header {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .story-title {
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .story-subtitle {
+            font-size: 20px;
+            font-weight: 300;
+            color: #4a4a4a;
+            line-height: 1.5;
+        }
+
+        .story-hero {
+            width: 100%;
+            margin: 32px 0 40px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .story-hero img {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        /* ===== SPACING SYSTEM - Professional & Consistent ===== */
+        
+        /* Intro section - appears after hero image */
+        .story-intro {
+            padding: 0 !important;
+            margin: 0 0 32px !important;
+        }
+
+        .story-intro p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 16px;
+        }
+
+        .story-intro p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Table of Contents - compact spacing */
+        .story-toc {
+            padding: 0 !important;
+            margin: 32px 0 48px !important;
+        }
+
+        .story-toc ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 0;
+        }
+
+        .story-toc li a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 300;
+            color: #2e2e2e;
+            line-height: 1.65;
+            text-decoration: none;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .story-toc li a:hover {
+            color: #111111;
+            transform: translateX(4px);
+        }
+
+        .story-toc li .index {
+            font-size: 13px;
+            font-weight: 500;
+            color: #6b6b6b;
+            letter-spacing: 0.08em;
+        }
+
+        /* Main content sections */
+        .story-section {
+            padding: 0 !important;
+            margin: 56px 0 0 0 !important;
+        }
+
+        .story-section:first-of-type {
+            margin-top: 0 !important;
+        }
+ 
+        .story-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 0 24px !important;
+            padding-top: 28px !important;
+            letter-spacing: -0.01em;
+            color: #000000;
+            border-top: 1px solid #e0e0e0 !important;
+        }
+
+        .story-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #111;
+        }
+
+        /* All paragraphs - consistent spacing */
+        .story-wrapper p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 14px;
+        }
+
+        .story-section p,
+        .story-intro p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+        }
+
+        /* Q&A blocks - consistent spacing */
+        .qa-block {
+            margin-bottom: 36px !important;
+        }
+
+        .qa-block:last-child {
+            margin-bottom: 0 !important;
+        }
+
+        .qa-question {
+            font-size: 16px !important;
+            font-weight: 600 !important;
+            margin-bottom: 14px !important;
+            color: #0F62FE !important;
+        }
+
+        .qa-answer {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 14px;
+        }
+
+        .qa-answer:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Pull quotes - centered with breathing room */
+        blockquote {
+            margin: 40px auto !important;
+            padding: 14px 24px !important;
+            width: fit-content;
+            max-width: 100%;
+            font-size: 16px !important;
+            line-height: 1.6 !important;
+            color: #000000 !important;
+            font-weight: 300 !important;
+            font-style: italic !important;
+            text-align: center;
+            background: #fafafa;
+            border-radius: 12px;
+            white-space: nowrap;
+            display: block;
+        }
+
+        blockquote::before {
+            content: "";
+        }
+
+        /* Images with captions */
+        .story-media {
+            margin: 24px auto 28px;
+            text-align: center;
+        }
+
+        .story-media img {
+            max-width: 620px;
+            width: 100%;
+            border-radius: 16px;
+            display: inline-block;
+        }
+
+        .story-media-caption {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #585858;
+        }
+
+        .story-media-caption a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .story-media-caption a:hover {
+            text-decoration: underline;
+        }
+
+        .story-cta {
+            margin-top: 48px;
+            text-align: center;
+            padding: 48px;
+            border-radius: 14px;
+            background: #f5f7ff;
+        }
+
+        .story-cta h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .story-cta p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #3b3b3b;
+            margin-bottom: 28px;
+            font-weight: 300;
+        }
+
+        .story-cta-actions {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .story-cta .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1;
+            height: 28px;
+            padding: 7px 12px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            box-shadow: 0 1px 3px rgba(15, 98, 254, 0.18);
+        }
+
+        .story-cta .cta-button.primary {
+            background-color: #0F62FE;
+            color: white;
+        }
+
+        .story-cta .cta-button.primary:hover {
+            background-color: #0047C3;
+            box-shadow: 0 2px 6px rgba(15, 98, 254, 0.35);
+        }
+
+        .story-cta .cta-button.secondary {
+            background-color: white;
+            color: #0F62FE;
+            border: 1px solid rgba(15, 98, 254, 0.35);
+            box-shadow: none;
+        }
+
+        .story-cta .cta-button.secondary:hover {
+            background-color: rgba(15, 98, 254, 0.08);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1400px) {
+            .header-container {
+                padding: 16px 24px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .header-container {
+                padding: 16px 20px;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .header-container {
+                padding: 12px 20px;
+            }
+
+            .navigation {
+                display: none;
+            }
+
+            .auth-section {
+                display: none;
+            }
+
+            .hamburger-menu {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .story-wrapper {
+                padding: 40px 20px 80px;
+            }
+
+            .story-title {
+                font-size: 32px;
+                line-height: 1.15;
+            }
+
+            .story-subtitle {
+                font-size: 17px;
+                line-height: 1.45;
+            }
+
+            .story-hero {
+                margin: 24px 0 32px;
+                border-radius: 8px;
+            }
+
+            .story-intro,
+            .story-section {
+                padding: 0;
+            }
+
+            .story-section {
+                margin: 48px 0 0 0 !important;
+            }
+
+            .story-section h2 {
+                font-size: 22px;
+                padding-top: 24px !important;
+                margin-bottom: 20px !important;
+            }
+
+            .story-toc {
+                padding: 0;
+                margin: 28px 0 40px;
+            }
+
+            .story-toc ul {
+                gap: 8px;
+            }
+
+            .story-toc li a {
+                font-size: 15px;
+            }
+
+            .qa-block {
+                margin-bottom: 32px !important;
+            }
+
+            blockquote {
+                margin: 32px auto !important;
+                padding: 12px 18px !important;
+                font-size: 15px !important;
+                max-width: 90%;
+            }
+
+            .story-media {
+                margin: 20px auto 24px;
+            }
+
+            .story-media img {
+                border-radius: 12px;
+            }
+
+            .story-cta {
+                padding: 32px 24px;
+                margin-top: 40px;
+            }
+
+            .story-cta h3 {
+                font-size: 20px;
+                margin-bottom: 14px;
+            }
+
+            .story-cta p {
+                font-size: 15px;
+                margin-bottom: 24px;
+            }
+
+            .story-cta-actions {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+            }
+
+            .story-cta .cta-button {
+                width: 100%;
+                max-width: 280px;
+            }
+
+            .footer-section {
+                padding: 60px 24px 40px 24px;
+            }
+
+            .footer-logo {
+                width: 100%;
+                padding: 0;
+                margin-bottom: 32px;
+            }
+
+            .footer-links {
+                width: 100%;
+                grid-template-columns: 1fr;
+                padding: 0;
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .story-wrapper {
+                padding: 32px 18px 70px;
+            }
+
+            .story-title {
+                font-size: 28px;
+            }
+
+            .story-subtitle {
+                font-size: 16px;
+            }
+
+            .story-hero {
+                margin: 20px 0 28px;
+            }
+
+            .story-section h2 {
+                font-size: 20px;
+            }
+
+            .story-toc li a {
+                font-size: 14px;
+            }
+
+            .story-wrapper p,
+            .qa-question,
+            .qa-answer {
+                font-size: 15px !important;
+            }
+
+            blockquote {
+                font-size: 14px !important;
+                padding: 10px 16px !important;
+            }
+
+            .story-cta {
+                padding: 28px 20px;
+            }
+
+            .story-cta h3 {
+                font-size: 18px;
+            }
+
+            .story-cta p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="header-container">
+        <!-- Logo on the left -->
+        <div class="header-logo">
+            <div class="logo-container">
+                <div class="logo">
+                    <a href="https://qava.ai/">
+                        <img src="qava-logo.svg" alt="Qava Logo">
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation in the center -->
+        <div class="header-center">
+            <div class="navigation">
+                <a href="https://app.qava.ai/" class="nav-item create-listing">
+                    <div class="nav-text">Create Listing</div>
+                </a>
+                <a href="https://app.qava.ai/projects" class="nav-item search-listings">
+                    <div class="nav-text">Search Listings</div>
+                </a>
+                <a href="https://qava.ai/whyqava" class="nav-item why-qava">
+                    <div class="nav-text">Why Qava</div>
+                </a>
+                <a href="https://qava.ai/pricing" class="nav-item pricing">
+                    <div class="nav-text">Pricing</div>
+                </a>
+                <a href="https://qava.ai/about" class="nav-item about">
+                    <div class="nav-text">About</div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Auth section on the right -->
+        <div class="header-right">
+            <div class="auth-section">
+                <a href="https://qava.ai/howqavaworks" class="auth-item">
+                    <div class="nav-text">How Qava Works</div>
+                </a>
+                <a href="https://app.qava.ai/" class="auth-item">
+                    <div class="nav-text">Log in</div>
+                </a>
+                <a href="https://app.qava.ai/" class="join-button">
+                    <div class="join-text">Join for free</div>
+                </a>
+            </div>
+
+            <!-- Hamburger Menu Icon -->
+            <div class="hamburger-menu" onclick="toggleMobileMenu()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
+        <a href="https://app.qava.ai/" class="mobile-nav-item">
+            <div class="nav-text">Create Listing</div>
+        </a>
+        <a href="https://app.qava.ai/projects" class="mobile-nav-item">
+            <div class="nav-text">Search Listings</div>
+        </a>
+        <div class="mobile-nav-item mobile-dropdown-toggle" onclick="toggleMobileDropdown()">
+            <div class="mobile-dropdown-header">
+                <div class="nav-text">How It Works</div>
+                <span class="mobile-dropdown-arrow">+</span>
+            </div>
+        </div>
+        <div class="mobile-dropdown-content" id="mobileDropdown">
+            <a href="https://qava.ai/clienthowitworks" class="mobile-dropdown-item">
+                <div class="dropdown-title">For Clients 🚀</div>
+                <div class="dropdown-subtitle">Hiring for current or future work</div>
+            </a>
+            <a href="https://qava.ai/talenthowitworks" class="mobile-dropdown-item">
+                <div class="dropdown-title">For Talent 👩‍💻</div>
+                <div class="dropdown-subtitle">Interested in current or future work</div>
+            </a>
+        </div>
+        <a href="https://qava.ai/whyqava" class="mobile-nav-item">
+            <div class="nav-text">Why Qava</div>
+        </a>
+        <a href="https://qava.ai/pricing" class="mobile-nav-item">
+            <div class="nav-text">Pricing</div>
+        </a>
+        <a href="https://qava.ai/about" class="mobile-nav-item">
+            <div class="nav-text">About</div>
+        </a>
+        <div class="mobile-auth-section">
+            <a href="https://app.qava.ai/" class="mobile-nav-item">Log in</a>
+            <a href="https://app.qava.ai/" class="join-button">
+                <div class="join-text">Join for free</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Blog Content -->
+    <main class="story-wrapper">
+        <header class="story-header">
+            <h1 class="story-title">Q&A with Emma Burke, founder of The Rise Group</h1>
+            <p class="story-subtitle">Making the leap from corporate, what she's learned, and the creator economy in an AI world.</p>
+        </header>
+
+        <figure class="story-hero">
+            <img src="Emma-Burke-6.jpg" alt="Emma Burke" loading="lazy">
+        </figure>
+
+        <section class="story-intro">
+            <p>We share stories of people who turn ambition into action—hoping to inspire others or offer the practical know-how to do the same. We're especially proud to spotlight female and diverse founders whose journeys reshape what success looks like. This month, we sat down with Emma Burke, founder of The Rise Group.</p>
+            <p>As the creator economy took off in the mid-2000s, Emma saw more than just a trend—she saw a fundamental shift in how brands connect with people. In our interview, she shares how she found her place in New York City, the experiences that shaped her growth, and why embracing imperfection is key to building something meaningful.</p>
+            <p>Without further ado, let's get into it.</p>
+        </section>
+
+        <nav class="story-toc" aria-label="Table of contents">
+            <ul>
+                <li><a href="#pre-launch"><span class="index">1.</span><span>Pre-Launch</span></a></li>
+                <li><a href="#the-leap"><span class="index">2.</span><span>Founding The Rise Group</span></a></li>
+                <li><a href="#building-through-projects"><span class="index">3.</span><span>Building, Lessons &amp; Growth</span></a></li>
+                <li><a href="#finding-the-right-people"><span class="index">4.</span><span>Use Your Strengths</span></a></li>
+                <li><a href="#impact-of-ai"><span class="index">5.</span><span>The Impact of AI</span></a></li>
+                <li><a href="#advice-and-the-future"><span class="index">6.</span><span>Advice &amp; The Future</span></a></li>
+            </ul>
+        </nav>
+
+        <section class="story-section" id="pre-launch">
+            <h2>Pre-Launch</h2>
+            <div class="qa-block">
+                <p class="qa-question">Q: Thanks for making time to meet. Can we start with a little bit about yourself — where you're from, what did you study, and what first drew you to the business world?</p>
+                <p class="qa-answer">Sure. I grew up in Philly, and growing up, I gravitated toward communications—TV, magazines, celebrity stories. It was all so interesting to me. Especially tastemakers, like Oprah, who brought messages, products and missions to massive audiences. I remember at one point, I wanted to be a red carpet interviewer, like Juliana Ransick.</p>
+                <p class="qa-answer">I loved growing up in Philly—visiting museums, exploring the city—and studied Communications at St John's University. To be completely honest, school wasn't what lit me up. Internships did. Fortunately, my school was in the city, and we were encouraged to go out and find opportunities ourselves. I would send cold emails to people because I wanted to learn and figure out my path. That hands-on experience was everything.</p>
+            </div>
+            <div class="qa-block">
+                <p class="qa-question">Q: What was your early career like before starting The Rise Group?</p>
+                <p class="qa-answer">I tried everything under the communications umbrella—marketing, editorial, fashion, PR. One of my first dream roles was at Diane von Fürstenberg. I had read her book The Woman I Wanted to Be and watched House of DVF. Working there felt like stepping inside that world—creative, fast. It felt magical to me at that age.</p>
+                <p class="qa-answer">After that I joined Tory Burch, another brand I had been following. Kate Spade after that. Those early experiences taught me how much energy and storytelling go into great branding. I made great friends and learned so much about myself, business, and how to get things done to a high standard.</p>
+            </div>
+        </section>
+
+        <section class="story-section" id="the-leap">
+            <h2>Founding The Rise Group</h2>
+            <div class="qa-block">
+                <p class="qa-question">Q: When did you realize you wanted to start your own business, and what inspired that decision?</p>
+                <p class="qa-answer">There wasn't one single moment—it built up over time. I kept thinking about the future and realized I was looking at people ten years ahead of me who weren't exactly excited about their work anymore. That hit me hard.</p>
+                <p class="qa-answer">At the same time, I was leading influencer partnerships for major brands and working with lots of agencies. I saw how transactional many agents were, focused on hitting monthly quotas instead of the talent (or the brand). I started to think, "I could do this better", because I really do care about what the best deal could be, not just another transaction.</p>
+                <p class="qa-answer">When I got serious about starting my own agency, it was terrifying. People were skeptical about walking away from a steady income. But I knew if I didn't try, I'd regret it. So I gave myself time—served my notice, set up my LLC, got an accountant and lawyer. My kind of business doesn't take much money to start, so I figured: I might not make a ton right away, but at least I won't be burning cash.</p>
+            </div>
+            <blockquote>It was scary — but my bigger fear was regret.</blockquote>
+            <div class="qa-block">
+                <p class="qa-question">Q: Tell us about the moment you came up with the idea for The Rise Group. What problem were you seeing that you wanted to solve?</p>
+                <p class="qa-answer">I kept seeing unhappy creators—talented people who were being taken advantage of. They didn't understand the contracts or terms, or they'd get promised things that never came through. I wanted to create a space where being easy to work with and being on your talent's side was the norm.</p>
+                <p class="qa-answer">Also, I noticed I had a knack for finding up-and-coming creators. Super talented people who hadn't quite made it yet. I loved being the first believer in these people, helping to build their confidence and seeing them rise. That's why I called my agency The Rise Group.</p>
+            </div>
+            <div class="qa-block">
+                <p class="qa-question">Q: What was the first thing you did to bring that idea to life?</p>
+                <p class="qa-answer">I told people I was going to start an agency. Saying it out loud made it real. Once you put it into the world, there's no turning back—you start owning it, and that builds confidence and momentum.</p>
+            </div>
+        </section>
+
+        <section class="story-section" id="building-through-projects">
+            <h2>Emma’s Approach</h2>
+            <div class="qa-block">
+                <p class="qa-question">Q: What were the key steps you took early on that shaped the success of The Rise Group?</p>
+                <p class="qa-answer">I broke it down into a few basic steps.</p>
+                <p class="qa-answer">First, I started with discovery — especially on the talent side. I talked to creators about what they wanted and what they felt was missing. That helped me define our value proposition, how we were different from the competition, and who our ideal clients were.</p>
+                <p class="qa-answer">Second, I built a financial roadmap. I figured out how many clients I’d need, the average deal size, and the frequency of deals to match — and eventually exceed — my previous compensation. That exercise gave me clarity and something concrete to aim for.</p>
+                <p class="qa-answer">Third, I leveraged my network. I reached out to as many people as possible — past contacts, collaborators, and friends of friends. Putting feelers out there led to my first few clients and gave me early traction.</p>
+                <p class="qa-answer">From there, I built internal processes as the business grew. Whenever something started to break down, I fixed it. My focus has always been simple: maximize value for clients and keep improving how we deliver.</p>
+            </div>
+            <div class="qa-block">
+                <p class="qa-question">Q: What did you decide your differentiators were?</p>
+                <p class="qa-answer">Inclusivity, being easy to work with, and focusing on building my talent’s careers both on and off camera. I wanted The Rise Group to feel different — like a true partner, not just a middle layer. We invest in relationships, not just campaigns, and we think long-term about where each creator wants to go.</p>
+            </div>
+            <div class="qa-block">
+                <p class="qa-question">Q: Are there any projects you’re especially proud of?</p>
+                <p class="qa-answer">Absolutely. One that stands out is our partnership between Bri and Anthropologie on their Adaptive Fashion for Everyone campaign. It was such a meaningful project — highlighting inclusivity in fashion and creating space for representation that’s often overlooked. Seeing Bri’s confidence shine through that collaboration reminded me exactly why I started The Rise Group.</p>
+                <div class="story-media">
+                    <img src="Anthropologie-Adaptive-Fashion.webp" alt="Emma Burke working on the Anthropologie Adaptive Fashion campaign" loading="lazy">
+                    <p class="story-media-caption"><a href="https://www.anthropologie.com/stories-adaptive-fashion-for-everyone" target="_blank" rel="noopener">Anthropologie Adaptive Fashion Campaign</a></p>
+                </div>
+                <p class="qa-answer">More recently, we’ve been working with Meta on the launch of their new AI glasses. That one was exciting because it blended storytelling, tech, and lifestyle in a way that felt totally fresh. It pushed us creatively and showed how creators can bridge the gap between innovation and everyday life.</p>
+            </div>
+        </section>
+
+        <section class="story-section" id="finding-the-right-people">
+            <h2>Use Your Strengths</h2>
+            <div class="qa-block">
+                <p class="qa-question">Q: How did you figure out what you’re best at — and what to get help with?</p>
+                <p class="qa-answer">It took some honest reflection. I focused on what energized me and what consistently brought results — that’s where I knew I should go deep. At the same time, I looked at the parts that drained me or where I just wasn’t confident. For me, that was finance.</p>
+            </div>
+            <div class="qa-block">
+                <p class="qa-question">Q: What did you do once you identified that gap?</p>
+                <p class="qa-answer">I got help. Through Qava, I found someone who helped me build my financial forecast — it showed me how many clients I needed and what kind of deal volume would make my business sustainable.</p>
+            </div>
+            <div class="qa-block">
+                <p class="qa-question">Q: What impact did that have, and what advice would you give others?</p>
+                <p class="qa-answer">The forecast became my north star — I actually hit the numbers we modeled almost exactly. It gave me confidence, focus, and a clear sense of direction. My advice? Double down on what you’re great at, and don’t hesitate to get help with the rest. It’s easy on Qava — and it’s how you grow faster.</p>
+            </div>
+        </section>
+
+        <section class="story-section" id="impact-of-ai">
+            <h2>The Impact of AI</h2>
+            <div class="qa-block">
+                <p class="qa-question">Q: With AI dominating the public discourse, I have to ask — how is AI disrupting social media and agency work?</p>
+                <p class="qa-answer">AI is completely reshaping how agencies operate — and honestly, I see it as a good thing. It’s taking a lot of the repetitive, time-consuming work off our plates, like generating first drafts, analyzing engagement data, and identifying audience trends. That means we can spend more time on strategy, storytelling, and creativity — the parts that truly connect with people.</p>
+                <p class="qa-answer">At the same time, it’s raising the bar for quality. When everyone has access to the same tools, originality and authenticity become the real differentiators. The agencies that thrive won’t be the ones using the most AI — they’ll be the ones using it thoughtfully, to amplify human insight and creativity rather than replace it.</p>
+            </div>
+            <div class="qa-block">
+                <p class="qa-question">Q: Do you use AI in your own workflow?</p>
+                <p class="qa-answer">Absolutely. We use AI for brainstorming, content testing, and reporting. It’s like having a creative assistant that helps us see patterns faster and generate more ideas. But we never publish something “as-is.” Every piece of content still goes through a human lens — that’s where the emotion, humor, and intuition come in.</p>
+            </div>
+            <div class="qa-block">
+                <p class="qa-question">Q: What advice would you give other founders navigating AI right now?</p>
+                <p class="qa-answer">Experiment, but don’t outsource your voice. Use AI to speed things up, not to define who you are. The brands that stand out in this new era will be the ones that use technology with purpose — blending efficiency with empathy. That’s what audiences connect to.</p>
+            </div>
+        </section>
+
+        <section class="story-section" id="advice-and-the-future">
+            <h2>Advice & The Future</h2>
+            <div class="qa-block">
+                <p class="qa-question">Q: For someone looking to start an agency or consulting firm, what advice would you share?</p>
+                <p class="qa-answer">Don't overthink—just start. Everything is iterative. The perfect Instagram feed or website shouldn't hold up your progress.</p>
+                <p class="qa-answer">Listen to your customers—let them shape your value proposition. And know your gaps. You won't be great at everything, but you can find people who are—whether that's on Qava or through your own network.</p>
+            </div>
+            <blockquote>Don't wait for perfect — start, learn, and keep building.</blockquote>
+            <div class="qa-block">
+                <p class="qa-question">Q: What's next for The Rise Group? What kind of projects are you most excited about?</p>
+                <p class="qa-answer">I want to keep investing in the talent we already have—helping creators build long-term, sustainable careers. I'm passionate about discovering rising stars and being more involved as a thought leader in the creator economy. I'm also speaking at St. John's soon to encourage students to take risks of their own.</p>
+            </div>
+        </section>
+
+        <div class="story-cta">
+            <h3>Match with exceptional talent, launch new ideas, and turn momentum into measurable progress.</h3>
+            <p style="font-weight: 300;">The Rise Group continues to grow because Emma built it around people, not transactions—a model for the next generation of agencies in the creator economy. If you're ready to take the next step—whether it's building your own agency, exploring new projects, or finding the right collaborator—start your journey today at Qava.ai.</p>
+            <div class="story-cta-actions">
+                <a href="https://app.qava.ai/" class="cta-button primary">Join for free</a>
+                <a href="https://qava.ai/request-demo" class="cta-button secondary">Request a demo</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer-section">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="https://qava.ai/">
+                        <img src="qava-logo.svg" alt="Qava" class="footer-logo-img" />
+                    </a>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Welcome</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://app.qava.ai/" class="footer-link">Create Listing</a></li>
+                            <li><a href="https://app.qava.ai/projects" class="footer-link">Search Listings</a></li>
+                            <li><a href="https://qava.ai/howqavaworks" class="footer-link">How Qava Works</a></li>
+                            <li><span class="footer-link disabled-link">What's New</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Get Started</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://app.qava.ai/" class="footer-link">Sign Up</a></li>
+                            <li><a href="https://app.qava.ai/" class="footer-link">Log In</a></li>
+                            <li><span class="footer-link disabled-link">AI Prompts</span></li>
+                            <li><span class="footer-link disabled-link">Project Templates</span></li>
+                            <li><span class="footer-link disabled-link">Application Tips</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Resources</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://qava.ai/request-demo" class="footer-link">Request a Demo</a></li>
+                            <li><a href="https://qava.ai/pricing" class="footer-link">Pricing</a></li>
+                            <li><a href="https://qava.ai/about" class="footer-link">About Us</a></li>
+                            <li><a href="https://qava.ai/aialoneisnotenough" class="footer-link">AI Not Enough</a></li>
+                            <li><span class="footer-link disabled-link">Careers</span></li>
+                            <li><span class="footer-link disabled-link">Media Kit</span></li>
+                            <li><span class="footer-link disabled-link">Contact Us</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Learn</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://qava.ai/successstories" class="footer-link">Success Stories</a></li>
+                            <li><span class="footer-link disabled-link">Help Center</span></li>
+                            <li><span class="footer-link disabled-link">Webinars</span></li>
+                            <li><span class="footer-link disabled-link">Blog</span></li>
+                            <li><span class="footer-link disabled-link">Community</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Legal</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="terms" class="footer-link">Terms & Privacy</a></li>
+                            <li><a href="terms" class="footer-link">California Privacy Notice</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-copyright">
+                        © 2025 qava
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+            
+            // Prevent body scroll when mobile menu is open
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function toggleMobileDropdown() {
+            const dropdown = document.getElementById('mobileDropdown');
+            const toggle = document.querySelector('.mobile-dropdown-toggle');
+            
+            dropdown.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
