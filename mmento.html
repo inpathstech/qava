@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q&A with Kristina Boxer, Founder of mmento | Qava</title>
+    <link rel="icon" type="image/svg+xml" href="qava-logo.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @font-face {
+            font-family: 'Jonathan';
+            src: url('jonathan_signature (1)/JonathanSignature.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f1f1f;
+        }
+        
+        /* Cache buster v2 - Updated styling */
+
+        /* NAVBAR STYLES - Copied from index.html */
+        .header-container {
+            width: 100%;
+            padding: 16px 32px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 64px;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            overflow: visible;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .header-center {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex: 1;
+            margin-left: 40px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 36px;
+            height: 36px;
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1;
+            height: 25px;
+            color: #000000;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+            gap: 4px;
+            text-decoration: none;
+            vertical-align: middle;
+            box-sizing: border-box;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .nav-item:visited {
+            color: #000000;
+        }
+
+        .nav-item:active {
+            color: #000000;
+        }
+
+        .dropdown-arrow {
+            color: #000000;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover .dropdown-arrow {
+            color: #000000;
+        }
+
+        .nav-text {
+            color: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            white-space: nowrap;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 8px;
+            min-width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 10000;
+        }
+
+        .nav-item.has-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-item {
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.04);
+        }
+
+        .dropdown-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 2px;
+        }
+
+        .dropdown-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 300;
+            color: #6B6B6B;
+        }
+
+        .auth-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .auth-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1;
+            height: 25px;
+            color: #000000;
+            text-decoration: none;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .auth-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+        }
+
+        .join-button {
+            background-color: #0F62FE;
+            color: white;
+            padding: 7px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1;
+            height: 28px;
+            text-decoration: none;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 3px rgba(15, 98, 254, 0.3);
+        }
+
+        .join-button:hover {
+            background-color: #0047C3;
+            box-shadow: 0 2px 6px rgba(15, 98, 254, 0.4);
+        }
+
+        .join-text {
+            color: white;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            gap: 3px;
+            cursor: pointer;
+            padding: 6px;
+            z-index: 1001;
+        }
+
+        .hamburger-line {
+            width: 20px;
+            height: 2px;
+            background-color: #000000;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: white;
+            z-index: 999;
+            display: none;
+            flex-direction: column;
+            padding: 80px 32px 32px 32px;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 20px;
+            right: 32px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #000000;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-nav-item {
+            padding: 16px 0;
+            font-size: 16px;
+            font-weight: 400;
+            color: #000000;
+            text-decoration: none;
+            border-bottom: 1px solid #EBEBEB;
+        }
+
+        .mobile-dropdown-toggle {
+            cursor: pointer;
+        }
+
+        .mobile-dropdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mobile-dropdown-arrow {
+            font-size: 18px;
+            transition: transform 0.2s ease;
+        }
+
+        .mobile-dropdown-toggle.active .mobile-dropdown-arrow {
+            transform: rotate(45deg);
+        }
+
+        .mobile-dropdown-content {
+            display: none;
+            flex-direction: column;
+            padding-left: 16px;
+        }
+
+        .mobile-dropdown-content.active {
+            display: flex;
+        }
+
+        .mobile-dropdown-item {
+            padding: 12px 0;
+            text-decoration: none;
+            border-bottom: 1px solid #F5F5F5;
+        }
+
+        .mobile-auth-section {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding-top: 24px;
+        }
+
+        /* Fix navbar underline issue */
+        .navigation .nav-item,
+        .navigation .nav-item:link,
+        .navigation .nav-item:visited,
+        .navigation .nav-item:hover,
+        .navigation .nav-item:active,
+        .navigation .nav-item:focus {
+            text-decoration: none !important;
+        }
+
+        /* FOOTER STYLES - Copied from index.html */
+        .footer-section {
+            background: white;
+            width: 100%;
+            max-width: 1070px;
+            margin: 0 auto;
+            padding: 78px 0 46px 0;
+            margin-top: 50px;
+            border-top: 1px solid #EBEBEB;
+        }
+
+        .footer-container {
+            max-width: 940px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .footer-logo {
+            width: 39%;
+            padding: 2px 15px 0 0;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo-img {
+            width: 40px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            width: 60%;
+            gap: 16px 25px;
+            padding: 0 15px 0 10px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-heading {
+            font-family: 'Inter', sans-serif;
+            font-size: 17px;
+            color: #000000;
+            margin-bottom: 8px;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+        }
+
+        .footer-link-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .footer-link-list li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+            text-decoration: none;
+            line-height: 1.2;
+            transition: text-decoration 0.2s ease;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer-link.disabled-link {
+            cursor: not-allowed;
+            opacity: 0.6;
+            position: relative;
+        }
+
+        .footer-link.disabled-link:hover {
+            text-decoration: none;
+            opacity: 0.8;
+            color: #999999;
+        }
+
+        .footer-link.disabled-link:hover::before {
+            content: "Coming Soon";
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000000;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+            white-space: nowrap;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .footer-copyright {
+            grid-column: 1 / -1;
+            margin-top: 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #797979;
+        }
+
+        /* BLOG POST STYLES */
+        .story-wrapper {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 56px 24px 90px;
+        }
+
+        .story-header {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 0;
+        }
+
+        .story-title {
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .story-subtitle {
+            font-size: 20px;
+            font-weight: 300;
+            color: #4a4a4a;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        .story-categories {
+            display: flex;
+            gap: 8px;
+            margin: 0 0 20px 0;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .story-category-pill {
+            display: inline-flex;
+            align-items: center;
+            background: transparent;
+            color: #000000;
+            font-size: 11px;
+            font-weight: 400;
+            padding: 2px 4px;
+            border-radius: 0;
+            border: none;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .story-project-badges {
+            display: flex;
+            gap: 8px;
+            margin: 2px 0 3px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .story-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            background: #fafafa;
+            color: #000000;
+            font-size: 11px;
+            font-weight: 400;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-decoration: none;
+        }
+
+        .story-badge-pill span {
+            color: #000000;
+        }
+
+        .story-badge-separator {
+            font-size: 11px;
+            font-weight: 400;
+            color: #000000;
+        }
+
+        .story-hero {
+            width: 100%;
+            margin: 32px 0 40px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .story-hero img {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        /* ===== SPACING SYSTEM - Professional & Consistent ===== */
+        
+        /* Intro section - appears after hero image */
+        .story-intro {
+            padding: 0 !important;
+            margin: 0 0 32px !important;
+        }
+
+        .story-intro p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 16px;
+        }
+
+        .story-intro p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Table of Contents - compact spacing */
+        .story-toc {
+            padding: 0 !important;
+            margin: 32px 0 48px !important;
+        }
+
+        .story-toc ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 0;
+        }
+
+        .story-toc li a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 300;
+            color: #2e2e2e;
+            line-height: 1.65;
+            text-decoration: none;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .story-toc li a:hover {
+            color: #111111;
+            transform: translateX(4px);
+        }
+
+        .story-toc li .index {
+            font-size: 13px;
+            font-weight: 500;
+            color: #6b6b6b;
+            letter-spacing: 0.08em;
+        }
+
+        /* Main content sections */
+        .story-section {
+            padding: 0 !important;
+            margin: 56px 0 0 0 !important;
+        }
+
+        .story-section:first-of-type {
+            margin-top: 0 !important;
+        }
+ 
+        .story-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 0 24px !important;
+            padding-top: 28px !important;
+            letter-spacing: -0.01em;
+            color: #000000;
+            border-top: 1px solid #e0e0e0 !important;
+        }
+
+        .story-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #111;
+        }
+
+        /* All paragraphs - consistent spacing */
+        .story-wrapper p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 14px;
+        }
+
+        .story-section p,
+        .story-intro p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+        }
+
+        /* Q&A blocks - consistent spacing */
+        .qa-block {
+            margin-bottom: 36px !important;
+        }
+
+        .qa-block:last-child {
+            margin-bottom: 0 !important;
+        }
+
+        .qa-question {
+            font-size: 16px !important;
+            font-weight: 600 !important;
+            margin-bottom: 14px !important;
+            color: #0F62FE !important;
+        }
+
+        .qa-answer {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 14px;
+        }
+
+        .qa-answer:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Pull quotes - centered with breathing room */
+        blockquote {
+            margin: 40px auto !important;
+            padding: 14px 24px !important;
+            width: fit-content;
+            max-width: 90%;
+            font-size: 35px !important;
+            line-height: 1.3 !important;
+            color: #000000 !important;
+            font-weight: 300 !important;
+            font-style: normal !important;
+            text-align: center;
+            background: transparent;
+            white-space: normal;
+            display: block;
+            font-family: 'Jonathan', 'Kalam', 'Brush Script MT', cursive;
+        }
+
+        blockquote::before {
+            content: "";
+        }
+
+        /* Images with captions */
+        .story-media {
+            margin: 24px 0 28px;
+            text-align: center;
+        }
+
+        .story-media img {
+            width: 100%;
+            border-radius: 16px;
+            display: block;
+        }
+
+        .story-media-caption {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #585858;
+        }
+
+        .story-media-caption a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .story-media-caption a:hover {
+            text-decoration: underline;
+        }
+
+        /* Links within story content */
+        .qa-answer a {
+            color: inherit;
+            text-decoration: none;
+            transition: text-decoration 0.2s ease;
+        }
+
+        .qa-answer a:hover {
+            text-decoration: underline;
+        }
+
+        .story-cta {
+            margin-top: 48px;
+            text-align: center;
+            padding: 32px 48px;
+            border-radius: 14px;
+            background: #fafafa;
+        }
+
+        .story-cta h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .story-cta p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #3b3b3b;
+            margin-bottom: 0;
+            font-weight: 300;
+        }
+
+        .story-cta p:first-of-type {
+            margin-bottom: 4px;
+        }
+
+        .story-cta p:last-of-type {
+            margin-bottom: 28px;
+        }
+
+        .story-cta-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        /* Primary button - Join for free (matches hero) */
+        .story-cta .cta-button.primary {
+            padding: 6px 12px;
+            background: #0F62FE;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            font-family: inherit;
+            height: 27.6px;
+            text-decoration: none;
+            color: white;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .story-cta .cta-button.primary:hover {
+            background: #0053E5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
+        }
+
+        /* Secondary button - Request a demo (matches hero) */
+        .story-cta .cta-button.secondary {
+            padding: 6px 12px;
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            height: 27.6px;
+            text-decoration: none;
+            color: #000000;
+            font-size: 13px;
+            font-weight: 300;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .story-cta .cta-button.secondary::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 12px;
+            right: 12px;
+            height: 1px;
+            background-color: #000000;
+            transform: scaleX(0);
+            transition: transform 0.2s ease;
+        }
+
+        .story-cta .cta-button.secondary:hover::after {
+            transform: scaleX(1);
+        }
+
+        .story-cta .cta-button.secondary:visited {
+            color: #000000;
+        }
+
+        .story-cta .cta-button.secondary:active {
+            color: #000000;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1400px) {
+            .header-container {
+                padding: 16px 24px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .header-container {
+                padding: 16px 20px;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .header-container {
+                padding: 12px 20px;
+            }
+
+            .navigation {
+                display: none;
+            }
+
+            .auth-section {
+                display: none;
+            }
+
+            .hamburger-menu {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .story-wrapper {
+                padding: 40px 20px 80px;
+            }
+
+            .story-categories {
+                margin: 0 0 16px;
+                gap: 6px;
+            }
+
+            .story-category-pill {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .story-project-badges {
+                margin: 8px 0 8px;
+                gap: 6px;
+            }
+
+            .story-badge-pill {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .story-title {
+                font-size: 32px;
+                line-height: 1.15;
+            }
+
+            .story-subtitle {
+                font-size: 17px;
+                line-height: 1.45;
+            }
+
+            .story-hero {
+                margin: 24px 0 32px;
+                border-radius: 8px;
+            }
+
+            .story-intro,
+            .story-section {
+                padding: 0;
+            }
+
+            .story-section {
+                margin: 48px 0 0 0 !important;
+            }
+
+            .story-section h2 {
+                font-size: 22px;
+                padding-top: 24px !important;
+                margin-bottom: 20px !important;
+            }
+
+            .story-toc {
+                padding: 0;
+                margin: 28px 0 40px;
+            }
+
+            .story-toc ul {
+                gap: 8px;
+            }
+
+            .story-toc li a {
+                font-size: 15px;
+            }
+
+            .qa-block {
+                margin-bottom: 32px !important;
+            }
+
+            blockquote {
+                margin: 32px auto !important;
+                padding: 12px 18px !important;
+                font-size: 15px !important;
+                max-width: 90%;
+            }
+
+            .story-media {
+                margin: 20px 0 24px;
+            }
+
+            .story-media img {
+                border-radius: 12px;
+            }
+
+            .story-cta {
+                padding: 32px 24px;
+                margin-top: 40px;
+            }
+
+            .story-cta h3 {
+                font-size: 20px;
+                margin-bottom: 14px;
+            }
+
+            .story-cta p {
+                font-size: 15px;
+                margin-bottom: 24px;
+            }
+
+            .story-cta-actions {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+                align-items: center;
+            }
+
+            .story-cta .cta-button {
+                width: auto;
+                max-width: 280px;
+                min-width: fit-content;
+                padding: 8px 16px;
+            }
+
+            .footer-section {
+                padding: 60px 24px 40px 24px;
+            }
+
+            .footer-logo {
+                width: 100%;
+                padding: 0;
+                margin-bottom: 32px;
+            }
+
+            .footer-links {
+                width: 100%;
+                grid-template-columns: 1fr;
+                padding: 0;
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .story-wrapper {
+                padding: 32px 18px 70px;
+            }
+
+            .story-title {
+                font-size: 28px;
+            }
+
+            .story-subtitle {
+                font-size: 16px;
+            }
+
+            .story-hero {
+                margin: 20px 0 28px;
+            }
+
+            .story-section h2 {
+                font-size: 20px;
+            }
+
+            .story-toc li a {
+                font-size: 14px;
+            }
+
+            .story-wrapper p,
+            .qa-question,
+            .qa-answer {
+                font-size: 15px !important;
+            }
+
+            blockquote {
+                font-size: 14px !important;
+                padding: 10px 16px !important;
+            }
+
+            .story-cta {
+                padding: 28px 20px;
+            }
+
+            .story-cta h3 {
+                font-size: 18px;
+            }
+
+            .story-cta p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="header-container">
+        <!-- Logo on the left -->
+        <div class="header-logo">
+            <div class="logo-container">
+                <div class="logo">
+                    <a href="https://qava.ai/">
+                        <img src="qava-logo.svg" alt="Qava Logo">
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation in the center -->
+        <div class="header-center">
+            <div class="navigation">
+                <a href="https://app.qava.ai/guest" class="nav-item create-listing">
+                    <div class="nav-text">Create Listing</div>
+                </a>
+                <a href="https://app.qava.ai/projects" class="nav-item search-listings">
+                    <div class="nav-text">Search Listings</div>
+                </a>
+                <a href="https://qava.ai/pricing" class="nav-item pricing">
+                    <div class="nav-text">Pricing</div>
+                </a>
+                <a href="https://qava.ai/about" class="nav-item about">
+                    <div class="nav-text">About</div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Auth section on the right -->
+        <div class="header-right">
+            <div class="auth-section">
+                <a href="https://qava.ai/howqavaworks" class="auth-item">
+                    <div class="nav-text">How Qava Works</div>
+                </a>
+                <a href="https://app.qava.ai/" class="auth-item">
+                    <div class="nav-text">Log in</div>
+                </a>
+                <a href="https://app.qava.ai/" class="join-button">
+                    <div class="join-text">Join for free</div>
+                </a>
+            </div>
+
+            <!-- Hamburger Menu Icon -->
+            <div class="hamburger-menu" onclick="toggleMobileMenu()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
+        <a href="https://app.qava.ai/guest" class="mobile-nav-item">
+            <div class="nav-text">Create Listing</div>
+        </a>
+        <a href="https://app.qava.ai/projects" class="mobile-nav-item">
+            <div class="nav-text">Search Listings</div>
+        </a>
+        <div class="mobile-nav-item mobile-dropdown-toggle" onclick="toggleMobileDropdown()">
+            <div class="mobile-dropdown-header">
+                <div class="nav-text">How It Works</div>
+                <span class="mobile-dropdown-arrow">+</span>
+            </div>
+        </div>
+        <div class="mobile-dropdown-content" id="mobileDropdown">
+            <a href="https://qava.ai/clienthowitworks" class="mobile-dropdown-item">
+                <div class="dropdown-title">For Clients 🚀</div>
+                <div class="dropdown-subtitle">Hiring for current or future work</div>
+            </a>
+            <a href="https://qava.ai/talenthowitworks" class="mobile-dropdown-item">
+                <div class="dropdown-title">For Talent 👩‍💻</div>
+                <div class="dropdown-subtitle">Interested in current or future work</div>
+            </a>
+        </div>
+        <a href="https://qava.ai/pricing" class="mobile-nav-item">
+            <div class="nav-text">Pricing</div>
+        </a>
+        <a href="https://qava.ai/about" class="mobile-nav-item">
+            <div class="nav-text">About</div>
+        </a>
+        <div class="mobile-auth-section">
+            <a href="https://app.qava.ai/" class="mobile-nav-item">Log in</a>
+            <a href="https://app.qava.ai/" class="join-button">
+                <div class="join-text">Join for free</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Blog Content -->
+    <main class="story-wrapper">
+        <header class="story-header">
+            <img src="Testimonial company logos/mmento logo.svg" alt="mmento" style="max-width: 120px; margin-bottom: 6px;" loading="lazy">
+            <h1 class="story-title">Q&A with Kristina Boxer, Founder of <a href="https://www.mmento.com/" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">mmento</a></h1>
+            <p class="story-subtitle" style="color: #666666;">How a passion for thoughtful gift-giving became a tool that helps people show up for each other—on time and with intention.</p>
+        </header>
+
+        <!-- Insights / Use cases section -->
+        <section class="max-w-5xl mt-6 mb-12 lg:flex lg:items-start lg:gap-6">
+            <!-- Left: Behind the Story -->
+            <div class="flex-1">
+                <h3 class="text-[11px] font-semibold tracking-[0.2em] uppercase text-gray-500 mb-4">
+                    Behind the Story
+                </h3>
+
+                <div class="flex flex-col sm:flex-row items-start gap-8">
+                    <!-- Kristina Boxer -->
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 aspect-square rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+                            <img
+                                src="Kirstina Boxer Profile Photo.png"
+                                alt="Kristina Boxer"
+                                class="w-full h-full object-cover object-center"
+                                loading="lazy"
+                            />
+                        </div>
+                        <div class="text-left whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900">
+                                Kristina Boxer
+                            </div>
+                            <div class="text-xs text-gray-500 font-light">
+                                Founder, mmento
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reed Langridge -->
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+                            <img
+                                src="Reed Langridge Profile.jpg"
+                                alt="Reed Langridge"
+                                class="w-full h-full object-cover object-center"
+                                loading="lazy"
+                            />
+                        </div>
+                        <div class="text-left whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900">
+                                Reed Langridge
+                            </div>
+                            <div class="text-xs text-gray-500 font-light">
+                                Founder, Qava
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Divider (desktop only) -->
+            <div class="hidden md:block w-px bg-gray-200 self-stretch mx-4" aria-hidden="true"></div>
+
+            <!-- Right: Focus Areas -->
+            <div class="flex-1 mt-10 lg:mt-0">
+                <h3 class="text-[11px] font-semibold tracking-[0.2em] uppercase text-gray-500 mb-2">
+                    Focus Areas
+                </h3>
+
+                <div style="font-size: 12px !important; line-height: 1.6; font-weight: 300;" class="text-gray-800">
+                    <div>Gift-Giving Platform 🎁</div>
+                    <div>Consumer Technology 📱</div>
+                    <div>Human Connection 💝</div>
+                    <div>Bootstrapped Startup 🚀</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="story-intro">
+            <p style="background-color: #f5f5f5; padding: 20px; border-radius: 8px; border: none; margin-bottom: 20px;">We share stories of people who turn ambition into action—hoping to inspire others or offer the practical know-how to do the same. We're especially proud to spotlight female and diverse founders whose journeys reshape what success looks like. This month, we sat down with Kristina Boxer, Founder of mmento.</p>
+            <p>Kristina has spent her career caring about the details—whether that was running customer experiences at WeWork or tracking financials for restaurants. With mmento, she's building something deeply personal: a tool that helps people remember what matters and show up intentionally for the people they care about.</p>
+            <p>Without further ado, let's get into it.</p>
+        </section>
+
+        <nav class="story-toc" aria-label="Table of contents">
+            <ul>
+                <li><a href="#early-career"><span class="index">1.</span><span>Early Career & Mission</span></a></li>
+                <li><a href="#the-idea"><span class="index">2.</span><span>The Idea for mmento</span></a></li>
+                <li><a href="#differentiators"><span class="index">3.</span><span>What Makes mmento Different</span></a></li>
+                <li><a href="#getting-help"><span class="index">4.</span><span>Getting Help & Growing</span></a></li>
+                <li><a href="#navigating-ai"><span class="index">5.</span><span>Navigating AI</span></a></li>
+                <li><a href="#advice-next-steps"><span class="index">6.</span><span>Advice & Next Steps</span></a></li>
+            </ul>
+        </nav>
+
+        <section class="story-section" id="early-career">
+            <h2>Early Career & Mission</h2>
+            <div class="qa-block">
+                <p class="qa-question">Q: What was your early career like before starting mmento? What's your mission with mmento, and what are your personal values?</p>
+                <p class="qa-answer">My career so far has been non-linear, which is an important part of the story of how I found my way to mmento. At the age of 11 I was convinced I wanted to be a restauranteur, so the bulk of my early career was spent learning the ins and outs of the business, working for, at the time, some of the best restaurants in Austin. I touched on every role there is in the restaurant business, outside of making the food myself. I'm an operations person, so optimizing— the experience, the profit margins, the service, and supporting a team running the show were where I excelled. Through working in restaurants I learned I was a person of detail and when no one else would, I sweat the small stuff, in pursuit of the greater good.</p>
+                <p class="qa-answer">This I carried with me to each role and each company, working across tech and workplace experience in NYC in running customer & employee experience. By the end of my stint at WeWork, my team and I had been responsible for over 1m square feet of office space— that's a lot of space to care about the details for.</p>
+                <p class="qa-answer">Frankly you know, I'm still workshopping this, but I'd say my mission with mmento is to give people a tool that enables us to show up for each other, thoughtfully and on time.</p>
+                <p class="qa-answer">I love asking about personal values. Mine are integrity, heart, and doing the work.</p>
+            </div>
+            <div class="qa-block">
+                <p class="qa-question">Q: When did you realize you wanted to start your own business, and what inspired that decision?</p>
+                <p class="qa-answer">The seed was planted really early. Like some other millennials, I collected beanie babies growing up and used to track all the financials in an excel spreadsheet, later I was tracking P&L's for other businesses. But the common thread throughout my career became my attention to detail and the customer experience. I cared deeply about helping any company I worked for put their best foot forward. In plenty of scenarios that level of intentionality isn't always appreciated, or there simply isn't time to nurture it.</p>
+                <p class="qa-answer">I knew that if I wanted to bring to life the belief that details and showing up intentionally matter I'd better go about it myself. I realized I should probably establish something where I could bring to the surface something so important to me – how could I make it seamless, or at least easier for others to lean into the details and show up intentionally.</p>
+            </div>
+        </section>
+
+        <section class="story-section" id="the-idea">
+            <h2>The Idea for mmento</h2>
+            <div class="qa-block">
+                <p class="qa-question">Q: Tell us about the moment you came up with the idea for mmento. What problem were you seeing that you wanted to solve?</p>
+                <p class="qa-answer">It was a series of moments really. I noticed how much we rely on crowdsourcing at times for "remind me when so and so's birthday is" and "what should I get them?" As a frequent recipient of these questions and a lover of gift giving, I realized this could be a space where a lot of us could use an extra hand, or in mmento's case, email. There is legitimate stress in gift getting– sometimes we have a great idea for someone and forget to write it down, or often we run out of time. I knew that having access to quality gift ideas or at the very least, notes on a gift you wanted to get for someone or a wishlist of theirs, could truly help take the stress out of gift giving.</p>
+                <div class="story-media">
+                    <img src="reasons for mmento.png" alt="Reasons for mmento" loading="lazy" style="border: none; box-shadow: none;">
+                    <p class="story-media-caption">The moments that inspired mmento</p>
+                </div>
+                <p class="qa-answer">If you're lucky, you've received a gift or even a card that blew you away, and it didn't have to be large or expensive, just thoughtful enough to make you feel seen. Could I help people make the thought count more often– I became determined to.</p>
+                <p class="qa-answer">I'd be remiss if I didn't share another human experience that encouraged me to develop mmento. It came about when one of my dear friends lost her brother. I knew then and there I wanted to show up for her extra around the anniversary of his death each year. But typically, we don't put dates of loss on our google calendar– we might remember the day of, but what if we weren't in the same place or time zone, and I wanted to send flowers, a card? I needed a reliable, advance reminder.</p>
+            </div>
+            <blockquote>Could I help people make the thought count more often?</blockquote>
+            <div class="qa-block">
+                <p class="qa-question">Q: What was the first thing you did to bring that idea to life?</p>
+                <p class="qa-answer">The very first thing I did was start tracking products, artists, small shops, curated websites. Anything worth sharing. This became my own personal database that's still growing today — a kind of library of thoughtful goods and creators I want to amplify. Building this out helped me spot patterns in what gifts worked well when and to whom, and it gave me a foundation for what mmento would eventually become.</p>
+                <p class="qa-answer">In a way, mmento is simply a scaled version of something I was already doing manually: finding meaningful pieces and connecting people with them, and in turn each other.</p>
+            </div>
+        </section>
+
+        <section class="story-section" id="differentiators">
+            <h2>What Makes mmento Different</h2>
+            <div class="qa-block">
+                <p class="qa-question">Q: What did you decide your differentiators were?</p>
+                <p class="qa-answer">For so many businesses I respect, the differentiator starts with who built them, and that's true for mmento. My eye for detail, my commitment to hitting the mark, and my belief in showing up intentionally all shape the experience. When people use mmento, they're trusting my taste and ideas, but they're also empowered to send something thoughtful without friction.</p>
+                <div class="story-media">
+                    <video autoplay loop muted playsinline style="width: 100%; max-width: 400px; border-radius: 12px; margin: 0 auto; display: block;">
+                        <source src="iphone profile screen record.mov" type="video/mp4">
+                    </video>
+                    <p class="story-media-caption">mmento in action</p>
+                </div>
+                <p class="qa-answer">While so many apps are purely about just function or social connection, mmento is a tool a part of a class that encompasses both. mmento has utility and is human-centric. It integrates with tools we already rely on, our calendars and email, and one day hopefully more.</p>
+                <div class="story-media">
+                    <img src="what does mmento do.png" alt="What mmento does" loading="lazy">
+                    <p class="story-media-caption">How mmento helps you show up intentionally</p>
+                </div>
+                <p class="qa-answer">I'm also inspired by older generations who keep meticulous notebooks of birthdays, anniversaries, and gifts they've given. mmento is a modern, digital way to carry that forward.</p>
+            </div>
+            <div class="qa-block">
+                <p class="qa-question">Q: Are there any milestones you're especially proud of?</p>
+                <p class="qa-answer">Sales and marketing are not my forte, so one of the earliest milestones was getting new sign-ups simply by talking to strangers, at SXSW in Austin, at networking events, anywhere I could share what mmento was about. Those real-world conversations validated that the idea resonated.</p>
+                <p class="qa-answer">For my beta launch I put together an introductory email that everyone received in their inbox. It explained the value prop of mmento and gave a quick how-to. Getting this out was a lot of work, for an almost one woman show, and finally clicking send was elating. Shipping something you created, and sharing it with a wide audience, this is one of the greatest highs as a founder.</p>
+            </div>
+        </section>
+
+        <section class="story-section" id="getting-help">
+            <h2>Getting Help & Growing</h2>
+            <div class="qa-block">
+                <p class="qa-question">Q: How did you figure out what you're best at — and what to get help with?</p>
+                <p class="qa-answer">I learned early on to lean on the people closest to me as mirrors. Over the years, I paid close attention to what colleagues, managers, and teammates consistently reflected back. I eventually worked with a business coach, which has helped me to get even clearer.</p>
+                <p class="qa-answer">Building a business as an entrepreneur means there will inherently be aspects you are not good at. Identifying those weaknesses, the areas in which you really drag your feet, is key and should be what you begin to outsource as soon as possible.</p>
+            </div>
+            <blockquote>Qava connected me with bright people excited to help solve real problems.</blockquote>
+            <div class="qa-block">
+                <p class="qa-question">Q: What did you do once you identified that gap?</p>
+                <p class="qa-answer">Naturally I started looking for help. I found it surprisingly difficult to access vetted, knowledgeable people and often spent hours in the search, recruiting, and interview process to fill one part time contract role.</p>
+                <p class="qa-answer">Qava changed that for me. It connected me with a diverse pool of bright students who were genuinely excited to help me solve real problems at mmento. I was able to work with exceptional people who shaped key parts of the business in ways I couldn't have done alone.</p>
+                <p class="qa-answer">Alongside that, I continue to build a strong advisory circle made up of people I trust who challenge me. Having that mix of hands-on support and seasoned guidance is crucial.</p>
+            </div>
+        </section>
+
+        <section class="story-section" id="navigating-ai">
+            <h2>Navigating AI</h2>
+            <div class="qa-block">
+                <p class="qa-question">Q: What advice would you give other founders navigating AI right now?</p>
+                <p class="qa-answer">Naval Ravikant has this line: "AI won't replace programmers, but rather make it easier for programmers to replace everyone else." And programmers are just one example here. They may have a leg up but AI can fill all sorts of gaps for all sorts of professionals and it behooves us to stay abreast of what it can do.</p>
+                <p class="qa-answer">I also feel that the collective "we" decides what shapes our future, what's at the forefront. My business is specifically about human connection, thoughtfulness, and nurturing one another on time– AI might be able to help us do that more efficiently, but it will never replace the human element, not unless we let it.</p>
+            </div>
+        </section>
+
+        <section class="story-section" id="advice-next-steps">
+            <h2>Advice & Next Steps</h2>
+            <div class="qa-block">
+                <p class="qa-question">Q: For someone looking to start a startup, what advice would you share?</p>
+                <p class="qa-answer">Now is the time AND this takes patience. You will have your own groove, and you don't have to exude the "move fast and break things" startup mentality. In fact, anyone who's worked with me knows I'm a recovering perfectionist. I've had the opposite problem: wanting everything to be just right before sharing it and really, really taking my time. But the truth is, you have to do it your way. Do it your way and what you build will be all the better for it.</p>
+                <p class="qa-answer">My other piece of advice is to track your progress, and not just your wins, but those too! I take a few minutes at the end of each workday to jot down what I've done and what's top of mind for tomorrow. This task is so simple it almost doesn't seem worth the time but it has made all the difference for me in staying focused and being able to reflect on the moves I'm making.</p>
+            </div>
+            <blockquote>Do it your way.</blockquote>
+            <div class="qa-block">
+                <p class="qa-question">Q: What's next for mmento? What are you most excited about?</p>
+                <p class="qa-answer">There's a lot I'm excited about!</p>
+                <p class="qa-answer">We're introducing a paid plan with advanced features, like calendar integration and sharing. Along with that I'll be launching a promo for the first users who sign up for an annual subscription. More on that to come, but I want to do my part to make sure the handwritten card never becomes a lost art, so I've got plans for how mmento can help keep that alive.</p>
+                <div class="story-media">
+                    <img src="monthly events email screenshot.png" alt="mmento monthly events email" loading="lazy">
+                    <p class="story-media-caption">Monthly event reminders keep you on track</p>
+                </div>
+                <p class="qa-answer">I'm also exploring building out the personal shopping side of mmento, which I'm incredibly passionate about. Helping people hit the mark in how they show up for both others and themselves is a real sweet spot for me.</p>
+                <p class="qa-answer">And then there are integrations. So many of the moments we want to remember— birthdays, anniversaries, even dates of loss already exist online. I'm excited to determine a way to capture that information seamlessly.</p>
+                <p class="qa-answer">If you know anyone who'd love to help with these initiatives, send them my way. I'm especially looking for fresh perspectives to support us in refining the user lifecycle and overall experience.</p>
+            </div>
+            <div class="qa-block">
+                <p class="qa-question">Q: Are there any books that have influenced your career or the way you work?</p>
+                <p class="qa-answer">Definitely.</p>
+                <p class="qa-answer"><em>The Big Leap</em> by Gay Hendricks<br>
+                <em>We Should All Be Millionaires</em> by Rachel Rodgers<br>
+                <em>Atomic Habits</em> by James Clear<br>
+                <em>When: The Scientific Secrets of Perfect Timing</em> (or anything by) Daniel Pink</p>
+                <p class="qa-answer">And if you only take away one, the book I most think everyone should read is <em>Automating Inequality</em> by Virginia Eubanks. It's a powerful take on how technology determines equity and access. It was groundbreaking to me.</p>
+            </div>
+        </section>
+
+        <div class="story-cta">
+            <h3>Start building something that matters.</h3>
+            <p style="font-weight: 300;"><a href="https://www.mmento.com/" target="_blank" rel="noopener">mmento</a> is helping people show up for each other, thoughtfully.</p>
+            <p style="font-weight: 300;">Start your journey today with Qava.</p>
+            <div class="story-cta-actions">
+                <a href="https://app.qava.ai/" class="cta-button primary">Join for free</a>
+                <a href="https://qava.ai/demo" class="cta-button secondary">Request a demo</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer-section">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="https://qava.ai/">
+                        <img src="qava-logo.svg" alt="Qava" class="footer-logo-img" />
+                    </a>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Welcome</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://app.qava.ai/guest" class="footer-link">Create Listing</a></li>
+                            <li><a href="https://app.qava.ai/projects" class="footer-link">Search Listings</a></li>
+                            <li><a href="https://qava.ai/howqavaworks" class="footer-link">How Qava Works</a></li>
+                            <li><span class="footer-link disabled-link">What's New</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Get Started</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://app.qava.ai/" class="footer-link">Sign Up</a></li>
+                            <li><a href="https://app.qava.ai/" class="footer-link">Log In</a></li>
+                            <li><span class="footer-link disabled-link">AI Prompts</span></li>
+                            <li><span class="footer-link disabled-link">Project Templates</span></li>
+                            <li><span class="footer-link disabled-link">Application Tips</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Resources</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://qava.ai/request-demo" class="footer-link">Request a Demo</a></li>
+                            <li><a href="https://qava.ai/pricing" class="footer-link">Pricing</a></li>
+                            <li><a href="https://qava.ai/about" class="footer-link">About Us</a></li>
+                            <li><a href="https://qava.ai/aialoneisnotenough" class="footer-link">AI Not Enough</a></li>
+                            <li><span class="footer-link disabled-link">Careers</span></li>
+                            <li><span class="footer-link disabled-link">Media Kit</span></li>
+                            <li><span class="footer-link disabled-link">Contact Us</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Learn</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="https://qava.ai/successstories" class="footer-link">Success Stories</a></li>
+                            <li><span class="footer-link disabled-link">Help Center</span></li>
+                            <li><span class="footer-link disabled-link">Webinars</span></li>
+                            <li><span class="footer-link disabled-link">Blog</span></li>
+                            <li><span class="footer-link disabled-link">Community</span></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Legal</h4>
+                        <ul class="footer-link-list">
+                            <li><a href="terms" class="footer-link">Terms & Privacy</a></li>
+                            <li><a href="terms" class="footer-link">California Privacy Notice</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-copyright">
+                        © 2025 qava
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+            
+            // Prevent body scroll when mobile menu is open
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function toggleMobileDropdown() {
+            const dropdown = document.getElementById('mobileDropdown');
+            const toggle = document.querySelector('.mobile-dropdown-toggle');
+            
+            dropdown.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
