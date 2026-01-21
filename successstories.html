@@ -1766,11 +1766,12 @@
             width: 100%;
             min-width: 0;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid transparent;
+            transition: border-color 0.2s ease;
         }
 
         .in-focus-card:hover {
-            transform: none;
-            box-shadow: none;
+            border-color: #000000;
         }
 
         .in-focus-card:hover .in-focus-arrow {
