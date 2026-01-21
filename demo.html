@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Request a Demo - Qava</title>
+    <title>Demo</title>
     <link rel="icon" type="image/svg+xml" href="qava-logo.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -21,8 +21,6 @@
         /* NAVBAR STYLES */
         .header-container {
             width: 100%;
-            max-width: 1440px;
-            margin: 0 auto;
             padding: 16px 32px;
             background: white;
             display: flex;
@@ -83,19 +81,24 @@
             padding: 6px 12px;
             border-radius: 6px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: background-color 0.2s ease;
             font-size: 13px;
-            font-weight: 500;
+            font-weight: 400;
+            line-height: 1;
+            height: 25px;
             color: #000000;
             white-space: nowrap;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             position: relative;
             gap: 4px;
             text-decoration: none;
+            vertical-align: middle;
+            box-sizing: border-box;
         }
 
-        .nav-item:hover {
+        .nav-item:hover,
+        .nav-item.active {
             background-color: rgba(0, 0, 0, 0.06);
             color: #000000;
         }
@@ -181,7 +184,7 @@
             cursor: pointer;
             transition: all 0.2s ease;
             font-size: 13px;
-            font-weight: 500;
+            font-weight: 400;
             color: #000000;
             white-space: nowrap;
             display: flex;
@@ -501,7 +504,7 @@
         .demo-description {
             font-family: 'Inter', sans-serif;
             font-size: 16px;
-            font-weight: 400;
+            font-weight: 300;
             color: #000000;
             line-height: 1.6;
             margin: 0 0 24px 0;
@@ -823,7 +826,7 @@
             }
             
             .navigation {
-                gap: 24px;
+                gap: 28px;
             }
             
             .demo-request-container {
@@ -840,7 +843,7 @@
             }
             
             .navigation {
-                gap: 20px;
+                gap: 24px;
             }
             
             .nav-item {
@@ -863,21 +866,32 @@
             }
         }
 
-        /* Tablet Landscape (1024px and below) */
-        @media (max-width: 1024px) {
+        @media (max-width: 1200px) {
             .header-container {
-                padding: 14px 20px;
+                padding: 12px 20px;
             }
             
-            .navigation {
+            .header-left {
                 gap: 16px;
             }
             
-            .nav-item {
-                padding: 6px 6px;
-                font-size: 12px;
+            .navigation {
+                gap: 6px;
             }
+            
+            .nav-item {
+                padding: 4px 6px;
+                font-size: 13px;
+            }
+            
+            .auth-item {
+                padding: 6px 8px;
+                font-size: 13px;
+            }
+        }
 
+        /* Tablet Landscape (1024px and below) */
+        @media (max-width: 1024px) {
             .demo-request-container {
                 gap: 60px;
                 padding-top: 100px;
@@ -916,10 +930,16 @@
             }
         }
 
-        /* Tablet Portrait (768px and below) */
-        @media (max-width: 768px) {
+        @media (max-width: 1100px) {
             .header-container {
-                padding: 12px 16px;
+                padding: 12px 20px;
+            }
+            
+            .header-left {
+                gap: 16px;
+                min-width: 0;
+                flex: 1;
+                overflow: hidden;
             }
             
             .navigation {
@@ -932,6 +952,18 @@
             
             .hamburger-menu {
                 display: flex;
+            }
+            
+            .header-right {
+                flex-shrink: 0;
+                gap: 8px;
+            }
+        }
+
+        /* Tablet Portrait (768px and below) */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 12px 16px;
             }
             
             .header-right {
@@ -1266,30 +1298,14 @@
                 <a href="https://app.qava.ai/guest" class="nav-item create-listing">
                     <div class="nav-text">Create Listing</div>
                 </a>
-                <a href="https://app.qava.ai/" class="nav-item search-listings">
+                <a href="https://app.qava.ai/projects" class="nav-item search-listings">
                     <div class="nav-text">Search Listings</div>
                 </a>
-                <div class="nav-item how-it-works has-dropdown">
-                    <div class="nav-text">How It Works</div>
-                    <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                        <path d="M6 3v6M3 6h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <div class="dropdown-menu">
-                        <a href="https://qava.ai/client-how-it-works.html" class="dropdown-item">
-                            <div class="dropdown-title">For Clients 🚀</div>
-                            <div class="dropdown-subtitle">Hiring for current or future work</div>
-                        </a>
-                        <a href="https://qava.ai/talent-how-it-works.html" class="dropdown-item">
-                            <div class="dropdown-title">For Talent 👩‍💻</div>
-                            <div class="dropdown-subtitle">Interested in current or future work</div>
-                        </a>
-                    </div>
-                </div>
-                <a href="why-qava.html" class="nav-item why-qava">
-                    <div class="nav-text">Why Qava</div>
-                </a>
-                <a href="https://qava.ai/pricing.html" class="nav-item pricing">
+                <a href="https://qava.ai/pricing" class="nav-item pricing">
                     <div class="nav-text">Pricing</div>
+                </a>
+                <a href="https://qava.ai/about" class="nav-item about">
+                    <div class="nav-text">About</div>
                 </a>
             </div>
         </div>
@@ -1297,8 +1313,8 @@
         <!-- Auth section on the right -->
         <div class="header-right">
             <div class="auth-section">
-                <a href="https://qava.ai/request-demo.html" class="auth-item">
-                    <div class="nav-text">Request a demo</div>
+                <a href="https://qava.ai/howqavaworks" class="auth-item">
+                    <div class="nav-text">How Qava Works</div>
                 </a>
                 <a href="https://app.qava.ai/" class="auth-item">
                     <div class="nav-text">Log in</div>
@@ -1323,7 +1339,7 @@
         <a href="https://app.qava.ai/guest" class="mobile-nav-item">
             <div class="nav-text">Create Listing</div>
         </a>
-        <a href="https://app.qava.ai/" class="mobile-nav-item">
+        <a href="https://app.qava.ai/projects" class="mobile-nav-item">
             <div class="nav-text">Search Listings</div>
         </a>
         <div class="mobile-nav-item mobile-dropdown-toggle" onclick="toggleMobileDropdown()">
@@ -1342,14 +1358,13 @@
                 <div class="dropdown-subtitle">Interested in current or future work</div>
             </a>
         </div>
-        <a href="why-qava.html" class="mobile-nav-item">
-            <div class="nav-text">Why Qava</div>
-        </a>
-        <a href="https://qava.ai/pricing.html" class="mobile-nav-item">
+        <a href="https://qava.ai/pricing" class="mobile-nav-item">
             <div class="nav-text">Pricing</div>
         </a>
+        <a href="https://qava.ai/about" class="mobile-nav-item">
+            <div class="nav-text">About</div>
+        </a>
         <div class="mobile-auth-section">
-            <a href="https://qava.ai/request-demo.html" class="mobile-nav-item">Request a demo</a>
             <a href="https://app.qava.ai/" class="mobile-nav-item">Log in</a>
             <a href="https://app.qava.ai/" class="join-button">
                 <div class="join-text">Join for free</div>
@@ -1362,35 +1377,29 @@
         <div class="demo-request-container">
             <div class="demo-content">
                 <h1 class="demo-title">Contact our<br>demo team</h1>
-                <p class="demo-subtitle">Let's explore how qava can work for you</p>
+                <p class="demo-subtitle">Let's explore how Qava can work for you</p>
                 <div class="demo-benefits">
                     <div class="benefit-item">
-                        <svg class="benefit-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path d="M16.6667 5L7.5 14.1667L3.33333 10" stroke="#0F62FE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                        <span class="benefit-icon" style="font-size: 20px;">🚀</span>
                         <p class="demo-description">
                             Launch strategic projects, find expert talent fast, and deliver real results—without the overhead.
                         </p>
                     </div>
                     <div class="benefit-item">
-                        <svg class="benefit-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path d="M16.6667 5L7.5 14.1667L3.33333 10" stroke="#0F62FE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                        <span class="benefit-icon" style="font-size: 20px;">⚙️</span>
                         <p class="demo-description">
                             Secure, scalable, and designed to save you time and money on every project.
                         </p>
                     </div>
                     <div class="benefit-item">
-                        <svg class="benefit-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path d="M16.6667 5L7.5 14.1667L3.33333 10" stroke="#0F62FE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                        <span class="benefit-icon" style="font-size: 20px;">✅</span>
                         <p class="demo-description">
                             Our team helps you set up, find the right talent, and make every project count.
                         </p>
                     </div>
                 </div>
                 <p class="demo-description">
-                    Looking for support? <a href="#" style="color: #0F62FE; text-decoration: none;">Visit our FAQ</a>
+                    We typically get back to you in 24 hours or less.
                 </p>
             </div>
             
@@ -1457,7 +1466,7 @@
                     </button>
                     
                     <p class="form-note">
-                        By submitting this form, you agree to our <a href="#" style="color: #0F62FE; text-decoration: none;">Terms</a>.
+                        By submitting this form, you agree to our <a href="https://qava.ai/terms" style="color: #000000; text-decoration: underline;">Terms</a>.
                     </p>
                 </form>
             </div>
@@ -1478,17 +1487,14 @@
                         <h4 class="footer-heading">Welcome</h4>
                         <ul class="footer-link-list">
                             <li><a href="https://app.qava.ai/guest" class="footer-link">Create Listing</a></li>
-                            <li><a href="https://app.qava.ai/" class="footer-link">Search Listings</a></li>
-                            <li><a href="https://qava.ai/clienthowitworks" class="footer-link">How It Works for Clients</a></li>
-                            <li><a href="https://qava.ai/talenthowitworks" class="footer-link">How It Works for Talent</a></li>
-                            <li><a href="https://qava.ai/whyqava" class="footer-link">Why Qava</a></li>
+                            <li><a href="https://app.qava.ai/projects" class="footer-link">Search Listings</a></li>
+                            <li><a href="https://qava.ai/howqavaworks" class="footer-link">How Qava Works</a></li>
                             <li><span class="footer-link disabled-link">What's New</span></li>
                         </ul>
                     </div>
                     <div class="footer-column">
                         <h4 class="footer-heading">Get Started</h4>
                         <ul class="footer-link-list">
-                            <li><a href="https://qava.ai/request-demo" class="footer-link">Request a Demo</a></li>
                             <li><a href="https://app.qava.ai/" class="footer-link">Sign Up</a></li>
                             <li><a href="https://app.qava.ai/" class="footer-link">Log In</a></li>
                             <li><span class="footer-link disabled-link">AI Prompts</span></li>
@@ -1499,8 +1505,10 @@
                     <div class="footer-column">
                         <h4 class="footer-heading">Resources</h4>
                         <ul class="footer-link-list">
+                            <li><a href="https://qava.ai/request-demo" class="footer-link">Request a Demo</a></li>
                             <li><a href="https://qava.ai/pricing" class="footer-link">Pricing</a></li>
-                            <li><span class="footer-link disabled-link">About Us</span></li>
+                            <li><a href="https://qava.ai/about" class="footer-link">About Us</a></li>
+                            <li><a href="https://qava.ai/aialoneisnotenough" class="footer-link">AI Not Enough</a></li>
                             <li><span class="footer-link disabled-link">Careers</span></li>
                             <li><span class="footer-link disabled-link">Media Kit</span></li>
                             <li><span class="footer-link disabled-link">Contact Us</span></li>
@@ -1509,7 +1517,7 @@
                     <div class="footer-column">
                         <h4 class="footer-heading">Learn</h4>
                         <ul class="footer-link-list">
-                            <li><span class="footer-link disabled-link">Success Stories</span></li>
+                            <li><a href="https://qava.ai/successstories" class="footer-link">Success Stories</a></li>
                             <li><span class="footer-link disabled-link">Help Center</span></li>
                             <li><span class="footer-link disabled-link">Webinars</span></li>
                             <li><span class="footer-link disabled-link">Blog</span></li>
@@ -1519,8 +1527,8 @@
                     <div class="footer-column">
                         <h4 class="footer-heading">Legal</h4>
                         <ul class="footer-link-list">
-                            <li><a href="terms.html" class="footer-link">Terms & Privacy</a></li>
-                            <li><a href="terms.html" class="footer-link">California Privacy Notice</a></li>
+                            <li><a href="terms" class="footer-link">Terms & Privacy</a></li>
+                            <li><a href="terms" class="footer-link">California Privacy Notice</a></li>
                         </ul>
                     </div>
                     <div class="footer-copyright">
@@ -1663,6 +1671,26 @@
                 }, 5000);
             });
         });
+    </script>
+
+    <script>
+    (() => {
+        // Get current page from URL (works for both qava.ai and local paths)
+        const currentPath = window.location.pathname;
+        const hostname = window.location.hostname;
+        
+        // Map pages to nav items
+        if (currentPath.includes('/pricing') || currentPath === '/pricing.html') {
+            document.querySelector('.nav-item.pricing')?.classList.add('active');
+        } else if (currentPath.includes('/whyqava')) {
+            document.querySelector('.nav-item.why-qava')?.classList.add('active');
+        } else if (currentPath.includes('/about')) {
+            document.querySelector('.nav-item.about')?.classList.add('active');
+        } else if (currentPath.includes('/clienthowitworks') || currentPath.includes('/talenthowitworks')) {
+            document.querySelector('.nav-item.how-it-works')?.classList.add('active');
+        }
+        // Note: Homepage (index.html) doesn't have a nav item to highlight
+    })();
     </script>
 </body>
 </html>
