@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Animation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f1f1f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .notion-box {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 
+                        0 2px 6px rgba(0, 0, 0, 0.04);
+            padding: 12px 16px;
+            width: 420px;
+            height: 220px;
+            transition: box-shadow 0.2s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .notion-box.typing-complete {
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+
+        .window-controls {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            right: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: opacity 0.3s ease;
+        }
+
+        .window-logo {
+            height: 12px;
+            width: auto;
+        }
+
+        .window-close {
+            font-size: 10px;
+            font-weight: 300;
+            color: #000000;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .cursor {
+            animation: blink 1s infinite;
+            font-weight: 300;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .notion-box:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08), 
+                        0 8px 16px rgba(0, 0, 0, 0.06);
+        }
+
+        .notion-box h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 300;
+            margin: 0;
+            color: #000000;
+            line-height: 1.2;
+            white-space: nowrap;
+            transition: all 0.6s ease;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .notion-box.typing-complete h1 {
+            font-size: 11px;
+            top: 24px;
+            left: 14px;
+            transform: translate(0, 0);
+        }
+
+        .notion-box.typing-complete .cursor {
+            animation: none;
+            opacity: 0;
+        }
+
+        .notion-box p {
+            font-size: 16px;
+            font-weight: 400;
+            color: #6b6b6b;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .button-wrapper {
+            position: absolute;
+            top: calc(50% + 16px);
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .button-wrapper.visible {
+            opacity: 1;
+        }
+
+        .button-wrapper.hidden {
+            opacity: 0;
+            transition: none;
+            pointer-events: none;
+        }
+
+        .pill-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            padding: 3px 6px;
+            background-color: #f0f0f0;
+            color: #c0c0c0;
+            border: none;
+            border-radius: 50px;
+            font-size: 9px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .pill-button:hover {
+            background-color: #000000;
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .pill-button.hovered {
+            background-color: #000000;
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .pill-button.clicked {
+            transform: translateY(1px) scale(0.97);
+        }
+
+        .animated-cursor {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #000000;
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 100;
+            transition: all 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        .animated-cursor.visible {
+            opacity: 1;
+        }
+
+        .animated-cursor.clicking {
+            transform: scale(0.7);
+        }
+
+        .candidates-grid {
+            display: none;
+            grid-template-columns: repeat(3, 124px);
+            grid-auto-rows: minmax(auto, 1fr);
+            gap: 10px;
+            position: absolute;
+            top: 52px;
+            left: 14px;
+        }
+
+        .candidates-grid.visible {
+            display: grid;
+        }
+
+
+        .candidate-card {
+            background: #ffffff;
+            border: 1px solid #e5e5e5;
+            border-radius: 5px;
+            padding: 8px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            min-height: 70px;
+        }
+
+        .candidate-card.placeholder {
+            opacity: 1;
+            transform: translateY(0);
+            background: #f5f5f5;
+            border: none;
+        }
+
+        .candidate-card.placeholder .candidate-name,
+        .candidate-card.placeholder .candidate-application,
+        .candidate-card.placeholder .school-logo {
+            opacity: 0;
+        }
+
+        .candidate-card.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes flipCard {
+            0% {
+                transform: rotateY(0deg);
+            }
+            50% {
+                transform: rotateY(90deg);
+            }
+            100% {
+                transform: rotateY(0deg);
+            }
+        }
+
+        .candidate-card.flipping {
+            animation: flipCard 0.6s ease;
+        }
+
+        .candidate-card.revealed {
+            opacity: 1;
+            transform: translateY(0);
+            background: #ffffff;
+            border: 1px solid #e5e5e5;
+        }
+
+        .candidate-card.revealed .candidate-name,
+        .candidate-card.revealed .candidate-application,
+        .candidate-card.revealed .school-logo {
+            opacity: 1;
+        }
+
+        .candidate-card.cursor-hover {
+            background: #ffffff;
+            border: 1px solid #000000;
+            box-shadow: none;
+        }
+
+        .candidate-card.selected {
+            background: #ffffff;
+            border: 1px solid #000000;
+            transform: scale(1.02);
+            box-shadow: none;
+        }
+
+        .candidate-card.expanded {
+            opacity: 1;
+            border: none !important;
+            box-shadow: none;
+            padding: 8px 14px 0 14px;
+            z-index: 10;
+            width: 388px;
+            height: auto;
+            max-height: 160px;
+            background: white;
+            overflow: hidden;
+            border-radius: 0;
+            outline: none;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile-header {
+            margin-bottom: 8px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .profile-credibility {
+            font-size: 8px;
+            font-weight: 400;
+            color: #666;
+            margin-top: 0;
+        }
+
+        .profile-match-signal {
+            display: inline-block;
+            font-size: 6px;
+            font-weight: 500;
+            color: #0F62FE;
+            margin-top: 4px;
+            padding: 2px 5px;
+            background: #EBF2FF;
+            border-radius: 2px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        .profile-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .profile-left-column {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .profile-right-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            padding-left: 10px;
+            border-left: 1px solid #eee;
+        }
+
+        .candidates-grid.expanded-view {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            top: 20px;
+            left: 0;
+            right: 0;
+            width: 100%;
+        }
+
+        .candidate-card.hidden {
+            display: none !important;
+        }
+
+        .candidate-card:hover:not(.expanded) {
+            border-color: #cccccc;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .expanded-content {
+            display: none;
+            margin-top: 0;
+        }
+
+        .candidate-card.expanded .expanded-content {
+            display: block;
+        }
+
+        .expanded-section {
+            margin-bottom: 0;
+        }
+
+        .expanded-section h4,
+        .motivators h5,
+        .education-section h5 {
+            font-size: 7px;
+            font-weight: 600;
+            color: #999;
+            margin: 0 0 2px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .expanded-section p,
+        .expanded-section ul {
+            font-size: 8px;
+            font-weight: 400;
+            color: #333;
+            line-height: 1.35;
+            margin: 0;
+        }
+
+        .expanded-section ul {
+            padding-left: 14px;
+        }
+
+        .expanded-section li {
+            margin-bottom: 2px;
+        }
+
+        .motivators {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .motivator-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .motivator-item {
+            font-size: 8px;
+            font-weight: 400;
+            color: #333;
+            line-height: 1.35;
+        }
+
+        .education-section {
+            margin-top: 0;
+        }
+
+        .education-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .education-item {
+            font-size: 8px;
+            font-weight: 400;
+            color: #333;
+            line-height: 1.35;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .education-item img {
+            width: 9px;
+            height: 9px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .profile-viewer {
+            position: relative;
+            width: 388px;
+            overflow: hidden;
+            height: auto;
+            display: block;
+            opacity: 1;
+        }
+
+        .profile-slider {
+            display: flex;
+            transition: transform 0.5s ease, opacity 0.4s ease;
+        }
+
+        .profile-slide {
+            min-width: 388px;
+            flex-shrink: 0;
+        }
+
+        .scroll-dots {
+            display: flex;
+            justify-content: center;
+            gap: 3px;
+            margin-top: 10px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            width: 388px;
+        }
+
+        .scroll-dots.visible {
+            opacity: 1;
+        }
+
+        .scroll-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: #d0d0d0;
+            transition: all 0.3s ease;
+        }
+
+        .scroll-dot.active {
+            background-color: #000000;
+            width: 12px;
+            border-radius: 3px;
+        }
+
+        .select-button-wrapper {
+            position: absolute;
+            bottom: 14px;
+            right: 14px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .select-button-wrapper.visible {
+            opacity: 1;
+        }
+
+        .select-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            padding: 3px 8px;
+            background-color: #000000;
+            color: #ffffff;
+            border: none;
+            border-radius: 3px;
+            font-size: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        @keyframes selectClick {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.95); }
+            100% { transform: scale(1); }
+        }
+
+        .select-button.clicked {
+            animation: selectClick 0.3s ease;
+        }
+
+        .select-button.success {
+            background-color: #0F62FE;
+        }
+
+        .match-confirmation {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 100;
+        }
+
+        .match-confirmation.visible {
+            opacity: 1;
+        }
+
+        .match-confirmation h2 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 4px;
+        }
+
+        .match-confirmation p {
+            font-size: 9px;
+            font-weight: 300;
+            color: #6b6b6b;
+            margin-bottom: 10px;
+        }
+
+        .emoji-circle {
+            font-size: 28px;
+            margin: 0 auto 16px;
+            animation: popIn 0.4s ease;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(200px) rotate(720deg);
+            }
+        }
+
+        .confetti.active {
+            animation: confettiFall 2s ease-out forwards;
+        }
+
+        .school-logo {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .candidate-card.expanded .school-logo {
+            display: none;
+        }
+
+        .school-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+
+        .candidate-name {
+            font-size: 9px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 3px;
+        }
+
+        .candidate-card.expanded .candidate-name {
+            font-size: 11px;
+            margin-bottom: 1px;
+            font-weight: 600;
+            color: #000;
+            letter-spacing: -0.2px;
+        }
+
+        .candidate-application {
+            font-size: 8px;
+            font-weight: 300;
+            color: #6b6b6b;
+            line-height: 1.25;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+
+        .candidate-card.expanded .candidate-application {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .notion-box {
+                padding: 10px 14px;
+            }
+
+            .notion-box h1 {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="notion-box">
+        <div class="window-controls">
+            <img src="qava-logo.svg" alt="Qava" class="window-logo">
+            <span class="window-close">✕</span>
+        </div>
+        <h1>I want a <span id="typewriter"></span><span class="cursor">|</span></h1>
+        <div class="button-wrapper">
+            <a href="#" class="pill-button">Publish 🚀</a>
+        </div>
+        <div class="animated-cursor" id="animatedCursor"></div>
+        
+        <div class="candidates-grid">
+            <div class="candidate-card" data-candidate="first">
+                <div class="school-logo"><img src="Landing Page Trusted by/HBS.png" alt="Harvard Business School"></div>
+                <div class="candidate-name">Emma B.</div>
+                <div class="candidate-application">I'm passionate about helping early-stage startups develop go-to-market strategies. With experience at McKinsey...</div>
+                <div class="expanded-content">
+                    <div class="expanded-section">
+                        <h4>Experience</h4>
+                        <p>McKinsey & Company - Strategy Consultant (3 years)<br>Harvard Business School - MBA</p>
+                    </div>
+                    <div class="expanded-section">
+                        <h4>Expertise</h4>
+                        <p>Go-to-market strategy, competitive positioning, market sizing, customer acquisition strategy</p>
+                    </div>
+                    <div class="expanded-section">
+                        <h4>Projects Completed</h4>
+                        <p>15 startups helped with GTM strategy, $2M+ in funding secured by clients</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="candidate-card">
+                <div class="school-logo"><img src="Landing Page Trusted by/MIT.png" alt="MIT Sloan"></div>
+                <div class="candidate-name">Michael T.</div>
+                <div class="candidate-application">Former investment analyst with expertise in financial modeling and valuation. I love building detailed models...</div>
+            </div>
+            
+            <div class="candidate-card">
+                <div class="school-logo"><img src="Landing Page Trusted by/Columbia.svg" alt="Columbia Business School"></div>
+                <div class="candidate-name">Sarah K.</div>
+                <div class="candidate-application">Market research specialist focused on competitive analysis and industry trends. I bring data-driven insights...</div>
+            </div>
+            
+            <div class="candidate-card">
+                <div class="school-logo"><img src="Landing Page Trusted by/Stern.png" alt="NYU Stern"></div>
+                <div class="candidate-name">James L.</div>
+                <div class="candidate-application">Strategy consultant with a focus on customer segmentation and targeting. I've helped 15+ companies...</div>
+            </div>
+            
+            <div class="candidate-card">
+                <div class="school-logo"><img src="Landing Page Trusted by/Haas.png" alt="Berkeley Haas"></div>
+                <div class="candidate-name">Lisa W.</div>
+                <div class="candidate-application">International trade expert specializing in tariff analysis and compliance. With experience at a Big 4 firm...</div>
+            </div>
+            
+            <div class="candidate-card">
+                <div class="school-logo"><img src="Landing Page Trusted by/Wharton.png" alt="Wharton"></div>
+                <div class="candidate-name">David C.</div>
+                <div class="candidate-application">Product strategy and market entry specialist. I've launched products in 8 countries and love helping founders...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const projectTypes = [
+            "go-to-market strategy",
+            "financial model"
+        ];
+        
+        let loopIndex = 0;
+        let charIndex = 0;
+        let isTyping = true;
+        let hasActivated = false;
+        const typewriterElement = document.getElementById('typewriter');
+        const buttonWrapper = document.querySelector('.button-wrapper');
+        let candidateCards = document.querySelectorAll('.candidate-card');
+        const notionBox = document.querySelector('.notion-box');
+        const candidatesGrid = document.querySelector('.candidates-grid');
+        
+        // Different candidate sets for different project types
+        const candidateSets = [
+            // Set 1: Go-to-market strategy candidates
+            [
+                { name: "Emma B.", school: "HBS.png", schoolAlt: "Harvard Business School", application: "I'm passionate about helping early-stage startups develop go-to-market strategies. With experience at McKinsey..." },
+                { name: "Michael T.", school: "MIT.png", schoolAlt: "MIT Sloan", application: "Former investment analyst with expertise in financial modeling and valuation. I love building detailed models..." },
+                { name: "Sarah K.", school: "Columbia.svg", schoolAlt: "Columbia Business School", application: "Market research specialist focused on competitive analysis and industry trends. I bring data-driven insights..." },
+                { name: "James L.", school: "Stern.png", schoolAlt: "NYU Stern", application: "Strategy consultant with a focus on customer segmentation and targeting. I've helped 15+ companies..." },
+                { name: "Lisa W.", school: "Haas.png", schoolAlt: "Berkeley Haas", application: "International trade expert specializing in tariff analysis and compliance. With experience at a Big 4 firm..." },
+                { name: "David C.", school: "Wharton.png", schoolAlt: "Wharton", application: "Product strategy and market entry specialist. I've launched products in 8 countries and love helping founders..." }
+            ],
+            // Set 2: Financial model candidates
+            [
+                { name: "Alex R.", school: "Wharton.png", schoolAlt: "Wharton", application: "Former PE analyst with 4 years of LBO and DCF modeling experience. Built 50+ financial models for M&A deals..." },
+                { name: "Jennifer M.", school: "MIT.png", schoolAlt: "MIT Sloan", application: "Ex-Goldman investment banking analyst. Expert in 3-statement models, sensitivity analysis, and valuation..." },
+                { name: "Chris P.", school: "HBS.png", schoolAlt: "Harvard Business School", application: "Financial planning specialist with startup and Fortune 500 experience. I make complex financials simple..." },
+                { name: "Rachel T.", school: "Columbia.svg", schoolAlt: "Columbia Business School", application: "Venture capital background with expertise in startup financial modeling and fundraising projections..." },
+                { name: "Kevin L.", school: "Stern.png", schoolAlt: "NYU Stern", application: "CFA charterholder specializing in equity research and company valuation. Built models for 100+ companies..." },
+                { name: "Maria S.", school: "Haas.png", schoolAlt: "Berkeley Haas", application: "FP&A expert with experience at tech unicorns. I specialize in SaaS metrics and growth modeling..." }
+            ]
+        ];
+        
+        // Different expanded profiles for different project types
+        const expandedProfileSets = [
+            // Set 1: Go-to-market profiles
+            {
+                profiles: [
+                    {
+                        name: "Emma B.",
+                        credibility: "McKinsey & Company · Harvard Business School · 3 years in strategy consulting",
+                        experience: "McKinsey & Co. (3 yrs)",
+                        expertise: "GTM strategy, market sizing, competitive positioning",
+                        projects: "15 startups, $2M+ funding secured",
+                        motivation: ["Flex my skills", "Make impact", "Grow network", "Build experience"],
+                        education: [
+                            { text: "MBA Candidate", logo: "HBS.png" },
+                            { text: "BS Finance '22", logo: "Wharton.png" },
+                            { text: "BA Economics '20", logo: "Columbia.svg" }
+                        ]
+                    },
+                    {
+                        name: "Michael T.",
+                        credibility: "Goldman Sachs · MIT Sloan · 2 years in investment analysis",
+                        experience: "Goldman Sachs (2 yrs)",
+                        expertise: "Financial modeling, DCF valuation, scenario planning",
+                        projects: "20+ models, 8 startup valuations",
+                        motivation: ["Learn by doing", "Challenge myself", "Add to portfolio", "Gain exposure"],
+                        education: [
+                            { text: "MBA Candidate", logo: "MIT.png" },
+                            { text: "BS Finance '21", logo: "Stern.png" },
+                            { text: "BA Math '19", logo: "Haas.png" }
+                        ]
+                    },
+                    {
+                        name: "Sarah K.",
+                        credibility: "Bain & Company · Columbia Business School · 3 years in market research",
+                        experience: "Bain & Company (3 yrs)",
+                        expertise: "Competitive analysis, industry research, positioning",
+                        projects: "12 analyses, 25+ landscapes mapped",
+                        motivation: ["Explore new industry", "Grow network", "Gain confidence", "Global collaboration"],
+                        education: [
+                            { text: "EMBA Candidate", logo: "Columbia.svg" },
+                            { text: "MA Economics '22", logo: "Stern.png" },
+                            { text: "JD '21", logo: "HBS.png" }
+                        ]
+                    }
+                ],
+                selectedName: "Sarah K."
+            },
+            // Set 2: Financial model profiles
+            {
+                profiles: [
+                    {
+                        name: "Alex R.",
+                        credibility: "Blackstone · Wharton · 3 years in private equity",
+                        experience: "Blackstone PE (3 yrs)",
+                        expertise: "LBO models, DCF, M&A analysis",
+                        projects: "50+ models, $500M+ analyzed",
+                        motivation: ["Build experience", "Make impact", "Challenge myself", "Add to portfolio"],
+                        education: [
+                            { text: "MBA Candidate", logo: "Wharton.png" },
+                            { text: "BS Finance '21", logo: "Stern.png" },
+                            { text: "BS Accounting '19", logo: "Haas.png" }
+                        ]
+                    },
+                    {
+                        name: "Jennifer M.",
+                        credibility: "Goldman Sachs · MIT Sloan · 2 years in investment banking",
+                        experience: "Goldman Sachs IB (2 yrs)",
+                        expertise: "3-statement models, comps, precedents",
+                        projects: "30+ decks, 15 fundraises",
+                        motivation: ["Flex my skills", "Grow network", "Learn by doing", "Gain exposure"],
+                        education: [
+                            { text: "MBA Candidate", logo: "MIT.png" },
+                            { text: "BA Economics '22", logo: "Columbia.svg" },
+                            { text: "BS Math '20", logo: "HBS.png" }
+                        ]
+                    },
+                    {
+                        name: "Chris P.",
+                        credibility: "Amazon · Harvard Business School · 4 years in FP&A",
+                        experience: "Amazon FP&A (4 yrs)",
+                        expertise: "Budgeting, forecasting, board reporting",
+                        projects: "$200M+ P&L, 10 startup models",
+                        motivation: ["Make impact", "Explore new industry", "Build experience", "Gain confidence"],
+                        education: [
+                            { text: "MBA Candidate", logo: "HBS.png" },
+                            { text: "BS Finance '20", logo: "Wharton.png" },
+                            { text: "BBA '18", logo: "Stern.png" }
+                        ]
+                    }
+                ],
+                selectedName: "Chris P."
+            }
+        ];
+        
+        function createProfileViewer() {
+            const candidatesGrid = document.querySelector('.candidates-grid');
+            const profileSet = expandedProfileSets[loopIndex % expandedProfileSets.length];
+            
+            // Hide the TYPE text
+            const titleElement = document.querySelector('.notion-box h1');
+            titleElement.style.opacity = '0';
+            
+            // Generate profile slides HTML dynamically
+            let slidesHTML = profileSet.profiles.map(profile => `
+                <div class="profile-slide">
+                    <div class="candidate-card expanded" style="margin: 0;">
+                        <div class="profile-header">
+                            <div class="candidate-name">${profile.name}</div>
+                            <div class="profile-credibility">${profile.credibility}</div>
+                            <div class="profile-match-signal">Applied to your project</div>
+                        </div>
+                        <div class="profile-columns">
+                            <div class="profile-left-column">
+                                <div class="expanded-section">
+                                    <h4>Experience</h4>
+                                    <p>${profile.experience}</p>
+                                </div>
+                                <div class="expanded-section">
+                                    <h4>Expertise</h4>
+                                    <p>${profile.expertise}</p>
+                                </div>
+                                <div class="expanded-section projects-section">
+                                    <h4>Projects</h4>
+                                    <p>${profile.projects}</p>
+                                </div>
+                            </div>
+                            <div class="profile-right-column">
+                                <div class="motivators">
+                                    <h5>Motivation</h5>
+                                    <div class="motivator-list">
+                                        ${profile.motivation.map(m => `<div class="motivator-item">${m}</div>`).join('')}
+                                    </div>
+                                </div>
+                                <div class="education-section">
+                                    <h5>Education</h5>
+                                    <div class="education-list">
+                                        ${profile.education.map(e => `<div class="education-item"><img src="Landing Page Trusted by/${e.logo}" alt="">${e.text}</div>`).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            const profileHTML = `
+                <div class="profile-viewer">
+                    <div class="profile-slider" id="profileSlider">
+                        ${slidesHTML}
+                    </div>
+                </div>
+                <div class="scroll-dots" id="scrollDots">
+                    <div class="scroll-dot active"></div>
+                    <div class="scroll-dot"></div>
+                    <div class="scroll-dot"></div>
+                </div>
+            `;
+            
+            candidatesGrid.innerHTML = profileHTML;
+            candidatesGrid.classList.add('expanded-view');
+            
+            // Add select button to notion-box
+            const selectButtonWrapper = document.createElement('div');
+            selectButtonWrapper.className = 'select-button-wrapper';
+            selectButtonWrapper.id = 'selectButtonWrapper';
+            selectButtonWrapper.innerHTML = '<button class="select-button" id="selectButton">Select</button>';
+            notionBox.appendChild(selectButtonWrapper);
+        }
+
+        function createConfetti() {
+            const colors = ['#0F62FE', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6'];
+            const profileViewer = document.querySelector('.profile-viewer');
+            
+            for (let i = 0; i < 30; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = '0';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                profileViewer.appendChild(confetti);
+                
+                setTimeout(() => confetti.classList.add('active'), 10);
+                setTimeout(() => confetti.remove(), 2500);
+            }
+        }
+
+        function showMatchConfirmation() {
+            const profileViewer = document.querySelector('.profile-viewer');
+            const slider = document.getElementById('profileSlider');
+            const scrollDotsContainer = document.getElementById('scrollDots');
+            const selectButton = document.getElementById('selectButton');
+            const profileSet = expandedProfileSets[loopIndex % expandedProfileSets.length];
+            
+            // Hide profile content and title
+            const selectButtonWrapper = document.getElementById('selectButtonWrapper');
+            const titleElement = document.querySelector('.notion-box h1');
+            slider.style.opacity = '0';
+            scrollDotsContainer.style.opacity = '0';
+            selectButtonWrapper.style.opacity = '0';
+            titleElement.style.opacity = '0';
+            candidatesGrid.style.opacity = '0';
+            
+            // Create and show confirmation
+            const confirmation = document.createElement('div');
+            confirmation.className = 'match-confirmation';
+            confirmation.innerHTML = `
+                <div class="emoji-circle">🤝</div>
+                <h2>Let's get to work!</h2>
+                <p>Project started with ${profileSet.selectedName}</p>
+            `;
+            notionBox.appendChild(confirmation);
+            
+            // Create confetti
+            createConfetti();
+            
+            // Show confirmation
+            setTimeout(() => confirmation.classList.add('visible'), 100);
+            
+            // Reset animation after delay
+            setTimeout(resetAnimation, 4000);
+        }
+
+        function generateSmallCardsHTML() {
+            const candidates = candidateSets[loopIndex % candidateSets.length];
+            return candidates.map((c, i) => `
+                <div class="candidate-card"${i === 0 ? ' data-candidate="first"' : ''}>
+                    <div class="school-logo"><img src="Landing Page Trusted by/${c.school}" alt="${c.schoolAlt}"></div>
+                    <div class="candidate-name">${c.name}</div>
+                    <div class="candidate-application">${c.application}</div>
+                </div>
+            `).join('');
+        }
+
+        function resetAnimation() {
+            // Increment loop index for next set of candidates
+            loopIndex++;
+            
+            // Reset all states
+            notionBox.classList.remove('typing-complete');
+            buttonWrapper.classList.remove('visible', 'hidden');
+            candidatesGrid.classList.remove('visible', 'expanded-view');
+            
+            // Reset cursor
+            const cursor = document.getElementById('animatedCursor');
+            const pillButton = document.querySelector('.pill-button');
+            cursor.classList.remove('visible', 'clicking');
+            pillButton.classList.remove('hovered', 'clicked');
+            
+            // Reset title and grid opacity
+            const titleElement = document.querySelector('.notion-box h1');
+            titleElement.style.opacity = '1';
+            candidatesGrid.style.opacity = '1';
+            
+            // Show window controls again
+            document.querySelector('.window-controls').style.opacity = '1';
+            
+            // Remove select button wrapper if it exists
+            const existingSelectWrapper = document.getElementById('selectButtonWrapper');
+            if (existingSelectWrapper) {
+                existingSelectWrapper.remove();
+            }
+            
+            // Remove match confirmation if it exists
+            const existingConfirmation = document.querySelector('.match-confirmation');
+            if (existingConfirmation) {
+                existingConfirmation.remove();
+            }
+            
+            // Generate new small cards HTML for the next candidate set
+            candidatesGrid.innerHTML = generateSmallCardsHTML();
+            
+            // Re-query cards after resetting HTML
+            candidateCards = document.querySelectorAll('.candidate-card');
+            candidateCards.forEach(card => {
+                card.classList.remove('placeholder', 'flipping', 'revealed', 'selected', 'hidden', 'expanded');
+            });
+            
+            // Reset typing
+            typewriterElement.textContent = '';
+            charIndex = 0;
+            hasActivated = false;
+            
+            // Restart after brief pause
+            setTimeout(type, 1000);
+        }
+
+        function scrollProfiles() {
+            const slider = document.getElementById('profileSlider');
+            const dots = document.querySelectorAll('.scroll-dot');
+            const scrollDotsContainer = document.getElementById('scrollDots');
+            const selectButton = document.getElementById('selectButton');
+            let currentIndex = 0;
+            
+            // Show dots
+            setTimeout(() => {
+                scrollDotsContainer.classList.add('visible');
+            }, 300);
+            
+            // Scroll to profile 2 (Michael)
+            setTimeout(() => {
+                currentIndex = 1;
+                slider.style.transform = `translateX(-${currentIndex * 388}px)`;
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentIndex);
+                });
+            }, 1500);
+            
+            // Scroll to profile 3 (Sarah)
+            setTimeout(() => {
+                currentIndex = 2;
+                slider.style.transform = `translateX(-${currentIndex * 388}px)`;
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentIndex);
+                });
+            }, 3000);
+            
+            // Show select button
+            const selectButtonWrapper = document.getElementById('selectButtonWrapper');
+            setTimeout(() => {
+                selectButtonWrapper.classList.add('visible');
+            }, 4200);
+            
+            // Click select button
+            setTimeout(() => {
+                selectButton.classList.add('clicked');
+                selectButton.classList.add('success');
+            }, 5000);
+            
+            // Show match confirmation
+            setTimeout(showMatchConfirmation, 5500);
+        }
+
+        function expandFirstCard() {
+            const cursor = document.getElementById('animatedCursor');
+            const cards = document.querySelectorAll('.candidate-card');
+            const firstCard = cards[0];
+            const secondCard = cards[1];
+            const thirdCard = cards[2];
+            
+            // Card positions (approximate centers) - grid is 3 columns, 200px each with 16px gap
+            // Cards are at top: 90px, left: 40px
+            const cardPositions = [
+                { top: 'calc(52px + 40px)', left: 'calc(14px + 62px)' },       // Card 1
+                { top: 'calc(52px + 40px)', left: 'calc(14px + 196px)' },      // Card 2
+                { top: 'calc(52px + 40px)', left: 'calc(14px + 330px)' },      // Card 3
+            ];
+            
+            // Show cursor at starting position (below and right of cards)
+            cursor.style.top = 'calc(52px + 130px)';
+            cursor.style.left = 'calc(14px + 370px)';
+            cursor.classList.add('visible');
+            
+            // Move to card 3 (rightmost)
+            setTimeout(() => {
+                cursor.style.top = cardPositions[2].top;
+                cursor.style.left = cardPositions[2].left;
+                
+                // Hover card 3
+                setTimeout(() => {
+                    thirdCard.classList.add('cursor-hover');
+                    
+                    // Move to card 2
+                    setTimeout(() => {
+                        thirdCard.classList.remove('cursor-hover');
+                        cursor.style.top = cardPositions[1].top;
+                        cursor.style.left = cardPositions[1].left;
+                        
+                        // Hover card 2
+                        setTimeout(() => {
+                            secondCard.classList.add('cursor-hover');
+                            
+                            // Move to card 1 (first card)
+                            setTimeout(() => {
+                                secondCard.classList.remove('cursor-hover');
+                                cursor.style.top = cardPositions[0].top;
+                                cursor.style.left = cardPositions[0].left;
+                                
+                                // Hover card 1
+                                setTimeout(() => {
+                                    firstCard.classList.add('cursor-hover');
+                                    
+                                    // Click to select
+                                    setTimeout(() => {
+                                        cursor.classList.add('clicking');
+                                        firstCard.classList.remove('cursor-hover');
+                                        firstCard.classList.add('selected');
+                                        
+                                        // Hide cursor and expand
+                                        setTimeout(() => {
+                                            cursor.classList.remove('visible', 'clicking');
+                                            firstCard.classList.remove('selected');
+                                            
+                                            // Hide all cards
+                                            cards.forEach(card => {
+                                                card.classList.add('hidden');
+                                            });
+                                            
+                                            // Create the profile viewer carousel
+                                            createProfileViewer();
+                                            
+                                            // Start scrolling animation
+                                            setTimeout(scrollProfiles, 500);
+                                        }, 300);
+                                    }, 500);
+                                }, 500);
+                            }, 600);
+                        }, 500);
+                    }, 600);
+                }, 500);
+            }, 300);
+        }
+
+        function activateSequence() {
+            // Phase 1: Show all gray placeholder boxes one by one
+            candidateCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('placeholder');
+                }, index * 150);
+            });
+            
+            // Phase 2: After all placeholders appear, flip them one by one
+            const allPlaceholdersDelay = (candidateCards.length * 150) + 400; // all placeholders + pause
+            setTimeout(() => {
+                candidateCards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.classList.add('flipping');
+                        
+                        // At the midpoint of the flip, reveal the content
+                        setTimeout(() => {
+                            card.classList.add('revealed');
+                            card.classList.remove('placeholder');
+                        }, 300);
+                        
+                        // Remove flipping class after animation
+                        setTimeout(() => {
+                            card.classList.remove('flipping');
+                        }, 600);
+                        
+                        // After last card is revealed, select and expand Emma's card
+                        if (index === candidateCards.length - 1) {
+                            setTimeout(expandFirstCard, 1000);
+                        }
+                    }, index * 200);
+                });
+            }, allPlaceholdersDelay);
+        }
+        
+        function type() {
+            const currentPhrase = projectTypes[loopIndex % projectTypes.length];
+            
+            if (isTyping) {
+                typewriterElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+                
+                if (charIndex === currentPhrase.length) {
+                    // Finished typing
+                    if (!hasActivated) {
+                        hasActivated = true;
+                        
+                        // Step 1: Show Publish button (fade in)
+                        const cursor = document.getElementById('animatedCursor');
+                        const pillButton = document.querySelector('.pill-button');
+                        
+                        setTimeout(() => {
+                            buttonWrapper.classList.add('visible');
+                            
+                            // Step 2: Position cursor and make visible (starting position: right side)
+                            setTimeout(() => {
+                                cursor.style.top = 'calc(50% + 35px)';
+                                cursor.style.left = 'calc(50% + 50px)';
+                                cursor.classList.add('visible');
+                                
+                                // Step 3: Move cursor to button
+                                setTimeout(() => {
+                                    cursor.style.top = 'calc(50% + 22px)';
+                                    cursor.style.left = 'calc(50% + 16px)';
+                                    
+                                    // Step 4: Hover state when cursor reaches button
+                                    setTimeout(() => {
+                                        pillButton.classList.add('hovered');
+                                        
+                                        // Step 5: Click animation
+                                        setTimeout(() => {
+                                            cursor.classList.add('clicking');
+                                            pillButton.classList.add('clicked');
+                                            
+                                            // Step 6: Hide everything and slide text
+                                            setTimeout(() => {
+                                                buttonWrapper.classList.add('hidden');
+                                                cursor.classList.remove('visible', 'clicking');
+                                                pillButton.classList.remove('hovered', 'clicked');
+                                                // Hide window controls before text slides up
+                                                document.querySelector('.window-controls').style.opacity = '0';
+                                                notionBox.classList.add('typing-complete');
+                                                
+                                                // Step 7: Show candidates grid
+                                                setTimeout(() => {
+                                                    candidatesGrid.classList.add('visible');
+                                                    activateSequence();
+                                                }, 700);
+                                            }, 200);
+                                        }, 400);
+                                    }, 600);
+                                }, 300);
+                            }, 400);
+                        }, 500); // Pause after typing
+                    }
+                    return; // Stop animation after first completion
+                }
+                
+                setTimeout(type, 100); // Typing speed
+            }
+        }
+        
+        // Start the animation immediately
+        setTimeout(type, 500);
+    </script>
+</body>
+</html>
