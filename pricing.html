@@ -762,13 +762,26 @@
         }
 
         .feature-check {
-            background-image: url('Yes tick-1.svg');
+            width: 18px;
+            height: 18px;
+            border: 1px solid #000000;
+            border-radius: 4px;
+            background: #FFFFFF;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .feature-check::after {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M3 8L6.5 11.5L13 4.5' stroke='%23111111' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
-            background-size: 16px 16px;
-            width: 16px;
-            height: 16px;
-            margin: 0 auto;
         }
 
         .feature-dash {
