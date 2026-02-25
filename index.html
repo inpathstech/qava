@@ -4301,22 +4301,18 @@
             }
 
             .emoji-item {
-                font-size: 32px !important;
+                font-size: 28px !important;
             }
 
-            /* Adjust emoji positions for smaller circle (radius 80px) */
-            .emoji-item:nth-child(1) { left: 50% !important; top: 0 !important; }
-            .emoji-item:nth-child(2) { left: calc(50% + 40px) !important; top: calc(50% - 69.3px) !important; }
-            .emoji-item:nth-child(3) { left: calc(50% + 69.3px) !important; top: calc(50% - 40px) !important; }
-            .emoji-item:nth-child(4) { left: 100% !important; top: 50% !important; }
-            .emoji-item:nth-child(5) { left: calc(50% + 69.3px) !important; top: calc(50% + 40px) !important; }
-            .emoji-item:nth-child(6) { left: calc(50% + 40px) !important; top: calc(50% + 69.3px) !important; }
-            .emoji-item:nth-child(7) { left: 50% !important; top: 100% !important; }
-            .emoji-item:nth-child(8) { left: calc(50% - 40px) !important; top: calc(50% + 69.3px) !important; }
-            .emoji-item:nth-child(9) { left: calc(50% - 69.3px) !important; top: calc(50% + 40px) !important; }
-            .emoji-item:nth-child(10) { left: 0 !important; top: 50% !important; }
-            .emoji-item:nth-child(11) { left: calc(50% - 69.3px) !important; top: calc(50% - 40px) !important; }
-            .emoji-item:nth-child(12) { left: calc(50% - 40px) !important; top: calc(50% - 69.3px) !important; }
+            /* Adjust emoji transforms for tablet circle (radius 70px) */
+            .emoji-item:nth-child(1) { transform: rotate(0deg) translateY(-70px) rotate(0deg) !important; }
+            .emoji-item:nth-child(2) { transform: rotate(45deg) translateY(-70px) rotate(-45deg) !important; }
+            .emoji-item:nth-child(3) { transform: rotate(90deg) translateY(-70px) rotate(-90deg) !important; }
+            .emoji-item:nth-child(4) { transform: rotate(135deg) translateY(-70px) rotate(-135deg) !important; }
+            .emoji-item:nth-child(5) { transform: rotate(180deg) translateY(-70px) rotate(-180deg) !important; }
+            .emoji-item:nth-child(6) { transform: rotate(225deg) translateY(-70px) rotate(-225deg) !important; }
+            .emoji-item:nth-child(7) { transform: rotate(270deg) translateY(-70px) rotate(-270deg) !important; }
+            .emoji-item:nth-child(8) { transform: rotate(315deg) translateY(-70px) rotate(-315deg) !important; }
         }
 
         @media (max-width: 480px) {
@@ -4397,22 +4393,18 @@
             }
 
             .emoji-item {
-                font-size: 24px !important;
+                font-size: 22px !important;
             }
 
-            /* Adjust emoji positions for mobile circle (radius 60px) */
-            .emoji-item:nth-child(1) { left: 50% !important; top: 0 !important; }
-            .emoji-item:nth-child(2) { left: calc(50% + 30px) !important; top: calc(50% - 52px) !important; }
-            .emoji-item:nth-child(3) { left: calc(50% + 52px) !important; top: calc(50% - 30px) !important; }
-            .emoji-item:nth-child(4) { left: 100% !important; top: 50% !important; }
-            .emoji-item:nth-child(5) { left: calc(50% + 52px) !important; top: calc(50% + 30px) !important; }
-            .emoji-item:nth-child(6) { left: calc(50% + 30px) !important; top: calc(50% + 52px) !important; }
-            .emoji-item:nth-child(7) { left: 50% !important; top: 100% !important; }
-            .emoji-item:nth-child(8) { left: calc(50% - 30px) !important; top: calc(50% + 52px) !important; }
-            .emoji-item:nth-child(9) { left: calc(50% - 52px) !important; top: calc(50% + 30px) !important; }
-            .emoji-item:nth-child(10) { left: 0 !important; top: 50% !important; }
-            .emoji-item:nth-child(11) { left: calc(50% - 52px) !important; top: calc(50% - 30px) !important; }
-            .emoji-item:nth-child(12) { left: calc(50% - 30px) !important; top: calc(50% - 52px) !important; }
+            /* Adjust emoji transforms for mobile circle (radius 55px) */
+            .emoji-item:nth-child(1) { transform: rotate(0deg) translateY(-55px) rotate(0deg) !important; }
+            .emoji-item:nth-child(2) { transform: rotate(45deg) translateY(-55px) rotate(-45deg) !important; }
+            .emoji-item:nth-child(3) { transform: rotate(90deg) translateY(-55px) rotate(-90deg) !important; }
+            .emoji-item:nth-child(4) { transform: rotate(135deg) translateY(-55px) rotate(-135deg) !important; }
+            .emoji-item:nth-child(5) { transform: rotate(180deg) translateY(-55px) rotate(-180deg) !important; }
+            .emoji-item:nth-child(6) { transform: rotate(225deg) translateY(-55px) rotate(-225deg) !important; }
+            .emoji-item:nth-child(7) { transform: rotate(270deg) translateY(-55px) rotate(-270deg) !important; }
+            .emoji-item:nth-child(8) { transform: rotate(315deg) translateY(-55px) rotate(-315deg) !important; }
         }
 
         /* What Need Responsive */
