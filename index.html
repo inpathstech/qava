@@ -2862,24 +2862,26 @@
             }
 
             .feature-cards-grid {
-                flex-direction: column;
-                gap: 16px;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
             }
-            
+
             .feature-card-arrow {
                 display: none;
             }
-            
+
             .feature-card {
-                padding: 24px 20px;
+                padding: 20px 16px;
+                min-height: 120px;
             }
 
             .feature-card-title {
-                font-size: 20px;
+                font-size: 14px;
             }
 
             .feature-card-description {
-                font-size: 14px;
+                font-size: 12px;
             }
 
             .feature-preview-box {
@@ -2971,28 +2973,28 @@
             }
 
             .feature-cards-grid {
-                flex-direction: column;
-                gap: 12px;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
             }
-            
+
             .feature-card-arrow {
                 display: none;
             }
 
             .feature-card {
-                padding: 16px 20px;
+                padding: 16px 12px;
                 height: auto;
-                min-height: 60px;
+                min-height: 100px;
             }
 
             .feature-card-title {
-                font-size: 14px;
-                line-height: 1.5;
+                font-size: 13px;
+                line-height: 1.4;
             }
 
             .feature-card-description {
-                font-size: 13px;
-                display: none;
+                font-size: 11px;
             }
 
             .feature-preview-box {
