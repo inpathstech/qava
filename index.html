@@ -2161,7 +2161,7 @@
             flex-direction: column;
             gap: 12px;
             will-change: transform;
-            padding: 0 20px;
+            padding: 0;
         }
 
         .scrolling-listings-content.active {
@@ -2225,6 +2225,7 @@
 
         .listing-content {
             flex: 1;
+            min-width: 0;
             display: flex;
             flex-direction: column;
             gap: 6px;
@@ -2675,10 +2676,19 @@
 
             .listing-title {
                 font-size: 13px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 100%;
             }
 
             .listing-meta {
                 font-size: 11px;
+            }
+
+            .listing-content {
+                min-width: 0;
+                flex: 1;
             }
 
             .featured-badge {
@@ -2808,10 +2818,17 @@
 
             .listing-title {
                 font-size: 12px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 100%;
             }
 
             .listing-meta {
                 font-size: 10px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             .featured-badge {
