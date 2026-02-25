@@ -30,6 +30,7 @@
             font-family: 'Inter', sans-serif;
             background-color: #ffffff;
             color: #1f1f1f;
+            overflow-x: hidden;
         }
         
         /* Cache buster v2 - Updated styling */
@@ -1070,6 +1071,12 @@
                 grid-template-columns: 1fr;
                 padding: 0;
                 gap: 24px;
+            }
+
+            /* Fix elements with negative margins on mobile */
+            [style*="margin"][style*="-150px"] {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
             }
         }
 
