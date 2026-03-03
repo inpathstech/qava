@@ -117,7 +117,14 @@
             font-size: inherit;
             font-weight: inherit;
             white-space: nowrap;
+            padding: 0 4px;
+            display: inline;
         }
+        .nav-item:hover .nav-text,
+        .nav-item.active .nav-text {
+            background: linear-gradient(180deg, transparent 60%, rgba(15, 98, 254, 0.1) 60%);
+        }
+
 
         /* Dropdown Menu Styles */
         .dropdown-menu {
