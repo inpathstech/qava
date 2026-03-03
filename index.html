@@ -10558,17 +10558,12 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
             window.addEventListener('scroll', () => {
                 const currentScrollY = window.scrollY;
                 const scrollDelta = currentScrollY - lastScrollY;
-                
-                // Rotate based on scroll direction and distance
-                // Adjust rotation speed by changing the divisor (lower = faster rotation)
                 rotation += scrollDelta / 3;
-                
-                // Apply rotation to circle
-                emojiCircle.style.transform = `rotate(${rotation}deg)`;
-                
-                // Counter-rotate each emoji to keep them upright
-                emojiItems.forEach(emoji => {
-                    emoji.style.transform = `translate(-50%, -50%) rotate(${-rotation}deg)`;
+
+                emojiItems.forEach((emoji, i) => {
+                    const angle = i * 45 + rotation;
+                    const radius = window.innerWidth <= 480 ? 55 : window.innerWidth <= 768 ? 70 : 80;
+                    emoji.style.setProperty('transform', `rotate(${angle}deg) translateY(-${radius}px) rotate(${-angle}deg)`, 'important');
                 });
                 
                 lastScrollY = currentScrollY;
