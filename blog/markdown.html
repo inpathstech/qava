@@ -1757,33 +1757,28 @@
 
         .in-focus-cards-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 14px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
             width: 100%;
         }
 
         .in-focus-card {
             display: flex;
-            flex-direction: row;
-            align-items: stretch;
-            gap: 14px;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 16px;
             background: #FFFFFF;
-            border-radius: 0;
-            padding: 16px;
+            border-radius: 8px;
+            padding: 20px;
             width: 100%;
-            max-width: 880px;
-            margin: 0 auto;
             min-width: 0;
-            box-shadow: none;
-            border: none;
-            border-top: 1px solid #E6E6E6;
-            border-bottom: 1px solid #E6E6E6;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid transparent;
             transition: border-color 0.2s ease;
         }
 
         .in-focus-card:hover {
-            border-top-color: #000000;
-            border-bottom-color: #000000;
+            border-color: #000000;
         }
 
         .in-focus-card:hover .in-focus-arrow {
@@ -1801,9 +1796,8 @@
         }
 
         .in-focus-image-wrapper {
-            width: 200px;
-            min-width: 200px;
-            max-width: 200px;
+            width: 100%;
+            max-width: 100%;
             border-radius: 6px;
             overflow: hidden;
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.06), rgba(15, 23, 42, 0.02));
@@ -1819,9 +1813,8 @@
 
         .in-focus-image {
             width: 100%;
-            max-width: 200px;
-            height: 100%;
-            min-height: 140px;
+            max-width: 100%;
+            height: 200px;
             object-fit: cover;
             display: block;
         }
@@ -2580,21 +2573,16 @@
             }
 
             .in-focus-card {
-                flex-direction: column;
                 padding: 20px;
                 gap: 16px;
             }
 
             .in-focus-image-wrapper {
                 width: 100%;
-                min-width: 0;
-                max-width: 100%;
             }
 
             .in-focus-image {
                 height: 200px;
-                max-width: 100%;
-                min-height: 0;
                 max-height: 420px;
             }
 
@@ -4981,33 +4969,91 @@
     <!-- Hero Section -->
     <div class="hero-section" style="background: white;">
         <div class="success-hero-container">
-            <h1 style="font-family: 'Inter', sans-serif; font-size: clamp(30px, 4vw, 46px); font-weight: 600; color: #000000; line-height: 1.2; margin: 0 0 8px 0; display: block; width: 100%; white-space: nowrap;">Get in-the-know with QAVA resources</h1>
-            <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #6B6B6B; text-align: center; margin: 8px 0 16px 0; display: block; width: 100%;">From startup tools to large corporate initiatives, we have you covered.</p>
+            <h1 style="font-family: 'Inter', sans-serif; font-size: 52px; font-weight: 600; color: #000000; line-height: 1.2; margin: 0 0 8px 0; display: block; width: 100%;">Blog</h1>
+            <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #6B6B6B; text-align: center; margin: 8px 0 16px 0; display: block; width: 100%;">Insights on how work gets done in the AI era.</p>
         </div>
     </div>
 
-    <!-- Blog Library Section -->
-    <div class="in-focus-wrapper">
-        <div class="in-focus-section">
-            <div class="in-focus-container">
-                <div class="in-focus-cards-grid">
-                    <div class="in-focus-card">
-                        <a href="https://qava.ai/blog/markdown" class="in-focus-image-wrapper">
-                            <img src="About%20Image%202.png" alt="Entering the Markdowns Phase" class="in-focus-image" loading="lazy">
-                        </a>
-                        <div class="in-focus-content">
-                            <h3 class="in-focus-blog-title"><a href="https://qava.ai/blog/markdown">Entering the Markdowns Phase</a></h3>
-                            <p class="in-focus-subtitle">Why the next leap in working with AI is not smarter one-off prompts, but persistent structure. By using markdowns as living context, teams can move from episodic outputs to consistent, scalable execution.</p>
-                            <div class="in-focus-badges">
-                                <div class="in-focus-pill"><span>AI Systems 🤖</span></div>
-                                <div class="in-focus-pill"><span>Ways of Working 🧠</span></div>
-                                <div class="in-focus-pill"><span>Execution Design ⚙️</span></div>
-                            </div>
-                            <a href="https://qava.ai/blog/markdown" class="in-focus-link">Read post<span class="in-focus-arrow">→</span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- Blog Post -->
+    <div style="background: white; width: 100%;">
+        <div style="max-width: 980px; margin: 0 auto; padding: 20px 24px 80px 24px;">
+            <article style="max-width: 840px; margin: 0 auto;">
+                <h2 style="font-family: 'Inter', sans-serif; font-size: 42px; font-weight: 600; line-height: 1.15; color: #111; margin: 0 0 10px 0;">Entering the Markdowns Phase</h2>
+                <p style="font-family: 'Inter', sans-serif; font-size: 19px; font-weight: 300; color: #4A4A4A; line-height: 1.6; margin: 0 0 26px 0;">Why the future of working with AI is not better prompts, but better structure.</p>
+
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Is it just us, or does the era of prompts feel flat?</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Not wrong. Not disappointing. Just flat. And we cannot help but wonder what is coming next.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">In 2024 and 2025, we collectively learned how to prompt. We experimented with frameworks that front-load context, instruct AI to ask clarifying questions, and shape the output we want. For many people, this created a genuine productivity unlock, often estimated at a 10 to 30 percent improvement depending on role and task.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">And yet, AI can still feel like an extra limb. Powerful, yes, but not fully integrated into how teams actually work. It makes us faster, but it is not always transformational.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">That raises a more interesting question. Not how do we prompt better, but how do we work with AI in a way that is natural, consistent, and scalable across teams?</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 30px 0;">Our belief is that the next step is not more prompting. It is a better way of working. It is the markdowns phase.</p>
+
+                <h3 style="font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0;">My stance on prompts</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">To be clear, this is not an argument against prompts. Prompts are useful, impressive, and often the first way people discover what AI can do.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">But prompts have structural limits when we try to scale beyond individual use or across multiple sessions.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">First, inconsistency. Context depends on what someone remembers to include in that moment. Important nuance can be missing, outdated, or framed differently each time.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Second, variability. No two people prompt the same way. Similar questions can produce different outputs because assumptions and language differ.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 30px 0;">That is manageable for personal productivity. It is risky for shared decision-making. Prompts are episodic. Real work is cumulative.</p>
+
+                <h3 style="font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0;">From prompting to persistent context</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">This is where markdown files become powerful.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Markdowns can act as persistent sources of truth, structured documents that capture the latest thinking and can be attached to AI conversations for analysis and execution.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">The closest analogy is a policy document, but markdowns are living artifacts. They are updated as understanding evolves and used directly in day-to-day work.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 30px 0;">Markdowns do not replace prompts. They change what prompts do. Instead of recreating context each time, prompts become instructions layered on shared understanding.</p>
+
+                <h3 style="font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0;">Using AI to create the markdowns themselves</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">You do not need perfect markdowns to begin. AI is excellent at helping create them.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">You can turn messy meeting notes, strategy decks, policies, or raw bullet points into a clear markdown. Then your team can refine and align on that shared source of truth.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 30px 0;">Prompts are the scaffolding. Markdowns are the structure that remains.</p>
+
+                <h3 style="font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0;">Example: Large corporate transformation initiative</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Instead of relying on scattered prompts, decks, and emails, a transformation team can maintain a small set of markdowns:</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 8px 0;"><strong>Markdown File 1: Corporate Initiative.md</strong><br>Objectives, values, principles, and key dates from the sponsor.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 8px 0;"><strong>Markdown File 2: Initiative Governance.md</strong><br>Stakeholders, committees, team strengths, constraints, and vendor relationships.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;"><strong>Markdown File 3: Initiative Budget.md</strong><br>Budget, financial performance, and forecast assumptions.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 30px 0;">When a complex change order arrives, the AI already understands goals, people, constraints, and timing. The prompt becomes a trigger for analysis, not a test of memory.</p>
+
+                <h3 style="font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0;">Example: Startup launch</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">The same logic works for startups with a different markdown set:</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 8px 0;"><strong>Markdown File 1: Product Aspirations.md</strong><br>Product vision and growth goals.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 8px 0;"><strong>Markdown File 2: People &amp; Legal.md</strong><br>Team profiles, investors, and legal context.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;"><strong>Markdown File 3: Technology Stack.md</strong><br>Frontend, backend, integrations, architecture, and standards.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 30px 0;">When founders ask AI for a roadmap, success depends less on prompt cleverness and more on the quality and persistence of context.</p>
+
+                <h3 style="font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0;">Early guidelines on an emerging practice</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 8px 0;"><strong>Less is more.</strong> Fewer, higher-quality markdowns beat many overlapping ones.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 8px 0;"><strong>Stay concise.</strong> Long documents are fine when useful, but bloat creates friction.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 30px 0;"><strong>Leave room for iteration.</strong> Markdowns should evolve as understanding deepens.</p>
+
+                <h3 style="font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0;">Natural language meets computer speak</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Markdown works because it sits between natural language and machine-readable structure. Headings, bullets, and plain text tables create clarity for humans and reduce translation for AI.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Compared with slides, screenshots, and PDFs, markdown lets AI spend less effort interpreting format and more effort on reasoning and synthesis.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 30px 0;"><em>Less translation. More thinking.</em></p>
+
+                <pre style="white-space: pre-wrap; word-break: break-word; background: #FAFAFA; border: 1px solid #EBEBEB; border-radius: 10px; padding: 16px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; font-size: 13px; line-height: 1.6; color: #333; margin: 0 0 30px 0;"># Transformation Program Overview
+
+## Purpose
+- Reduce operating cost while improving delivery speed
+- Establish repeatable decision-making frameworks
+
+## Principles
+- Decisions favor long-term value over short-term optics
+- Speed matters, but clarity matters more
+
+## Key Dates
+- Program kickoff: March 1, 2026
+- Steering Committee: Monthly
+- Target completion: December 2026</pre>
+
+                <h3 style="font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0;">Embedding AI into the core analytics engine</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">The real power here is organizational coherence. Shared markdowns turn AI from a personal productivity tool into a consistent analytical partner.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Different team members can test scenarios, challenge assumptions, and generate insights, all grounded in the same context. It feels less like asking for help and more like collaborating with a well-briefed colleague.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 30px 0;">That is how small teams begin to operate like much larger ones with near-infinite analytical power.</p>
+
+                <h3 style="font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0;">Conclusion</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">There is still a lot to learn. Markdowns are not a silver bullet, and they require discipline to maintain. But they represent a meaningful shift away from episodic prompting and toward shared, persistent understanding.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0;">Prompts helped us discover what AI can do. Markdowns help AI understand how we work. And that feels like a strong place to build from.</p>
+            </article>
         </div>
     </div>
 
