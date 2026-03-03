@@ -689,9 +689,15 @@
 
         .qa-question {
             font-size: 16px !important;
-            font-weight: 600 !important;
+            font-weight: 500 !important;
             margin-bottom: 14px !important;
-            color: #0F62FE !important;
+            color: #000000 !important;
+        }
+
+        .qa-question .highlight {
+            background: linear-gradient(180deg, transparent 60%, rgba(15, 98, 254, 0.1) 60%);
+            padding: 0 4px;
+            display: inline;
         }
 
         .qa-answer {
@@ -708,20 +714,21 @@
 
         /* Pull quotes - centered with breathing room */
         blockquote {
-            margin: 40px auto !important;
-            padding: 14px 24px !important;
-            width: fit-content;
-            max-width: 90%;
-            font-size: 35px !important;
-            line-height: 1.3 !important;
-            color: #000000 !important;
-            font-weight: 300 !important;
-            font-style: normal !important;
+            margin: 36px auto !important;
+            padding: 0 !important;
+            width: 100%;
+            max-width: 680px;
+            font-size: 16px !important;
+            line-height: 1.65 !important;
+            color: #111111 !important;
+            font-weight: 500 !important;
+            font-style: italic !important;
             text-align: center;
             background: transparent;
+            border-radius: 0;
             white-space: normal;
             display: block;
-            font-family: 'Jonathan', 'Kalam', 'Brush Script MT', cursive;
+            font-family: 'Inter', sans-serif;
         }
 
         blockquote::before {
@@ -806,7 +813,7 @@
         /* Primary button - Join for free (matches hero) */
         .story-cta .cta-button.primary {
             padding: 6px 12px;
-            background: #0F62FE;
+            background: #ECF2FF;
             border-radius: 6px;
             display: flex;
             align-items: center;
@@ -817,7 +824,7 @@
             font-family: inherit;
             height: 27.6px;
             text-decoration: none;
-            color: white;
+            color: #1163FE;
             font-size: 13px;
             font-weight: 400;
             line-height: 1.2;
@@ -825,9 +832,9 @@
         }
 
         .story-cta .cta-button.primary:hover {
-            background: #0053E5;
+            background: #DCE8FF;
             transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
+            box-shadow: 0 4px 8px rgba(17, 99, 254, 0.15);
         }
 
         /* Secondary button - Request a demo (matches hero) */
@@ -966,10 +973,10 @@
             }
 
             blockquote {
-                margin: 32px auto !important;
-                padding: 12px 18px !important;
+                margin: 28px auto !important;
+                padding: 0 !important;
                 font-size: 15px !important;
-                max-width: 90%;
+                line-height: 1.65 !important;
             }
 
             .story-media {
@@ -1059,8 +1066,9 @@
             }
 
             blockquote {
-                font-size: 14px !important;
-                padding: 10px 16px !important;
+                font-size: 15px !important;
+                line-height: 1.65 !important;
+                padding: 0 !important;
             }
 
             .story-cta {
@@ -1415,6 +1423,16 @@
             dropdown.classList.toggle('active');
             toggle.classList.toggle('active');
         }
+
+        function applyQuestionHighlights() {
+            document.querySelectorAll('.qa-question').forEach((questionEl) => {
+                if (!questionEl.querySelector('.highlight')) {
+                    questionEl.innerHTML = `<span class="highlight">${questionEl.innerHTML}</span>`;
+                }
+            });
+        }
+
+        applyQuestionHighlights();
     </script>
 </body>
 </html>

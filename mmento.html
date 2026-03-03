@@ -565,7 +565,8 @@
 
         .story-hero {
             width: 100%;
-            margin: 32px 0 40px;
+            max-width: 440px;
+            margin: 32px auto 40px;
             border-radius: 12px;
             overflow: hidden;
         }
@@ -690,9 +691,15 @@
 
         .qa-question {
             font-size: 16px !important;
-            font-weight: 600 !important;
+            font-weight: 500 !important;
             margin-bottom: 14px !important;
-            color: #0F62FE !important;
+            color: #000000 !important;
+        }
+
+        .qa-question .highlight {
+            background: linear-gradient(180deg, transparent 60%, rgba(15, 98, 254, 0.1) 60%);
+            padding: 0 4px;
+            display: inline;
         }
 
         .qa-answer {
@@ -709,20 +716,21 @@
 
         /* Pull quotes - centered with breathing room */
         blockquote {
-            margin: 40px auto !important;
-            padding: 14px 24px !important;
-            width: fit-content;
-            max-width: 90%;
-            font-size: 35px !important;
-            line-height: 1.3 !important;
-            color: #000000 !important;
-            font-weight: 300 !important;
-            font-style: normal !important;
+            margin: 36px auto !important;
+            padding: 0 !important;
+            width: 100%;
+            max-width: 680px;
+            font-size: 16px !important;
+            line-height: 1.65 !important;
+            color: #111111 !important;
+            font-weight: 500 !important;
+            font-style: italic !important;
             text-align: center;
             background: transparent;
+            border-radius: 0;
             white-space: normal;
             display: block;
-            font-family: 'Jonathan', 'Kalam', 'Brush Script MT', cursive;
+            font-family: 'Inter', sans-serif;
         }
 
         blockquote::before {
@@ -819,7 +827,6 @@
             font-family: inherit;
             height: 27.6px;
             text-decoration: none;
-            color: white;
             font-size: 13px;
             font-weight: 400;
             line-height: 1.2;
@@ -980,10 +987,10 @@
             }
 
             blockquote {
-                margin: 32px auto !important;
-                padding: 12px 18px !important;
+                margin: 28px auto !important;
+                padding: 0 !important;
                 font-size: 15px !important;
-                max-width: 90%;
+                line-height: 1.65 !important;
             }
 
             .story-media {
@@ -1073,8 +1080,9 @@
             }
 
             blockquote {
-                font-size: 14px !important;
-                padding: 10px 16px !important;
+                font-size: 15px !important;
+                line-height: 1.65 !important;
+                padding: 0 !important;
             }
 
             .story-cta {
@@ -1268,7 +1276,7 @@
 
         <section class="story-intro">
             <p style="background-color: #f5f5f5; padding: 20px; border-radius: 8px; border: none; margin-bottom: 20px;">We share stories of people who turn ambition into action—hoping to inspire others or offer the practical know-how to do the same. We're especially proud to spotlight female and diverse founders whose journeys reshape what success looks like. This month, we sat down with Kristina Boxer, Founder of mmento.</p>
-            <p>Kristina has spent her career <strong>caring about the details</strong>—whether that was running customer experiences at WeWork or tracking financials for restaurants. With mmento, she's building something deeply personal: a tool that helps people remember what matters and show up intentionally for the people they care about.</p>
+            <p>Kristina has spent her career <strong>caring about the details</strong> — whether that was running employee experience at WeWork, or refining the customer journey at Teachable. With mmento, she’s building something deeply personal: a tool for recognizing those who matter most, on time.</p>
             <p>Without further ado, let's get into it.</p>
         </section>
 
@@ -1286,36 +1294,36 @@
         <section class="story-section" id="early-career">
             <h2>Early Career & Mission 🎯</h2>
             <div class="qa-block">
-                <p class="qa-question">Q: What was your early career like before starting mmento? What's your mission with mmento, and what are your personal values?</p>
+                <p class="qa-question"><span class="highlight">Q: What was your early career like before starting mmento? What's your mission with mmento, and what are your personal values?</span></p>
                 <p class="qa-answer">My career so far has been non-linear, which is an important part of the story of how I found my way to mmento.</p>
-                <p class="qa-answer">At the age of 11 I was convinced I wanted to be a restauranteur, so the bulk of my early career was spent learning the ins and outs of the business, working for, at the time, some of the best restaurants in Austin. I touched on every role there is in the restaurant business, outside of making the food myself. I'm an operations person, so optimizing— the experience, the profit margins, the service, and supporting a team running the show were where I excelled. Through working in restaurants I learned I was a person of detail and when no one else would, I sweat the small stuff, in pursuit of the greater good.</p>
+                <p class="qa-answer">At the age of 11 I was convinced I wanted to be a restauranteur, so the bulk of my early career was spent learning the ins and outs of the business, working for, at the time, some of the best restaurants in Austin. I touched on every role there is in the restaurant business, apart from making the food myself. I'm an operations person, so optimizing the experience, the profit margin, the service, and supporting a team running the show was where I excelled. Through working in restaurants I learned I was a person of detail and I sweat the small stuff, in pursuit of the greater good.</p>
                 <p class="qa-answer">This I carried with me to each role and each company, working across tech and workplace experience in NYC in running customer and employee experience. By the end of my stint at WeWork, my team and I had been responsible for over 1m square feet of office space— that's a lot of space to care about the details for.</p>
-                <p class="qa-answer">As for my mission for mmento, it is to give people a tool that enables us to show up for each other, thoughtfully and on time, and staying true to my values of integrity, heart, and doing the work.</p>
+                <p class="qa-answer">As for my mission for mmento, it is to give people a tool that enables us to show up for each other, thoughtfully and on time, while staying true to my values of integrity, heart, and doing the work.</p>
             </div>
             <div class="qa-block">
-                <p class="qa-question">Q: When did you realize you wanted to start your own business, and what inspired that decision?</p>
+                <p class="qa-question"><span class="highlight">Q: When did you realize you wanted to start your own business, and what inspired that decision?</span></p>
                 <p class="qa-answer">The seed was planted really early.</p>
-                <p class="qa-answer">Like some other millennials, I collected beanie babies growing up and used to track all the financials in an excel spreadsheet, later I was tracking P&L's for other businesses. But the common thread throughout my career became my attention to detail and the customer experience. I cared deeply about helping any company I worked for put their best foot forward. In plenty of scenarios that level of intentionality isn't always appreciated, or there simply isn't time to nurture it.</p>
-                <p class="qa-answer">I knew that if I wanted to bring to life the belief that details and showing up intentionally matter I'd better go about it myself. I realized I should probably establish something where I could bring to the surface something so important to me — how could I make it seamless, or at least easier for others to lean into the details and show up intentionally.</p>
+                <p class="qa-answer">Like some other millennials, I collected beanie babies growing up and used to track all the financials in an excel spreadsheet, later I was tracking P&L's for other businesses. But the common thread throughout my career became my attention to detail and the customer experience. I cared deeply about helping any company I worked for put their best foot forward. In plenty of scenarios that level of intentionality slows things down.</p>
+                <p class="qa-answer">I knew that if I wanted to bring to life the belief that details and showing up intentionally matter I needed to find a way of making it easy. I realized I could create something where I could bring to the surface something so important to me — how could I make it seamless, or at least simpler for others to lean into the details and show up thoughtfully and on time.</p>
             </div>
         </section>
 
         <section class="story-section" id="the-idea">
             <h2>The Idea for mmento 💡</h2>
             <div class="qa-block">
-                <p class="qa-question">Q: Tell us about the moment you came up with the idea for mmento. What problem were you seeing that you wanted to solve?</p>
+                <p class="qa-question"><span class="highlight">Q: Tell us about the moment you came up with the idea for mmento. What problem were you seeing that you wanted to solve?</span></p>
                 <p class="qa-answer">It was a series of moments really.</p>
                 <p class="qa-answer">I noticed how much we rely on crowdsourcing at times for "remind me when so and so's birthday is" and "what should I get them?" As a frequent recipient of these questions and a lover of gift giving, I realized this could be a space where a lot of us could use an extra hand, or in mmento's case, email. There is legitimate stress in gift getting—sometimes we have a great idea for someone and forget to write it down, or often we run out of time. I knew that having access to quality gift ideas or at the very least, notes on a gift you wanted to get for someone or a wishlist of theirs, could truly help take the stress out of gift giving.</p>
                 <div class="story-media">
                     <img src="reasons%20for%20mmento.png" alt="Reasons for mmento" loading="lazy" style="border: none; box-shadow: none;">
-                    <p class="story-media-caption">The moments that inspired mmento</p>
+                    <p class="story-media-caption">The moments that inspired mmento; created by QAVA connect, Ankita S.</p>
                 </div>
                 <p class="qa-answer">If you're lucky, you've received a gift or even a card that blew you away, and it didn't have to be large or expensive, just thoughtful enough to make you feel seen. Could I help people make the thought count more often? I became determined to.</p>
                 <p class="qa-answer">I'd be remiss if I didn't share another human experience that encouraged me to develop mmento. It came about when one of my dear friends lost her brother. I knew then and there I wanted to show up for her extra around the anniversary of his death each year. But typically, we don't put dates of loss on our Google Calendar — we might remember the day of, but what if we weren't in the same place or time zone, and I wanted to send flowers, a card? I needed a reliable, advance reminder.</p>
             </div>
             <blockquote>Could I help people make the thought count more often?</blockquote>
             <div class="qa-block">
-                <p class="qa-question">Q: What was the first thing you did to bring that idea to life?</p>
+                <p class="qa-question"><span class="highlight">Q: What was the first thing you did to bring that idea to life?</span></p>
                 <p class="qa-answer">The very first thing I did was start tracking products, artists, small shops, curated websites. Anything worth sharing. This became my own personal database that's still growing today — a kind of library of thoughtful goods and creators I want to amplify. Building this out helped me spot patterns in what gifts worked well when and to whom, and it gave me a foundation for what mmento would eventually become.</p>
                 <p class="qa-answer">In a way, mmento is simply a scaled version of something I was already doing manually: finding meaningful pieces and connecting people with them, and in turn each other.</p>
             </div>
@@ -1324,24 +1332,17 @@
         <section class="story-section" id="differentiators">
             <h2>What Makes mmento Different ✨</h2>
             <div class="qa-block">
-                <p class="qa-question">Q: What did you decide your differentiators were?</p>
+                <p class="qa-question"><span class="highlight">Q: What did you decide your differentiators were?</span></p>
                 <p class="qa-answer">For so many businesses I respect, the differentiator starts with who built them, and that's true for mmento. My eye for detail, my commitment to hitting the mark, and my belief in showing up intentionally all shape the experience. When people use mmento, they're trusting my taste and ideas, but they're also empowered to send something thoughtful without friction.</p>
-                <div class="story-media">
-                    <video autoplay loop muted playsinline style="width: 100%; max-width: 400px; border-radius: 12px; margin: 0 auto; display: block;">
-                        <source src="iphone%20profile%20screen%20record.mov" type="video/quicktime">
-                        Your browser doesn't support video playback. Please try viewing in Chrome, Safari, or Firefox.
-                    </video>
-                    <p class="story-media-caption">mmento in action</p>
-                </div>
                 <p class="qa-answer">While so many apps are purely about just function or social connection, mmento is a tool a part of a class that encompasses both. mmento has utility and is human-centric. It integrates with tools we already rely on, our calendars and email, and one day hopefully more.</p>
                 <div class="story-media">
                     <img src="what%20does%20mmento%20do.png" alt="What mmento does" loading="lazy">
-                    <p class="story-media-caption">How mmento helps you show up intentionally</p>
+                    <p class="story-media-caption">How mmento helps you show up intentionally; created by QAVA connect, Ankita S.</p>
                 </div>
                 <p class="qa-answer">I'm also inspired by older generations who keep meticulous notebooks of birthdays, anniversaries, and gifts they've given. mmento is a modern, digital way to carry that forward.</p>
             </div>
             <div class="qa-block">
-                <p class="qa-question">Q: Are there any milestones you're especially proud of?</p>
+                <p class="qa-question"><span class="highlight">Q: Are there any milestones you're especially proud of?</span></p>
                 <p class="qa-answer">Sales and marketing are not my forte, so one of the earliest milestones was getting new sign-ups simply by talking to strangers, at SXSW in Austin, at networking events, anywhere I could share what mmento was about. Those real-world conversations validated that the idea resonated.</p>
                 <p class="qa-answer">For my beta launch I put together an introductory email that everyone received in their inbox. It explained the value prop of mmento and gave a quick how-to. Getting this out was a lot of work, for an almost one woman show, and finally clicking send was elating. Shipping something you created, and sharing it with a wide audience, this is one of the greatest highs as a founder.</p>
             </div>
@@ -1350,13 +1351,13 @@
         <section class="story-section" id="getting-help">
             <h2>Getting Help & Growing 🌱</h2>
             <div class="qa-block">
-                <p class="qa-question">Q: How did you figure out what you're best at — and what to get help with?</p>
+                <p class="qa-question"><span class="highlight">Q: How did you figure out what you're best at — and what to get help with?</span></p>
                 <p class="qa-answer">I learned early on to lean on the people closest to me as mirrors. Over the years, I paid close attention to what colleagues, managers, and teammates consistently reflected back. I eventually worked with a business coach, which has helped me to get even clearer.</p>
                 <p class="qa-answer">Building a business as an entrepreneur means there will inherently be aspects you are not good at. Identifying those weaknesses, the areas in which you really drag your feet, is key and should be what you begin to outsource as soon as possible.</p>
             </div>
             <blockquote>Qava connected me with bright people excited to help solve real problems.</blockquote>
             <div class="qa-block">
-                <p class="qa-question">Q: What did you do once you identified that gap?</p>
+                <p class="qa-question"><span class="highlight">Q: What did you do once you identified that gap?</span></p>
                 <p class="qa-answer">Naturally I started looking for help. I found it surprisingly difficult to access vetted, knowledgeable people and often spent hours in the search, recruiting, and interview process to fill one part time contract role.</p>
                 <p class="qa-answer">Qava changed that for me. It connected me with a diverse pool of bright students who were genuinely excited to help me solve real problems at mmento. I was able to work with exceptional people who shaped key parts of the business in ways I couldn't have done alone.</p>
                 <p class="qa-answer">Alongside that, I continue to build a strong advisory circle made up of people I trust who challenge me. Having that mix of hands-on support and seasoned guidance is crucial.</p>
@@ -1366,7 +1367,7 @@
         <section class="story-section" id="navigating-ai">
             <h2>Navigating AI 🤖</h2>
             <div class="qa-block">
-                <p class="qa-question">Q: What advice would you give other founders navigating AI right now?</p>
+                <p class="qa-question"><span class="highlight">Q: What advice would you give other founders navigating AI right now?</span></p>
                 <p class="qa-answer">Naval Ravikant has this line: "AI won't replace programmers, but rather make it easier for programmers to replace everyone else." And programmers are just one example here. They may have a leg up but AI can fill all sorts of gaps for all sorts of professionals and it behooves us to stay abreast of what it can do.</p>
                 <p class="qa-answer">I also feel that the collective "we" decides what shapes our future, what's at the forefront. My business is specifically about human connection, thoughtfulness, and nurturing one another on time—AI might be able to help us do that more efficiently, but it will never replace the human element, not unless we let it.</p>
             </div>
@@ -1375,13 +1376,13 @@
         <section class="story-section" id="advice-next-steps">
             <h2>Advice & Next Steps 🚀</h2>
             <div class="qa-block">
-                <p class="qa-question">Q: For someone looking to start a startup, what advice would you share?</p>
+                <p class="qa-question"><span class="highlight">Q: For someone looking to start a startup, what advice would you share?</span></p>
                 <p class="qa-answer">Now is the time AND this takes patience. You will have your own groove, and you don't have to exude the "move fast and break things" startup mentality. In fact, anyone who's worked with me knows I'm a recovering perfectionist. I've had the opposite problem: wanting everything to be just right before sharing it and really, really taking my time. But the truth is, you have to do it your way. Do it your way and what you build will be all the better for it.</p>
                 <p class="qa-answer">My other piece of advice is to track your progress, and not just your wins, but failures too! I take a few minutes at the end of each workday to jot down what I've done and what's top of mind for tomorrow. This task is so simple it almost doesn't seem worth the time but it has made all the difference for me in staying focused and being able to reflect on the moves I'm making.</p>
             </div>
             <blockquote>Do it your way.</blockquote>
             <div class="qa-block">
-                <p class="qa-question">Q: What's next for mmento? What are you most excited about?</p>
+                <p class="qa-question"><span class="highlight">Q: What's next for mmento? What are you most excited about?</span></p>
                 <p class="qa-answer">There's a lot I'm excited about!</p>
                 <p class="qa-answer">We're introducing a paid plan with advanced features, like calendar integration and sharing. Along with that I'll be launching a promo for the first users who sign up for an annual subscription. More on that to come, but I want to do my part to make sure the handwritten card never becomes a lost art, so I've got plans for how mmento can help keep that alive.</p>
                 <div class="story-media">
@@ -1393,7 +1394,7 @@
                 <p class="qa-answer">If you know anyone who'd love to help with these initiatives, send them my way. I'm especially looking for fresh perspectives to support us in refining the user lifecycle and overall experience.</p>
             </div>
             <div class="qa-block">
-                <p class="qa-question">Q: Are there any books that have influenced your career or the way you work?</p>
+                <p class="qa-question"><span class="highlight">Q: Are there any books that have influenced your career or the way you work?</span></p>
                 <p class="qa-answer">Definitely.</p>
                 <p class="qa-answer"><em>The Big Leap</em> by Gay Hendricks<br>
                 <em>We Should All Be Millionaires</em> by Rachel Rodgers<br>
