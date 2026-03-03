@@ -3,7 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About</title>
+    <title>About Qava | AI-Powered Strategic Talent Platform</title>
+    <meta name="description" content="Learn why Qava exists, how it works, and the outcomes we help create by connecting business-trained talent with real-world strategic projects.">
+    <link rel="canonical" href="https://qava.ai/about">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://qava.ai/about">
+    <meta property="og:title" content="About Qava">
+    <meta property="og:description" content="Qava connects sharp talent with high-impact business projects to help companies move faster and create meaningful opportunities.">
+    <meta property="og:image" content="https://qava.ai/About%20image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="About Qava">
+    <meta name="twitter:description" content="Learn why Qava exists and how we connect talent with real-world strategic opportunities.">
+    <meta name="twitter:image" content="https://qava.ai/About%20image.png">
     <link rel="icon" type="image/svg+xml" href="qava-logo.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -387,8 +398,94 @@
             padding: 80px 32px;
         }
 
+        .about-layout {
+            display: block;
+        }
+
+        .about-sidebar {
+            position: fixed;
+            top: 150px;
+            left: calc(50% - 450px - 180px - 20px);
+            width: 180px;
+            border-left: 1px solid #EBEBEB;
+            padding-left: 14px;
+        }
+
+        .about-sidebar-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #6B6B6B;
+            margin: 0 0 12px 0;
+        }
+
+        .about-toc {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .about-toc-link {
+            display: block;
+            font-size: 14px;
+            font-weight: 300;
+            color: #6B6B6B;
+            text-decoration: none;
+            padding: 4px 0;
+            transition: color 0.2s ease;
+        }
+
+        .about-toc-link:hover {
+            color: #111;
+        }
+
+        .about-toc-link.active {
+            color: #0F62FE;
+            font-weight: 500;
+        }
+
+        .about-main {
+            min-width: 0;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
         .about-section {
             margin-bottom: 60px;
+        }
+
+        .about-section[id] {
+            scroll-margin-top: 100px;
+        }
+
+        .about-hero {
+            margin-bottom: 36px;
+        }
+
+        .about-hero-kicker {
+            font-size: 13px;
+            font-weight: 300;
+            color: #6B6B6B;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            margin: 0 0 10px 0;
+        }
+
+        .about-hero-title {
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 700;
+            color: #111;
+            line-height: 1.08;
+            margin: 0 0 12px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .about-hero-subtitle {
+            font-size: 17px;
+            font-weight: 300;
+            color: #333;
+            line-height: 1.75;
+            margin: 0;
+            max-width: 760px;
         }
 
         .about-title {
@@ -410,7 +507,7 @@
         .section-subheading {
             font-size: 16px;
             font-weight: 300;
-            color: #333;
+            color: #000;
             margin-bottom: 24px;
             margin-top: 0;
         }
@@ -436,6 +533,10 @@
             line-height: 1.4;
             margin-bottom: 8px;
             padding-left: 0;
+        }
+
+        .about-list.services-list li {
+            font-size: 14px;
         }
 
         .highlight-box {
@@ -493,6 +594,91 @@
             display: inline;
         }
 
+        .hero-quote-media {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .hero-quote-media::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(178, 210, 255, 0.2);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .hero-quote-image {
+            width: 100%;
+            display: block;
+            height: 500px;
+            object-fit: cover;
+            filter: saturate(0.95) brightness(1.03);
+        }
+
+        .hero-quote-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.05) 48%, rgba(0, 0, 0, 0.58) 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: 30px;
+            z-index: 2;
+        }
+
+        .hero-quote-copy {
+            opacity: 1;
+            transition: opacity 0.35s ease;
+        }
+
+        .hero-quote-copy.is-fading {
+            opacity: 0;
+        }
+
+        .hero-quote-text {
+            color: #FFFFFF;
+            font-size: clamp(22px, 3.1vw, 34px);
+            font-weight: 600;
+            line-height: 1.28;
+            margin: 0;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+            max-width: 720px;
+        }
+
+        .hero-quote-author {
+            margin-top: 12px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 15px;
+            font-weight: 300;
+            letter-spacing: 0.01em;
+        }
+
+        .hero-quote-dots {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .hero-quote-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.35);
+            transition: background 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .hero-quote-dot:hover {
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        .hero-quote-dot.active {
+            background: rgba(255, 255, 255, 0.95);
+        }
+
         /* Notion-like blocks */
         .quote-card {
             background: transparent;
@@ -522,7 +708,7 @@
             font-weight: 300;
             color: #111;
             letter-spacing: 0.01em;
-            margin: 22px 0 12px 0;
+            margin: 22px 0 40px 0;
         }
 
         .stats-grid {
@@ -540,36 +726,109 @@
         }
 
         .stat-card {
-            background: white;
-            border: 1px solid #EBEBEB;
+            background: #FFFFFF;
+            border: none;
             border-radius: 14px;
-            padding: 14px 16px;
+            padding: 16px 18px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 2px 10px rgba(16, 24, 40, 0.06);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(16, 24, 40, 0.08);
         }
 
         .stat-top {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 6px;
+            gap: 8px;
+            margin-bottom: 8px;
         }
 
-        .stat-emoji {
-            font-size: 18px;
-            line-height: 1;
+        .stat-icon {
+            width: 16px;
+            height: 16px;
+            color: #1163FE;
+            flex-shrink: 0;
+            display: block;
         }
 
         .stat-number {
-            font-size: 18px;
+            font-size: 30px;
             font-weight: 700;
             color: #111;
-            line-height: 1.2;
+            line-height: 1;
+            letter-spacing: -0.01em;
         }
 
         .stat-label {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 300;
             color: #6B6B6B;
             line-height: 1.4;
+            letter-spacing: 0.01em;
+        }
+
+        .stat-subtitle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stat-subtitle .stat-label {
+            line-height: 1;
+            margin: 0;
+        }
+
+        .stat-footnote {
+            margin: 12px 0 0 0;
+            font-size: 12px;
+            font-weight: 300;
+            color: #8A8A8A;
+            text-align: center;
+        }
+
+        .values-editorial {
+            margin-top: 10px;
+        }
+
+        .values-editorial .about-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 300;
+            line-height: 1.8;
+            color: #000;
+            margin-bottom: 14px;
+        }
+
+        .values-list {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            margin-top: 8px;
+        }
+
+        .value-item-title {
+            font-family: 'Inter', sans-serif;
+            font-style: normal;
+            font-size: clamp(14px, 2vw, 16px);
+            font-weight: 500;
+            line-height: 1.15;
+            color: #111;
+            margin: 0 0 6px 0;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .value-item-body {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 1.8;
+            color: #6B6B6B;
+            margin: 0;
+            max-width: 780px;
         }
 
         .callout-card {
@@ -594,13 +853,28 @@
 
         .cta-card {
             background: white;
-            border: 1px solid #EBEBEB;
+            border: none;
             border-radius: 14px;
-            padding: 14px 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 2px 10px rgba(16, 24, 40, 0.06);
+            transition: box-shadow 0.2s ease;
+        }
+
+        .cta-card:hover {
+            box-shadow: 0 8px 20px rgba(16, 24, 40, 0.08);
+        }
+
+        .cta-card-icon {
+            width: 20px;
+            height: 20px;
+            color: #1163FE;
+            margin-bottom: 10px;
         }
 
         .cta-card-title {
-            font-size: 14px;
+            font-size: 18px;
             font-weight: 600;
             color: #111;
             margin: 0 0 6px 0;
@@ -609,57 +883,98 @@
         .cta-card-body {
             font-size: 14px;
             font-weight: 300;
-            color: #333;
+            color: #6B6B6B;
             line-height: 1.6;
-            margin: 0;
+            margin: 0 0 16px 0;
+            flex: 1;
+        }
+
+        .cta-card-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: #1163FE;
+            text-decoration: none;
+            padding: 5px 12px;
+            background: #ECF2FF;
+            border-radius: 6px;
+            transition: background 0.2s ease;
+            width: fit-content;
+        }
+
+        .cta-card-action:hover {
+            background: #DCE8FF;
+        }
+
+        .cta-card-action svg {
+            width: 14px;
+            height: 14px;
         }
 
         .cta-buttons {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 12px;
             margin-top: 14px;
         }
 
         .cta-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 6px 12px;
-            border-radius: 6px;
-            border: 1px solid #EBEBEB;
-            background: white;
-            text-decoration: none;
             font-family: 'Inter', sans-serif;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
-            color: #111;
-            transition: all 0.15s ease;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-        }
-
-        .cta-button:hover {
-            background: #FAFAFA;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+            padding: 4px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-block;
+            min-width: auto;
+            text-align: center;
+            height: auto;
         }
 
         .cta-button.primary {
-            background: #0F62FE;
-            border-color: #0F62FE;
-            color: white;
+            background: #ECF2FF;
+            color: #1163FE;
+            border: 1px solid #ECF2FF;
         }
 
         .cta-button.primary:hover {
-            background: #0053E5;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(0, 43, 255, 0.25);
+            background: #DCE8FF;
+            border-color: #DCE8FF;
+        }
+
+        .cta-button.secondary {
+            background: white;
+            color: #000000;
+            border: none;
+            font-weight: 300;
+        }
+
+        .cta-button.secondary:hover {
+            background: white;
+            color: #000000;
+            text-decoration: underline;
         }
 
         @media (max-width: 768px) {
             .about-container {
                 padding: 60px 24px;
+            }
+
+            .hero-quote-overlay {
+                padding: 18px;
+            }
+
+            .hero-quote-text {
+                font-size: 24px;
+            }
+
+            .hero-quote-image {
+                height: 420px;
             }
 
             .about-title {
@@ -693,6 +1008,19 @@
 
             .stats-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .values-editorial .about-text,
+            .value-item-body {
+                font-size: 14px;
+            }
+
+            .value-item-title {
+                font-size: 14px;
+            }
+
+            .values-list {
+                gap: 18px;
             }
 
             .cta-cards {
@@ -951,7 +1279,7 @@
             </div>
             
             <!-- Hamburger Menu Button -->
-            <div class="hamburger-menu" onclick="toggleMobileMenu()">
+            <div class="hamburger-menu" role="button" aria-label="Open navigation menu" tabindex="0" onclick="toggleMobileMenu()" onkeydown="handleMenuKeydown(event)">
                 <div class="hamburger-line"></div>
                 <div class="hamburger-line"></div>
                 <div class="hamburger-line"></div>
@@ -995,88 +1323,158 @@
 
     <!-- About Page Content -->
     <div class="about-container">
-        <div class="about-section">
-            <div style="text-align: center; margin-bottom: 40px;">
-                <img src="About%20image.png" alt="About Qava" style="width: 100%; max-width: 800px; border-radius: 12px;" loading="lazy">
+        <div class="about-layout">
+        <aside class="about-sidebar" aria-label="About page sections">
+            <nav class="about-toc">
+                <a href="#our-story" class="about-toc-link active">Our Story</a>
+                <a href="#our-values" class="about-toc-link">Our Values</a>
+                <a href="#what-is-qava" class="about-toc-link">What Is Qava?</a>
+                <a href="#why-it-works" class="about-toc-link">Why It Works</a>
+                <a href="#ready-to-start" class="about-toc-link">Ready To Get Started?</a>
+            </nav>
+        </aside>
+
+        <div class="about-main">
+        <section class="about-section about-hero" id="where-work-gets-done">
+            <p class="about-hero-kicker">About Qava</p>
+            <h1 class="about-hero-title">Where Work Gets Done</h1>
+            <p class="about-hero-subtitle">When you connect the right minds to the right opportunities, magic happens.</p>
+        </section>
+
+        <section class="about-section" id="our-story">
+            <div class="hero-quote-media">
+                <img class="hero-quote-image" src="About%20Image%202.png" alt="Sailboats at sea" loading="lazy" decoding="async">
+                <div class="hero-quote-overlay">
+                    <div>
+                        <div class="hero-quote-copy">
+                            <p class="hero-quote-text">Everything around you that you call life was made up by people that were no smarter than you—and you can change it, you can influence it, you can build your own things that other people can use.</p>
+                            <p class="hero-quote-author">— Steve Jobs</p>
+                        </div>
+                        <div class="hero-quote-dots" id="heroQuoteDots"></div>
+                    </div>
+                </div>
             </div>
-            
-            <div class="quote-card">
-                <p class="quote-text">Everything around you that you call life was made up by people that were <span class="highlight">no smarter than you</span>—and you can change it, you can influence it, you can <span class="highlight">build your own things</span> that other people can use.</p>
-                <p class="quote-author">— Steve Jobs</p>
-            </div>
 
-            <p class="about-text">I started <strong>Qava</strong> because I believe in the limitless potential of people to <span class="highlight">create a brighter future</span>.</p>
+            <p class="about-text">We started <strong>Qava</strong> because we believe in the limitless potential of people to <span class="highlight">create a brighter future</span>.</p>
 
-            <p class="about-text">Nothing lights me up more than hearing about someone’s mission to build a new product, pursue their passion, 5x their income, and I love helping them do this.</p>
+            <p class="about-text">Again and again, we watched founders and operators hit the same wall: <span class="highlight">too many priorities, too little trusted support, and no clear path from strategy to execution</span>.</p>
 
-            <p class="about-text">But I see the same patterns repeat themselves. Founders and operators get stuck—<span class="highlight">short on time, short on budget, unsure who to trust</span>.</p>
+            <p class="about-text">At the same time, we met exceptional people on the sidelines—MBAs, graduates, career-changers, and mums returning to work—ready to contribute, but blocked from meaningful opportunities where their thinking could actually matter.</p>
 
-            <p class="about-text">At the same time, I see incredibly smart people on the sidelines—MBAs, graduates, career-changers—ready to help, but crowded out of meaningful opportunities.</p>
+            <p class="about-text">It was never a talent problem. It was a connectivity problem.</p>
 
-            <p class="about-text">The problem wasn’t talent. The problem was connectivity.</p>
+            <p class="about-text">So we ran a pilot. No code. No automation. Just matching <span class="highlight">smart people with smart people</span>, project by project, and tracking outcomes with discipline.</p>
 
-            <p class="about-text">So I ran a pilot. No code. No automation. Just connecting <span class="highlight">smart people with smart people</span>.</p>
+            <p class="about-text">What we learned was simple: when scope is clear and incentives are aligned, work gets done faster, better, and with more trust on both sides.</p>
 
-            <div class="micro-heading">What happened next?</div>
+            <div class="micro-heading">What happened when we tested it?</div>
 
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-top">
-                        <div class="stat-emoji">🤝</div>
                         <div class="stat-number">$2.4M+</div>
                     </div>
-                    <div class="stat-label">in sales influenced</div>
+                    <div class="stat-subtitle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14.66v1.626a2 2 0 0 1-.976 1.696A5 5 0 0 0 7 21.978"/><path d="M14 14.66v1.626a2 2 0 0 0 .976 1.696A5 5 0 0 1 17 21.978"/><path d="M18 9h1.5a1 1 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"/><path d="M6 9H4.5a1 1 0 0 1 0-5H6"/></svg>
+                        <div class="stat-label">Sales Influenced</div>
+                    </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-top">
-                        <div class="stat-emoji">🚀</div>
                         <div class="stat-number">$6.1M+</div>
                     </div>
-                    <div class="stat-label">in capital &amp; grants raised</div>
+                    <div class="stat-subtitle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
+                        <div class="stat-label">Capital &amp; Grants Raised</div>
+                    </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-top">
-                        <div class="stat-emoji">🔓</div>
                         <div class="stat-number">120+</div>
                     </div>
-                    <div class="stat-label">careers unlocked</div>
+                    <div class="stat-subtitle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 5a2 2 0 0 0-2 2v11"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M7 13h10"/><path d="M7 9h10"/><path d="M9 5a2 2 0 0 0-2 2v11"/></svg>
+                        <div class="stat-label">Careers Unlocked</div>
+                    </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-top">
-                        <div class="stat-emoji">📣</div>
                         <div class="stat-number">200+</div>
                     </div>
-                    <div class="stat-label">public LinkedIn testimonials</div>
+                    <div class="stat-subtitle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/><path d="M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14"/><path d="M8 6v8"/></svg>
+                        <div class="stat-label">Public LinkedIn Testimonials</div>
+                    </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-top">
-                        <div class="stat-emoji">🔁</div>
                         <div class="stat-number">98%</div>
                     </div>
-                    <div class="stat-label">of users return for a second project</div>
+                    <div class="stat-subtitle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>
+                        <div class="stat-label">Repeat Project Rate</div>
+                    </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-top">
-                        <div class="stat-emoji">📈</div>
                         <div class="stat-number">200+</div>
                     </div>
-                    <div class="stat-label">strategic projects completed</div>
+                    <div class="stat-subtitle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>
+                        <div class="stat-label">Strategic Projects Completed</div>
+                    </div>
                 </div>
             </div>
+            <p class="stat-footnote">Based on verified project outcomes and public testimonials.</p>
 
-            <div class="callout-card"><span class="highlight">When you connect the right minds to the right opportunities, magic happens.</span></div>
-        </div>
+        </section>
 
-        <div class="about-section">
+        <section class="about-section" id="our-values">
+            <h2 class="section-heading">Our Values</h2>
+
+            <div class="values-editorial">
+                <p class="about-text">These are the standards we use to build Qava and guide every project on the platform.</p>
+
+                <div class="values-list">
+                    <div class="value-item">
+                        <h3 class="value-item-title">1. Stay Curious</h3>
+                        <p class="value-item-body">For others, curiosity can feel like a liability. At Qava, we believe an open mind is fundamental to doing great strategic work. We ask better questions, pressure-test assumptions, and stay open to better answers.</p>
+                    </div>
+
+                    <div class="value-item">
+                        <h3 class="value-item-title">2. Do the Hard Work</h3>
+                        <p class="value-item-body">Great outcomes take hard work, and we embrace it. We value preparation, follow-through, empathy, courage, ingenuity, and drive from everyone who contributes on the platform.</p>
+                    </div>
+
+                    <div class="value-item">
+                        <h3 class="value-item-title">3. Pursue Excellence</h3>
+                        <p class="value-item-body">We take real pride in being best-in-class. From first brief to final delivery, we focus relentlessly on quality that earns trust and helps people make better decisions.</p>
+                    </div>
+
+                    <div class="value-item">
+                        <h3 class="value-item-title">4. Think Independently</h3>
+                        <p class="value-item-body">We are not built on groupthink. Independent thinking is core to how we work and how we are building this business. We challenge assumptions and back ideas based on what actually works.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-section" id="what-is-qava">
             <h2 class="section-heading">What is Qava?</h2>
             
-            <p class="about-text">
-                Qava is an <span class="highlight">AI-powered platform</span> that connects talent with real-world opportunities—fast.
-            </p>
+            <p class="about-text">The world does not need another job board. It needs a better way to get meaningful work done.</p>
+
+            <p class="about-text">In a world shaped by AI, ideas are easier to generate than ever, but execution still depends on people who can think clearly, ask better questions, and move projects forward.</p>
+
+            <p class="about-text">Qava is an <span class="highlight">AI-powered platform</span> built for that reality. We connect business-trained talent with clearly scoped, high-impact projects so companies can move faster and people can build real momentum.</p>
+
+            <div style="margin: 32px 0; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 16px rgba(16, 24, 40, 0.08);">
+                <img src="About%20image%203.png" alt="Qava Platform" style="width: 100%; display: block;" loading="lazy" decoding="async">
+            </div>
 
             <h3 class="section-subheading">We focus on clearly scoped, high-impact work where thinking matters:</h3>
 
-            <ul class="about-list">
+            <ul class="about-list services-list">
                 <li>📊 Financial modeling</li>
                 <li>📝 Business plans</li>
                 <li>🚀 Go-to-market strategy</li>
@@ -1085,54 +1483,56 @@
                 <li>💼 Internships, fractional roles, and one-off strategic projects</li>
             </ul>
 
-            <p class="about-text">
-                Whether you’re launching something new, scaling what’s working, or cleaning up a mess, Qava gives you the <span class="highlight">thinking power to move forward</span>—without hiring full-time or paying bloated consulting fees.
-            </p>
-        </div>
+            <p class="about-text">Whether you are launching something new, scaling what is working, or fixing what is not, Qava gives you the <span class="highlight">thinking power to move forward</span> without adding full-time overhead.</p>
 
-        <div class="about-section">
-            <h2 class="section-heading">Why it works</h2>
+            <p class="about-text">This is not about collecting applications or filling seats. It is about connecting the right people to the right problems and creating outcomes that matter.</p>
+        </section>
+
+        <section class="about-section" id="why-it-works">
+            <h2 class="section-heading">Why It Works</h2>
             
-            <p class="about-text">There’s an entire industry built on friction between people and opportunity. We built Qava to remove it:</p>
+            <p class="about-text">Most platforms create friction between people and opportunity. We built Qava to remove it:</p>
             
-            <ul class="about-list">
-                <li>❌ No expensive retainers</li>
-                <li>❌ No spray-and-pray job boards</li>
-                <li>❌ No ghosting or unclear expectations</li>
+            <ul class="about-list services-list">
+                <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:6px;color:#D35050"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>No expensive retainers</li>
+                <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:6px;color:#D35050"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>No spray-and-pray job boards</li>
+                <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:6px;color:#D35050"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>No ghosting or unclear expectations</li>
             </ul>
 
             <p class="about-text">Instead, you get:</p>
 
-            <ul class="about-list">
-                <li>✅ Business-trained, motivated talent</li>
-                <li>✅ Projects designed around real outcomes—not busywork</li>
-                <li>✅ Public proof of work that helps talent get noticed</li>
-                <li>✅ Tools that help companies find the right fit, faster</li>
+            <ul class="about-list services-list">
+                <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:6px;color:#1163FE"><path d="M20 6 9 17l-5-5"/></svg>Business-trained, motivated talent</li>
+                <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:6px;color:#1163FE"><path d="M20 6 9 17l-5-5"/></svg>Projects designed around real outcomes—not busywork</li>
+                <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:6px;color:#1163FE"><path d="M20 6 9 17l-5-5"/></svg>Public proof of work that helps talent get noticed</li>
+                <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:6px;color:#1163FE"><path d="M20 6 9 17l-5-5"/></svg>Tools that help companies find the right fit, faster</li>
             </ul>
 
-            <div class="callout-card"><span class="highlight">This isn't about filling roles. It's about solving real problems—together.</span></div>
-        </div>
+            <p class="about-text">The result is trust on both sides: companies get focused strategic support, and talent gets real opportunities to build skill, reputation, and momentum.</p>
+
+            <div class="callout-card"><span class="highlight">This is not about filling seats. It is about solving real problems, together.</span></div>
+        </section>
 
 
-        <div class="about-section">
+        <section class="about-section" id="ready-to-start">
             <h2 class="section-heading">Ready to get started?</h2>
             
             <div class="cta-cards">
                 <div class="cta-card">
-                    <div class="cta-card-title">🧠 If you’re talent</div>
-                    <p class="cta-card-body">Work on real projects that build your skills, your network, and your story.</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="cta-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    <div class="cta-card-title">If you’re talent</div>
+                    <p class="cta-card-body">Build skills and momentum on real projects.</p>
+                    <a href="https://app.qava.ai/projects" class="cta-card-action">Explore projects <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
                 </div>
                 <div class="cta-card">
-                    <div class="cta-card-title">🚀 If you’re a company</div>
-                    <p class="cta-card-body">Post a project and get matched with sharp, motivated people ready to help you build.</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="cta-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+                    <div class="cta-card-title">If you’re a company</div>
+                    <p class="cta-card-body">Get matched with sharp, motivated talent.</p>
+                    <a href="https://app.qava.ai/" class="cta-card-action">Post a project <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
                 </div>
             </div>
-
-            <div class="cta-buttons">
-                <a href="https://app.qava.ai/" class="cta-button primary">📣 Post a project</a>
-                <a href="https://app.qava.ai/projects" class="cta-button">🔦 Explore open projects</a>
-                <a href="https://app.qava.ai/" class="cta-button">🚪 Join as talent</a>
-            </div>
+        </section>
+        </div>
         </div>
     </div>
 
@@ -1224,6 +1624,13 @@
             toggle.classList.toggle('active');
         }
 
+        function handleMenuKeydown(event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                toggleMobileMenu();
+            }
+        }
+
         // Close mobile menu when clicking outside
         document.addEventListener('click', function(event) {
             const mobileMenu = document.getElementById('mobileMenu');
@@ -1253,14 +1660,166 @@
                 }
             }
         });
+
+        function initAboutSidebarSpy() {
+            const tocLinks = Array.from(document.querySelectorAll('.about-toc-link'));
+            if (!tocLinks.length) return;
+
+            const sections = tocLinks
+                .map((link) => document.querySelector(link.getAttribute('href')))
+                .filter(Boolean);
+
+            if (!sections.length) return;
+
+            const setActive = (sectionId) => {
+                tocLinks.forEach((link) => {
+                    const isActive = link.getAttribute('href') === `#${sectionId}`;
+                    link.classList.toggle('active', isActive);
+                    if (isActive) {
+                        link.setAttribute('aria-current', 'true');
+                    } else {
+                        link.removeAttribute('aria-current');
+                    }
+                });
+            };
+
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    const visible = entries
+                        .filter((entry) => entry.isIntersecting)
+                        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+                    if (visible[0]) {
+                        setActive(visible[0].target.id);
+                    }
+                },
+                {
+                    root: null,
+                    rootMargin: '-30% 0px -55% 0px',
+                    threshold: [0.1, 0.25, 0.5]
+                }
+            );
+
+            sections.forEach((section) => observer.observe(section));
+            setActive(sections[0].id);
+        }
+
+        function initHeroQuoteRotation() {
+            const quoteCopy = document.querySelector('.hero-quote-copy');
+            const quoteText = document.querySelector('.hero-quote-text');
+            const quoteAuthor = document.querySelector('.hero-quote-author');
+            const dotsContainer = document.getElementById('heroQuoteDots');
+
+            if (!quoteCopy || !quoteText || !quoteAuthor) return;
+
+            const quotes = [
+                {
+                    text: "Everything around you that you call life was made up by people that were no smarter than you—and you can change it, you can influence it, you can build your own things that other people can use.",
+                    author: "— Steve Jobs"
+                },
+                {
+                    text: "The best way to predict the future is to create it.",
+                    author: "— Peter Drucker"
+                },
+                {
+                    text: "Done is better than perfect.",
+                    author: "— Sheryl Sandberg"
+                },
+                {
+                    text: "The way to get started is to quit talking and begin doing.",
+                    author: "— Walt Disney"
+                },
+                {
+                    text: "Opportunities don't happen. You create them.",
+                    author: "— Chris Grosser"
+                },
+                {
+                    text: "Success is the sum of small efforts, repeated day in and day out.",
+                    author: "— Robert Collier"
+                },
+                {
+                    text: "Great things are done by a series of small things brought together.",
+                    author: "— Vincent van Gogh"
+                },
+                {
+                    text: "The future depends on what you do today.",
+                    author: "— Mahatma Gandhi"
+                }
+            ];
+
+            let currentIndex = 0;
+            let autoRotateTimer = null;
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            const dots = [];
+            if (dotsContainer) {
+                quotes.forEach((_, i) => {
+                    const dot = document.createElement('span');
+                    dot.className = 'hero-quote-dot' + (i === 0 ? ' active' : '');
+                    dot.addEventListener('click', () => goToQuote(i));
+                    dotsContainer.appendChild(dot);
+                    dots.push(dot);
+                });
+            }
+
+            const updateDots = (index) => {
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+            };
+
+            const updateQuote = (index) => {
+                quoteText.textContent = quotes[index].text;
+                quoteAuthor.textContent = quotes[index].author;
+                updateDots(index);
+            };
+
+            const goToQuote = (index) => {
+                if (index === currentIndex) return;
+                quoteCopy.classList.add('is-fading');
+                setTimeout(() => {
+                    currentIndex = index;
+                    updateQuote(currentIndex);
+                    quoteCopy.classList.remove('is-fading');
+                }, 320);
+                resetAutoRotate();
+            };
+
+            const resetAutoRotate = () => {
+                if (prefersReducedMotion) return;
+                clearInterval(autoRotateTimer);
+                autoRotateTimer = setInterval(() => {
+                    quoteCopy.classList.add('is-fading');
+                    setTimeout(() => {
+                        currentIndex = (currentIndex + 1) % quotes.length;
+                        updateQuote(currentIndex);
+                        quoteCopy.classList.remove('is-fading');
+                    }, 320);
+                }, 7000);
+            };
+
+            updateQuote(currentIndex);
+            if (quotes.length < 2 || prefersReducedMotion) return;
+
+            resetAutoRotate();
+        }
+
+        function initAboutPageFeatures() {
+            initAboutSidebarSpy();
+            initHeroQuoteRotation();
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initAboutPageFeatures);
+        } else {
+            initAboutPageFeatures();
+        }
     </script>
 
     <script>
     (() => {
         // Get current page from URL (works for both qava.ai and local paths)
         const currentPath = window.location.pathname;
-        const hostname = window.location.hostname;
-        
         // Map pages to nav items
         if (currentPath.includes('/pricing') || currentPath === '/pricing.html') {
             document.querySelector('.nav-item.pricing')?.classList.add('active');
