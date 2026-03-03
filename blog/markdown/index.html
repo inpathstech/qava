@@ -63,6 +63,82 @@
             padding: clamp(56px, 9vw, 100px) 24px 80px 24px;
         }
 
+        /* Blog post mobile-only layout safeguards */
+        @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden;
+            }
+
+            .post-shell {
+                padding: 34px 16px 64px 16px;
+            }
+
+            .markdown-post-article {
+                max-width: 100% !important;
+                overflow-x: clip;
+            }
+
+            .blog-hero-card {
+                border-radius: 8px !important;
+                margin-bottom: 18px !important;
+            }
+
+            .blog-hero-overlay {
+                padding: 20px 14px 14px 14px !important;
+                background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.52) 50%, transparent 100%) !important;
+            }
+
+            .blog-hero-title {
+                font-size: clamp(24px, 7vw, 30px) !important;
+                line-height: 1.18 !important;
+                margin-bottom: 4px !important;
+                white-space: normal !important;
+                overflow-wrap: anywhere;
+            }
+
+            .blog-hero-subtitle {
+                font-size: 14px !important;
+                line-height: 1.45 !important;
+                white-space: normal !important;
+                overflow-wrap: anywhere;
+            }
+
+            .markdown-post-article div[style*="grid-template-columns: repeat(3, minmax(0, 1fr));"] {
+                grid-template-columns: 1fr !important;
+                gap: 12px !important;
+            }
+
+            .markdown-post-article div[style*="margin: 4px 0 12px 0;"] {
+                display: none !important;
+            }
+
+            .markdown-post-article div[style*="border: 1px dashed #D0D0D0"] p:first-child {
+                display: flex !important;
+                align-items: flex-start !important;
+                white-space: normal !important;
+                overflow-wrap: anywhere;
+                word-break: break-word;
+            }
+
+            .markdown-post-article div[style*="border: 1px dashed #D0D0D0"] p:first-child svg {
+                flex-shrink: 0;
+                margin-top: 1px;
+            }
+
+            .markdown-post-article div[style*="border: 1px dashed #D0D0D0"] p,
+            .markdown-post-article div[style*="border: 1px solid #ECECEC"] p,
+            .markdown-post-article div[style*="border: 1px solid #ECECEC"] li,
+            .markdown-post-article span[style*="background: #ECF2FF"] {
+                white-space: normal !important;
+                overflow-wrap: anywhere;
+                word-break: break-word;
+            }
+
+            .markdown-post-article span[style*="background: #ECF2FF"] {
+                max-width: 100%;
+            }
+        }
+
         .markdown-symbols-help details summary {
             list-style: none;
             font-size: 12px !important;
@@ -5117,11 +5193,11 @@
                 </nav>
             </aside>
             <article class="markdown-post-article" style="max-width: 840px; margin: 0 auto;">
-                <div style="position: relative; width: 100%; max-width: 840px; border-radius: 10px; overflow: hidden; margin: 0 0 26px 0;">
+                <div class="blog-hero-card" style="position: relative; width: 100%; max-width: 840px; border-radius: 10px; overflow: hidden; margin: 0 0 26px 0;">
                     <img src="../../Markdowns.png" alt="Entering the Markdowns Era" style="width: 100%; display: block;">
-                    <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.45) 55%, transparent 100%); padding: 48px 36px 32px 36px;">
-                        <h2 style="font-family: 'Inter', sans-serif; font-size: 42px; font-weight: 600; line-height: 1.15; color: #fff; margin: 0 0 6px 0;">Entering the Markdowns Era</h2>
-                        <p style="font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 300; color: rgba(255,255,255,0.9); line-height: 1.6; margin: 0;">Why the future of working with AI is not better prompts, but better structure.</p>
+                    <div class="blog-hero-overlay" style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.45) 55%, transparent 100%); padding: 48px 36px 32px 36px;">
+                        <h2 class="blog-hero-title" style="font-family: 'Inter', sans-serif; font-size: 42px; font-weight: 600; line-height: 1.15; color: #fff; margin: 0 0 6px 0;">Entering the Markdowns Era</h2>
+                        <p class="blog-hero-subtitle" style="font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 300; color: rgba(255,255,255,0.9); line-height: 1.6; margin: 0;">Why the future of working with AI is not better prompts, but better structure.</p>
                     </div>
                 </div>
 
