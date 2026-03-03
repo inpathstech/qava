@@ -22,6 +22,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
     
     steps:
     - name: Checkout code
@@ -56,10 +58,10 @@ jobs:
           --exclude ".github/*"
           
     - name: Invalidate CloudFront
-      if: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID != '' }}
+      if: ${{ env.CLOUDFRONT_DISTRIBUTION_ID != '' }}
       run: |
         aws cloudfront create-invalidation \
-          --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+          --distribution-id ${{ env.CLOUDFRONT_DISTRIBUTION_ID }} \
           --paths "/*"
           
     - name: Deploy complete
