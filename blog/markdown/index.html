@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog</title>
-    <link rel="icon" type="image/svg+xml" href="qava-logo.svg">
+    <link rel="icon" type="image/svg+xml" href="../../qava-logo.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -17,6 +17,139 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: white;
+        }
+
+        .markdown-post-article > h3 {
+            margin: 60px 0 14px 0 !important;
+            padding-top: 0;
+            border-top: none;
+            position: relative;
+        }
+
+        .markdown-post-article > h3::before {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 1px;
+            background: #CDCDCD;
+            margin: 0 auto 60px auto;
+        }
+
+        .markdown-post-article > h3:first-of-type {
+            margin-top: 100px !important;
+        }
+
+        .markdown-post-article > h3:first-of-type::before {
+            display: none;
+        }
+
+        .markdown-post-article > p:first-of-type {
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        @keyframes dotPulse {
+            0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+            40% { opacity: 1; transform: scale(1); }
+        }
+
+        .markdown-post-article > p {
+            margin-bottom: 20px !important;
+        }
+
+        .post-shell {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: clamp(56px, 9vw, 100px) 24px 80px 24px;
+        }
+
+        .markdown-symbols-help details summary {
+            list-style: none;
+            font-size: 12px !important;
+            line-height: 1.4 !important;
+        }
+
+        .markdown-symbols-help details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .markdown-symbols-help details summary::before {
+            content: '>';
+            display: inline-block;
+            margin-right: 6px;
+            color: #111;
+            transition: transform 0.2s ease;
+            transform-origin: center;
+        }
+
+        .markdown-symbols-help details[open] summary::before {
+            transform: rotate(90deg);
+        }
+
+        .markdown-symbols-help details {
+            padding: 6px 0 !important;
+        }
+
+        .markdown-symbols-help details p {
+            margin: 4px 0 0 0 !important;
+            font-size: 12px !important;
+            font-weight: 300 !important;
+            line-height: 1.45 !important;
+        }
+
+        .blog-sidebar {
+            position: fixed;
+            top: 150px;
+            left: calc(50% - 450px - 180px - 20px);
+            width: 180px;
+            transition: opacity 0.3s ease;
+        }
+
+        .blog-toc {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .blog-toc-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 300;
+            color: #6B6B6B;
+            text-decoration: none;
+            padding: 3px 0;
+            transition: color 0.2s ease;
+            line-height: 1.4;
+        }
+
+        .blog-toc-link .toc-arrow {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .blog-toc-link:hover {
+            color: #111;
+        }
+
+        .blog-toc-link.active {
+            color: #111;
+            font-weight: 500;
+        }
+
+        .blog-toc-link.active .toc-arrow {
+            opacity: 1;
+            color: #0F62FE;
+        }
+
+        @media (max-width: 1300px) {
+            .blog-sidebar {
+                display: none;
+            }
         }
 
         /* NAVBAR STYLES */
@@ -913,7 +1046,7 @@
             }
 
             .hero-title {
-                font-size: 28px;
+                font-size: 22px;
                 margin-bottom: 16px;
             }
 
@@ -1181,7 +1314,7 @@
             }
             
             .competitor-platforms-title {
-                font-size: 28px;
+                font-size: 22px;
                 margin-bottom: 12px;
             }
 
@@ -2721,7 +2854,7 @@
             }
 
             .in-focus-blog-title {
-                font-size: 17px;
+                font-size: 14px;
                 line-height: 1.2;
                 display: -webkit-box;
                 -webkit-line-clamp: 2;
@@ -2970,7 +3103,7 @@
             }
 
             .feature-cards-header {
-                font-size: 28px;
+                font-size: 22px;
                 margin-bottom: 8px;
                 line-height: 1.2;
             }
@@ -4069,7 +4202,7 @@
 
         .footer-heading {
             font-family: 'Inter', sans-serif;
-            font-size: 17px;
+            font-size: 14px;
             color: #000000;
             margin-bottom: 8px;
             font-weight: 600;
@@ -4462,7 +4595,7 @@
             }
 
             .featured-quote {
-                font-size: 28px;
+                font-size: 22px;
             }
 
             .customer-grid {
@@ -4504,7 +4637,7 @@
 
         @media (max-width: 480px) {
             .what-need-title {
-                font-size: 28px;
+                font-size: 22px;
             }
 
             .what-need-subtitle {
@@ -4572,7 +4705,7 @@
 
         @media (max-width: 480px) {
             .what-need-title {
-                font-size: 28px;
+                font-size: 22px;
             }
 
             .what-need-subtitle {
@@ -4882,7 +5015,7 @@
             <div class="logo-container">
                 <div class="logo">
                     <a href="https://qava.ai/">
-                        <img src="qava-logo.svg" alt="Qava Logo">
+                        <img src="../../qava-logo.svg" alt="Qava Logo">
                     </a>
                 </div>
             </div>
@@ -4966,93 +5099,480 @@
             </a>
     </div>
 
-    <!-- Hero Section -->
-    <div class="hero-section" style="background: white;">
-        <div class="success-hero-container">
-            <h1 style="font-family: 'Inter', sans-serif; font-size: 52px; font-weight: 600; color: #000000; line-height: 1.2; margin: 0 0 8px 0; display: block; width: 100%;">Blog</h1>
-            <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #6B6B6B; text-align: center; margin: 8px 0 16px 0; display: block; width: 100%;">Insights on how work gets done in the AI era.</p>
-        </div>
-    </div>
-
     <!-- Blog Post -->
     <div style="background: white; width: 100%;">
-        <div style="max-width: 980px; margin: 0 auto; padding: 20px 24px 80px 24px;">
-            <article style="max-width: 840px; margin: 0 auto;">
-                <h2 style="font-family: 'Inter', sans-serif; font-size: 42px; font-weight: 600; line-height: 1.15; color: #111; margin: 0 0 10px 0;">Entering the Markdowns Phase</h2>
-                <p style="font-family: 'Inter', sans-serif; font-size: 19px; font-weight: 300; color: #4A4A4A; line-height: 1.6; margin: 0 0 26px 0;">Why the future of working with AI is not better prompts, but better structure.</p>
+        <div class="post-shell">
+            <aside class="blog-sidebar" aria-label="Blog post sections">
+                <nav class="blog-toc">
+                    <a href="#why-prompts-feel-flat" class="blog-toc-link active"><svg class="toc-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>Why prompts feel flat</a>
+                    <a href="#my-stance-on-prompts" class="blog-toc-link"><svg class="toc-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>My stance on prompts</a>
+                    <a href="#persistent-context" class="blog-toc-link"><svg class="toc-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>Persistent context</a>
+                    <a href="#using-ai-to-create-markdowns" class="blog-toc-link"><svg class="toc-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>Creating markdowns</a>
+                    <a href="#example-corporate" class="blog-toc-link"><svg class="toc-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>Example: Corporate</a>
+                    <a href="#example-startup" class="blog-toc-link"><svg class="toc-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>Example: Startup</a>
+                    <a href="#early-guidelines" class="blog-toc-link"><svg class="toc-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>Early guidelines</a>
+                    <a href="#natural-language" class="blog-toc-link"><svg class="toc-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>Natural language</a>
+                    <a href="#embedding-ai" class="blog-toc-link"><svg class="toc-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>Embedding AI</a>
+                    <a href="#conclusion" class="blog-toc-link"><svg class="toc-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>Conclusion</a>
+                </nav>
+            </aside>
+            <article class="markdown-post-article" style="max-width: 840px; margin: 0 auto;">
+                <div style="position: relative; width: 100%; max-width: 840px; border-radius: 10px; overflow: hidden; margin: 0 0 26px 0;">
+                    <img src="../../Markdowns.png" alt="Entering the Markdowns Era" style="width: 100%; display: block;">
+                    <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.45) 55%, transparent 100%); padding: 48px 36px 32px 36px;">
+                        <h2 style="font-family: 'Inter', sans-serif; font-size: 42px; font-weight: 600; line-height: 1.15; color: #fff; margin: 0 0 6px 0;">Entering the Markdowns Era</h2>
+                        <p style="font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 300; color: rgba(255,255,255,0.9); line-height: 1.6; margin: 0;">Why the future of working with AI is not better prompts, but better structure.</p>
+                    </div>
+                </div>
 
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Is it just us, or does the era of prompts feel flat?</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Not wrong. Not disappointing. Just flat. And we cannot help but wonder what is coming next.</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">In 2024 and 2025, we collectively learned how to prompt. We experimented with frameworks that front-load context, instruct AI to ask clarifying questions, and shape the output we want. For many people, this created a genuine productivity unlock, often estimated at a 10 to 30 percent improvement depending on role and task.</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">And yet, AI can still feel like an extra limb. Powerful, yes, but not fully integrated into how teams actually work. It makes us faster, but it is not always transformational.</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">That raises a more interesting question. Not how do we prompt better, but how do we work with AI in a way that is natural, consistent, and scalable across teams?</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 30px 0;">Our belief is that the next step is not more prompting. It is a better way of working. It is the markdowns phase.</p>
+                <h3 id="why-prompts-feel-flat" style="font-family: 'Inter', sans-serif; font-size: 22px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0; scroll-margin-top: 100px;">Why prompts feel flat</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Is it just us, or does the era of prompts feel flat?</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Not wrong. Not disappointing. Just flat. And we can't help but wonder what's coming next.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">In 2024 and 2025, we collectively learned how to prompt. We experimented with frameworks that front-load context, instruct AI to ask clarifying questions, play a particular role ("you're a finance expert with 20 years experience"), and shape the output we want. For many people, this created a genuine productivity unlock, often estimated at a 10 to 30 percent improvement depending on role and task.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">And yet, AI can still feel like an extra limb. Powerful, yes, but not fully integrated into how teams actually work. It makes us faster, but it is not always transformational. It doesn't bring all the moving pieces together in a way we know it should.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">That raises a more interesting question. Not how do we prompt better, but how do we work with AI in a way that is natural, consistent, and scalable across teams?</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 30px 0;">Our belief is that the next step is not more prompting. It is a better way of working. It centers on using markdowns.</p>
 
-                <h3 style="font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0;">My stance on prompts</h3>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">To be clear, this is not an argument against prompts. Prompts are useful, impressive, and often the first way people discover what AI can do.</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">But prompts have structural limits when we try to scale beyond individual use or across multiple sessions.</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">First, inconsistency. Context depends on what someone remembers to include in that moment. Important nuance can be missing, outdated, or framed differently each time.</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Second, variability. No two people prompt the same way. Similar questions can produce different outputs because assumptions and language differ.</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 30px 0;">That is manageable for personal productivity. It is risky for shared decision-making. Prompts are episodic. Real work is cumulative.</p>
+                <h3 id="my-stance-on-prompts" style="font-family: 'Inter', sans-serif; font-size: 22px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0; scroll-margin-top: 100px;">My stance on prompts</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">To be clear, this is not an argument against prompts. Prompts are useful, impressive, and often the first way people discover what AI can do.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">But prompts have structural limits when we try to scale beyond individual use or across multiple sessions.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">The first limitation is inconsistency. AI answers are derived from the context provided, and context depends on what someone remembers to include in that moment. Important nuance can be missing, outdated, or framed differently each time.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Second, variability. No two people prompt the same way. Similar questions can produce different outputs because assumptions and language differ.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 30px 0;">While this is manageable for personal productivity, it's risky for shared decision-making. In short, prompts are episodic. Real work is cumulative.</p>
 
-                <h3 style="font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0;">From prompting to persistent context</h3>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">This is where markdown files become powerful.</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Markdowns can act as persistent sources of truth, structured documents that capture the latest thinking and can be attached to AI conversations for analysis and execution.</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">The closest analogy is a policy document, but markdowns are living artifacts. They are updated as understanding evolves and used directly in day-to-day work.</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 30px 0;">Markdowns do not replace prompts. They change what prompts do. Instead of recreating context each time, prompts become instructions layered on shared understanding.</p>
+                <h3 id="persistent-context" style="font-family: 'Inter', sans-serif; font-size: 22px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0; scroll-margin-top: 100px;">From prompting to persistent context</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">This is where markdown files enter the picture.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">I was recently introduced to the idea of using markdown files as persistent sources of truth — structured documents that capture the latest thinking on a topic and can be attached to AI conversations to drive analysis, insight, and execution.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">The closest real-world analogy is a company policy, like a Delegation of Authority or Procurement Policy. But unlike traditional policies, markdowns aren't static documents designed to sit in a folder. They're living artifacts, written in clear language, updated as understanding evolves, and actively used in day-to-day work with AI.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 30px 0;">What's important here is that markdowns don't replace prompts. They change what prompts do. Instead of spending your time recreating context, prompts become instructions layered on top of shared understanding.</p>
 
-                <h3 style="font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0;">Using AI to create the markdowns themselves</h3>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">You do not need perfect markdowns to begin. AI is excellent at helping create them.</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">You can turn messy meeting notes, strategy decks, policies, or raw bullet points into a clear markdown. Then your team can refine and align on that shared source of truth.</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 30px 0;">Prompts are the scaffolding. Markdowns are the structure that remains.</p>
+                <h3 id="using-ai-to-create-markdowns" style="font-family: 'Inter', sans-serif; font-size: 22px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0; scroll-margin-top: 100px;">Using AI to create the markdowns themselves</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">This is the part that often gets overlooked: you don't need to start with perfect markdowns. In fact, AI is extremely good at helping you create them.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">You can use prompts to turn messy thinking into clean structure. You can ask AI to take meeting notes, policies, strategy decks, or even rough bullet points and synthesize them into a clear, well-structured markdown file. You can then review, refine, and agree on it as a team.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">In other words, prompts are how markdowns are born.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">This creates a natural progression. Early on, you prompt heavily to extract clarity. Over time, the outputs of those prompts harden into markdowns — reusable, shareable context that no longer needs to be reinvented every time.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 24px 0;">Prompts are the scaffolding. Markdowns are the structure that remains.</p>
 
-                <h3 style="font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0;">Example: Large corporate transformation initiative</h3>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Instead of relying on scattered prompts, decks, and emails, a transformation team can maintain a small set of markdowns:</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 8px 0;"><strong>Markdown File 1: Corporate Initiative.md</strong><br>Objectives, values, principles, and key dates from the sponsor.</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 8px 0;"><strong>Markdown File 2: Initiative Governance.md</strong><br>Stakeholders, committees, team strengths, constraints, and vendor relationships.</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;"><strong>Markdown File 3: Initiative Budget.md</strong><br>Budget, financial performance, and forecast assumptions.</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 30px 0;">When a complex change order arrives, the AI already understands goals, people, constraints, and timing. The prompt becomes a trigger for analysis, not a test of memory.</p>
+                <div style="padding: 0; margin: 0 0 30px 0;">
+                    <div style="background: #FFFFFF; border: 1px solid #ECECEC; border-radius: 8px; padding: 0; box-shadow: 0 2px 10px rgba(16, 24, 40, 0.06); overflow: hidden;">
+                        <div style="padding: 10px 14px;">
+                            <p style="margin: 0; font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.6; color: #2B2B2B;">Thanks for your help! Can you save this as a markdown file that I can download?</p>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; border-top: 1px solid #EFEFEF; background: #FAFAFA;">
+                            <div style="display: flex; align-items: center; gap: 6px;">
+                                <button type="button" style="border: none; background: transparent; cursor: pointer; padding: 4px; display: inline-flex; align-items: center; color: #888;" aria-label="Attach file">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551"/></svg>
+                                </button>
+                                <span style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; color: #111; background: #F0F0F0; border: 1px solid #E0E0E0; border-radius: 999px; padding: 3px 10px; display: inline-flex; align-items: center; gap: 4px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                                    Agent
+                                </span>
+                            </div>
+                            <button type="button" style="border: none; background: #111; color: #FFF; width: 28px; height: 28px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;" aria-label="Submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                            </button>
+                        </div>
+                    </div>
 
-                <h3 style="font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0;">Example: Startup launch</h3>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">The same logic works for startups with a different markdown set:</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 8px 0;"><strong>Markdown File 1: Product Aspirations.md</strong><br>Product vision and growth goals.</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 8px 0;"><strong>Markdown File 2: People &amp; Legal.md</strong><br>Team profiles, investors, and legal context.</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;"><strong>Markdown File 3: Technology Stack.md</strong><br>Frontend, backend, integrations, architecture, and standards.</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 30px 0;">When founders ask AI for a roadmap, success depends less on prompt cleverness and more on the quality and persistence of context.</p>
+                    <div style="display: flex; gap: 10px; align-items: flex-start; margin-top: 14px;">
+                        <div style="width: 26px; height: 26px; min-width: 26px; border-radius: 50%; background: #111; display: flex; align-items: center; justify-content: center;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/><path d="m10 15-3-3 3-3"/><path d="M7 12h8a2 2 0 0 1 2 2v1"/></svg>
+                        </div>
+                        <div style="background: #F7F7F8; border-radius: 8px; padding: 10px 14px; flex: 1;">
+                            <p style="margin: 0; font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.65; color: #222;">Sure, here's your .md file to download!</p>
+                        </div>
+                    </div>
+                </div>
 
-                <h3 style="font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0;">Early guidelines on an emerging practice</h3>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 8px 0;"><strong>Less is more.</strong> Fewer, higher-quality markdowns beat many overlapping ones.</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 8px 0;"><strong>Stay concise.</strong> Long documents are fine when useful, but bloat creates friction.</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 30px 0;"><strong>Leave room for iteration.</strong> Markdowns should evolve as understanding deepens.</p>
+                <h3 id="example-corporate" style="font-family: 'Inter', sans-serif; font-size: 22px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0; scroll-margin-top: 100px;">Example: Large corporate transformation initiative</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">To put this theory into practice, let's consider an enterprise initiative with many people working together on different workstreams. Instead of relying on scattered prompts, decks, and emails, a transformation team can maintain a small set of markdowns. For example:</p>
+                <ul style="margin: 0 0 18px 20px; padding: 0; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8;">
+                    <li><strong>About_Initiative.md</strong> - Sponsor goals, values, milestones, and key dates.</li>
+                    <li><strong>Initiative_Governance.md</strong> - Stakeholders, RACI, governance structure, and constraints.</li>
+                    <li><strong>Initiative_Budget.md</strong> - Budget position, performance, and forecast assumptions.</li>
+                </ul>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Now imagine the program receives a $500K change order driven by unresolved dependencies causing schedule changes. The project manager is now tasked with reviewing the change request, explaining the change tailored to her different audiences, scheduling the approval meetings, obtaining approvals, preparing communications, all while keeping the project moving forward.</p>
+                <div style="padding: 0; margin: 0 0 18px 0;">
+                    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px;">
+                        <div style="background: #FFFFFF; border: 1px dashed #D0D0D0; border-radius: 10px; padding: 12px;">
+                            <p style="margin: 0 0 6px 0; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: #111; display: inline-flex; align-items: center; gap: 6px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M8 15h.01"/><path d="M11.5 13.5a2.5 2.5 0 0 1 0 3"/><path d="M15 12a5 5 0 0 1 0 6"/></svg>
+                                About_Initiative.md
+                            </p>
+                            <p style="margin: 0; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 300; color: #555; line-height: 1.55;">Objectives, values, principles, milestones, and key dates for the sponsor.</p>
+                        </div>
 
-                <h3 style="font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0;">Natural language meets computer speak</h3>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Markdown works because it sits between natural language and machine-readable structure. Headings, bullets, and plain text tables create clarity for humans and reduce translation for AI.</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Compared with slides, screenshots, and PDFs, markdown lets AI spend less effort interpreting format and more effort on reasoning and synthesis.</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 30px 0;"><em>Less translation. More thinking.</em></p>
+                        <div style="background: #FFFFFF; border: 1px dashed #D0D0D0; border-radius: 10px; padding: 12px;">
+                            <p style="margin: 0 0 6px 0; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: #111; display: inline-flex; align-items: center; gap: 6px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M8 15h.01"/><path d="M11.5 13.5a2.5 2.5 0 0 1 0 3"/><path d="M15 12a5 5 0 0 1 0 6"/></svg>
+                                Initiative_Governance.md
+                            </p>
+                            <p style="margin: 0; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 300; color: #555; line-height: 1.55;">Stakeholders, RACI, committees, team strengths, constraints, and vendors.</p>
+                        </div>
 
-                <pre style="white-space: pre-wrap; word-break: break-word; background: #FAFAFA; border: 1px solid #EBEBEB; border-radius: 10px; padding: 16px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; font-size: 13px; line-height: 1.6; color: #333; margin: 0 0 30px 0;"># Transformation Program Overview
+                        <div style="background: #FFFFFF; border: 1px dashed #D0D0D0; border-radius: 10px; padding: 12px;">
+                            <p style="margin: 0 0 6px 0; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: #111; display: inline-flex; align-items: center; gap: 6px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M8 15h.01"/><path d="M11.5 13.5a2.5 2.5 0 0 1 0 3"/><path d="M15 12a5 5 0 0 1 0 6"/></svg>
+                                Initiative_Budget.md
+                            </p>
+                            <p style="margin: 0; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 300; color: #555; line-height: 1.55;">Budget, financial performance, and forecast assumptions.</p>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin: 4px 0 12px 0;">
+                        <div style="display: flex; justify-content: center;">
+                            <div style="position: relative; width: 2px; height: 26px; background: #111111;">
+                                <span style="position: absolute; bottom: -5px; left: -4px; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid #111111;"></span>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: center;">
+                            <div style="position: relative; width: 2px; height: 26px; background: #111111;">
+                                <span style="position: absolute; bottom: -5px; left: -4px; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid #111111;"></span>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: center;">
+                            <div style="position: relative; width: 2px; height: 26px; background: #111111;">
+                                <span style="position: absolute; bottom: -5px; left: -4px; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid #111111;"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: #FFFFFF; border: 1px solid #ECECEC; border-radius: 8px; padding: 0; box-shadow: 0 2px 10px rgba(16, 24, 40, 0.06); overflow: hidden;">
+                        <div style="display: flex; gap: 6px; flex-wrap: wrap; padding: 12px 14px 0 14px;">
+                            <span style="font-family: 'Inter', sans-serif; font-size: 11px; color: #1163FE; background: #ECF2FF; border: none; border-radius: 6px; padding: 2px 8px; display: inline-flex; align-items: center; gap: 5px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551"/></svg>
+                                About_Initiative.md
+                            </span>
+                            <span style="font-family: 'Inter', sans-serif; font-size: 11px; color: #1163FE; background: #ECF2FF; border: none; border-radius: 6px; padding: 2px 8px; display: inline-flex; align-items: center; gap: 5px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551"/></svg>
+                                Initiative_Governance.md
+                            </span>
+                            <span style="font-family: 'Inter', sans-serif; font-size: 11px; color: #1163FE; background: #ECF2FF; border: none; border-radius: 6px; padding: 2px 8px; display: inline-flex; align-items: center; gap: 5px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551"/></svg>
+                                Initiative_Budget.md
+                            </span>
+                        </div>
+                        <div style="padding: 10px 14px;">
+                            <p style="margin: 0; font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.6; color: #2B2B2B;">Prepare an action plan to resolve the $500K change order per our program values, protect target objectives. Outline approvals and communications, and propose the fastest low-risk execution path. Prepare all documentation.</p>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; border-top: 1px solid #EFEFEF; background: #FAFAFA;">
+                            <div style="display: flex; align-items: center; gap: 6px;">
+                                <button type="button" style="border: none; background: transparent; cursor: pointer; padding: 4px; display: inline-flex; align-items: center; color: #888;" aria-label="Attach file">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551"/></svg>
+                                </button>
+                                <span style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; color: #111; background: #F0F0F0; border: 1px solid #E0E0E0; border-radius: 999px; padding: 3px 10px; display: inline-flex; align-items: center; gap: 4px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                                    Agent
+                                </span>
+                            </div>
+                            <button type="button" style="border: none; background: #111; color: #FFF; width: 28px; height: 28px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;" aria-label="Submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; align-items: flex-start; margin-top: 14px;">
+                        <div style="width: 26px; height: 26px; min-width: 26px; border-radius: 50%; background: #111; display: flex; align-items: center; justify-content: center;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/><path d="m10 15-3-3 3-3"/><path d="M7 12h8a2 2 0 0 1 2 2v1"/></svg>
+                        </div>
+                        <div style="background: #F7F7F8; border-radius: 8px; padding: 10px 14px; flex: 1;">
+                            <p style="margin: 0; font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.65; color: #222;">I'll prepare the action plan now. Based on your program objectives and governance structure, here's what I'll deliver:</p>
+                            <ul style="margin: 8px 0 0 18px; padding: 0; font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.65; color: #222;">
+                                <li><strong>Steering Committee brief</strong> (March 14) — executive summary with budget impact and recommended path</li>
+                                <li><strong>Sponsor review pack</strong> (March 17) — detailed analysis aligned to initiative values and constraints</li>
+                                <li><strong>Team communication</strong> (March 18) — plain-language update for the wider project team</li>
+                            </ul>
+                            <p style="margin: 8px 0 0 0; font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.65; color: #222;">Each document will be tailored to its audience and reference the approved program principles.</p>
+                            <p style="margin: 10px 0 0 0; font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.65; color: #222; display: inline-flex; align-items: center; gap: 8px;">
+                                Drafting now
+                                <span class="ai-thinking-dots" style="display: inline-flex; gap: 3px;">
+                                    <span style="width: 4px; height: 4px; border-radius: 50%; background: #888; animation: dotPulse 1.4s infinite ease-in-out; animation-delay: 0s;"></span>
+                                    <span style="width: 4px; height: 4px; border-radius: 50%; background: #888; animation: dotPulse 1.4s infinite ease-in-out; animation-delay: 0.2s;"></span>
+                                    <span style="width: 4px; height: 4px; border-radius: 50%; background: #888; animation: dotPulse 1.4s infinite ease-in-out; animation-delay: 0.4s;"></span>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Yes, this could be handled through a series of prompts. But that approach depends on one person accurately consolidating all relevant context into a coherent input — and having the time and cognitive capacity to do it well. The risk of omission is high. More importantly, it <strong style="font-weight: 600;">constrains the AI to the framing provided</strong>, rather than allowing it to surface its own insights, connections, and conclusions across the full body of information.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">With markdowns, the AI already understands the program's objectives, values and key dates. It knows the goals, the people, and the financial constraints. The prompt becomes a trigger for analysis, not a test of memory and autonomous execution.</p>
+
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">With these markdowns attached, the AI has a consistent and comprehensive understanding of the entire program. It can connect the dots between different audiences, upcoming meeting dates, budget constraints, program values, and strategic objectives — without anyone having to re-explain the context each time.</p>
+
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 14px 0;">What this unlocks versus standard prompting:</p>
+
+                <div style="margin: 0 0 30px 0; padding: 0; display: flex; flex-direction: column; gap: 2px;">
+                    <div style="display: flex; align-items: flex-start; gap: 10px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F62FE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 4px;"><path d="M20 6 9 17l-5-5"/></svg>Same shared context in every conversation — no more re-explaining</div>
+                    <div style="display: flex; align-items: flex-start; gap: 10px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F62FE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 4px;"><path d="M20 6 9 17l-5-5"/></svg>AI cross-references budget, governance, and objectives in one pass</div>
+                    <div style="display: flex; align-items: flex-start; gap: 10px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F62FE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 4px;"><path d="M20 6 9 17l-5-5"/></svg>Outputs tailored to each audience automatically</div>
+                    <div style="display: flex; align-items: flex-start; gap: 10px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F62FE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 4px;"><path d="M20 6 9 17l-5-5"/></svg>Context compounds — every update makes future prompts sharper</div>
+                    <div style="display: flex; align-items: flex-start; gap: 10px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F62FE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 4px;"><path d="M20 6 9 17l-5-5"/></svg>Less hallucination — structured facts replace assumptions</div>
+                </div>
+
+                <h3 id="example-startup" style="font-family: 'Inter', sans-serif; font-size: 22px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0; scroll-margin-top: 100px;">Example: Startup launch</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">The same logic works for startups with a different markdown set. The context shifts from enterprise governance to speed, product clarity, and execution risk, but the principle is the same: keep critical context in a small set of living markdowns so AI can reason consistently across decisions. For example:</p>
+                <ul style="margin: 0 0 18px 20px; padding: 0; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8;">
+                    <li><strong>Product_Aspirations.md</strong> - Product vision, growth targets, and market direction.</li>
+                    <li><strong>People_&amp;_Legal.md</strong> - Team roles, investors, and legal constraints.</li>
+                    <li><strong>Technology_Stack.md</strong> - Systems architecture, integrations, and technical boundaries.</li>
+                </ul>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">When the founder asks AI to build a product roadmap, the difference isn't in how clever the prompt is. It's in the quality and persistence of the context that surrounds it. AI understands the aspirations, growth, technology stack, people, legalities, and more, and can combine these into a cohesive strategy, prepare the plan, the team onboarding plan, and more.</p>
+                <div style="padding: 0; margin: 0 0 18px 0;">
+                    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px;">
+                        <div style="background: #FFFFFF; border: 1px dashed #D0D0D0; border-radius: 10px; padding: 12px;">
+                            <p style="margin: 0 0 6px 0; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: #111; display: inline-flex; align-items: center; gap: 6px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M8 15h.01"/><path d="M11.5 13.5a2.5 2.5 0 0 1 0 3"/><path d="M15 12a5 5 0 0 1 0 6"/></svg>
+                                Product_Aspirations.md
+                            </p>
+                            <p style="margin: 0; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 300; color: #555; line-height: 1.55;">Product vision, market size, competitors, ICP and growth goals.</p>
+                        </div>
+
+                        <div style="background: #FFFFFF; border: 1px dashed #D0D0D0; border-radius: 10px; padding: 12px;">
+                            <p style="margin: 0 0 6px 0; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: #111; display: inline-flex; align-items: center; gap: 6px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M8 15h.01"/><path d="M11.5 13.5a2.5 2.5 0 0 1 0 3"/><path d="M15 12a5 5 0 0 1 0 6"/></svg>
+                                People_&amp;_Legal.md
+                            </p>
+                            <p style="margin: 0; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 300; color: #555; line-height: 1.55;">Team profiles, stakeholders, RACI, investors, and legal context.</p>
+                        </div>
+
+                        <div style="background: #FFFFFF; border: 1px dashed #D0D0D0; border-radius: 10px; padding: 12px;">
+                            <p style="margin: 0 0 6px 0; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: #111; display: inline-flex; align-items: center; gap: 6px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M8 15h.01"/><path d="M11.5 13.5a2.5 2.5 0 0 1 0 3"/><path d="M15 12a5 5 0 0 1 0 6"/></svg>
+                                Technology_Stack.md
+                            </p>
+                            <p style="margin: 0; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 300; color: #555; line-height: 1.55;">Frontend, backend, integrations, architecture, and design standards.</p>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin: 4px 0 12px 0;">
+                        <div style="display: flex; justify-content: center;">
+                            <div style="position: relative; width: 2px; height: 26px; background: #111111;">
+                                <span style="position: absolute; bottom: -5px; left: -4px; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid #111111;"></span>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: center;">
+                            <div style="position: relative; width: 2px; height: 26px; background: #111111;">
+                                <span style="position: absolute; bottom: -5px; left: -4px; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid #111111;"></span>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: center;">
+                            <div style="position: relative; width: 2px; height: 26px; background: #111111;">
+                                <span style="position: absolute; bottom: -5px; left: -4px; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid #111111;"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: #FFFFFF; border: 1px solid #ECECEC; border-radius: 8px; padding: 0; box-shadow: 0 2px 10px rgba(16, 24, 40, 0.06); overflow: hidden;">
+                        <div style="display: flex; gap: 6px; flex-wrap: wrap; padding: 12px 14px 0 14px;">
+                            <span style="font-family: 'Inter', sans-serif; font-size: 11px; color: #1163FE; background: #ECF2FF; border: none; border-radius: 6px; padding: 2px 8px; display: inline-flex; align-items: center; gap: 5px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551"/></svg>
+                                Product_Aspirations.md
+                            </span>
+                            <span style="font-family: 'Inter', sans-serif; font-size: 11px; color: #1163FE; background: #ECF2FF; border: none; border-radius: 6px; padding: 2px 8px; display: inline-flex; align-items: center; gap: 5px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551"/></svg>
+                                People_&amp;_Legal.md
+                            </span>
+                            <span style="font-family: 'Inter', sans-serif; font-size: 11px; color: #1163FE; background: #ECF2FF; border: none; border-radius: 6px; padding: 2px 8px; display: inline-flex; align-items: center; gap: 5px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551"/></svg>
+                                Technology_Stack.md
+                            </span>
+                        </div>
+                        <div style="padding: 10px 14px;">
+                            <p style="margin: 0; font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.6; color: #2B2B2B;">Build a 12-week product roadmap. Prioritize features by user impact, align with our growth goals, and flag any technical dependencies or resource constraints from the stack.</p>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; border-top: 1px solid #EFEFEF; background: #FAFAFA;">
+                            <div style="display: flex; align-items: center; gap: 6px;">
+                                <button type="button" style="border: none; background: transparent; cursor: pointer; padding: 4px; display: inline-flex; align-items: center; color: #888;" aria-label="Attach file">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551"/></svg>
+                                </button>
+                                <span style="font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; color: #111; background: #F0F0F0; border: 1px solid #E0E0E0; border-radius: 999px; padding: 3px 10px; display: inline-flex; align-items: center; gap: 4px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                                    Agent
+                                </span>
+                            </div>
+                            <button type="button" style="border: none; background: #111; color: #FFF; width: 28px; height: 28px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;" aria-label="Submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; align-items: flex-start; margin-top: 14px;">
+                        <div style="width: 26px; height: 26px; min-width: 26px; border-radius: 50%; background: #111; display: flex; align-items: center; justify-content: center;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/><path d="m10 15-3-3 3-3"/><path d="M7 12h8a2 2 0 0 1 2 2v1"/></svg>
+                        </div>
+                        <div style="background: #F7F7F8; border-radius: 8px; padding: 10px 14px; flex: 1;">
+                            <p style="margin: 0; font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.65; color: #222;">Great - here are the actions I will get started on:</p>
+                            <ul style="margin: 8px 0 0 18px; padding: 0; font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.65; color: #222;">
+                                <li><strong>Product Bets Brief</strong> (March 11) — Turn Product_Aspirations.md into 3 measurable product bets.</li>
+                                <li><strong>Ownership &amp; Approvals Map</strong> (March 12) — Set owners + approvals from People_&amp;_Legal.md (RACI + legal).</li>
+                                <li><strong>Dependency Sequence Plan</strong> (March 13) — Map dependencies and sequencing from Technology_Stack.md before build.</li>
+                                <li><strong>MVP Launch Scope</strong> (March 18) — Ship the smallest MVP proving the core growth thesis with analytics.</li>
+                                <li><strong>ICP Feedback Loop</strong> (March 25) — Launch to ICP, run weekly product/risk reviews, and reprioritize from usage.</li>
+                                <li><strong>Scale Narrative Pack</strong> (April 1) — Optimize top workflow and turn validated metrics into a scale narrative.</li>
+                            </ul>
+                            <p style="margin: 10px 0 0 0; font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.65; color: #222; display: inline-flex; align-items: center; gap: 8px;">
+                                Drafting now
+                                <span class="ai-thinking-dots" style="display: inline-flex; gap: 3px;">
+                                    <span style="width: 4px; height: 4px; border-radius: 50%; background: #888; animation: dotPulse 1.4s infinite ease-in-out; animation-delay: 0s;"></span>
+                                    <span style="width: 4px; height: 4px; border-radius: 50%; background: #888; animation: dotPulse 1.4s infinite ease-in-out; animation-delay: 0.2s;"></span>
+                                    <span style="width: 4px; height: 4px; border-radius: 50%; background: #888; animation: dotPulse 1.4s infinite ease-in-out; animation-delay: 0.4s;"></span>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">This is how small teams move faster without losing coherence.</p>
+
+                <h3 id="early-guidelines" style="font-family: 'Inter', sans-serif; font-size: 22px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0; scroll-margin-top: 100px;">Early guidelines on an emerging practice</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 16px 0;">This way of working is still emerging, but some patterns are already clear.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 2px 0;"><strong style="text-decoration: underline; text-underline-offset: 3px;">Less is More</strong></p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 14px 0;">It's better to have fewer, higher-quality markdowns than many overlapping ones. Each markdown should have a clearly defined scope and act as a single source of truth for its topic. This is similar to team design: overlapping roles create confusion and gaps create risk.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 2px 0;"><strong style="text-decoration: underline; text-underline-offset: 3px;">Concise Markdowns</strong></p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 14px 0;">Markdowns should be concise without being shallow. Long documents aren't inherently bad, but unnecessary length creates bloat. Governance matters here - someone needs to own clarity and keep things sharp.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 2px 0;"><strong style="text-decoration: underline; text-underline-offset: 3px;">Leave Room for Iteration</strong></p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 30px 0;">Importantly, markdowns should evolve. As understanding deepens, they should be updated, refined, and occasionally restructured. This isn't busywork; it's how institutional knowledge compounds.</p>
+
+                <h3 id="natural-language" style="font-family: 'Inter', sans-serif; font-size: 22px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0; scroll-margin-top: 100px;">Natural language meets computer speak</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Markdown works because it sits between natural language and machine-readable structure. Headings, bullets, and plain text tables create clarity for humans and reduce translation for AI.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Compared with slides, screenshots, and PDFs, markdown lets AI spend less effort interpreting format and more effort on reasoning and synthesis.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 30px 0;"><em>Less translation. More thinking.</em></p>
+
+                <div class="markdown-toggle-demo" style="background: #FAFAFA; border: 1px solid #EBEBEB; border-radius: 12px; padding: 16px; margin: 0 0 16px 0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 12px;">
+                        <p style="margin: 0; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 400; color: #4A4A4A;">View the same content in markdown or human-readable format.</p>
+                        <div style="display: inline-flex; gap: 2px; background: #F0F0F0; border-radius: 999px; padding: 3px;">
+                            <button type="button" class="markdown-toggle-btn is-active" data-target="raw" style="border: 0; background: #111; color: #FFF; border-radius: 999px; padding: 5px 10px; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer;">.md format</button>
+                            <button type="button" class="markdown-toggle-btn" data-target="human" style="border: 0; background: transparent; color: #444; border-radius: 999px; padding: 5px 10px; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer;">Human format</button>
+                        </div>
+                    </div>
+
+                    <div class="markdown-panel" data-panel="raw">
+                        <pre style="white-space: pre-wrap; word-break: break-word; background: #FFFFFF; border: 1px solid #E3E3E3; border-radius: 10px; padding: 16px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; font-size: 13px; line-height: 1.6; color: #333; margin: 0;"># Transformation Program Overview
 
 ## Purpose
 - Reduce operating cost while improving delivery speed
 - Establish repeatable decision-making frameworks
 
+### Decision rule
+- Prioritize **customer value** over `local optimization`.
+
 ## Principles
-- Decisions favor long-term value over short-term optics
-- Speed matters, but clarity matters more
+1. Decisions favor long-term value over short-term optics
+2. Speed matters, but clarity matters more
 
 ## Key Dates
 - Program kickoff: March 1, 2026
 - Steering Committee: Monthly
 - Target completion: December 2026</pre>
+                    </div>
 
-                <h3 style="font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0;">Embedding AI into the core analytics engine</h3>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">The real power here is organizational coherence. Shared markdowns turn AI from a personal productivity tool into a consistent analytical partner.</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Different team members can test scenarios, challenge assumptions, and generate insights, all grounded in the same context. It feels less like asking for help and more like collaborating with a well-briefed colleague.</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 30px 0;">That is how small teams begin to operate like much larger ones with near-infinite analytical power.</p>
+                    <div class="markdown-panel" data-panel="human" hidden>
+                        <div style="background: #FFFFFF; border: 1px solid #E3E3E3; border-radius: 10px; padding: 16px;">
+                            <h4 style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 600; line-height: 1.3; color: #111; margin: 0 0 12px 0;">Transformation Program Overview</h4>
 
-                <h3 style="font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0;">Conclusion</h3>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">There is still a lot to learn. Markdowns are not a silver bullet, and they require discipline to maintain. But they represent a meaningful shift away from episodic prompting and toward shared, persistent understanding.</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 300; color: #222; line-height: 1.8; margin: 0;">Prompts helped us discover what AI can do. Markdowns help AI understand how we work. And that feels like a strong place to build from.</p>
+                            <h5 style="font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: #222; margin: 0 0 6px 0;">Purpose</h5>
+                            <ul style="margin: 0 0 12px 20px; padding: 0; color: #333; font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.65; font-weight: 400;">
+                                <li>Reduce operating cost while improving delivery speed</li>
+                                <li>Establish repeatable decision-making frameworks</li>
+                            </ul>
+
+                            <h6 style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; color: #222; margin: 0 0 6px 0;">Decision rule</h6>
+                            <ul style="margin: 0 0 12px 20px; padding: 0; color: #333; font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.65; font-weight: 400;">
+                                <li>Prioritize <strong>customer value</strong> over <code>local optimization</code>.</li>
+                            </ul>
+
+                            <h5 style="font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: #222; margin: 0 0 6px 0;">Principles</h5>
+                            <ol style="margin: 0 0 12px 20px; padding: 0; color: #333; font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.65; font-weight: 400;">
+                                <li>Decisions favor long-term value over short-term optics</li>
+                                <li>Speed matters, but clarity matters more</li>
+                            </ol>
+
+                            <h5 style="font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: #222; margin: 0 0 6px 0;">Key Dates</h5>
+                            <ul style="margin: 0 0 0 20px; padding: 0; color: #333; font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.65; font-weight: 400;">
+                                <li>Program kickoff: March 1, 2026</li>
+                                <li>Steering Committee: Monthly</li>
+                                <li>Target completion: December 2026</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="markdown-symbols-help" style="border: 1px solid #EBEBEB; border-radius: 12px; background: #FFFFFF; padding: 10px 14px; margin: 0 0 24px 0;">
+                    <p style="margin: 0 0 6px 0; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; color: #222;">Markdown symbols explained</p>
+
+                    <details style="border-top: 1px solid #F0F0F0; padding: 10px 0;">
+                        <summary style="cursor: pointer; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; color: #111;"><code>#</code> Main heading</summary>
+                        <p style="margin: 8px 0 0 0; font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.6; color: #555;">Use one <code>#</code> for the top-level title of a document.</p>
+                    </details>
+
+                    <details style="border-top: 1px solid #F0F0F0; padding: 10px 0;">
+                        <summary style="cursor: pointer; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; color: #111;"><code>##</code> Section heading</summary>
+                        <p style="margin: 8px 0 0 0; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.6; color: #555;">Use <code>##</code> to break content into clear sections under the main title.</p>
+                    </details>
+
+                    <details style="border-top: 1px solid #F0F0F0; padding: 10px 0;">
+                        <summary style="cursor: pointer; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; color: #111;"><code>-</code> Bullet point</summary>
+                        <p style="margin: 8px 0 0 0; font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.6; color: #555;">Use <code>-</code> to list facts, actions, or key points in a scannable format.</p>
+                    </details>
+
+                    <details style="border-top: 1px solid #F0F0F0; padding: 10px 0;">
+                        <summary style="cursor: pointer; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; color: #111;"><code>###</code> Subsection heading</summary>
+                        <p style="margin: 8px 0 0 0; font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.6; color: #555;">Use <code>###</code> for sub-sections inside a main section.</p>
+                    </details>
+
+                    <details style="border-top: 1px solid #F0F0F0; padding: 10px 0;">
+                        <summary style="cursor: pointer; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; color: #111;"><code>1.</code> Numbered list</summary>
+                        <p style="margin: 8px 0 0 0; font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.6; color: #555;">Use numbered lists when sequence or priority matters.</p>
+                    </details>
+
+                    <details style="border-top: 1px solid #F0F0F0; padding: 10px 0;">
+                        <summary style="cursor: pointer; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; color: #111;"><code>**bold**</code> Emphasis</summary>
+                        <p style="margin: 8px 0 0 0; font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.6; color: #555;">Wrap key words with <code>**</code> to make them bold.</p>
+                    </details>
+
+                    <details style="border-top: 1px solid #F0F0F0; padding: 10px 0;">
+                        <summary style="cursor: pointer; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; color: #111;"><code>`inline code`</code> Inline code</summary>
+                        <p style="margin: 8px 0 0 0; font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.6; color: #555;">Use backticks for commands, filenames, and technical terms.</p>
+                    </details>
+                </div>
+
+                <script>
+                    (function () {
+                        const root = document.currentScript.previousElementSibling.previousElementSibling;
+                        if (!root || !root.classList.contains('markdown-toggle-demo')) return;
+
+                        const buttons = root.querySelectorAll('.markdown-toggle-btn');
+                        const panels = root.querySelectorAll('.markdown-panel');
+
+                        buttons.forEach((button) => {
+                            button.addEventListener('click', () => {
+                                const target = button.getAttribute('data-target');
+                                buttons.forEach((b) => {
+                                    const isActive = b === button;
+                                    b.classList.toggle('is-active', isActive);
+                                    b.style.background = isActive ? '#111' : 'transparent';
+                                    b.style.color = isActive ? '#FFF' : '#444';
+                                });
+
+                                panels.forEach((panel) => {
+                                    panel.hidden = panel.getAttribute('data-panel') !== target;
+                                });
+                            });
+                        });
+                    })();
+                </script>
+
+                <h3 id="embedding-ai" style="font-family: 'Inter', sans-serif; font-size: 22px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0; scroll-margin-top: 100px;">Embedding AI into the core analytics engine</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">The real power of this approach is organizational coherence.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">When teams share markdowns, AI becomes a consistent analytical partner rather than a personal productivity hack. Different team members can independently explore scenarios, test assumptions, and generate insights — all grounded in the same underlying context.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Compared to traditional prompting, this feels less like asking for help and more like collaborating with a well-briefed colleague.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 30px 0;">That's how small teams start to operate like much larger ones with near infinite analytical power. And that's when AI stops feeling like an extra limb - and starts feeling like part of the team.</p>
+
+                <h3 id="conclusion" style="font-family: 'Inter', sans-serif; font-size: 22px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0; scroll-margin-top: 100px;">Conclusion</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">There's still a lot to learn.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Markdowns aren't a silver bullet, and they require discipline to maintain. But they represent a meaningful shift - away from episodic prompting and toward shared, persistent understanding.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Prompts helped us discover what AI can do. Markdowns help AI understand how we work.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0;">And that feels like a promising place to build from.</p>
             </article>
         </div>
     </div>
@@ -5063,7 +5583,7 @@
             <div class="footer-content">
                 <div class="footer-logo">
                     <a href="https://qava.ai/">
-                        <img src="qava-logo.svg" alt="Qava" class="footer-logo-img" />
+                        <img src="../../qava-logo.svg" alt="Qava" class="footer-logo-img" />
                     </a>
                 </div>
                 <div class="footer-links">
@@ -7708,6 +8228,62 @@
             });
         }
     });
+    </script>
+    <script>
+    (function() {
+        const sidebar = document.querySelector('.blog-sidebar');
+        const tocLinks = Array.from(document.querySelectorAll('.blog-toc-link'));
+        if (!tocLinks.length || !sidebar) return;
+
+        const sections = tocLinks
+            .map(link => document.querySelector(link.getAttribute('href')))
+            .filter(Boolean);
+
+        if (!sections.length) return;
+
+        const setActive = (sectionId) => {
+            tocLinks.forEach(link => {
+                const isActive = link.getAttribute('href') === '#' + sectionId;
+                link.classList.toggle('active', isActive);
+                if (isActive) {
+                    link.setAttribute('aria-current', 'true');
+                } else {
+                    link.removeAttribute('aria-current');
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                const visible = entries
+                    .filter(e => e.isIntersecting)
+                    .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+                if (visible[0]) {
+                    setActive(visible[0].target.id);
+                }
+            },
+            { root: null, rootMargin: '-30% 0px -55% 0px', threshold: [0.1, 0.25, 0.5] }
+        );
+
+        sections.forEach(section => observer.observe(section));
+        setActive(sections[0].id);
+
+        var footer = document.querySelector('.footer-section');
+        if (footer) {
+            var sidebarTop = 150;
+            window.addEventListener('scroll', function() {
+                var footerRect = footer.getBoundingClientRect();
+                var sidebarBottom = sidebarTop + sidebar.offsetHeight;
+                if (footerRect.top <= sidebarBottom + 40) {
+                    sidebar.style.opacity = '0';
+                    sidebar.style.pointerEvents = 'none';
+                } else {
+                    sidebar.style.opacity = '1';
+                    sidebar.style.pointerEvents = '';
+                }
+            }, { passive: true });
+        }
+    })();
     </script>
 </body>
 </html>
