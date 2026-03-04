@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog</title>
-    <link rel="icon" type="image/svg+xml" href="qava-logo.svg">
+    <title>Industry Notes: Aquaculture</title>
+    <link rel="icon" type="image/svg+xml" href="../../qava-logo.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -17,6 +17,215 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: white;
+        }
+
+        .markdown-post-article > h3 {
+            margin: 60px 0 14px 0 !important;
+            padding-top: 0;
+            border-top: none;
+            position: relative;
+        }
+
+        .markdown-post-article > h3::before {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 1px;
+            background: #CDCDCD;
+            margin: 0 auto 60px auto;
+        }
+
+        .markdown-post-article > h3:first-of-type {
+            margin-top: 100px !important;
+        }
+
+        .markdown-post-article > h3:first-of-type::before {
+            display: none;
+        }
+
+        .markdown-post-article > p:first-of-type {
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        @keyframes dotPulse {
+            0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+            40% { opacity: 1; transform: scale(1); }
+        }
+
+        .markdown-post-article > p {
+            margin-bottom: 20px !important;
+        }
+
+        .post-shell {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: clamp(56px, 9vw, 100px) 24px 80px 24px;
+        }
+
+        /* Blog post mobile-only layout safeguards */
+        @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden;
+            }
+
+            .post-shell {
+                padding: 34px 16px 64px 16px;
+            }
+
+            .markdown-post-article {
+                max-width: 100% !important;
+                overflow-x: clip;
+            }
+
+            .blog-hero-card {
+                border-radius: 8px !important;
+                margin-bottom: 18px !important;
+            }
+
+            .blog-hero-overlay {
+                padding: 20px 14px 14px 14px !important;
+                background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.52) 50%, transparent 100%) !important;
+            }
+
+            .blog-hero-title {
+                font-size: clamp(28px, 8vw, 34px) !important;
+                line-height: 1.18 !important;
+                margin-bottom: 4px !important;
+                white-space: normal !important;
+                overflow-wrap: anywhere;
+            }
+
+            .blog-hero-subtitle {
+                font-size: 14px !important;
+                line-height: 1.45 !important;
+                white-space: normal !important;
+                overflow-wrap: anywhere;
+            }
+
+            .markdown-post-article div[style*="grid-template-columns: repeat(3, minmax(0, 1fr));"] {
+                grid-template-columns: 1fr !important;
+                gap: 12px !important;
+            }
+
+            .markdown-post-article div[style*="margin: 4px 0 12px 0;"] {
+                display: none !important;
+            }
+
+            .markdown-post-article div[style*="border: 1px dashed #D0D0D0"] p:first-child {
+                display: flex !important;
+                align-items: flex-start !important;
+                white-space: normal !important;
+                overflow-wrap: anywhere;
+                word-break: break-word;
+            }
+
+            .markdown-post-article div[style*="border: 1px dashed #D0D0D0"] p:first-child svg {
+                flex-shrink: 0;
+                margin-top: 1px;
+            }
+
+            .markdown-post-article div[style*="border: 1px dashed #D0D0D0"] p,
+            .markdown-post-article div[style*="border: 1px solid #ECECEC"] p,
+            .markdown-post-article div[style*="border: 1px solid #ECECEC"] li,
+            .markdown-post-article span[style*="background: #ECF2FF"] {
+                white-space: normal !important;
+                overflow-wrap: anywhere;
+                word-break: break-word;
+            }
+
+            .markdown-post-article span[style*="background: #ECF2FF"] {
+                max-width: 100%;
+            }
+        }
+
+        .markdown-symbols-help details summary {
+            list-style: none;
+            font-size: 12px !important;
+            line-height: 1.4 !important;
+        }
+
+        .markdown-symbols-help details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .markdown-symbols-help details summary::before {
+            content: '>';
+            display: inline-block;
+            margin-right: 6px;
+            color: #111;
+            transition: transform 0.2s ease;
+            transform-origin: center;
+        }
+
+        .markdown-symbols-help details[open] summary::before {
+            transform: rotate(90deg);
+        }
+
+        .markdown-symbols-help details {
+            padding: 6px 0 !important;
+        }
+
+        .markdown-symbols-help details p {
+            margin: 4px 0 0 0 !important;
+            font-size: 12px !important;
+            font-weight: 300 !important;
+            line-height: 1.45 !important;
+        }
+
+        .blog-sidebar {
+            position: fixed;
+            top: 150px;
+            left: calc(50% - 450px - 180px - 20px);
+            width: 180px;
+            transition: opacity 0.3s ease;
+        }
+
+        .blog-toc {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .blog-toc-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 300;
+            color: #6B6B6B;
+            text-decoration: none;
+            padding: 3px 0;
+            transition: color 0.2s ease;
+            line-height: 1.4;
+        }
+
+        .blog-toc-link .toc-arrow {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .blog-toc-link:hover {
+            color: #111;
+        }
+
+        .blog-toc-link.active {
+            color: #111;
+            font-weight: 500;
+        }
+
+        .blog-toc-link.active .toc-arrow {
+            opacity: 1;
+            color: #0F62FE;
+        }
+
+        @media (max-width: 1300px) {
+            .blog-sidebar {
+                display: none;
+            }
         }
 
         /* NAVBAR STYLES */
@@ -913,7 +1122,7 @@
             }
 
             .hero-title {
-                font-size: 28px;
+                font-size: 22px;
                 margin-bottom: 16px;
             }
 
@@ -1181,7 +1390,7 @@
             }
             
             .competitor-platforms-title {
-                font-size: 28px;
+                font-size: 22px;
                 margin-bottom: 12px;
             }
 
@@ -1757,33 +1966,28 @@
 
         .in-focus-cards-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 14px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
             width: 100%;
         }
 
         .in-focus-card {
             display: flex;
-            flex-direction: row;
-            align-items: stretch;
-            gap: 14px;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 16px;
             background: #FFFFFF;
-            border-radius: 0;
-            padding: 16px;
+            border-radius: 8px;
+            padding: 20px;
             width: 100%;
-            max-width: 880px;
-            margin: 0 auto;
             min-width: 0;
-            box-shadow: none;
-            border: none;
-            border-top: 1px solid #E6E6E6;
-            border-bottom: 1px solid #E6E6E6;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid transparent;
             transition: border-color 0.2s ease;
         }
 
         .in-focus-card:hover {
-            border-top-color: #000000;
-            border-bottom-color: #000000;
+            border-color: #000000;
         }
 
         .in-focus-card:hover .in-focus-arrow {
@@ -1801,9 +2005,8 @@
         }
 
         .in-focus-image-wrapper {
-            width: 200px;
-            min-width: 200px;
-            max-width: 200px;
+            width: 100%;
+            max-width: 100%;
             border-radius: 6px;
             overflow: hidden;
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.06), rgba(15, 23, 42, 0.02));
@@ -1819,9 +2022,8 @@
 
         .in-focus-image {
             width: 100%;
-            max-width: 200px;
-            height: 100%;
-            min-height: 140px;
+            max-width: 100%;
+            height: 200px;
             object-fit: cover;
             display: block;
         }
@@ -2580,21 +2782,16 @@
             }
 
             .in-focus-card {
-                flex-direction: column;
                 padding: 20px;
                 gap: 16px;
             }
 
             .in-focus-image-wrapper {
                 width: 100%;
-                min-width: 0;
-                max-width: 100%;
             }
 
             .in-focus-image {
                 height: 200px;
-                max-width: 100%;
-                min-height: 0;
                 max-height: 420px;
             }
 
@@ -2733,7 +2930,7 @@
             }
 
             .in-focus-blog-title {
-                font-size: 17px;
+                font-size: 14px;
                 line-height: 1.2;
                 display: -webkit-box;
                 -webkit-line-clamp: 2;
@@ -2982,7 +3179,7 @@
             }
 
             .feature-cards-header {
-                font-size: 28px;
+                font-size: 22px;
                 margin-bottom: 8px;
                 line-height: 1.2;
             }
@@ -4081,7 +4278,7 @@
 
         .footer-heading {
             font-family: 'Inter', sans-serif;
-            font-size: 17px;
+            font-size: 14px;
             color: #000000;
             margin-bottom: 8px;
             font-weight: 600;
@@ -4474,7 +4671,7 @@
             }
 
             .featured-quote {
-                font-size: 28px;
+                font-size: 22px;
             }
 
             .customer-grid {
@@ -4516,7 +4713,7 @@
 
         @media (max-width: 480px) {
             .what-need-title {
-                font-size: 28px;
+                font-size: 22px;
             }
 
             .what-need-subtitle {
@@ -4584,7 +4781,7 @@
 
         @media (max-width: 480px) {
             .what-need-title {
-                font-size: 28px;
+                font-size: 22px;
             }
 
             .what-need-subtitle {
@@ -4894,7 +5091,7 @@
             <div class="logo-container">
                 <div class="logo">
                     <a href="https://qava.ai/">
-                        <img src="qava-logo.svg" alt="Qava Logo">
+                        <img src="../../qava-logo.svg" alt="Qava Logo">
                     </a>
                 </div>
             </div>
@@ -4978,51 +5175,102 @@
             </a>
     </div>
 
-    <!-- Hero Section -->
-    <div class="hero-section" style="background: white;">
-        <div class="success-hero-container">
-            <h1 style="font-family: 'Inter', sans-serif; font-size: clamp(30px, 4vw, 46px); font-weight: 600; color: #000000; line-height: 1.2; margin: 0 0 8px 0; display: block; width: 100%; white-space: nowrap;">Get in-the-know with QAVA resources</h1>
-            <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #6B6B6B; text-align: center; margin: 8px 0 16px 0; display: block; width: 100%;">From startup tools to large corporate initiatives, we have you covered.</p>
-        </div>
-    </div>
-
-    <!-- Blog Library Section -->
-    <div class="in-focus-wrapper">
-        <div class="in-focus-section">
-            <div class="in-focus-container">
-                <div class="in-focus-cards-grid">
-                    <div class="in-focus-card">
-                        <a href="https://qava.ai/blog/markdown" class="in-focus-image-wrapper">
-                            <img src="Markdowns.png" alt="Entering the Markdowns Era" class="in-focus-image" loading="lazy">
-                        </a>
-                        <div class="in-focus-content">
-                            <h3 class="in-focus-blog-title"><a href="https://qava.ai/blog/markdown">Entering the Markdowns Era</a></h3>
-                            <p class="in-focus-subtitle">Why the next leap in working with AI is not smarter one-off prompts, but persistent structure. By using markdowns as living context, teams can move from episodic outputs to consistent, scalable execution.</p>
-                            <div class="in-focus-badges">
-                                <div class="in-focus-pill"><span>AI Systems 🤖</span></div>
-                                <div class="in-focus-pill"><span>Ways of Working 🧠</span></div>
-                                <div class="in-focus-pill"><span>Execution Design ⚙️</span></div>
-                            </div>
-                            <a href="https://qava.ai/blog/markdown" class="in-focus-link">Read post<span class="in-focus-arrow">→</span></a>
-                        </div>
-                    </div>
-                    <div class="in-focus-card">
-                        <a href="https://qava.ai/blog/aquaculture" class="in-focus-image-wrapper">
-                            <img src="Acquculture.png" alt="Industry Notes: Aquaculture" class="in-focus-image" loading="lazy">
-                        </a>
-                        <div class="in-focus-content">
-                            <h3 class="in-focus-blog-title"><a href="https://qava.ai/blog/aquaculture">Industry Notes: Aquaculture</a></h3>
-                            <p class="in-focus-subtitle">A full industry deep dive on aquaculture, from global seafood demand shifts and salmon economics to RAS systems, regulation, social license, and opportunities for builders, operators, and strategists.</p>
-                            <div class="in-focus-badges">
-                                <div class="in-focus-pill"><span>Industry Deep Dive 🌊</span></div>
-                                <div class="in-focus-pill"><span>Food Systems 🐟</span></div>
-                                <div class="in-focus-pill"><span>Strategy + Operations 🧭</span></div>
-                            </div>
-                            <a href="https://qava.ai/blog/aquaculture" class="in-focus-link">Read post<span class="in-focus-arrow">→</span></a>
-                        </div>
+    <!-- Blog Post -->
+    <div style="background: white; width: 100%;">
+        <div class="post-shell">
+                        <article class="markdown-post-article" style="max-width: 840px; margin: 0 auto;">
+                <div class="blog-hero-card" style="position: relative; width: 100%; max-width: 840px; border-radius: 10px; overflow: hidden; margin: 0 0 26px 0;">
+                    <img src="../../Acquculture.png" alt="Industry Notes: Aquaculture" style="width: 100%; display: block;">
+                    <div class="blog-hero-overlay" style="position: absolute; bottom: 0; left: 0; right: 0; width: 100%; padding: 36px 30px 28px 30px; background: linear-gradient(to top, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.34) 55%, transparent 100%);">
+                        <h2 class="blog-hero-title" style="font-family: 'Inter', sans-serif; font-size: 42px; font-weight: 600; line-height: 1.15; color: #fff; margin: 0 0 6px 0;">Industry Notes: Aquaculture</h2>
+                        <p class="blog-hero-subtitle" style="font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 300; color: rgba(255,255,255,0.92); line-height: 1.6; margin: 0;">A strategic look at one of the world’s quietest and fastest-growing food industries.</p>
                     </div>
                 </div>
-            </div>
+
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">From time to time, I want to step back from writing about tools, frameworks, or the mechanics of building things and instead spend time looking at industries themselves.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Not from the perspective of a deep technical expert, but from the perspective of curiosity. What is happening inside an industry? What are the structural forces shaping it? Where is capital flowing, and where are the opportunities for people willing to spend time understanding how the system works?</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">The Qava community is full of people who enjoy thinking about these questions. Many are entrepreneurs, operators, or students at business schools who are learning the craft of strategy and execution. One of the most useful habits you can develop early in that journey is simply paying attention to industries that are quietly transforming.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Recently I had a long conversation with <strong>James Sibley</strong>, who works in the aquaculture sector and has built a following documenting fish farms and coastal food systems around the world. His work focuses on showing what the industry actually looks like on the ground. In many ways it is a response to the highly negative narratives that dominate popular media, particularly documentaries like <em>Seaspiracy</em>, which tend to present a simplified and often sensationalized view of seafood production.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 24px 0;">What struck me after speaking with James is how unusual aquaculture is as an industry. It is enormous, growing rapidly, and strategically important for global food supply, yet it receives remarkably little attention from the people who often gravitate toward emerging sectors.</p>
+
+                <hr style="border: none; border-top: 1px solid #E5E7EB; margin: 22px 0;">
+
+                <h3 style="font-family: 'Inter', sans-serif; font-size: 22px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0;">The Quiet Shift in Global Seafood</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">One of the most important dynamics shaping the industry is surprisingly simple.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Wild seafood production has not meaningfully increased in decades.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">For the most part, global fisheries have reached their sustainable limits. There are of course fluctuations year to year, but the total amount of fish harvested from wild oceans has remained largely flat for a long time. Meanwhile, demand for seafood continues to grow as populations increase and diets shift toward protein sources that are perceived to be healthier or more environmentally efficient than land-based livestock.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Aquaculture is filling that gap.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">In fact, aquaculture is now the <strong>fastest-growing subsector of agriculture globally</strong>. A large and increasing share of the seafood people consume no longer comes from the open ocean but from farms located along coastlines, in sheltered bays, or increasingly in sophisticated engineered systems.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Despite this scale, aquaculture remains relatively invisible to the broader public. Unlike industries such as artificial intelligence or electric vehicles, it does not sit at the center of media attention or venture capital hype cycles. Much of it takes place far from cities, in fjords, coastal regions, or island economies where agriculture and ocean industries have long histories.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 24px 0;">The industry is also highly fragmented. There are large multinational producers, particularly in countries such as Norway, but there are also thousands of smaller operations scattered across the world. Many of these businesses are deeply technical, combining marine biology, environmental management, logistics, and food production in ways that do not neatly fit into the categories most business education focuses on.</p>
+
+                <hr style="border: none; border-top: 1px solid #E5E7EB; margin: 22px 0;">
+
+                <h3 style="font-family: 'Inter', sans-serif; font-size: 22px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0;">Understanding What Aquaculture Actually Includes</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">When people hear the term aquaculture, they often imagine a very narrow concept: fish raised in cages.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">The reality is far broader.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Aquaculture includes the farming of <strong>finfish</strong>, such as salmon, trout, or sea bass. It includes <strong>crustaceans</strong>, most notably shrimp, which represent one of the largest global markets in seafood production. It includes <strong>shellfish</strong>, such as oysters, mussels, and clams, many of which actually improve water quality by filtering nutrients from coastal ecosystems.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Then there is the frontier category of <strong>seaweed and algae</strong>, which is attracting growing interest from both food and biotechnology sectors. These organisms have potential applications ranging from human nutrition to pharmaceuticals, animal feed, and bio-materials. Some of the most experimental and volatile investments in the industry are happening here.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 24px 0;">Each of these subsectors has its own economics, technologies, and regulatory dynamics. The infrastructure required to farm salmon in the North Atlantic looks nothing like the systems used to grow shrimp in Southeast Asia or seaweed in coastal Asia.</p>
+
+                <hr style="border: none; border-top: 1px solid #E5E7EB; margin: 22px 0;">
+
+                <h3 style="font-family: 'Inter', sans-serif; font-size: 22px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0;">The Central Role of Salmon</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Within this landscape, one species plays an outsized role in shaping the industry: Atlantic salmon.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Modern salmon farming began only a few decades ago, primarily in Norway during the 1960s. Since then it has evolved into one of the most technologically sophisticated forms of aquaculture. Norwegian companies in particular have invested heavily in improving feed conversion ratios, breeding programs, disease management, cage engineering, and increasingly automation and digital monitoring.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Despite the level of innovation and capital involved, salmon farming still represents only a small portion of global seafood supply. It accounts for just over one percent of total seafood consumption, which highlights both its economic importance and the enormous headroom that still exists for expansion.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">The salmon industry has also shown how strategic thinking about markets can reshape demand. One example James mentioned is the rise of salmon sushi. Raw salmon was not traditionally consumed in Japan. Norwegian producers actively promoted salmon as a sushi ingredient in the 1970s as part of an effort to open new markets. Today it is one of the most recognizable forms of sushi worldwide.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 24px 0;">In other words, industry growth has come not only from better production systems but also from the deliberate creation of new consumer habits.</p>
+
+                <hr style="border: none; border-top: 1px solid #E5E7EB; margin: 22px 0;">
+
+                <h3 style="font-family: 'Inter', sans-serif; font-size: 22px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0;">Different Countries Are Running Different Experiments</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Another fascinating aspect of aquaculture is how strongly it reflects national context.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Norway has built perhaps the most advanced industrial aquaculture sector in the world, with large companies continuously refining the efficiency and scale of offshore fish farming. In parts of Southeast Asia, aquaculture systems often integrate more closely with natural ecosystems and smaller producers, reflecting different economic and environmental conditions.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Island nations such as Scotland and New Zealand have unique advantages because of their geography and coastline access. These locations can support aquaculture in ways that landlocked countries cannot.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 24px 0;">The United States, somewhat surprisingly, has relatively little large-scale aquaculture compared with its coastline and economic capacity. Much of this is due to complex and fragmented regulation across federal and state jurisdictions, which makes it difficult to scale operations efficiently. As a result, the U.S. market still represents a significant area of unrealized potential.</p>
+
+                <hr style="border: none; border-top: 1px solid #E5E7EB; margin: 22px 0;">
+
+                <h3 style="font-family: 'Inter', sans-serif; font-size: 22px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0;">The Challenge of “Novel Systems”</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Like many industries, aquaculture periodically attracts waves of innovation aimed at transforming how production works.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">One of the most prominent examples is the development of <strong>Recirculating Aquaculture Systems (RAS)</strong>. These are land-based facilities where fish are raised indoors in highly controlled water systems. The promise of this approach is appealing: farms can be located near cities, environmental impacts are easier to manage, and biological conditions can be tightly regulated.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">However, the reality has been more complex than early projections suggested. Several high-profile RAS projects have struggled with economics, engineering challenges, or biological realities that were underestimated in early planning.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">James described a recurring pattern in which technology startups enter the industry with ambitious ideas but limited understanding of how fish farmers actually operate. When innovation is disconnected from the practical constraints of production systems, the results can be costly.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 24px 0;">This dynamic is not unique to aquaculture. Many industries have experienced similar cycles where new technologies promise rapid transformation but encounter friction when confronted with operational reality.</p>
+
+                <hr style="border: none; border-top: 1px solid #E5E7EB; margin: 22px 0;">
+
+                <h3 style="font-family: 'Inter', sans-serif; font-size: 22px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0;">The Importance of Social License</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Beyond technology and economics, aquaculture also faces a challenge that many resource industries share: public perception.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">The concept often used to describe this is <strong>social license</strong>. Even if a farming system is technically viable and environmentally responsible, it must still maintain public trust in order to operate.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">In recent years, aquaculture has become an easy target for environmental criticism, particularly in regions with strong recreational fishing cultures. This has translated into political pressure and regulatory decisions. In British Columbia, for example, certain salmon farming operations have been required to transition away from open-water systems by 2029.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Whether these policies ultimately improve sustainability is still debated within the industry. What is clear is that perception can shape regulatory environments in ways that directly affect business models.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">For operators, this means communication and transparency are becoming increasingly important. The industry historically struggled with public outreach, partly because farms are located in remote areas and the work itself is highly technical. As a result, the broader public often lacks a clear understanding of how modern aquaculture actually functions.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 24px 0;">This is where storytellers like James have begun to play an interesting role, documenting farms and highlighting operators who are working hard to improve sustainability and production practices.</p>
+
+                <hr style="border: none; border-top: 1px solid #E5E7EB; margin: 22px 0;">
+
+                <h3 style="font-family: 'Inter', sans-serif; font-size: 22px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0;">Opportunities for Builders and Strategists</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">From a strategic perspective, aquaculture is full of unanswered questions.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">There are opportunities in operational technology that helps farmers run more efficient systems. There are opportunities in supply chains, particularly in areas such as feed innovation, waste utilization, and logistics. Some companies are experimenting with ways to use nearly every part of harvested fish, transforming what was once waste into products ranging from animal feed to pet treats.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">There are also opportunities in entirely new production models. Seaweed and algae cultivation, for example, remains a relatively young field with applications that extend well beyond food. Research continues into how these organisms could support pharmaceuticals, materials science, and environmental restoration.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">For students or entrepreneurs interested in strategy, aquaculture represents an unusual combination of characteristics. It is a large global industry with clear demand growth, but many of its operational and business problems remain unsolved.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 24px 0;">In other words, it is precisely the kind of environment where thoughtful analysis and experimentation can create meaningful value.</p>
+
+                <hr style="border: none; border-top: 1px solid #E5E7EB; margin: 22px 0;">
+
+                <h3 style="font-family: 'Inter', sans-serif; font-size: 22px; font-weight: 600; color: #111; line-height: 1.3; margin: 36px 0 12px 0;">Why It Matters</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">One of the themes that came out of the conversation with James is that aquaculture is still early in its development.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">Compared with land-based agriculture, modern fish farming is a relatively young industry. Many of the systems and practices that define it today only emerged in the past few decades. That means the next phase of innovation will likely involve improvements in biology, engineering, policy, and market development.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">For people interested in building things, that combination is compelling. It suggests that aquaculture will continue to evolve as both a technology sector and a food production system.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">And for those of us who enjoy studying industries as living systems, it offers a reminder that some of the most important transformations are happening far away from the places that usually dominate headlines.</p>
+
+                <hr style="border: none; border-top: 1px solid #E5E7EB; margin: 22px 0;">
+
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 18px 0;">If this kind of industry deep dive is useful, I plan to write more of them from time to time. Conversations with people actually working inside sectors often reveal opportunities and structural shifts that are difficult to see from the outside.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; color: #222; line-height: 1.8; margin: 0 0 28px 0;">For the Qava community — entrepreneurs, operators, and business students exploring new ventures — aquaculture may be one of those industries worth paying closer attention to.</p>
+            </article>
         </div>
     </div>
 
@@ -5032,7 +5280,7 @@
             <div class="footer-content">
                 <div class="footer-logo">
                     <a href="https://qava.ai/">
-                        <img src="qava-logo.svg" alt="Qava" class="footer-logo-img" />
+                        <img src="../../qava-logo.svg" alt="Qava" class="footer-logo-img" />
                     </a>
                 </div>
                 <div class="footer-links">
@@ -7677,6 +7925,79 @@
             });
         }
     });
+    </script>
+    <script>
+    (function() {
+        const sidebar = document.querySelector('.blog-sidebar');
+        const tocLinks = Array.from(document.querySelectorAll('.blog-toc-link'));
+        if (!tocLinks.length || !sidebar) return;
+
+        const sections = tocLinks
+            .map(link => document.querySelector(link.getAttribute('href')))
+            .filter(Boolean);
+
+        if (!sections.length) return;
+
+        const setActive = (sectionId) => {
+            tocLinks.forEach(link => {
+                const isActive = link.getAttribute('href') === '#' + sectionId;
+                link.classList.toggle('active', isActive);
+                if (isActive) {
+                    link.setAttribute('aria-current', 'true');
+                } else {
+                    link.removeAttribute('aria-current');
+                }
+            });
+        };
+
+        let manualActiveUntil = 0;
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (Date.now() < manualActiveUntil) return;
+                const visible = entries
+                    .filter(e => e.isIntersecting)
+                    .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+                if (visible[0]) {
+                    setActive(visible[0].target.id);
+                }
+            },
+            { root: null, rootMargin: '-30% 0px -55% 0px', threshold: [0.1, 0.25, 0.5] }
+        );
+
+        sections.forEach(section => observer.observe(section));
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                const sectionId = (link.getAttribute('href') || '').replace('#', '');
+                if (!sectionId) return;
+                setActive(sectionId);
+                // Keep click-selected state visible while the browser scrolls to target.
+                manualActiveUntil = Date.now() + 900;
+            });
+        });
+
+        const initialHash = window.location.hash.replace('#', '');
+        if (initialHash && sections.some(section => section.id === initialHash)) {
+            setActive(initialHash);
+        } else {
+            setActive(sections[0].id);
+        }
+
+        var footer = document.querySelector('.footer-section');
+        if (footer) {
+            var sidebarTop = 150;
+            window.addEventListener('scroll', function() {
+                var footerRect = footer.getBoundingClientRect();
+                var sidebarBottom = sidebarTop + sidebar.offsetHeight;
+                if (footerRect.top <= sidebarBottom + 40) {
+                    sidebar.style.opacity = '0';
+                    sidebar.style.pointerEvents = 'none';
+                } else {
+                    sidebar.style.opacity = '1';
+                    sidebar.style.pointerEvents = '';
+                }
+            }, { passive: true });
+        }
+    })();
     </script>
 </body>
 </html>
