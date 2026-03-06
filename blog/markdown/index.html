@@ -63,6 +63,10 @@
             padding: clamp(56px, 9vw, 100px) 24px 80px 24px;
         }
 
+        .mobile-down-arrow {
+            display: none;
+        }
+
         /* Blog post mobile-only layout safeguards */
         @media (max-width: 768px) {
             html, body {
@@ -110,6 +114,12 @@
 
             .markdown-post-article div[style*="margin: 4px 0 12px 0;"] {
                 display: none !important;
+            }
+
+            .mobile-down-arrow {
+                display: flex !important;
+                justify-content: center;
+                margin: 14px 0;
             }
 
             .markdown-post-article div[style*="border: 1px dashed #D0D0D0"] p:first-child {
@@ -5295,6 +5305,12 @@
                         </div>
                     </div>
 
+                    <div class="mobile-down-arrow">
+                        <div style="position: relative; width: 1.5px; height: 22px; background: #111;">
+                            <span style="position: absolute; bottom: -4px; left: -3.25px; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid #111;"></span>
+                        </div>
+                    </div>
+
                     <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin: 4px 0 12px 0;">
                         <div style="display: flex; justify-content: center;">
                             <div style="position: relative; width: 2px; height: 26px; background: #111111;">
@@ -5417,6 +5433,12 @@
                                 Technology_Stack.md
                             </p>
                             <p style="margin: 0; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 300; color: #555; line-height: 1.55;">Frontend, backend, integrations, architecture, and design standards.</p>
+                        </div>
+                    </div>
+
+                    <div class="mobile-down-arrow">
+                        <div style="position: relative; width: 1.5px; height: 22px; background: #111;">
+                            <span style="position: absolute; bottom: -4px; left: -3.25px; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid #111;"></span>
                         </div>
                     </div>
 
