@@ -52,6 +52,18 @@ jobs:
           --content-type "text/html" \
           --cache-control "max-age=3600"
 
+        aws s3 cp liquidskateboard.html s3://${{ secrets.S3_BUCKET_NAME }}/liquidskateboard.html \
+          --content-type "text/html" \
+          --cache-control "max-age=3600"
+
+        aws s3 cp noonesark.html s3://${{ secrets.S3_BUCKET_NAME }}/noonesark.html \
+          --content-type "text/html" \
+          --cache-control "max-age=3600"
+
+        aws s3 cp mmento.html s3://${{ secrets.S3_BUCKET_NAME }}/mmento.html \
+          --content-type "text/html" \
+          --cache-control "max-age=3600"
+
         aws s3 sync howitworks/ s3://${{ secrets.S3_BUCKET_NAME }}/howitworks/ \
           --content-type "text/html" \
           --cache-control "max-age=3600"
