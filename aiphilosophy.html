@@ -283,6 +283,232 @@
       margin: 0;
     }
 
+    .qava-ai-tools-head {
+      margin: 56px 0 22px 0;
+      text-align: left;
+      background: #111827;
+      border-radius: 6px;
+      padding: 40px 36px;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .qava-ai-tools-head:hover {
+      background: #ffffff;
+      box-shadow: inset 0 0 0 1px rgba(17, 24, 39, 0.1);
+    }
+
+    .qava-ai-tools-head:hover .qava-ai-tools-title { color: #111827; }
+    .qava-ai-tools-head:hover .qava-ai-tools-sub { color: #6B6B6B; }
+    .qava-ai-tools-head:hover .qava-ai-menu-label { color: #9ca3af; }
+
+    .qava-ai-tools-head:hover .qava-ai-menu-item {
+      color: #111827;
+      background: rgba(17, 24, 39, 0.05);
+      border-color: rgba(17, 24, 39, 0.15);
+    }
+
+    .qava-ai-tools-head:hover .qava-ai-menu-item:hover {
+      background: #111827;
+      color: #ffffff;
+      border-color: #111827;
+    }
+
+    .qava-ai-tools-title {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(26px, 3vw, 36px);
+      letter-spacing: -0.012em;
+      color: #111827;
+      margin: 0 0 8px 0;
+    }
+
+    .qava-ai-tools-head .qava-ai-tools-title { color: #ffffff; }
+
+    .qava-ai-tools-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: #6B6B6B;
+      margin: 0;
+    }
+
+    .qava-ai-tools-head .qava-ai-tools-sub {
+      color: rgba(255, 255, 255, 0.7);
+      max-width: 640px;
+      margin: 0;
+    }
+
+    .qava-ai-menu {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-top: 22px;
+    }
+
+    .qava-ai-menu-label {
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
+      margin-right: 4px;
+    }
+
+    .qava-ai-menu-item {
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px;
+      padding: 4px 10px;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .qava-ai-menu-item:hover {
+      background: #ffffff;
+      color: #111827;
+      border-color: #ffffff;
+    }
+
+    .qava-ai-cat {
+      margin: 40px 0 16px 0;
+      scroll-margin-top: 90px;
+    }
+
+    .qava-ai-cat-title {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(20px, 2.2vw, 26px);
+      letter-spacing: -0.012em;
+      color: #111827;
+      margin: 0 0 6px 0;
+    }
+
+    .qava-ai-cat-note {
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: #6B6B6B;
+      margin: 0;
+    }
+
+    .qava-ai-tools {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .qava-ai-tool {
+      display: flex;
+      gap: 18px;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(17, 24, 39, 0.04);
+      padding: 11px 18px;
+      box-sizing: border-box;
+    }
+
+    .qava-ai-tool-logo {
+      flex: 0 0 auto;
+      width: 48px;
+      height: 48px;
+      border-radius: 11px;
+      background: #ffffff;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .qava-ai-tool-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .qava-ai-tool-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 11px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Inter", sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .qava-ai-tool-body { flex: 1 1 auto; min-width: 0; }
+
+    .qava-ai-tool-name {
+      font-family: "Inter", sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: #111827;
+      margin: 0;
+    }
+
+    .qava-ai-tool-tag {
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: #9ca3af;
+      margin: 1px 0 10px 0;
+    }
+
+    .qava-ai-tool-best {
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.55;
+      color: #4b5563;
+      margin: 0 0 12px 0;
+    }
+
+    .qava-ai-tool-howto {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .qava-ai-tool-howto li {
+      position: relative;
+      padding-left: 20px;
+      font-family: "Inter", sans-serif;
+      font-size: 13.5px;
+      font-weight: 300;
+      line-height: 1.5;
+      color: #6B6B6B;
+    }
+
+    .qava-ai-tool-howto li::before {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 8px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #111827;
+    }
+
+    @media (max-width: 600px) {
+      .qava-ai-tools-head { padding: 28px 22px; }
+      .qava-ai-tool { flex-direction: column; gap: 14px; }
+    }
+
     .footer-section {
       background: #ffffff;
       width: 100%;
@@ -458,6 +684,111 @@
     (function () {
       if (typeof window.applyQavaFooter === "function") {
         window.applyQavaFooter(document);
+      }
+
+      const aiContainer = document.querySelector(".qava-ai-container");
+      if (aiContainer && !document.querySelector(".qava-ai-tools-head")) {
+        const aiCategories = [
+          {
+            cat: "Assistants & research",
+            note: "The everyday chat and reasoning tools for drafting, analyzing, and thinking through a problem.",
+            tools: [
+              { img: "./qava-tool-openai.png", name: "ChatGPT", tag: "OpenAI · the all-rounder", best: "The most versatile assistant — drafting, summarizing, analysis, code, and quick image mock-ups all in one place.", howto: ["Describe what you need in plain language to draft emails, plans, and decks.", "Upload PDFs, spreadsheets, or images and ask it to analyze or pull out data.", "Use Canvas to write and edit long documents side-by-side with the model.", "Generate images and simple visuals with the built-in image tools."] },
+              { img: "./qava-tool-claude.png", name: "Claude", tag: "Anthropic · writing & reasoning specialist", best: "Best for long-form documents, structured thinking, and collaborative drafting on big, messy inputs.", howto: ["Use Projects to keep your brief, files, and context together in one shared workspace.", "Generate Artifacts — live, editable documents, markdown files, tables, or code you refine side-by-side.", "Paste in large reports or contracts; Claude reads big documents in a single pass.", "Brainstorm strategy, outlines, and messaging, then have it tighten the final copy."] },
+              { img: "./qava-tool-gemini.png", name: "Gemini", tag: "Google · built into Workspace", best: "Ideal when your work lives in Google — research and writing directly inside Docs, Sheets, and Gmail.", howto: ["Draft and rewrite directly inside Google Docs and Gmail.", "Analyze data and build formulas in Google Sheets.", "Run Deep Research to compile a sourced briefing on any topic.", "Work across text, images, and files, and generate images on the fly."] },
+              { img: "./qava-tool-copilot.png", name: "Microsoft Copilot", tag: "Microsoft 365 · inside Office", best: "Turns rough inputs into finished Office deliverables across Word, Excel, PowerPoint, and Teams.", howto: ["Generate a full PowerPoint deck from a prompt or an existing document.", "Build analyses, charts, and formulas in Excel from a plain-language ask.", "Draft and summarize in Word and Outlook.", "Recap meetings and capture action items automatically in Teams."] },
+              { img: "./qava-tool-perplexity.png", name: "Perplexity", tag: "AI research with sources", best: "Fast, cited answers — the go-to for market sizing, competitor scans, and fact-checking.", howto: ["Ask research questions and get answers with linked, checkable sources.", "Use Focus modes to search academic papers, the web, or specific domains.", "Build research threads you can revisit and share with your team."] },
+              { img: "./qava-tool-notion.svg", name: "Notion AI", tag: "AI inside your docs & notes", best: "Summarize, organize, and write inside the workspace where your project docs already live.", howto: ["Summarize long notes and meeting docs in a click.", "Turn rough bullet points into polished briefs and project plans.", "Ask questions across your connected Notion pages to find answers fast."] }
+            ]
+          },
+          {
+            cat: "Creative & content",
+            note: "Generate visuals, decks, video, and audio without a full production team.",
+            tools: [
+              { img: "./qava-tool-canva.png", name: "Canva", tag: "Graphic design", best: "Make on-brand graphics without a designer — social posts, decks, and one-pagers from templates.", howto: ["Generate layouts from a prompt with Magic Design and text-to-image.", "Start from thousands of templates for social, slides, and print.", "Resize one design into every channel format in a click."] },
+              { img: "./qava-tool-gamma.png", name: "Gamma", tag: "AI presentations", best: "Turn a prompt or a document into a polished deck or one-pager in minutes.", howto: ["Paste a brief or notes and let Gamma build the slides.", "Restyle the whole deck with a single theme change.", "Export to PDF or PowerPoint when it's ready."] },
+              { img: "./qava-tool-midjourney.png", name: "Midjourney & DALL·E", tag: "Image generation", best: "Create brand concepts, mock-ups, and visual ideas from a simple text description.", howto: ["Describe an image in words to generate logos, mood boards, and concept art.", "Iterate with variations and upscales until the look is right.", "Use outputs as visual references to brief a designer."] },
+              { img: "./qava-tool-runway.png", name: "Runway", tag: "AI video", best: "Generate and edit short video clips from text or images for ads, social, and demos.", howto: ["Create video from a text prompt or a still image.", "Use AI editing tools to clean up, extend, or restyle footage.", "Spin up quick concept reels and ad variations."] },
+              { img: "./qava-tool-elevenlabs.png", name: "ElevenLabs", tag: "AI voice & audio", best: "Turn scripts into natural voiceovers for videos, ads, and product demos.", howto: ["Paste text to generate lifelike voiceover in many voices.", "Design or clone a consistent brand voice.", "Dub audio into other languages."] }
+            ]
+          },
+          {
+            cat: "Marketing & growth",
+            note: "Plan, optimize, and run campaigns — and track how AI tools talk about your brand.",
+            tools: [
+              { img: "./qava-tool-semrush.png", name: "Semrush", tag: "SEO & AI visibility", best: "A full SEO toolkit, plus tracking of whether AI tools mention your brand when people ask.", howto: ["Run keyword, competitor, and backlink research.", "Use the AI Toolkit to monitor brand mentions across AI answers.", "Audit and optimize content to rank in search."] },
+              { img: "./qava-tool-hubspot.png", name: "HubSpot", tag: "AI CRM", best: "Align marketing and sales with built-in AI for content, email, and lead scoring.", howto: ["Draft marketing emails and landing-page copy with AI.", "Score and route leads automatically.", "Get AI summaries of deals, contacts, and next steps."] },
+              { img: "./qava-tool-activecampaign.png", name: "ActiveCampaign", tag: "Email automation", best: "Build behavior-based email journeys and drip campaigns that run themselves.", howto: ["Auto-build campaigns and segments from a prompt.", "Trigger journeys based on customer behavior.", "Optimize send times with predictive AI."] },
+              { img: "./qava-tool-grammarly.png", name: "Grammarly", tag: "AI editing", best: "Polish copy and keep everything clear, error-free, and on-brand.", howto: ["Catch grammar, tone, and clarity issues as you write.", "Apply a brand style guide across the whole team.", "Rewrite and shorten with generative suggestions."] }
+            ]
+          },
+          {
+            cat: "Website builders",
+            note: "Stand up a real, editable site fast — AI gets you started, then you refine.",
+            tools: [
+              { img: "./qava-tool-wix.png", name: "Wix", tag: "Best for most people", best: "Chat to an AI builder to spin up a real, editable site — backed by Wix's mature editor.", howto: ["Answer a few prompts and let AI draft your site.", "Tweak everything in the drag-and-drop editor.", "Add bookings, stores, and blogs, then go live."] },
+              { img: "./qava-tool-jimdo.png", name: "Jimdo", tag: "Best free option", best: "A free AI builder that drafts a site from a short description, with affordable upgrades.", howto: ["Describe your business and pick from AI-made starts.", "Pull details from your Google or social profiles.", "Edit and publish with all the core site features."] },
+              { img: "./qava-tool-framer.png", name: "Framer", tag: "Best for designers", best: "Design-grade sites, with an AI Wireframer to get a strong layout fast.", howto: ["Use AI Wireframer to generate a starting layout.", "Refine with Framer's pro design tools.", "Publish high-performance, responsive sites."] },
+              { badge: "Ch", color: "#7c3aed", name: "Chariot", tag: "Best for vibe coding", best: "Generate a genuinely custom site design straight from a written prompt.", howto: ["Describe the site you want in plain language.", "Iterate on the AI-generated design.", "Launch when it looks right."] }
+            ]
+          },
+          {
+            cat: "Governance & safety",
+            note: "Keep AI use compliant, monitored, and on-policy — so it works for you, not against you.",
+            tools: [
+              { img: "./qava-tool-zapier.png", name: "Zapier", tag: "Build safely with AI", best: "Connect AI to 9,000+ apps with built-in guardrails, so automations never bypass your rules.", howto: ["Run AI Guardrails (PII detection, prompt-injection filtering) inside workflows.", "Connect Claude, ChatGPT, and more via Zapier MCP.", "Control access at the action, model, and connection level."] },
+              { img: "./qava-tool-purview.png", name: "Microsoft Purview", tag: "For Microsoft teams", best: "Govern data and AI usage across Microsoft 365 and Azure from one unified layer.", howto: ["Auto-discover AI app usage with DSPM for AI.", "Carry sensitivity labels into AI interactions.", "Use templates for the EU AI Act, NIST, and HIPAA."] },
+              { badge: "OT", color: "#1f2937", name: "OneTrust", tag: "Enterprise governance", best: "Map AI projects to regulations and run approval chains at enterprise scale.", howto: ["Pre-map projects to the EU AI Act, NIST, and ISO 42001.", "Kick off automated risk-tiering and approvals.", "Apply runtime guardrails for prompt and output filtering."] },
+              { img: "./qava-tool-credo.png", name: "Credo AI", tag: "Regulation management", best: "Purpose-built governance with an AI assistant and shadow-AI discovery.", howto: ["Use GAIA to retrieve evidence and assess risk.", "Discover unapproved 'shadow AI' across the business.", "Apply context-specific controls by market and use case."] },
+              { img: "./qava-tool-fiddler.png", name: "Fiddler", tag: "Observability & guardrails", best: "Real-time monitoring and runtime guardrails for models running in production.", howto: ["Detect hallucinations, PII exposure, and prompt injection live.", "Trace multi-agent systems step by step.", "Run checks locally with low latency."] },
+              { img: "./qava-tool-modelop.png", name: "ModelOp", tag: "Regulated industries", best: "Govern your whole AI portfolio as business assets across their lifecycle.", howto: ["Auto risk-tier and route new use cases for approval.", "Monitor deployed models for drift and bias.", "Integrate with 50+ enterprise systems."] }
+            ]
+          }
+        ];
+
+        const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+        const head = document.createElement("div");
+        head.className = "qava-ai-tools-head";
+        head.innerHTML = `
+          <h2 class="qava-ai-tools-title">Every tool, and how to use it</h2>
+          <p class="qava-ai-tools-sub">The leading AI tools your Qava talent works with — grouped by what you're trying to do, with what each is best for and how to put it to work.</p>
+          <div class="qava-ai-menu">
+            <span class="qava-ai-menu-label">Jump to</span>
+            ${aiCategories.map((g) => `<button type="button" class="qava-ai-menu-item" data-target="qava-cat-${slug(g.cat)}">${g.cat}</button>`).join("")}
+          </div>`;
+        aiContainer.appendChild(head);
+
+        aiCategories.forEach((g) => {
+          const cat = document.createElement("div");
+          cat.className = "qava-ai-cat";
+          cat.id = "qava-cat-" + slug(g.cat);
+          cat.innerHTML = `<h3 class="qava-ai-cat-title">${g.cat}</h3><p class="qava-ai-cat-note">${g.note}</p>`;
+          aiContainer.appendChild(cat);
+
+          const tools = document.createElement("div");
+          tools.className = "qava-ai-tools";
+          tools.innerHTML = g.tools.map((t) => `
+            <div class="qava-ai-tool">
+              ${t.img
+                ? `<div class="qava-ai-tool-logo"><img src="${t.img}" alt="${t.name}"></div>`
+                : `<div class="qava-ai-tool-badge" style="background:${t.color};">${t.badge}</div>`}
+              <div class="qava-ai-tool-body">
+                <p class="qava-ai-tool-name">${t.name}</p>
+                <p class="qava-ai-tool-tag">${t.tag}</p>
+                <p class="qava-ai-tool-best">${t.best}</p>
+                <ul class="qava-ai-tool-howto">${t.howto.map((h) => `<li>${h}</li>`).join("")}</ul>
+              </div>
+            </div>`).join("");
+          aiContainer.appendChild(tools);
+        });
+
+        head.querySelectorAll(".qava-ai-menu-item").forEach((item) => {
+          item.addEventListener("click", () => {
+            const target = document.getElementById(item.getAttribute("data-target"));
+            if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+          });
+        });
       }
 
       const inner = document.getElementById("qava-nav-logo-inner");
