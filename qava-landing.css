@@ -1788,6 +1788,23 @@
         #qava-calc-section .qava-calc-body {
           background: transparent !important;
           padding: 0 32px 32px;
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        .qava-calc-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 16px;
+          margin-bottom: 0;
+        }
+
+        .qava-calc-col {
+          background: #ffffff;
+          border-radius: 8px;
+          padding: 20px 18px;
+          box-shadow: 0 1px 3px rgba(17, 24, 39, 0.04);
         }
 
         .qava-calc-title {
@@ -1827,13 +1844,6 @@
 
         .qava-calc-pricing:hover svg {
           transform: translateX(3px);
-        }
-
-        .qava-calc-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 24px;
-          margin-bottom: 40px;
         }
 
         .qava-calc-col-title {
@@ -1900,17 +1910,21 @@
         }
 
         .qava-calc-results {
-            display: flex;
-          justify-content: center;
-          align-items: center;
-          gap: 56px;
-          padding-top: 32px;
-          border-top: 1px solid #e5e7eb;
+            display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 16px;
+          padding: 0;
+          border-top: none;
+          background: transparent;
         }
 
         .qava-calc-result {
           text-align: center;
-          min-width: 150px;
+          min-width: 0;
+          background: #ffffff;
+          border-radius: 8px;
+          padding: 24px 16px;
+          box-shadow: 0 1px 3px rgba(17, 24, 39, 0.04);
         }
 
         .qava-calc-result-label {
@@ -1936,22 +1950,17 @@
         }
 
         .qava-calc-divider {
-          width: 1px;
-          height: 56px;
-          background: #e5e7eb;
+          display: none;
         }
 
         @media (max-width: 760px) {
           .qava-calc-grid {
             grid-template-columns: 1fr;
-            gap: 28px;
+            gap: 16px;
           }
           .qava-calc-results {
-            flex-direction: column;
-            gap: 24px;
-          }
-          .qava-calc-divider {
-            display: none;
+            grid-template-columns: 1fr;
+            gap: 16px;
           }
         }
 

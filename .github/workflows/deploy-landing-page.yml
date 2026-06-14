@@ -68,6 +68,14 @@ jobs:
           --content-type "text/html" \
           --cache-control "max-age=3600"
 
+        aws s3 cp howitworks.html s3://${{ secrets.S3_BUCKET_NAME }}/howitworks.html \
+          --content-type "text/html" \
+          --cache-control "max-age=3600"
+
+        aws s3 cp howqavaworks.html s3://${{ secrets.S3_BUCKET_NAME }}/howqavaworks.html \
+          --content-type "text/html" \
+          --cache-control "max-age=3600"
+
         aws s3 cp hiw-embed.html s3://${{ secrets.S3_BUCKET_NAME }}/hiw-embed.html \
           --content-type "text/html" \
           --cache-control "max-age=3600"

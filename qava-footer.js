@@ -3,7 +3,7 @@
     <div class="footer-container">
       <div class="footer-content">
         <div class="footer-logo">
-          <a href="https://qava.ai/"><img src="qava-logo.svg" alt="Qava" class="footer-logo-img" /></a>
+          <a href="https://qava.ai/"><img src="/qava-logo.svg" alt="Qava" class="footer-logo-img" /></a>
         </div>
         <div class="footer-links">
           <div class="footer-column">

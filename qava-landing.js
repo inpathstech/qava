@@ -587,7 +587,7 @@
 
             const hiwFrame = doc.createElement("iframe");
             hiwFrame.id = "qava-hiw-frame";
-            hiwFrame.src = "./howitworks.html?embed=1";
+            hiwFrame.src = "/howitworks.html?embed=1";
             hiwFrame.setAttribute("title", "How Qava works");
             hiwFrame.setAttribute("scrolling", "no");
             hiwFrame.style.height = "auto";
