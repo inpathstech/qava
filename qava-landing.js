@@ -50,7 +50,8 @@
 
         const heroHeading = doc.querySelector(".feature-cards-header");
         if (heroHeading) {
-          heroHeading.textContent = "Your idea deserves the best brains.";
+          heroHeading.classList.add("qava-hero-heading");
+          heroHeading.innerHTML = '<span class="qava-hero-line">Your idea deserves</span> <span class="qava-hero-line">the best brains.</span>';
 
           if (!doc.getElementById("qava-hero-icon")) {
             const heroIcon = doc.createElement("img");
@@ -65,7 +66,8 @@
 
         const heroSubheader = doc.querySelector(".feature-cards-subheader");
         if (heroSubheader) {
-          heroSubheader.textContent = "Secure funding, drive growth, and more with top experts, graduates and students.";
+          heroSubheader.classList.add("qava-hero-subheader");
+          heroSubheader.innerHTML = '<span class="qava-sub-line">Secure funding, drive growth, and more</span> <span class="qava-sub-line">with top experts, graduates and students.</span>';
         }
 
         const pricingNavLinks = Array.from(doc.querySelectorAll("a.nav-item, .mobile-nav-item, .footer-link")).filter((link) =>
