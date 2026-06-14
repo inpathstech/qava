@@ -1756,18 +1756,39 @@
           }
 
           .qava-showcase-toggle {
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
+            display: grid;
+            grid-template-columns: auto auto;
+            justify-content: center;
+            align-items: start;
+            column-gap: 12px;
+            row-gap: 10px;
           }
 
           .qava-toggle-prompt {
+            grid-column: 1;
+            grid-row: 1;
             margin-right: 0;
+          }
+
+          .qava-showcase-toggle .qava-toggle-radio:nth-of-type(1) {
+            grid-column: 2;
+            grid-row: 1;
+          }
+
+          .qava-showcase-toggle .qava-toggle-radio:nth-of-type(2) {
+            grid-column: 2;
+            grid-row: 2;
+          }
+
+          .qava-showcase-toggle .qava-toggle-radio:nth-of-type(3) {
+            grid-column: 2;
+            grid-row: 3;
           }
 
           .qava-hero-showcase-box {
             width: calc(100vw - 32px);
             max-width: calc(100vw - 32px);
+            height: auto;
             overflow-x: auto;
             overflow-y: hidden;
             -webkit-overflow-scrolling: touch;
