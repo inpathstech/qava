@@ -47,6 +47,27 @@
       display: none !important;
     }
 
+    /* Dotted background on the shell so the footer reads as a contained
+       white box over dots, matching every other qava.ai page. */
+    #qava-hiw-shell-dots {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image: radial-gradient(circle, rgba(17, 24, 39, 0.16) 1px, transparent 1.35px);
+      background-size: 20px 20px;
+      background-repeat: repeat;
+    }
+
+    body.qava-hiw-embed-mode #qava-hiw-shell-dots {
+      display: none !important;
+    }
+
+    body:not(.qava-hiw-embed-mode) > *:not(#qava-hiw-shell-dots) {
+      position: relative;
+      z-index: 1;
+    }
+
     /* Match qava.ai landing page footer */
     body:not(.qava-hiw-embed-mode) #qava-hiw-shell-footer.footer-section {
       display: block;
@@ -128,6 +149,7 @@
   </style>
 </head>
 <body>
+  <div id="qava-hiw-shell-dots" aria-hidden="true"></div>
   <iframe id="preview" src="/howqavaworks.html" title="Qava how-it-works preview"></iframe>
   <footer class="footer-section" id="qava-hiw-shell-footer"></footer>
 
