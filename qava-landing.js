@@ -1848,8 +1848,9 @@
                   <a class="qava-calc-pricing" href="https://qava.ai/pricing">See pricing plans ${arrowSvg}</a>
                 </div>
                 <div class="qava-calc-body">
+                <div class="qava-calc-panel">
                 <div class="qava-calc-grid">
-                  ${calcCols.map((col, idx) => `
+                  ${calcCols.map((col) => `
                     <div class="qava-calc-col">
                       <div class="qava-calc-col-title">${col.title}</div>
                       <div class="qava-calc-list">
@@ -1859,11 +1860,15 @@
                             <span class="qava-calc-label">${it.n} ${it.e}</span>
                           </div>`).join("")}
                       </div>
-                      <div class="qava-calc-result">
-                        <div class="qava-calc-result-label">${calcResultMeta[idx].label}</div>
-                        <div class="qava-calc-result-value${calcResultMeta[idx].extraClass ? " " + calcResultMeta[idx].extraClass : ""}" id="${calcResultMeta[idx].id}">${calcResultMeta[idx].initial}</div>
-                      </div>
                     </div>`).join("")}
+                </div>
+                <div class="qava-calc-results">
+                  ${calcResultMeta.map((meta) => `
+                    <div class="qava-calc-result">
+                      <div class="qava-calc-result-label">${meta.label}</div>
+                      <div class="qava-calc-result-value${meta.extraClass ? " " + meta.extraClass : ""}" id="${meta.id}">${meta.initial}</div>
+                    </div>`).join("")}
+                </div>
                 </div>
                 </div>
               `;

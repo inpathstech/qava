@@ -1798,23 +1798,28 @@
           gap: 0;
         }
 
-        .qava-calc-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 0;
-          margin-bottom: 0;
+        .qava-calc-panel {
           background: #ffffff;
           border-radius: 8px;
           box-shadow: 0 1px 3px rgba(17, 24, 39, 0.04);
           overflow: hidden;
         }
 
+        .qava-calc-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 0;
+          margin-bottom: 0;
+          background: transparent;
+          border-bottom: 1px solid #ececee;
+        }
+
         .qava-calc-col {
           display: flex;
           flex-direction: column;
-          background: #ffffff;
+          background: transparent;
           border-radius: 0;
-          padding: 20px 18px 0;
+          padding: 20px 18px 24px;
           box-shadow: none;
           border-right: 1px solid #ececee;
         }
@@ -1825,15 +1830,6 @@
 
         .qava-calc-col .qava-calc-list {
           flex: 1 1 auto;
-        }
-
-        .qava-calc-col .qava-calc-result {
-          margin-top: 16px;
-          padding: 20px 0 24px;
-          border-top: 1px solid #ececee;
-          border-radius: 0;
-          box-shadow: none;
-          background: transparent;
         }
 
         .qava-calc-title {
@@ -1939,12 +1935,21 @@
         }
 
         .qava-calc-results {
-          display: none;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 0;
+          background: transparent;
         }
 
         .qava-calc-result {
           text-align: center;
           min-width: 0;
+          padding: 22px 16px 24px;
+          border-right: 1px solid #ececee;
+        }
+
+        .qava-calc-result:last-child {
+          border-right: none;
         }
 
         .qava-calc-result-label {
@@ -1974,17 +1979,20 @@
         }
 
         @media (max-width: 760px) {
-          .qava-calc-grid {
+          .qava-calc-grid,
+          .qava-calc-results {
             grid-template-columns: 1fr;
             gap: 0;
           }
 
-          .qava-calc-col {
+          .qava-calc-col,
+          .qava-calc-result {
             border-right: none;
             border-bottom: 1px solid #ececee;
           }
 
-          .qava-calc-col:last-child {
+          .qava-calc-col:last-child,
+          .qava-calc-result:last-child {
             border-bottom: none;
           }
         }
