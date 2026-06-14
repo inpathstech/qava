@@ -186,78 +186,8 @@
             existingAiCta.href = "https://qava.ai/aiphilosophy";
           }
 
-          if (!doc.getElementById("qava-howitworks-page")) {
-            const hiwPage = doc.createElement("section");
-            hiwPage.id = "qava-howitworks-page";
-            hiwPage.className = "qava-overlay-page";
-
-            const hiwFrame = doc.createElement("iframe");
-            hiwFrame.id = "qava-hiw-frame";
-            hiwFrame.src = "/howitworks.html?embed=1";
-            hiwFrame.setAttribute("title", "How Qava works");
-            hiwFrame.setAttribute("scrolling", "no");
-            hiwFrame.style.height = "auto";
-            hiwFrame.style.minHeight = "0";
-            hiwPage.appendChild(hiwFrame);
-
-            const hiwFooterEl = doc.querySelector(".footer-section");
-            if (hiwFooterEl) {
-              hiwFooterEl.parentNode.insertBefore(hiwPage, hiwFooterEl);
-            } else {
-              doc.body.appendChild(hiwPage);
-            }
-
-            const getHiwDeepDoc = () => {
-              try {
-                const shellDoc = hiwFrame.contentDocument;
-                const innerFrame = shellDoc && shellDoc.getElementById("preview");
-                return (innerFrame && innerFrame.contentDocument) || null;
-              } catch (e) {
-                return null;
-              }
-            };
-            const resizeHiw = () => {
-              const shellDoc = hiwFrame.contentDocument;
-              const shellHeight = shellDoc && shellDoc.getElementById("preview")
-                ? parseInt(shellDoc.getElementById("preview").style.height, 10) || 0
-                : 0;
-              const d = getHiwDeepDoc();
-              let h = shellHeight;
-              if (d && d.body) {
-                const main = d.querySelector(".client-how-it-works-page");
-                h = main
-                  ? Math.ceil(main.getBoundingClientRect().bottom + 12)
-                  : Math.max(d.body.scrollHeight, d.documentElement ? d.documentElement.scrollHeight : 0);
-              }
-              if (h > 0) hiwFrame.style.height = h + "px";
-            };
-            setInterval(resizeHiw, 400);
-            hiwFrame.addEventListener("load", () => setTimeout(resizeHiw, 300));
-            win.addEventListener("message", (event) => {
-              if (!event.data || event.data.type !== "qava-hiw-resize") return;
-              const h = Number(event.data.height);
-              if (h > 0) hiwFrame.style.height = h + "px";
-            });
-
-            const openHiw = (e) => {
-              if (e) e.preventDefault();
-              const show = window.__qavaShowOverlay;
-              if (show) show(hiwPage);
-            };
-
-            Array.from(doc.querySelectorAll(".auth-item")).forEach((a) => {
-              const t = (a.textContent || "").trim().toLowerCase();
-              if (t === "how it works" || t === "how qava works") {
-                a.addEventListener("click", openHiw);
-              }
-            });
-            Array.from(doc.querySelectorAll(".footer-link, .mobile-nav-item")).forEach((a) => {
-              const t = (a.textContent || "").trim().toLowerCase();
-              if (t === "how qava works" || t === "how it works") {
-                a.addEventListener("click", openHiw);
-              }
-            });
-          }
+          // "How it works" links navigate directly to the standalone
+          // /howitworks page (no in-page overlay).
 
           if (!doc.getElementById("qava-hero-showcase-box")) {
             const showcaseBox = doc.createElement("div");
