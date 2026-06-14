@@ -5182,7 +5182,12 @@
             <div class="logo-container">
                 <div class="logo">
                     <a href="https://qava.ai/">
-                        <img src="qava-logo.svg" alt="Qava Logo">
+                        <div class="qava-nav-logo-flip" id="qava-nav-logo-flip">
+                            <div class="qava-nav-logo-inner" id="qava-nav-logo-inner">
+                                <img class="qava-nav-logo-face qava-nav-logo-front" src="qava-logo.svg" alt="Qava">
+                                <img class="qava-nav-logo-face qava-nav-logo-back" src="qava-hero-arrow-2.png" alt="">
+                            </div>
+                        </div>
                     </a>
                 </div>
             </div>
@@ -5192,13 +5197,10 @@
         <div class="header-center">
             <div class="navigation">
                 <a href="https://app.qava.ai/guest" class="nav-item create-listing">
-                    <div class="nav-text">Create Listing</div>
+                    <div class="nav-text">Create listing</div>
                 </a>
                 <a href="https://app.qava.ai/projects" class="nav-item search-listings">
-                    <div class="nav-text">Search Listings</div>
-                </a>
-                <a href="https://qava.ai/pricing" class="nav-item pricing">
-                    <div class="nav-text">Pricing</div>
+                    <div class="nav-text">Find work</div>
                 </a>
                 <a href="https://qava.ai/newsletter" class="nav-item newsletter">
                     <div class="nav-text">Newsletter</div>
@@ -5233,10 +5235,10 @@
     <div class="mobile-menu" id="mobileMenu">
         <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
         <a href="https://app.qava.ai/guest" class="mobile-nav-item">
-            <div class="nav-text">Create Listing</div>
+            <div class="nav-text">Create listing</div>
         </a>
         <a href="https://app.qava.ai/projects" class="mobile-nav-item">
-            <div class="nav-text">Search Listings</div>
+            <div class="nav-text">Find work</div>
         </a>
         <div class="mobile-nav-item mobile-dropdown-toggle" onclick="toggleMobileDropdown()">
             <div class="mobile-dropdown-header">
@@ -5254,9 +5256,6 @@
                 <div class="dropdown-subtitle">Interested in current or future work</div>
             </a>
         </div>
-        <a href="https://qava.ai/pricing" class="mobile-nav-item">
-            <div class="nav-text">Pricing</div>
-        </a>
         <a href="https://qava.ai/newsletter" class="mobile-nav-item">
             <div class="nav-text">Newsletter</div>
         </a>
@@ -6886,72 +6885,8 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
         </div>
     </div>
 
-    <!-- Footer Section -->
-    <footer class="footer-section">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <a href="https://qava.ai/">
-                        <img src="qava-logo.svg" alt="Qava" class="footer-logo-img" />
-                    </a>
-                </div>
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4 class="footer-heading">Welcome</h4>
-                        <ul class="footer-link-list">
-                            <li><a href="https://app.qava.ai/guest" class="footer-link">Create Listing</a></li>
-                            <li><a href="https://app.qava.ai/projects" class="footer-link">Search Listings</a></li>
-                            <li><a href="https://qava.ai/howitworks" class="footer-link">How it works</a></li>
-                            <li><span class="footer-link disabled-link">What's New</span></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4 class="footer-heading">Get Started</h4>
-                        <ul class="footer-link-list">
-                            <li><a href="https://app.qava.ai/" class="footer-link">Sign Up</a></li>
-                            <li><a href="https://app.qava.ai/" class="footer-link">Log In</a></li>
-                            <li><span class="footer-link disabled-link">AI Prompts</span></li>
-                            <li><span class="footer-link disabled-link">Project Templates</span></li>
-                            <li><span class="footer-link disabled-link">Application Tips</span></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4 class="footer-heading">Resources</h4>
-                        <ul class="footer-link-list">
-                            <li><a href="https://qava.ai/request-demo" class="footer-link">Request a Demo</a></li>
-                            <li><a href="https://qava.ai/pricing" class="footer-link">Pricing</a></li>
-                            <li><a href="https://qava.ai/newsletter" class="footer-link">Newsletter</a></li>
-                            <li><a href="https://qava.ai/aialoneisnotenough" class="footer-link">AI Not Enough</a></li>
-                            <li><a href="https://qava.ai/partners" class="footer-link">Partner Network</a></li>
-                            <li><span class="footer-link disabled-link">Careers</span></li>
-                            <li><span class="footer-link disabled-link">Media Kit</span></li>
-                            <li><span class="footer-link disabled-link">Contact Us</span></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4 class="footer-heading">Learn</h4>
-                        <ul class="footer-link-list">
-                            <li><a href="https://qava.ai/successstories" class="footer-link">Success Stories</a></li>
-                            <li><span class="footer-link disabled-link">Help Center</span></li>
-                            <li><span class="footer-link disabled-link">Webinars</span></li>
-                            <li><a href="https://qava.ai/blog" class="footer-link">Blog</a></li>
-                            <li><span class="footer-link disabled-link">Community</span></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4 class="footer-heading">Legal</h4>
-                        <ul class="footer-link-list">
-                            <li><a href="terms" class="footer-link">Terms & Privacy</a></li>
-                            <li><a href="terms" class="footer-link">California Privacy Notice</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-copyright">
-                        © 2025 qava
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- Footer Section (populated by qava-footer.js) -->
+    <footer class="footer-section"></footer>
 
     <script>
         function toggleMobileMenu() {
@@ -11256,6 +11191,21 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
     });
     </script>
     <script src="qava-footer.js"></script>
+    <script>
+        (function () {
+            if (typeof window.applyQavaFooter === "function") {
+                window.applyQavaFooter(document);
+            }
+            var inner = document.getElementById("qava-nav-logo-inner");
+            if (inner) {
+                var flipped = false;
+                setInterval(function () {
+                    flipped = !flipped;
+                    inner.classList.toggle("is-flipped", flipped);
+                }, 5000);
+            }
+        })();
+    </script>
     <script src="qava-landing.js"></script>
 </body>
 </html>

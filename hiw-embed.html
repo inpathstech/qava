@@ -1021,7 +1021,8 @@
 
       const NAV_RENAMES = [
         { match: "create listing", label: "Create listing" },
-        { match: "search listings", label: "Find work" }
+        { match: "search listings", label: "Find work" },
+        { match: "about", label: "Newsletter" }
       ];
 
       const attachSandboxEnhancements = () => {
@@ -1088,6 +1089,12 @@
           const rename = NAV_RENAMES.find((r) => r.match === current);
           if (rename) el.textContent = rename.label;
         });
+
+        // Point the (renamed) Newsletter nav item to the newsletter page
+        const newsletterNav = Array.from(frameDoc.querySelectorAll(".navigation a.nav-item")).find((a) =>
+          (a.textContent || "").trim().toLowerCase() === "newsletter"
+        );
+        if (newsletterNav) newsletterNav.href = "https://qava.ai/newsletter";
 
         const howItWorksNavText = Array.from(frameDoc.querySelectorAll(".auth-item .nav-text, .mobile-nav-item")).find((item) => {
           const t = (item.textContent || "").trim().toLowerCase();
