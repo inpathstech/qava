@@ -1,0 +1,2701 @@
+(function () {
+  function attachLandingEnhancements() {
+    const doc = document;
+    const win = window;
+    if (!doc.head || !doc.documentElement) return;
+
+        if (!doc.getElementById("qava-sandbox-canela-link")) {
+          const fontLink = doc.createElement("link");
+          fontLink.id = "qava-sandbox-canela-link";
+          fontLink.rel = "stylesheet";
+          fontLink.href = "https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap";
+          doc.head.appendChild(fontLink);
+        }
+
+        const logoLink = doc.querySelector(".header-logo .logo a, .logo a");
+        const logoImg = logoLink && logoLink.querySelector("img");
+        if (logoLink && logoImg && !doc.getElementById("qava-nav-logo-flip")) {
+          const originalSrc = logoImg.getAttribute("src") || "qava-logo.svg";
+          const flip = doc.createElement("div");
+          flip.id = "qava-nav-logo-flip";
+          flip.className = "qava-nav-logo-flip";
+          flip.innerHTML = `
+            <div class="qava-nav-logo-inner" id="qava-nav-logo-inner">
+              <img class="qava-nav-logo-face qava-nav-logo-front" src="${originalSrc}" alt="Qava">
+              <img class="qava-nav-logo-face qava-nav-logo-back" src="./qava-hero-arrow-2.png" alt="">
+            </div>
+          `;
+          logoLink.innerHTML = "";
+          logoLink.appendChild(flip);
+
+          const inner = flip.querySelector(".qava-nav-logo-inner");
+          const flipWin = window;
+          if (flipWin.__qavaNavLogoFlipTimer) clearInterval(flipWin.__qavaNavLogoFlipTimer);
+          let flipped = false;
+          flipWin.__qavaNavLogoFlipTimer = setInterval(() => {
+            flipped = !flipped;
+            inner.classList.toggle("is-flipped", flipped);
+          }, 5000);
+        }
+
+        const existingBaseLayer = doc.getElementById("qava-dot-base");
+        if (existingBaseLayer) existingBaseLayer.remove();
+        const existingHoverLayer = doc.getElementById("qava-dot-hover");
+        if (existingHoverLayer) existingHoverLayer.remove();
+        if (!doc.getElementById("qava-dot-base-fixed")) {
+          const fixedDotLayer = doc.createElement("div");
+          fixedDotLayer.id = "qava-dot-base-fixed";
+          doc.body.prepend(fixedDotLayer);
+        }
+
+        const heroHeading = doc.querySelector(".feature-cards-header");
+        if (heroHeading) {
+          heroHeading.textContent = "Your idea deserves the best brains.";
+
+          if (!doc.getElementById("qava-hero-icon")) {
+            const heroIcon = doc.createElement("img");
+            heroIcon.id = "qava-hero-icon";
+            heroIcon.className = "qava-hero-icon";
+            heroIcon.alt = "Hero icon";
+            heroHeading.parentNode.insertBefore(heroIcon, heroHeading);
+          }
+          const heroIcon = doc.getElementById("qava-hero-icon");
+          if (heroIcon) heroIcon.src = "./qava-hero-arrow.png";
+        }
+
+        const heroSubheader = doc.querySelector(".feature-cards-subheader");
+        if (heroSubheader) {
+          heroSubheader.textContent = "Secure funding, drive growth, and more with top experts, graduates and students.";
+        }
+
+        const navPricingItem = Array.from(doc.querySelectorAll("a.nav-item, .mobile-nav-item, .footer-link")).find((link) =>
+          (link.textContent || "").trim().toLowerCase() === "pricing"
+        );
+        if (navPricingItem && navPricingItem.classList.contains("nav-item")) {
+          navPricingItem.remove();
+        }
+
+        const navRenames = [
+          { match: "create listing", label: "Create listing" },
+          { match: "search listings", label: "Find work" },
+          { match: "about", label: "Newsletter" }
+        ];
+        Array.from(doc.querySelectorAll(".navigation .nav-item .nav-text, .navigation .nav-item")).forEach((el) => {
+          const textNode = el.classList.contains("nav-text") ? el : el.querySelector(".nav-text");
+          const target = textNode || el;
+          const current = (target.textContent || "").trim().toLowerCase();
+          const rename = navRenames.find((r) => r.match === current);
+          if (rename) {
+            target.textContent = rename.label;
+          }
+        });
+
+        if (!doc.getElementById("qava-newsletter-page")) {
+          const nlCheck = '<svg width="11" height="9" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+          const hearAbout = [
+            "New project listings", "Job listings", "Internships",
+            "Startup news", "Investment opportunities", "Business school rankings",
+            "Funding & grants", "Events & webinars", "Hiring & talent trends", "Product launches"
+          ];
+          const succeed = [
+            "Help me get experience", "Help me find a new job", "Help me network",
+            "Help me find inspiration", "Help me grow my business", "Help me hire great talent"
+          ];
+          const buildChecks = (arr) => arr.map((o) => `
+            <div class="qava-nl-check" role="checkbox" aria-checked="false">
+              <span class="qava-nl-box">${nlCheck}</span>
+              <span class="qava-nl-check-label">${o}</span>
+            </div>`).join("");
+
+          const nlPage = doc.createElement("section");
+          nlPage.id = "qava-newsletter-page";
+          nlPage.innerHTML = `
+            <div class="qava-nl-container">
+              <img class="qava-nl-logo" src="./qava-logo-arrow-light.png" alt="Qava" />
+              <h1 class="qava-nl-title">Stay in the loop!</h1>
+              <p class="qava-nl-sub">Tell us what matters to you and how often you'd like to hear from us.</p>
+
+              <div class="newsletter-testimonials qava-nl-marquee">
+                <div class="newsletter-testimonials-track">
+                  <span class="newsletter-testimonial-item"><em>"Landed a live strategy project in weeks."</em> <span class="newsletter-testimonial-author">— MBA '25</span></span>
+                  <span class="newsletter-testimonial-item"><em>"Real work. Real operators."</em> <span class="newsletter-testimonial-author">— Executive MBA</span></span>
+                  <span class="newsletter-testimonial-item"><em>"Found my next internship here."</em> <span class="newsletter-testimonial-author">— Business Student</span></span>
+                  <span class="newsletter-testimonial-item"><em>"Sharp thinking, zero fluff."</em> <span class="newsletter-testimonial-author">— Nonprofit CFO</span></span>
+                  <span class="newsletter-testimonial-item"><em>"Execution-ready work."</em> <span class="newsletter-testimonial-author">— Startup Founder</span></span>
+                  <span class="newsletter-testimonial-item"><em>"Strategic horsepower on demand."</em> <span class="newsletter-testimonial-author">— CEO</span></span>
+                  <span class="newsletter-testimonial-item"><em>"Landed a live strategy project in weeks."</em> <span class="newsletter-testimonial-author">— MBA '25</span></span>
+                  <span class="newsletter-testimonial-item"><em>"Real work. Real operators."</em> <span class="newsletter-testimonial-author">— Executive MBA</span></span>
+                  <span class="newsletter-testimonial-item"><em>"Found my next internship here."</em> <span class="newsletter-testimonial-author">— Business Student</span></span>
+                  <span class="newsletter-testimonial-item"><em>"Sharp thinking, zero fluff."</em> <span class="newsletter-testimonial-author">— Nonprofit CFO</span></span>
+                  <span class="newsletter-testimonial-item"><em>"Execution-ready work."</em> <span class="newsletter-testimonial-author">— Startup Founder</span></span>
+                  <span class="newsletter-testimonial-item"><em>"Strategic horsepower on demand."</em> <span class="newsletter-testimonial-author">— CEO</span></span>
+                </div>
+              </div>
+
+              <div class="qava-nl-group">
+                <p class="qava-nl-group-label">What would you like to hear about?</p>
+                <p class="qava-nl-group-hint">Select all that apply.</p>
+                <div class="qava-nl-options">${buildChecks(hearAbout)}</div>
+              </div>
+
+              <div class="qava-nl-group">
+                <p class="qava-nl-group-label">How can we make you succeed?</p>
+                <p class="qava-nl-group-hint">Select all that apply.</p>
+                <div class="qava-nl-options">${buildChecks(succeed)}</div>
+              </div>
+
+              <div class="qava-nl-group">
+                <p class="qava-nl-group-label">Where are you based?</p>
+                <div class="qava-nl-field" style="margin-bottom:0;">
+                  <input type="text" class="qava-nl-input" placeholder="City, country" />
+                </div>
+              </div>
+
+              <div class="qava-nl-group">
+                <p class="qava-nl-group-label" style="margin-bottom:14px;">Your details</p>
+                <div class="qava-nl-field-row">
+                  <div class="qava-nl-field">
+                    <label class="qava-nl-field-label">First name</label>
+                    <input type="text" class="qava-nl-input" placeholder="First name" required />
+                  </div>
+                  <div class="qava-nl-field">
+                    <label class="qava-nl-field-label">Family name <span class="opt">(optional)</span></label>
+                    <input type="text" class="qava-nl-input" placeholder="Family name" />
+                  </div>
+                </div>
+                <div class="qava-nl-field-row">
+                  <div class="qava-nl-field" style="margin-bottom:0;">
+                    <label class="qava-nl-field-label">Email</label>
+                    <input type="email" class="qava-nl-input" placeholder="you@email.com" required />
+                  </div>
+                  <div class="qava-nl-field" style="margin-bottom:0;">
+                    <label class="qava-nl-field-label">Cell number <span class="opt">(optional)</span></label>
+                    <input type="tel" class="qava-nl-input" placeholder="+1 (555) 000-0000" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="qava-nl-group">
+                <p class="qava-nl-group-label">How often would you like to hear from us?</p>
+                <div class="qava-nl-freq">
+                  <label class="qava-nl-radio selected"><span class="qava-nl-radio-dot"></span><span>Weekly</span></label>
+                  <label class="qava-nl-radio"><span class="qava-nl-radio-dot"></span><span>Monthly</span></label>
+                  <label class="qava-nl-radio"><span class="qava-nl-radio-dot"></span><span>Quarterly</span></label>
+                </div>
+              </div>
+
+              <button type="button" class="qava-nl-submit">Subscribe ↗</button>
+            </div>
+          `;
+
+          const footerEl = doc.querySelector(".footer-section");
+          if (footerEl) {
+            footerEl.parentNode.insertBefore(nlPage, footerEl);
+          } else {
+            doc.body.appendChild(nlPage);
+          }
+
+          nlPage.querySelectorAll(".qava-nl-check").forEach((c) => {
+            c.addEventListener("click", () => {
+              const on = c.classList.toggle("checked");
+              c.setAttribute("aria-checked", on ? "true" : "false");
+            });
+          });
+          nlPage.querySelectorAll(".qava-nl-radio").forEach((opt) => {
+            opt.addEventListener("click", () => {
+              nlPage.querySelectorAll(".qava-nl-radio").forEach((o) => o.classList.remove("selected"));
+              opt.classList.add("selected");
+            });
+          });
+          nlPage.querySelector(".qava-nl-submit").addEventListener("click", () => {
+            window.alert("Thanks for subscribing! We'll be in touch.");
+          });
+
+          nlPage.classList.add("qava-overlay-page");
+
+          // Shared single-page router for overlay pages (newsletter, AI toolset).
+          // Overlay pages are kept mounted; visibility is controlled purely by
+          // the .qava-overlay-active class, so switching between them is clean.
+          const routerKeep = (el) => (
+            el.id === "qava-dot-base-fixed" ||
+            (el.classList && (el.classList.contains("qava-overlay-page") || el.classList.contains("header-container") || el.classList.contains("mobile-menu") || el.classList.contains("footer-section")))
+          );
+          const showOverlay = (target) => {
+            Array.from(doc.body.children).forEach((el) => {
+              if (el.tagName === "SCRIPT" || routerKeep(el)) return;
+              if (el.style.display !== "none") {
+                el.setAttribute("data-qava-route-hidden", el.style.display || "");
+                el.style.display = "none";
+              }
+            });
+            doc.querySelectorAll(".qava-overlay-page").forEach((p) => p.classList.remove("qava-overlay-active"));
+            target.classList.add("qava-overlay-active");
+            try { window.scrollTo(0, 0); } catch (e) {}
+          };
+          const goHome = () => {
+            doc.querySelectorAll(".qava-overlay-page.qava-overlay-active").forEach((p) => p.classList.remove("qava-overlay-active"));
+            Array.from(doc.body.children).forEach((el) => {
+              if (el.hasAttribute && el.hasAttribute("data-qava-route-hidden")) {
+                el.style.display = el.getAttribute("data-qava-route-hidden");
+                el.removeAttribute("data-qava-route-hidden");
+              }
+            });
+          };
+          window.__qavaShowOverlay = showOverlay;
+          window.__qavaGoHome = goHome;
+
+          const newsletterNav = Array.from(doc.querySelectorAll(".navigation .nav-item, .mobile-nav-item")).find((a) =>
+            (a.textContent || "").trim().toLowerCase() === "newsletter"
+          );
+          if (newsletterNav) {
+            newsletterNav.addEventListener("click", (e) => {
+              e.preventDefault();
+              showOverlay(nlPage);
+            });
+          }
+
+          const headerLogo = doc.querySelector(".header-logo a, .logo a");
+          if (headerLogo) {
+            headerLogo.addEventListener("click", (e) => {
+              if (doc.querySelector(".qava-overlay-page.qava-overlay-active")) {
+                e.preventDefault();
+                goHome();
+              }
+            });
+          }
+        }
+
+        const howItWorksNavText = Array.from(doc.querySelectorAll(".auth-item .nav-text, .mobile-nav-item")).find((item) => {
+          const t = (item.textContent || "").trim().toLowerCase();
+          return t === "how qava works" || t === "how it works";
+        });
+        if (howItWorksNavText) {
+          howItWorksNavText.textContent = "How it works";
+        }
+
+        const ctaButtonsRow = doc.querySelector(".matching-cta-buttons");
+        if (ctaButtonsRow) {
+          ctaButtonsRow.style.justifyContent = "center";
+          ctaButtonsRow.style.gap = "0";
+
+          const secondaryCta = Array.from(ctaButtonsRow.querySelectorAll("a")).find((link) =>
+            (link.textContent || "").trim().toLowerCase().includes("how qava works")
+          );
+          if (secondaryCta) secondaryCta.remove();
+
+          if (!doc.getElementById("qava-ai-toolset-cta")) {
+            const aiToolsetCta = doc.createElement("a");
+            aiToolsetCta.id = "qava-ai-toolset-cta";
+            aiToolsetCta.href = "#";
+            aiToolsetCta.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.983 21.186a1 1 0 0 1-1.966 0 10 10 0 0 0-8.203-8.203 1 1 0 0 1 0-1.966 10 10 0 0 0 8.203-8.203 1 1 0 0 1 1.966 0 10 10 0 0 0 8.203 8.203 1 1 0 0 1 0 1.966 10 10 0 0 0-8.203 8.203"/></svg><span>Our AI philosophy</span>';
+            const primaryCta = ctaButtonsRow.querySelector(".cta-button-primary") || ctaButtonsRow.querySelector("a");
+            if (primaryCta) {
+              primaryCta.insertAdjacentElement("afterend", aiToolsetCta);
+            } else {
+              ctaButtonsRow.appendChild(aiToolsetCta);
+            }
+          }
+
+          if (!doc.getElementById("qava-aitoolset-page")) {
+            const aiIconDraft = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>';
+            const aiIconMatch = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>';
+            const aiIconAnalysis = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 3-4 3 2 4-6"/></svg>';
+            const aiIconControl = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>';
+            const aiCards = [
+              { icon: aiIconDraft, title: "Draft in minutes", desc: "Generate first drafts of business plans, decks, and financial models in minutes — then refine them with a vetted expert instead of starting from a blank page." },
+              { icon: aiIconMatch, title: "Smarter matching", desc: "Our AI reads your project goals and instantly pairs you with talent who have the right skills, industry experience, and tools for the job." },
+              { icon: aiIconAnalysis, title: "Sharper analysis", desc: "Summarize research, surface gaps, and pressure-test your strategy with AI built into every project workspace." },
+              { icon: aiIconControl, title: "You stay in control", desc: "AI accelerates the work; experienced professionals make sure every deliverable is accurate, on-brief, and ready to use." }
+            ];
+
+            const aiCategories = [
+              {
+                cat: "Assistants & research",
+                note: "The everyday chat and reasoning tools for drafting, analyzing, and thinking through a problem.",
+                tools: [
+                  {
+                    img: "./qava-tool-openai.png",
+                    name: "ChatGPT",
+                    tag: "OpenAI · the all-rounder",
+                    best: "The most versatile assistant — drafting, summarizing, analysis, code, and quick image mock-ups all in one place.",
+                    howto: [
+                      "Describe what you need in plain language to draft emails, plans, and decks.",
+                      "Upload PDFs, spreadsheets, or images and ask it to analyze or pull out data.",
+                      "Use Canvas to write and edit long documents side-by-side with the model.",
+                      "Generate images and simple visuals with the built-in image tools."
+                    ]
+                  },
+                  {
+                    img: "./qava-tool-claude.png",
+                    name: "Claude",
+                    tag: "Anthropic · writing & reasoning specialist",
+                    best: "Best for long-form documents, structured thinking, and collaborative drafting on big, messy inputs.",
+                    howto: [
+                      "Use Projects to keep your brief, files, and context together in one shared workspace.",
+                      "Generate Artifacts — live, editable documents, markdown files, tables, or code you refine side-by-side.",
+                      "Paste in large reports or contracts; Claude reads big documents in a single pass.",
+                      "Brainstorm strategy, outlines, and messaging, then have it tighten the final copy."
+                    ]
+                  },
+                  {
+                    img: "./qava-tool-gemini.png",
+                    name: "Gemini",
+                    tag: "Google · built into Workspace",
+                    best: "Ideal when your work lives in Google — research and writing directly inside Docs, Sheets, and Gmail.",
+                    howto: [
+                      "Draft and rewrite directly inside Google Docs and Gmail.",
+                      "Analyze data and build formulas in Google Sheets.",
+                      "Run Deep Research to compile a sourced briefing on any topic.",
+                      "Work across text, images, and files, and generate images on the fly."
+                    ]
+                  },
+                  {
+                    img: "./qava-tool-copilot.png",
+                    name: "Microsoft Copilot",
+                    tag: "Microsoft 365 · inside Office",
+                    best: "Turns rough inputs into finished Office deliverables across Word, Excel, PowerPoint, and Teams.",
+                    howto: [
+                      "Generate a full PowerPoint deck from a prompt or an existing document.",
+                      "Build analyses, charts, and formulas in Excel from a plain-language ask.",
+                      "Draft and summarize in Word and Outlook.",
+                      "Recap meetings and capture action items automatically in Teams."
+                    ]
+                  },
+                  {
+                    img: "./qava-tool-perplexity.png",
+                    name: "Perplexity",
+                    tag: "AI research with sources",
+                    best: "Fast, cited answers — the go-to for market sizing, competitor scans, and fact-checking.",
+                    howto: [
+                      "Ask research questions and get answers with linked, checkable sources.",
+                      "Use Focus modes to search academic papers, the web, or specific domains.",
+                      "Build research threads you can revisit and share with your team."
+                    ]
+                  },
+                  {
+                    img: "./qava-tool-notion.svg",
+                    name: "Notion AI",
+                    tag: "AI inside your docs & notes",
+                    best: "Summarize, organize, and write inside the workspace where your project docs already live.",
+                    howto: [
+                      "Summarize long notes and meeting docs in a click.",
+                      "Turn rough bullet points into polished briefs and project plans.",
+                      "Ask questions across your connected Notion pages to find answers fast."
+                    ]
+                  }
+                ]
+              },
+              {
+                cat: "Creative & content",
+                note: "Generate visuals, decks, video, and audio without a full production team.",
+                tools: [
+                  {
+                    img: "./qava-tool-canva.png",
+                    name: "Canva",
+                    tag: "Graphic design",
+                    best: "Make on-brand graphics without a designer — social posts, decks, and one-pagers from templates.",
+                    howto: [
+                      "Generate layouts from a prompt with Magic Design and text-to-image.",
+                      "Start from thousands of templates for social, slides, and print.",
+                      "Resize one design into every channel format in a click."
+                    ]
+                  },
+                  {
+                    img: "./qava-tool-gamma.png",
+                    name: "Gamma",
+                    tag: "AI presentations",
+                    best: "Turn a prompt or a document into a polished deck or one-pager in minutes.",
+                    howto: [
+                      "Paste a brief or notes and let Gamma build the slides.",
+                      "Restyle the whole deck with a single theme change.",
+                      "Export to PDF or PowerPoint when it's ready."
+                    ]
+                  },
+                  {
+                    img: "./qava-tool-midjourney.png",
+                    name: "Midjourney & DALL·E",
+                    tag: "Image generation",
+                    best: "Create brand concepts, mock-ups, and visual ideas from a simple text description.",
+                    howto: [
+                      "Describe an image in words to generate logos, mood boards, and concept art.",
+                      "Iterate with variations and upscales until the look is right.",
+                      "Use outputs as visual references to brief a designer."
+                    ]
+                  },
+                  {
+                    img: "./qava-tool-runway.png",
+                    name: "Runway",
+                    tag: "AI video",
+                    best: "Generate and edit short video clips from text or images for ads, social, and demos.",
+                    howto: [
+                      "Create video from a text prompt or a still image.",
+                      "Use AI editing tools to clean up, extend, or restyle footage.",
+                      "Spin up quick concept reels and ad variations."
+                    ]
+                  },
+                  {
+                    img: "./qava-tool-elevenlabs.png",
+                    name: "ElevenLabs",
+                    tag: "AI voice & audio",
+                    best: "Turn scripts into natural voiceovers for videos, ads, and product demos.",
+                    howto: [
+                      "Paste text to generate lifelike voiceover in many voices.",
+                      "Design or clone a consistent brand voice.",
+                      "Dub audio into other languages."
+                    ]
+                  }
+                ]
+              },
+              {
+                cat: "Marketing & growth",
+                note: "Plan, optimize, and run campaigns — and track how AI tools talk about your brand.",
+                tools: [
+                  {
+                    img: "./qava-tool-semrush.png",
+                    name: "Semrush",
+                    tag: "SEO & AI visibility",
+                    best: "A full SEO toolkit, plus tracking of whether AI tools mention your brand when people ask.",
+                    howto: [
+                      "Run keyword, competitor, and backlink research.",
+                      "Use the AI Toolkit to monitor brand mentions across AI answers.",
+                      "Audit and optimize content to rank in search."
+                    ]
+                  },
+                  {
+                    img: "./qava-tool-hubspot.png",
+                    name: "HubSpot",
+                    tag: "AI CRM",
+                    best: "Align marketing and sales with built-in AI for content, email, and lead scoring.",
+                    howto: [
+                      "Draft marketing emails and landing-page copy with AI.",
+                      "Score and route leads automatically.",
+                      "Get AI summaries of deals, contacts, and next steps."
+                    ]
+                  },
+                  {
+                    img: "./qava-tool-activecampaign.png",
+                    name: "ActiveCampaign",
+                    tag: "Email automation",
+                    best: "Build behavior-based email journeys and drip campaigns that run themselves.",
+                    howto: [
+                      "Auto-build campaigns and segments from a prompt.",
+                      "Trigger journeys based on customer behavior.",
+                      "Optimize send times with predictive AI."
+                    ]
+                  },
+                  {
+                    img: "./qava-tool-grammarly.png",
+                    name: "Grammarly",
+                    tag: "AI editing",
+                    best: "Polish copy and keep everything clear, error-free, and on-brand.",
+                    howto: [
+                      "Catch grammar, tone, and clarity issues as you write.",
+                      "Apply a brand style guide across the whole team.",
+                      "Rewrite and shorten with generative suggestions."
+                    ]
+                  }
+                ]
+              },
+              {
+                cat: "Website builders",
+                note: "Stand up a real, editable site fast — AI gets you started, then you refine.",
+                tools: [
+                  {
+                    img: "./qava-tool-wix.png",
+                    name: "Wix",
+                    tag: "Best for most people",
+                    best: "Chat to an AI builder to spin up a real, editable site — backed by Wix's mature editor.",
+                    howto: [
+                      "Answer a few prompts and let AI draft your site.",
+                      "Tweak everything in the drag-and-drop editor.",
+                      "Add bookings, stores, and blogs, then go live."
+                    ]
+                  },
+                  {
+                    img: "./qava-tool-jimdo.png",
+                    name: "Jimdo",
+                    tag: "Best free option",
+                    best: "A free AI builder that drafts a site from a short description, with affordable upgrades.",
+                    howto: [
+                      "Describe your business and pick from AI-made starts.",
+                      "Pull details from your Google or social profiles.",
+                      "Edit and publish with all the core site features."
+                    ]
+                  },
+                  {
+                    img: "./qava-tool-framer.png",
+                    name: "Framer",
+                    tag: "Best for designers",
+                    best: "Design-grade sites, with an AI Wireframer to get a strong layout fast.",
+                    howto: [
+                      "Use AI Wireframer to generate a starting layout.",
+                      "Refine with Framer's pro design tools.",
+                      "Publish high-performance, responsive sites."
+                    ]
+                  },
+                  {
+                    badge: "Ch",
+                    color: "#7c3aed",
+                    name: "Chariot",
+                    tag: "Best for vibe coding",
+                    best: "Generate a genuinely custom site design straight from a written prompt.",
+                    howto: [
+                      "Describe the site you want in plain language.",
+                      "Iterate on the AI-generated design.",
+                      "Launch when it looks right."
+                    ]
+                  }
+                ]
+              },
+              {
+                cat: "Governance & safety",
+                note: "Keep AI use compliant, monitored, and on-policy — so it works for you, not against you.",
+                tools: [
+                  {
+                    img: "./qava-tool-zapier.png",
+                    name: "Zapier",
+                    tag: "Build safely with AI",
+                    best: "Connect AI to 9,000+ apps with built-in guardrails, so automations never bypass your rules.",
+                    howto: [
+                      "Run AI Guardrails (PII detection, prompt-injection filtering) inside workflows.",
+                      "Connect Claude, ChatGPT, and more via Zapier MCP.",
+                      "Control access at the action, model, and connection level."
+                    ]
+                  },
+                  {
+                    img: "./qava-tool-purview.png",
+                    name: "Microsoft Purview",
+                    tag: "For Microsoft teams",
+                    best: "Govern data and AI usage across Microsoft 365 and Azure from one unified layer.",
+                    howto: [
+                      "Auto-discover AI app usage with DSPM for AI.",
+                      "Carry sensitivity labels into AI interactions.",
+                      "Use templates for the EU AI Act, NIST, and HIPAA."
+                    ]
+                  },
+                  {
+                    badge: "OT",
+                    color: "#1f2937",
+                    name: "OneTrust",
+                    tag: "Enterprise governance",
+                    best: "Map AI projects to regulations and run approval chains at enterprise scale.",
+                    howto: [
+                      "Pre-map projects to the EU AI Act, NIST, and ISO 42001.",
+                      "Kick off automated risk-tiering and approvals.",
+                      "Apply runtime guardrails for prompt and output filtering."
+                    ]
+                  },
+                  {
+                    img: "./qava-tool-credo.png",
+                    name: "Credo AI",
+                    tag: "Regulation management",
+                    best: "Purpose-built governance with an AI assistant and shadow-AI discovery.",
+                    howto: [
+                      "Use GAIA to retrieve evidence and assess risk.",
+                      "Discover unapproved 'shadow AI' across the business.",
+                      "Apply context-specific controls by market and use case."
+                    ]
+                  },
+                  {
+                    img: "./qava-tool-fiddler.png",
+                    name: "Fiddler",
+                    tag: "Observability & guardrails",
+                    best: "Real-time monitoring and runtime guardrails for models running in production.",
+                    howto: [
+                      "Detect hallucinations, PII exposure, and prompt injection live.",
+                      "Trace multi-agent systems step by step.",
+                      "Run checks locally with low latency."
+                    ]
+                  },
+                  {
+                    img: "./qava-tool-modelop.png",
+                    name: "ModelOp",
+                    tag: "Regulated industries",
+                    best: "Govern your whole AI portfolio as business assets across their lifecycle.",
+                    howto: [
+                      "Auto risk-tier and route new use cases for approval.",
+                      "Monitor deployed models for drift and bias.",
+                      "Integrate with 50+ enterprise systems."
+                    ]
+                  }
+                ]
+              }
+            ];
+
+            const aiPage = doc.createElement("section");
+            aiPage.id = "qava-aitoolset-page";
+            aiPage.className = "qava-overlay-page";
+            aiPage.innerHTML = `
+              <div class="qava-ai-container">
+                <div class="qava-ai-hero">
+                  <img class="qava-ai-logo" src="./qava-hero-icon.png" alt="Qava">
+                  <h1 class="qava-ai-title">Our AI philosophy</h1>
+                  <p class="qava-ai-sub">AI has reshaped how work gets done — but job sites haven't caught up.<br>We believe the future belongs to those who pair real knowledge with the best AI tools.<br>Getting sh*t done looks different today. It's way better.</p>
+                </div>
+                <div class="qava-ai-grid">
+                  ${aiCards.map((c) => `
+                    <div class="qava-ai-card">
+                      <div class="qava-ai-card-icon">${c.icon}</div>
+                      <h3 class="qava-ai-card-title">${c.title}</h3>
+                      <p class="qava-ai-card-desc">${c.desc}</p>
+                    </div>`).join("")}
+                </div>
+
+                <div class="qava-ai-tools-head">
+                  <h2 class="qava-ai-tools-title">Every tool, and how to use it</h2>
+                  <p class="qava-ai-tools-sub">The leading AI tools your Qava talent works with — grouped by what you're trying to do, with what each is best for and how to put it to work.</p>
+                  <div class="qava-ai-menu">
+                    <span class="qava-ai-menu-label">Jump to</span>
+                    ${aiCategories.map((g) => `<button type="button" class="qava-ai-menu-item" data-target="qava-cat-${g.cat.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}">${g.cat}</button>`).join("")}
+                  </div>
+                </div>
+                ${aiCategories.map((g) => `
+                  <div class="qava-ai-cat" id="qava-cat-${g.cat.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}">
+                    <h3 class="qava-ai-cat-title">${g.cat}</h3>
+                    <p class="qava-ai-cat-note">${g.note}</p>
+                  </div>
+                  <div class="qava-ai-tools">
+                    ${g.tools.map((t) => `
+                      <div class="qava-ai-tool">
+                        ${t.img
+                          ? `<div class="qava-ai-tool-logo"><img src="${t.img}" alt="${t.name}"></div>`
+                          : `<div class="qava-ai-tool-badge" style="background:${t.color};">${t.badge}</div>`}
+                        <div class="qava-ai-tool-body">
+                          <p class="qava-ai-tool-name">${t.name}</p>
+                          <p class="qava-ai-tool-tag">${t.tag}</p>
+                          <p class="qava-ai-tool-best">${t.best}</p>
+                          <ul class="qava-ai-tool-howto">
+                            ${t.howto.map((h) => `<li>${h}</li>`).join("")}
+                          </ul>
+                        </div>
+                      </div>`).join("")}
+                  </div>`).join("")}
+              </div>
+            `;
+
+            const aiFooterEl = doc.querySelector(".footer-section");
+            if (aiFooterEl) {
+              aiFooterEl.parentNode.insertBefore(aiPage, aiFooterEl);
+            } else {
+              doc.body.appendChild(aiPage);
+            }
+
+            aiPage.querySelectorAll(".qava-ai-menu-item").forEach((item) => {
+              item.addEventListener("click", () => {
+                const target = aiPage.querySelector("#" + item.getAttribute("data-target"));
+                if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+              });
+            });
+
+            const aiCta = doc.getElementById("qava-ai-toolset-cta");
+            if (aiCta) {
+              aiCta.addEventListener("click", (e) => {
+                e.preventDefault();
+                const show = window.__qavaShowOverlay;
+                if (show) show(aiPage);
+              });
+            }
+          }
+
+          if (!doc.getElementById("qava-howitworks-page")) {
+            const hiwPage = doc.createElement("section");
+            hiwPage.id = "qava-howitworks-page";
+            hiwPage.className = "qava-overlay-page";
+
+            const hiwFrame = doc.createElement("iframe");
+            hiwFrame.id = "qava-hiw-frame";
+            hiwFrame.src = "./hiw-embed.html?embed=1";
+            hiwFrame.setAttribute("title", "How Qava works");
+            hiwFrame.setAttribute("scrolling", "no");
+            hiwFrame.style.height = "auto";
+            hiwFrame.style.minHeight = "0";
+            hiwPage.appendChild(hiwFrame);
+
+            const hiwFooterEl = doc.querySelector(".footer-section");
+            if (hiwFooterEl) {
+              hiwFooterEl.parentNode.insertBefore(hiwPage, hiwFooterEl);
+            } else {
+              doc.body.appendChild(hiwPage);
+            }
+
+            const getHiwDeepDoc = () => {
+              try {
+                const shellDoc = hiwFrame.contentDocument;
+                const innerFrame = shellDoc && shellDoc.getElementById("preview");
+                return (innerFrame && innerFrame.contentDocument) || null;
+              } catch (e) {
+                return null;
+              }
+            };
+            const resizeHiw = () => {
+              const shellDoc = hiwFrame.contentDocument;
+              const shellHeight = shellDoc && shellDoc.getElementById("preview")
+                ? parseInt(shellDoc.getElementById("preview").style.height, 10) || 0
+                : 0;
+              const d = getHiwDeepDoc();
+              let h = shellHeight;
+              if (d && d.body) {
+                const main = d.querySelector(".client-how-it-works-page");
+                h = main
+                  ? Math.ceil(main.getBoundingClientRect().bottom + 12)
+                  : Math.max(d.body.scrollHeight, d.documentElement ? d.documentElement.scrollHeight : 0);
+              }
+              if (h > 0) hiwFrame.style.height = h + "px";
+            };
+            setInterval(resizeHiw, 400);
+            hiwFrame.addEventListener("load", () => setTimeout(resizeHiw, 300));
+            win.addEventListener("message", (event) => {
+              if (!event.data || event.data.type !== "qava-hiw-resize") return;
+              const h = Number(event.data.height);
+              if (h > 0) hiwFrame.style.height = h + "px";
+            });
+
+            const openHiw = (e) => {
+              if (e) e.preventDefault();
+              const show = window.__qavaShowOverlay;
+              if (show) show(hiwPage);
+            };
+
+            Array.from(doc.querySelectorAll(".auth-item")).forEach((a) => {
+              const t = (a.textContent || "").trim().toLowerCase();
+              if (t === "how it works" || t === "how qava works") {
+                a.addEventListener("click", openHiw);
+              }
+            });
+            Array.from(doc.querySelectorAll(".footer-link, .mobile-nav-item")).forEach((a) => {
+              const t = (a.textContent || "").trim().toLowerCase();
+              if (t === "how qava works" || t === "how it works") {
+                a.addEventListener("click", openHiw);
+              }
+            });
+          }
+
+          if (!doc.getElementById("qava-hero-showcase-box")) {
+            const showcaseBox = doc.createElement("div");
+            showcaseBox.id = "qava-hero-showcase-box";
+            showcaseBox.className = "qava-hero-showcase-box";
+            ctaButtonsRow.insertAdjacentElement("afterend", showcaseBox);
+          }
+
+          const showcaseBox = doc.getElementById("qava-hero-showcase-box");
+
+          if (showcaseBox && !doc.getElementById("qava-showcase-toggle-wrap")) {
+            const toggleWrap = doc.createElement("div");
+            toggleWrap.id = "qava-showcase-toggle-wrap";
+            toggleWrap.className = "qava-showcase-toggle-wrap";
+            toggleWrap.innerHTML = `
+              <div class="qava-howitworks-title">How it works</div>
+              <div class="qava-howitworks-sub">We connect entrepreneurs and leaders with<br>AI-enabled professionals, graduates, and students.</div>
+              <div class="qava-showcase-toggle" id="qava-showcase-toggle" role="radiogroup" aria-label="Audience toggle">
+                <span class="qava-toggle-prompt">I'm looking for:</span>
+                <label class="qava-toggle-radio">
+                  <input type="radio" name="qava-audience-toggle" value="talent" checked />
+                  <span>work</span>
+                </label>
+                <label class="qava-toggle-radio">
+                  <input type="radio" name="qava-audience-toggle" value="client" />
+                  <span>brain power</span>
+                </label>
+                <label class="qava-toggle-radio">
+                  <input type="radio" name="qava-audience-toggle" value="team" />
+                  <span>master team</span>
+                </label>
+              </div>
+            `;
+            showcaseBox.insertAdjacentElement("beforebegin", toggleWrap);
+          }
+
+          if (showcaseBox && !doc.getElementById("qava-blog-row")) {
+            const blogRow = doc.createElement("div");
+            blogRow.id = "qava-blog-row";
+            blogRow.className = "qava-blog-row";
+            const blogReadArrow = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
+            blogRow.innerHTML = `
+              <a class="qava-blog-card" href="#">
+                <img class="qava-blog-thumb" src="./qava-blog-1.png" alt="" />
+                <div class="qava-blog-body">
+                  <div class="qava-blog-tag">Community</div>
+                  <div class="qava-blog-title">On stage: building a brand people love</div>
+                  <span class="qava-blog-read">Read ${blogReadArrow}</span>
+                </div>
+              </a>
+              <a class="qava-blog-card" href="#">
+                <img class="qava-blog-thumb" src="./qava-blog-2.png" alt="" />
+                <div class="qava-blog-body">
+                  <div class="qava-blog-tag">Travel</div>
+                  <div class="qava-blog-title">A childhood off the grid</div>
+                  <span class="qava-blog-read">Read ${blogReadArrow}</span>
+                </div>
+              </a>
+              <a class="qava-blog-card" href="#">
+                <img class="qava-blog-thumb" src="./qava-blog-3.png" alt="" />
+                <div class="qava-blog-body">
+                  <div class="qava-blog-tag">Culture</div>
+                  <div class="qava-blog-title">How a simple tee built a movement</div>
+                  <span class="qava-blog-read">Read ${blogReadArrow}</span>
+            </div>
+              </a>
+              <a class="qava-blog-card" href="#">
+                <img class="qava-blog-thumb" src="./qava-blog-4.png" alt="" />
+                <div class="qava-blog-body">
+                  <div class="qava-blog-tag">Field notes</div>
+                  <div class="qava-blog-title">Finding flow, on and off the board</div>
+                  <span class="qava-blog-read">Read ${blogReadArrow}</span>
+            </div>
+              </a>
+            `;
+            ctaButtonsRow.insertAdjacentElement("afterend", blogRow);
+
+            const blogRow2 = doc.createElement("div");
+            blogRow2.id = "qava-blog-row-2";
+            blogRow2.className = "qava-blog-row";
+            blogRow2.style.marginTop = "16px";
+            blogRow2.innerHTML = `
+              <div class="qava-blog-card qava-blog-card-soon">
+                <img class="qava-blog-thumb" src="./qava-blog-9.png" alt="" />
+                <div class="qava-blog-body">
+                  <div class="qava-blog-tag">Founders</div>
+                  <div class="qava-blog-title">Building a brand for runners</div>
+                  <span class="qava-blog-read"><span class="qava-blog-read-default">Read</span><span class="qava-blog-read-hover">Coming soon</span></span>
+                </div>
+              </div>
+              <div class="qava-blog-card qava-blog-card-soon">
+                <img class="qava-blog-thumb" src="./qava-blog-7.png" alt="" />
+                <div class="qava-blog-body">
+                  <div class="qava-blog-tag">Spaces</div>
+                  <div class="qava-blog-title">Inside a cliffside escape</div>
+                  <span class="qava-blog-read"><span class="qava-blog-read-default">Read</span><span class="qava-blog-read-hover">Coming soon</span></span>
+                </div>
+              </div>
+              <div class="qava-blog-card qava-blog-card-soon">
+                <img class="qava-blog-thumb" src="./qava-blog-8.png" alt="" />
+                <div class="qava-blog-body">
+                  <div class="qava-blog-tag">City guide</div>
+                  <div class="qava-blog-title">Where founders fuel up in NYC</div>
+                  <span class="qava-blog-read"><span class="qava-blog-read-default">Read</span><span class="qava-blog-read-hover">Coming soon</span></span>
+                </div>
+              </div>
+              <div class="qava-blog-card qava-blog-card-soon">
+                <img class="qava-blog-thumb" src="./qava-blog-12.png" alt="" />
+                <div class="qava-blog-body">
+                  <div class="qava-blog-tag">Leadership</div>
+                  <div class="qava-blog-title">An operator's playbook</div>
+                  <span class="qava-blog-read"><span class="qava-blog-read-default">Read</span><span class="qava-blog-read-hover">Coming soon</span></span>
+                </div>
+              </div>
+            `;
+
+            blogRow.insertAdjacentElement("afterend", blogRow2);
+          }
+
+          if (showcaseBox && !doc.getElementById("qava-showcase-dynamic-content")) {
+            showcaseBox.innerHTML = `
+              <div id="qava-showcase-dynamic-content"></div>
+            `;
+
+            const dynamicContent = showcaseBox.querySelector("#qava-showcase-dynamic-content");
+            const renderShowcaseView = (mode) => {
+              if (!dynamicContent) return;
+
+              if (mode === "talent") {
+                dynamicContent.innerHTML = `
+                  <div class="qava-showcase-layout">
+                    <aside class="qava-showcase-side-menu" id="qava-talent-side-menu">
+                      <span class="qava-side-menu-indicator" id="qava-talent-menu-indicator"></span>
+                      <button type="button" class="qava-side-menu-item active" data-step="signup">Join for free</button>
+                      <button type="button" class="qava-side-menu-item" data-step="explore">Explore</button>
+                      <button type="button" class="qava-side-menu-item" data-step="apply">Apply</button>
+                      <button type="button" class="qava-side-menu-item" data-step="work">Work</button>
+                      <button type="button" class="qava-side-menu-item" data-step="getpaid">Paid fast</button>
+                    </aside>
+                    <section class="qava-showcase-main" id="qava-talent-main">
+                      <div class="qava-signup-illustration qava-signup-static" aria-label="Sign-up form preview illustration">
+                        <div class="qava-signup-progress">
+                          <span class="active"></span><span class="active"></span><span class="active"></span><span></span><span></span>
+            </div>
+                        <h3 class="qava-signup-title">Let's get to know each other!</h3>
+                        <div class="qava-signup-sections">
+                          <article class="qava-signup-question">
+                            <h4>What kind of projects are you interested in?</h4>
+                            <div class="qava-signup-groups">
+                              <label class="qava-signup-group-check"><input type="checkbox" disabled checked><span>Strategy</span></label>
+                              <label class="qava-signup-group-check"><input type="checkbox" disabled><span>Growth</span></label>
+                              <label class="qava-signup-group-check"><input type="checkbox" disabled checked><span>Finance</span></label>
+                              <label class="qava-signup-group-check"><input type="checkbox" disabled><span>Technology</span></label>
+                              <label class="qava-signup-group-check"><input type="checkbox" disabled checked><span>Operations</span></label>
+                              <label class="qava-signup-group-check"><input type="checkbox" disabled><span>Innovation</span></label>
+                              <label class="qava-signup-group-check"><input type="checkbox" disabled><span>Non-Profits</span></label>
+            </div>
+                            <div class="qava-signup-chips">
+                              <span class="qava-signup-chip is-highlighted">🚀 Business Plan</span>
+                              <span class="qava-signup-chip is-highlighted">📍 Go-To-Market Strategy</span>
+                              <span class="qava-signup-chip">💰 Pricing Strategy</span>
+                              <span class="qava-signup-chip">🌱 Growth Plan</span>
+                              <span class="qava-signup-chip is-highlighted">📊 Financial Model</span>
+                              <span class="qava-signup-chip">🤝 Partnership Strategy</span>
+                              <span class="qava-signup-chip">🚀 Pitch Deck</span>
+                              <span class="qava-signup-chip is-highlighted">📈 Data Analysis</span>
+                              <span class="qava-signup-chip">🧠 Product Strategy</span>
+                              <span class="qava-signup-chip">📣 Sales & Marketing Strategy</span>
+        </div>
+                          </article>
+
+                          <article class="qava-signup-question">
+                            <h4>What excites you the most?</h4>
+                            <div class="qava-signup-free-text">I am excited to work on real strategy projects where I can contribute ideas, execute with AI tools, and build practical experience with high-growth teams. I want to learn from sharp operators while shipping work that actually moves the needle.</div>
+                            <div class="qava-signup-quick-actions">
+                              <span class="qava-signup-quick-action is-selected">🛠️ Build experience</span>
+                              <span class="qava-signup-quick-action is-selected">🌐 Grow network</span>
+                              <span class="qava-signup-quick-action is-selected">📚 Learn by doing</span>
+                              <span class="qava-signup-quick-action">🔎 Explore new industry</span>
+                              <span class="qava-signup-quick-action">💪 Flex my skills</span>
+                              <span class="qava-signup-quick-action">🔧 Fill experience gaps</span>
+                              <span class="qava-signup-quick-action">🗂️ Add to portfolio</span>
+                              <span class="qava-signup-quick-action">✨ Make impact</span>
+                              <span class="qava-signup-quick-action is-selected">🎯 Challenge myself</span>
+                              <span class="qava-signup-quick-action">🚀 Gain confidence</span>
+                              <span class="qava-signup-quick-action">👀 Gain exposure</span>
+                              <span class="qava-signup-quick-action">🌎 Global collaboration</span>
+                              <span class="qava-signup-quick-action">＋ Other</span>
+            </div>
+                          </article>
+
+                          <article class="qava-signup-question">
+                            <h4>What sort of AI tools do you work with?</h4>
+                            <div class="qava-signup-chips">
+                              <span class="qava-signup-chip is-selected"><span class="qava-tool-logo-badge qava-tool-openai" aria-hidden="true">AI</span>ChatGPT</span>
+                              <span class="qava-signup-chip is-selected"><span class="qava-tool-logo-badge qava-tool-claude" aria-hidden="true">C</span>Claude</span>
+                              <span class="qava-signup-chip is-selected"><span class="qava-tool-logo-badge qava-tool-perplexity" aria-hidden="true">P</span>Perplexity</span>
+                              <span class="qava-signup-chip"><span class="qava-tool-logo-badge qava-tool-notion" aria-hidden="true">N</span>Notion AI</span>
+                              <span class="qava-signup-chip"><span class="qava-tool-logo-badge qava-tool-gemini" aria-hidden="true">G</span>Gemini</span>
+                              <span class="qava-signup-chip"><span class="qava-tool-logo-badge qava-tool-midjourney" aria-hidden="true">MJ</span>Midjourney</span>
+                              <span class="qava-signup-chip"><span class="qava-tool-logo-badge qava-tool-figma" aria-hidden="true">F</span>Figma AI</span>
+                </div>
+                          </article>
+                            </div>
+                        <div class="qava-signup-actions">
+                          <button type="button" class="qava-signup-btn-back">Back</button>
+                          <button type="button" class="qava-signup-btn-next qava-signup-btn-icon" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+                        </div>
+                    </div>
+                    </section>
+                        </div>
+                `;
+
+                const talentMain = dynamicContent.querySelector("#qava-talent-main");
+                const talentSideMenu = dynamicContent.querySelector("#qava-talent-side-menu");
+                const signupStepHTML = talentMain ? talentMain.innerHTML : "";
+
+                const applyStepHTML = `
+                  <div class="qava-signup-illustration qava-apply-illustration" aria-label="Apply flow preview illustration">
+                    <div class="qava-apply-jobcard">
+                      <img class="qava-apply-jobcard-img" src="./Acquculture.png" alt="Project cover" />
+                      <h4 class="qava-apply-jobcard-title">Aquaculture Growth Strategy</h4>
+                      <p class="qava-apply-jobcard-meta">QA93294 · Boston · 16 applicants · $125 p/hr</p>
+                      <span class="qava-apply-jobcard-tag">Job</span>
+                            </div>
+                    <h3 class="qava-signup-title">Let's get your application in!</h3>
+                    <div class="qava-signup-sections">
+                      <article class="qava-signup-question">
+                        <h4>What excites you about this opportunity?</h4>
+                        <div class="qava-signup-free-text">I'm completing my MBA and have hands-on experience in operations and finance. I'm excited about this project because it lets me apply my strategy and data analysis skills to a real growth challenge.</div>
+                      </article>
+
+                      <article class="qava-signup-question">
+                        <h4>Your LinkedIn</h4>
+                        <div class="qava-apply-input">https://linkedin.com/in/yourprofile</div>
+                      </article>
+
+                      <article class="qava-signup-question">
+                        <h4>Attach your resume, testimonials, and/or work samples</h4>
+                        <div class="qava-apply-uploads">
+                          <div class="qava-apply-upload"><span class="qava-apply-upload-title">My CV</span><span class="qava-apply-upload-sub">Drag and drop your files</span></div>
+                          <div class="qava-apply-upload"><span class="qava-apply-upload-title">Work Sample</span><span class="qava-apply-upload-sub">Drag and drop your files</span></div>
+                          <div class="qava-apply-upload"><span class="qava-apply-upload-title">Testimonial</span><span class="qava-apply-upload-sub">Drag and drop your files</span></div>
+                </div>
+                      </article>
+
+                      <article class="qava-signup-question">
+                        <h4>When are you available to start?</h4>
+                        <div class="qava-apply-radios">
+                          <label class="qava-apply-radio"><input type="radio" name="qava-availability" checked disabled><span>Immediately</span></label>
+                          <label class="qava-apply-radio"><input type="radio" name="qava-availability" disabled><span>In 1-2 weeks</span></label>
+                          <label class="qava-apply-radio"><input type="radio" name="qava-availability" disabled><span>In a month</span></label>
+                          <label class="qava-apply-radio"><input type="radio" name="qava-availability" disabled><span>Pick a date</span></label>
+                    </div>
+                      </article>
+                </div>
+                    <div class="qava-signup-actions">
+                      <button type="button" class="qava-signup-btn-back">Back</button>
+                      <button type="button" class="qava-signup-btn-next qava-signup-btn-icon" aria-label="Submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+                    </div>
+            </div>
+                `;
+
+                const exploreStepHTML = `
+                  <div class="qava-signup-illustration qava-explore-illustration" aria-label="Explore marketplace preview">
+                    <div class="qava-explore-filterbar">
+                      <span class="qava-explore-filterbar-label">Filter by</span>
+                      <span class="qava-explore-filter-pill">↓ Highest rate</span>
+                    </div>
+                    <div class="qava-explore-layout">
+                      <aside class="qava-explore-filters">
+                        <div class="qava-explore-filter-group">
+                          <p class="qava-explore-filter-title">Listing</p>
+                          <label class="qava-explore-filter-item"><input type="checkbox" checked disabled><span>Projects</span><span class="qava-explore-filter-count">17</span></label>
+                          <label class="qava-explore-filter-item"><input type="checkbox" disabled><span>Jobs</span><span class="qava-explore-filter-count">7</span></label>
+                          <label class="qava-explore-filter-item"><input type="checkbox" disabled><span>Internships</span><span class="qava-explore-filter-count">5</span></label>
+            </div>
+                        <div class="qava-explore-filter-group">
+                          <p class="qava-explore-filter-title">Focus</p>
+                          <label class="qava-explore-filter-item"><input type="checkbox" checked disabled><span>Strategy</span><span class="qava-explore-filter-count">10</span></label>
+                          <label class="qava-explore-filter-item"><input type="checkbox" checked disabled><span>Growth</span><span class="qava-explore-filter-count">10</span></label>
+                          <label class="qava-explore-filter-item"><input type="checkbox" checked disabled><span>Finance</span><span class="qava-explore-filter-count">6</span></label>
+                          <label class="qava-explore-filter-item"><input type="checkbox" checked disabled><span>Technology</span><span class="qava-explore-filter-count">3</span></label>
+                          <label class="qava-explore-filter-item"><input type="checkbox" checked disabled><span>Operations</span><span class="qava-explore-filter-count">4</span></label>
+            </div>
+                        <div class="qava-explore-filter-group">
+                          <p class="qava-explore-filter-title">Other</p>
+                          <label class="qava-explore-filter-item"><input type="checkbox" checked disabled><span>Black-led/owned</span><span class="qava-explore-filter-count">8</span></label>
+                          <label class="qava-explore-filter-item"><input type="checkbox" checked disabled><span>Indigenous-led/owned</span><span class="qava-explore-filter-count">8</span></label>
+                          <label class="qava-explore-filter-item"><input type="checkbox" checked disabled><span>Agency</span><span class="qava-explore-filter-count">12</span></label>
+                          <label class="qava-explore-filter-item"><input type="checkbox" checked disabled><span>Artificial intelligence</span><span class="qava-explore-filter-count">13</span></label>
+                          <label class="qava-explore-filter-item"><input type="checkbox" checked disabled><span>B Corp certified</span><span class="qava-explore-filter-count">8</span></label>
+                          <label class="qava-explore-filter-item"><input type="checkbox" checked disabled><span>Mission-driven</span><span class="qava-explore-filter-count">7</span></label>
+        </div>
+                      </aside>
+
+                      <section class="qava-explore-list">
+                        <h3 class="qava-explore-section-title">Featured</h3>
+                        <div class="qava-explore-row">
+                          <img class="qava-explore-thumb" src="./Acquculture.png" alt="" />
+                          <div class="qava-explore-row-info">
+                            <span class="qava-explore-row-type qava-type-project">Project</span>
+                            <p class="qava-explore-row-title">Integration Roadmap for DTC Skincare</p>
+                            <p class="qava-explore-row-meta">QA00521 · Boston · 12 applicants · $480</p>
+                                </div>
+                            </div>
+                        <div class="qava-explore-row">
+                          <img class="qava-explore-thumb" src="./Growth%20Strategy.png" alt="" />
+                          <div class="qava-explore-row-info">
+                            <span class="qava-explore-row-type qava-type-project">Project</span>
+                            <p class="qava-explore-row-title">Sustainability Marketing Strategy</p>
+                            <p class="qava-explore-row-meta">QA00527 · New York · 8 applicants · $430</p>
+                                </div>
+                            </div>
+
+                        <h3 class="qava-explore-section-title">Strategy</h3>
+                        <div class="qava-explore-row">
+                          <img class="qava-explore-thumb" src="./Industry%20Analysis.png" alt="" />
+                          <div class="qava-explore-row-info">
+                            <span class="qava-explore-row-type qava-type-project">Project</span>
+                            <p class="qava-explore-row-title">GTM Strategy for MBA-Startup Marketplace</p>
+                            <p class="qava-explore-row-meta">QA00533 · Remote · 9 applicants · $475</p>
+                                </div>
+                            </div>
+                        <div class="qava-explore-row">
+                          <img class="qava-explore-thumb" src="./Sunrise.png" alt="" />
+                          <div class="qava-explore-row-info">
+                            <span class="qava-explore-row-type qava-type-project">Project</span>
+                            <p class="qava-explore-row-title">Go-To-Market Strategy for Non-Profit Marketplace</p>
+                            <p class="qava-explore-row-meta">QA00532 · California · 6 applicants · $370</p>
+                        </div>
+                                    </div>
+                        <div class="qava-explore-row">
+                          <img class="qava-explore-thumb" src="./Sunset.png" alt="" />
+                          <div class="qava-explore-row-info">
+                            <span class="qava-explore-row-type qava-type-project">Project</span>
+                            <p class="qava-explore-row-title">Market Entry Strategy for Fintech</p>
+                            <p class="qava-explore-row-meta">QA00541 · London · 11 applicants · $520</p>
+                                        </div>
+                                    </div>
+                        <div class="qava-explore-row">
+                          <img class="qava-explore-thumb" src="./Sky.png" alt="" />
+                          <div class="qava-explore-row-info">
+                            <span class="qava-explore-row-type qava-type-project">Project</span>
+                            <p class="qava-explore-row-title">Corporate Strategy Sprint</p>
+                            <p class="qava-explore-row-meta">QA00547 · Chicago · 14 applicants · $560</p>
+                                </div>
+                            </div>
+
+                        <h3 class="qava-explore-section-title">Growth</h3>
+                        <div class="qava-explore-row">
+                          <img class="qava-explore-thumb" src="./Stream.png" alt="" />
+                          <div class="qava-explore-row-info">
+                            <span class="qava-explore-row-type qava-type-project">Project</span>
+                            <p class="qava-explore-row-title">Growth Marketing Playbook for SaaS</p>
+                            <p class="qava-explore-row-meta">QA00550 · Austin · 7 applicants · $410</p>
+                                </div>
+                            </div>
+                        <div class="qava-explore-row">
+                          <img class="qava-explore-thumb" src="./Branch.png" alt="" />
+                          <div class="qava-explore-row-info">
+                            <span class="qava-explore-row-type qava-type-project">Project</span>
+                            <p class="qava-explore-row-title">Demand Generation Playbook</p>
+                            <p class="qava-explore-row-meta">QA00558 · Remote · 5 applicants · $400</p>
+                                </div>
+                            </div>
+                        <div class="qava-explore-row">
+                          <img class="qava-explore-thumb" src="./Blue.png" alt="" />
+                          <div class="qava-explore-row-info">
+                            <span class="qava-explore-row-type qava-type-project">Project</span>
+                            <p class="qava-explore-row-title">Retention & Lifecycle Strategy</p>
+                            <p class="qava-explore-row-meta">QA00562 · Toronto · 4 applicants · $390</p>
+                            </div>
+                        </div>
+                        
+                        <h3 class="qava-explore-section-title">Finance</h3>
+                        <div class="qava-explore-row">
+                          <img class="qava-explore-thumb" src="./Green.png" alt="" />
+                          <div class="qava-explore-row-info">
+                            <span class="qava-explore-row-type qava-type-project">Project</span>
+                            <p class="qava-explore-row-title">Financial Model for Seed-Stage Startup</p>
+                            <p class="qava-explore-row-meta">QA00571 · Remote · 10 applicants · $450</p>
+                                </div>
+                            </div>
+                        <div class="qava-explore-row">
+                          <img class="qava-explore-thumb" src="./Markdowns.png" alt="" />
+                          <div class="qava-explore-row-info">
+                            <span class="qava-explore-row-type qava-type-project">Project</span>
+                            <p class="qava-explore-row-title">Financial Planning &amp; Analysis Model</p>
+                            <p class="qava-explore-row-meta">QA00578 · San Francisco · 18 applicants · $510</p>
+                                </div>
+                            </div>
+                      </section>
+                                    </div>
+                                        </div>
+                `;
+
+                const placeholderStepHTML = (label) => `
+                  <div class="qava-signup-illustration" style="align-items: center; justify-content: center;" aria-label="${label} preview">
+                    <div class="qava-showcase-main-placeholder">${label} preview coming next</div>
+                </div>
+                `;
+
+                const svgBars = '<svg class="qava-work-svg" viewBox="0 0 56 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="6" y1="29" x2="6" y2="20"/><line x1="20" y1="29" x2="20" y2="12"/><line x1="34" y1="29" x2="34" y2="5"/><line x1="48" y1="29" x2="48" y2="16"/></svg>';
+                const svgLine = '<svg class="qava-work-svg" viewBox="0 0 56 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,26 18,18 32,22 52,6"/></svg>';
+                const svgPie = '<svg class="qava-work-svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="16" cy="16" r="11"/><line x1="16" y1="16" x2="16" y2="5"/><line x1="16" y1="16" x2="25.5" y2="21"/></svg>';
+                const svgTarget = '<svg class="qava-work-svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="16" cy="16" r="11"/><circle cx="16" cy="16" r="5.5"/><circle cx="16" cy="16" r="1" fill="currentColor" stroke="none"/></svg>';
+                const svgFunnel = '<svg class="qava-work-svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M5 7h22l-8 9v8l-6 3v-11z"/></svg>';
+                const svgBulb = '<svg class="qava-work-svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M16 5a8 8 0 0 0-4.5 14.6V23h9v-3.4A8 8 0 0 0 16 5z"/><line x1="12.5" y1="26.5" x2="19.5" y2="26.5"/></svg>';
+                const svgTimeline = '<svg class="qava-work-svg" viewBox="0 0 56 16" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="5" y1="8" x2="51" y2="8"/><circle cx="8" cy="8" r="3"/><circle cx="28" cy="8" r="3"/><circle cx="48" cy="8" r="3"/></svg>';
+
+                const workSlides = [
+                  { svg: svgTarget, title: "Executive Summary", text: "A bold plan to 3x revenue in 18 months across three core growth levers." },
+                  { svg: svgPie, title: "Market Opportunity", text: "$4.2B addressable market growing 22% YoY with fragmented incumbents." },
+                  { svg: svgBars, title: "Target Segments", text: "Focus on MBA-led startups, SMB operators, and mission-driven non-profits." },
+                  { svg: svgBulb, title: "Value Proposition", text: "Faster, AI-assisted strategy delivery at a fraction of agency cost." },
+                  { svg: svgFunnel, title: "Go-To-Market", text: "Lead with community and content, convert via curated project matching." },
+                  { svg: svgBars, title: "Growth Channels", text: "University partners, referrals, and SEO drive low-cost acquisition." },
+                  { svg: svgLine, title: "Financial Model", text: "Take-rate plus subscriptions reach profitability by month 14." },
+                  { svg: svgTimeline, title: "Roadmap & Milestones", text: "Launch, expand categories, then open the marketplace to enterprise." },
+                  { svg: svgPie, title: "KPIs & Metrics", text: "Track activation, match rate, retention, and net revenue retention." }
+                ];
+
+                const workStepHTML = `
+                  <div class="qava-signup-illustration qava-work-illustration" aria-label="Work growth strategy deck preview">
+                    <h3 class="qava-work-title">Growth Strategy</h3>
+                    <p class="qava-work-subtitle">Your Path to Double Revenue in the Next 18 Months</p>
+                    <div class="qava-work-grid">
+                      ${workSlides.map((s, i) => `
+                        <div class="qava-work-slide" style="animation-delay: ${(i * 0.11).toFixed(2)}s">
+                          <div class="qava-work-slide-illustration">${s.svg}</div>
+                          <h4 class="qava-work-slide-title">${s.title}</h4>
+                          <p class="qava-work-slide-text">${s.text}</p>
+                        </div>
+                      `).join("")}
+                    </div>
+                </div>
+                `;
+
+                const getpaidProjects = [
+                  { name: "Integration Roadmap for DTC Skincare", amount: "$4,200", stars: 5, quote: "Sharp, fast, and a pleasure to work with.", status: "paid", start: "Jan 8, 2026" },
+                  { name: "Go-To-Market Strategy for Startup Marketplace", amount: "$3,150", stars: 5, quote: "Delivered well beyond what we expected.", status: "paid", start: "Feb 2, 2026" },
+                  { name: "Market Entry Strategy for Fintech", amount: "$5,200", stars: 4, quote: "Great insights, minor timeline slips.", status: "progress", start: "Mar 16, 2026" },
+                  { name: "Growth Marketing Playbook for SaaS", amount: "$2,870", stars: 5, quote: "Turned our funnel around completely.", status: "paid", start: "Apr 6, 2026" },
+                  { name: "Financial Model for Seed-Stage Startup", amount: "$3,000", stars: 5, quote: "Rigorous, clear, and investor-ready.", status: "paid", start: "May 11, 2026" }
+                ];
+
+                const renderStars = (n) => "★".repeat(n);
+
+                const getpaidStepHTML = `
+                  <div class="qava-signup-illustration qava-getpaid-illustration" aria-label="Billings page preview">
+                    <div class="qava-getpaid-header">
+                      <div class="qava-getpaid-total">
+                        <span class="qava-getpaid-total-label">Total earnings</span>
+                        <span class="qava-getpaid-total-value">$18,420</span>
+                    </div>
+                      <div class="qava-getpaid-charts-wrap">
+                        <div class="qava-getpaid-chart">
+                          <div class="qava-getpaid-barcol"><span class="qava-getpaid-bar-value">$1.8k</span><span class="qava-getpaid-bar" style="height: 30px;"></span><span class="qava-getpaid-bar-label">Jan</span></div>
+                          <div class="qava-getpaid-barcol"><span class="qava-getpaid-bar-value">$2.4k</span><span class="qava-getpaid-bar" style="height: 41px;"></span><span class="qava-getpaid-bar-label">Feb</span></div>
+                          <div class="qava-getpaid-barcol"><span class="qava-getpaid-bar-value">$2.9k</span><span class="qava-getpaid-bar" style="height: 49px;"></span><span class="qava-getpaid-bar-label">Mar</span></div>
+                          <div class="qava-getpaid-barcol"><span class="qava-getpaid-bar-value">$3.3k</span><span class="qava-getpaid-bar" style="height: 56px;"></span><span class="qava-getpaid-bar-label">Apr</span></div>
+                          <div class="qava-getpaid-barcol"><span class="qava-getpaid-bar-value">$3.8k</span><span class="qava-getpaid-bar" style="height: 64px;"></span><span class="qava-getpaid-bar-label">May</span></div>
+                          <div class="qava-getpaid-barcol"><span class="qava-getpaid-bar-value">$4.2k</span><span class="qava-getpaid-bar tallest" style="height: 72px;"></span><span class="qava-getpaid-bar-label">Jun</span></div>
+                            </div>
+                            </div>
+                      <svg class="qava-getpaid-radar" viewBox="-42 0 222 150" fill="none">
+                            <polygon points="80,17 135.16,57.08 114.09,121.92 45.91,121.92 24.84,57.08" stroke="#e5e7eb" stroke-width="1"/>
+                            <polygon points="80,36.72 116.41,63.17 102.5,105.96 57.5,105.96 43.59,63.17" stroke="#e5e7eb" stroke-width="1"/>
+                            <polygon points="80,55.86 98.2,69.09 91.25,90.48 68.75,90.48 61.8,69.09" stroke="#e5e7eb" stroke-width="1"/>
+                            <line x1="80" y1="75" x2="80" y2="17" stroke="#e5e7eb" stroke-width="1"/>
+                            <line x1="80" y1="75" x2="135.16" y2="57.08" stroke="#e5e7eb" stroke-width="1"/>
+                            <line x1="80" y1="75" x2="114.09" y2="121.92" stroke="#e5e7eb" stroke-width="1"/>
+                            <line x1="80" y1="75" x2="45.91" y2="121.92" stroke="#e5e7eb" stroke-width="1"/>
+                            <line x1="80" y1="75" x2="24.84" y2="57.08" stroke="#e5e7eb" stroke-width="1"/>
+                            <polygon points="80,19.9 110.34,65.14 108.98,114.88 69.09,90.02 63.45,69.62" fill="#ffffff" stroke="#111827" stroke-width="1.8" stroke-linejoin="round"/>
+                            <circle cx="80" cy="19.9" r="2" fill="#111827"/>
+                            <circle cx="110.34" cy="65.14" r="2" fill="#111827"/>
+                            <circle cx="108.98" cy="114.88" r="2" fill="#111827"/>
+                            <circle cx="69.09" cy="90.02" r="2" fill="#111827"/>
+                            <circle cx="63.45" cy="69.62" r="2" fill="#111827"/>
+                            <text x="80" y="11" text-anchor="middle" fill="#6b7280" font-family="Inter, sans-serif" font-size="8">Strategy</text>
+                            <text x="140" y="55" text-anchor="start" fill="#6b7280" font-family="Inter, sans-serif" font-size="8">Growth</text>
+                            <text x="114" y="135" text-anchor="middle" fill="#6b7280" font-family="Inter, sans-serif" font-size="8">Technology</text>
+                            <text x="46" y="135" text-anchor="middle" fill="#6b7280" font-family="Inter, sans-serif" font-size="8">Finance</text>
+                            <text x="20" y="54" text-anchor="end" fill="#6b7280" font-family="Inter, sans-serif" font-size="8">Operations</text>
+                          </svg>
+                        </div>
+                    <div class="qava-getpaid-table">
+                      <div class="qava-getpaid-row qava-getpaid-row-head">
+                        <span>Project</span><span>Started</span><span>Feedback</span><span>Earned</span><span>Status</span>
+                    </div>
+                      ${getpaidProjects.map((p) => `
+                        <div class="qava-getpaid-row">
+                          <span class="qava-getpaid-project">${p.name}</span>
+                          <span class="qava-getpaid-started">${p.start}</span>
+                          <span class="qava-getpaid-feedback">
+                            <span class="qava-getpaid-stars">${renderStars(p.stars)}</span>
+                            <span class="qava-getpaid-quote">"${p.quote}"</span>
+                          </span>
+                          <span class="qava-getpaid-amount">${p.amount}</span>
+                          <span>
+                            <span class="qava-getpaid-status ${p.status === "progress" ? "qava-status-progress" : "qava-status-paid"}">${p.status === "progress" ? "Work in progress" : "Paid"}</span>
+                          </span>
+                </div>
+                      `).join("")}
+                    </div>
+                    <button type="button" class="qava-getpaid-more">Find more projects</button>
+                                </div>
+                `;
+
+                const talentSteps = {
+                  signup: signupStepHTML,
+                  explore: exploreStepHTML,
+                  apply: applyStepHTML,
+                  work: workStepHTML,
+                  getpaid: getpaidStepHTML
+                };
+
+                if (talentSideMenu && talentMain) {
+                  const menuIndicator = talentSideMenu.querySelector("#qava-talent-menu-indicator");
+                  const moveIndicator = (btn) => {
+                    if (!menuIndicator || !btn) return;
+                    menuIndicator.style.height = btn.offsetHeight + "px";
+                    menuIndicator.style.transform = "translateY(" + btn.offsetTop + "px)";
+                  };
+
+                  const activeBtn = talentSideMenu.querySelector(".qava-side-menu-item.active");
+                  requestAnimationFrame(() => moveIndicator(activeBtn));
+
+                  talentMain.addEventListener("scroll", (e) => {
+                    const scrolled = e.target && e.target.scrollTop > 4;
+                    talentMain.classList.toggle("qava-dots-hidden", scrolled);
+                  }, true);
+
+                  talentSideMenu.querySelectorAll(".qava-side-menu-item").forEach((btn) => {
+                    btn.addEventListener("click", () => {
+                      talentSideMenu.querySelectorAll(".qava-side-menu-item").forEach((item) => item.classList.remove("active"));
+                      btn.classList.add("active");
+                      moveIndicator(btn);
+                      const step = btn.getAttribute("data-step");
+                      talentMain.innerHTML = talentSteps[step] || signupStepHTML;
+                      talentMain.classList.toggle("qava-main-fade", step === "explore");
+                      talentMain.classList.remove("qava-dots-hidden");
+                    });
+                  });
+                }
+
+                return;
+              }
+
+              if (mode === "team") {
+                const teamActions = `
+                  <div class="qava-signup-actions">
+                    <button type="button" class="qava-signup-btn-back">Back</button>
+                    <button type="button" class="qava-signup-btn-next qava-signup-btn-icon" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+        </div>
+                `;
+
+                dynamicContent.innerHTML = `
+                  <div class="qava-showcase-layout">
+                    <aside class="qava-showcase-side-menu" id="qava-team-side-menu">
+                      <span class="qava-side-menu-indicator" id="qava-team-menu-indicator"></span>
+                      <button type="button" class="qava-side-menu-item active" data-step="design">Design team</button>
+                      <button type="button" class="qava-side-menu-item" data-step="deliverables">Deliverables</button>
+                      <button type="button" class="qava-side-menu-item" data-step="timeframe">Timeframe</button>
+                    </aside>
+                    <section class="qava-showcase-main" id="qava-team-main">
+                      <div class="qava-signup-illustration" aria-label="Design team preview illustration">
+                        <h3 class="qava-signup-title" style="margin-top: 10px; margin-bottom: 2px;">Design your team</h3>
+                        <p class="qava-signup-qsub" style="margin-top: 0;">Pick your slots and define what each member is for, where they studied, and the experience they bring.</p>
+                        <div class="qava-team-grid">
+                          <div class="qava-team-card">
+                            <div class="qava-team-card-num">Team member 1</div>
+                            <div class="qava-team-role">Finance &amp; Strategy</div>
+                            <div class="qava-team-tags">
+                              <span class="qava-team-tag">🎓 Harvard</span>
+                              <span class="qava-team-tag">⭐ 5+ years</span>
+                            </div>
+                            <p class="qava-team-req">I'm looking for a Harvard graduate finance and strategy person to help me pressure-test the business model, build the financial story, and shape a clear path to funding.</p>
+                        </div>
+                          <div class="qava-team-card">
+                            <div class="qava-team-card-num">Team member 2</div>
+                            <div class="qava-team-role">Technology</div>
+                            <div class="qava-team-tags">
+                              <span class="qava-team-tag">🎓 Stanford</span>
+                              <span class="qava-team-tag">⭐ Senior</span>
+                            </div>
+                            <p class="qava-team-req">I'm looking for a Stanford technology specialist to turn the product vision into a realistic build plan and advise on the right AI and data stack.</p>
+                        </div>
+                          <div class="qava-team-card">
+                            <div class="qava-team-card-num">Team member 3</div>
+                            <div class="qava-team-role">Operational Excellence</div>
+                            <div class="qava-team-tags">
+                              <span class="qava-team-tag">🎓 Kellogg</span>
+                              <span class="qava-team-tag">⭐ Expert</span>
+                            </div>
+                            <p class="qava-team-req">I'm looking for a Kellogg operational excellence and process design specialist to streamline how we work and set the team up to scale smoothly.</p>
+                        </div>
+                          <div class="qava-team-card qava-team-add">
+                            <div class="qava-team-add-plus"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+                            <div class="qava-team-add-label">Add team member</div>
+                            </div>
+                        </div>
+                        <div class="qava-team-summary">
+                          <h4 class="qava-team-summary-title">Your team at a glance</h4>
+                          <div class="qava-team-stats">
+                            <div class="qava-team-stat">
+                              <div class="qava-team-stat-value">3 of 4 slots</div>
+                              <div class="qava-team-stat-label">Team members selected</div>
+                            </div>
+                            <div class="qava-team-stat">
+                              <div class="qava-team-stat-value">Finance · Technology · Operations</div>
+                              <div class="qava-team-stat-label">Disciplines covered</div>
+                        </div>
+                            <div class="qava-team-stat">
+                              <div class="qava-team-stat-value">Harvard · Stanford · Kellogg</div>
+                              <div class="qava-team-stat-label">Target schools</div>
+                            </div>
+                        </div>
+                            </div>
+                        ${teamActions}
+                        </div>
+                    </section>
+                            </div>
+                `;
+
+                const teamMain = dynamicContent.querySelector("#qava-team-main");
+                const teamSideMenu = dynamicContent.querySelector("#qava-team-side-menu");
+                const designTeamHTML = teamMain ? teamMain.innerHTML : "";
+
+                const deliverablesHTML = `
+                  <div class="qava-signup-illustration" aria-label="Deliverables preview illustration">
+                    <h3 class="qava-signup-title" style="margin-top: 10px; margin-bottom: 2px;">What would you like to achieve?</h3>
+                    <p class="qava-signup-qsub" style="margin-top: 0;">Select everything your team should deliver.</p>
+                    <div class="qava-deliverable-grid">
+                      <div class="qava-deliverable-card selected">
+                        <div class="qava-deliverable-head">
+                          <div class="qava-deliverable-name">📈 Business Plan</div>
+                          <input type="checkbox" class="qava-box-check" checked disabled>
+                        </div>
+                        <div class="qava-deliverable-desc">A clear roadmap of your model, market, and milestones.</div>
+                            </div>
+                      <div class="qava-deliverable-card selected">
+                        <div class="qava-deliverable-head">
+                          <div class="qava-deliverable-name">📊 Financial Model</div>
+                          <input type="checkbox" class="qava-box-check" checked disabled>
+                        </div>
+                        <div class="qava-deliverable-desc">Forecasts, unit economics, and funding scenarios.</div>
+                            </div>
+                      <div class="qava-deliverable-card">
+                        <div class="qava-deliverable-head">
+                          <div class="qava-deliverable-name">🤼 Competitive Analysis</div>
+                          <input type="checkbox" class="qava-box-check" disabled>
+                        </div>
+                        <div class="qava-deliverable-desc">Where you win against rivals, and why it holds.</div>
+                </div>
+                      <div class="qava-deliverable-card selected">
+                        <div class="qava-deliverable-head">
+                          <div class="qava-deliverable-name">📍 Go-To-Market Strategy</div>
+                          <input type="checkbox" class="qava-box-check" checked disabled>
+            </div>
+                        <div class="qava-deliverable-desc">How you'll reach, win, and keep customers.</div>
+                            </div>
+                      <div class="qava-deliverable-card selected">
+                        <div class="qava-deliverable-head">
+                          <div class="qava-deliverable-name">🎤 Pitch Deck</div>
+                          <input type="checkbox" class="qava-box-check" checked disabled>
+                        </div>
+                        <div class="qava-deliverable-desc">An investor-ready story that builds conviction.</div>
+                            </div>
+                      <div class="qava-deliverable-card">
+                        <div class="qava-deliverable-head">
+                          <div class="qava-deliverable-name">🌱 Growth Plan</div>
+                          <input type="checkbox" class="qava-box-check" disabled>
+                        </div>
+                        <div class="qava-deliverable-desc">Levers and experiments to scale efficiently.</div>
+                            </div>
+                      <div class="qava-deliverable-card">
+                        <div class="qava-deliverable-head">
+                          <div class="qava-deliverable-name">💰 Pricing Strategy</div>
+                          <input type="checkbox" class="qava-box-check" disabled>
+                        </div>
+                        <div class="qava-deliverable-desc">Packaging and pricing that maximize value.</div>
+                            </div>
+                      <div class="qava-deliverable-card">
+                        <div class="qava-deliverable-head">
+                          <div class="qava-deliverable-name">🎯 Strategic Plan</div>
+                          <input type="checkbox" class="qava-box-check" disabled>
+                        </div>
+                        <div class="qava-deliverable-desc">Long-term priorities and the path to reach them.</div>
+                            </div>
+                      <div class="qava-deliverable-card">
+                        <div class="qava-deliverable-head">
+                          <div class="qava-deliverable-name">🗺️ Customer Journey Map</div>
+                          <input type="checkbox" class="qava-box-check" disabled>
+                        </div>
+                        <div class="qava-deliverable-desc">Every touchpoint from first click to loyalty.</div>
+                            </div>
+                      <div class="qava-deliverable-card">
+                        <div class="qava-deliverable-head">
+                          <div class="qava-deliverable-name">📋 Sales &amp; Marketing Strategy</div>
+                          <input type="checkbox" class="qava-box-check" disabled>
+                        </div>
+                        <div class="qava-deliverable-desc">An integrated plan to build pipeline and demand.</div>
+                            </div>
+                      <div class="qava-deliverable-card">
+                        <div class="qava-deliverable-head">
+                          <div class="qava-deliverable-name">⚙️ Operating Model Design</div>
+                          <input type="checkbox" class="qava-box-check" disabled>
+                        </div>
+                        <div class="qava-deliverable-desc">How the org, processes, and tools fit together.</div>
+                            </div>
+                      <div class="qava-deliverable-card">
+                        <div class="qava-deliverable-head">
+                          <div class="qava-deliverable-name">💡 Innovation Roadmap</div>
+                          <input type="checkbox" class="qava-box-check" disabled>
+                        </div>
+                        <div class="qava-deliverable-desc">A pipeline of bets to keep you ahead.</div>
+                            </div>
+                      <div class="qava-deliverable-card qava-deliverable-add">+ Add your own</div>
+                        </div>
+                    ${teamActions}
+                            </div>
+                `;
+
+                const timeframeHTML = `
+                  <div class="qava-signup-illustration" aria-label="Timeframe preview illustration">
+                    <h3 class="qava-signup-title" style="margin-top: 10px; margin-bottom: 2px;">Timeframe</h3>
+                    <p class="qava-signup-qsub" style="margin-top: 0;">Tell your team when to start and how you'd like to work together.</p>
+
+                    <div class="qava-tf-section">
+                      <h5 class="qava-create-subhead">When should this work start?</h5>
+                      <div class="qava-tf-cards start">
+                        <div class="qava-tf-card selected">
+                          <div class="qava-tf-card-title">⚡ As soon as possible</div>
+                          <div class="qava-tf-card-desc">Kick off within a few days.</div>
+                            </div>
+                        <div class="qava-tf-card">
+                          <div class="qava-tf-card-title">📅 In 1–2 weeks</div>
+                          <div class="qava-tf-card-desc">Start in the next sprint.</div>
+                        </div>
+                        <div class="qava-tf-card">
+                          <div class="qava-tf-card-title">🗓️ In a month</div>
+                          <div class="qava-tf-card-desc">A little runway to prepare.</div>
+                            </div>
+                        <div class="qava-tf-card">
+                          <div class="qava-tf-card-title">🌀 Flexible</div>
+                          <div class="qava-tf-card-desc">Open to what suits the team.</div>
+                        </div>
+                            </div>
+                        </div>
+
+                    <div class="qava-tf-section">
+                      <h5 class="qava-create-subhead">What format works best?</h5>
+                      <div class="qava-tf-cards formats">
+                        <div class="qava-tf-card selected">
+                          <div class="qava-tf-card-title">🔁 Three-part workshop series</div>
+                          <div class="qava-tf-card-desc">Three focused sessions across consecutive weeks.</div>
+                            </div>
+                        <div class="qava-tf-card">
+                          <div class="qava-tf-card-title">☀️ One full-day workshop</div>
+                          <div class="qava-tf-card-desc">An intensive, single-day deep dive.</div>
+                        </div>
+                        <div class="qava-tf-card">
+                          <div class="qava-tf-card-title">🧩 Something else</div>
+                          <div class="qava-tf-card-desc">Tell us the cadence that works for you.</div>
+                            </div>
+                        </div>
+                            </div>
+
+                    <div class="qava-tf-schedule">
+                      <h5 class="qava-create-subhead">Your schedule at a glance</h5>
+                      <div class="qava-tf-timeline">
+                        <div class="qava-tf-step">
+                          <div class="qava-tf-dot">1</div>
+                          <div class="qava-tf-week">Week 1</div>
+                          <div class="qava-tf-step-title">Discovery &amp; alignment</div>
+                          <div class="qava-tf-step-desc">Set goals, scope, and a shared plan with the team.</div>
+                        </div>
+                        <div class="qava-tf-step">
+                          <div class="qava-tf-dot">2</div>
+                          <div class="qava-tf-week">Week 2</div>
+                          <div class="qava-tf-step-title">Build &amp; decisions</div>
+                          <div class="qava-tf-step-desc">Develop options and make the key calls together.</div>
+                            </div>
+                        <div class="qava-tf-step">
+                          <div class="qava-tf-dot">3</div>
+                          <div class="qava-tf-week">Week 3</div>
+                          <div class="qava-tf-step-title">Finalize &amp; handover</div>
+                          <div class="qava-tf-step-desc">Polish the deliverables and wrap up the engagement.</div>
+                        </div>
+                            </div>
+                        </div>
+                    ${teamActions}
+                            </div>
+                `;
+
+                const teamSteps = {
+                  design: designTeamHTML,
+                  deliverables: deliverablesHTML,
+                  timeframe: timeframeHTML
+                };
+
+                if (teamSideMenu && teamMain) {
+                  const menuIndicator = teamSideMenu.querySelector("#qava-team-menu-indicator");
+                  const moveIndicator = (btn) => {
+                    if (!menuIndicator || !btn) return;
+                    menuIndicator.style.height = btn.offsetHeight + "px";
+                    menuIndicator.style.transform = "translateY(" + btn.offsetTop + "px)";
+                  };
+
+                  const activeBtn = teamSideMenu.querySelector(".qava-side-menu-item.active");
+                  requestAnimationFrame(() => moveIndicator(activeBtn));
+
+                  teamMain.addEventListener("scroll", (e) => {
+                    const scrolled = e.target && e.target.scrollTop > 4;
+                    teamMain.classList.toggle("qava-dots-hidden", scrolled);
+                  }, true);
+
+                  teamSideMenu.querySelectorAll(".qava-side-menu-item").forEach((btn) => {
+                    btn.addEventListener("click", () => {
+                      teamSideMenu.querySelectorAll(".qava-side-menu-item").forEach((item) => item.classList.remove("active"));
+                      btn.classList.add("active");
+                      moveIndicator(btn);
+                      const step = btn.getAttribute("data-step");
+                      teamMain.innerHTML = teamSteps[step] || designTeamHTML;
+                      teamMain.classList.remove("qava-dots-hidden");
+                    });
+                  });
+                }
+                return;
+              }
+
+              dynamicContent.innerHTML = `
+                <div class="qava-showcase-layout">
+                  <aside class="qava-showcase-side-menu" id="qava-client-side-menu">
+                    <span class="qava-side-menu-indicator" id="qava-client-menu-indicator"></span>
+                    <button type="button" class="qava-side-menu-item active" data-step="signup">Join for free</button>
+                    <button type="button" class="qava-side-menu-item" data-step="post">Create listing</button>
+                    <button type="button" class="qava-side-menu-item" data-step="review">Pick talent</button>
+                    <button type="button" class="qava-side-menu-item" data-step="collaborate">Collaborate</button>
+                    <button type="button" class="qava-side-menu-item" data-step="pay">Feedback</button>
+                  </aside>
+                  <section class="qava-showcase-main" id="qava-client-main">
+                    <div class="qava-signup-illustration" aria-label="Client sign-up form preview illustration">
+                      <div class="qava-signup-progress">
+                        <span class="active"></span><span class="active"></span><span></span><span></span><span></span>
+                </div>
+                      <h3 class="qava-signup-title">Let's get to know your organization!</h3>
+                      <div class="qava-signup-sections">
+                        <article class="qava-signup-question">
+                          <h4>What brings you here?</h4>
+                          <p class="qava-signup-qsub">What are you hoping to accomplish</p>
+                          <div class="qava-signup-chips">
+                            <span class="qava-signup-chip">🔍 Find project talent</span>
+                            <span class="qava-signup-chip">🎓 Access MBA talent</span>
+                            <span class="qava-signup-chip">🧠 Fresh perspectives</span>
+                            <span class="qava-signup-chip">⚡ Accelerate a project</span>
+                            <span class="qava-signup-chip">🧩 Solve a challenge</span>
+                            <span class="qava-signup-chip">💡 Test new ideas</span>
+                            <span class="qava-signup-chip">🧰 Fill skill gaps</span>
+                            <span class="qava-signup-chip">🤝 Flexible support</span>
+                            <span class="qava-signup-chip">🌱 Build talent pipeline</span>
+                            <span class="qava-signup-chip">🔎 Discover future hires</span>
+                            <span class="qava-signup-chip">🌍 Global collaboration</span>
+                            <span class="qava-signup-chip">🚀 Move faster</span>
+                            <span class="qava-signup-chip">Add +</span>
+                </div>
+                        </article>
+
+                        <article class="qava-signup-question">
+                          <h4>What's the name of your organization?</h4>
+                          <p class="qava-signup-qsub">No worries if you're still working on it</p>
+                          <input class="qava-client-input" type="text" placeholder="Stealth mode" disabled />
+                          <div class="qava-signup-checklist" style="flex-direction: row; flex-wrap: nowrap; gap: 18px; margin-top: 10px;">
+                            <label class="qava-signup-group-check"><input type="checkbox" checked disabled><span>🥷 I'm in stealth mode</span></label>
+                            <label class="qava-signup-group-check"><input type="checkbox" disabled><span>💡 It's just an idea right now</span></label>
+                </div>
+                        </article>
+
+                        <article class="qava-signup-question">
+                          <h4>What best describes your organization?</h4>
+                          <p class="qava-signup-qsub">You can change or edit these later too</p>
+                          <div class="qava-signup-chips">
+                            <span class="qava-signup-chip">📌 Agency</span>
+                            <span class="qava-signup-chip">🤖 Artificial Intelligence</span>
+                            <span class="qava-signup-chip">♻️ B Corp Certified</span>
+                            <span class="qava-signup-chip">🖤 Black led or owned</span>
+                            <span class="qava-signup-chip">🛒 Direct-to-Consumer</span>
+                            <span class="qava-signup-chip">💥 Disruptor</span>
+                            <span class="qava-signup-chip">💵 FinTech</span>
+                            <span class="qava-signup-chip">📈 High Growth</span>
+                            <span class="qava-signup-chip">🪅 Hispanic led or owned</span>
+                            <span class="qava-signup-chip">🪶 Indigenous led or owned</span>
+                            <span class="qava-signup-chip">🏢 Large Enterprise</span>
+                            <span class="qava-signup-chip">🧘 Lifestyle</span>
+                            <span class="qava-signup-chip">🏳️‍🌈 LGBTQ+ led or owned</span>
+                            <span class="qava-signup-chip">💻 SaaS</span>
+                            <span class="qava-signup-chip">🧑‍💼 Services</span>
+                            <span class="qava-signup-chip">🌍 Social Impact</span>
+                            <span class="qava-signup-chip">🚀 Startups</span>
+                            <span class="qava-signup-chip">🔁 Subscription-Based</span>
+                            <span class="qava-signup-chip">🌳 Sustainable</span>
+                            <span class="qava-signup-chip">🦄 Tech Unicorns</span>
+                            <span class="qava-signup-chip">🦋 Transformation</span>
+                            <span class="qava-signup-chip">👩 Woman led or owned</span>
+                            <span class="qava-signup-chip">+ Add</span>
+                </div>
+                          <div class="qava-signup-groups" style="margin-top: 8px;">
+                            <label class="qava-signup-group-check"><input type="checkbox" disabled><span>Minority led or owned</span></label>
+                            <label class="qava-signup-group-check"><input type="checkbox" disabled><span>All</span></label>
+                </div>
+                        </article>
+
+                        <article class="qava-signup-question">
+                          <h4>Which city are you closest to?</h4>
+                          <p class="qava-signup-qsub">This helps us find you better matches</p>
+                          <input class="qava-client-input" type="text" value="New York, NY, United States" disabled />
+                          <div class="qava-client-subfields">
+                            <div class="qava-client-subfield"><span class="qava-client-subfield-label">Nearest City</span><span class="qava-client-subfield-value">New York City</span></div>
+                            <div class="qava-client-subfield"><span class="qava-client-subfield-label">State</span><span class="qava-client-subfield-value">New York</span></div>
+                            <div class="qava-client-subfield"><span class="qava-client-subfield-label">Country</span><span class="qava-client-subfield-value">United States</span></div>
+                </div>
+                        </article>
+                </div>
+                      <div class="qava-signup-actions">
+                        <button type="button" class="qava-signup-btn-back">Back</button>
+                        <button type="button" class="qava-signup-btn-next qava-signup-btn-icon" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+            </div>
+                </div>
+                  </section>
+                </div>
+              `;
+
+              const clientMain = dynamicContent.querySelector("#qava-client-main");
+              const clientSideMenu = dynamicContent.querySelector("#qava-client-side-menu");
+              const clientSignupHTML = clientMain ? clientMain.innerHTML : "";
+              const clientPlaceholder = (label) => `
+                <div class="qava-signup-illustration" style="align-items: center; justify-content: center;" aria-label="${label} preview">
+                  <div class="qava-showcase-main-placeholder">${label} preview coming next</div>
+                </div>
+              `;
+              const createListingHTML = `
+                <div class="qava-signup-illustration" aria-label="Create listing form preview illustration">
+                  <div class="qava-signup-sections">
+                    <section class="qava-create-section">
+                      <h4 class="qava-create-heading">I want to create a —</h4>
+                      <div class="qava-listing-type-grid">
+                        <div class="qava-listing-card selected">
+                          <div class="qava-listing-card-img" style="background-image: url('./Wave%20barrel.png');"></div>
+                          <div class="qava-listing-card-body">
+                            <div class="qava-listing-card-head">
+                              <span class="qava-listing-card-title">📘 Project</span>
+                              <input type="checkbox" class="qava-box-check" checked disabled>
+                </div>
+                            <p class="qava-listing-card-desc">Targeted short-term work with defined deliverables</p>
+            </div>
+                </div>
+                        <div class="qava-listing-card">
+                          <div class="qava-listing-card-img" style="background-image: url('./Ocean.png');"></div>
+                          <div class="qava-listing-card-body">
+                            <div class="qava-listing-card-head">
+                              <span class="qava-listing-card-title">🧑‍💼 Job</span>
+                              <input type="checkbox" class="qava-box-check" disabled>
+                </div>
+                            <p class="qava-listing-card-desc">Ongoing, compensated work with continuous responsibilities</p>
+            </div>
+                </div>
+                        <div class="qava-listing-card">
+                          <div class="qava-listing-card-img" style="background-image: url('./Sandy%20Trail.png');"></div>
+                          <div class="qava-listing-card-body">
+                            <div class="qava-listing-card-head">
+                              <span class="qava-listing-card-title">🎓 Internship</span>
+                              <input type="checkbox" class="qava-box-check" disabled>
+                </div>
+                            <p class="qava-listing-card-desc">Short-term learning opportunities with hands-on experience</p>
+            </div>
+                </div>
+                </div>
+                    </section>
+
+                    <div class="qava-create-row">
+                      <section class="qava-create-section">
+                        <h4 class="qava-create-heading">And I'd like to —</h4>
+                        <div class="qava-create-checklist">
+                          <label class="qava-create-check"><input type="checkbox" class="qava-box-check" checked disabled><span>Use Qava AI to write my first draft</span></label>
+                          <label class="qava-create-check"><input type="checkbox" class="qava-box-check" disabled><span>Write it on my own</span></label>
+                </div>
+                      </section>
+
+                      <section class="qava-create-section">
+                        <h4 class="qava-create-heading">Skill / experience level I am seeking <span class="req">*</span></h4>
+                        <div class="qava-skill-levels">
+                          <div class="qava-skill-level"><span class="qava-skill-emoji">🧠</span><span class="qava-skill-label">Basic</span></div>
+                          <div class="qava-skill-level"><span class="qava-skill-emoji">🚁</span><span class="qava-skill-label">Average</span></div>
+                          <div class="qava-skill-level active"><span class="qava-skill-emoji">✈️</span><span class="qava-skill-label">Strong</span></div>
+                          <div class="qava-skill-level"><span class="qava-skill-emoji">🚀</span><span class="qava-skill-label">Expert</span></div>
+                </div>
+                      </section>
+            </div>
+
+                    <section class="qava-create-section">
+                      <div class="qava-fixed-row">
+                        <div>
+                          <h5 class="qava-create-subhead">Fixed Hours <span class="req">*</span></h5>
+                          <div class="qava-fixed-fields">
+                            <div class="qava-fixed-field"><span class="qava-fixed-label">Work Hours</span><div class="qava-stepper">12</div></div>
+                            <div class="qava-fixed-field"><span class="qava-fixed-label">Q&amp;A Time</span><div class="qava-stepper">0.5</div></div>
+                            <div class="qava-fixed-field"><span class="qava-fixed-label">Total Hours</span><span class="qava-total-hours">12.5</span></div>
+        </div>
+                          <h5 class="qava-create-subhead" style="margin-top: 18px;">Hourly Rate <span class="req">*</span></h5>
+                          <p class="qava-fixed-note">The minimum hourly rate is $20</p>
+                          <div class="qava-rate-row">
+                            <div class="qava-stepper">$ 20</div>
+                            <label class="qava-create-check"><input type="checkbox" class="qava-box-check" disabled><span>This opportunity is unpaid</span></label>
+    </div>
+                </div>
+                        <div class="qava-rate-card">
+                          <div class="qava-rate-big">$20<span>/hr</span></div>
+                          <div class="qava-rate-sub">$250 total project value</div>
+                          <div class="qava-rate-bar"><span></span></div>
+                          <p class="qava-rate-desc">This rate works well for students and early-career talent who are eager to build their portfolio and gain hands-on, real-world project experience.</p>
+                </div>
+            </div>
+                    </section>
+
+                    <section class="qava-create-section">
+                      <h5 class="qava-create-subhead">AI Usage</h5>
+                      <p class="qava-fixed-note">Define how AI can be used on this project.</p>
+                      <div class="qava-ai-usage-row">
+                        <div class="qava-ai-usage-left">
+                          <span class="qava-fixed-label">Usage Level</span>
+                          <div class="qava-ai-wedge"><div class="qava-ai-wedge-marker"></div></div>
+                          <div class="qava-ai-wedge-labels">
+                            <span>No AI</span><span>Minimal</span><span class="active">Moderate</span><span>Heavy</span><span>AI-first</span>
+                </div>
+                    </div>
+                        <div>
+                          <p class="qava-ai-tools-title">Choose which AI tools talent can or cannot use.</p>
+                          <div class="qava-ai-tool-pills">
+                            <span class="qava-ai-pill allow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>ChatGPT</span>
+                            <span class="qava-ai-pill allow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Claude</span>
+                            <span class="qava-ai-pill allow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Gemini</span>
+                            <span class="qava-ai-pill allow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Perplexity</span>
+                            <span class="qava-ai-pill allow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Notion AI</span>
+                            <span class="qava-ai-pill allow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Microsoft Copilot</span>
+                            <span class="qava-ai-pill deny"><span class="mark">✕</span>Excel AI / Sheets AI</span>
+                            <span class="qava-ai-pill deny"><span class="mark">✕</span>DataRobot</span>
+                            <span class="qava-ai-pill deny"><span class="mark">✕</span>Pigment</span>
+                            <span class="qava-ai-pill deny"><span class="mark">✕</span>AlphaSense</span>
+                            <span class="qava-ai-pill deny"><span class="mark">✕</span>Figma AI</span>
+                            <span class="qava-ai-pill deny"><span class="mark">✕</span>Miro AI</span>
+                            <span class="qava-ai-pill deny"><span class="mark">✕</span>Gamma</span>
+                            <span class="qava-ai-pill deny"><span class="mark">✕</span>Tome</span>
+                            <span class="qava-ai-pill deny"><span class="mark">+</span></span>
+                    </div>
+                    </div>
+                    </div>
+                    </section>
+
+                    <section class="qava-create-section">
+                      <h4 class="qava-create-heading">Ideal Applicants <span class="req">*</span></h4>
+                      <div class="qava-create-checklist cols-2">
+                        <label class="qava-create-check"><input type="checkbox" class="qava-box-check" checked disabled><span>Experienced professional (5+ years)</span></label>
+                        <label class="qava-create-check"><input type="checkbox" class="qava-box-check" checked disabled><span>Current student (MBA or other)</span></label>
+                        <label class="qava-create-check"><input type="checkbox" class="qava-box-check" checked disabled><span>Career changer exploring a new field</span></label>
+                        <label class="qava-create-check"><input type="checkbox" class="qava-box-check" checked disabled><span>Startup founder or early-stage operator</span></label>
+                        <label class="qava-create-check"><input type="checkbox" class="qava-box-check" disabled><span>Other</span></label>
+                    </div>
+                    </section>
+                    </div>
+                  <div class="qava-signup-actions">
+                    <button type="button" class="qava-signup-btn-back">Back</button>
+                    <button type="button" class="qava-signup-btn-next qava-signup-btn-icon" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+                </div>
+            </div>
+              `;
+
+              const reviewApplicants = [
+                {
+                  name: "Mateo Rivera",
+                  badge: "Pending decision",
+                  available: "19 May 2026",
+                  coverLetter: [
+                    "What excites me most about this opportunity is the chance to contribute to an innovative startup that is redefining how cat owners approach pet health and well-being. As a lifelong cat owner, I am especially drawn to the mission-driven aspect of the role and the chance to create content that educates and supports pet owners.",
+                    "With my background in brand development and commercial operations, I am eager to combine creativity with strategic thinking in a fast-paced environment. I look forward to contributing through market research, content creation, and insight generation while learning from industry experts."
+                  ],
+                  wants: ["🔨 Build experience", "🌱 Learn by doing", "🌐 Grow network", "✋ Flex my skills", "✨ Make impact"],
+                  school: { logo: "STAN", name: "Stanford GSB", degree: "MBA · 2026" },
+                  email: "mateo.rivera@stanford.edu",
+                  phone: "+1 (650) 555-0142",
+                  attachments: ["MateoRivera_Resume.pdf", "MateoRivera_Testimonial.pdf"]
+                },
+                {
+                  name: "Priya Anand",
+                  badge: "Pending decision",
+                  available: "2 Jun 2026",
+                  coverLetter: [
+                    "I have spent the last three years turning messy consumer data into clear product decisions, and a pet health startup is exactly where I want to apply that lens next. Understanding how owners actually care for their cats — and where they get stuck — is a problem I find genuinely fascinating.",
+                    "I would love to help shape your content and growth experiments, bringing a rigorous, test-and-learn approach while staying close to the customer voice throughout."
+                  ],
+                  wants: ["📈 Build a portfolio", "🌐 Grow network", "🎯 Make impact"],
+                  school: { logo: "WH", name: "The Wharton School", degree: "MBA · 2025" },
+                  email: "priya.anand@wharton.upenn.edu",
+                  phone: "+1 (215) 555-0188",
+                  attachments: ["PriyaAnand_Resume.pdf", "PriyaAnand_Portfolio.pdf"]
+                },
+                {
+                  name: "Liam O'Connor",
+                  badge: "Pending decision",
+                  available: "26 May 2026",
+                  coverLetter: [
+                    "Growth marketing for early-stage D2C brands is what gets me out of bed, and the pet wellness space is one of the most loyal, community-driven categories out there. I am excited by the idea of building a brand that cat owners genuinely trust.",
+                    "I can move quickly across channels — paid, lifecycle, and content — and I enjoy the scrappiness of a small team where everyone owns the outcome."
+                  ],
+                  wants: ["🚀 Move fast", "🔨 Build experience", "🌱 Learn by doing"],
+                  school: { logo: "LBS", name: "London Business School", degree: "MBA · 2026" },
+                  email: "liam.oconnor@london.edu",
+                  phone: "+44 20 7555 0173",
+                  attachments: ["LiamOConnor_Resume.pdf"]
+                },
+                {
+                  name: "Sofia Marchetti",
+                  badge: "Pending decision",
+                  available: "9 Jun 2026",
+                  coverLetter: [
+                    "Coming from strategy consulting in healthcare, I have seen how powerful clear positioning can be for a mission-led company. A startup focused on cat health sits at the intersection of two things I care about deeply: wellbeing and thoughtful brand building.",
+                    "I would bring structured thinking and a bias for action, and I am keen to get hands-on with research and go-to-market work rather than staying in the slide deck."
+                  ],
+                  wants: ["🌐 Grow network", "✋ Flex my skills", "✨ Make impact"],
+                  school: { logo: "INSD", name: "INSEAD", degree: "MBA · 2026" },
+                  email: "sofia.marchetti@insead.edu",
+                  phone: "+33 1 5555 0120",
+                  attachments: ["SofiaMarchetti_Resume.pdf", "SofiaMarchetti_Testimonial.pdf"]
+                },
+                {
+                  name: "Noah Kim",
+                  badge: "Pending decision",
+                  available: "23 May 2026",
+                  coverLetter: [
+                    "I sit at the crossroads of product and data, and I have been building with AI tools long before it was fashionable. The chance to help a cat health startup ship content and features that owners actually use is exactly the kind of problem I want to work on.",
+                    "I learn fastest by building, and I would love to prototype quickly, measure honestly, and iterate alongside your founding team."
+                  ],
+                  wants: ["🧪 Test new ideas", "🔨 Build experience", "📚 Learn by doing"],
+                  school: { logo: "MIT", name: "MIT Sloan", degree: "MBA · 2025" },
+                  email: "noah.kim@mit.edu",
+                  phone: "+1 (617) 555-0199",
+                  attachments: ["NoahKim_Resume.pdf"]
+                },
+                {
+                  name: "Amara Okafor",
+                  badge: "Pending decision",
+                  available: "5 Jun 2026",
+                  coverLetter: [
+                    "My background blends finance and operations with a long-standing commitment to social impact, and I believe pet wellbeing is a deeply human story worth telling well. I am excited by founders who pair ambition with genuine care for their community.",
+                    "I would love to support both the numbers and the narrative — helping make sure the content we create is grounded, trustworthy, and built to scale."
+                  ],
+                  wants: ["✨ Make impact", "🌐 Grow network", "🌱 Learn by doing"],
+                  school: { logo: "BTH", name: "Chicago Booth", degree: "MBA · 2026" },
+                  email: "amara.okafor@chicagobooth.edu",
+                  phone: "+1 (312) 555-0157",
+                  attachments: ["AmaraOkafor_Resume.pdf", "AmaraOkafor_Testimonial.pdf"]
+                },
+                {
+                  name: "Ethan Walsh",
+                  badge: "Pending decision",
+                  available: "30 May 2026",
+                  coverLetter: [
+                    "Storytelling is my craft. I have spent my career helping brands find a voice that feels human, and there are few audiences as passionate as cat owners. I would relish the chance to shape how this startup speaks to its community.",
+                    "From editorial to social to long-form, I love turning a clear strategy into content people actually want to share."
+                  ],
+                  wants: ["🔨 Build experience", "✋ Flex my skills", "🌐 Grow network"],
+                  school: { logo: "CBS", name: "Columbia Business School", degree: "MBA · 2026" },
+                  email: "ethan.walsh@gsb.columbia.edu",
+                  phone: "+1 (212) 555-0166",
+                  attachments: ["EthanWalsh_Resume.pdf"]
+                },
+                {
+                  name: "Yuki Tanaka",
+                  badge: "Pending decision",
+                  available: "12 Jun 2026",
+                  coverLetter: [
+                    "I specialize in market research for consumer brands, and understanding the everyday rituals of cat owners is the kind of nuanced work I find most rewarding. Small insights often unlock the biggest content ideas.",
+                    "I would be excited to bring a curious, evidence-led approach to your team and help translate what owners need into a content plan that resonates."
+                  ],
+                  wants: ["📚 Learn by doing", "✨ Make impact", "🌱 Build a network"],
+                  school: { logo: "HEC", name: "HEC Paris", degree: "MBA · 2026" },
+                  email: "yuki.tanaka@hec.edu",
+                  phone: "+33 1 5555 0184",
+                  attachments: ["YukiTanaka_Resume.pdf", "YukiTanaka_Testimonial.pdf"]
+                },
+                {
+                  name: "Hannah Berg",
+                  badge: "Pending decision",
+                  available: "16 Jun 2026",
+                  coverLetter: [
+                    "I come from the nonprofit and sustainability world, where every message has to earn trust. A cat health startup that genuinely wants to help owners do right by their pets is exactly the kind of mission I want to put my energy behind.",
+                    "I would love to help build content that is honest, useful, and rooted in real care for both animals and the people who love them."
+                  ],
+                  wants: ["✨ Make impact", "🌐 Grow network", "🔨 Build experience"],
+                  school: { logo: "YALE", name: "Yale SOM", degree: "MBA · 2025" },
+                  email: "hannah.berg@yale.edu",
+                  phone: "+1 (203) 555-0131",
+                  attachments: ["HannahBerg_Resume.pdf"]
+                }
+              ];
+
+              const reviewDecisionBlock = `
+                <div class="qava-review-card">
+                  <div class="qava-review-card-label caps">Decision</div>
+                  <p class="qava-fixed-note">Choose one action for this candidate.</p>
+                  <div class="qava-decision-grid">
+                    <div class="qava-decision-option"><input type="checkbox" class="qava-box-check" disabled><div><div class="qava-decision-title">Select applicant</div><div class="qava-decision-desc">Move forward with this candidate.</div></div></div>
+                    <div class="qava-decision-option"><input type="checkbox" class="qava-box-check" disabled><div><div class="qava-decision-title">Decline applicant</div><div class="qava-decision-desc">Do not move forward with this candidate.</div></div></div>
+                    <div class="qava-decision-option"><input type="checkbox" class="qava-box-check" disabled><div><div class="qava-decision-title">Request more time</div><div class="qava-decision-desc">Still under review; notify talent more time is needed.</div></div></div>
+                  </div>
+                  <button type="button" class="qava-review-confirm">Confirm decision</button>
+                </div>
+              `;
+
+              const renderApplicantContent = (app) => `
+                <div class="qava-review-card">
+                  <div class="qava-review-card-label">Available from ${app.available}</div>
+                  <div class="qava-review-letter">${app.coverLetter.map((p) => "<p>" + p + "</p>").join("")}</div>
+                </div>
+                <div class="qava-review-card">
+                  <div class="qava-review-card-label bold">Talent would like to</div>
+                  <div class="qava-signup-chips">${app.wants.map((w) => '<span class="qava-signup-chip">' + w + "</span>").join("")}</div>
+                </div>
+                <div class="qava-review-row">
+                  <div class="qava-review-card">
+                    <div class="qava-review-card-label">Education</div>
+                    <div class="qava-edu-row">
+                      <div class="qava-edu-logo">${app.school.logo}</div>
+                      <div>
+                        <div class="qava-edu-name">${app.school.name}</div>
+                        <div class="qava-edu-sub">${app.school.degree}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="qava-review-card">
+                    <div class="qava-review-card-label">Contact</div>
+                    <div class="qava-contact-line">${app.email}</div>
+                    <div class="qava-contact-line">${app.phone}</div>
+                  </div>
+                </div>
+                <div class="qava-review-card">
+                  <div class="qava-review-card-label">Attachments</div>
+                  <div class="qava-resume-files">${app.attachments.map((f) => '<span class="qava-resume-file"><span class="qava-pdf-badge">PDF</span>' + f + "</span>").join("")}</div>
+                </div>
+                ${reviewDecisionBlock}
+              `;
+
+              const renderReviewRail = (selectedIndex) => reviewApplicants.map((app, i) => `
+                <div class="qava-applicant-card${i === selectedIndex ? " selected" : ""}" data-index="${i}">
+                  <svg class="qava-applicant-clip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+                  <div class="qava-applicant-name">${app.name}</div>
+                  <span class="qava-applicant-badge">${app.badge}</span>
+                </div>
+              `).join("");
+
+              const reviewApplicantsHTML = `
+                <div class="qava-signup-illustration" aria-label="Review applicants preview illustration">
+                  <div class="qava-review-head">
+                    <span class="qava-review-listing">📁 Marketing Internship at Cat Health Startup</span>
+                    <p class="qava-review-applied">${reviewApplicants.length} applied via qava</p>
+                  </div>
+                  <div class="qava-review-body">
+                    <aside class="qava-review-rail">
+                      <div class="qava-review-rail-head">
+                        <span class="qava-review-rail-title">Applicants</span>
+                      </div>
+                      <div class="qava-review-applicant-list" id="qava-review-rail-list">
+                        ${renderReviewRail(0)}
+                      </div>
+                    </aside>
+                    <div class="qava-review-content" id="qava-review-content">
+                      ${renderApplicantContent(reviewApplicants[0])}
+                    </div>
+                  </div>
+                </div>
+              `;
+
+              const wireReview = (container) => {
+                const list = container.querySelector("#qava-review-rail-list");
+                const content = container.querySelector("#qava-review-content");
+                if (!list || !content) return;
+                list.querySelectorAll(".qava-applicant-card").forEach((card) => {
+                  card.addEventListener("click", () => {
+                    const idx = parseInt(card.getAttribute("data-index"), 10);
+                    list.querySelectorAll(".qava-applicant-card").forEach((c) => c.classList.remove("selected"));
+                    card.classList.add("selected");
+                    content.innerHTML = renderApplicantContent(reviewApplicants[idx]);
+                  });
+                });
+              };
+
+              const templatesHTML = `
+                <div class="qava-signup-illustration" aria-label="Templates preview illustration">
+                  <h2 class="qava-templates-title">Templates</h2>
+                  <p class="qava-templates-sub">Ready-to-use templates for every goal.</p>
+                  <div class="qava-templates-divider"></div>
+                  <div class="qava-templates-grid">
+                    <div class="qava-template-card">
+                      <div class="qava-template-img" style="background-image: url('./Project%20Kick%20Off.png');"></div>
+                      <div class="qava-template-name">Project Kick Off</div>
+                      <div class="qava-template-desc">Template for starting new projects with clear objectives and team alignment</div>
+                      <button type="button" class="qava-template-btn">Download Template</button>
+                    </div>
+                    <div class="qava-template-card">
+                      <div class="qava-template-img" style="background-image: url('./Project%20Status%20Updates.png');"></div>
+                      <div class="qava-template-name">Project Status Updates</div>
+                      <div class="qava-template-desc">Regular status reporting template for project progress tracking</div>
+                      <button type="button" class="qava-template-btn">Download Template</button>
+                    </div>
+                    <div class="qava-template-card">
+                      <div class="qava-template-img" style="background-image: url('./Project%20Plan.png');"></div>
+                      <div class="qava-template-name">Project Plan</div>
+                      <div class="qava-template-desc">Comprehensive project planning template with timelines and milestones</div>
+                      <button type="button" class="qava-template-btn">Download Template</button>
+                    </div>
+                    <div class="qava-template-card">
+                      <div class="qava-template-img" style="background-image: url('./Project%20Closeout.png');"></div>
+                      <div class="qava-template-name">Project Closeout</div>
+                      <div class="qava-template-desc">Template for wrapping up projects with lessons learned and deliverables</div>
+                      <button type="button" class="qava-template-btn">Download Template</button>
+                    </div>
+                    <div class="qava-template-card">
+                      <div class="qava-template-img" style="background-image: url('./Project%20Feedback.png');"></div>
+                      <div class="qava-template-name">Performance Feedback</div>
+                      <div class="qava-template-desc">Template for providing constructive performance reviews and feedback</div>
+                      <button type="button" class="qava-template-btn">Download Template</button>
+                    </div>
+                    <div class="qava-template-card">
+                      <div class="qava-template-img" style="background-image: url('./Team%20Retrospective.png');"></div>
+                      <div class="qava-template-name">Team Retrospective</div>
+                      <div class="qava-template-desc">Template for team reflection and continuous improvement sessions</div>
+                      <button type="button" class="qava-template-btn">Download Template</button>
+                    </div>
+                  </div>
+                </div>
+              `;
+
+              const feedbackStars = `
+                <div class="qava-feedback-stars">
+                  <svg viewBox="0 0 24 24" fill="#111827" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg viewBox="0 0 24 24" fill="#111827" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg viewBox="0 0 24 24" fill="#111827" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg viewBox="0 0 24 24" fill="#111827" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg viewBox="0 0 24 24" fill="#111827" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+              `;
+
+              const feedbackHTML = `
+                <div class="qava-signup-illustration" aria-label="Feedback form preview illustration">
+                  <h3 class="qava-signup-title">How did the collaboration go?</h3>
+                  <div class="qava-signup-sections">
+                    <article class="qava-signup-question">
+                      <h4>How effective was the communication?</h4>
+                      ${feedbackStars}
+                      <div class="qava-feedback-text">Communication was clear, proactive, and consistently on time. Updates were shared regularly and every question was answered thoughtfully — it always felt like we were on the same page.</div>
+                    </article>
+
+                    <article class="qava-signup-question">
+                      <h4>How would you rate the quality of the work?</h4>
+                      ${feedbackStars}
+                      <div class="qava-feedback-text">The quality of the work exceeded expectations — thorough, well-structured, and polished. The deliverables were insightful and ready to use with barely any revisions needed.</div>
+                    </article>
+
+                    <article class="qava-signup-question">
+                      <h4>What was the level of initiative taken?</h4>
+                      ${feedbackStars}
+                      <div class="qava-feedback-text">Showed outstanding initiative, anticipating needs and suggesting improvements without being asked. Took genuine ownership of the project from start to finish.</div>
+                    </article>
+                  </div>
+                  <div class="qava-signup-actions">
+                    <button type="button" class="qava-signup-btn-back">Back</button>
+                    <button type="button" class="qava-signup-btn-next qava-signup-btn-icon" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+                  </div>
+                </div>
+              `;
+
+              const clientSteps = {
+                signup: clientSignupHTML,
+                post: createListingHTML,
+                review: reviewApplicantsHTML,
+                collaborate: templatesHTML,
+                pay: feedbackHTML
+              };
+
+              if (clientSideMenu && clientMain) {
+                const menuIndicator = clientSideMenu.querySelector("#qava-client-menu-indicator");
+                const moveIndicator = (btn) => {
+                  if (!menuIndicator || !btn) return;
+                  menuIndicator.style.height = btn.offsetHeight + "px";
+                  menuIndicator.style.transform = "translateY(" + btn.offsetTop + "px)";
+                };
+
+                const activeBtn = clientSideMenu.querySelector(".qava-side-menu-item.active");
+                requestAnimationFrame(() => moveIndicator(activeBtn));
+
+                clientMain.addEventListener("scroll", (e) => {
+                  const scrolled = e.target && e.target.scrollTop > 4;
+                  clientMain.classList.toggle("qava-dots-hidden", scrolled);
+                }, true);
+
+                clientSideMenu.querySelectorAll(".qava-side-menu-item").forEach((btn) => {
+                  btn.addEventListener("click", () => {
+                    clientSideMenu.querySelectorAll(".qava-side-menu-item").forEach((item) => item.classList.remove("active"));
+                    btn.classList.add("active");
+                    moveIndicator(btn);
+                    const step = btn.getAttribute("data-step");
+                    clientMain.innerHTML = clientSteps[step] || clientSignupHTML;
+                    if (step === "review") wireReview(clientMain);
+                    clientMain.classList.remove("qava-dots-hidden");
+                        });
+                    });
+              }
+            };
+
+            renderShowcaseView("talent");
+
+            const audienceRadios = doc.querySelectorAll("input[name='qava-audience-toggle']");
+            audienceRadios.forEach((radio) => {
+              radio.addEventListener("change", () => {
+                if (radio.checked) renderShowcaseView(radio.value);
+              });
+            });
+          }
+
+          const universityLogosRow = doc.querySelector(".feature-cards-logos");
+          if (showcaseBox && universityLogosRow) {
+            if (!universityLogosRow.getAttribute("data-qava-intermingled")) {
+              universityLogosRow.setAttribute("data-qava-intermingled", "true");
+
+              const aiTools = [
+                { src: "./qava-tool-openai.png", alt: "ChatGPT" },
+                { src: "./qava-tool-claude.png", alt: "Claude" },
+                { src: "./qava-tool-gemini.png", alt: "Gemini" },
+                { src: "./qava-tool-copilot.png", alt: "Microsoft Copilot" },
+                { src: "./qava-tool-notion.svg", alt: "Notion", h: 22 },
+                { src: "./qava-tool-airtable.png", alt: "Airtable", h: 18 }
+              ];
+
+              const uniItems = Array.from(universityLogosRow.querySelectorAll(".feature-logo-item"));
+              const aiItems = aiTools.map((t) => {
+                const item = doc.createElement("div");
+                item.className = "feature-logo-item qava-ai-logo-item";
+                const img = doc.createElement("img");
+                img.src = t.src;
+                img.alt = t.alt;
+                if (t.h) img.style.height = t.h + "px";
+                item.appendChild(img);
+                return item;
+              });
+
+              const combined = [];
+              const maxLen = Math.max(uniItems.length, aiItems.length);
+              for (let i = 0; i < maxLen; i++) {
+                if (uniItems[i]) combined.push(uniItems[i]);
+                if (aiItems[i]) combined.push(aiItems[i]);
+              }
+
+              universityLogosRow.innerHTML = "";
+              universityLogosRow.style.flexDirection = "column";
+              universityLogosRow.style.gap = "16px";
+
+              const half = Math.ceil(combined.length / 2);
+              let logoAnimIdx = 0;
+              [combined.slice(0, half), combined.slice(half)].forEach((items) => {
+                const row = doc.createElement("div");
+                row.className = "qava-logos-row";
+                items.forEach((it) => {
+                  it.classList.add("qava-logo-anim");
+                  it.style.transitionDelay = (logoAnimIdx * 75) + "ms";
+                  logoAnimIdx++;
+                  row.appendChild(it);
+                });
+                universityLogosRow.appendChild(row);
+              });
+
+              const logoAnimItems = Array.from(universityLogosRow.querySelectorAll(".qava-logo-anim"));
+              const revealLogoItems = () => {
+                const win = window;
+                const vh = win ? win.innerHeight : 800;
+                logoAnimItems.forEach((item) => {
+                  item.classList.remove("qava-logo-in");
+                  item.style.transition = "none";
+                  item.style.transform = "translateY(0)";
+                  item.style.opacity = "0";
+                });
+                if (doc.documentElement) {
+                  doc.documentElement.getBoundingClientRect();
+                }
+                logoAnimItems.forEach((item, idx) => {
+                  const top = item.getBoundingClientRect().top;
+                  const rise = Math.max(Math.round(vh - top + 36), 72);
+                  item.style.setProperty("--logo-rise-from", rise + "px");
+                  item.style.removeProperty("transform");
+                  item.style.removeProperty("opacity");
+                  item.style.transition = "";
+                  item.style.transitionDelay = (idx * 75) + "ms";
+                });
+                win.requestAnimationFrame(() => {
+                  win.requestAnimationFrame(() => {
+                    logoAnimItems.forEach((it) => it.classList.add("qava-logo-in"));
+                  });
+                });
+              };
+              const IOClass = window && window.IntersectionObserver;
+              if (IOClass && logoAnimItems.length) {
+                const logoObserver = new IOClass((entries) => {
+                  entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
+                    revealLogoItems();
+                    logoObserver.disconnect();
+                  });
+                }, { threshold: 0.15 });
+                logoObserver.observe(universityLogosRow);
+              } else {
+                revealLogoItems();
+              }
+            }
+
+            let logosAnchor = doc.getElementById("qava-moved-logos-anchor");
+            if (!logosAnchor) {
+              logosAnchor = doc.createElement("section");
+              logosAnchor.id = "qava-moved-logos-anchor";
+            }
+
+            logosAnchor.style.display = "flex";
+            logosAnchor.style.flexDirection = "column";
+            logosAnchor.style.justifyContent = "center";
+            logosAnchor.style.alignItems = "center";
+            logosAnchor.style.width = "100%";
+            logosAnchor.style.paddingTop = "0";
+            logosAnchor.style.paddingBottom = "64px";
+            logosAnchor.style.margin = "0";
+
+            showcaseBox.insertAdjacentElement("afterend", logosAnchor);
+            let spacer = doc.getElementById("qava-logos-top-spacer");
+            if (!spacer) {
+              spacer = doc.createElement("div");
+              spacer.id = "qava-logos-top-spacer";
+            }
+            spacer.style.width = "100%";
+            spacer.style.height = "88px";
+            spacer.style.flex = "0 0 auto";
+
+            let testimonial = doc.getElementById("qava-logos-testimonial");
+            if (!testimonial) {
+              testimonial = doc.createElement("div");
+              testimonial.id = "qava-logos-testimonial";
+              testimonial.className = "qava-logos-testimonial";
+              testimonial.innerHTML = `
+                <p class="qava-testimonial-quote">&ldquo;My one-stop-shop for flexible talent that rips!&rdquo;</p>
+                <p class="qava-testimonial-author">Marcus Bennett</p>
+                <p class="qava-testimonial-role">Chief Revenue Officer, Northwind Labs</p>
+              `;
+            }
+
+            logosAnchor.appendChild(spacer);
+            logosAnchor.appendChild(testimonial);
+            logosAnchor.appendChild(universityLogosRow);
+
+            if (!doc.getElementById("qava-calc-section")) {
+              const checkSvg = '<svg width="11" height="9" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+              const arrowSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
+              const calcCols = [
+                { title: "Core Strategies", icon: "🧭", items: [
+                  { n: "Business Plan", e: "🚀", h: 12, c: true },
+                  { n: "Financial Model", e: "📊", h: 9, c: true },
+                  { n: "Competitor Analysis", e: "🔍", h: 7, c: true },
+                  { n: "Industry Analysis", e: "🔎", h: 8, c: true },
+                  { n: "Pitch Deck", e: "🚀", h: 5 },
+                  { n: "Pricing Strategy", e: "💲", h: 8 },
+                  { n: "Product Strategy", e: "👤", h: 8 },
+                  { n: "Customer Segmentation", e: "🎯", h: 8, c: true },
+                  { n: "Cost Optimization", e: "💸", h: 8 },
+                  { n: "Grant Application", e: "💰", h: 7 }
+                ] },
+                { title: "Growth Strategies", icon: "📈", items: [
+                  { n: "Go-To-Market Strategy", e: "📍", h: 11, c: true },
+                  { n: "Sales & Marketing Strategy", e: "💰", h: 11, c: true },
+                  { n: "Growth Plan", e: "🌱", h: 10 },
+                  { n: "Partnership Strategy", e: "🤝", h: 9, c: true },
+                  { n: "Creative Strategy", e: "🧠", h: 9 },
+                  { n: "Strategic Finance", e: "💼", h: 10 },
+                  { n: "Innovation Projects", e: "💡", h: 12 },
+                  { n: "Organizational Design", e: "🧩", h: 11 },
+                  { n: "Supply Chain Analysis", e: "🚚", h: 9 },
+                  { n: "Virtual Workshop", e: "🖥️", h: 4 }
+                ] },
+                { title: "Advanced Strategies", icon: "⚙️", items: [
+                  { n: "Digital Transformation", e: "🦋", h: 14 },
+                  { n: "Cyber Security", e: "🛡️", h: 11 },
+                  { n: "Data Analysis", e: "📊", h: 6 },
+                  { n: "Data Strategy", e: "🗂️", h: 10 },
+                  { n: "System Migration", e: "💻", h: 10 },
+                  { n: "Operating Model Design", e: "💼", h: 13 },
+                  { n: "Process Improvement", e: "⚙️", h: 7 },
+                  { n: "Technology Rationalization", e: "🖥️", h: 8 },
+                  { n: "Tariff Impact Assessment", e: "🌎", h: 6 },
+                  { n: "Vendor Strategy", e: "🚛", h: 7 }
+                ] }
+              ];
+
+              const calcSection = doc.createElement("section");
+              calcSection.id = "qava-calc-section";
+              calcSection.className = "qava-calc-section";
+              calcSection.innerHTML = `
+                <div class="qava-calc-header">
+                  <h2 class="qava-calc-title">More value. More control.</h2>
+                  <p class="qava-calc-sub">On-demand talent to fill gaps or start a fresh idea from scratch.</p>
+                  <a class="qava-calc-pricing" href="https://qava.ai/pricing">See pricing plans ${arrowSvg}</a>
+                </div>
+                <div class="qava-calc-body">
+                <div class="qava-calc-grid">
+                  ${calcCols.map((col) => `
+                    <div class="qava-calc-col">
+                      <div class="qava-calc-col-title">${col.title}</div>
+                      <div class="qava-calc-list">
+                        ${col.items.map((it) => `
+                          <div class="qava-calc-item${it.c ? " checked" : ""}" data-hours="${it.h}">
+                            <span class="qava-calc-box">${checkSvg}</span>
+                            <span class="qava-calc-label">${it.n} ${it.e}</span>
+                          </div>`).join("")}
+                      </div>
+                    </div>`).join("")}
+                </div>
+                <div class="qava-calc-results">
+                  <div class="qava-calc-result">
+                    <div class="qava-calc-result-label">Estimated consultant fees</div>
+                    <div class="qava-calc-result-value fees" id="qava-calc-fees">$0</div>
+                  </div>
+                  <div class="qava-calc-divider"></div>
+                  <div class="qava-calc-result">
+                    <div class="qava-calc-result-label">Estimated savings</div>
+                    <div class="qava-calc-result-value" id="qava-calc-savings">$0</div>
+                  </div>
+                  <div class="qava-calc-divider"></div>
+                  <div class="qava-calc-result">
+                    <div class="qava-calc-result-label">Estimated time saved</div>
+                    <div class="qava-calc-result-value" id="qava-calc-time">0 hours</div>
+                  </div>
+                </div>
+                </div>
+              `;
+
+              logosAnchor.insertAdjacentElement("afterend", calcSection);
+              logosAnchor.style.paddingBottom = "0px";
+
+              const calcCurrent = { fees: 0, savings: 0, hours: 0 };
+              const calcTimers = {};
+
+              const formatCalc = (key, value) => {
+                if (key === "hours") {
+                  return value + (value === 1 ? " hour" : " hours");
+                }
+                return "$" + value.toLocaleString();
+              };
+
+              const animateCalc = (key, el, end) => {
+                if (calcTimers[key]) {
+                  cancelAnimationFrame(calcTimers[key]);
+                }
+                const start = calcCurrent[key];
+                if (start === end) {
+                  el.textContent = formatCalc(key, end);
+                  return;
+                }
+                const range = end - start;
+                const duration = 650;
+                const startTime = performance.now();
+                const step = (now) => {
+                  const progress = Math.min((now - startTime) / duration, 1);
+                  const eased = progress < 0.5
+                    ? 2 * progress * progress
+                    : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+                  const current = Math.round(start + range * eased);
+                  el.textContent = formatCalc(key, current);
+                  if (progress < 1) {
+                    calcTimers[key] = requestAnimationFrame(step);
+                  } else {
+                    el.textContent = formatCalc(key, end);
+                  }
+                };
+                calcTimers[key] = requestAnimationFrame(step);
+                calcCurrent[key] = end;
+              };
+
+              const feesEl = calcSection.querySelector("#qava-calc-fees");
+              const savingsEl = calcSection.querySelector("#qava-calc-savings");
+              const timeEl = calcSection.querySelector("#qava-calc-time");
+
+              const recalcCalc = () => {
+                let hours = 0;
+                calcSection.querySelectorAll(".qava-calc-item.checked").forEach((el) => {
+                  hours += parseInt(el.getAttribute("data-hours"), 10) || 0;
+                });
+                const fees = hours * 150;
+                const savings = fees - hours * 79;
+                animateCalc("fees", feesEl, fees);
+                animateCalc("savings", savingsEl, savings);
+                animateCalc("hours", timeEl, hours);
+              };
+
+              calcSection.querySelectorAll(".qava-calc-item").forEach((item) => {
+                item.addEventListener("click", () => {
+                  item.classList.toggle("checked");
+                  recalcCalc();
+                });
+              });
+
+              // Scroll-triggered fill animation: start cleared, then check boxes
+              // one-by-one (Core top->bottom, then Growth top->bottom) while the
+              // estimate totals count upward.
+              const calcCheckedItems = Array.from(calcSection.querySelectorAll(".qava-calc-item.checked"));
+              calcCheckedItems.forEach((it) => it.classList.remove("checked"));
+              recalcCalc();
+
+              const playCalcFill = () => {
+                calcCheckedItems.forEach((it, idx) => {
+                  setTimeout(() => {
+                    it.classList.add("checked");
+                    recalcCalc();
+                  }, 200 * (idx + 1));
+                });
+              };
+
+              const CalcIO = window && window.IntersectionObserver;
+              if (CalcIO && calcCheckedItems.length) {
+                let calcFilled = false;
+                const calcGrid = calcSection.querySelector(".qava-calc-grid");
+                const calcObserver = new CalcIO((entries) => {
+                  entries.forEach((entry) => {
+                    if (entry.isIntersecting && !calcFilled) {
+                      calcFilled = true;
+                      calcObserver.disconnect();
+                      playCalcFill();
+                    }
+                  });
+                }, { threshold: 0.2 });
+                calcObserver.observe(calcGrid || calcSection);
+              } else {
+                calcCheckedItems.forEach((it) => it.classList.add("checked"));
+                recalcCalc();
+              }
+
+              const stories = [
+                { quote: "Qava has saved me valuable time, and I get to work with a diverse pool of fresh, bright perspectives on targeted problems.", logo: "./Testimonial%20company%20logos/mmento%20logo.svg", h: 22, name: "Founder &amp; CEO" },
+                { quote: "We streamlined our workflows and accelerated our sales cycle using incredible interns and AI.", logo: "./Testimonial%20company%20logos/Boon.svg", crop: true, name: "Chief Revenue Officer" },
+                { quote: "I used Qava to set up our P&amp;L with charts showing where our revenue is growing and how our expenses are trending.", logo: "./Testimonial%20company%20logos/The%20Rise%20Group%20Square%20Logo.svg", h: 26, name: "CEO" },
+                { quote: "Working with startups gave me hands-on experience that no case study could match. I helped build go-to-market strategies that actually launched products.", logo: "./Landing%20Page%20Trusted%20by/Kellogg.png", h: 32, name: "Kellogg School of Management", sub: "Class of 2024" },
+                { quote: "I helped companies raise capital. I built pitch decks and financial models. This experience accelerated my career by 10 years.", logo: "./Landing%20Page%20Trusted%20by/Wharton.png", h: 32, name: "The Wharton School", sub: "Class of 2023" },
+                { quote: "I worked on real strategic projects for growing companies that I will stay in touch with for years to come.", logo: "./Testimonial%20images/Columbia%20Business%20School%20Logo%202.png", h: 32, name: "Columbia Business School", sub: "Class of 2024" }
+              ];
+
+              const storiesSection = doc.createElement("section");
+              storiesSection.id = "qava-stories-section";
+              storiesSection.className = "qava-stories-section";
+              storiesSection.innerHTML = `
+                <h2 class="qava-stories-title">Trusted by doers.</h2>
+                <p class="qava-stories-sub">98% of users would strongly recommend Qava.</p>
+                <div class="qava-stories-grid">
+                  ${stories.map((s) => `
+                    <div class="qava-story-card">
+                      <div class="qava-story-stars">★★★★★</div>
+                      <p class="qava-story-quote">${s.quote}</p>
+                      <div class="qava-story-attr">
+                        ${s.crop
+                          ? `<div class="qava-story-logo-crop"><img class="qava-story-logo" src="${s.logo}" alt=""></div>`
+                          : `<img class="qava-story-logo" src="${s.logo}" alt="" style="height:${s.h}px">`}
+                        <span class="qava-story-name">${s.name}</span>
+                        ${s.sub ? `<span class="qava-story-sub">${s.sub}</span>` : ""}
+                      </div>
+                    </div>`).join("")}
+                </div>
+              `;
+              calcSection.insertAdjacentElement("afterend", storiesSection);
+
+              const storyCards = Array.from(storiesSection.querySelectorAll(".qava-story-card"));
+              storyCards.forEach((card) => card.classList.add("qava-story-reveal"));
+              const storyRevealReduced = win.matchMedia("(prefers-reduced-motion: reduce)").matches;
+              if (storyRevealReduced) {
+                storyCards.forEach((card) => card.classList.add("is-visible"));
+              } else {
+                const storyRevealObserver = new IntersectionObserver(
+                  (entries) => {
+                    entries.forEach((entry) => {
+                      if (!entry.isIntersecting) return;
+                      storyRevealObserver.unobserve(entry.target);
+                      storyCards.forEach((card, index) => {
+                        card.style.setProperty("--story-reveal-delay", index * 130 + "ms");
+                        card.classList.add("is-visible");
+                      });
+                    });
+                  },
+                  { root: null, rootMargin: "0px 0px -8% 0px", threshold: 0.12 }
+                );
+                storyRevealObserver.observe(storiesSection);
+              }
+
+              const faqPlus = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>';
+              const faqs = [
+                { q: `What is Qava?`, a: `Qava connects startups, enterprises, and non-profits with business school and graduate-level talent to complete short-term, high-impact projects that move businesses forward — from building financial models to crafting go-to-market strategies. It also provides hiring managers the ability to hire full-time roles, part-time roles, and internships.` },
+                { q: `Who is Qava for?`, a: `Anyone serious about finding high-quality talent — and for ambitious professionals who want real-world experience that advances their careers.` },
+                { q: `What types of projects can I post?`, a: `You can post projects in strategy, marketing, finance, operations, fundraising, or research — or create a custom project tailored to your business goals. Common examples include:<br><br>💼 Business plan or investor deck creation<br>📊 Financial modeling and valuation<br>🔍 Market and competitor analysis<br>🗺️ Customer journey mapping<br>💰 Grant or funding applications` },
+                { q: `How does Qava find the right talent?`, a: `Our AI-powered matching system reviews your project goals and pairs you with candidates who have relevant skills, experience, and industry expertise — many from top business schools around the world. We also partner directly with consulting clubs at leading universities to help you find the perfect match.` },
+                { q: `What does it cost to post a project?`, a: `Project listings start from $49 for basic visibility, with upgrade options for featured placement or faster matching.` },
+                { q: `What makes Qava different from Upwork or LinkedIn?`, a: `Three important differences set Qava apart:<br><br><strong>Quality</strong><br>Unlike Upwork, which often connects you with low-cost offshore freelancers, Qava connects you with high-caliber talent from top business schools that bring local market knowledge, the latest academic insights, access to premium research tools, and local contacts.<br><br><strong>Visibility</strong><br>Unlike LinkedIn, which serves every profession and job type, Qava is purpose-built for strategic, MBA-level work. That means your projects stand out to the right audience — not buried among thousands of listings.<br><br><strong>On-demand and cost-efficient</strong><br>With Qava, you only pay for what you need, when you need it. No retainers. No long-term contracts. Just flexible access to top-tier talent and simple, affordable project listings that make scaling smarter — not more expensive.` },
+                { q: `Can I use Qava if I'm not an MBA student?`, a: `Yes. While Qava was founded for MBAs and advanced degree holders, we also welcome experienced professionals and independent consultants with strong business or technical expertise.` },
+                { q: `How do payments work?`, a: `Qava makes payments seamless and secure. Once the project is complete, funds are released to the talent based on your agreed terms — giving both sides confidence and clarity.` },
+                { q: `Is Qava available globally?`, a: `Yes. Qava operates internationally, matching clients and talent across time zones. Projects can be remote or in-person depending on your preferences.` },
+                { q: `How do I get started?`, a: `If you're a company, sign in and click Create Listing to share what you need help with. Our AI-powered process makes it simple — even if you're not yet sure what kind of support you need.<br><br>If you're talent, sign in and click Search Listings to explore live opportunities and start building your profile.` }
+              ];
+
+              const faqSection = doc.createElement("section");
+              faqSection.id = "qava-faq-section";
+              faqSection.className = "qava-faq-section";
+              faqSection.innerHTML = `
+                <h2 class="qava-faq-title">FAQ</h2>
+                <div class="qava-faq-list">
+                  ${faqs.map((f) => `
+                    <div class="qava-faq-item">
+                      <div class="qava-faq-q">
+                        <span class="qava-faq-q-text">${f.q}</span>
+                        <span class="qava-faq-toggle">${faqPlus}</span>
+                      </div>
+                      <div class="qava-faq-a">
+                        <p class="qava-faq-a-text">${f.a}</p>
+                      </div>
+                    </div>`).join("")}
+                </div>
+              `;
+              storiesSection.insertAdjacentElement("afterend", faqSection);
+
+              faqSection.querySelectorAll(".qava-faq-item").forEach((item) => {
+                const q = item.querySelector(".qava-faq-q");
+                const ans = item.querySelector(".qava-faq-a");
+                q.addEventListener("click", () => {
+                  const isOpen = item.classList.toggle("open");
+                  ans.style.maxHeight = isOpen ? ans.scrollHeight + "px" : "0";
+                });
+              });
+
+              const eduArrow = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
+              const eduSection = doc.createElement("section");
+              eduSection.id = "qava-edu-section";
+              eduSection.className = "qava-edu-section";
+              eduSection.innerHTML = `
+                <a class="qava-edu-card" href="https://aurorafoundation.com.au/" target="_blank" rel="noopener">
+                  <div class="qava-edu-img-wrap">
+                    <img class="qava-edu-img" src="./Education%20Breaks%20the%20Cycle.png" alt="Education Breaks the Cycle">
+                    <span class="qava-edu-badge">1%</span>
+                  </div>
+                  <div class="qava-edu-content">
+                    <h3 class="qava-edu-title">Education breaks the cycle</h3>
+                    <p class="qava-edu-desc">The Aurora Education foundation is an Indigenous organization that supports Aboriginal and Torres Strait Islander students to realize their full education and employment potential. 1% of profits will be donated to this important mission.</p>
+                    <span class="qava-edu-link">Learn more ${eduArrow}</span>
+                  </div>
+                </a>
+              `;
+              faqSection.insertAdjacentElement("afterend", eduSection);
+            }
+          }
+
+          const projectPillsRow = doc.querySelector(".horizontal-scroll-wrapper");
+          const newsletterSection = doc.getElementById("newsletter-subscribe");
+          if (projectPillsRow && newsletterSection && !doc.getElementById("qava-moved-pills-anchor")) {
+            const pillsAnchor = doc.createElement("div");
+            pillsAnchor.id = "qava-moved-pills-anchor";
+            pillsAnchor.style.marginTop = "18px";
+            pillsAnchor.style.marginBottom = "12px";
+            newsletterSection.insertAdjacentElement("afterend", pillsAnchor);
+            pillsAnchor.appendChild(projectPillsRow);
+          }
+
+          const newStoriesSection = doc.getElementById("qava-stories-section");
+          const legacyStatsFooter = doc.querySelector(".stats-footer-wrapper");
+          if (newStoriesSection && legacyStatsFooter && legacyStatsFooter.getAttribute("data-qava-moved") !== "true") {
+            legacyStatsFooter.setAttribute("data-qava-moved", "true");
+            legacyStatsFooter.style.marginTop = "8px";
+            legacyStatsFooter.style.marginLeft = "0";
+            legacyStatsFooter.style.marginRight = "0";
+            newStoriesSection.insertAdjacentElement("afterend", legacyStatsFooter);
+          }
+
+          [
+            ".strategic-support-section",
+            "#newsletter-subscribe",
+            ".feature-cards-section.fuel-section",
+            ".customer-stories-section",
+            ".education-section",
+            ".calculator-section",
+            "#qa-section",
+            "#qava-moved-pills-anchor",
+            ".horizontal-scroll-wrapper"
+          ].forEach((sel) => {
+            doc.querySelectorAll(sel).forEach((el) => el.remove());
+          });
+        }
+
+        if (typeof window.applyQavaFooter === "function") {
+          window.applyQavaFooter(doc);
+          const hiwPage = doc.getElementById("qava-howitworks-page");
+          const showOverlay = win.__qavaShowOverlay;
+          if (hiwPage && showOverlay) {
+            doc.querySelectorAll('.footer-link[data-qava-hiw-link="true"]').forEach((link) => {
+              link.addEventListener("click", (e) => {
+                e.preventDefault();
+                showOverlay(hiwPage);
+              });
+            });
+          }
+        }
+      
+  }
+
+  function boot() {
+    attachLandingEnhancements();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();

@@ -1,0 +1,753 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Success Stories | Qava</title>
+  <link rel="icon" type="image/svg+xml" href="qava-logo.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --display: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+      --ink: #111827;
+      --muted: #6B6B6B;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      font-family: "Inter", sans-serif;
+      background: #ffffff;
+      color: var(--ink);
+    }
+
+    body {
+      position: relative;
+      min-height: 100vh;
+    }
+
+    #qava-dot-base-fixed {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image: radial-gradient(circle, rgba(17, 24, 39, 0.16) 1px, transparent 1.35px);
+      background-size: 20px 20px;
+      background-repeat: repeat;
+    }
+
+    body > *:not(#qava-dot-base-fixed) {
+      position: relative;
+      z-index: 1;
+    }
+
+    a { color: inherit; }
+
+    /* ---------- Navbar ---------- */
+    .header-container {
+      width: calc(100% - 22px);
+      margin: 0 auto;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 56px;
+      position: sticky;
+      top: 0;
+      z-index: 1200;
+      background: rgba(255, 255, 255, 0.24);
+      -webkit-backdrop-filter: blur(18px) saturate(150%);
+      backdrop-filter: blur(18px) saturate(150%);
+      border: 0;
+      box-shadow: none;
+      isolation: isolate;
+    }
+
+    .header-container::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      right: 6px;
+      top: 3px;
+      bottom: 3px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.44) 100%);
+      -webkit-backdrop-filter: blur(26px) saturate(165%);
+      backdrop-filter: blur(26px) saturate(165%);
+      box-shadow: 0 10px 24px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .header-container > * { position: relative; z-index: 1; }
+
+    .header-logo { display: flex; align-items: center; flex-shrink: 0; }
+
+    .header-center {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex: 1;
+      margin-left: 40px;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .logo-container, .logo { display: flex; align-items: center; }
+
+    .header-container .logo {
+      background: transparent;
+      padding: 0;
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .navigation { display: flex; align-items: center; gap: 8px; }
+
+    .header-container .nav-item,
+    .header-container .auth-item {
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      border-radius: 0;
+      padding: 0;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      transition: color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .header-container .nav-item .nav-text,
+    .header-container .auth-item .nav-text {
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: #6b6b6b;
+      line-height: 1.4;
+      transition: color 0.2s ease;
+      padding: 0 4px;
+      white-space: nowrap;
+    }
+
+    .header-container .nav-item:hover .nav-text,
+    .header-container .auth-item:hover .nav-text {
+      color: #000000;
+      background: none;
+      box-shadow: none;
+      text-decoration: none;
+    }
+
+    .auth-section { display: flex; align-items: center; gap: 28px; }
+
+    .join-button {
+      padding: 6px 12px;
+      background: #2b2b2b;
+      border: 1px solid #2b2b2b;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: background-color 0.18s ease, border-color 0.18s ease;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .join-button:hover {
+      background: #000000;
+      border-color: #000000;
+    }
+
+    .join-text {
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .header-container .logo img,
+    .qava-nav-logo-face {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .qava-nav-logo-flip {
+      width: 40px;
+      height: 40px;
+      perspective: 600px;
+    }
+
+    .qava-nav-logo-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease;
+    }
+
+    .qava-nav-logo-inner.is-flipped { transform: rotateY(180deg); }
+
+    .qava-nav-logo-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+    }
+
+    .qava-nav-logo-back { transform: rotateY(180deg); }
+
+    .hamburger-menu {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .hamburger-line {
+      width: 20px;
+      height: 2px;
+      background: #111827;
+      border-radius: 1px;
+    }
+
+    /* ---------- Page ---------- */
+    .qava-stories-page {
+      width: min(1040px, calc(100vw - 120px));
+      margin: 0 auto;
+      padding: 56px 0 72px;
+      box-sizing: border-box;
+    }
+
+    .qava-stories-hero {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .qava-stories-hero h1 {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(36px, 4.2vw, 56px);
+      line-height: 1.08;
+      letter-spacing: -0.012em;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .qava-stories-subheader {
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--muted);
+      text-align: center;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .qava-stories-grid-wrap {
+      width: 100%;
+      margin: 0;
+      background: #f4f4f5;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(17, 24, 39, 0.04);
+      padding: 40px;
+      box-sizing: border-box;
+    }
+
+    .qava-stories-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .qava-story-card {
+      display: flex;
+      flex-direction: column;
+      background: #ffffff;
+      border: 1px solid rgba(17, 24, 39, 0.06);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 6px rgba(15, 23, 42, 0.06);
+      text-align: left;
+      text-decoration: none;
+      cursor: pointer;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .qava-story-card:hover {
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+      transform: translateY(-2px);
+    }
+
+    .qava-story-thumb-wrap {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.06), rgba(15, 23, 42, 0.02));
+    }
+
+    .qava-story-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .qava-story-body {
+      padding: 16px 18px 18px;
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .qava-story-title {
+      font-family: "Inter", sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      color: #111827;
+      line-height: 1.35;
+      letter-spacing: normal;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .qava-story-excerpt {
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .qava-story-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 2px;
+    }
+
+    .qava-story-pill {
+      border: 1px solid rgba(17, 24, 39, 0.08);
+      border-radius: 999px;
+      padding: 1px 8px;
+      background: #f4f4f5;
+      font-family: "Inter", sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      color: #6b6b6b;
+      white-space: nowrap;
+    }
+
+    .qava-story-foot {
+      margin-top: auto;
+      padding-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .qava-story-read {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .qava-story-read svg {
+      width: 14px;
+      height: 14px;
+      opacity: 0;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .qava-story-card:hover .qava-story-read svg {
+      opacity: 1;
+      transform: translateX(3px);
+    }
+
+    .qava-story-logo {
+      height: 20px;
+      width: auto;
+      max-width: 100px;
+      object-fit: contain;
+      object-position: right center;
+      flex-shrink: 0;
+      opacity: 0.9;
+    }
+
+    .qava-stories-cta {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .qava-stories-cta a {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: #111827;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .qava-stories-cta a:hover { color: #000000; text-decoration: underline; }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .qava-story-card.qava-story-reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.55s ease, transform 0.55s ease;
+        transition-delay: var(--story-reveal-delay, 0ms);
+      }
+
+      .qava-story-card.qava-story-reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .qava-story-card.qava-story-reveal:hover {
+        transform: translateY(-2px);
+      }
+
+      .qava-story-card.qava-story-reveal.is-visible:hover {
+        transform: translateY(-2px);
+      }
+    }
+
+    /* ---------- Footer ---------- */
+    .footer-section {
+      background: transparent;
+      width: 100%;
+      margin: 0;
+      padding: 48px 0 46px;
+      border-top: 1px solid #EBEBEB;
+    }
+
+    .footer-container {
+      width: min(1040px, calc(100vw - 120px));
+      margin: 0 auto;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+    .footer-content { display: flex; flex-wrap: wrap; }
+    .footer-logo { width: 39%; padding: 2px 15px 0 0; margin-bottom: 30px; }
+    .footer-logo-img { width: 40px; height: auto; }
+
+    .footer-links {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      width: 60%;
+      gap: 16px 25px;
+      padding: 0 15px 0 10px;
+    }
+
+    .footer-heading {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: 17px;
+      letter-spacing: -0.012em;
+      color: #000000;
+      margin: 0 0 8px;
+    }
+
+    .footer-link-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .footer-link {
+      font-size: 13px;
+      font-weight: 300;
+      color: #797979;
+      text-decoration: none;
+      line-height: 1.2;
+    }
+
+    .footer-link:hover { text-decoration: underline; }
+
+    .footer-copyright {
+      grid-column: 1 / -1;
+      margin-top: 14px;
+      font-size: 13px;
+      font-weight: 300;
+      color: #797979;
+    }
+
+    @media (max-width: 860px) {
+      .header-center, .auth-section .auth-item { display: none; }
+      .hamburger-menu { display: flex; }
+      .footer-logo, .footer-links { width: 100%; }
+      .footer-links { grid-template-columns: repeat(2, 1fr); }
+      .qava-stories-page { width: calc(100vw - 40px); }
+      .qava-stories-grid { grid-template-columns: 1fr; }
+      .qava-stories-grid-wrap { padding: 24px; }
+      .footer-container { width: calc(100vw - 40px); padding: 0 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="qava-dot-base-fixed" aria-hidden="true"></div>
+
+  <header class="header-container">
+    <div class="header-logo">
+      <div class="logo-container">
+        <div class="logo">
+          <a href="/SANDBOXindex.html">
+            <div class="qava-nav-logo-flip" id="qava-nav-logo-flip">
+              <div class="qava-nav-logo-inner" id="qava-nav-logo-inner">
+                <img class="qava-nav-logo-face qava-nav-logo-front" src="qava-logo.svg" alt="Qava">
+                <img class="qava-nav-logo-face qava-nav-logo-back" src="./qava-hero-arrow-2.png" alt="">
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="header-center">
+      <nav class="navigation">
+        <a href="https://app.qava.ai/guest" class="nav-item create-listing">
+          <div class="nav-text">Create listing</div>
+        </a>
+        <a href="https://app.qava.ai/projects" class="nav-item search-listings">
+          <div class="nav-text">Find work</div>
+        </a>
+        <a href="/SANDBOXindex.html" class="nav-item newsletter">
+          <div class="nav-text">Newsletter</div>
+        </a>
+      </nav>
+    </div>
+    <div class="header-right">
+      <div class="auth-section">
+        <a href="/SANDBOXhowqavaworks.html" class="auth-item">
+          <div class="nav-text">How it works</div>
+        </a>
+        <a href="https://app.qava.ai/" class="auth-item">
+          <div class="nav-text">Log in</div>
+        </a>
+        <a href="https://app.qava.ai/" class="join-button">
+          <div class="join-text">Get Started</div>
+        </a>
+      </div>
+      <div class="hamburger-menu" aria-hidden="true">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="qava-stories-page">
+    <header class="qava-stories-hero">
+      <h1>Success stories.</h1>
+      <p class="qava-stories-subheader">Missions that matter.</p>
+    </header>
+
+    <section class="qava-stories-grid-wrap" id="qava-stories-section">
+      <div class="qava-stories-grid">
+        <a href="https://qava.ai/noonesark" class="qava-story-card qava-story-reveal">
+          <span class="qava-story-thumb-wrap">
+            <img src="No One's Ark/Ark Clip.webp" alt="No One's Ark" class="qava-story-thumb" loading="lazy">
+          </span>
+          <span class="qava-story-body">
+            <span class="qava-story-title">The Story of No One's Ark—and the Strategic Projects Powering Their Mission</span>
+            <span class="qava-story-excerpt">Some ideas arrive quietly. Others show up with a 270-ton retired ferry, a pirate brigade, and a vision bold enough to rewrite the future of one of New York City's most polluted waterways.</span>
+            <span class="qava-story-pills">
+              <span class="qava-story-pill">Non-Profit 🌳</span>
+              <span class="qava-story-pill">Fundraising 💰</span>
+              <span class="qava-story-pill">Financial Roadmap 📊</span>
+            </span>
+            <span class="qava-story-foot">
+              <span class="qava-story-read">Read the full story<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <img src="No One's Ark/University_of_Pittsburgh_seal.svg" alt="University of Pittsburgh" class="qava-story-logo" loading="lazy">
+            </span>
+          </span>
+        </a>
+
+        <a href="https://qava.ai/therisegroup" class="qava-story-card qava-story-reveal">
+          <span class="qava-story-thumb-wrap">
+            <img src="Emma-Burke-6.jpg" alt="Emma Burke" class="qava-story-thumb" loading="lazy">
+          </span>
+          <span class="qava-story-body">
+            <span class="qava-story-title">Q&amp;A with Emma Burke, Founder &amp; CEO of The Rise Group</span>
+            <span class="qava-story-excerpt">How getting help with her financial roadmap through Qava gave Emma the clarity and confidence to build a thriving creator agency—generating over $1M in sales in her first year, and growing fast.</span>
+            <span class="qava-story-pills">
+              <span class="qava-story-pill">Female Founder 👩‍💼</span>
+              <span class="qava-story-pill">Brand Strategy 📣</span>
+              <span class="qava-story-pill">Financial Roadmap 📊</span>
+            </span>
+            <span class="qava-story-foot">
+              <span class="qava-story-read">Read the full story<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <img src="StJohns_logo.png" alt="St. John's University" class="qava-story-logo" loading="lazy">
+            </span>
+          </span>
+        </a>
+
+        <a href="https://qava.ai/liquidskateboard" class="qava-story-card qava-story-reveal">
+          <span class="qava-story-thumb-wrap">
+            <video class="qava-story-thumb" autoplay loop muted playsinline>
+              <source src="https://liquidskateboard.b-cdn.net/Video%20-%20Web%20Aug%202025/1_GLOABL_VERTICAL_LOW.mp4" type="video/mp4">
+            </video>
+          </span>
+          <span class="qava-story-body">
+            <span class="qava-story-title">Alexis Built One of the Most Original E-Skateboards—Now He's Taking It Global</span>
+            <span class="qava-story-excerpt">After perfecting the board and closing out a successful Kickstarter, Alexis is now shifting his focus to scaling production and expanding globally.</span>
+            <span class="qava-story-pills">
+              <span class="qava-story-pill">Go-To-Market 🚀</span>
+              <span class="qava-story-pill">Global Distribution 🌍</span>
+              <span class="qava-story-pill">Growth Strategy 📈</span>
+            </span>
+            <span class="qava-story-foot">
+              <span class="qava-story-read">Read the full story<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <img src="liquid-skateboard-images/Logo_Polytech_Annecy_Chambery.svg" alt="Polytech Annecy-Chambéry" class="qava-story-logo" loading="lazy">
+            </span>
+          </span>
+        </a>
+
+        <a href="https://qava.ai/mmento" class="qava-story-card qava-story-reveal">
+          <span class="qava-story-thumb-wrap">
+            <img src="Kristina%20Boxer%20Profile%20Photo.png" alt="Kristina Boxer" class="qava-story-thumb" loading="lazy">
+          </span>
+          <span class="qava-story-body">
+            <span class="qava-story-title">Q&amp;A with Kristina Boxer, Founder of mmento</span>
+            <span class="qava-story-excerpt">How a passion for thoughtful gift-giving became a tool that helps people show up for each other—on time and with intention.</span>
+            <span class="qava-story-pills">
+              <span class="qava-story-pill">Female Founder 👩‍💼</span>
+              <span class="qava-story-pill">Consumer Tech 📱</span>
+              <span class="qava-story-pill">Bootstrapped 🚀</span>
+            </span>
+            <span class="qava-story-foot">
+              <span class="qava-story-read">Read the full story<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <img src="Testimonial%20company%20logos/mmento%20logo.svg" alt="mmento" class="qava-story-logo" loading="lazy">
+            </span>
+          </span>
+        </a>
+
+        <a href="https://qava.ai/roam" class="qava-story-card qava-story-reveal">
+          <span class="qava-story-thumb-wrap">
+            <img src="Roam/Hand%20Holding%20Bottle.jpg" alt="Roam portable carbonation bottle" class="qava-story-thumb" loading="lazy">
+          </span>
+          <span class="qava-story-body">
+            <span class="qava-story-title">Reimagining Hydration &amp; Sustainability for a World on the Move</span>
+            <span class="qava-story-excerpt">How Roam is revolutionizing portable carbonation with SodaTop™—bringing premium, sustainable hydration to every moment of life on the move.</span>
+            <span class="qava-story-pills">
+              <span class="qava-story-pill">Consumer Goods 🥤</span>
+              <span class="qava-story-pill">Product Design 🎨</span>
+              <span class="qava-story-pill">Sustainability ♻️</span>
+            </span>
+            <span class="qava-story-foot">
+              <span class="qava-story-read">Read the full story<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <img src="Roam/berkeley_haas_logo.jpg" alt="UC Berkeley Haas School of Business" class="qava-story-logo" loading="lazy">
+            </span>
+          </span>
+        </a>
+
+        <a href="https://qava.ai/lumi" class="qava-story-card qava-story-reveal">
+          <span class="qava-story-thumb-wrap">
+            <img src="Lumi/Family.jpg" alt="Neurodiverse family" class="qava-story-thumb" loading="lazy">
+          </span>
+          <span class="qava-story-body">
+            <span class="qava-story-title">The AI Startup Bringing Real-Time Support to Neurodiverse Families</span>
+            <span class="qava-story-excerpt">When families ask, "How are we going to get through this?", Lumi offers real-time, science-backed support designed to help neurodiverse households manage daily routines, communication, and challenges more effectively.</span>
+            <span class="qava-story-pills">
+              <span class="qava-story-pill">AI-Powered 🤖</span>
+              <span class="qava-story-pill">Product Design 🎨</span>
+              <span class="qava-story-pill">Family Tech 🏠</span>
+            </span>
+            <span class="qava-story-foot">
+              <span class="qava-story-read">Read the full story<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <img src="Lumi/Lumi%20Logo.png" alt="Lumi" class="qava-story-logo" loading="lazy">
+            </span>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <div class="qava-stories-cta">
+      <a href="https://app.qava.ai/">Log in to read more →</a>
+    </div>
+  </main>
+
+  <footer class="footer-section"></footer>
+
+  <script src="./sandbox-footer.js"></script>
+  <script>
+    (function () {
+      if (typeof window.applySandboxFooter === "function") {
+        window.applySandboxFooter(document);
+      }
+
+      const inner = document.getElementById("qava-nav-logo-inner");
+      if (inner) {
+        let flipped = false;
+        setInterval(() => {
+          flipped = !flipped;
+          inner.classList.toggle("is-flipped", flipped);
+        }, 5000);
+      }
+
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const storyCards = Array.from(document.querySelectorAll(".qava-story-reveal"));
+      const storiesSection = document.getElementById("qava-stories-section");
+
+      if (reducedMotion || !storiesSection) {
+        storyCards.forEach((card) => card.classList.add("is-visible"));
+        return;
+      }
+
+      function revealStoryCards() {
+        storyCards.forEach((card, index) => {
+          card.style.setProperty("--story-reveal-delay", index * 130 + "ms");
+          card.classList.add("is-visible");
+        });
+      }
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            revealStoryCards();
+            observer.disconnect();
+          });
+        },
+        { root: null, rootMargin: "0px 0px -5% 0px", threshold: 0.05 }
+      );
+
+      observer.observe(storiesSection);
+
+      const rect = storiesSection.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        revealStoryCards();
+        observer.disconnect();
+      }
+    })();
+  </script>
+</body>
+</html>

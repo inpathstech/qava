@@ -1,0 +1,849 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Qava SANDBOX Pricing</title>
+  <style>
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+  <iframe id="preview" src="./pricing.html" title="Qava sandbox pricing preview"></iframe>
+
+  <script src="./sandbox-footer.js"></script>
+  <script>
+    (function () {
+      const preview = document.getElementById("preview");
+      const DISPLAY_FONT = '"Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif';
+
+      const injectedStyles = `
+        body {
+          position: relative;
+          background: #ffffff !important;
+        }
+
+        #qava-dot-base-fixed {
+          position: fixed;
+          inset: 0;
+          pointer-events: none;
+          z-index: 0;
+          background-image: radial-gradient(circle, rgba(17, 24, 39, 0.16) 1px, transparent 1.35px);
+          background-size: 20px 20px;
+          background-repeat: repeat;
+        }
+
+        body > *:not(#qava-dot-base-fixed) {
+          position: relative;
+          z-index: 1;
+        }
+
+        .pricing-content {
+          background: transparent !important;
+          max-width: min(1100px, calc(100vw - 48px)) !important;
+          padding: 64px 24px 88px !important;
+        }
+
+        /* ---------- Navbar ---------- */
+        .header-container {
+          width: calc(100% - 22px) !important;
+          margin: 0 auto !important;
+          padding: 8px 20px !important;
+          border-radius: 0 !important;
+          position: sticky !important;
+          top: 0 !important;
+          z-index: 1200 !important;
+          background: rgba(255, 255, 255, 0.24) !important;
+          -webkit-backdrop-filter: blur(18px) saturate(150%) !important;
+          backdrop-filter: blur(18px) saturate(150%) !important;
+          border: 0 !important;
+          box-shadow: none !important;
+          isolation: isolate !important;
+        }
+
+        .header-container::before {
+          content: "" !important;
+          position: absolute !important;
+          left: 6px !important;
+          right: 6px !important;
+          top: 3px !important;
+          bottom: 3px !important;
+          border-radius: 12px !important;
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.44) 100%) !important;
+          -webkit-backdrop-filter: blur(26px) saturate(165%) !important;
+          backdrop-filter: blur(26px) saturate(165%) !important;
+          border: 0 !important;
+          box-shadow: 0 10px 24px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
+          z-index: 0 !important;
+          pointer-events: none !important;
+        }
+
+        .header-container > * { position: relative !important; z-index: 1 !important; }
+
+        .header-container .logo {
+          background: transparent !important;
+          padding: 0 !important;
+          border-radius: 0 !important;
+          border: none !important;
+          box-shadow: none !important;
+          display: inline-flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+        }
+
+        .header-container .logo img,
+        .qava-nav-logo-face {
+          width: 40px !important;
+          height: 40px !important;
+          display: block !important;
+          border-radius: 11px !important;
+          box-shadow: none !important;
+          border: none !important;
+        }
+
+        .qava-nav-logo-flip { width: 40px; height: 40px; perspective: 700px; }
+
+        .qava-nav-logo-inner {
+          width: 100%;
+          height: 100%;
+          position: relative;
+          transform-style: preserve-3d;
+          transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
+        }
+
+        .qava-nav-logo-inner.is-flipped { transform: rotateY(180deg); }
+
+        .qava-nav-logo-face {
+          position: absolute;
+          inset: 0;
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+        }
+
+        .qava-nav-logo-front { object-fit: contain !important; background: transparent; }
+        .qava-nav-logo-back { object-fit: cover !important; transform: rotateY(180deg); }
+
+        .header-container .nav-item,
+        .header-container .auth-item {
+          background: transparent !important;
+          border: 0 !important;
+          box-shadow: none !important;
+          border-radius: 0 !important;
+          padding: 0 !important;
+          transition: color 0.2s ease !important;
+        }
+
+        .header-container .navigation .nav-item .nav-text,
+        .header-container .auth-item .nav-text {
+          font-family: "Inter", sans-serif !important;
+          font-size: 14px !important;
+          font-weight: 300 !important;
+          color: #6b6b6b !important;
+          line-height: 1.4 !important;
+        }
+
+        .header-container .nav-item:hover .nav-text,
+        .header-container .auth-item:hover .nav-text,
+        .header-container .nav-item.active .nav-text {
+          color: #000000 !important;
+          background: none !important;
+          box-shadow: none !important;
+          text-decoration: none !important;
+        }
+
+        .join-button {
+          background: #2b2b2b !important;
+          border: 1px solid #2b2b2b !important;
+          color: #ffffff !important;
+          transform: none !important;
+          transition: background-color 0.18s ease, border-color 0.18s ease !important;
+          box-shadow: none !important;
+          border-radius: 6px !important;
+        }
+
+        .join-button .join-text { color: #ffffff !important; }
+
+        .join-button:hover {
+          background: #000000 !important;
+          border-color: #000000 !important;
+          box-shadow: none !important;
+          transform: none !important;
+        }
+
+        .header-container .auth-section { gap: 28px !important; }
+
+        /* ---------- Pricing hero ---------- */
+        .pricing-header {
+          margin-bottom: 28px !important;
+        }
+
+        .pricing-title {
+          font-family: ${DISPLAY_FONT} !important;
+          font-weight: 400 !important;
+          font-size: clamp(34px, 3.6vw, 52px) !important;
+          line-height: 1.08 !important;
+          letter-spacing: -0.012em !important;
+          color: #111827 !important;
+          margin-bottom: 8px !important;
+        }
+
+        .pricing-subtitle {
+          font-family: "Inter", sans-serif !important;
+          font-size: 14px !important;
+          font-weight: 300 !important;
+          color: #6B6B6B !important;
+          max-width: 560px !important;
+        }
+
+        /* ---------- Pricing tab radios (match main page toggle) ---------- */
+        .pricing-tabs,
+        .qava-pricing-radios {
+          display: flex !important;
+          flex-direction: row !important;
+          align-items: center !important;
+          justify-content: center !important;
+          gap: 18px !important;
+          background: transparent !important;
+          border-radius: 0 !important;
+          padding: 0 !important;
+          max-width: none !important;
+          margin-bottom: 36px !important;
+        }
+
+        .qava-toggle-radio {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 13px;
+          font-weight: 500;
+          font-family: "Inter", sans-serif;
+          color: #4b5563;
+          cursor: pointer;
+          user-select: none;
+        }
+
+        .qava-toggle-radio input[type="radio"] {
+          width: 14px;
+          height: 14px;
+          margin: 0;
+          accent-color: #111827;
+          cursor: pointer;
+          display: block;
+          flex: 0 0 auto;
+        }
+
+        .qava-toggle-radio span {
+          line-height: 14px;
+          display: block;
+        }
+
+        .qava-toggle-radio input[type="radio"]:checked + span {
+          color: #111827;
+          font-weight: 600;
+        }
+
+        .qava-toggle-radio input[type="radio"]:focus-visible {
+          outline: 2px solid rgba(17, 24, 39, 0.25);
+          outline-offset: 2px;
+          border-radius: 999px;
+        }
+
+        .qava-toggle-radio input[type="radio"]:hover + span {
+          color: #111827;
+        }
+
+        .tab-button {
+          display: none !important;
+        }
+
+        /* ---------- Pricing table card ---------- */
+        .pricing-table {
+          background: #ffffff !important;
+          border-radius: 12px !important;
+          box-shadow: 0 1px 3px rgba(17, 24, 39, 0.06) !important;
+          overflow: hidden !important;
+          margin-bottom: 40px !important;
+        }
+
+        .plan-header-row {
+          border-bottom: 1px solid rgba(17, 24, 39, 0.08) !important;
+          background: #ffffff !important;
+        }
+
+        .feature-row {
+          border-bottom: 1px solid rgba(17, 24, 39, 0.06) !important;
+          padding: 14px 28px !important;
+        }
+
+        .plan-column {
+          border-right: 1px solid rgba(17, 24, 39, 0.06) !important;
+          padding: 18px 16px !important;
+        }
+
+        .plan-column:last-child { border-right: none !important; }
+
+        .plan-name {
+          font-family: ${DISPLAY_FONT} !important;
+          font-weight: 400 !important;
+          font-size: 18px !important;
+          letter-spacing: -0.01em !important;
+          color: #111827 !important;
+        }
+
+        .plan-badge {
+          display: inline-flex !important;
+          align-items: center !important;
+          padding: 4px 10px !important;
+          border-radius: 999px !important;
+          font-family: "Inter", sans-serif !important;
+          font-size: 11px !important;
+          font-weight: 400 !important;
+          line-height: 1.2 !important;
+        }
+
+        .badge-starter,
+        .badge-popular,
+        .badge-accelerator {
+          background: #f4f4f5 !important;
+          color: #6B6B6B !important;
+        }
+
+        .badge-popular,
+        .badge-accelerator {
+          color: #111827 !important;
+        }
+
+        .plan-description {
+          font-family: "Inter", sans-serif !important;
+          font-size: 12px !important;
+          font-weight: 300 !important;
+          color: #6B6B6B !important;
+          line-height: 1.45 !important;
+        }
+
+        .plan-price {
+          font-family: ${DISPLAY_FONT} !important;
+          font-weight: 400 !important;
+          font-size: clamp(28px, 3vw, 34px) !important;
+          color: #111827 !important;
+        }
+
+        .plan-price-currency {
+          font-family: ${DISPLAY_FONT} !important;
+          font-weight: 400 !important;
+        }
+
+        .plan-period {
+          font-family: "Inter", sans-serif !important;
+          font-size: 13px !important;
+          font-weight: 300 !important;
+          color: #6B6B6B !important;
+        }
+
+        .feature-name {
+          font-family: "Inter", sans-serif !important;
+          font-size: 14px !important;
+          font-weight: 500 !important;
+          color: #111827 !important;
+        }
+
+        .feature-description {
+          font-family: "Inter", sans-serif !important;
+          font-size: 13px !important;
+          font-weight: 300 !important;
+          color: #6B6B6B !important;
+          line-height: 1.45 !important;
+        }
+
+        .feature-value {
+          font-family: "Inter", sans-serif !important;
+          font-size: 14px !important;
+          font-weight: 300 !important;
+          color: #111827 !important;
+        }
+
+        .feature-dash { color: #9ca3af !important; }
+
+        .feature-check {
+          border: 1px solid #111827 !important;
+          border-radius: 4px !important;
+          background: #ffffff !important;
+        }
+
+        /* ---------- Currency selector ---------- */
+        .currency-selector,
+        .currency-dropdown,
+        .currency-option {
+          font-family: "Inter", sans-serif !important;
+          font-size: 13px !important;
+          font-weight: 300 !important;
+          color: #6B6B6B !important;
+        }
+
+        .currency-option:hover,
+        .currency-option.active {
+          background: rgba(17, 24, 39, 0.06) !important;
+          color: #111827 !important;
+        }
+
+        /* ---------- Info section (transparency + comparison) ---------- */
+        .qava-pricing-info-wrapper {
+          background: transparent !important;
+          width: 100% !important;
+          padding: 0 !important;
+          margin: 48px 0 0 0 !important;
+        }
+
+        .qava-pricing-info-wrapper .info-section {
+          max-width: 100% !important;
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+
+        .info-section-content {
+          display: grid !important;
+          grid-template-columns: 1.1fr 1.9fr !important;
+          gap: 56px !important;
+          align-items: start !important;
+          background: #ffffff !important;
+          border-radius: 12px !important;
+          box-shadow: 0 1px 3px rgba(17, 24, 39, 0.06) !important;
+          padding: 40px 44px !important;
+        }
+
+        .transparency-column {
+          text-align: left !important;
+          padding-right: 24px !important;
+          border-right: 1px solid rgba(17, 24, 39, 0.08) !important;
+        }
+
+        .transparency-title,
+        .comparison-title {
+          font-family: ${DISPLAY_FONT} !important;
+          font-size: clamp(22px, 2.4vw, 28px) !important;
+          font-weight: 400 !important;
+          letter-spacing: -0.012em !important;
+          color: #111827 !important;
+          margin-bottom: 8px !important;
+        }
+
+        .hero-highlight {
+          background: none !important;
+          box-shadow: none !important;
+          padding: 0 !important;
+          color: inherit !important;
+        }
+
+        .transparency-subtitle,
+        .comparison-subtitle {
+          font-family: "Inter", sans-serif !important;
+          font-size: 14px !important;
+          font-weight: 300 !important;
+          color: #6B6B6B !important;
+          margin-bottom: 24px !important;
+        }
+
+        .transparency-list {
+          list-style: none !important;
+          padding: 0 !important;
+          margin: 0 !important;
+        }
+
+        .transparency-list li {
+          font-family: "Inter", sans-serif !important;
+          font-size: 15px !important;
+          font-weight: 300 !important;
+          color: #111827 !important;
+          line-height: 1.6 !important;
+          margin-bottom: 12px !important;
+        }
+
+        .comparison-table { width: 100% !important; }
+
+        .table-header,
+        .table-row {
+          display: grid !important;
+          grid-template-columns: 1.8fr 1.4fr 1.4fr 1.4fr !important;
+        }
+
+        .header-cell {
+          font-family: "Inter", sans-serif !important;
+          font-size: 13px !important;
+          font-weight: 500 !important;
+          color: #6b7280 !important;
+          text-align: center !important;
+          padding: 16px 12px !important;
+          border-bottom: 1px solid rgba(17, 24, 39, 0.08) !important;
+          text-transform: uppercase !important;
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: center !important;
+          justify-content: center !important;
+          gap: 4px !important;
+        }
+
+        .header-cell:first-child { border-bottom: none !important; }
+
+        .header-cell .header-subtext {
+          font-weight: 300 !important;
+          color: #9ca3af !important;
+          text-transform: none !important;
+          font-size: 11px !important;
+        }
+
+        .header-cell.qava-header {
+          background: #111827 !important;
+          color: #ffffff !important;
+          border-radius: 6px 6px 0 0 !important;
+        }
+
+        .header-cell.qava-header span,
+        .header-cell.qava-header .header-subtext {
+          color: #ffffff !important;
+        }
+
+        .header-cell.qava-header .header-subtext {
+          color: rgba(255, 255, 255, 0.7) !important;
+        }
+
+        .table-row {
+          border-bottom: 1px solid rgba(17, 24, 39, 0.07) !important;
+        }
+
+        .table-row:last-child { border-bottom: none !important; }
+
+        .row-label {
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: flex-start !important;
+          justify-content: center !important;
+          padding: 12px 0 !important;
+          gap: 2px !important;
+        }
+
+        .row-label span {
+          font-family: "Inter", sans-serif !important;
+          font-size: 14px !important;
+          font-weight: 500 !important;
+          color: #111827 !important;
+        }
+
+        .row-label .sub-text,
+        .table-cell .sub-text {
+          font-family: "Inter", sans-serif !important;
+          font-size: 11px !important;
+          font-weight: 300 !important;
+          color: #9ca3af !important;
+        }
+
+        .table-cell {
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: center !important;
+          justify-content: center !important;
+          text-align: center !important;
+          gap: 4px !important;
+          padding: 12px 8px !important;
+        }
+
+        .table-cell.qava-cell {
+          background: #f7f7f8 !important;
+        }
+
+        .table-row:last-child .table-cell.qava-cell {
+          border-radius: 0 0 6px 6px !important;
+        }
+
+        .dollar-signs {
+          font-family: "Inter", sans-serif !important;
+          font-weight: 500 !important;
+          color: #6b7280 !important;
+        }
+
+        .xmark { color: #c2c5cc !important; }
+
+        /* ---------- Footer ---------- */
+        .footer-section {
+          background: transparent !important;
+        }
+
+        .footer-heading {
+          font-family: ${DISPLAY_FONT} !important;
+          font-weight: 400 !important;
+          letter-spacing: -0.012em !important;
+        }
+
+        @media (max-width: 768px) {
+          .pricing-tabs {
+            flex-direction: row !important;
+            max-width: 100% !important;
+          }
+
+          .feature-row {
+            padding: 14px 16px !important;
+          }
+
+          .info-section-content {
+            grid-template-columns: 1fr !important;
+            gap: 32px !important;
+            padding: 28px 24px !important;
+          }
+
+          .transparency-column {
+            border-right: none !important;
+            border-bottom: 1px solid rgba(17, 24, 39, 0.08) !important;
+            padding-right: 0 !important;
+            padding-bottom: 24px !important;
+          }
+        }
+      `;
+
+      const INFO_SECTION_HTML = `
+        <div class="info-section" id="infoSection">
+          <div class="info-section-content">
+            <div class="transparency-column">
+              <h3 class="transparency-title"><span class="hero-highlight">Transparency</span>, by design</h3>
+              <p class="transparency-subtitle">Know exactly how Qava helps</p>
+              <ul class="transparency-list">
+                <li>🧭 See how Qava accelerates your specific goal</li>
+                <li>🤝 Understand how collaboration actually works</li>
+                <li>⚡ Know what happens next — upfront</li>
+                <li>🔁 Adjust as you go, with no lock-in</li>
+              </ul>
+            </div>
+            <div class="comparison-column">
+              <h3 class="comparison-title">Why teams <span class="hero-highlight">choose Qava</span> over alternatives</h3>
+              <p class="comparison-subtitle">A faster, more human way to get real strategy work done</p>
+              <div class="comparison-table">
+                <div class="table-header">
+                  <div class="header-cell"></div>
+                  <div class="header-cell qava-header">
+                    <span>Qava</span>
+                    <span class="header-subtext">(Strategy-first)</span>
+                  </div>
+                  <div class="header-cell">
+                    <span>Jobs<br>Boards</span>
+                    <span class="header-subtext">(Pay-to-promote)</span>
+                  </div>
+                  <div class="header-cell">
+                    <span>Freelancer Platforms</span>
+                    <span class="header-subtext">(Race-to-bottom)</span>
+                  </div>
+                </div>
+                <div class="table-row">
+                  <div class="row-label">
+                    <span>Upfront cost clarity</span>
+                    <span class="sub-text">(know what you're paying)</span>
+                  </div>
+                  <div class="table-cell qava-cell"><span class="checkmark">✅</span></div>
+                  <div class="table-cell"><span class="dollar-signs">$$$</span><span class="sub-text">(pay to promote)</span></div>
+                  <div class="table-cell"><span class="dollar-signs">$$–$$$</span><span class="sub-text">(hidden fees)</span></div>
+                </div>
+                <div class="table-row">
+                  <div class="row-label">
+                    <span>Aligned incentives</span>
+                    <span class="sub-text">(win-win matching)</span>
+                  </div>
+                  <div class="table-cell qava-cell"><span class="checkmark">✅</span></div>
+                  <div class="table-cell"><span class="xmark">✕</span><span class="sub-text">(attention-driven)</span></div>
+                  <div class="table-cell"><span class="xmark">✕</span><span class="sub-text">(race to lowest bid)</span></div>
+                </div>
+                <div class="table-row">
+                  <div class="row-label">
+                    <span>High-caliber talent</span>
+                    <span class="sub-text">(strategy-capable & trained)</span>
+                  </div>
+                  <div class="table-cell qava-cell"><span class="checkmark">✅</span></div>
+                  <div class="table-cell"><span class="xmark">✕</span><span class="sub-text">(quantity &gt; quality)</span></div>
+                  <div class="table-cell"><span class="xmark">✕</span><span class="sub-text">(cost &gt; context)</span></div>
+                </div>
+                <div class="table-row">
+                  <div class="row-label">
+                    <span>Low-risk by design</span>
+                    <span class="sub-text">(agile-first; fully refundable)</span>
+                  </div>
+                  <div class="table-cell qava-cell"><span class="checkmark">✅</span></div>
+                  <div class="table-cell"><span class="xmark">✕</span><span class="sub-text">(pay before results)</span></div>
+                  <div class="table-cell"><span class="xmark">✕</span><span class="sub-text">(long engagements)</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const NAV_RENAMES = [
+        { match: "create listing", label: "Create listing" },
+        { match: "search listings", label: "Find work" },
+        { match: "about", label: "Newsletter" }
+      ];
+
+      const attachSandboxEnhancements = () => {
+        const frameDoc = preview.contentDocument;
+        if (!frameDoc || !frameDoc.head || !frameDoc.body) return;
+
+        if (!frameDoc.getElementById("qava-sandbox-canela-link")) {
+          const fontLink = frameDoc.createElement("link");
+          fontLink.id = "qava-sandbox-canela-link";
+          fontLink.rel = "stylesheet";
+          fontLink.href = "https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap";
+          frameDoc.head.appendChild(fontLink);
+        }
+
+        let styleTag = frameDoc.getElementById("qava-sandbox-style");
+        if (!styleTag) {
+          styleTag = frameDoc.createElement("style");
+          styleTag.id = "qava-sandbox-style";
+          frameDoc.head.appendChild(styleTag);
+        }
+        styleTag.textContent = injectedStyles;
+
+        const pricingSubtitle = frameDoc.querySelector(".pricing-subtitle");
+        if (pricingSubtitle) {
+          pricingSubtitle.textContent = "No more complicated pricing tiers";
+        }
+
+        if (!frameDoc.getElementById("qava-dot-base-fixed")) {
+          const fixedDotLayer = frameDoc.createElement("div");
+          fixedDotLayer.id = "qava-dot-base-fixed";
+          frameDoc.body.prepend(fixedDotLayer);
+        }
+
+        const logoLink = frameDoc.querySelector(".header-logo .logo a, .logo a");
+        const logoImg = logoLink && logoLink.querySelector("img");
+        if (logoLink && logoImg && !frameDoc.getElementById("qava-nav-logo-flip")) {
+          const originalSrc = logoImg.getAttribute("src") || "qava-logo.svg";
+          const flip = frameDoc.createElement("div");
+          flip.id = "qava-nav-logo-flip";
+          flip.className = "qava-nav-logo-flip";
+          flip.innerHTML = `
+            <div class="qava-nav-logo-inner" id="qava-nav-logo-inner">
+              <img class="qava-nav-logo-face qava-nav-logo-front" src="${originalSrc}" alt="Qava">
+              <img class="qava-nav-logo-face qava-nav-logo-back" src="./qava-hero-arrow-2.png" alt="">
+            </div>
+          `;
+          logoLink.href = "/SANDBOXindex.html";
+          logoLink.innerHTML = "";
+          logoLink.appendChild(flip);
+
+          const inner = flip.querySelector(".qava-nav-logo-inner");
+          const flipWin = frameDoc.defaultView;
+          if (flipWin.__qavaNavLogoFlipTimer) clearInterval(flipWin.__qavaNavLogoFlipTimer);
+          let flipped = false;
+          flipWin.__qavaNavLogoFlipTimer = setInterval(() => {
+            flipped = !flipped;
+            inner.classList.toggle("is-flipped", flipped);
+          }, 5000);
+        }
+
+        Array.from(frameDoc.querySelectorAll(".navigation .nav-item .nav-text, .navigation .nav-item")).forEach((el) => {
+          const textNode = el.classList.contains("nav-text") ? el : el.querySelector(".nav-text");
+          const target = textNode || el;
+          const current = (target.textContent || "").trim().toLowerCase();
+          const rename = NAV_RENAMES.find((r) => r.match === current);
+          if (rename) target.textContent = rename.label;
+        });
+
+        const newsletterNav = Array.from(frameDoc.querySelectorAll(".navigation a.nav-item")).find((a) =>
+          (a.textContent || "").trim().toLowerCase() === "newsletter"
+        );
+        if (newsletterNav) newsletterNav.href = "/SANDBOXindex.html";
+
+        const pricingNav = Array.from(frameDoc.querySelectorAll(".navigation a.nav-item")).find((a) =>
+          (a.textContent || "").trim().toLowerCase() === "pricing"
+        );
+        if (pricingNav) pricingNav.classList.add("active");
+
+        const howItWorksNavText = Array.from(frameDoc.querySelectorAll(".auth-item .nav-text, .mobile-nav-item")).find((item) => {
+          const t = (item.textContent || "").trim().toLowerCase();
+          return t === "how qava works" || t === "how it works";
+        });
+        if (howItWorksNavText) {
+          howItWorksNavText.textContent = "How it works";
+          const hiwLink = howItWorksNavText.closest("a");
+          if (hiwLink) hiwLink.href = "/SANDBOXhowqavaworks.html";
+        }
+
+        frameDoc.querySelectorAll(".testimonial-section").forEach((el) => el.remove());
+
+        const pricingTabs = frameDoc.querySelector(".pricing-tabs");
+        if (pricingTabs && !pricingTabs.getAttribute("data-qava-radio-tabs")) {
+          pricingTabs.setAttribute("data-qava-radio-tabs", "true");
+          pricingTabs.classList.add("qava-pricing-radios");
+          pricingTabs.setAttribute("role", "radiogroup");
+          pricingTabs.setAttribute("aria-label", "Pricing category");
+
+          const activeBtn = pricingTabs.querySelector(".tab-button.active");
+          const activeTab = activeBtn ? activeBtn.getAttribute("data-tab") : "projects";
+          const tabs = [
+            { id: "projects", label: "Projects" },
+            { id: "jobs", label: "Jobs" },
+            { id: "internships", label: "Internships" }
+          ];
+
+          pricingTabs.innerHTML = tabs.map((tab) => `
+            <label class="qava-toggle-radio">
+              <input type="radio" name="qava-pricing-tab" value="${tab.id}" data-tab="${tab.id}"${activeTab === tab.id ? " checked" : ""} />
+              <span>${tab.label}</span>
+            </label>
+          `).join("");
+
+          const showPricingTab = (tabType) => {
+            frameDoc.querySelectorAll("[data-panel]").forEach((panel) => {
+              panel.style.display = "none";
+              panel.hidden = true;
+            });
+            const panel = frameDoc.querySelector(`[data-panel="${tabType}"]`);
+            if (panel) {
+              panel.style.display = "block";
+              panel.hidden = false;
+            }
+          };
+
+          pricingTabs.querySelectorAll("input[name='qava-pricing-tab']").forEach((radio) => {
+            radio.addEventListener("change", () => {
+              if (!radio.checked) return;
+              showPricingTab(radio.getAttribute("data-tab"));
+            });
+          });
+
+          const checked = pricingTabs.querySelector("input[name='qava-pricing-tab']:checked");
+          if (checked) showPricingTab(checked.getAttribute("data-tab"));
+        }
+
+        if (!frameDoc.getElementById("qava-pricing-info-section")) {
+          const pricingContent = frameDoc.querySelector(".pricing-content");
+          if (pricingContent) {
+            const wrapper = frameDoc.createElement("div");
+            wrapper.id = "qava-pricing-info-section";
+            wrapper.className = "info-section-wrapper qava-pricing-info-wrapper";
+            wrapper.innerHTML = INFO_SECTION_HTML;
+            pricingContent.appendChild(wrapper);
+          }
+        }
+
+        if (typeof window.applySandboxFooter === "function") {
+          window.applySandboxFooter(frameDoc);
+        }
+      };
+
+      preview.addEventListener("load", attachSandboxEnhancements);
+      attachSandboxEnhancements();
+    })();
+  </script>
+</body>
+</html>

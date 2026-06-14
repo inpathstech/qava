@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About | Qava</title>
+  <link rel="icon" type="image/svg+xml" href="qava-logo.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --display: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+      --ink: #111827;
+      --muted: #6B6B6B;
+      --line: rgba(17, 24, 39, 0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      font-family: "Inter", sans-serif;
+      background: #ffffff;
+      color: var(--ink);
+    }
+
+    body {
+      position: relative;
+      min-height: 100vh;
+    }
+
+    #qava-dot-base-fixed {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image: radial-gradient(circle, rgba(17, 24, 39, 0.16) 1px, transparent 1.35px);
+      background-size: 20px 20px;
+      background-repeat: repeat;
+    }
+
+    body > *:not(#qava-dot-base-fixed) {
+      position: relative;
+      z-index: 1;
+    }
+
+    a { color: inherit; }
+
+    /* ---------- Navbar (match SANDBOXindex) ---------- */
+    .header-container {
+      width: calc(100% - 22px);
+      margin: 0 auto;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 56px;
+      position: sticky;
+      top: 0;
+      z-index: 1200;
+      background: rgba(255, 255, 255, 0.24);
+      -webkit-backdrop-filter: blur(18px) saturate(150%);
+      backdrop-filter: blur(18px) saturate(150%);
+      border: 0;
+      box-shadow: none;
+      isolation: isolate;
+    }
+
+    .header-container::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      right: 6px;
+      top: 3px;
+      bottom: 3px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.44) 100%);
+      -webkit-backdrop-filter: blur(26px) saturate(165%);
+      backdrop-filter: blur(26px) saturate(165%);
+      box-shadow: 0 10px 24px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .header-container > * { position: relative; z-index: 1; }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .header-center {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex: 1;
+      margin-left: 40px;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .logo-container, .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .header-container .logo {
+      background: transparent;
+      padding: 0;
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .navigation {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-container .nav-item,
+    .header-container .auth-item {
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      border-radius: 0;
+      padding: 0;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      transition: color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .header-container .nav-item .nav-text,
+    .header-container .auth-item .nav-text {
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: #6b6b6b;
+      line-height: 1.4;
+      transition: color 0.2s ease;
+      padding: 0 4px;
+      white-space: nowrap;
+    }
+
+    .header-container .nav-item:hover .nav-text,
+    .header-container .auth-item:hover .nav-text {
+      color: #000000;
+      background: none;
+      box-shadow: none;
+      text-decoration: none;
+    }
+
+    .auth-section {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .join-button {
+      padding: 6px 12px;
+      background: #2b2b2b;
+      border: 1px solid #2b2b2b;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: background-color 0.18s ease, border-color 0.18s ease;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .join-button:hover {
+      background: #000000;
+      border-color: #000000;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .join-text {
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .header-container .logo img,
+    .qava-nav-logo-face {
+      width: 40px;
+      height: 40px;
+      display: block;
+      border-radius: 11px;
+      box-shadow: none;
+      border: none;
+    }
+
+    .qava-nav-logo-flip { width: 40px; height: 40px; perspective: 700px; }
+
+    .qava-nav-logo-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
+    }
+
+    .qava-nav-logo-inner.is-flipped { transform: rotateY(180deg); }
+
+    .qava-nav-logo-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    .qava-nav-logo-front { object-fit: contain; background: transparent; }
+    .qava-nav-logo-back { object-fit: cover; transform: rotateY(180deg); }
+
+    .hamburger-menu {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      padding: 6px;
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+    }
+
+    .hamburger-line {
+      width: 18px;
+      height: 2px;
+      background: #111827;
+      margin: 2px 0;
+    }
+
+    .mobile-menu {
+      display: none;
+    }
+
+    /* ---------- Article ---------- */
+    .qava-about-page {
+      width: min(720px, calc(100vw - 48px));
+      margin: 0 auto;
+      padding: 72px 0 96px;
+    }
+
+    .qava-about-hero {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .qava-hero-icon {
+      width: 124px;
+      height: 124px;
+      border-radius: 28px;
+      object-fit: cover;
+      display: block;
+      margin: 0 auto 26px auto;
+      box-shadow: 0 16px 50px rgba(20, 10, 22, 0.18);
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      will-change: transform;
+      animation: qavaSideToSideFlip 2.4s linear infinite;
+    }
+
+    @keyframes qavaSideToSideFlip {
+      0% { transform: perspective(900px) rotateY(-22deg) rotateZ(-1deg); }
+      25% { transform: perspective(900px) rotateY(0deg) rotateZ(0deg); }
+      50% { transform: perspective(900px) rotateY(22deg) rotateZ(1deg); }
+      75% { transform: perspective(900px) rotateY(0deg) rotateZ(0deg); }
+      100% { transform: perspective(900px) rotateY(-22deg) rotateZ(-1deg); }
+    }
+
+    .qava-about-hero h1 {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(36px, 4.2vw, 56px);
+      line-height: 1.08;
+      letter-spacing: -0.012em;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .qava-about-subheader {
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: #6B6B6B;
+      text-align: center;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .qava-about-body-card {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(17, 24, 39, 0.06);
+      padding: 40px 44px;
+    }
+
+    .qava-about-section {
+      margin-bottom: 0;
+    }
+
+    .qava-about-section h2 {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(26px, 2.8vw, 36px);
+      line-height: 1.12;
+      letter-spacing: -0.012em;
+      color: var(--ink);
+      margin-bottom: 20px;
+    }
+
+    .qava-about-section h3 {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(20px, 2vw, 24px);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin: 28px 0 16px;
+    }
+
+    .qava-about-section p {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+
+    .qava-about-section p:last-child { margin-bottom: 0; }
+
+    .qava-about-list {
+      list-style: none;
+      margin: 20px 0 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .qava-about-list li {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.6;
+      color: var(--ink);
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .qava-about-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.62em;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--ink);
+    }
+
+    .qava-about-divider {
+      border: 0;
+      border-top: 1px solid var(--line);
+      margin: 40px 0;
+    }
+
+    .qava-about-cta {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .qava-about-cta .join-button {
+      display: inline-flex;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .qava-reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+        transition-delay: var(--reveal-delay, 0ms);
+      }
+
+      .qava-reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ---------- Footer ---------- */
+    .footer-section {
+      background: transparent;
+      width: 100%;
+      max-width: 1070px;
+      margin: 0 auto;
+      padding: 48px 0 46px;
+      border-top: 1px solid #EBEBEB;
+    }
+
+    .footer-container { max-width: 940px; margin: 0 auto; padding: 0 20px; }
+
+    .footer-content { display: flex; flex-wrap: wrap; }
+
+    .footer-logo { width: 39%; padding: 2px 15px 0 0; margin-bottom: 30px; }
+
+    .footer-logo-img { width: 40px; height: auto; }
+
+    .footer-links {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      width: 60%;
+      gap: 16px 25px;
+      padding: 0 15px 0 10px;
+    }
+
+    .footer-heading {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: 17px;
+      letter-spacing: -0.012em;
+      color: #000000;
+      margin: 0 0 8px;
+    }
+
+    .footer-link-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .footer-link {
+      font-size: 13px;
+      font-weight: 300;
+      color: #797979;
+      text-decoration: none;
+      line-height: 1.2;
+    }
+
+    .footer-link:hover { text-decoration: underline; }
+
+    .footer-copyright {
+      grid-column: 1 / -1;
+      margin-top: 14px;
+      font-size: 13px;
+      font-weight: 300;
+      color: #797979;
+    }
+
+    @media (max-width: 860px) {
+      .header-center, .auth-section .auth-item { display: none; }
+      .hamburger-menu { display: flex; }
+      .footer-logo, .footer-links { width: 100%; }
+      .footer-links { grid-template-columns: repeat(2, 1fr); }
+      .qava-about-body-card { padding: 28px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="qava-dot-base-fixed" aria-hidden="true"></div>
+
+  <header class="header-container">
+    <div class="header-logo">
+      <div class="logo-container">
+        <div class="logo">
+          <a href="/SANDBOXindex.html">
+            <div class="qava-nav-logo-flip" id="qava-nav-logo-flip">
+              <div class="qava-nav-logo-inner" id="qava-nav-logo-inner">
+                <img class="qava-nav-logo-face qava-nav-logo-front" src="qava-logo.svg" alt="Qava">
+                <img class="qava-nav-logo-face qava-nav-logo-back" src="./qava-hero-arrow-2.png" alt="">
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="header-center">
+      <nav class="navigation">
+        <a href="https://app.qava.ai/guest" class="nav-item create-listing">
+          <div class="nav-text">Create listing</div>
+        </a>
+        <a href="https://app.qava.ai/projects" class="nav-item search-listings">
+          <div class="nav-text">Find work</div>
+        </a>
+        <a href="/SANDBOXindex.html" class="nav-item newsletter">
+          <div class="nav-text">Newsletter</div>
+        </a>
+      </nav>
+    </div>
+    <div class="header-right">
+      <div class="auth-section">
+        <a href="/SANDBOXhowqavaworks.html" class="auth-item">
+          <div class="nav-text">How it works</div>
+        </a>
+        <a href="https://app.qava.ai/" class="auth-item">
+          <div class="nav-text">Log in</div>
+        </a>
+        <a href="https://app.qava.ai/" class="join-button">
+          <div class="join-text">Get Started</div>
+        </a>
+      </div>
+      <div class="hamburger-menu" aria-hidden="true">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="qava-about-page">
+    <header class="qava-about-hero">
+      <img class="qava-hero-icon" id="qava-hero-icon" src="./qava-about-hero-icon.png" alt="Qava">
+      <h1>The system is broken.</h1>
+      <p class="qava-about-subheader">A modern workforce deserves a modern marketplace.</p>
+    </header>
+
+    <div class="qava-about-body-card">
+    <section class="qava-about-section">
+      <p>The way we work has changed. The way we hire has not.</p>
+      <p>For decades, careers followed a predictable path: get a degree, join a company, climb the ladder, stay for years, and maybe switch jobs a handful of times along the way. Most hiring systems, job boards, and recruiting processes were built for that world.</p>
+      <p>That world no longer exists.</p>
+      <p>Today, talented people build companies, advise startups, freelance, consult, invest, create content, pursue side projects, and work across multiple industries at the same time. Businesses move faster than ever. Teams form and reform around opportunities. Expertise is needed immediately, not six months after a hiring process begins.</p>
+      <p>Yet most hiring platforms still force everyone into the same outdated boxes.</p>
+      <p>That's why we built Qava.</p>
+
+      <h3>The workforce has changed</h3>
+      <ul class="qava-about-list">
+        <li>AI is reshaping every role, team, and industry.</li>
+        <li>Careers are becoming portfolios, not ladders.</li>
+        <li>Experience matters more than credentials alone.</li>
+        <li>Entrepreneurship is becoming mainstream.</li>
+        <li>The best work happens in multidisciplinary teams.</li>
+      </ul>
+    </section>
+
+    <hr class="qava-about-divider" />
+
+    <section class="qava-about-section">
+      <h2>AI has changed everything.</h2>
+      <p>Artificial intelligence is transforming how work gets done, what skills matter, and what employers expect from talent.</p>
+      <p>The question is no longer whether someone uses AI. The question is how.</p>
+      <p>That's why we believe transparency matters. Whether you're posting a project, hiring for a role, or applying for an opportunity, expectations around AI should be clear from the start. What tools are allowed? What level of automation is expected? How will work be evaluated?</p>
+      <p>The organizations that thrive over the next decade won't be the ones that avoid AI. They'll be the ones that learn how to combine human judgment, creativity, and experience with the power of modern tools.</p>
+      <p>We're building for that future.</p>
+    </section>
+
+    <hr class="qava-about-divider" />
+
+    <section class="qava-about-section">
+      <h2>The easy money era is over.</h2>
+      <p>For years, businesses could raise enormous amounts of capital with little more than a compelling story.</p>
+      <p>That era is ending.</p>
+      <p>Today's companies are being asked tougher questions. Who is your customer? What problem are you solving? Why is your solution better? How do you acquire customers? How do you scale profitably?</p>
+      <p>The fundamentals are back.</p>
+      <p>Winning businesses understand their customers deeply. They execute relentlessly. They expand thoughtfully across products, markets, and geographies. They build durable advantages rather than chasing hype.</p>
+      <p>The challenge is that most founders don't have every skill required to do that alone.</p>
+      <p>They need access to people who have been there before.</p>
+    </section>
+
+    <hr class="qava-about-divider" />
+
+    <section class="qava-about-section">
+      <h2>Careers are becoming portfolios.</h2>
+      <p>The idea of spending an entire career inside one company is becoming increasingly rare.</p>
+      <p>People want variety. They want ownership. They want to learn faster. They want exposure to different industries, different challenges, and different ways of thinking.</p>
+      <p>The most successful professionals are building portfolios of experiences rather than following a single linear path.</p>
+      <p>They might work full-time while advising a startup. Lead a project while building a business. Complete an internship while developing expertise in a niche field.</p>
+      <p>Traditional hiring systems often treat this as a problem.</p>
+      <p>We see it as an advantage.</p>
+      <p>Because diverse experiences create better operators, better leaders, and better entrepreneurs.</p>
+    </section>
+
+    <hr class="qava-about-divider" />
+
+    <section class="qava-about-section">
+      <h2>No one builds alone.</h2>
+      <p>The rise of entrepreneurship has created incredible opportunities.</p>
+      <p>It has also created a lot of lonely founders.</p>
+      <p>Building something meaningful requires courage. It requires conviction. But it also requires perspective.</p>
+      <p>Most businesses don't fail because people aren't working hard enough. They fail because they miss something. They overlook a risk. They don't challenge an assumption. They become too close to the problem.</p>
+      <p>The best founders actively seek outside expertise.</p>
+      <p>A finance leader who spots an issue in the model.</p>
+      <p>An operator who identifies a bottleneck.</p>
+      <p>A strategist who challenges the go-to-market plan.</p>
+      <p>A legal expert who sees a risk before it becomes expensive.</p>
+      <p>The problem has never been willingness to ask for help.</p>
+      <p>The problem has been access.</p>
+      <p>That's what Qava provides.</p>
+    </section>
+
+    <hr class="qava-about-divider" />
+
+    <section class="qava-about-section">
+      <h2>Build your dream team.</h2>
+      <p>The future of work isn't one person doing everything.</p>
+      <p>It's the right people coming together at the right moment.</p>
+      <p>Sometimes that's a strategy expert, a finance leader, and an operations specialist.</p>
+      <p>Sometimes it's a legal advisor, a marketer, and a product builder.</p>
+      <p>Sometimes it's a group of ambitious students working alongside experienced operators who have spent decades solving similar problems.</p>
+      <p>Qava makes it possible to assemble these teams quickly, collaborate effectively, and combine human expertise with AI-powered execution.</p>
+      <p>The result is better decisions, faster execution, and stronger outcomes.</p>
+    </section>
+
+    <hr class="qava-about-divider" />
+
+    <section class="qava-about-section">
+      <h2>Why we exist.</h2>
+      <p>We believe the next generation of work will be more flexible, more collaborative, and more meritocratic than anything that came before it.</p>
+      <p>We believe talent should be defined by capability, not proximity.</p>
+      <p>We believe great ideas deserve access to great people.</p>
+      <p>And we believe ambitious people should have more opportunities to learn, contribute, and build.</p>
+      <p>Every successful project, every funded startup, every transformed business, every career breakthrough starts with people finding the right opportunity and the right team.</p>
+      <p>That's what we're building.</p>
+      <p>And we're just getting started.</p>
+    </section>
+
+    <div class="qava-about-cta">
+      <a href="https://app.qava.ai/" class="join-button">
+        <div class="join-text">Join for free</div>
+      </a>
+    </div>
+    </div>
+  </main>
+
+  <footer class="footer-section">
+    <div class="footer-container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <a href="/SANDBOXindex.html"><img src="qava-logo.svg" alt="Qava" class="footer-logo-img" /></a>
+        </div>
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4 class="footer-heading">Welcome</h4>
+            <ul class="footer-link-list">
+              <li><a href="https://app.qava.ai/guest" class="footer-link">Create listing</a></li>
+              <li><a href="https://app.qava.ai/projects" class="footer-link">Find work</a></li>
+              <li><a href="/SANDBOXhowqavaworks.html" class="footer-link">How it works</a></li>
+              <li><a href="/SANDBOXabout.html" class="footer-link">About</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4 class="footer-heading">Get started</h4>
+            <ul class="footer-link-list">
+              <li><a href="https://app.qava.ai/" class="footer-link">Sign up</a></li>
+              <li><a href="https://app.qava.ai/" class="footer-link">Log in</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4 class="footer-heading">Resources</h4>
+            <ul class="footer-link-list">
+              <li><a href="https://qava.ai/request-demo" class="footer-link">Request a demo</a></li>
+              <li><a href="/SANDBOXpricing.html" class="footer-link">Pricing</a></li>
+              <li><a href="https://qava.ai/successstories" class="footer-link">Success stories</a></li>
+              <li><a href="terms" class="footer-link">Terms &amp; privacy</a></li>
+              <li><a href="terms" class="footer-link">California privacy notice</a></li>
+            </ul>
+          </div>
+          <div class="footer-copyright">© 2026 qava</div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./sandbox-footer.js"></script>
+  <script>
+    (function () {
+      if (typeof window.applySandboxFooter === "function") {
+        window.applySandboxFooter(document);
+      }
+
+      const inner = document.getElementById("qava-nav-logo-inner");
+      if (inner) {
+        let flipped = false;
+        setInterval(() => {
+          flipped = !flipped;
+          inner.classList.toggle("is-flipped", flipped);
+        }, 5000);
+      }
+
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const revealSelectors = [
+        ".qava-about-hero h1",
+        ".qava-about-subheader",
+        ".qava-about-section h2",
+        ".qava-about-section h3",
+        ".qava-about-section p",
+        ".qava-about-list li",
+        ".qava-about-cta"
+      ].join(", ");
+
+      const revealTargets = Array.from(document.querySelectorAll(revealSelectors));
+      revealTargets.forEach((el) => el.classList.add("qava-reveal"));
+
+      if (reducedMotion) {
+        revealTargets.forEach((el) => el.classList.add("is-visible"));
+        return;
+      }
+
+      const heroReveals = Array.from(document.querySelectorAll(".qava-about-hero .qava-reveal"));
+      heroReveals.forEach((el, index) => {
+        el.style.setProperty("--reveal-delay", index * 90 + "ms");
+        window.setTimeout(() => el.classList.add("is-visible"), 80 + index * 90);
+      });
+
+      const scrollReveals = revealTargets.filter((el) => !el.closest(".qava-about-hero"));
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          });
+        },
+        { root: null, rootMargin: "0px 0px -10% 0px", threshold: 0.15 }
+      );
+
+      scrollReveals.forEach((el, index) => {
+        const section = el.closest(".qava-about-section");
+        const siblings = section
+          ? Array.from(section.querySelectorAll(".qava-reveal")).filter((node) => !node.closest(".qava-about-hero"))
+          : [el];
+        const siblingIndex = siblings.indexOf(el);
+        el.style.setProperty("--reveal-delay", Math.min(siblingIndex * 45, 270) + "ms");
+        observer.observe(el);
+      });
+    })();
+  </script>
+</body>
+</html>

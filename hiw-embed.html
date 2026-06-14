@@ -1,0 +1,1462 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Qava How It Works Embed</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+  <iframe id="preview" src="./howqavaworks.html" title="Qava sandbox how-it-works preview"></iframe>
+
+  <script src="./qava-footer.js"></script>
+  <script>
+    (function () {
+      const preview = document.getElementById("preview");
+      const DISPLAY_FONT = '"Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif';
+      // When embedded inside SANDBOXindex (?embed=1), hide this page's own
+      // navbar/footer so the host sandbox chrome is the only chrome shown.
+      const IS_EMBED = new URLSearchParams(location.search).has("embed");
+      const embedStyles = `
+        html,
+        body {
+          height: auto !important;
+          min-height: 0 !important;
+          overflow: visible !important;
+        }
+
+        #preview {
+          height: auto !important;
+          min-height: 0 !important;
+        }
+
+        .header-container,
+        .mobile-menu,
+        .footer-section {
+          display: none !important;
+        }
+
+        .hero-section {
+          padding-top: 32px !important;
+          padding-bottom: 16px !important;
+        }
+      `;
+
+      const injectedStyles = `
+        /* ---------- Base ---------- */
+        body {
+          position: relative;
+          background: #ffffff !important;
+        }
+
+        #qava-dot-base-fixed {
+          position: fixed;
+          inset: 0;
+          pointer-events: none;
+          z-index: 0;
+          background-image: radial-gradient(circle, rgba(17, 24, 39, 0.16) 1px, transparent 1.35px);
+          background-size: 20px 20px;
+          background-repeat: repeat;
+        }
+
+        body > *:not(#qava-dot-base-fixed) {
+          position: relative;
+          z-index: 1;
+        }
+
+        .client-how-it-works-page,
+        .hero-section,
+        .info-section-wrapper,
+        .info-section,
+        .questionnaire-section {
+          background: transparent !important;
+        }
+
+        .client-how-it-works-page {
+          min-height: auto !important;
+        }
+
+        /* ---------- Footer (ported) ---------- */
+        .footer-section {
+          margin-top: 0 !important;
+          padding: 48px 0 46px 0 !important;
+          background: transparent !important;
+        }
+
+        /* ---------- Navbar (ported from SANDBOXindex) ---------- */
+        .header-container {
+          width: calc(100% - 22px) !important;
+          margin: 0 auto !important;
+          padding: 8px 20px !important;
+          border-radius: 0 !important;
+          position: sticky !important;
+          top: 0 !important;
+          z-index: 1200 !important;
+          background: rgba(255, 255, 255, 0.24) !important;
+          -webkit-backdrop-filter: blur(18px) saturate(150%) !important;
+          backdrop-filter: blur(18px) saturate(150%) !important;
+          border: 0 !important;
+          box-shadow: none !important;
+          isolation: isolate !important;
+        }
+
+        .header-container::before {
+          content: "" !important;
+          position: absolute !important;
+          left: 6px !important;
+          right: 6px !important;
+          top: 3px !important;
+          bottom: 3px !important;
+          border-radius: 12px !important;
+          background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.62) 0%,
+            rgba(255, 255, 255, 0.5) 55%,
+            rgba(255, 255, 255, 0.44) 100%
+          ) !important;
+          -webkit-backdrop-filter: blur(26px) saturate(165%) !important;
+          backdrop-filter: blur(26px) saturate(165%) !important;
+          border: 0 !important;
+          box-shadow:
+            0 10px 24px rgba(17, 24, 39, 0.08),
+            inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
+          z-index: 0 !important;
+          pointer-events: none !important;
+        }
+
+        .header-container > * {
+          position: relative !important;
+          z-index: 1 !important;
+        }
+
+        .header-container .logo {
+          background: transparent !important;
+          padding: 0 !important;
+          border-radius: 0 !important;
+          border: none !important;
+          box-shadow: none !important;
+          display: inline-flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+        }
+
+        .header-container .logo img,
+        .qava-nav-logo-face {
+          width: 40px !important;
+          height: 40px !important;
+          display: block !important;
+          border-radius: 11px !important;
+          box-shadow: none !important;
+          border: none !important;
+        }
+
+        .qava-nav-logo-flip {
+          width: 40px;
+          height: 40px;
+          perspective: 700px;
+        }
+
+        .qava-nav-logo-inner {
+          width: 100%;
+          height: 100%;
+          position: relative;
+          transform-style: preserve-3d;
+          transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
+        }
+
+        .qava-nav-logo-inner.is-flipped {
+          transform: rotateY(180deg);
+        }
+
+        .qava-nav-logo-face {
+          position: absolute;
+          inset: 0;
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+        }
+
+        .qava-nav-logo-front {
+          object-fit: contain !important;
+          background: transparent;
+        }
+
+        .qava-nav-logo-back {
+          object-fit: cover !important;
+          transform: rotateY(180deg);
+        }
+
+        .header-container .nav-item,
+        .header-container .auth-item {
+          background: transparent !important;
+          border: 0 !important;
+          box-shadow: none !important;
+          border-radius: 0 !important;
+          padding: 0 !important;
+          transition: color 0.2s ease !important;
+        }
+
+        .header-container .navigation .nav-item .nav-text,
+        .header-container .auth-item .nav-text {
+          font-family: "Inter", sans-serif !important;
+          font-size: 14px !important;
+          font-weight: 300 !important;
+          color: #6b6b6b !important;
+          line-height: 1.4 !important;
+        }
+
+        .header-container .nav-item:hover,
+        .header-container .auth-item:hover {
+          background: transparent !important;
+          border: 0 !important;
+          box-shadow: none !important;
+        }
+
+        .header-container .nav-item:hover .nav-text,
+        .header-container .auth-item:hover .nav-text,
+        .header-container .nav-item.active .nav-text,
+        .header-container .auth-item.active .nav-text {
+          color: #000000 !important;
+          background: none !important;
+          box-shadow: none !important;
+          text-decoration: none !important;
+        }
+
+        .join-button {
+          background: #2b2b2b !important;
+          border-color: #2b2b2b !important;
+          color: #ffffff !important;
+          transform: none !important;
+          transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease !important;
+          box-shadow: none !important;
+        }
+
+        .join-button .join-text {
+          color: #ffffff !important;
+        }
+
+        .join-button:hover {
+          background: #000000 !important;
+          border-color: #000000 !important;
+          box-shadow: none !important;
+          transform: none !important;
+        }
+
+        .header-container .auth-section {
+          gap: 28px !important;
+        }
+
+        .footer-heading {
+          font-family: ${DISPLAY_FONT} !important;
+          font-weight: 400 !important;
+          letter-spacing: -0.012em !important;
+        }
+
+        /* ---------- Hero ---------- */
+        .hero-section {
+          padding-top: 48px !important;
+          padding-bottom: 16px !important;
+        }
+
+        .path-selection-wrapper {
+          margin-top: 24px !important;
+          margin-bottom: 0 !important;
+          gap: 0 !important;
+          min-height: 0 !important;
+          height: auto !important;
+          align-items: center !important;
+        }
+
+        .path-columns-wrapper {
+          display: none !important;
+        }
+
+        .questionnaire-section {
+          display: none !important;
+          height: 0 !important;
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+
+        .hero-title {
+          font-family: ${DISPLAY_FONT} !important;
+          font-weight: 400 !important;
+          font-size: clamp(34px, 3.6vw, 52px) !important;
+          line-height: 1.08 !important;
+          letter-spacing: -0.012em !important;
+          color: #111827 !important;
+          margin-bottom: 12px !important;
+        }
+
+        .hero-highlight,
+        .path-section-title .highlight {
+          background: none !important;
+          box-shadow: none !important;
+          padding: 0 !important;
+          color: inherit !important;
+        }
+
+        .hero-subtext {
+          display: block !important;
+          margin-top: 4px !important;
+        }
+
+        .hero-subtext.qava-hiw-hero-sub-hidden {
+          display: none !important;
+        }
+
+        .hero-subtext p {
+          font-family: "Inter", sans-serif !important;
+          font-size: 16px !important;
+          font-weight: 300 !important;
+          color: #6B6B6B !important;
+          line-height: 1.6 !important;
+        }
+
+        .hero-subtext strong {
+          font-weight: 500 !important;
+          color: #111827 !important;
+        }
+
+        /* ---------- Progress bar ---------- */
+        .progress-bar {
+          display: none !important;
+        }
+
+        .progress-fill {
+          background: #111827 !important;
+        }
+
+        /* ---------- Path selection ---------- */
+        /* The original two-column path grid is replaced by the 3 audience choices below. */
+        .path-columns-wrapper {
+          display: none !important;
+        }
+
+        .path-section-column {
+          background: #f4f4f5 !important;
+          border-radius: 14px !important;
+          padding: 26px 26px 30px 26px !important;
+          box-sizing: border-box !important;
+        }
+
+        .qava-hiw-choices {
+          width: min(900px, calc(100% - 48px));
+          margin: 0 auto;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          align-items: stretch;
+          gap: 16px;
+        }
+
+        .qava-hiw-choice {
+          flex: 1 1 220px;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+          position: relative;
+          text-align: left;
+          background: #ffffff;
+          border: 1px solid transparent;
+          border-radius: 12px;
+          padding: 14px 16px 16px 16px;
+          cursor: pointer;
+          box-shadow: 0 1px 3px rgba(17, 24, 39, 0.06);
+          transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+          font-family: "Inter", sans-serif;
+        }
+
+        .qava-hiw-choice:hover {
+          background: #f4f4f5;
+        }
+
+        .qava-hiw-choice.selected {
+          background: #ffffff;
+          border-color: #111827;
+        }
+
+        .qava-hiw-choice-emoji {
+          flex: 0 0 auto;
+          width: 38px;
+          height: 38px;
+          font-size: 22px;
+          line-height: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: transparent;
+          border-radius: 10px;
+        }
+
+        .qava-hiw-choice-body {
+          display: flex;
+          flex-direction: column;
+          gap: 3px;
+          flex: 1 1 auto;
+          min-width: 0;
+        }
+
+        .qava-hiw-choice-title {
+          font-size: 16px;
+          font-weight: 600;
+          color: #111827;
+          letter-spacing: -0.005em;
+        }
+
+        .qava-hiw-choice-desc {
+          font-size: 13.5px;
+          font-weight: 300;
+          color: #6b6b6b;
+          line-height: 1.4;
+        }
+
+        .qava-hiw-choice-check {
+          position: absolute;
+          top: 12px;
+          right: 12px;
+          flex: 0 0 auto;
+          width: 20px;
+          height: 20px;
+          border-radius: 6px;
+          border: 1px solid #d1d5db;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: background 0.15s ease, border-color 0.15s ease;
+        }
+
+        .qava-hiw-choice-check svg {
+          opacity: 0;
+          transition: opacity 0.15s ease;
+        }
+
+        .qava-hiw-choice.selected .qava-hiw-choice-check {
+          background: #111827;
+          border-color: #111827;
+        }
+
+        .qava-hiw-choice.selected .qava-hiw-choice-check svg {
+          opacity: 1;
+        }
+
+        /* ---------- Audience flow (question step) ---------- */
+        .qava-hiw-flow {
+          display: none;
+          width: min(1100px, calc(100% - 48px));
+          margin: 4px auto 0 auto;
+          font-family: "Inter", sans-serif;
+        }
+
+        .qava-hiw-flow.active {
+          display: block;
+        }
+
+        .qava-hiw-q-title {
+          font-family: ${DISPLAY_FONT};
+          font-weight: 400;
+          font-size: 26px;
+          letter-spacing: -0.012em;
+          color: #111827;
+          text-align: center;
+          margin: 0 0 4px 0;
+        }
+
+        .qava-hiw-q-sub {
+          font-size: 14px;
+          font-weight: 300;
+          color: #6b6b6b;
+          text-align: center;
+          margin: 0 0 22px 0;
+        }
+
+        .qava-hiw-panel {
+          display: flex;
+          gap: 22px;
+          align-items: stretch;
+        }
+
+        .qava-hiw-menu {
+          position: relative;
+          flex: 0 0 210px;
+          align-self: start;
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+          background: #ffffff;
+          border: 1px solid rgba(17, 24, 39, 0.06);
+          border-radius: 12px;
+          box-shadow: 0 1px 6px rgba(15, 23, 42, 0.06);
+          padding: 10px;
+        }
+
+        .qava-hiw-menu-indicator {
+          position: absolute;
+          left: 10px;
+          top: 0;
+          width: 2px;
+          height: 0;
+          background: #111827;
+          border-radius: 1px;
+          transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), height 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .qava-hiw-menu-item {
+          position: relative;
+          display: flex;
+          align-items: center;
+          text-align: left;
+          background: transparent;
+          border: none;
+          border-radius: 0;
+          padding: 6px 0 6px 14px;
+          cursor: pointer;
+          box-shadow: none;
+          transition: color 0.15s ease, font-weight 0.15s ease;
+          font-family: "Inter", sans-serif;
+          width: 100%;
+        }
+
+        .qava-hiw-menu-item:hover {
+          background: transparent;
+        }
+
+        .qava-hiw-menu-item.active {
+          background: transparent;
+        }
+
+        .qava-hiw-menu-label {
+          font-size: 14px;
+          font-weight: 300;
+          color: #6b6b6b;
+          white-space: nowrap;
+        }
+
+        .qava-hiw-menu-item:hover .qava-hiw-menu-label {
+          color: #111827;
+        }
+
+        .qava-hiw-menu-item.active .qava-hiw-menu-label {
+          font-weight: 500;
+          color: #111827;
+        }
+
+        .qava-hiw-content {
+          flex: 1 1 auto;
+          min-width: 0;
+          background: #ffffff;
+          border-radius: 12px;
+          box-shadow: 0 1px 3px rgba(17, 24, 39, 0.06);
+          padding: 26px 28px;
+          text-align: left;
+        }
+
+        .qava-hiw-content-title {
+          font-family: ${DISPLAY_FONT};
+          font-weight: 400;
+          font-size: 22px;
+          letter-spacing: -0.012em;
+          color: #111827;
+          margin: 0 0 10px 0;
+        }
+
+        .qava-hiw-content-emoji {
+          font-family: "Inter", sans-serif;
+          font-size: 20px;
+          line-height: 1;
+          margin-left: 6px;
+        }
+
+        .qava-hiw-content-text {
+          font-size: 14.5px;
+          font-weight: 300;
+          color: #4b5563;
+          line-height: 1.6;
+          margin: 0 0 16px 0;
+        }
+
+        .qava-hiw-content-list {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 9px;
+        }
+
+        .qava-hiw-content-list li {
+          position: relative;
+          padding-left: 22px;
+          font-size: 14px;
+          font-weight: 300;
+          color: #374151;
+          line-height: 1.5;
+        }
+
+        .qava-hiw-content-list li::before {
+          content: "";
+          position: absolute;
+          left: 4px;
+          top: 8px;
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: #111827;
+        }
+
+        @media (max-width: 680px) {
+          .qava-hiw-panel {
+            flex-direction: column;
+          }
+          .qava-hiw-menu {
+            flex: 1 1 auto;
+            flex-direction: row;
+            flex-wrap: wrap;
+          }
+          .qava-hiw-menu-item {
+            width: auto;
+            flex: 1 1 140px;
+          }
+        }
+
+        .qava-hiw-q-nav {
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          gap: 14px;
+          margin-top: 26px;
+        }
+
+        .qava-hiw-back {
+          background: none;
+          border: none;
+          color: #6b6b6b;
+          font-family: "Inter", sans-serif;
+          font-size: 14px;
+          font-weight: 300;
+          cursor: pointer;
+          padding: 8px 4px;
+        }
+
+        .qava-hiw-back:hover {
+          color: #111827;
+        }
+
+        .qava-hiw-join {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          background: #2b2b2b;
+          color: #ffffff;
+          border: none;
+          border-radius: 6px;
+          padding: 6px 12px;
+          font-family: "Inter", sans-serif;
+          font-size: 13px;
+          font-weight: 400;
+          line-height: 1.2;
+          white-space: nowrap;
+          cursor: pointer;
+          text-decoration: none;
+          transition: background 0.18s ease;
+        }
+
+        .qava-hiw-join:hover {
+          background: #000000;
+          color: #ffffff;
+        }
+
+        .qava-hiw-continue {
+          background: #2b2b2b;
+          color: #ffffff;
+          border: none;
+          border-radius: 6px;
+          padding: 10px 24px;
+          font-family: "Inter", sans-serif;
+          font-size: 14px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: background 0.18s ease;
+        }
+
+        .qava-hiw-continue:hover {
+          background: #000000;
+        }
+
+        .qava-hiw-continue:disabled {
+          background: #cfcfd3;
+          cursor: not-allowed;
+        }
+
+        .path-section-title {
+          font-family: ${DISPLAY_FONT} !important;
+          font-weight: 400 !important;
+          font-size: 24px !important;
+          letter-spacing: -0.012em !important;
+          color: #111827 !important;
+          margin: 0 0 18px 0 !important;
+        }
+
+        .path-section-title .thin-text {
+          font-weight: 400 !important;
+          color: #111827 !important;
+        }
+
+        .path-card {
+          background: #ffffff !important;
+          border: 1px solid transparent !important;
+          border-radius: 8px !important;
+          box-shadow: 0 1px 3px rgba(17, 24, 39, 0.05) !important;
+          transition: box-shadow 0.2s ease, border-color 0.2s ease !important;
+        }
+
+        .path-card:hover {
+          background: #ffffff !important;
+          box-shadow: 0 6px 18px rgba(17, 24, 39, 0.10) !important;
+        }
+
+        .path-card.selected {
+          background: #ffffff !important;
+          border: 1px solid #111827 !important;
+          box-shadow: 0 1px 3px rgba(17, 24, 39, 0.08) !important;
+        }
+
+        .path-card h3,
+        .path-card h3 strong {
+          font-family: "Inter", sans-serif !important;
+          font-size: 15px !important;
+          font-weight: 600 !important;
+          color: #111827 !important;
+        }
+
+        .path-subtext {
+          font-family: "Inter", sans-serif !important;
+          font-size: 12.5px !important;
+          font-weight: 300 !important;
+          color: #6B6B6B !important;
+        }
+
+        .path-checkbox-visible {
+          border: 1px solid #d1d5db !important;
+          border-radius: 4px !important;
+        }
+
+        .path-card.selected .path-checkbox-visible {
+          background: #111827 !important;
+          border-color: #111827 !important;
+        }
+
+        /* Always show all four cards; the Show More/Less toggle is removed. */
+        .path-card.hidden-initially {
+          display: flex !important;
+        }
+
+        .show-more-button,
+        #showMoreButton,
+        #showLessButton {
+          display: none !important;
+        }
+
+        /* ---------- Info section (transparency + comparison) ---------- */
+        .info-section-content {
+          background: #ffffff !important;
+          border-radius: 8px !important;
+          box-shadow: 0 1px 3px rgba(17, 24, 39, 0.05) !important;
+          padding: 40px 44px !important;
+          gap: 56px !important;
+        }
+
+        .transparency-title,
+        .comparison-title {
+          font-family: ${DISPLAY_FONT} !important;
+          font-size: 26px !important;
+          font-weight: 400 !important;
+          letter-spacing: -0.012em !important;
+          color: #111827 !important;
+          margin-bottom: 8px !important;
+        }
+
+        .transparency-subtitle,
+        .comparison-subtitle {
+          font-family: "Inter", sans-serif !important;
+          font-size: 14px !important;
+          font-weight: 300 !important;
+          color: #6B6B6B !important;
+        }
+
+        .transparency-list li {
+          font-family: "Inter", sans-serif !important;
+          font-size: 15px !important;
+          font-weight: 300 !important;
+          color: #4b5563 !important;
+          line-height: 1.6 !important;
+        }
+
+        .comparison-table {
+          border-radius: 8px !important;
+          overflow: hidden !important;
+        }
+
+        .header-cell {
+          font-family: "Inter", sans-serif !important;
+          font-size: 13px !important;
+          font-weight: 500 !important;
+          color: #6b7280 !important;
+        }
+
+        .header-cell .header-subtext {
+          font-weight: 300 !important;
+          color: #9ca3af !important;
+        }
+
+        .header-cell.qava-header {
+          background: #111827 !important;
+          color: #ffffff !important;
+          border-radius: 6px 6px 0 0 !important;
+        }
+
+        .header-cell.qava-header span,
+        .header-cell.qava-header .header-subtext {
+          color: #ffffff !important;
+        }
+
+        .header-cell.qava-header .header-subtext {
+          color: rgba(255, 255, 255, 0.7) !important;
+        }
+
+        .table-row {
+          border-bottom: 1px solid rgba(17, 24, 39, 0.07) !important;
+        }
+
+        .row-label span {
+          font-family: "Inter", sans-serif !important;
+          font-size: 14px !important;
+          font-weight: 500 !important;
+          color: #111827 !important;
+        }
+
+        .row-label .sub-text,
+        .table-cell .sub-text {
+          font-weight: 300 !important;
+          color: #9ca3af !important;
+        }
+
+        .table-cell.qava-cell {
+          background: #f7f7f8 !important;
+        }
+
+        .table-row:last-child .table-cell.qava-cell {
+          border-radius: 0 0 6px 6px !important;
+        }
+
+        .dollar-signs {
+          font-family: "Inter", sans-serif !important;
+          font-weight: 500 !important;
+          color: #6b7280 !important;
+        }
+
+        .xmark {
+          color: #c2c5cc !important;
+        }
+
+        /* ---------- Questionnaire ---------- */
+        .questionnaire-container {
+          background: #ffffff !important;
+          border-radius: 8px !important;
+          box-shadow: 0 1px 3px rgba(17, 24, 39, 0.05) !important;
+        }
+
+        .question-text {
+          font-family: ${DISPLAY_FONT} !important;
+          font-size: 26px !important;
+          font-weight: 400 !important;
+          letter-spacing: -0.012em !important;
+          color: #111827 !important;
+        }
+
+        .answer-option {
+          background: #f4f4f5 !important;
+          border: 1px solid transparent !important;
+          border-radius: 6px !important;
+          font-family: "Inter", sans-serif !important;
+          font-size: 14px !important;
+          font-weight: 300 !important;
+          color: #374151 !important;
+          transition: background 0.15s ease, border-color 0.15s ease !important;
+        }
+
+        .answer-option:hover {
+          background: #ffffff !important;
+          border-color: rgba(17, 24, 39, 0.15) !important;
+          color: #111827 !important;
+        }
+
+        .answer-option.selected {
+          background: #ffffff !important;
+          border: 1px solid #111827 !important;
+          color: #111827 !important;
+          box-shadow: 0 1px 3px rgba(17, 24, 39, 0.08) !important;
+        }
+
+        .next-button,
+        .bottom-next-button {
+          background: #2b2b2b !important;
+          color: #ffffff !important;
+          border: none !important;
+          border-radius: 6px !important;
+          font-family: "Inter", sans-serif !important;
+          font-weight: 500 !important;
+          transition: background 0.18s ease !important;
+        }
+
+        .next-button:hover,
+        .bottom-next-button:hover {
+          background: #000000 !important;
+        }
+
+        .bottom-back-button {
+          color: #6B6B6B !important;
+          font-family: "Inter", sans-serif !important;
+          font-weight: 300 !important;
+        }
+
+        /* ---------- Summary + CTAs ---------- */
+        .summary-title {
+          font-family: ${DISPLAY_FONT} !important;
+          font-size: clamp(28px, 3vw, 36px) !important;
+          font-weight: 400 !important;
+          letter-spacing: -0.012em !important;
+          color: #111827 !important;
+        }
+
+        .cta-button.cta-button-primary {
+          background: #2b2b2b !important;
+          border-color: #2b2b2b !important;
+          color: #ffffff !important;
+          box-shadow: none !important;
+          transform: none !important;
+          transition: background-color 0.18s ease !important;
+        }
+
+        .cta-button.cta-button-primary:hover {
+          background: #000000 !important;
+          border-color: #000000 !important;
+        }
+
+        .cta-button.cta-button-secondary {
+          color: #6B6B6B !important;
+        }
+      `;
+
+      const NAV_RENAMES = [
+        { match: "create listing", label: "Create listing" },
+        { match: "search listings", label: "Find work" }
+      ];
+
+      const attachSandboxEnhancements = () => {
+        const frameDoc = preview.contentDocument;
+        if (!frameDoc || !frameDoc.head || !frameDoc.body) return;
+
+        if (!frameDoc.getElementById("qava-sandbox-canela-link")) {
+          const fontLink = frameDoc.createElement("link");
+          fontLink.id = "qava-sandbox-canela-link";
+          fontLink.rel = "stylesheet";
+          fontLink.href = "https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap";
+          frameDoc.head.appendChild(fontLink);
+        }
+
+        let styleTag = frameDoc.getElementById("qava-sandbox-style");
+        if (!styleTag) {
+          styleTag = frameDoc.createElement("style");
+          styleTag.id = "qava-sandbox-style";
+          frameDoc.head.appendChild(styleTag);
+        }
+        styleTag.textContent = injectedStyles + (IS_EMBED ? embedStyles : "");
+
+        const logoLink = frameDoc.querySelector(".header-logo .logo a, .logo a");
+        const logoImg = logoLink && logoLink.querySelector("img");
+        if (logoLink && logoImg && !frameDoc.getElementById("qava-nav-logo-flip")) {
+          const originalSrc = logoImg.getAttribute("src") || "qava-logo.svg";
+          const flip = frameDoc.createElement("div");
+          flip.id = "qava-nav-logo-flip";
+          flip.className = "qava-nav-logo-flip";
+          flip.innerHTML = `
+            <div class="qava-nav-logo-inner" id="qava-nav-logo-inner">
+              <img class="qava-nav-logo-face qava-nav-logo-front" src="${originalSrc}" alt="Qava">
+              <img class="qava-nav-logo-face qava-nav-logo-back" src="./qava-hero-arrow-2.png" alt="">
+            </div>
+          `;
+          logoLink.innerHTML = "";
+          logoLink.appendChild(flip);
+
+          const inner = flip.querySelector(".qava-nav-logo-inner");
+          const flipWin = frameDoc.defaultView;
+          if (flipWin.__qavaNavLogoFlipTimer) clearInterval(flipWin.__qavaNavLogoFlipTimer);
+          let flipped = false;
+          flipWin.__qavaNavLogoFlipTimer = setInterval(() => {
+            flipped = !flipped;
+            inner.classList.toggle("is-flipped", flipped);
+          }, 5000);
+        }
+
+        if (!frameDoc.getElementById("qava-dot-base-fixed")) {
+          const fixedDotLayer = frameDoc.createElement("div");
+          fixedDotLayer.id = "qava-dot-base-fixed";
+          frameDoc.body.prepend(fixedDotLayer);
+        }
+
+        // Remove Pricing from the top nav (kept in footer)
+        const navPricing = Array.from(frameDoc.querySelectorAll(".navigation a.nav-item")).find((link) =>
+          (link.textContent || "").trim().toLowerCase() === "pricing"
+        );
+        if (navPricing) navPricing.remove();
+
+        // Rename nav items to match the new sandbox wording
+        Array.from(frameDoc.querySelectorAll(".navigation .nav-item .nav-text")).forEach((el) => {
+          const current = (el.textContent || "").trim().toLowerCase();
+          const rename = NAV_RENAMES.find((r) => r.match === current);
+          if (rename) el.textContent = rename.label;
+        });
+
+        const howItWorksNavText = Array.from(frameDoc.querySelectorAll(".auth-item .nav-text, .mobile-nav-item")).find((item) => {
+          const t = (item.textContent || "").trim().toLowerCase();
+          return t === "how qava works" || t === "how it works";
+        });
+        if (howItWorksNavText) {
+          howItWorksNavText.textContent = "How it works";
+        }
+
+        frameDoc.querySelectorAll(".info-section-wrapper").forEach((el) => el.remove());
+        frameDoc.querySelectorAll(".questionnaire-section").forEach((el) => el.remove());
+
+        const resizeHiwFrame = () => {
+          const main = frameDoc.querySelector(".client-how-it-works-page");
+          const h = main
+            ? Math.ceil(main.getBoundingClientRect().bottom + 8)
+            : Math.max(frameDoc.body.scrollHeight, frameDoc.documentElement ? frameDoc.documentElement.scrollHeight : 0);
+          if (h > 0) preview.style.height = h + "px";
+          if (IS_EMBED) {
+            try {
+              window.parent.postMessage({ type: "qava-hiw-resize", height: h }, "*");
+            } catch (e) {}
+          }
+        };
+
+        // Reword the hero title.
+        const heroTitleEl = frameDoc.querySelector(".hero-title");
+        const heroSubWrap = frameDoc.querySelector(".hero-subtext");
+        const heroSubEl = frameDoc.querySelector(".hero-subtext p");
+        const defaultHero = { title: "What are your goals?", sub: "Let's start with you." };
+        const updateHero = (title, sub) => {
+          if (heroTitleEl) heroTitleEl.textContent = title;
+          if (heroSubWrap) heroSubWrap.classList.toggle("qava-hiw-hero-sub-hidden", !sub);
+          if (heroSubEl) heroSubEl.textContent = sub || "";
+        };
+        updateHero(defaultHero.title, defaultHero.sub);
+
+        // Replace the old path-card grid with three selectable audience choices.
+        if (!frameDoc.getElementById("qava-hiw-choices")) {
+          const pathSelectionWrapper = frameDoc.querySelector(".path-selection-wrapper");
+          if (pathSelectionWrapper) {
+            const choiceData = [
+              { emoji: "🎓", title: "I want to find work", desc: "Students, graduates, operators, consultants, experts", flow: "work" },
+              { emoji: "🚀", title: "I want brain power", desc: "Startup, SMB, non-profit, enterprise", flow: "brainpower" },
+              { emoji: "🧩", title: "I want my master team", desc: "Build a cross-functional team around a challenge", flow: "team" }
+            ];
+
+            const flowData = {
+              work: {
+                heroTitle: "Your new work hub.",
+                heroSub: "Paid projects, real experience, on your terms.",
+                title: "What are your goals?",
+                sub: "Select a goal to see how Qava can help.",
+                items: [
+                  {
+                    emoji: "💰",
+                    label: "Earn income",
+                    heading: "Earn real income, fast",
+                    para: "Stop waiting on long hiring cycles. Qava connects you with startups, SMBs, and enterprises that need your skills now — and will pay for them. Real projects, real budgets, real momentum from day one.",
+                    bullets: [
+                      "Get matched to paid work that fits your skills and schedule",
+                      "Scope the work upfront and get paid for clear outcomes",
+                      "Stack wins that lead to bigger, better-paid projects",
+                      "Learn on the job — and get paid while you do"
+                    ]
+                  },
+                  {
+                    emoji: "📈",
+                    label: "Build experience",
+                    heading: "Build experience that counts",
+                    para: "The best experience isn't a line on a résumé — it's work you can show. On Qava, you tackle live problems, ship real output, and build a portfolio that hiring managers and clients actually want to see.",
+                    bullets: [
+                      "Work on live problems with real deadlines and feedback",
+                      "Collaborate with founders, operators, and sharp peers",
+                      "Leave every project with deliverables you can show off",
+                      "Build breadth fast across industries and project types"
+                    ]
+                  },
+                  {
+                    emoji: "🧠",
+                    label: "Apply what you've learned",
+                    heading: "Put your knowledge to work",
+                    para: "You've got the knowledge. Qava gives you the stage. Apply what you've studied to real business problems — and see what happens when your ideas aren't just graded, they get used.",
+                    bullets: [
+                      "Put your frameworks to work on problems companies face today",
+                      "Watch your recommendations land and learn from what works",
+                      "Build judgment that only comes from messy, real-world calls",
+                      "Close the gap between what you learned and how work runs"
+                    ]
+                  },
+                  {
+                    emoji: "🤝",
+                    label: "Expand your network",
+                    heading: "Grow your network",
+                    para: "The best connections come from doing great work together — not cold emails. Every Qava project puts you alongside founders, leaders, and talented people who remember how you showed up.",
+                    bullets: [
+                      "Work side by side with founders who see your output firsthand",
+                      "Meet sharp people across roles, industries, and time zones",
+                      "Turn strong work into referrals and repeat invitations",
+                      "Build a name on Qava that keeps opening doors for you"
+                    ]
+                  },
+                  {
+                    emoji: "🚀",
+                    label: "Explore startups",
+                    heading: "Explore the startup world",
+                    para: "Curious about startup life but not ready to leap? Qava lets you step inside early-stage companies on short projects — so you see the pace, the people, and the trade-offs before you commit.",
+                    bullets: [
+                      "Join founders during launches, fundraises, and big pivots",
+                      "Sample multiple startups before picking where to go all-in",
+                      "Find teams and cultures worth joining from real exposure",
+                      "Test startup life on scoped projects — no leap required"
+                    ]
+                  },
+                  {
+                    emoji: "🎯",
+                    label: "Find your next role",
+                    heading: "Find your next role",
+                    para: "Interviews tell one story. Real work tells the truth. Use Qava projects as a working audition — show teams what you can do, and let the right role find you.",
+                    bullets: [
+                      "Prove your value on real work, not just interviews alone",
+                      "Get seen by teams hiring — many post projects before roles",
+                      "Turn great project work into offers from people who know you",
+                      "Skip the guesswork — both sides see fit before anyone commits"
+                    ]
+                  }
+                ]
+              },
+              brainpower: {
+                heroTitle: "Where builders build.",
+                heroSub: "Sharp talent on demand, without the long hire.",
+                title: "What are your goals?",
+                sub: "Select a goal to see how Qava can help.",
+                items: [
+                  {
+                    emoji: "🚀",
+                    label: "Build or launch",
+                    heading: "Turn ideas into reality",
+                    para: "You don't need a full hire to get moving. Post a project on Qava and tap students, graduates, and professionals who can help you build, launch, and ship — without months of recruiting.",
+                    bullets: [
+                      "Post a project and get matched to talent ready to start",
+                      "Ship plans, models, GTM strategy, and more — fast",
+                      "Go from idea to output without a long hiring search",
+                      "Pay for outcomes, not months of recruiting overhead"
+                    ]
+                  },
+                  {
+                    emoji: "📈",
+                    label: "Grow or fundraise",
+                    heading: "Grow and raise with confidence",
+                    para: "Need a sharper story for investors or a clearer path to growth? Qava brings you AI-enabled talent who can build the analysis, models, and strategy you need to move the needle.",
+                    bullets: [
+                      "Get financial models and growth plans built by sharp talent",
+                      "Pressure-test your story before you pitch investors",
+                      "Move faster on market research and competitive analysis",
+                      "Bring in expertise without committing to a full-time hire"
+                    ]
+                  },
+                  {
+                    emoji: "🧩",
+                    label: "Solve a challenge",
+                    heading: "Solve your toughest challenge",
+                    para: "Stuck on a problem your team can't crack alone? Qava matches you with fresh, capable minds who bring new angles, rigorous thinking, and the bandwidth to dig in.",
+                    bullets: [
+                      "Bring outside perspective to problems stuck in-house",
+                      "Match to talent with the exact skills your challenge needs",
+                      "Scope focused work with clear deliverables and deadlines",
+                      "Get rigorous analysis without adding permanent headcount"
+                    ]
+                  },
+                  {
+                    emoji: "🧰",
+                    label: "Fill skill gaps",
+                    heading: "Fill the gaps on your team",
+                    para: "Missing a skill set? Don't pause the work. Qava lets you bring in targeted expertise — strategy, finance, tech, marketing — exactly when and how you need it.",
+                    bullets: [
+                      "Add strategy, finance, tech, or growth skills on demand",
+                      "Bring in specialists without a permanent hire",
+                      "Keep your core team lean while still moving fast",
+                      "Scale expertise up or down as projects change"
+                    ]
+                  },
+                  {
+                    emoji: "⚡",
+                    label: "Move faster",
+                    heading: "Move faster on what matters",
+                    para: "Deadlines don't wait for hiring cycles. Qava gets capable talent on your project quickly — so you keep momentum instead of losing weeks to job posts and interviews.",
+                    bullets: [
+                      "Get talent matched and working in days, not months",
+                      "Skip the overhead of traditional recruiting pipelines",
+                      "Keep projects moving while you search for permanent hires",
+                      "Scale up fast when a priority suddenly needs attention"
+                    ]
+                  },
+                  {
+                    emoji: "🔎",
+                    label: "Find future hires",
+                    heading: "Find your next great hire",
+                    para: "The best way to evaluate talent is to work together first. Use Qava projects as a working trial — see how someone performs before you make a full-time offer.",
+                    bullets: [
+                      "Test talent on real work before you extend an offer",
+                      "See skills, judgment, and fit — not just a résumé",
+                      "Build a pipeline of people you've already worked with",
+                      "Convert great project work into a full-time hire"
+                    ]
+                  }
+                ]
+              },
+              team: {
+                heroTitle: "Your modern force.",
+                heroSub: "Build a cross-functional team around your challenge.",
+                title: "What are your goals?",
+                sub: "Select a goal to see how Qava can help.",
+                items: [
+                  {
+                    emoji: "🧩",
+                    label: "Design your team",
+                    heading: "Design your dream team",
+                    para: "Start with the team, not a single hire. Define each role, what they should bring, and how they fit together — so your cross-functional team is built around the challenge from day one.",
+                    bullets: [
+                      "Define each slot — strategy, finance, tech, growth, and more",
+                      "Set school, experience, and background preferences per role",
+                      "Write a clear brief for what each member should deliver",
+                      "Shape the full team before a single hour is spent"
+                    ]
+                  },
+                  {
+                    emoji: "📋",
+                    label: "Define deliverables",
+                    heading: "Clarify what you'll get",
+                    para: "Great teams need a shared finish line. Pick the deliverables your team should produce — business plans, models, competitive analysis, and more — so everyone rows in the same direction.",
+                    bullets: [
+                      "Choose deliverables — plans, models, analysis, and more",
+                      "Give every team member a clear target to work toward",
+                      "Align roles so outputs fit together cleanly",
+                      "Walk away with tangible work, not just good intentions"
+                    ]
+                  },
+                  {
+                    emoji: "📅",
+                    label: "Set timeframe",
+                    heading: "Set the pace from the start",
+                    para: "Scope the work and timeline upfront so your team knows what's due and when. Qava keeps everyone aligned on cadence, milestones, and what done looks like.",
+                    bullets: [
+                      "Set a clear timeline before the team kicks off",
+                      "Align milestones so workstreams stay in sync",
+                      "Keep everyone accountable to shared deadlines",
+                      "Finish with deliverables on schedule, not someday"
+                    ]
+                  },
+                  {
+                    emoji: "🎓",
+                    label: "Match the right talent",
+                    heading: "Match talent to each role",
+                    para: "Looking for a Harvard finance mind and a Stanford technologist? Specify what each slot needs — school, experience, skills — and Qava finds people who fit.",
+                    bullets: [
+                      "Match each role to the right school, skills, and experience",
+                      "Pull from students, graduates, and seasoned professionals",
+                      "Build a team with complementary strengths, not overlap",
+                      "Get the mix of perspectives your challenge actually needs"
+                    ]
+                  },
+                  {
+                    emoji: "🤝",
+                    label: "Collaborate seamlessly",
+                    heading: "Run the team smoothly",
+                    para: "A great team needs more than great people — it needs coordination. Qava gives your cross-functional team a shared workspace to collaborate, share progress, and stay aligned.",
+                    bullets: [
+                      "Keep every team member aligned on goals and progress",
+                      "Collaborate across roles without endless status meetings",
+                      "Share context so each person builds on the others' work",
+                      "Run parallel workstreams without losing the thread"
+                    ]
+                  },
+                  {
+                    emoji: "✅",
+                    label: "Ship real results",
+                    heading: "Walk away with real output",
+                    para: "Your master team isn't a thought exercise — it's built to deliver. Qava helps you scope, staff, and run the work so you end up with finished deliverables, not just good conversations.",
+                    bullets: [
+                      "End with finished deliverables your whole team contributed to",
+                      "Get rigorous work you can use — not just slide decks",
+                      "See how a cross-functional team performs before you hire",
+                      "Turn one great project into a model for how you work"
+                    ]
+                  }
+                ]
+              }
+            };
+            const checkSvg = '<svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+            const choices = frameDoc.createElement("div");
+            choices.id = "qava-hiw-choices";
+            choices.className = "qava-hiw-choices";
+            choices.setAttribute("role", "radiogroup");
+            choices.innerHTML = choiceData.map((d) => `
+              <button type="button" class="qava-hiw-choice" role="radio" aria-checked="false">
+                <span class="qava-hiw-choice-emoji">${d.emoji}</span>
+                <span class="qava-hiw-choice-body">
+                  <span class="qava-hiw-choice-title">${d.title}</span>
+                  <span class="qava-hiw-choice-desc">${d.desc}</span>
+                </span>
+                <span class="qava-hiw-choice-check" aria-hidden="true">${checkSvg}</span>
+              </button>
+            `).join("");
+            pathSelectionWrapper.insertBefore(choices, pathSelectionWrapper.firstChild);
+
+            // Flow container holds the question step shown after a choice is picked.
+            const flow = frameDoc.createElement("div");
+            flow.id = "qava-hiw-flow";
+            flow.className = "qava-hiw-flow";
+            pathSelectionWrapper.insertBefore(flow, choices.nextSibling);
+
+            const showChoices = () => {
+              flow.classList.remove("active");
+              choices.style.display = "";
+              updateHero(defaultHero.title, defaultHero.sub);
+            };
+
+            const renderFlow = (key) => {
+              const f = flowData[key];
+              if (!f) return;
+              updateHero(
+                f.heroTitle || defaultHero.title,
+                f.heroSub !== undefined ? f.heroSub : defaultHero.sub
+              );
+              flow.innerHTML = `
+                <div class="qava-hiw-panel">
+                  <div class="qava-hiw-menu" role="tablist">
+                    <span class="qava-hiw-menu-indicator" id="qava-hiw-menu-indicator"></span>
+                    ${f.items.map((o, i) => `
+                      <button type="button" class="qava-hiw-menu-item" role="tab" data-i="${i}" aria-selected="false">
+                        <span class="qava-hiw-menu-label">${o.label}</span>
+                      </button>
+                    `).join("")}
+                  </div>
+                  <div class="qava-hiw-content" role="tabpanel"></div>
+                </div>
+                <div class="qava-hiw-q-nav">
+                  <button type="button" class="qava-hiw-back">Back</button>
+                  <a href="https://app.qava.ai/" class="qava-hiw-join">Join for free</a>
+                </div>
+              `;
+
+              const content = flow.querySelector(".qava-hiw-content");
+              const menu = flow.querySelector(".qava-hiw-menu");
+              const menuIndicator = flow.querySelector("#qava-hiw-menu-indicator");
+              const items = flow.querySelectorAll(".qava-hiw-menu-item");
+              const moveIndicator = (btn) => {
+                if (!menuIndicator || !btn) return;
+                menuIndicator.style.height = btn.offsetHeight + "px";
+                menuIndicator.style.transform = "translateY(" + btn.offsetTop + "px)";
+              };
+              const renderContent = (i) => {
+                const o = f.items[i];
+                const list = o.bullets
+                  ? `<ul class="qava-hiw-content-list">${o.bullets.map((b) => `<li>${b}</li>`).join("")}</ul>`
+                  : "";
+                content.innerHTML = `
+                  <h3 class="qava-hiw-content-title">${o.heading}<span class="qava-hiw-content-emoji">${o.emoji}</span></h3>
+                  <p class="qava-hiw-content-text">${o.para}</p>
+                  ${list}
+                `;
+              };
+              const selectItem = (i) => {
+                items.forEach((x) => { x.classList.remove("active"); x.setAttribute("aria-selected", "false"); });
+                items[i].classList.add("active");
+                items[i].setAttribute("aria-selected", "true");
+                renderContent(i);
+                requestAnimationFrame(() => moveIndicator(items[i]));
+              };
+              items.forEach((it, i) => it.addEventListener("click", () => selectItem(i)));
+              selectItem(0);
+              setTimeout(() => moveIndicator(items[0]), 50);
+
+              flow.querySelector(".qava-hiw-back").addEventListener("click", showChoices);
+            };
+
+            choices.querySelectorAll(".qava-hiw-choice").forEach((btn, idx) => {
+              btn.addEventListener("click", () => {
+                choices.querySelectorAll(".qava-hiw-choice").forEach((b) => {
+                  b.classList.remove("selected");
+                  b.setAttribute("aria-checked", "false");
+                });
+                btn.classList.add("selected");
+                btn.setAttribute("aria-checked", "true");
+
+                const flowKey = choiceData[idx] && choiceData[idx].flow;
+                if (flowKey && flowData[flowKey]) {
+                  renderFlow(flowKey);
+                  choices.style.display = "none";
+                  flow.classList.add("active");
+                  try { frameDoc.defaultView.scrollTo({ top: 0, behavior: "smooth" }); } catch (e) {}
+                }
+              });
+            });
+          }
+        }
+
+        const pathSelectionWrapper = frameDoc.querySelector(".path-selection-wrapper");
+        if (pathSelectionWrapper && pathSelectionWrapper.getAttribute("data-qava-cleaned") !== "true") {
+          pathSelectionWrapper.setAttribute("data-qava-cleaned", "true");
+          pathSelectionWrapper.querySelectorAll(".path-columns-wrapper, .selected-button-container, .selected-description").forEach((el) => el.remove());
+          const showMoreBtn = frameDoc.getElementById("showMoreButton");
+          if (showMoreBtn && showMoreBtn.parentElement) {
+            showMoreBtn.parentElement.remove();
+          }
+        }
+
+        if (typeof window.applySandboxFooter === "function") {
+          window.applySandboxFooter(frameDoc);
+        }
+
+        resizeHiwFrame();
+        if (!frameDoc.defaultView.__qavaHiwResizeBound) {
+          frameDoc.defaultView.__qavaHiwResizeBound = true;
+          frameDoc.defaultView.addEventListener("resize", resizeHiwFrame);
+          setInterval(resizeHiwFrame, 500);
+        }
+      };
+
+      preview.addEventListener("load", attachSandboxEnhancements);
+      attachSandboxEnhancements();
+    })();
+  </script>
+</body>
+</html>

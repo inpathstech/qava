@@ -39,7 +39,12 @@ jobs:
     - name: Deploy to S3
       run: |
         # Upload main page as index.html
-        aws s3 cp complete-page.html s3://${{ secrets.S3_BUCKET_NAME }}/index.html \
+        aws s3 cp index.html s3://${{ secrets.S3_BUCKET_NAME }}/index.html \
+          --content-type "text/html" \
+          --cache-control "max-age=3600"
+
+        # Upload embed/helper HTML pages used by the landing experience
+        aws s3 cp hiw-embed.html s3://${{ secrets.S3_BUCKET_NAME }}/hiw-embed.html \
           --content-type "text/html" \
           --cache-control "max-age=3600"
           

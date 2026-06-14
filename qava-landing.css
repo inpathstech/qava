@@ -1,0 +1,4288 @@
+:root {
+          --dot-x: 50vw;
+          --dot-y: 30vh;
+        }
+
+        body {
+          position: relative;
+          background: #ffffff !important;
+        }
+
+        #qava-dot-base-fixed {
+          position: fixed;
+          inset: 0;
+          pointer-events: none;
+          z-index: 0;
+          background-image: radial-gradient(circle, rgba(17, 24, 39, 0.16) 1px, transparent 1.35px);
+          background-size: 20px 20px;
+          background-repeat: repeat;
+        }
+
+        body > *:not(#qava-dot-base-fixed) {
+            position: relative;
+          z-index: 1;
+        }
+
+        .header-container,
+        .feature-cards-section,
+        .feature-cards-container,
+        .hero-layout,
+        .hero-content {
+          background: transparent !important;
+        }
+
+        .feature-cards-header {
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif !important;
+          font-weight: 400 !important;
+          letter-spacing: -0.012em !important;
+          font-size: clamp(34px, 3.6vw, 54px) !important;
+          line-height: 1.08 !important;
+          white-space: nowrap !important;
+          max-width: none !important;
+          margin: 0 auto 10px auto !important;
+          text-align: center !important;
+        }
+
+        .feature-cards-header br {
+          display: none !important;
+        }
+
+        .feature-cards-header .highlight {
+          background: none !important;
+          box-shadow: none !important;
+          padding: 0 !important;
+          margin-right: 0 !important;
+        }
+
+        .feature-cards-subheader {
+          margin-bottom: 20px !important;
+        }
+
+        .hero-content {
+          max-width: 980px !important;
+          margin-left: auto !important;
+          margin-right: auto !important;
+          text-align: center !important;
+        }
+
+        .qava-hero-icon {
+          width: 124px;
+          height: 124px;
+          border-radius: 28px;
+          object-fit: cover;
+          display: block;
+          margin: 0 auto 26px auto;
+          box-shadow: 0 16px 50px rgba(20, 10, 22, 0.18);
+          transform-style: preserve-3d;
+          backface-visibility: hidden;
+          will-change: transform;
+          animation: qavaSideToSideFlip 2.4s linear infinite;
+        }
+
+        @keyframes qavaSideToSideFlip {
+          0% {
+            transform: perspective(900px) rotateY(-22deg) rotateZ(-1deg);
+          }
+          25% {
+            transform: perspective(900px) rotateY(0deg) rotateZ(0deg);
+          }
+          50% {
+            transform: perspective(900px) rotateY(22deg) rotateZ(1deg);
+          }
+          75% {
+            transform: perspective(900px) rotateY(0deg) rotateZ(0deg);
+          }
+          100% {
+            transform: perspective(900px) rotateY(-22deg) rotateZ(-1deg);
+          }
+        }
+
+        .qava-hero-showcase-box {
+          width: min(1040px, calc(100vw - 120px));
+          height: clamp(320px, 44vw, 580px);
+          margin: 16px 0 0 0;
+          position: relative;
+          left: 50%;
+          transform: translateX(-50%);
+          border-radius: 0;
+          background: transparent;
+          border: 0;
+          box-sizing: border-box;
+          padding: 0;
+          overflow: visible;
+          display: flex;
+          flex-direction: column;
+          box-shadow: none;
+        }
+
+        #qava-showcase-dynamic-content {
+          flex: 1 1 auto;
+          min-height: 0;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .qava-showcase-toggle-wrap {
+          width: 100%;
+            display: flex;
+          flex-direction: column;
+            align-items: center;
+          justify-content: center;
+          margin-top: 100px;
+        }
+
+        .qava-howitworks-title {
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+            font-weight: 400;
+          letter-spacing: -0.012em;
+          font-size: clamp(32px, 3.1vw, 46px);
+          line-height: 1.1;
+          color: #111827;
+          text-align: center;
+          margin-bottom: 6px;
+        }
+
+        .qava-howitworks-sub {
+          font-family: "Inter", sans-serif;
+          font-size: 14px;
+          font-weight: 300;
+          color: #6B6B6B;
+          text-align: center;
+          margin-bottom: 34px;
+        }
+
+        .qava-showcase-toggle {
+            display: flex;
+            align-items: center;
+          gap: 18px;
+          padding: 0;
+          background: transparent;
+          border: 0;
+        }
+
+        .qava-toggle-prompt {
+          display: inline-flex;
+            align-items: center;
+          line-height: 14px;
+            font-size: 13px;
+          font-weight: 500;
+          font-family: "Inter", sans-serif;
+          color: #111827;
+          margin-right: 2px;
+        }
+
+        .qava-toggle-radio {
+          display: inline-flex;
+            align-items: center;
+          gap: 8px;
+          font-size: 13px;
+          font-weight: 500;
+          font-family: "Inter", sans-serif;
+          color: #4b5563;
+            cursor: pointer;
+          user-select: none;
+        }
+
+        .qava-toggle-radio input[type="radio"] {
+          width: 14px;
+          height: 14px;
+          margin: 0;
+          accent-color: #111827;
+          cursor: pointer;
+          display: block;
+          flex: 0 0 auto;
+        }
+
+        .qava-toggle-radio span {
+          line-height: 14px;
+          display: block;
+        }
+
+        .qava-toggle-radio input[type="radio"]:checked + span {
+          color: #111827;
+          font-weight: 600;
+        }
+
+        .qava-toggle-radio input[type="radio"]:focus-visible {
+          outline: 2px solid rgba(17, 24, 39, 0.25);
+          outline-offset: 2px;
+          border-radius: 999px;
+        }
+
+        .qava-toggle-radio input[type="radio"]:hover + span {
+          color: #111827;
+        }
+
+        .qava-toggle-option {
+          background: transparent;
+        }
+
+        .qava-showcase-layout {
+          width: 100%;
+          margin: 0;
+          flex: 1 1 auto;
+          min-height: 0;
+          border: 0;
+          border-radius: 0;
+          background: transparent;
+          display: grid;
+          grid-template-columns: 150px 1fr;
+          grid-template-rows: minmax(0, 1fr);
+          gap: 16px;
+          overflow: visible;
+        }
+
+        .qava-showcase-side-menu {
+          position: relative;
+          align-self: start;
+          border: 1px solid rgba(17, 24, 39, 0.06);
+          background: #f6f6f7;
+          border-radius: 12px;
+          box-shadow: 0 1px 6px rgba(15, 23, 42, 0.08);
+          padding: 15px;
+            display: flex;
+            flex-direction: column;
+          gap: 2px;
+        }
+
+        .qava-side-menu-indicator {
+          position: absolute;
+          left: 15px;
+          top: 0;
+          width: 2px;
+          height: 0;
+          background: #111827;
+          border-radius: 1px;
+          transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), height 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .qava-side-menu-title {
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+          font-weight: 600;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: #6b7280;
+          margin: 0 0 4px 0;
+        }
+
+        .qava-side-menu-item {
+          position: relative;
+          border: 0;
+          background: transparent;
+          border-radius: 0;
+          box-shadow: none;
+          padding: 4px 0 4px 14px;
+          font-family: "Inter", sans-serif;
+          font-size: 14px;
+          font-weight: 300;
+          color: #6b6b6b;
+          width: 100%;
+          text-align: left;
+          cursor: pointer;
+          appearance: none;
+          -webkit-appearance: none;
+          transition: color 0.15s ease, font-weight 0.15s ease;
+        }
+
+        .qava-side-menu-item:hover {
+          color: #111827;
+        }
+
+        .qava-side-menu-item.active {
+          font-weight: 500;
+          color: #111827;
+        }
+
+        .qava-showcase-main {
+          position: relative;
+          padding: 0;
+            display: flex;
+          align-items: stretch;
+          justify-content: stretch;
+          min-height: 0;
+          min-width: 0;
+          overflow: visible;
+        }
+
+        .qava-showcase-main::before {
+          content: "";
+          position: absolute;
+          top: 15px;
+          left: 16px;
+          width: 49px;
+          height: 11px;
+          z-index: 5;
+          pointer-events: none;
+          opacity: 1;
+          transition: opacity 0.15s ease;
+          background-image:
+            radial-gradient(circle at 5.5px 50%, #ff5f57 5.5px, transparent 6px),
+            radial-gradient(circle at 24.5px 50%, #febc2e 5.5px, transparent 6px),
+            radial-gradient(circle at 43.5px 50%, #28c840 5.5px, transparent 6px);
+        }
+
+        .qava-showcase-main.qava-dots-hidden::before {
+            opacity: 0;
+        }
+
+        .qava-showcase-main.qava-main-fade::after {
+          content: "";
+            position: absolute;
+          left: 1px;
+          right: 1px;
+          bottom: 1px;
+          height: 54px;
+          border-bottom-left-radius: 12px;
+          border-bottom-right-radius: 12px;
+          background: linear-gradient(to bottom, rgba(246, 246, 247, 0) 0%, rgba(246, 246, 247, 0.85) 55%, #f6f6f7 100%);
+          backdrop-filter: blur(1.5px);
+          -webkit-backdrop-filter: blur(1.5px);
+          -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #000 60%);
+          mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #000 60%);
+          pointer-events: none;
+          z-index: 3;
+        }
+
+        .qava-showcase-main-placeholder {
+          font-family: "Inter", sans-serif;
+          font-size: 14px;
+          font-weight: 400;
+          color: #6b7280;
+        }
+
+        .qava-signup-illustration {
+          width: 100%;
+          height: 100%;
+          border: 1px solid rgba(17, 24, 39, 0.06);
+          border-radius: 12px;
+          background: #f6f6f7;
+          box-shadow: 0 1px 6px rgba(15, 23, 42, 0.08);
+          padding: 38px 25px 25px 25px;
+          overflow-y: auto;
+          overflow-x: hidden;
+            display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .qava-signup-static {
+          overflow: hidden;
+        }
+
+        .qava-signup-title {
+          margin: 0 0 4px 0;
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+          font-size: 24px;
+          font-weight: 400;
+            line-height: 1.1;
+          color: #111827;
+          text-align: left;
+        }
+
+        .qava-signup-progress {
+            display: flex;
+            gap: 8px;
+          margin-bottom: 12px;
+        }
+
+        .qava-signup-progress span {
+          height: 2px;
+          border-radius: 999px;
+          background: #e5e7eb;
+          flex: 1;
+        }
+
+        .qava-signup-progress span.active {
+          background: #111827;
+        }
+
+        .qava-signup-sections {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          gap: 14px;
+        }
+
+        .qava-signup-question {
+          margin-bottom: 0;
+            display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          width: 100%;
+          background: #ffffff;
+          border: 1px solid rgba(17, 24, 39, 0.06);
+          border-radius: 12px;
+          box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+          padding: 12px;
+        }
+
+        .qava-signup-question:last-child {
+          margin-bottom: 0;
+        }
+
+        .qava-signup-question:not(:first-child) {
+          width: 100%;
+        }
+
+        .qava-signup-question h4 {
+          margin: 0 0 6px 0;
+          font-family: "Inter", sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+          color: #111827;
+          line-height: 1.4;
+          text-align: left;
+        }
+
+        .qava-signup-groups {
+            display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin-bottom: 8px;
+        }
+
+        .qava-signup-group-check {
+          display: inline-flex;
+            align-items: center;
+          gap: 5px;
+          border: 0;
+          border-radius: 999px;
+          background: transparent;
+          padding: 1px 4px;
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+          font-weight: 400;
+          color: #4b5563;
+          line-height: 1.15;
+          white-space: nowrap;
+        }
+
+        .qava-signup-group-check input[type="checkbox"] {
+          appearance: none;
+          -webkit-appearance: none;
+            position: relative;
+          width: 11px;
+          height: 11px;
+          border: 1px solid #d1d5db;
+          border-radius: 3px;
+          margin: 0;
+          background: #ffffff;
+            pointer-events: none;
+          flex: 0 0 auto;
+        }
+
+        .qava-signup-group-check input[type="checkbox"]:checked {
+          background: #111827;
+          border-color: #111827;
+        }
+
+        .qava-signup-group-check input[type="checkbox"]:checked::after {
+          content: "";
+          position: absolute;
+          left: 3px;
+          top: 0.5px;
+          width: 3px;
+          height: 6px;
+          border: solid #ffffff;
+          border-width: 0 1.5px 1.5px 0;
+          transform: rotate(45deg);
+        }
+
+        .qava-signup-qsub {
+          margin: -1px 0 8px 0;
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+          font-weight: 300;
+          color: #6b7280;
+          text-align: left;
+        }
+
+        .qava-signup-checklist {
+            display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 6px;
+          margin-top: 8px;
+        }
+
+        .qava-signup-learn {
+          margin-top: 8px;
+          font-family: "Inter", sans-serif;
+          font-size: 12px;
+          font-weight: 300;
+          color: #6b6b6b;
+        }
+
+        .qava-client-input {
+          width: 100%;
+          box-sizing: border-box;
+          border: 1px solid rgba(17, 24, 39, 0.14);
+          border-radius: 8px;
+          background: #ffffff;
+          padding: 8px 10px;
+          font-family: "Inter", sans-serif;
+          font-size: 12px;
+          font-weight: 400;
+          color: #374151;
+        }
+
+        .qava-client-subfields {
+          display: flex;
+          flex-wrap: wrap;
+                gap: 10px;
+          margin-top: 8px;
+        }
+
+        .qava-client-subfield {
+            display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 3px;
+          min-width: 0;
+        }
+
+        .qava-client-subfield-label {
+          font-family: "Inter", sans-serif;
+          font-size: 10px;
+          font-weight: 400;
+          color: #9ca3af;
+          text-align: left;
+        }
+
+        .qava-client-subfield-value {
+          border: 1px solid rgba(17, 24, 39, 0.1);
+          border-radius: 6px;
+          background: #f3f4f6;
+          padding: 4px 8px;
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+          font-weight: 400;
+          color: #6b7280;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .qava-create-listing-btn {
+          align-self: flex-start;
+          background: #111827;
+          color: #ffffff;
+          border: 0;
+          border-radius: 10px;
+          padding: 9px 16px;
+          font-family: "Inter", sans-serif;
+          font-size: 13px;
+          font-weight: 500;
+          margin-bottom: 16px;
+          cursor: default;
+        }
+
+        .qava-create-section {
+          width: 100%;
+          box-sizing: border-box;
+          background: #ffffff;
+          border: 1px solid rgba(17, 24, 39, 0.06);
+          border-radius: 10px;
+          padding: 18px 20px;
+        }
+
+        .qava-create-section + .qava-create-section {
+          margin-top: 0;
+        }
+
+        .qava-create-row {
+          display: flex;
+          gap: 14px;
+          align-items: stretch;
+        }
+
+        .qava-create-row .qava-create-section {
+          flex: 1 1 0;
+          min-width: 0;
+          margin-top: 0;
+        }
+
+        .qava-create-heading {
+          font-family: "Inter", sans-serif;
+          font-size: 15px;
+          font-weight: 600;
+          color: #111827;
+          margin: 0 0 6px 0;
+          text-align: left;
+        }
+
+        .qava-create-subhead {
+          font-family: "Inter", sans-serif;
+          font-size: 13px;
+          font-weight: 600;
+          color: #111827;
+          margin: 0 0 8px 0;
+          text-align: left;
+        }
+
+        .qava-create-heading .req,
+        .qava-create-subhead .req {
+          color: #ef4444;
+          font-weight: 600;
+        }
+
+        .qava-listing-type-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 14px;
+                width: 100%;
+        }
+
+        .qava-listing-card {
+          border: 1px solid rgba(17, 24, 39, 0.1);
+          border-radius: 8px;
+          background: #ffffff;
+          overflow: hidden;
+          box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+          display: flex;
+          flex-direction: column;
+          padding: 12px;
+        }
+
+        .qava-listing-card.selected {
+          border-color: rgba(17, 24, 39, 0.1);
+          box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+        }
+
+        .qava-listing-card-img {
+          height: 88px;
+          border-radius: 6px;
+          background-size: cover;
+          background-position: center;
+        }
+
+        .qava-listing-card-body {
+          padding: 12px 0 0 0;
+        }
+
+        .qava-listing-card-head {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 8px;
+        }
+
+        .qava-listing-card-title {
+          font-family: "Inter", sans-serif;
+                font-size: 13px;
+          font-weight: 600;
+          color: #111827;
+        }
+
+        .qava-listing-card-desc {
+          margin: 6px 0 0 0;
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+          font-weight: 300;
+          color: #6b7280;
+          line-height: 1.35;
+          text-align: left;
+        }
+
+        .qava-box-check {
+          appearance: none;
+          -webkit-appearance: none;
+          position: relative;
+          width: 14px;
+          height: 14px;
+          border: 1px solid #d1d5db;
+          border-radius: 4px;
+          background: #ffffff;
+          pointer-events: none;
+          flex: 0 0 auto;
+        }
+
+        .qava-box-check:checked {
+          background: #111827;
+          border-color: #111827;
+        }
+
+        .qava-box-check:checked::after {
+          content: "";
+          position: absolute;
+          left: 4px;
+          top: 1px;
+          width: 4px;
+          height: 7px;
+          border: solid #ffffff;
+          border-width: 0 1.5px 1.5px 0;
+          transform: rotate(45deg);
+        }
+
+        .qava-create-checklist {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 6px;
+        }
+
+        .qava-create-checklist.cols-2 {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 6px 28px;
+        }
+
+        .qava-create-check {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          font-family: "Inter", sans-serif;
+                font-size: 12px;
+          font-weight: 400;
+          color: #374151;
+        }
+
+        .qava-skill-levels {
+          display: flex;
+          gap: 22px;
+        }
+
+        .qava-skill-level {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .qava-skill-emoji {
+          font-size: 24px;
+          line-height: 1;
+          filter: grayscale(1);
+          opacity: 0.4;
+        }
+
+        .qava-skill-level.active .qava-skill-emoji {
+          filter: none;
+          opacity: 1;
+        }
+
+        .qava-skill-label {
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+          font-weight: 400;
+          color: #9ca3af;
+        }
+
+        .qava-skill-level.active .qava-skill-label {
+          color: #111827;
+            font-weight: 500;
+        }
+
+        .qava-fixed-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 20px;
+          align-items: start;
+        }
+
+        .qava-fixed-fields {
+            display: flex;
+          align-items: flex-end;
+          gap: 14px;
+        }
+
+        .qava-fixed-field {
+            display: flex;
+          flex-direction: column;
+          gap: 4px;
+        }
+
+        .qava-fixed-label {
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+          font-weight: 400;
+          color: #6b7280;
+        }
+
+        .qava-stepper {
+          border: 1px solid rgba(17, 24, 39, 0.16);
+          border-radius: 7px;
+          background: #ffffff;
+          padding: 7px 10px;
+          min-width: 64px;
+          font-family: "Inter", sans-serif;
+          font-size: 12px;
+          font-weight: 400;
+          color: #374151;
+        }
+
+        .qava-total-hours {
+          font-family: "Inter", sans-serif;
+          font-size: 17px;
+          font-weight: 600;
+          color: #111827;
+          padding: 4px 0;
+        }
+
+        .qava-fixed-note {
+          margin: 0 0 8px 0;
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+          font-weight: 300;
+          color: #6b7280;
+          text-align: left;
+        }
+
+        .qava-rate-row {
+            display: flex;
+            align-items: center;
+          gap: 16px;
+        }
+
+        .qava-rate-card {
+          background: #f3f4f6;
+          border-radius: 12px;
+          padding: 16px 18px;
+          text-align: left;
+        }
+
+        .qava-rate-big {
+          font-family: "Inter", sans-serif;
+          font-size: 30px;
+          font-weight: 700;
+          color: #111827;
+          line-height: 1;
+        }
+
+        .qava-rate-big span {
+          font-size: 15px;
+          font-weight: 500;
+          color: #6b7280;
+        }
+
+        .qava-rate-sub {
+          margin-top: 6px;
+          font-family: "Inter", sans-serif;
+          font-size: 12px;
+          font-weight: 400;
+          color: #6b7280;
+        }
+
+        .qava-rate-bar {
+          margin: 12px 0;
+          height: 4px;
+          border-radius: 999px;
+          background: #e5e7eb;
+          overflow: hidden;
+        }
+
+        .qava-rate-bar span {
+          display: block;
+          width: 28%;
+          height: 100%;
+          background: #111827;
+          border-radius: 999px;
+        }
+
+        .qava-rate-desc {
+          margin: 0;
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+          font-weight: 300;
+          color: #6b7280;
+          line-height: 1.45;
+          text-align: left;
+        }
+
+        .qava-ai-usage-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+                gap: 24px;
+          align-items: start;
+        }
+
+        .qava-ai-usage-left {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          text-align: left;
+        }
+
+        .qava-ai-wedge {
+          position: relative;
+          height: 64px;
+          background: #eef0f2;
+          clip-path: polygon(0 100%, 100% 0, 100% 100%);
+          border-radius: 4px;
+        }
+
+        .qava-ai-wedge-marker {
+          position: absolute;
+          left: 62%;
+          top: 0;
+          bottom: 0;
+          width: 2px;
+          background: #111827;
+        }
+
+        .qava-ai-wedge-labels {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .qava-ai-wedge-labels span {
+          font-family: "Inter", sans-serif;
+          font-size: 10px;
+          font-weight: 400;
+          color: #9ca3af;
+        }
+
+        .qava-ai-wedge-labels span.active {
+          color: #111827;
+          font-weight: 600;
+        }
+
+        .qava-ai-tools-title {
+          margin: 0 0 8px 0;
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+          font-weight: 400;
+          color: #6b7280;
+          text-align: left;
+        }
+
+        .qava-ai-tool-pills {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px;
+        }
+
+        .qava-ai-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+          border-radius: 7px;
+          padding: 2px 7px;
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+          font-weight: 400;
+          border: 1px solid;
+        }
+
+        .qava-ai-pill.allow {
+          background: #ffffff;
+          border-color: #111827;
+          color: #111827;
+        }
+
+        .qava-ai-pill svg {
+          width: 12px;
+          height: 12px;
+        }
+
+        .qava-ai-pill.deny {
+          background: #f3f4f6;
+          border-color: #e5e7eb;
+          color: #9ca3af;
+        }
+
+        .qava-ai-pill .mark {
+          font-weight: 600;
+        }
+
+        .qava-review-head {
+          width: 100%;
+          position: relative;
+          margin-top: 10px;
+          margin-bottom: 16px;
+        }
+
+        .qava-review-title {
+          font-family: "Inter", sans-serif;
+          font-size: 16px;
+          font-weight: 600;
+          color: #111827;
+          margin: 0 0 8px 0;
+          text-align: left;
+        }
+
+        .qava-review-listing {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+                font-size: 22px;
+          font-weight: 400;
+          line-height: 1.1;
+          color: #111827;
+          text-align: left;
+        }
+
+        .qava-review-applied {
+          margin: 4px 0 0 0;
+          font-family: "Inter", sans-serif;
+                font-size: 12px;
+          font-weight: 400;
+          color: #111827;
+          text-align: left;
+        }
+
+        .qava-review-close {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 18px;
+          height: 18px;
+          color: #9ca3af;
+        }
+
+        .qava-review-body {
+          display: grid;
+          grid-template-columns: 148px 1fr;
+                gap: 16px;
+          width: 100%;
+          align-items: start;
+        }
+
+        .qava-review-rail-head {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 10px;
+        }
+
+        .qava-review-rail-title {
+          font-family: "Inter", sans-serif;
+          font-size: 13px;
+          font-weight: 600;
+          color: #111827;
+        }
+
+        .qava-review-rail-icons {
+          display: flex;
+          gap: 6px;
+          color: #b0b4bb;
+        }
+
+        .qava-review-applicant-list {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .qava-applicant-card {
+          position: relative;
+          border: 1px solid rgba(17, 24, 39, 0.12);
+          border-radius: 10px;
+          background: #ffffff;
+          box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+          padding: 10px 12px;
+          text-align: left;
+        }
+
+        .qava-applicant-card.selected {
+          border-color: #111827;
+        }
+
+        .qava-applicant-name {
+          font-family: "Inter", sans-serif;
+          font-size: 13px;
+          font-weight: 600;
+          color: #111827;
+          margin-bottom: 4px;
+        }
+
+        .qava-applicant-badge {
+          display: inline-block;
+          background: #ECF2FF;
+          color: #1163FE;
+          border-radius: 6px;
+          padding: 2px 7px;
+          font-family: "Inter", sans-serif;
+          font-size: 10px;
+          font-weight: 500;
+          white-space: nowrap;
+        }
+
+        .qava-applicant-clip {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          width: 13px;
+          height: 13px;
+          color: #b0b4bb;
+        }
+
+        .qava-review-content {
+            display: flex;
+            flex-direction: column;
+          gap: 10px;
+          min-width: 0;
+        }
+
+        .qava-review-avail {
+          display: flex;
+            align-items: center;
+            gap: 6px;
+          font-family: "Inter", sans-serif;
+          font-size: 12px;
+          font-weight: 400;
+          color: #374151;
+        }
+
+        .qava-templates-title {
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+          font-size: 28px;
+            font-weight: 400;
+          color: #111827;
+          line-height: 1.1;
+          margin: 0 0 4px 0;
+          text-align: left;
+        }
+
+        .qava-templates-sub {
+          font-family: "Inter", sans-serif;
+          font-size: 13px;
+          font-weight: 300;
+          color: #6b7280;
+          margin: 0 0 14px 0;
+          text-align: left;
+        }
+
+        .qava-templates-divider {
+          width: 100%;
+          height: 1px;
+          background: #EEEEEE;
+          margin-bottom: 16px;
+        }
+
+        .qava-templates-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 16px;
+          width: 100%;
+        }
+
+        .qava-template-card {
+          background: #ffffff;
+          border: 1px solid rgba(17, 24, 39, 0.08);
+          box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+          border-radius: 8px;
+          padding: 12px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .qava-template-img {
+          width: 100%;
+          height: 96px;
+          border-radius: 6px;
+          background-size: cover;
+          background-position: center;
+          margin-bottom: 12px;
+        }
+
+        .qava-template-name {
+          font-family: "Inter", sans-serif;
+          font-size: 14px;
+          font-weight: 600;
+          color: #111827;
+          text-align: center;
+          margin-bottom: 6px;
+        }
+
+        .qava-template-desc {
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+            font-weight: 300;
+          color: #6b7280;
+            text-align: center;
+          line-height: 1.4;
+          margin-bottom: 12px;
+        }
+
+        .qava-template-btn {
+          margin-top: auto;
+          background: #ECF2FF;
+          color: #1163FE;
+          border: 0;
+          border-radius: 8px;
+          padding: 7px 14px;
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+          font-weight: 600;
+          cursor: default;
+        }
+
+        .qava-feedback-stars {
+          display: flex;
+          gap: 4px;
+          margin-bottom: 10px;
+        }
+
+        .qava-feedback-stars svg {
+          width: 18px;
+          height: 18px;
+        }
+
+        .qava-feedback-text {
+            width: 100%;
+          box-sizing: border-box;
+          border: 1px solid rgba(17, 24, 39, 0.12);
+          border-radius: 8px;
+          background: #ffffff;
+          padding: 9px 11px;
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+          font-weight: 300;
+          color: #4b5563;
+          line-height: 1.5;
+          text-align: left;
+        }
+
+        .qava-team-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 14px;
+          width: 100%;
+        }
+
+        .qava-team-card {
+          background: #ffffff;
+          border: 1px solid rgba(17, 24, 39, 0.08);
+          border-radius: 12px;
+          box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+          padding: 14px;
+          text-align: left;
+            display: flex;
+          flex-direction: column;
+        }
+
+        .qava-team-card-num {
+          font-family: "Inter", sans-serif;
+            font-size: 10px;
+          font-weight: 400;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: #9ca3af;
+          margin-bottom: 6px;
+        }
+
+        .qava-team-role {
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+          font-size: 17px;
+            font-weight: 400;
+          line-height: 1.1;
+          color: #111827;
+          margin-bottom: 9px;
+        }
+
+        .qava-team-tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px;
+          margin-bottom: 10px;
+        }
+
+        .qava-team-tag {
+          border: 1px solid rgba(17, 24, 39, 0.18);
+          border-radius: 999px;
+          padding: 2px 9px;
+          background: #ffffff;
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+          font-weight: 400;
+          color: #374151;
+        }
+
+        .qava-team-req {
+          margin: 0;
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+            font-weight: 300;
+          font-style: normal;
+          color: #6b7280;
+          line-height: 1.45;
+        }
+
+        .qava-team-summary {
+          width: 100%;
+          margin-top: 18px;
+        }
+
+        .qava-team-summary-title {
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+          font-size: 18px;
+          font-weight: 400;
+          line-height: 1.1;
+          color: #111827;
+          margin: 0 0 10px 0;
+            text-align: left;
+        }
+
+        .qava-team-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .qava-team-stat {
+          background: #f6f6f7;
+          border-radius: 10px;
+          padding: 12px;
+          text-align: left;
+        }
+
+        .qava-team-stat-value {
+          font-family: "Inter", sans-serif;
+          font-size: 13px;
+            font-weight: 600;
+          color: #111827;
+            line-height: 1.3;
+        }
+
+        .qava-team-stat-label {
+          margin-top: 3px;
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+          font-weight: 300;
+          color: #6b7280;
+        }
+
+        .qava-deliverable-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          grid-auto-rows: 1fr;
+          gap: 10px;
+          width: 100%;
+          flex: 1 1 auto;
+          min-height: 0;
+        }
+
+        .qava-deliverable-card {
+          background: #ffffff;
+          border: 1px solid rgba(17, 24, 39, 0.1);
+          border-radius: 10px;
+          box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+          padding: 10px;
+          text-align: left;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .qava-deliverable-card.selected {
+          border-color: #111827;
+        }
+
+        .qava-deliverable-head {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          gap: 6px;
+          margin-bottom: 4px;
+        }
+
+        .qava-deliverable-name {
+          font-family: "Inter", sans-serif;
+          font-size: 12px;
+          font-weight: 600;
+          color: #111827;
+          line-height: 1.25;
+        }
+
+        .qava-deliverable-desc {
+          font-family: "Inter", sans-serif;
+          font-size: 10.5px;
+          font-weight: 300;
+          color: #6b7280;
+          line-height: 1.35;
+        }
+
+        .qava-deliverable-add {
+          align-items: center;
+          justify-content: center;
+          border-style: dashed;
+          border-color: rgba(17, 24, 39, 0.2);
+          background: #fafafa;
+          box-shadow: none;
+          color: #6b7280;
+          font-family: "Inter", sans-serif;
+                font-size: 12px;
+          font-weight: 500;
+          min-height: 64px;
+        }
+
+        .qava-tf-section {
+          width: 100%;
+        }
+
+        .qava-tf-cards {
+          display: grid;
+          gap: 10px;
+          width: 100%;
+        }
+
+        .qava-tf-cards.start {
+          grid-template-columns: repeat(4, 1fr);
+        }
+
+        .qava-tf-cards.formats {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .qava-tf-card {
+          background: #ffffff;
+          border: 1px solid rgba(17, 24, 39, 0.1);
+          border-radius: 10px;
+          box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+          padding: 10px;
+          text-align: left;
+        }
+
+        .qava-tf-card.selected {
+          border-color: #111827;
+        }
+
+        .qava-tf-card-title {
+          font-family: "Inter", sans-serif;
+          font-size: 12px;
+          font-weight: 600;
+          color: #111827;
+          line-height: 1.25;
+        }
+
+        .qava-tf-card-desc {
+          margin-top: 4px;
+          font-family: "Inter", sans-serif;
+          font-size: 10.5px;
+          font-weight: 300;
+          color: #6b7280;
+          line-height: 1.35;
+        }
+
+        .qava-tf-schedule {
+          width: 100%;
+          flex: 1 1 auto;
+          min-height: 0;
+          background: #ffffff;
+          border: 1px solid rgba(17, 24, 39, 0.08);
+          border-radius: 12px;
+          box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+          padding: 16px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+
+        .qava-tf-timeline {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 16px;
+          position: relative;
+                margin-top: 12px;
+        }
+
+        .qava-tf-timeline::before {
+          content: "";
+          position: absolute;
+          top: 13px;
+          left: 13px;
+          right: 13px;
+          height: 2px;
+          background: #e5e7eb;
+        }
+
+        .qava-tf-step {
+          position: relative;
+          text-align: left;
+        }
+
+        .qava-tf-dot {
+          width: 26px;
+          height: 26px;
+          border-radius: 999px;
+          background: #111827;
+          color: #ffffff;
+            display: flex;
+            align-items: center;
+          justify-content: center;
+          font-family: "Inter", sans-serif;
+          font-size: 12px;
+          font-weight: 600;
+            position: relative;
+          z-index: 1;
+          margin-bottom: 9px;
+        }
+
+        .qava-tf-week {
+          font-family: "Inter", sans-serif;
+          font-size: 10px;
+          font-weight: 600;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: #9ca3af;
+        }
+
+        .qava-tf-step-title {
+          margin-top: 2px;
+          font-family: "Inter", sans-serif;
+          font-size: 12.5px;
+          font-weight: 600;
+          color: #111827;
+        }
+
+        .qava-tf-step-desc {
+          margin-top: 3px;
+          font-family: "Inter", sans-serif;
+          font-size: 10.5px;
+            font-weight: 300;
+          color: #6b7280;
+          line-height: 1.35;
+        }
+
+        .qava-blog-row {
+          width: min(1040px, calc(100vw - 120px));
+          margin: 84px 0 0 0;
+          position: relative;
+          left: 50%;
+          transform: translateX(-50%);
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 16px;
+        }
+
+        .qava-blog-card {
+          display: flex;
+          flex-direction: column;
+            background: #ffffff;
+          border: 1px solid rgba(17, 24, 39, 0.08);
+          border-radius: 8px;
+          overflow: hidden;
+          box-shadow: 0 1px 6px rgba(15, 23, 42, 0.08);
+          text-align: left;
+          text-decoration: none;
+          cursor: pointer;
+          transition: box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        .qava-blog-card:hover {
+          box-shadow: 0 8px 20px rgba(15, 23, 42, 0.14);
+          transform: translateY(-2px);
+        }
+
+        .qava-blog-thumb {
+          width: 100%;
+          aspect-ratio: 16 / 10;
+          object-fit: cover;
+          display: block;
+        }
+
+        .qava-blog-body {
+          padding: 12px 14px 14px;
+          flex: 1 1 auto;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .qava-blog-tag {
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+          font-size: 16px;
+          font-weight: 400;
+          letter-spacing: normal;
+          text-transform: none;
+          color: #6B6B6B;
+        }
+
+        .qava-blog-title {
+          margin-top: 5px;
+          font-family: "Inter", sans-serif;
+          font-weight: 400;
+          font-size: 15px;
+          color: #111827;
+          line-height: 1.3;
+          letter-spacing: normal;
+        }
+
+        .qava-blog-read {
+          margin-top: auto;
+          padding-top: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+          font-family: "Inter", sans-serif;
+          font-size: 12px;
+          font-weight: 600;
+          color: #111827;
+        }
+
+        .qava-blog-read svg {
+          width: 14px;
+          height: 14px;
+          opacity: 0;
+          transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .qava-blog-card:hover .qava-blog-read svg {
+          opacity: 1;
+          transform: translateX(3px);
+        }
+
+        .qava-blog-card-soon {
+          cursor: default;
+          text-decoration: none;
+        }
+
+        .qava-blog-card-soon .qava-blog-read-hover {
+          display: none;
+        }
+
+        .qava-blog-card-soon:hover .qava-blog-read-default,
+        .qava-blog-card-soon:hover .qava-blog-read svg {
+          display: none;
+        }
+
+        .qava-blog-card-soon:hover .qava-blog-read-hover {
+          display: inline;
+        }
+
+        .qava-blog-read-hover {
+          font-family: "Inter", sans-serif;
+          font-size: 12px;
+          font-weight: 600;
+          color: #6B6B6B;
+        }
+
+        .qava-blog-showmore {
+          display: block;
+          margin: 18px auto 0;
+          padding: 0;
+          background: transparent;
+          border: none;
+          font-family: "Inter", sans-serif;
+          font-size: 14px;
+          font-weight: 300;
+          color: #6B6B6B;
+          cursor: pointer;
+        }
+
+        .qava-blog-showmore:hover {
+          color: #111827;
+          text-decoration: underline;
+        }
+
+        .qava-blog-actions {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 24px;
+          margin: 18px auto 0;
+        }
+
+        .qava-blog-actbtn {
+          background: transparent;
+          border: none;
+          padding: 0;
+          cursor: pointer;
+          font-family: "Inter", sans-serif;
+          font-size: 14px;
+            font-weight: 300;
+          color: #6B6B6B;
+          text-decoration: none;
+        }
+
+        .qava-blog-actbtn:hover {
+          color: #111827;
+          text-decoration: underline;
+        }
+
+        .qava-logos-testimonial {
+          width: min(680px, calc(100vw - 80px));
+          margin: 0 auto 32px auto;
+          text-align: center;
+        }
+
+        .qava-testimonial-quote {
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+          font-weight: 400;
+          font-size: clamp(22px, 2.4vw, 32px);
+          line-height: 1.25;
+          letter-spacing: -0.01em;
+          color: #111827;
+          margin: 0 0 18px 0;
+        }
+
+        .qava-testimonial-author {
+          font-family: "Inter", sans-serif;
+          font-size: 14px;
+          font-weight: 600;
+          color: #111827;
+          margin: 0;
+        }
+
+        .qava-testimonial-role {
+          font-family: "Inter", sans-serif;
+          font-size: 14px;
+          font-weight: 300;
+          color: #6B6B6B;
+          margin: 2px 0 0 0;
+        }
+
+        .qava-logos-row {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 28px;
+        }
+
+        .qava-logo-anim {
+          opacity: 0;
+          transform: translateY(var(--logo-rise-from, 100vh));
+          transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .qava-logo-anim.qava-logo-in {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .qava-ai-logo-item {
+          background: #ffffff;
+          padding: 6px 10px;
+          border-radius: 6px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .qava-ai-logo-item img {
+          height: 24px;
+          width: auto;
+          object-fit: contain;
+        }
+
+        .qava-calc-section {
+          width: min(1040px, calc(100vw - 120px));
+          margin: 88px 0 0 0;
+          position: relative;
+          left: 50%;
+          transform: translateX(-50%);
+          box-sizing: border-box;
+          background: #f4f4f5;
+          border-radius: 8px;
+          box-shadow: 0 1px 3px rgba(17, 24, 39, 0.04);
+          padding: 0;
+          overflow: hidden;
+        }
+
+        .qava-calc-header {
+          background: transparent;
+          border-radius: 0;
+          padding: 28px 32px 16px;
+          margin-bottom: 0;
+          text-align: left;
+        }
+
+        .qava-calc-body {
+          padding: 0 32px 32px;
+        }
+
+        .qava-calc-title {
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+          font-weight: 400;
+          font-size: clamp(30px, 3vw, 44px);
+          line-height: 1.08;
+          letter-spacing: -0.012em;
+          color: #111827;
+          margin: 0 0 10px 0;
+        }
+
+        .qava-calc-sub {
+          font-family: "Inter", sans-serif;
+          font-size: 14px;
+          font-weight: 300;
+          color: #6B6B6B;
+          margin: 0 0 14px 0;
+        }
+
+        .qava-calc-pricing {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          font-family: "Inter", sans-serif;
+          font-size: 14px;
+          font-weight: 500;
+          color: #111827;
+          text-decoration: none;
+        }
+
+        .qava-calc-pricing svg {
+          width: 14px;
+          height: 14px;
+          transition: transform 0.2s ease;
+        }
+
+        .qava-calc-pricing:hover svg {
+          transform: translateX(3px);
+        }
+
+        .qava-calc-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 24px;
+          margin-bottom: 40px;
+        }
+
+        .qava-calc-col-title {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-family: "Inter", sans-serif;
+          font-size: 14px;
+          font-weight: 300;
+          color: #6B6B6B;
+          text-transform: none;
+          letter-spacing: normal;
+          margin: 0 0 10px 0;
+          padding-left: 6px;
+        }
+
+        .qava-calc-list {
+          display: flex;
+          flex-direction: column;
+          gap: 0;
+        }
+
+        .qava-calc-item {
+            display: flex;
+            align-items: center;
+          gap: 10px;
+            cursor: pointer;
+          padding: 2px 6px;
+          border-radius: 6px;
+        }
+
+        .qava-calc-box {
+          width: 16px;
+          height: 16px;
+          border: 1px solid #d1d5db;
+          border-radius: 4px;
+          background: #ffffff;
+          flex: 0 0 auto;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: background 0.15s ease, border-color 0.15s ease;
+        }
+
+        .qava-calc-box svg {
+          opacity: 0;
+          transition: opacity 0.15s ease;
+        }
+
+        .qava-calc-item.checked .qava-calc-box {
+          background: #111827;
+          border-color: #111827;
+        }
+
+        .qava-calc-item.checked .qava-calc-box svg {
+          opacity: 1;
+        }
+
+        .qava-calc-label {
+          font-family: "Inter", sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+          color: #1f1f1f;
+        }
+
+        .qava-calc-results {
+            display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 56px;
+          padding-top: 32px;
+          border-top: 1px solid #e5e7eb;
+        }
+
+        .qava-calc-result {
+          text-align: center;
+          min-width: 150px;
+        }
+
+        .qava-calc-result-label {
+          font-family: "Inter", sans-serif;
+          font-size: 14px;
+          font-weight: 300;
+          color: #6B6B6B;
+          text-transform: none;
+          letter-spacing: normal;
+          margin-bottom: 8px;
+        }
+
+        .qava-calc-result-value {
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+          font-weight: 400;
+          font-size: 34px;
+          line-height: 1.2;
+          color: #111827;
+        }
+
+        .qava-calc-result-value.fees {
+          color: #b91c1c;
+        }
+
+        .qava-calc-divider {
+          width: 1px;
+          height: 56px;
+          background: #e5e7eb;
+        }
+
+        @media (max-width: 760px) {
+          .qava-calc-grid {
+            grid-template-columns: 1fr;
+            gap: 28px;
+          }
+          .qava-calc-results {
+            flex-direction: column;
+            gap: 24px;
+          }
+          .qava-calc-divider {
+            display: none;
+          }
+        }
+
+        .stats-footer-wrapper {
+          mask-image: none !important;
+          -webkit-mask-image: none !important;
+          width: min(1040px, calc(100vw - 120px)) !important;
+          max-width: min(1040px, calc(100vw - 120px)) !important;
+          margin: 8px 0 0 0 !important;
+          padding: 20px 0 60px 0 !important;
+          overflow: hidden !important;
+          box-sizing: border-box !important;
+          position: relative !important;
+          left: 50% !important;
+          transform: translateX(-50%) !important;
+          background: transparent !important;
+        }
+
+        .stats-footer {
+          animation: slideStats 60s linear infinite !important;
+        }
+
+        @media (max-width: 768px) {
+          .stats-footer {
+            animation: slideStats 40s linear infinite !important;
+          }
+        }
+
+        .stats-item {
+          font-weight: 300 !important;
+          opacity: 1 !important;
+          color: #6B6B6B !important;
+          filter: none !important;
+        }
+
+        .footer-heading {
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif !important;
+          font-weight: 400 !important;
+          letter-spacing: -0.012em !important;
+        }
+
+        .qava-stories-section {
+          width: min(1040px, calc(100vw - 120px));
+          margin: 88px 0 0 0;
+          position: relative;
+          left: 50%;
+          transform: translateX(-50%);
+          box-sizing: border-box;
+          background: #f4f4f5;
+          border-radius: 8px;
+          box-shadow: 0 1px 3px rgba(17, 24, 39, 0.04);
+          padding: 40px;
+        }
+
+        .qava-stories-title {
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+          font-weight: 400;
+          font-size: clamp(30px, 3vw, 44px);
+          line-height: 1.1;
+          letter-spacing: -0.012em;
+          color: #111827;
+          text-align: center;
+          margin: 0 0 10px 0;
+        }
+
+        .qava-stories-sub {
+          font-family: "Inter", sans-serif;
+          font-size: 15px;
+          font-weight: 300;
+          color: #6B6B6B;
+          text-align: center;
+          margin: 0 0 36px 0;
+        }
+
+        .qava-stories-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+          gap: 20px;
+        }
+
+        .qava-story-card {
+          background: #ffffff;
+            border: none;
+            border-radius: 8px;
+          box-shadow: none;
+          padding: 22px 22px 20px;
+            display: flex;
+            flex-direction: column;
+          text-align: left;
+        }
+
+        .qava-story-stars {
+          font-size: 13px;
+          letter-spacing: 2px;
+          color: #111827;
+          margin-bottom: 12px;
+        }
+
+        .qava-story-quote {
+          font-family: "Inter", sans-serif;
+          font-size: 14px;
+          font-weight: 300;
+          color: #333333;
+          line-height: 1.55;
+          margin: 0 0 18px 0;
+        }
+
+        .qava-story-attr {
+          margin-top: auto;
+            display: flex;
+          flex-direction: column;
+          gap: 6px;
+          align-items: flex-start;
+        }
+
+        .qava-story-logo {
+            display: block;
+          width: auto;
+          max-width: 180px;
+          object-fit: contain;
+          object-position: left center;
+        }
+
+        .qava-story-logo-crop {
+          width: 26px;
+          height: 26px;
+          overflow: hidden;
+            display: inline-block;
+        }
+
+        .qava-story-logo-crop img {
+          height: 26px;
+          transform: scale(2.6);
+          transform-origin: left center;
+          display: block;
+        }
+
+        .qava-story-name {
+          font-family: "Inter", sans-serif;
+            font-size: 12px;
+            font-weight: 300;
+          color: #666666;
+          line-height: 1.3;
+        }
+
+        .qava-story-sub {
+          font-family: "Inter", sans-serif;
+          font-size: 10px;
+          font-weight: 300;
+          color: #999999;
+          line-height: 1.2;
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+          .qava-story-card.qava-story-reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.55s ease, transform 0.55s ease;
+            transition-delay: var(--story-reveal-delay, 0ms);
+          }
+
+          .qava-story-card.qava-story-reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @media (max-width: 860px) {
+          .qava-stories-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        .qava-faq-section {
+          width: min(820px, calc(100vw - 120px));
+          margin: 88px 0 0 0;
+            position: relative;
+          left: 50%;
+          transform: translateX(-50%);
+          box-sizing: border-box;
+          background: #ffffff;
+            border-radius: 8px;
+          box-shadow: 0 1px 3px rgba(17, 24, 39, 0.04);
+          padding: 40px;
+        }
+
+        .qava-faq-title {
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+          font-weight: 400;
+          font-size: clamp(30px, 3vw, 44px);
+          line-height: 1.1;
+          letter-spacing: -0.012em;
+          color: #111827;
+          text-align: center;
+          margin: 0 0 28px 0;
+        }
+
+        .qava-faq-list {
+          border-top: 1px solid #ececec;
+        }
+
+        .qava-faq-item {
+          border-bottom: 1px solid #ececec;
+        }
+
+        .qava-faq-q {
+            display: flex;
+            align-items: center;
+          justify-content: space-between;
+          gap: 16px;
+          padding: 20px 4px;
+          cursor: pointer;
+          text-align: left;
+        }
+
+        .qava-faq-q-text {
+          font-family: "Inter", sans-serif;
+          font-size: 16px;
+          font-weight: 400;
+          color: #111827;
+        }
+
+        .qava-faq-toggle {
+          flex: 0 0 auto;
+          color: #111827;
+          display: flex;
+          transition: transform 0.25s ease;
+        }
+
+        .qava-faq-toggle svg {
+          width: 22px;
+          height: 22px;
+          display: block;
+        }
+
+        .qava-faq-item.open .qava-faq-toggle {
+          transform: rotate(45deg);
+        }
+
+        .qava-faq-a {
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.3s ease;
+        }
+
+        .qava-faq-a-text {
+          font-family: "Inter", sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+          color: #555555;
+          line-height: 1.65;
+          padding: 0 4px 22px;
+            margin: 0;
+          text-align: left;
+        }
+
+        .qava-edu-section {
+          width: min(820px, calc(100vw - 120px));
+          margin: 88px 0 96px 0;
+          position: relative;
+          left: 50%;
+          transform: translateX(-50%);
+          box-sizing: border-box;
+          background: #ffffff;
+          border-radius: 8px;
+          box-shadow: 0 1px 3px rgba(17, 24, 39, 0.04);
+          padding: 24px;
+        }
+
+        .qava-edu-card {
+            display: flex;
+            align-items: center;
+          gap: 28px;
+          text-decoration: none;
+        }
+
+        .qava-edu-img-wrap {
+            position: relative;
+          flex: 0 0 auto;
+        }
+
+        .qava-edu-img {
+          width: 140px;
+          height: 140px;
+          flex: 0 0 auto;
+          border-radius: 12px;
+          object-fit: cover;
+          display: block;
+        }
+
+        .qava-edu-badge {
+            position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+            font-weight: 400;
+          font-size: 72px;
+            color: #ffffff;
+          text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+          pointer-events: none;
+        }
+
+        .qava-edu-content {
+            flex: 1;
+          text-align: left;
+          min-width: 0;
+        }
+
+        .qava-edu-title {
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+          font-weight: 400;
+          font-size: clamp(20px, 2vw, 26px);
+          line-height: 1.12;
+          letter-spacing: -0.012em;
+          color: #111827;
+          margin: 0 0 10px 0;
+        }
+
+        .qava-edu-desc {
+          font-family: "Inter", sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+          color: #6B6B6B;
+            line-height: 1.6;
+          margin: 0 0 16px 0;
+        }
+
+        .qava-edu-link {
+          display: inline-flex;
+            align-items: center;
+          gap: 6px;
+          font-family: "Inter", sans-serif;
+          font-size: 14px;
+          font-weight: 500;
+          color: #111827;
+          text-decoration: none;
+        }
+
+        .qava-edu-link svg {
+          width: 14px;
+          height: 14px;
+          transition: transform 0.2s ease;
+        }
+
+        .qava-edu-card:hover .qava-edu-link svg {
+          transform: translateX(3px);
+        }
+
+        @media (max-width: 760px) {
+          .qava-edu-card {
+                flex-direction: column;
+            align-items: flex-start;
+            gap: 24px;
+          }
+          .qava-edu-img {
+            width: 100%;
+                height: auto;
+            aspect-ratio: 16 / 10;
+          }
+        }
+
+        #qava-newsletter-page {
+          display: none;
+          width: 100%;
+          box-sizing: border-box;
+          padding: 64px 24px 96px 24px;
+        }
+
+        #qava-newsletter-page.qava-overlay-active {
+          display: block;
+        }
+
+        #qava-aitoolset-page {
+          display: none;
+          width: 100%;
+          box-sizing: border-box;
+          padding: 64px 24px 96px 24px;
+        }
+
+        #qava-aitoolset-page.qava-overlay-active {
+          display: block;
+        }
+
+        #qava-howitworks-page {
+          display: none;
+          width: 100%;
+          margin: 0;
+        }
+
+        #qava-howitworks-page.qava-overlay-active {
+          display: block;
+        }
+
+        #qava-hiw-frame {
+          display: block;
+          width: 100%;
+          border: 0;
+          background: transparent;
+          height: auto;
+          min-height: 0;
+        }
+
+        .qava-ai-container {
+          width: min(940px, calc(100vw - 48px));
+          margin: 0 auto;
+          text-align: left;
+        }
+
+        .qava-ai-hero {
+          margin: 0 auto 40px auto;
+          text-align: center;
+          max-width: 680px;
+        }
+
+        .qava-ai-logo {
+          width: 64px;
+          height: 64px;
+          border-radius: 14px;
+          object-fit: cover;
+          display: block;
+          margin: 0 auto 22px auto;
+        }
+
+        .qava-ai-title {
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+          font-weight: 400;
+          font-size: clamp(34px, 4vw, 52px);
+          line-height: 1.08;
+          letter-spacing: -0.012em;
+          color: #111827;
+          margin: 0 0 12px 0;
+        }
+
+        .qava-ai-sub {
+          font-family: "Inter", sans-serif;
+          font-size: 16px;
+          font-weight: 300;
+                line-height: 1.5;
+          color: #6B6B6B;
+          margin: 0;
+        }
+
+        .qava-ai-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+        }
+
+        .qava-ai-card {
+          background: #f4f4f5;
+          border-radius: 8px;
+          box-shadow: none;
+          padding: 26px 26px 24px;
+          box-sizing: border-box;
+        }
+
+        .qava-ai-card-icon {
+          width: 34px;
+          height: 34px;
+          color: #111827;
+          margin-bottom: 14px;
+        }
+
+        .qava-ai-card-icon svg {
+          width: 100%;
+          height: 100%;
+          display: block;
+        }
+
+        .qava-ai-card-title {
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+          font-weight: 400;
+          font-size: 26px;
+          letter-spacing: -0.01em;
+          color: #111827;
+          margin: 0 0 8px 0;
+        }
+
+        .qava-ai-card-desc {
+          font-family: "Inter", sans-serif;
+          font-size: 14px;
+          font-weight: 300;
+          line-height: 1.55;
+          color: #6B6B6B;
+          margin: 0;
+        }
+
+        @media (max-width: 720px) {
+          .qava-ai-grid {
+                grid-template-columns: 1fr;
+          }
+        }
+
+        .qava-ai-tools-head {
+          margin: 56px 0 22px 0;
+          text-align: left;
+          background: #111827;
+          border-radius: 6px;
+          padding: 40px 36px;
+          transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .qava-ai-tools-head:hover {
+          background: #ffffff;
+          box-shadow: inset 0 0 0 1px rgba(17, 24, 39, 0.1);
+        }
+
+        .qava-ai-tools-head:hover .qava-ai-tools-title {
+          color: #111827;
+        }
+
+        .qava-ai-tools-head:hover .qava-ai-tools-sub {
+          color: #6B6B6B;
+        }
+
+        .qava-ai-tools-head:hover .qava-ai-menu-label {
+          color: #9ca3af;
+        }
+
+        .qava-ai-tools-head:hover .qava-ai-menu-item {
+          color: #111827;
+          background: rgba(17, 24, 39, 0.05);
+          border-color: rgba(17, 24, 39, 0.15);
+        }
+
+        .qava-ai-tools-head:hover .qava-ai-menu-item:hover {
+          background: #111827;
+          color: #ffffff;
+          border-color: #111827;
+        }
+
+        .qava-ai-tools-title {
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+          font-weight: 400;
+          font-size: clamp(26px, 3vw, 36px);
+          letter-spacing: -0.012em;
+          color: #111827;
+          margin: 0 0 8px 0;
+        }
+
+        .qava-ai-tools-head .qava-ai-tools-title {
+          color: #ffffff;
+        }
+
+        .qava-ai-tools-sub {
+          font-family: "Inter", sans-serif;
+          font-size: 14px;
+          font-weight: 300;
+          color: #6B6B6B;
+          margin: 0;
+        }
+
+        .qava-ai-tools-head .qava-ai-tools-sub {
+          color: rgba(255, 255, 255, 0.7);
+          max-width: 640px;
+          margin: 0;
+        }
+
+        .qava-ai-menu {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          gap: 8px;
+          margin-top: 22px;
+        }
+
+        .qava-ai-menu-label {
+          font-family: "Inter", sans-serif;
+          font-size: 12px;
+          font-weight: 400;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+          color: rgba(255, 255, 255, 0.45);
+          margin-right: 4px;
+        }
+
+        .qava-ai-menu-item {
+          font-family: "Inter", sans-serif;
+          font-size: 12px;
+          font-weight: 400;
+          color: rgba(255, 255, 255, 0.85);
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.16);
+          border-radius: 999px;
+          padding: 4px 10px;
+          cursor: pointer;
+          transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+        }
+
+        .qava-ai-menu-item:hover {
+          background: #ffffff;
+          color: #111827;
+          border-color: #ffffff;
+        }
+
+        .qava-ai-cat {
+          margin: 40px 0 16px 0;
+          scroll-margin-top: 90px;
+        }
+
+        .qava-ai-cat-title {
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+          font-weight: 400;
+          font-size: clamp(20px, 2.2vw, 26px);
+          letter-spacing: -0.012em;
+          color: #111827;
+          margin: 0 0 6px 0;
+        }
+
+        .qava-ai-cat-note {
+          font-family: "Inter", sans-serif;
+                font-size: 13px;
+          font-weight: 300;
+          color: #6B6B6B;
+          margin: 0;
+        }
+
+        .qava-ai-tools {
+          display: flex;
+          flex-direction: column;
+          gap: 18px;
+        }
+
+        .qava-ai-tool {
+          display: flex;
+          gap: 18px;
+          background: #ffffff;
+          border-radius: 10px;
+          box-shadow: 0 1px 3px rgba(17, 24, 39, 0.04);
+          padding: 11px 18px;
+          box-sizing: border-box;
+        }
+
+        .qava-ai-tool-logo {
+          flex: 0 0 auto;
+          width: 48px;
+          height: 48px;
+          border-radius: 11px;
+          background: #ffffff;
+          border: none;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+        }
+
+        .qava-ai-tool-logo img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          display: block;
+        }
+
+        .qava-ai-tool-badge {
+          width: 48px;
+          height: 48px;
+          border-radius: 11px;
+          color: #ffffff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: "Inter", sans-serif;
+          font-size: 16px;
+          font-weight: 700;
+          letter-spacing: 0.01em;
+        }
+
+        .qava-ai-tool-body {
+          flex: 1 1 auto;
+          min-width: 0;
+        }
+
+        .qava-ai-tool-name {
+          font-family: "Inter", sans-serif;
+          font-size: 16px;
+          font-weight: 600;
+          color: #111827;
+          margin: 0;
+        }
+
+        .qava-ai-tool-tag {
+          font-family: "Inter", sans-serif;
+                font-size: 13px;
+          font-weight: 300;
+          color: #9ca3af;
+          margin: 1px 0 10px 0;
+            }
+
+        .qava-ai-tool-best {
+          font-family: "Inter", sans-serif;
+                font-size: 14px;
+          font-weight: 300;
+          line-height: 1.55;
+          color: #4b5563;
+          margin: 0 0 12px 0;
+        }
+
+        .qava-ai-tool-howto {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+        }
+
+        .qava-ai-tool-howto li {
+          position: relative;
+          padding-left: 20px;
+          font-family: "Inter", sans-serif;
+          font-size: 13.5px;
+          font-weight: 300;
+          line-height: 1.5;
+          color: #6B6B6B;
+        }
+
+        .qava-ai-tool-howto li::before {
+          content: "";
+          position: absolute;
+          left: 4px;
+          top: 8px;
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background: #111827;
+        }
+
+        @media (max-width: 600px) {
+          .qava-ai-tool {
+                flex-direction: column;
+            gap: 14px;
+          }
+        }
+
+        .qava-nl-container {
+          width: min(720px, calc(100vw - 48px));
+          margin: 0 auto;
+          background: #ffffff;
+          border-radius: 8px;
+          box-shadow: 0 1px 3px rgba(17, 24, 39, 0.04);
+          padding: 40px;
+          box-sizing: border-box;
+          text-align: left;
+                position: relative;
+        }
+
+        .qava-nl-logo {
+          position: absolute;
+          top: 40px;
+          right: 40px;
+          width: 52px;
+          height: 52px;
+          border-radius: 12px;
+          object-fit: cover;
+          display: block;
+        }
+
+        .qava-nl-title {
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+          font-weight: 400;
+          font-size: clamp(30px, 3vw, 44px);
+          line-height: 1.1;
+          letter-spacing: -0.012em;
+          color: #111827;
+          margin: 0 0 8px 0;
+        }
+
+        .qava-nl-sub {
+          font-family: "Inter", sans-serif;
+          font-size: 14px;
+          font-weight: 300;
+          color: #6B6B6B;
+          margin: 0 0 16px 0;
+        }
+
+        .qava-nl-marquee {
+          margin: 0 0 32px 0;
+        }
+
+        .qava-nl-group {
+          margin-bottom: 28px;
+        }
+
+        .qava-nl-group-label {
+          font-family: "Inter", sans-serif;
+          font-size: 15px;
+          font-weight: 600;
+          color: #111827;
+          margin: 0 0 4px 0;
+        }
+
+        .qava-nl-group-hint {
+          font-family: "Inter", sans-serif;
+          font-size: 13px;
+          font-weight: 300;
+          color: #6B6B6B;
+          margin: 0 0 14px 0;
+        }
+
+        .qava-nl-options {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+          gap: 0 24px;
+        }
+
+        .qava-nl-check {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          cursor: pointer;
+          padding: 2px 6px;
+          border-radius: 6px;
+        }
+
+        .qava-nl-box {
+          width: 16px;
+          height: 16px;
+          border: 1px solid #d1d5db;
+          border-radius: 4px;
+          background: #ffffff;
+          flex: 0 0 auto;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: background 0.15s ease, border-color 0.15s ease;
+        }
+
+        .qava-nl-box svg {
+          display: block;
+          opacity: 0;
+          transition: opacity 0.15s ease;
+        }
+
+        .qava-nl-check:not(.checked):hover .qava-nl-box {
+          background: #f3f4f6;
+          border-color: rgba(17, 24, 39, 0.28);
+        }
+
+        .qava-nl-check.checked .qava-nl-box {
+          background: #111827;
+          border-color: #111827;
+        }
+
+        .qava-nl-check.checked .qava-nl-box svg {
+          opacity: 1;
+        }
+
+        .qava-nl-check-label {
+          font-family: "Inter", sans-serif;
+          font-size: 14px;
+          font-weight: 300;
+          color: #1f1f1f;
+        }
+
+        .qava-nl-field-row {
+          display: flex;
+          gap: 16px;
+        }
+
+        .qava-nl-field {
+          flex: 1;
+          min-width: 0;
+          margin-bottom: 16px;
+        }
+
+        .qava-nl-field-label {
+          display: block;
+          font-family: "Inter", sans-serif;
+          font-size: 13px;
+          font-weight: 300;
+          color: #374151;
+          margin-bottom: 3px;
+        }
+
+        .qava-nl-field-label .opt {
+          font-weight: 300;
+          color: #9ca3af;
+        }
+
+        .qava-nl-input {
+          width: 100%;
+          box-sizing: border-box;
+          padding: 10px 12px;
+          border: 1px solid rgba(17, 24, 39, 0.16);
+          border-radius: 7px;
+          font-family: "Inter", sans-serif;
+          font-size: 14px;
+          font-weight: 300;
+          color: #111827;
+          background: #ffffff;
+          transition: border-color 0.15s ease;
+        }
+
+        .qava-nl-input:focus {
+          outline: none;
+          border-color: #111827;
+        }
+
+        .qava-nl-freq {
+          display: flex;
+          gap: 24px;
+          flex-wrap: wrap;
+        }
+
+        .qava-nl-radio {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          cursor: pointer;
+          font-family: "Inter", sans-serif;
+          font-size: 14px;
+          font-weight: 300;
+          color: #1f1f1f;
+        }
+
+        .qava-nl-radio-dot {
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          border: 1px solid #d1d5db;
+          background: #ffffff;
+          flex: 0 0 auto;
+          position: relative;
+          transition: border-color 0.15s ease;
+        }
+
+        .qava-nl-radio:hover .qava-nl-radio-dot {
+          border-color: rgba(17, 24, 39, 0.4);
+        }
+
+        .qava-nl-radio.selected .qava-nl-radio-dot {
+          border-color: #111827;
+        }
+
+        .qava-nl-radio.selected .qava-nl-radio-dot::after {
+          content: "";
+          position: absolute;
+          inset: 3px;
+          border-radius: 50%;
+          background: #111827;
+        }
+
+        .qava-nl-submit {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          margin-top: 14px;
+          padding: 7px 16px;
+          background: #0F62FE;
+          color: #ffffff;
+          border: none;
+          border-radius: 6px;
+          font-family: "Inter", sans-serif;
+          font-size: 14px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: background 0.2s ease, box-shadow 0.2s ease;
+          box-shadow: 0 1px 3px rgba(15, 98, 254, 0.3);
+        }
+
+        .qava-nl-submit:hover {
+          background: #0047C3;
+          box-shadow: 0 2px 6px rgba(15, 98, 254, 0.4);
+        }
+
+        @media (max-width: 620px) {
+          .qava-nl-options {
+            grid-template-columns: 1fr;
+          }
+          .qava-nl-field-row {
+            flex-direction: column;
+            gap: 0;
+          }
+        }
+
+        .qava-team-add {
+          align-items: center;
+          justify-content: center;
+          border-style: dashed;
+          border-color: rgba(17, 24, 39, 0.2);
+          background: #ffffff;
+          box-shadow: none;
+          min-height: 130px;
+        }
+
+        .qava-team-add-plus {
+          width: 34px;
+          height: 34px;
+          border-radius: 999px;
+          background: #f0f1f3;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #6b7280;
+          margin-bottom: 8px;
+        }
+
+        .qava-team-add-plus svg {
+          width: 16px;
+          height: 16px;
+        }
+
+        .qava-team-add-label {
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+          font-size: 17px;
+          font-weight: 400;
+          color: #111827;
+        }
+
+        .qava-review-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+          width: 100%;
+        }
+
+        .qava-review-card {
+          width: 100%;
+          background: #ffffff;
+          border: 1px solid rgba(17, 24, 39, 0.08);
+          border-radius: 12px;
+          box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+          padding: 12px;
+          text-align: left;
+          box-sizing: border-box;
+        }
+
+        .qava-review-card-label {
+          font-family: "Inter", sans-serif;
+                font-size: 12px;
+          font-weight: 400;
+          color: #6b7280;
+          margin-bottom: 8px;
+        }
+
+        .qava-review-card-label.bold {
+          font-weight: 600;
+          color: #111827;
+        }
+
+        .qava-review-card-label.caps {
+          text-transform: uppercase;
+          letter-spacing: 0.06em;
+          font-size: 10px;
+          font-weight: 600;
+          color: #9ca3af;
+        }
+
+        .qava-review-letter {
+          border: 1px solid rgba(17, 24, 39, 0.08);
+          border-radius: 8px;
+          padding: 10px 12px;
+        }
+
+        .qava-review-letter p {
+          margin: 0 0 8px 0;
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+          font-weight: 300;
+          color: #4b5563;
+          line-height: 1.5;
+        }
+
+        .qava-review-letter p:last-child {
+          margin: 0;
+        }
+
+        .qava-edu-row {
+            display: flex;
+          align-items: center;
+            gap: 10px;
+        }
+
+        .qava-edu-logo {
+          width: 34px;
+          height: 34px;
+          flex: 0 0 auto;
+          border: 1px solid rgba(17, 24, 39, 0.12);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          font-family: Georgia, "Times New Roman", serif;
+          font-size: 10px;
+          font-weight: 700;
+          color: #1f3a5f;
+          letter-spacing: 0.04em;
+        }
+
+        .qava-edu-name {
+          font-family: "Inter", sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+          color: #111827;
+        }
+
+        .qava-edu-sub {
+          margin-top: 1px;
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+          font-weight: 300;
+          color: #6b7280;
+        }
+
+        .qava-contact-line {
+          font-family: "Inter", sans-serif;
+          font-size: 12px;
+            font-weight: 400;
+          color: #111827;
+          line-height: 1.5;
+        }
+
+        .qava-resume-files {
+            display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+
+        .qava-resume-file {
+          display: inline-flex;
+          align-items: center;
+            gap: 8px;
+          background: #f3f4f6;
+          border-radius: 8px;
+          padding: 6px 10px;
+          font-family: "Inter", sans-serif;
+          font-size: 12px;
+          font-weight: 400;
+          color: #374151;
+        }
+
+        .qava-pdf-badge {
+          background: #e23b3b;
+          color: #ffffff;
+          border-radius: 4px;
+          padding: 2px 4px;
+          font-family: "Inter", sans-serif;
+          font-size: 8px;
+          font-weight: 700;
+          letter-spacing: 0.04em;
+        }
+
+        .qava-decision-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 11px 20px;
+          margin-bottom: 12px;
+        }
+
+        .qava-decision-option {
+            display: flex;
+            align-items: flex-start;
+          gap: 9px;
+          margin-bottom: 0;
+        }
+
+        .qava-decision-option .qava-box-check {
+          margin-top: 1px;
+        }
+
+        .qava-decision-title {
+          font-family: "Inter", sans-serif;
+          font-size: 12px;
+          font-weight: 600;
+          color: #111827;
+        }
+
+        .qava-decision-desc {
+          margin-top: 1px;
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+            font-weight: 300;
+          color: #6b7280;
+        }
+
+        .qava-review-confirm {
+          background: #ECF2FF;
+          color: #1163FE;
+          border: 0;
+          border-radius: 7px;
+          padding: 5px 10px;
+          font-family: "Inter", sans-serif;
+          font-size: 12px;
+            font-weight: 600;
+          margin-top: 2px;
+          cursor: default;
+        }
+
+        .qava-review-boost {
+          align-self: center;
+          margin: 16px auto 0;
+          background: #f3f4f6;
+          color: #374151;
+          border: 0;
+          border-radius: 8px;
+          padding: 8px 14px;
+          font-family: "Inter", sans-serif;
+            font-size: 12px;
+          font-weight: 500;
+          cursor: default;
+        }
+
+        .qava-signup-chips {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px;
+        }
+
+        .qava-signup-chip {
+          border: 1px solid rgba(17, 24, 39, 0.1);
+          border-radius: 999px;
+          padding: 1px 8px;
+          background: #ffffff;
+          display: inline-flex;
+            align-items: center;
+          gap: 5px;
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+          font-weight: 400;
+          color: #374151;
+          white-space: nowrap;
+          opacity: 0.5;
+          transition: opacity 0.15s ease, border-color 0.15s ease;
+        }
+
+        .qava-signup-chip.is-highlighted,
+        .qava-signup-chip.is-selected {
+          border: 1px solid #111827;
+          color: #374151;
+          opacity: 1;
+        }
+
+        .qava-signup-chip:not(.is-selected):not(.is-highlighted) .qava-tool-logo-badge,
+        .qava-signup-chip.is-selected .qava-tool-logo-badge {
+          opacity: 1;
+        }
+
+        .qava-signup-quick-action.is-selected {
+          border: 1px solid #111827;
+          color: #374151;
+          opacity: 1;
+        }
+
+        .qava-tool-logo {
+          width: 12px;
+          height: 12px;
+          object-fit: contain;
+          border-radius: 2px;
+          flex: 0 0 auto;
+        }
+
+        .qava-tool-logo-badge {
+          width: 12px;
+          height: 12px;
+            border-radius: 3px;
+          background: #111827;
+          color: #ffffff;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          font-family: "Inter", sans-serif;
+          font-size: 7px;
+          font-weight: 700;
+          letter-spacing: 0.01em;
+          line-height: 1;
+          flex: 0 0 auto;
+        }
+
+        .qava-tool-openai { background: #111827; }
+        .qava-tool-claude { background: #d97706; }
+        .qava-tool-perplexity { background: #0891b2; }
+        .qava-tool-notion { background: #000000; }
+        .qava-tool-gemini { background: #2563eb; }
+        .qava-tool-midjourney { background: #374151; }
+        .qava-tool-figma { background: #111827; }
+
+        .qava-signup-free-text {
+          border: 1px solid rgba(17, 24, 39, 0.1);
+          border-radius: 10px;
+          background: #ffffff;
+          min-height: 48px;
+          padding: 8px 10px;
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+          font-weight: 400;
+          line-height: 1.45;
+          color: #111827;
+          margin-bottom: 6px;
+          text-align: left;
+          width: 100%;
+          box-sizing: border-box;
+        }
+
+        .qava-signup-quick-actions {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px;
+          width: 100%;
+        }
+
+        .qava-signup-quick-action {
+          border: 1px solid rgba(17, 24, 39, 0.1);
+          border-radius: 999px;
+          background: #ffffff;
+          padding: 2px 9px;
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+          font-weight: 400;
+          color: #374151;
+          white-space: nowrap;
+          opacity: 0.5;
+          transition: opacity 0.15s ease, border-color 0.15s ease;
+        }
+
+        .qava-apply-illustration {
+          overflow-y: auto;
+        }
+
+        .qava-apply-radios {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 16px;
+            width: 100%;
+        }
+
+        .qava-apply-radio {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+            font-weight: 400;
+          color: #4b5563;
+          white-space: nowrap;
+        }
+
+        .qava-apply-radio input[type="radio"] {
+          appearance: none;
+          -webkit-appearance: none;
+          width: 13px;
+          height: 13px;
+          margin: 0;
+          border-radius: 50%;
+          border: 1px solid #d1d5db;
+          background: #ffffff;
+          cursor: pointer;
+        }
+
+        .qava-apply-radio input[type="radio"]:checked {
+          border-color: #111827;
+          background: #111827;
+          box-shadow: inset 0 0 0 2px #ffffff;
+        }
+
+        .qava-explore-illustration {
+          overflow: hidden;
+          padding: 38px 25px 25px 25px;
+          text-align: left;
+        }
+
+        .qava-explore-filterbar {
+            display: flex;
+          flex-wrap: wrap;
+            align-items: center;
+          gap: 8px;
+          flex: 0 0 auto;
+          padding-bottom: 14px;
+          margin-bottom: 14px;
+          border-bottom: 1px solid rgba(17, 24, 39, 0.06);
+        }
+
+        .qava-explore-filterbar-label {
+          font-family: "Inter", sans-serif;
+          font-size: 12px;
+          font-weight: 500;
+          color: #6b7280;
+          margin-right: 2px;
+        }
+
+        .qava-explore-filter-pill {
+          border: 1px solid rgba(17, 24, 39, 0.18);
+          border-radius: 999px;
+          background: #ffffff;
+          padding: 3px 11px;
+          font-family: "Inter", sans-serif;
+          font-size: 12px;
+          font-weight: 400;
+          color: #374151;
+          white-space: nowrap;
+          cursor: pointer;
+        }
+
+        .qava-explore-filter-pill:hover {
+          border-color: rgba(17, 24, 39, 0.4);
+          color: #111827;
+        }
+
+        .qava-explore-layout {
+            display: grid;
+          grid-template-columns: 220px 1fr;
+          gap: 20px;
+          width: 100%;
+          flex: 1 1 auto;
+          min-height: 0;
+        }
+
+        .qava-explore-filters {
+          overflow-y: auto;
+          min-height: 0;
+            display: flex;
+            flex-direction: column;
+          gap: 16px;
+          padding-right: 8px;
+        }
+
+        .qava-explore-filter-group {
+            display: flex;
+            flex-direction: column;
+          gap: 3px;
+        }
+
+        .qava-explore-filter-title {
+          margin: 0 0 4px 0;
+          font-family: "Inter", sans-serif;
+          font-size: 13px;
+          font-weight: 300;
+          letter-spacing: 0;
+          text-transform: none;
+          color: #6b6b6b;
+        }
+
+        .qava-explore-filter-item {
+            display: flex;
+          align-items: center;
+            gap: 8px;
+          font-family: "Inter", sans-serif;
+          font-size: 12px;
+            font-weight: 300;
+          color: #374151;
+          line-height: 1.3;
+          text-align: left;
+            white-space: nowrap;
+        }
+
+        .qava-explore-filter-item input[type="checkbox"] {
+          appearance: none;
+          -webkit-appearance: none;
+          width: 13px;
+          height: 13px;
+          flex: 0 0 auto;
+            margin: 0;
+          border: 1px solid #d1d5db;
+          border-radius: 3px;
+          background: #ffffff;
+          position: relative;
+        }
+
+        .qava-explore-filter-item input[type="checkbox"]:checked {
+          background: #111827;
+          border-color: #111827;
+        }
+
+        .qava-explore-filter-item input[type="checkbox"]:checked::after {
+          content: "";
+          position: absolute;
+          left: 4px;
+          top: 1px;
+          width: 3px;
+          height: 7px;
+          border: solid #ffffff;
+          border-width: 0 1.5px 1.5px 0;
+          transform: rotate(45deg);
+        }
+
+        .qava-explore-filter-count {
+          margin-left: 4px;
+          color: #9ca3af;
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+        }
+
+        .qava-explore-filter-count::before {
+          content: "(";
+        }
+
+        .qava-explore-filter-count::after {
+          content: ")";
+        }
+
+        .qava-explore-list {
+          overflow-y: auto;
+          min-height: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .qava-explore-section-title {
+          margin: 0 0 8px 0;
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+          font-size: 20px;
+          font-weight: 400;
+          color: #111827;
+          text-align: left;
+        }
+
+        .qava-explore-section-title:not(:first-child) {
+          margin-top: 18px;
+        }
+
+        .qava-explore-row {
+            display: flex;
+            align-items: center;
+          gap: 12px;
+          padding: 8px 12px;
+          margin-bottom: 8px;
+          background: #ffffff;
+          border: 1px solid rgba(17, 24, 39, 0.06);
+          border-radius: 10px;
+          box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+        }
+
+        .qava-explore-thumb {
+          width: 56px;
+          height: 44px;
+          object-fit: cover;
+          border-radius: 8px;
+          flex: 0 0 auto;
+        }
+
+        .qava-explore-row-info {
+            display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1px;
+          min-width: 0;
+          text-align: left;
+        }
+
+        .qava-explore-row-type {
+          align-self: flex-start;
+          display: inline-flex;
+          align-items: center;
+          border: 1px solid transparent;
+          border-radius: 999px;
+          padding: 0 7px;
+          margin-bottom: 2px;
+          font-family: "Inter", sans-serif;
+          font-size: 9px;
+          font-weight: 500;
+          line-height: 16px;
+        }
+
+        .qava-type-job {
+          background: #eff6ff;
+          border-color: #bfdbfe;
+          color: #1d4ed8;
+        }
+
+        .qava-type-project {
+          background: #ecfdf5;
+          border-color: #a7f3d0;
+          color: #047857;
+        }
+
+        .qava-type-internship {
+          background: #f5f3ff;
+          border-color: #ddd6fe;
+          color: #6d28d9;
+        }
+
+        .qava-work-illustration {
+          overflow-y: auto;
+          overflow-x: hidden;
+          padding: 38px 25px 25px 25px;
+        }
+
+        .qava-work-title {
+          margin: 0;
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+            font-size: 24px;
+          font-weight: 400;
+          color: #111827;
+          line-height: 1.1;
+          text-align: left;
+        }
+
+        .qava-work-subtitle {
+          margin: 4px 0 12px 0;
+          font-family: "Inter", sans-serif;
+          font-size: 14px;
+            font-weight: 300;
+          color: #6b6b6b;
+          line-height: 1.3;
+          text-align: left;
+        }
+
+        .qava-work-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          grid-template-rows: repeat(3, minmax(116px, 1fr));
+          gap: 16px;
+          width: 100%;
+          flex: 1 1 auto;
+          min-height: 0;
+        }
+
+        .qava-work-slide {
+          border: 0;
+          border-radius: 10px;
+          background: #ffffff;
+          box-shadow: 0 1px 5px rgba(15, 23, 42, 0.08);
+          padding: 12px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          gap: 8px;
+          overflow: hidden;
+          min-height: 0;
+          opacity: 0;
+          animation: qava-work-phase-in 0.5s ease forwards;
+        }
+
+        @keyframes qava-work-phase-in {
+          from {
+            opacity: 0;
+            transform: translateY(10px) scale(0.98);
+        }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+
+        .qava-work-slide-illustration {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          color: #111827;
+            flex: 0 0 auto;
+        }
+
+        .qava-work-svg {
+          height: 28px;
+          width: auto;
+        }
+
+        .qava-work-slide-title {
+            margin: 0;
+          font-family: "Inter", sans-serif;
+          font-size: 12px;
+          font-weight: 600;
+          color: #111827;
+          line-height: 1.2;
+        }
+
+        .qava-work-slide-text {
+          margin: 0;
+          font-family: "Inter", sans-serif;
+          font-size: 10px;
+            font-weight: 300;
+          color: #4b5563;
+          line-height: 1.4;
+            overflow: hidden;
+        }
+
+        .qava-getpaid-illustration {
+          overflow-y: auto;
+          text-align: left;
+        }
+
+        .qava-getpaid-title {
+          margin: 0 0 8px 0;
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+          font-size: 24px;
+          font-weight: 400;
+          color: #111827;
+          line-height: 1.1;
+          text-align: left;
+        }
+
+        .qava-getpaid-header {
+            display: flex;
+          justify-content: space-between;
+            align-items: center;
+          gap: 24px;
+          margin-bottom: 12px;
+        }
+
+        .qava-getpaid-charts-wrap {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 12px;
+        }
+
+        .qava-getpaid-filter {
+            display: flex;
+          gap: 6px;
+        }
+
+        .qava-getpaid-filter-pill {
+          border: 1px solid rgba(17, 24, 39, 0.18);
+          border-radius: 999px;
+          background: #ffffff;
+          padding: 2px 11px;
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+          font-weight: 400;
+          color: #374151;
+          cursor: pointer;
+          white-space: nowrap;
+        }
+
+        .qava-getpaid-filter-pill.active {
+          background: #ffffff;
+          border-color: #111827;
+          color: #111827;
+        }
+
+        .qava-getpaid-filter-plus {
+          margin-left: 5px;
+          font-weight: 400;
+          color: #111827;
+        }
+
+        .qava-getpaid-charts {
+            display: flex;
+          align-items: flex-end;
+          gap: 26px;
+        }
+
+        .qava-getpaid-radar {
+          height: 132px;
+          width: auto;
+        }
+
+        .qava-getpaid-total {
+            display: flex;
+            flex-direction: column;
+          gap: 5px;
+        }
+
+        .qava-getpaid-total-label {
+          font-family: "Inter", sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+          letter-spacing: 0;
+          text-transform: none;
+          color: #6b6b6b;
+        }
+
+        .qava-getpaid-total-value {
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+          font-size: 32px;
+          font-weight: 400;
+          color: #111827;
+          line-height: 1;
+        }
+
+        .qava-getpaid-chart {
+          display: flex;
+          align-items: flex-end;
+          gap: 12px;
+        }
+
+        .qava-getpaid-barcol {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 5px;
+        }
+
+        .qava-getpaid-bar-value {
+          font-family: "Inter", sans-serif;
+          font-size: 10px;
+            font-weight: 500;
+          color: #6b7280;
+        }
+
+        .qava-getpaid-bar {
+          width: 22px;
+          background: #d1d5db;
+          border-radius: 0;
+        }
+
+        .qava-getpaid-bar.tallest {
+          background: #111827;
+        }
+
+        .qava-getpaid-bar-label {
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+          font-weight: 400;
+          color: #6b7280;
+        }
+
+        .qava-getpaid-table {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .qava-getpaid-more {
+          width: 100%;
+          margin-top: 16px;
+          padding: 11px 16px;
+          border: 1px solid rgba(17, 24, 39, 0.18);
+          border-radius: 10px;
+          background: #ffffff;
+          font-family: "Inter", sans-serif;
+          font-size: 13px;
+          font-weight: 400;
+          color: #111827;
+          cursor: pointer;
+          transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+        }
+
+        .qava-getpaid-more:hover {
+          background: #111827;
+          border-color: #111827;
+          color: #ffffff;
+        }
+
+        .qava-getpaid-row {
+          display: grid;
+          grid-template-columns: 1fr 96px 215px 70px 142px;
+          gap: 14px;
+          align-items: start;
+          padding: 6px 0;
+          border-bottom: 1px solid rgba(17, 24, 39, 0.07);
+        }
+
+        .qava-getpaid-started,
+        .qava-getpaid-amount,
+        .qava-getpaid-status {
+          font-family: "Inter", sans-serif;
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 1.2;
+        }
+
+        .qava-getpaid-started {
+          color: #6b7280;
+          white-space: nowrap;
+        }
+
+        .qava-getpaid-feedback {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 3px;
+        }
+
+        .qava-getpaid-quote {
+          font-family: "Inter", sans-serif;
+          font-size: 10px;
+          font-weight: 300;
+          font-style: italic;
+          color: #6b7280;
+          line-height: 1.3;
+          white-space: nowrap;
+        }
+
+        .qava-getpaid-row > span {
+          text-align: left;
+        }
+
+        .qava-getpaid-status {
+          display: inline-flex;
+          align-items: center;
+          border: 1px solid transparent;
+          border-radius: 999px;
+          padding: 0 5px;
+          white-space: nowrap;
+        }
+
+        .qava-status-paid {
+          background: #ecfdf5;
+          border-color: #a7f3d0;
+          color: #047857;
+        }
+
+        .qava-status-progress {
+          background: #ECF2FF;
+          border-color: #DCE8FF;
+          color: #1163FE;
+        }
+
+        .qava-getpaid-row-head {
+          padding-top: 0;
+          border-bottom: 1px solid rgba(17, 24, 39, 0.14);
+        }
+
+        .qava-getpaid-row-head span {
+          font-family: "Inter", sans-serif;
+                font-size: 13px;
+          font-weight: 300;
+          letter-spacing: 0;
+          text-transform: none;
+          color: #6b6b6b;
+        }
+
+        .qava-getpaid-project {
+          font-family: "Inter", sans-serif;
+          font-size: 12px;
+          font-weight: 300;
+          color: #111827;
+          white-space: nowrap;
+          min-width: 0;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .qava-getpaid-stars {
+          color: #111827;
+          font-size: 13px;
+          letter-spacing: 1px;
+        }
+
+        .qava-getpaid-star-empty {
+          color: #d1d5db;
+        }
+
+        .qava-getpaid-amount {
+          color: #111827;
+          white-space: nowrap;
+        }
+
+        .qava-explore-row-title {
+          margin: 0;
+          font-family: "Inter", sans-serif;
+          font-size: 13px;
+          font-weight: 400;
+          color: #111827;
+          line-height: 1.25;
+          text-align: left;
+        }
+
+        .qava-explore-row-meta {
+          margin: 0;
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+          font-weight: 300;
+          color: #6b7280;
+        }
+
+        .qava-signup-actions {
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          gap: 10px;
+          margin-top: 6px;
+        }
+
+        .qava-signup-btn-back {
+          border: 0;
+          background: transparent;
+          color: #6b6b6b;
+          font-family: "Inter", sans-serif;
+                font-size: 14px;
+          font-weight: 300;
+          padding: 8px 14px;
+          border-radius: 8px;
+          cursor: pointer;
+        }
+
+        .qava-signup-btn-back:hover {
+          color: #111827;
+        }
+
+        .qava-signup-btn-next {
+          border: 0;
+          background: #111827;
+          color: #ffffff;
+          font-family: "Inter", sans-serif;
+          font-size: 13px;
+          font-weight: 600;
+          padding: 8px 18px;
+          border-radius: 8px;
+          cursor: pointer;
+        }
+
+        .qava-signup-btn-next:hover {
+          background: #000000;
+        }
+
+        .qava-signup-btn-next.qava-signup-btn-icon {
+          padding: 0;
+          width: 38px;
+          height: 38px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 10px;
+        }
+
+        .qava-signup-btn-icon svg {
+          width: 16px;
+          height: 16px;
+        }
+
+        .qava-apply-jobcard {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          gap: 8px;
+          border: 0;
+          border-radius: 12px;
+          padding: 16px 14px;
+          background: #ffffff;
+        }
+
+        .qava-apply-jobcard-img {
+          width: min(420px, 80%);
+          height: 170px;
+          object-fit: cover;
+          border-radius: 10px;
+          flex: 0 0 auto;
+        }
+
+        .qava-apply-jobcard-tag {
+          background: #f3f4f6;
+          border-radius: 999px;
+          padding: 2px 10px;
+          font-family: "Inter", sans-serif;
+          font-size: 10px;
+          font-weight: 500;
+          color: #374151;
+        }
+
+        .qava-apply-jobcard-title {
+          margin: 2px 0 0 0;
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+          font-size: 20px;
+          font-weight: 400;
+          color: #111827;
+          line-height: 1.2;
+        }
+
+        .qava-apply-jobcard-meta {
+          margin: 0;
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+          font-weight: 400;
+          color: #6b7280;
+        }
+
+        .qava-apply-subtitle {
+          margin: -4px 0 0 0;
+          font-family: "Inter", sans-serif;
+                font-size: 12px;
+          font-weight: 400;
+          color: #6b7280;
+          text-align: left;
+        }
+
+        .qava-apply-input {
+          width: 100%;
+          box-sizing: border-box;
+          border: 1px solid rgba(17, 24, 39, 0.1);
+          border-radius: 8px;
+          background: #ffffff;
+          padding: 7px 10px;
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+          font-weight: 400;
+          color: #9ca3af;
+          text-align: left;
+        }
+
+        .qava-apply-uploads {
+          display: flex;
+          gap: 8px;
+          width: 100%;
+        }
+
+        .qava-apply-upload {
+          flex: 1;
+          border: 1px dashed rgba(17, 24, 39, 0.18);
+          border-radius: 10px;
+          background: #fafafa;
+          padding: 10px 8px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 2px;
+          text-align: center;
+        }
+
+        .qava-apply-upload-title {
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+          font-weight: 600;
+          color: #111827;
+        }
+
+        .qava-apply-upload-sub {
+          font-family: "Inter", sans-serif;
+          font-size: 10px;
+          font-weight: 400;
+          color: #9ca3af;
+        }
+
+        .join-button,
+        .cta-button.cta-button-primary {
+          background: #2b2b2b !important;
+          border-color: #2b2b2b !important;
+          color: #ffffff !important;
+          transform: none !important;
+          transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease !important;
+          box-shadow: none !important;
+        }
+
+        .join-button .join-text,
+        .cta-button.cta-button-primary .cta-button-text {
+          color: #ffffff !important;
+        }
+
+        .join-button:hover,
+        .cta-button.cta-button-primary:hover {
+          background: #000000 !important;
+          border-color: #000000 !important;
+          color: #ffffff !important;
+          transform: none !important;
+          box-shadow: none !important;
+        }
+
+        .join-button:hover .join-text,
+        .cta-button.cta-button-primary:hover .cta-button-text {
+          color: #ffffff !important;
+        }
+
+        #qava-ai-toolset-cta {
+          background: #ffffff !important;
+          border: 1px solid #ffffff !important;
+          border-radius: 6px !important;
+          box-shadow: none !important;
+          color: #6b6b6b !important;
+          font-family: "Inter", sans-serif !important;
+          font-size: 13px !important;
+          font-weight: 300 !important;
+          text-decoration: none !important;
+          padding: 4px 12px !important;
+          margin-left: 16px !important;
+          cursor: pointer;
+          white-space: nowrap;
+          display: inline-flex !important;
+          align-items: center;
+          gap: 6px;
+          transition: color 0.15s ease !important;
+        }
+
+        #qava-ai-toolset-cta svg {
+          flex: 0 0 auto;
+          display: block;
+          color: inherit;
+        }
+
+        #qava-ai-toolset-cta span {
+          display: block;
+                line-height: 1;
+        }
+
+        #qava-ai-toolset-cta:hover {
+          color: #111827 !important;
+          background: #ffffff !important;
+          transform: none !important;
+          box-shadow: none !important;
+        }
+
+        .header-container .nav-item:hover .nav-text,
+        .header-container .nav-item.active .nav-text,
+        .header-container .auth-item:hover .nav-text,
+        .header-container .auth-item.active .nav-text {
+          background: none !important;
+          box-shadow: none !important;
+          text-decoration: none !important;
+        }
+
+        .header-container .nav-item,
+        .header-container .auth-item {
+          background: transparent !important;
+          border: 0 !important;
+          box-shadow: none !important;
+          border-radius: 0 !important;
+          padding: 0 !important;
+          transition: color 0.2s ease !important;
+        }
+
+        .header-container .nav-item .nav-text,
+        .header-container .auth-item .nav-text {
+          color: #6b7280 !important;
+          transition: color 0.2s ease !important;
+        }
+
+        .header-container .navigation .nav-item .nav-text {
+          font-family: "Inter", sans-serif !important;
+          font-size: 14px !important;
+          font-weight: 300 !important;
+          color: #6b6b6b !important;
+          line-height: 1.4 !important;
+        }
+
+        .header-container .auth-item .nav-text {
+          font-family: "Inter", sans-serif !important;
+          font-size: 14px !important;
+          font-weight: 300 !important;
+          color: #6b6b6b !important;
+          line-height: 1.4 !important;
+        }
+
+        .header-container .nav-item:hover,
+        .header-container .auth-item:hover {
+          background: transparent !important;
+          border: 0 !important;
+          box-shadow: none !important;
+        }
+
+        .header-container .nav-item:hover .nav-text,
+        .header-container .auth-item:hover .nav-text {
+          color: #000000 !important;
+        }
+
+        .header-container .auth-section {
+          gap: 28px !important;
+        }
+
+        .header-container {
+          width: calc(100% - 22px) !important;
+          margin: 0 auto !important;
+          padding: 8px 20px !important;
+          border-radius: 0 !important;
+          position: sticky !important;
+          top: 0 !important;
+          z-index: 1200 !important;
+          background: rgba(255, 255, 255, 0.24) !important;
+          -webkit-backdrop-filter: blur(18px) saturate(150%) !important;
+          backdrop-filter: blur(18px) saturate(150%) !important;
+          border: 0 !important;
+          box-shadow: none !important;
+          isolation: isolate !important;
+        }
+
+        .header-container::before {
+          content: "" !important;
+          position: absolute !important;
+          left: 6px !important;
+          right: 6px !important;
+          top: 3px !important;
+          bottom: 3px !important;
+          border-radius: 12px !important;
+          background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.62) 0%,
+            rgba(255, 255, 255, 0.5) 55%,
+            rgba(255, 255, 255, 0.44) 100%
+          ) !important;
+          -webkit-backdrop-filter: blur(26px) saturate(165%) !important;
+          backdrop-filter: blur(26px) saturate(165%) !important;
+          border: 0 !important;
+          box-shadow:
+            0 10px 24px rgba(17, 24, 39, 0.08),
+            inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
+          z-index: 0 !important;
+          pointer-events: none !important;
+        }
+
+        .header-container > * {
+          position: relative !important;
+          z-index: 1 !important;
+        }
+
+        .header-container .logo {
+          background: transparent !important;
+          padding: 0 !important;
+          border-radius: 0 !important;
+          border: none !important;
+          box-shadow: none !important;
+          display: inline-flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+        }
+
+        .header-container .logo img,
+        .qava-nav-logo-face {
+          width: 40px !important;
+          height: 40px !important;
+          display: block !important;
+          border-radius: 11px !important;
+          box-shadow: none !important;
+          border: none !important;
+        }
+
+        .qava-nav-logo-flip {
+          width: 40px;
+          height: 40px;
+          perspective: 700px;
+        }
+
+        .qava-nav-logo-inner {
+          width: 100%;
+          height: 100%;
+          position: relative;
+          transform-style: preserve-3d;
+          transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
+        }
+
+        .qava-nav-logo-inner.is-flipped {
+          transform: rotateY(180deg);
+        }
+
+        .qava-nav-logo-face {
+          position: absolute;
+          inset: 0;
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+        }
+
+        .qava-nav-logo-front {
+          object-fit: contain !important;
+          background: transparent;
+        }
+
+        .qava-nav-logo-back {
+          object-fit: cover !important;
+          transform: rotateY(180deg);
+        }
+
+        div[style*="width: 280px"][style*="height: 1px"][style*="#E5E5E5"] {
+          display: none !important;
+        }
+
+        div[style*="justify-content: center"][style*="margin: 30px 0 12px 0"] {
+          display: none !important;
+        }
