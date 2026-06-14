@@ -2141,7 +2141,21 @@
 
           .qava-calc-grid,
           .qava-calc-results {
-            min-width: 540px;
+            min-width: 780px;
+          }
+
+          .qava-calc-item {
+            justify-content: flex-start;
+          }
+
+          .qava-calc-label {
+            font-size: 12px;
+            white-space: nowrap;
+            text-align: left;
+          }
+
+          .qava-calc-result-label {
+            white-space: nowrap;
           }
         }
 
