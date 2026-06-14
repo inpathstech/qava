@@ -1480,7 +1480,7 @@
               flow.classList.remove("active");
               choices.style.display = "";
               updateHero(defaultHero.title, defaultHero.sub);
-              scheduleIframeHeight();
+              window.__qavaHiwScheduleHeight?.();
             };
 
             const renderFlow = (key) => {
@@ -1540,7 +1540,7 @@
               setTimeout(() => moveIndicator(items[0]), 50);
 
               flow.querySelector(".qava-hiw-back").addEventListener("click", showChoices);
-              scheduleIframeHeight();
+              window.__qavaHiwScheduleHeight?.();
             };
 
             choices.querySelectorAll(".qava-hiw-choice").forEach((btn, idx) => {
@@ -1557,7 +1557,7 @@
                   renderFlow(flowKey);
                   choices.style.display = "none";
                   flow.classList.add("active");
-                  scheduleIframeHeight();
+                  window.__qavaHiwScheduleHeight?.();
                   try { frameDoc.defaultView.scrollTo({ top: 0, behavior: "smooth" }); } catch (e) {}
                 }
               });
@@ -1601,18 +1601,26 @@
           setTimeout(syncIframeHeight, 320);
         };
 
+        window.__qavaHiwSyncHeight = syncIframeHeight;
+        window.__qavaHiwScheduleHeight = scheduleIframeHeight;
+
         const mainEl = frameDoc.querySelector(".client-how-it-works-page");
         if (mainEl && !frameDoc.defaultView.__qavaHiwResizeObs) {
-          frameDoc.defaultView.__qavaHiwResizeObs = new ResizeObserver(scheduleIframeHeight);
+          frameDoc.defaultView.__qavaHiwResizeObs = new ResizeObserver(() => window.__qavaHiwScheduleHeight?.());
           frameDoc.defaultView.__qavaHiwResizeObs.observe(mainEl);
         }
 
-        scheduleIframeHeight();
+        if (!frameDoc.defaultView.__qavaHiwMutationObs) {
+          frameDoc.defaultView.__qavaHiwMutationObs = new MutationObserver(() => window.__qavaHiwScheduleHeight?.());
+          frameDoc.defaultView.__qavaHiwMutationObs.observe(frameDoc.body, { childList: true, subtree: true, attributes: true, attributeFilter: ["class", "style"] });
+        }
+
+        window.__qavaHiwScheduleHeight?.();
         if (!frameDoc.defaultView.__qavaHiwResizeBound) {
           frameDoc.defaultView.__qavaHiwResizeBound = true;
-          frameDoc.defaultView.addEventListener("resize", scheduleIframeHeight);
-          window.addEventListener("resize", scheduleIframeHeight);
-          setInterval(scheduleIframeHeight, 500);
+          frameDoc.defaultView.addEventListener("resize", () => window.__qavaHiwScheduleHeight?.());
+          window.addEventListener("resize", () => window.__qavaHiwScheduleHeight?.());
+          setInterval(() => window.__qavaHiwScheduleHeight?.(), 500);
         }
       };
 
