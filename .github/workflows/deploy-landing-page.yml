@@ -44,6 +44,18 @@ jobs:
           --cache-control "max-age=3600"
 
         # Upload embed/helper HTML pages used by the landing experience
+        aws s3 cp newsletter.html s3://${{ secrets.S3_BUCKET_NAME }}/newsletter.html \
+          --content-type "text/html" \
+          --cache-control "max-age=3600"
+
+        aws s3 cp therisegroup.html s3://${{ secrets.S3_BUCKET_NAME }}/therisegroup.html \
+          --content-type "text/html" \
+          --cache-control "max-age=3600"
+
+        aws s3 sync howitworks/ s3://${{ secrets.S3_BUCKET_NAME }}/howitworks/ \
+          --content-type "text/html" \
+          --cache-control "max-age=3600"
+
         aws s3 cp hiw-embed.html s3://${{ secrets.S3_BUCKET_NAME }}/hiw-embed.html \
           --content-type "text/html" \
           --cache-control "max-age=3600"

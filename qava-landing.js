@@ -90,132 +90,17 @@
           }
         });
 
-        if (!doc.getElementById("qava-newsletter-page")) {
-          const nlCheck = '<svg width="11" height="9" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-          const hearAbout = [
-            "New project listings", "Job listings", "Internships",
-            "Startup news", "Investment opportunities", "Business school rankings",
-            "Funding & grants", "Events & webinars", "Hiring & talent trends", "Product launches"
-          ];
-          const succeed = [
-            "Help me get experience", "Help me find a new job", "Help me network",
-            "Help me find inspiration", "Help me grow my business", "Help me hire great talent"
-          ];
-          const buildChecks = (arr) => arr.map((o) => `
-            <div class="qava-nl-check" role="checkbox" aria-checked="false">
-              <span class="qava-nl-box">${nlCheck}</span>
-              <span class="qava-nl-check-label">${o}</span>
-            </div>`).join("");
+        const newsletterNavLinks = Array.from(doc.querySelectorAll(".navigation .nav-item, .mobile-nav-item")).filter((a) =>
+          (a.textContent || "").trim().toLowerCase() === "newsletter" ||
+          (a.classList.contains("about") && (a.textContent || "").trim().toLowerCase() === "newsletter")
+        );
+        newsletterNavLinks.forEach((link) => {
+          link.href = "https://qava.ai/newsletter";
+          link.classList.remove("about");
+          link.classList.add("newsletter");
+        });
 
-          const nlPage = doc.createElement("section");
-          nlPage.id = "qava-newsletter-page";
-          nlPage.innerHTML = `
-            <div class="qava-nl-container">
-              <img class="qava-nl-logo" src="./qava-logo-arrow-light.png" alt="Qava" />
-              <h1 class="qava-nl-title">Stay in the loop!</h1>
-              <p class="qava-nl-sub">Tell us what matters to you and how often you'd like to hear from us.</p>
-
-              <div class="newsletter-testimonials qava-nl-marquee">
-                <div class="newsletter-testimonials-track">
-                  <span class="newsletter-testimonial-item"><em>"Landed a live strategy project in weeks."</em> <span class="newsletter-testimonial-author">— MBA '25</span></span>
-                  <span class="newsletter-testimonial-item"><em>"Real work. Real operators."</em> <span class="newsletter-testimonial-author">— Executive MBA</span></span>
-                  <span class="newsletter-testimonial-item"><em>"Found my next internship here."</em> <span class="newsletter-testimonial-author">— Business Student</span></span>
-                  <span class="newsletter-testimonial-item"><em>"Sharp thinking, zero fluff."</em> <span class="newsletter-testimonial-author">— Nonprofit CFO</span></span>
-                  <span class="newsletter-testimonial-item"><em>"Execution-ready work."</em> <span class="newsletter-testimonial-author">— Startup Founder</span></span>
-                  <span class="newsletter-testimonial-item"><em>"Strategic horsepower on demand."</em> <span class="newsletter-testimonial-author">— CEO</span></span>
-                  <span class="newsletter-testimonial-item"><em>"Landed a live strategy project in weeks."</em> <span class="newsletter-testimonial-author">— MBA '25</span></span>
-                  <span class="newsletter-testimonial-item"><em>"Real work. Real operators."</em> <span class="newsletter-testimonial-author">— Executive MBA</span></span>
-                  <span class="newsletter-testimonial-item"><em>"Found my next internship here."</em> <span class="newsletter-testimonial-author">— Business Student</span></span>
-                  <span class="newsletter-testimonial-item"><em>"Sharp thinking, zero fluff."</em> <span class="newsletter-testimonial-author">— Nonprofit CFO</span></span>
-                  <span class="newsletter-testimonial-item"><em>"Execution-ready work."</em> <span class="newsletter-testimonial-author">— Startup Founder</span></span>
-                  <span class="newsletter-testimonial-item"><em>"Strategic horsepower on demand."</em> <span class="newsletter-testimonial-author">— CEO</span></span>
-                </div>
-              </div>
-
-              <div class="qava-nl-group">
-                <p class="qava-nl-group-label">What would you like to hear about?</p>
-                <p class="qava-nl-group-hint">Select all that apply.</p>
-                <div class="qava-nl-options">${buildChecks(hearAbout)}</div>
-              </div>
-
-              <div class="qava-nl-group">
-                <p class="qava-nl-group-label">How can we make you succeed?</p>
-                <p class="qava-nl-group-hint">Select all that apply.</p>
-                <div class="qava-nl-options">${buildChecks(succeed)}</div>
-              </div>
-
-              <div class="qava-nl-group">
-                <p class="qava-nl-group-label">Where are you based?</p>
-                <div class="qava-nl-field" style="margin-bottom:0;">
-                  <input type="text" class="qava-nl-input" placeholder="City, country" />
-                </div>
-              </div>
-
-              <div class="qava-nl-group">
-                <p class="qava-nl-group-label" style="margin-bottom:14px;">Your details</p>
-                <div class="qava-nl-field-row">
-                  <div class="qava-nl-field">
-                    <label class="qava-nl-field-label">First name</label>
-                    <input type="text" class="qava-nl-input" placeholder="First name" required />
-                  </div>
-                  <div class="qava-nl-field">
-                    <label class="qava-nl-field-label">Family name <span class="opt">(optional)</span></label>
-                    <input type="text" class="qava-nl-input" placeholder="Family name" />
-                  </div>
-                </div>
-                <div class="qava-nl-field-row">
-                  <div class="qava-nl-field" style="margin-bottom:0;">
-                    <label class="qava-nl-field-label">Email</label>
-                    <input type="email" class="qava-nl-input" placeholder="you@email.com" required />
-                  </div>
-                  <div class="qava-nl-field" style="margin-bottom:0;">
-                    <label class="qava-nl-field-label">Cell number <span class="opt">(optional)</span></label>
-                    <input type="tel" class="qava-nl-input" placeholder="+1 (555) 000-0000" />
-                  </div>
-                </div>
-              </div>
-
-              <div class="qava-nl-group">
-                <p class="qava-nl-group-label">How often would you like to hear from us?</p>
-                <div class="qava-nl-freq">
-                  <label class="qava-nl-radio selected"><span class="qava-nl-radio-dot"></span><span>Weekly</span></label>
-                  <label class="qava-nl-radio"><span class="qava-nl-radio-dot"></span><span>Monthly</span></label>
-                  <label class="qava-nl-radio"><span class="qava-nl-radio-dot"></span><span>Quarterly</span></label>
-                </div>
-              </div>
-
-              <button type="button" class="qava-nl-submit">Subscribe ↗</button>
-            </div>
-          `;
-
-          const footerEl = doc.querySelector(".footer-section");
-          if (footerEl) {
-            footerEl.parentNode.insertBefore(nlPage, footerEl);
-          } else {
-            doc.body.appendChild(nlPage);
-          }
-
-          nlPage.querySelectorAll(".qava-nl-check").forEach((c) => {
-            c.addEventListener("click", () => {
-              const on = c.classList.toggle("checked");
-              c.setAttribute("aria-checked", on ? "true" : "false");
-            });
-          });
-          nlPage.querySelectorAll(".qava-nl-radio").forEach((opt) => {
-            opt.addEventListener("click", () => {
-              nlPage.querySelectorAll(".qava-nl-radio").forEach((o) => o.classList.remove("selected"));
-              opt.classList.add("selected");
-            });
-          });
-          nlPage.querySelector(".qava-nl-submit").addEventListener("click", () => {
-            window.alert("Thanks for subscribing! We'll be in touch.");
-          });
-
-          nlPage.classList.add("qava-overlay-page");
-
-          // Shared single-page router for overlay pages (newsletter, AI toolset).
-          // Overlay pages are kept mounted; visibility is controlled purely by
-          // the .qava-overlay-active class, so switching between them is clean.
+        if (!window.__qavaShowOverlay) {
           const routerKeep = (el) => (
             el.id === "qava-dot-base-fixed" ||
             (el.classList && (el.classList.contains("qava-overlay-page") || el.classList.contains("header-container") || el.classList.contains("mobile-menu") || el.classList.contains("footer-section")))
@@ -244,16 +129,6 @@
           window.__qavaShowOverlay = showOverlay;
           window.__qavaGoHome = goHome;
 
-          const newsletterNav = Array.from(doc.querySelectorAll(".navigation .nav-item, .mobile-nav-item")).find((a) =>
-            (a.textContent || "").trim().toLowerCase() === "newsletter"
-          );
-          if (newsletterNav) {
-            newsletterNav.addEventListener("click", (e) => {
-              e.preventDefault();
-              showOverlay(nlPage);
-            });
-          }
-
           const headerLogo = doc.querySelector(".header-logo a, .logo a");
           if (headerLogo) {
             headerLogo.addEventListener("click", (e) => {
@@ -263,6 +138,14 @@
               }
             });
           }
+        }
+
+        const howItWorksNav = Array.from(doc.querySelectorAll(".auth-item")).find((link) => {
+          const t = ((link.textContent || link.querySelector(".nav-text")?.textContent) || "").trim().toLowerCase();
+          return t === "how qava works" || t === "how it works";
+        });
+        if (howItWorksNav) {
+          howItWorksNav.href = "https://qava.ai/howitworks";
         }
 
         const howItWorksNavText = Array.from(doc.querySelectorAll(".auth-item .nav-text, .mobile-nav-item")).find((item) => {
@@ -704,7 +587,7 @@
 
             const hiwFrame = doc.createElement("iframe");
             hiwFrame.id = "qava-hiw-frame";
-            hiwFrame.src = "./hiw-embed.html?embed=1";
+            hiwFrame.src = "./howitworks.html?embed=1";
             hiwFrame.setAttribute("title", "How Qava works");
             hiwFrame.setAttribute("scrolling", "no");
             hiwFrame.style.height = "auto";
@@ -811,7 +694,7 @@
             blogRow.className = "qava-blog-row";
             const blogReadArrow = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
             blogRow.innerHTML = `
-              <a class="qava-blog-card" href="#">
+              <a class="qava-blog-card" href="https://qava.ai/therisegroup">
                 <img class="qava-blog-thumb" src="./qava-blog-1.png" alt="" />
                 <div class="qava-blog-body">
                   <div class="qava-blog-tag">Community</div>
@@ -846,46 +729,14 @@
             `;
             ctaButtonsRow.insertAdjacentElement("afterend", blogRow);
 
-            const blogRow2 = doc.createElement("div");
-            blogRow2.id = "qava-blog-row-2";
-            blogRow2.className = "qava-blog-row";
-            blogRow2.style.marginTop = "16px";
-            blogRow2.innerHTML = `
-              <div class="qava-blog-card qava-blog-card-soon">
-                <img class="qava-blog-thumb" src="./qava-blog-9.png" alt="" />
-                <div class="qava-blog-body">
-                  <div class="qava-blog-tag">Founders</div>
-                  <div class="qava-blog-title">Building a brand for runners</div>
-                  <span class="qava-blog-read"><span class="qava-blog-read-default">Read</span><span class="qava-blog-read-hover">Coming soon</span></span>
-                </div>
-              </div>
-              <div class="qava-blog-card qava-blog-card-soon">
-                <img class="qava-blog-thumb" src="./qava-blog-7.png" alt="" />
-                <div class="qava-blog-body">
-                  <div class="qava-blog-tag">Spaces</div>
-                  <div class="qava-blog-title">Inside a cliffside escape</div>
-                  <span class="qava-blog-read"><span class="qava-blog-read-default">Read</span><span class="qava-blog-read-hover">Coming soon</span></span>
-                </div>
-              </div>
-              <div class="qava-blog-card qava-blog-card-soon">
-                <img class="qava-blog-thumb" src="./qava-blog-8.png" alt="" />
-                <div class="qava-blog-body">
-                  <div class="qava-blog-tag">City guide</div>
-                  <div class="qava-blog-title">Where founders fuel up in NYC</div>
-                  <span class="qava-blog-read"><span class="qava-blog-read-default">Read</span><span class="qava-blog-read-hover">Coming soon</span></span>
-                </div>
-              </div>
-              <div class="qava-blog-card qava-blog-card-soon">
-                <img class="qava-blog-thumb" src="./qava-blog-12.png" alt="" />
-                <div class="qava-blog-body">
-                  <div class="qava-blog-tag">Leadership</div>
-                  <div class="qava-blog-title">An operator's playbook</div>
-                  <span class="qava-blog-read"><span class="qava-blog-read-default">Read</span><span class="qava-blog-read-hover">Coming soon</span></span>
-                </div>
-              </div>
-            `;
-
-            blogRow.insertAdjacentElement("afterend", blogRow2);
+            const blogActions = doc.createElement("div");
+            blogActions.className = "qava-blog-actions";
+            const viewAllLink = doc.createElement("a");
+            viewAllLink.className = "qava-blog-actbtn";
+            viewAllLink.href = "https://app.qava.ai/";
+            viewAllLink.textContent = "View all";
+            blogActions.appendChild(viewAllLink);
+            blogRow.insertAdjacentElement("afterend", blogActions);
           }
 
           if (showcaseBox && !doc.getElementById("qava-showcase-dynamic-content")) {
@@ -2675,16 +2526,6 @@
 
         if (typeof window.applyQavaFooter === "function") {
           window.applyQavaFooter(doc);
-          const hiwPage = doc.getElementById("qava-howitworks-page");
-          const showOverlay = win.__qavaShowOverlay;
-          if (hiwPage && showOverlay) {
-            doc.querySelectorAll('.footer-link[data-qava-hiw-link="true"]').forEach((link) => {
-              link.addEventListener("click", (e) => {
-                e.preventDefault();
-                showOverlay(hiwPage);
-              });
-            });
-          }
         }
       
   }

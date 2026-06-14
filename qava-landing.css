@@ -1759,29 +1759,34 @@
           object-fit: contain;
         }
 
-        .qava-calc-section {
+        .calculator-section {
+          display: none !important;
+        }
+
+        #qava-calc-section.qava-calc-section {
           width: min(1040px, calc(100vw - 120px));
           margin: 88px 0 0 0;
           position: relative;
           left: 50%;
           transform: translateX(-50%);
           box-sizing: border-box;
-          background: #f4f4f5;
+          background: #f4f4f5 !important;
           border-radius: 8px;
           box-shadow: 0 1px 3px rgba(17, 24, 39, 0.04);
-          padding: 0;
+          padding: 0 !important;
           overflow: hidden;
         }
 
-        .qava-calc-header {
-          background: transparent;
-          border-radius: 0;
+        #qava-calc-section .qava-calc-header {
+          background: transparent !important;
+          border-radius: 0 !important;
           padding: 28px 32px 16px;
           margin-bottom: 0;
           text-align: left;
         }
 
-        .qava-calc-body {
+        #qava-calc-section .qava-calc-body {
+          background: transparent !important;
           padding: 0 32px 32px;
         }
 

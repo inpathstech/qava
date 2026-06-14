@@ -12,7 +12,7 @@
               <li><a href="https://app.qava.ai/guest" class="footer-link">Create listing</a></li>
               <li><a href="https://app.qava.ai/projects" class="footer-link">Find work</a></li>
               <li><a href="/SANDBOXhowqavaworks.html" class="footer-link" data-qava-hiw-link="true">How it works</a></li>
-              <li><a href="/SANDBOXabout.html" class="footer-link">About</a></li>
+              <li><a href="/SANDBOXnewsletter.html" class="footer-link">Newsletter</a></li>
             </ul>
           </div>
           <div class="footer-column">

@@ -11,8 +11,8 @@
             <ul class="footer-link-list">
               <li><a href="https://app.qava.ai/guest" class="footer-link">Create listing</a></li>
               <li><a href="https://app.qava.ai/projects" class="footer-link">Find work</a></li>
-              <li><a href="https://qava.ai/howqavaworks" class="footer-link" data-qava-hiw-link="true">How it works</a></li>
-              <li><a href="https://qava.ai/about" class="footer-link">About</a></li>
+              <li><a href="https://qava.ai/howitworks" class="footer-link">How it works</a></li>
+              <li><a href="https://qava.ai/newsletter" class="footer-link">Newsletter</a></li>
             </ul>
           </div>
           <div class="footer-column">
