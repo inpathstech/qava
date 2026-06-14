@@ -697,34 +697,34 @@
               <a class="qava-blog-card" href="https://qava.ai/therisegroup">
                 <img class="qava-blog-thumb" src="./qava-blog-1.png" alt="" />
                 <div class="qava-blog-body">
-                  <div class="qava-blog-tag">Community</div>
-                  <div class="qava-blog-title">On stage: building a brand people love</div>
+                  <div class="qava-blog-tag">Creator economy</div>
+                  <div class="qava-blog-title">An Agency's Rise to the Top</div>
                   <span class="qava-blog-read">Read ${blogReadArrow}</span>
                 </div>
               </a>
               <a class="qava-blog-card" href="https://qava.ai/liquidskateboard">
-                <img class="qava-blog-thumb" src="./qava-blog-2.png" alt="" />
+                <img class="qava-blog-thumb" src="./qava-blog-4.png" alt="" />
                 <div class="qava-blog-body">
-                  <div class="qava-blog-tag">Field notes</div>
-                  <div class="qava-blog-title">Finding flow, on and off the board</div>
+                  <div class="qava-blog-tag">Product</div>
+                  <div class="qava-blog-title">Finding Flow On and Off the Board</div>
                   <span class="qava-blog-read">Read ${blogReadArrow}</span>
                 </div>
               </a>
               <a class="qava-blog-card" href="https://qava.ai/noonesark">
                 <img class="qava-blog-thumb" src="./qava-blog-3.png" alt="" />
                 <div class="qava-blog-body">
-                  <div class="qava-blog-tag">Mission</div>
-                  <div class="qava-blog-title">Pirates for the planet</div>
+                  <div class="qava-blog-tag">Non-profit</div>
+                  <div class="qava-blog-title">Pirates of the Planet</div>
                   <span class="qava-blog-read">Read ${blogReadArrow}</span>
                 </div>
               </a>
               <a class="qava-blog-card" href="https://qava.ai/mmento">
-                <img class="qava-blog-thumb" src="./qava-blog-4.png" alt="" />
+                <img class="qava-blog-thumb" src="./Kristina%20Boxer%20Profile%20Photo.png" alt="Kristina Boxer" />
                 <div class="qava-blog-body">
-                  <div class="qava-blog-tag">Culture</div>
+                  <div class="qava-blog-tag">Consumer tech</div>
                   <div class="qava-blog-title">Showing up when it matters</div>
                   <span class="qava-blog-read">Read ${blogReadArrow}</span>
-            </div>
+                </div>
               </a>
             `;
             ctaButtonsRow.insertAdjacentElement("afterend", blogRow);
