@@ -30,7 +30,7 @@
               <li><a href="/SANDBOXsuccessstories.html" class="footer-link">Success stories</a></li>
               <li><a href="https://qava.ai/termsofuse" class="footer-link">Terms of Use</a></li>
               <li><a href="terms" class="footer-link">Terms &amp; privacy</a></li>
-              <li><a href="terms" class="footer-link">California privacy notice</a></li>
+              <li><a href="https://qava.ai/termsofuse" class="footer-link">California privacy notice</a></li>
               <li><a href="https://qava.ai/useragreement" class="footer-link">User Agreement</a></li>
             </ul>
           </div>

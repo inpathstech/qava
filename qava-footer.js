@@ -29,7 +29,7 @@
               <li><a href="https://qava.ai/pricing" class="footer-link">Pricing</a></li>
               <li><a href="https://qava.ai/successstories" class="footer-link">Success stories</a></li>
               <li><a href="https://qava.ai/termsofuse" class="footer-link">Terms of Use</a></li>
-              <li><a href="terms" class="footer-link">California privacy notice</a></li>
+              <li><a href="https://qava.ai/termsofuse" class="footer-link">California privacy notice</a></li>
               <li><a href="https://qava.ai/useragreement" class="footer-link">User Agreement</a></li>
             </ul>
           </div>

@@ -487,11 +487,32 @@
 
     .qava-nl-success {
       display: none;
-      margin-top: 20px;
+      margin-top: 8px;
       font-family: "Inter", sans-serif;
       font-size: 14px;
       font-weight: 400;
       color: #111827;
+    }
+
+    .qava-nl-home {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 9px 18px;
+      background: #0F62FE;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .qava-nl-home:hover {
+      background: #0047C3;
+      box-shadow: 0 2px 6px rgba(15, 98, 254, 0.4);
     }
 
     .qava-nl-error {
@@ -709,8 +730,10 @@
 
       <button type="submit" class="qava-nl-submit" id="qava-nl-submit">Subscribe ↗</button>
       <p class="qava-nl-error" id="qava-nl-error" role="alert"></p>
-      <p class="qava-nl-success" id="qava-nl-success">Thanks for subscribing! We'll be in touch.</p>
       </form>
+      <div class="qava-nl-success" id="qava-nl-success">
+        <a href="https://qava.ai/" class="qava-nl-home">Return home ↗</a>
+      </div>
     </div>
   </main>
 
@@ -827,8 +850,16 @@
             },
           });
 
+          const titleEl = document.querySelector(".qava-nl-title");
+          const subEl = document.querySelector(".qava-nl-sub");
+          const marqueeEl = document.querySelector(".qava-nl-marquee");
+          if (titleEl) titleEl.textContent = "Thanks for joining!";
+          if (subEl) subEl.textContent = "Keep an eye on your inbox — your welcome email is on its way.";
+          if (marqueeEl) marqueeEl.style.display = "none";
+
           form.style.display = "none";
           successEl.style.display = "block";
+          window.scrollTo({ top: 0, behavior: "smooth" });
         } catch (error) {
           errorEl.textContent = error && error.message ? error.message : "Unable to subscribe right now. Please try again.";
           errorEl.style.display = "block";
