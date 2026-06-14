@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Terms of Use | Qava</title>
+  <link rel="icon" type="image/svg+xml" href="qava-logo.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --display: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+      --ink: #111827;
+      --muted: #6B6B6B;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      font-family: "Inter", sans-serif;
+      background: #ffffff;
+      color: var(--ink);
+    }
+
+    body { position: relative; min-height: 100vh; }
+
+    #qava-dot-base-fixed {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image: radial-gradient(circle, rgba(17, 24, 39, 0.16) 1px, transparent 1.35px);
+      background-size: 20px 20px;
+      background-repeat: repeat;
+    }
+
+    body > *:not(#qava-dot-base-fixed) { position: relative; z-index: 1; }
+
+    a { color: inherit; }
+
+    .header-container {
+      width: calc(100% - 22px);
+      margin: 0 auto;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 56px;
+      position: sticky;
+      top: 0;
+      z-index: 1200;
+      background: rgba(255, 255, 255, 0.24);
+      -webkit-backdrop-filter: blur(18px) saturate(150%);
+      backdrop-filter: blur(18px) saturate(150%);
+      border: 0;
+      box-shadow: none;
+      isolation: isolate;
+    }
+
+    .header-container::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      right: 6px;
+      top: 3px;
+      bottom: 3px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.44) 100%);
+      -webkit-backdrop-filter: blur(26px) saturate(165%);
+      backdrop-filter: blur(26px) saturate(165%);
+      box-shadow: 0 10px 24px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .header-container > * { position: relative; z-index: 1; }
+    .header-logo, .logo-container, .logo { display: flex; align-items: center; }
+
+    .header-container .logo {
+      background: transparent;
+      padding: 0;
+      border: none;
+      box-shadow: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+
+    .header-center {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex: 1;
+      margin-left: 40px;
+    }
+
+    .header-right { display: flex; align-items: center; gap: 8px; }
+    .navigation { display: flex; align-items: center; gap: 8px; }
+
+    .header-container .nav-item,
+    .header-container .auth-item {
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      border-radius: 0;
+      padding: 0;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      transition: color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .header-container .nav-item .nav-text,
+    .header-container .auth-item .nav-text {
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: #6b6b6b;
+      line-height: 1.4;
+      transition: color 0.2s ease;
+      padding: 0 4px;
+      white-space: nowrap;
+    }
+
+    .header-container .nav-item:hover .nav-text,
+    .header-container .auth-item:hover .nav-text { color: #000000; }
+
+    .auth-section { display: flex; align-items: center; gap: 28px; }
+
+    .join-button {
+      padding: 6px 12px;
+      background: #2b2b2b;
+      border: 1px solid #2b2b2b;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: background-color 0.18s ease, border-color 0.18s ease;
+    }
+
+    .join-button:hover { background: #000000; border-color: #000000; }
+
+    .join-text {
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .qava-nav-logo-flip { width: 40px; height: 40px; perspective: 600px; }
+
+    .qava-nav-logo-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease;
+    }
+
+    .qava-nav-logo-inner.is-flipped { transform: rotateY(180deg); }
+
+    .qava-nav-logo-face {
+      position: absolute;
+      inset: 0;
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      display: block;
+      backface-visibility: hidden;
+    }
+
+    .qava-nav-logo-back { transform: rotateY(180deg); }
+    .hamburger-menu { display: none; }
+
+    .qava-legal-page { padding: 100px 24px 80px; }
+
+    .qava-legal-container {
+      width: min(760px, calc(100vw - 48px));
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .qava-legal-hero {
+      margin: 0 auto 36px auto;
+      text-align: center;
+      max-width: 640px;
+    }
+
+    .qava-legal-title {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(34px, 4vw, 52px);
+      line-height: 1.08;
+      letter-spacing: -0.012em;
+      color: #111827;
+      margin: 0 0 10px 0;
+    }
+
+    .qava-legal-meta {
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.5;
+      color: #6B6B6B;
+      margin: 0;
+    }
+
+    .qava-legal-body {
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(17, 24, 39, 0.04);
+      padding: 36px 40px 44px;
+    }
+
+    .qava-legal-intro p,
+    .qava-legal-section p {
+      font-family: "Inter", sans-serif;
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: #374151;
+      margin: 0 0 14px 0;
+    }
+
+    .qava-legal-section { margin-top: 28px; padding-top: 28px; border-top: 1px solid #ececee; }
+    .qava-legal-section:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
+
+    .qava-legal-heading {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(22px, 2.4vw, 28px);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      color: #111827;
+      margin: 0 0 14px 0;
+    }
+
+    .qava-legal-section ul {
+      margin: 0 0 16px 0;
+      padding-left: 22px;
+      list-style: disc;
+    }
+
+    .qava-legal-section li {
+      font-family: "Inter", sans-serif;
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.6;
+      color: #374151;
+      margin-bottom: 8px;
+    }
+
+    .footer-section {
+      background: #ffffff;
+      width: 100%;
+      max-width: 1070px;
+      margin: 50px auto 0 auto;
+      padding: 78px 0 46px 0;
+      border-top: 1px solid #EBEBEB;
+    }
+
+    .footer-container { max-width: 940px; margin: 0 auto; padding: 0 20px; box-sizing: border-box; }
+    .footer-content { display: flex; flex-wrap: wrap; }
+    .footer-logo { width: 39%; padding: 2px 15px 0 0; margin-bottom: 30px; }
+    .footer-logo-img { width: 40px; height: auto; cursor: pointer; }
+
+    .footer-links {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      width: 60%;
+      gap: 16px 25px;
+      padding: 0 15px 0 10px;
+    }
+
+    .footer-column { display: flex; flex-direction: column; }
+
+    .footer-heading {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: 17px;
+      letter-spacing: -0.012em;
+      color: #000000;
+      margin: 0 0 8px;
+    }
+
+    .footer-link-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .footer-link-list li { margin: 0; padding: 0; }
+
+    .footer-link {
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: #797979;
+      text-decoration: none;
+      line-height: 1.2;
+      transition: text-decoration 0.2s ease;
+    }
+
+    .footer-link:hover { text-decoration: underline; }
+
+    .footer-copyright {
+      grid-column: 1 / -1;
+      margin-top: 14px;
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: #797979;
+    }
+
+    @media (max-width: 860px) {
+      .header-center, .auth-section .auth-item { display: none; }
+      .hamburger-menu { display: flex; }
+      .footer-logo, .footer-links { width: 100%; }
+      .footer-links { grid-template-columns: repeat(2, 1fr); }
+      .footer-container { max-width: none; width: calc(100vw - 40px); padding: 0 20px; }
+    }
+
+    @media (max-width: 720px) {
+      .qava-legal-page { padding-top: 80px; }
+      .qava-legal-body { padding: 28px 22px 32px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="qava-dot-base-fixed" aria-hidden="true"></div>
+
+  <header class="header-container">
+    <div class="header-logo">
+      <div class="logo-container">
+        <div class="logo">
+          <a href="https://qava.ai/">
+            <div class="qava-nav-logo-flip" id="qava-nav-logo-flip">
+              <div class="qava-nav-logo-inner" id="qava-nav-logo-inner">
+                <img class="qava-nav-logo-face qava-nav-logo-front" src="qava-logo.svg" alt="Qava">
+                <img class="qava-nav-logo-face qava-nav-logo-back" src="./qava-hero-arrow-2.png" alt="">
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="header-center">
+      <nav class="navigation">
+        <a href="https://app.qava.ai/guest" class="nav-item create-listing">
+          <div class="nav-text">Create listing</div>
+        </a>
+        <a href="https://app.qava.ai/projects" class="nav-item search-listings">
+          <div class="nav-text">Find work</div>
+        </a>
+        <a href="https://qava.ai/pricing" class="nav-item pricing">
+          <div class="nav-text">Pricing</div>
+        </a>
+        <a href="https://qava.ai/newsletter" class="nav-item newsletter">
+          <div class="nav-text">Newsletter</div>
+        </a>
+      </nav>
+    </div>
+    <div class="header-right">
+      <div class="auth-section">
+        <a href="https://qava.ai/howitworks" class="auth-item">
+          <div class="nav-text">How it works</div>
+        </a>
+        <a href="https://app.qava.ai/" class="auth-item">
+          <div class="nav-text">Log in</div>
+        </a>
+        <a href="https://app.qava.ai/" class="join-button">
+          <div class="join-text">Get Started</div>
+        </a>
+      </div>
+      <div class="hamburger-menu" aria-hidden="true">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="qava-legal-page">
+    <div class="qava-legal-container">
+      <div class="qava-legal-hero">
+        <h1 class="qava-legal-title">Terms of Use</h1>
+        <p class="qava-legal-meta">Last Updated: September 2025</p>
+      </div>
+      <div class="qava-legal-body">
+        <div class="qava-legal-intro"><p>These Terms of Use govern your access to and use of QAVA.ai, including our website, applications, platform, marketplace, communications, tools, content, software, artificial intelligence features, and related services.</p>
+<p>By accessing or using QAVA.ai, you agree to these Terms. If you do not agree, you may not access or use QAVA.ai.</p></div>
+<section class="qava-legal-section" id="section-1"><h2 class="qava-legal-heading">1. About QAVA</h2><p>QAVA.ai, together with its owners, officers, directors, employees, contractors, advisors, affiliates, agents, successors, and assigns, is referred to in these Terms as "QAVA," "we," "us," or "our."</p>
+<p>QAVA is a marketplace and technology platform that helps connect companies, founders, startups, nonprofits, institutions, project sponsors, and other organizations with students, graduates, professionals, operators, advisors, consultants, and other talent.</p>
+<p>QAVA may support opportunities including, but not limited to, projects, jobs, internships, fellowships, consulting engagements, advisory work, workshops, team formation, research, strategy work, financial analysis, legal-adjacent support, operational support, and other professional opportunities.</p>
+<p>QAVA is not a staffing agency, employer, university, law firm, accounting firm, investment adviser, broker-dealer, fiduciary, or guarantor of any outcome.</p></section>
+<section class="qava-legal-section" id="section-2"><h2 class="qava-legal-heading">2. Eligibility</h2><p>You may use QAVA only if you are legally able to enter into a binding agreement.</p>
+<p>By using QAVA, you represent that:</p>
+<ul>
+<li>You are at least 18 years old, or the age of majority in your jurisdiction.</li>
+<li>You have authority to agree to these Terms.</li>
+<li>If using QAVA on behalf of an organization, you have authority to bind that organization.</li>
+<li>Your use of QAVA will comply with all applicable laws, rules, and regulations.</li>
+<li>You are not prohibited from using QAVA under applicable law.</li>
+</ul>
+<p>We may refuse access to QAVA, suspend accounts, remove content, or terminate use at any time, with or without notice, where we believe it is appropriate.</p></section>
+<section class="qava-legal-section" id="section-3"><h2 class="qava-legal-heading">3. Accounts and Registration</h2><p>To access certain features, you may need to create an account.</p>
+<p>You agree to provide accurate, complete, and current information. You are responsible for maintaining the confidentiality of your login credentials and for all activity that occurs under your account.</p>
+<p>You may not:</p>
+<ul>
+<li>Create an account using false information.</li>
+<li>Impersonate another person or organization.</li>
+<li>Share, sell, transfer, or assign your account without our permission.</li>
+<li>Allow another person to use your account in a way that misleads others.</li>
+<li>Create multiple accounts to evade rules, reviews, fees, suspensions, or restrictions.</li>
+</ul>
+<p>You must notify us promptly if you believe your account has been compromised.</p></section>
+<section class="qava-legal-section" id="section-4"><h2 class="qava-legal-heading">4. Platform License</h2><p>Subject to your compliance with these Terms, QAVA grants you a limited, revocable, non-exclusive, non-transferable, non-sublicensable license to access and use QAVA for its intended purposes.</p>
+<p>We may modify, suspend, discontinue, restrict, or remove any part of QAVA at any time without liability to you.</p>
+<p>This license does not give you ownership of QAVA or any QAVA intellectual property.</p></section>
+<section class="qava-legal-section" id="section-5"><h2 class="qava-legal-heading">5. QAVA Intellectual Property</h2><p>QAVA owns or licenses all rights in the platform, including the QAVA name, brand, logo, design, software, workflows, databases, matching systems, AI tools, interfaces, copy, graphics, code, templates, insights, business processes, and proprietary content.</p>
+<p>You may not copy, reproduce, modify, distribute, sell, lease, reverse engineer, scrape, frame, mirror, benchmark, or create derivative works from QAVA or its technology without our prior written permission.</p>
+<p>Nothing in these Terms grants you rights to QAVA's trademarks, logos, branding, software, data, proprietary methods, or intellectual property.</p></section>
+<section class="qava-legal-section" id="section-6"><h2 class="qava-legal-heading">6. User Content</h2><p>"User Content" means anything you upload, submit, post, display, send, create, share, or make available through QAVA, including profiles, resumes, biographies, portfolios, work samples, project descriptions, job listings, internship listings, messages, reviews, ratings, documents, images, videos, files, prompts, outputs, comments, feedback, and other materials.</p>
+<p>You retain ownership of your User Content, subject to the license you grant QAVA below.</p>
+<p>You are solely responsible for your User Content. You represent and warrant that:</p>
+<ul>
+<li>You have all rights needed to submit the User Content.</li>
+<li>Your User Content is accurate and not misleading.</li>
+<li>Your User Content does not infringe anyone's intellectual property, privacy, publicity, contractual, confidentiality, employment, academic, or other rights.</li>
+<li>Your User Content does not contain unlawful, defamatory, discriminatory, harassing, obscene, fraudulent, deceptive, or harmful material.</li>
+<li>Your User Content does not contain confidential information you are not authorized to share.</li>
+<li>Your User Content complies with these Terms and all applicable laws.</li>
+</ul></section>
+<section class="qava-legal-section" id="section-7"><h2 class="qava-legal-heading">7. License to User Content</h2><p>By submitting User Content to QAVA, you grant QAVA a worldwide, non-exclusive, royalty-free, sublicensable, transferable license to host, store, reproduce, display, publish, distribute, modify, format, excerpt, analyze, index, use, and otherwise process your User Content as reasonably necessary to operate, improve, protect, market, and provide QAVA.</p>
+<p>This includes using User Content to:</p>
+<ul>
+<li>Display talent profiles to clients.</li>
+<li>Display opportunities to talent.</li>
+<li>Facilitate matching, recommendations, search, and discovery.</li>
+<li>Operate AI-enabled tools and platform features.</li>
+<li>Communicate opportunities, applications, or project information.</li>
+<li>Promote QAVA, subject to applicable law and your privacy settings.</li>
+<li>Improve safety, quality, fraud detection, and platform performance.</li>
+</ul>
+<p>You also grant other users a limited license to access and use your User Content only as permitted through QAVA and only for legitimate platform purposes.</p>
+<p>We may remove, edit, restrict, or decline to display User Content at any time.</p></section>
+<section class="qava-legal-section" id="section-8"><h2 class="qava-legal-heading">8. Feedback and Suggestions</h2><p>If you send QAVA ideas, suggestions, concepts, improvements, product feedback, feature requests, business ideas, or other recommendations, you agree that QAVA may use them without restriction, compensation, attribution, or obligation to you.</p>
+<p>You waive any claim that QAVA's use of your feedback infringes your rights or requires payment.</p></section>
+<section class="qava-legal-section" id="section-9"><h2 class="qava-legal-heading">9. Talent Responsibilities</h2><p>If you use QAVA as talent, applicant, student, graduate, professional, consultant, advisor, freelancer, contractor, intern, or candidate, you represent and agree that:</p>
+<ul>
+<li>Your profile, education, credentials, experience, skills, work authorization status, availability, location, compensation expectations, and portfolio are accurate.</li>
+<li>You will not misrepresent degrees, university affiliation, grades, awards, certifications, employment history, clients, publications, references, or prior work.</li>
+<li>You will not submit work samples you do not have permission to share.</li>
+<li>You will not plagiarize, fabricate, or misrepresent work product.</li>
+<li>You will disclose material AI use when required by QAVA, a client, a project sponsor, or applicable law.</li>
+<li>You will comply with any confidentiality, IP, academic, employment, or professional obligations that apply to you.</li>
+<li>You will perform any accepted work professionally, lawfully, and in accordance with the relevant agreement.</li>
+<li>You are responsible for your own taxes, insurance, licenses, equipment, tools, and compliance obligations unless otherwise agreed in writing with a client.</li>
+</ul>
+<p>QAVA does not guarantee that you will receive interviews, projects, internships, jobs, compensation, offers, or any specific outcome.</p></section>
+<section class="qava-legal-section" id="section-10"><h2 class="qava-legal-heading">10. Client Responsibilities</h2><p>If you use QAVA as a client, employer, company, founder, nonprofit, institution, recruiter, sponsor, or organization, you represent and agree that:</p>
+<ul>
+<li>You have authority to post opportunities and communicate on behalf of your organization.</li>
+<li>Your opportunity descriptions are accurate, lawful, and not misleading.</li>
+<li>You will clearly describe compensation, expected work, location requirements, timing, deliverables, employment classification, internship structure, and other material terms.</li>
+<li>You will not post fake, misleading, discriminatory, exploitative, or unlawful opportunities.</li>
+<li>You will not request free work, unpaid speculative work, or work product outside a fair and lawful process.</li>
+<li>You will not collect candidate data for unrelated purposes.</li>
+<li>You will comply with applicable employment, labor, wage, hour, internship, tax, immigration, anti-discrimination, privacy, and hiring laws.</li>
+<li>You are solely responsible for selection, hiring, supervision, payment, classification, onboarding, termination, and compliance decisions.</li>
+<li>You will honor agreed payment terms and contractual commitments.</li>
+<li>You will not use QAVA to avoid fees, circumvent the platform, or poach users in violation of these Terms.</li>
+</ul>
+<p>QAVA does not guarantee the identity, suitability, availability, credentials, performance, or reliability of any talent.</p></section>
+<section class="qava-legal-section" id="section-11"><h2 class="qava-legal-heading">11. No Employment Relationship with QAVA</h2><p>QAVA is a marketplace and technology provider only.</p>
+<p>QAVA is not the employer, joint employer, agent, partner, manager, supervisor, fiduciary, representative, or guarantor of any user.</p>
+<p>No user is an employee, contractor, partner, agent, franchisee, or representative of QAVA merely by using the platform.</p>
+<p>Clients are solely responsible for determining the proper legal classification of talent, including employee, independent contractor, intern, volunteer, advisor, consultant, or other status.</p>
+<p>Talent are solely responsible for understanding the nature of any opportunity before accepting it.</p></section>
+<section class="qava-legal-section" id="section-12"><h2 class="qava-legal-heading">12. No Guarantee of Outcomes</h2><p>QAVA does not guarantee:</p>
+<ul>
+<li>That any user will find work, talent, candidates, interviews, jobs, internships, clients, investors, grants, revenue, or opportunities.</li>
+<li>That any project will be completed.</li>
+<li>That any candidate will be hired.</li>
+<li>That any client will pay unless separately covered by a written QAVA payment product or agreement.</li>
+<li>That any profile, listing, credential, review, rating, or representation is accurate.</li>
+<li>That any user will perform as expected.</li>
+<li>That use of QAVA will produce any academic, professional, financial, hiring, operational, or business result.</li>
+</ul>
+<p>You use QAVA at your own risk.</p></section>
+<section class="qava-legal-section" id="section-13"><h2 class="qava-legal-heading">13. AI Usage and Disclosure</h2><p>QAVA may include AI-enabled features, including search, matching, recommendations, summarization, profile assistance, project scoping, opportunity drafting, ranking, messaging support, and other tools.</p>
+<p>AI outputs may be incomplete, inaccurate, biased, outdated, or inappropriate. You are responsible for reviewing and validating AI-assisted content before relying on it.</p>
+<p>Users must not use AI to deceive others.</p>
+<p>Talent must disclose material use of AI where required by the client, project sponsor, QAVA, applicable law, academic rules, professional obligations, or the terms of a specific opportunity.</p>
+<p>Clients must clearly state any restrictions or expectations regarding AI use in applications, interviews, deliverables, projects, internships, or employment processes.</p>
+<p>Users may not submit AI-generated work as wholly human-created where that would be misleading, prohibited, or inconsistent with the applicable opportunity terms.</p>
+<p>QAVA may use automated tools to support matching, moderation, safety, ranking, quality control, fraud detection, and platform improvement. QAVA does not guarantee that automated recommendations are accurate, complete, fair, or suitable for your needs.</p></section>
+<section class="qava-legal-section" id="section-14"><h2 class="qava-legal-heading">14. Credential Verification</h2><p>QAVA may, but is not required to, verify user credentials, educational history, employment history, identity, references, work samples, skills, licenses, or organizational authority.</p>
+<p>If QAVA offers verification badges, labels, or indicators, they are limited to the specific information reviewed and do not guarantee a user's overall honesty, suitability, skill, availability, or performance.</p>
+<p>You authorize QAVA to take reasonable steps to verify information you provide, including contacting institutions, employers, references, third-party providers, or other sources where legally permitted.</p>
+<p>You agree to cooperate with verification requests. Failure to cooperate may result in removal, suspension, or termination.</p></section>
+<section class="qava-legal-section" id="section-15"><h2 class="qava-legal-heading">15. Reviews, Ratings, Testimonials, and Endorsements</h2><p>Users must provide honest, accurate, and good-faith reviews, ratings, testimonials, and endorsements.</p>
+<p>You may not:</p>
+<ul>
+<li>Submit fake reviews.</li>
+<li>Pay for positive reviews.</li>
+<li>Trade reviews for value.</li>
+<li>Threaten negative reviews to obtain concessions.</li>
+<li>Review yourself or your own organization.</li>
+<li>Manipulate ratings, rankings, testimonials, or feedback.</li>
+<li>Misrepresent your experience with another user.</li>
+</ul>
+<p>QAVA may remove, moderate, suppress, or decline to publish reviews or testimonials at any time.</p>
+<p>If testimonials or endorsements are used in marketing, users must comply with applicable advertising and disclosure rules.</p></section>
+<section class="qava-legal-section" id="section-16"><h2 class="qava-legal-heading">16. Prohibited Content</h2><p>You may not post, upload, transmit, request, support, facilitate, or promote content that:</p>
+<ul>
+<li>Is illegal, fraudulent, deceptive, or misleading.</li>
+<li>Is defamatory, threatening, harassing, abusive, hateful, violent, or discriminatory.</li>
+<li>Promotes unlawful discrimination or exclusion.</li>
+<li>Infringes intellectual property, privacy, publicity, confidentiality, contractual, employment, or academic rights.</li>
+<li>Contains confidential information you are not authorized to share.</li>
+<li>Contains personal data of others without permission.</li>
+<li>Contains sexually explicit, exploitative, or abusive material.</li>
+<li>Involves child exploitation or abuse.</li>
+<li>Encourages violence, self-harm, terrorism, or illegal activity.</li>
+<li>Contains malware, spyware, viruses, harmful code, or security exploits.</li>
+<li>Promotes scams, phishing, pyramid schemes, spam, or fraudulent opportunities.</li>
+<li>Requests fake engagement, fake reviews, fake references, fake credentials, or fake work history.</li>
+<li>Violates another platform's terms, school policies, employer policies, professional rules, or applicable law.</li>
+<li>Misrepresents AI-generated media, deepfakes, synthetic identities, or manipulated content.</li>
+<li>Is otherwise harmful to QAVA, users, or the integrity of the marketplace.</li>
+</ul></section>
+<section class="qava-legal-section" id="section-17"><h2 class="qava-legal-heading">17. Prohibited Conduct</h2><p>You may not:</p>
+<ul>
+<li>Use QAVA for unlawful, fraudulent, misleading, harmful, or abusive purposes.</li>
+<li>Misrepresent yourself, your organization, credentials, authority, affiliation, identity, or intentions.</li>
+<li>Circumvent QAVA fees, processes, rules, or safeguards.</li>
+<li>Contact users outside QAVA to avoid QAVA fees or restrictions where prohibited by QAVA.</li>
+<li>Scrape, crawl, harvest, copy, or extract platform data without written permission.</li>
+<li>Use bots, spiders, scripts, automation, or other non-approved tools to access QAVA.</li>
+<li>Reverse engineer, decompile, modify, or attempt to discover QAVA source code or systems.</li>
+<li>Interfere with QAVA's security, infrastructure, operations, or user experience.</li>
+<li>Overload, disrupt, attack, or impair QAVA.</li>
+<li>Upload malware or harmful code.</li>
+<li>Use QAVA to build, train, benchmark, or improve a competing product or service without written permission.</li>
+<li>Collect, sell, rent, or misuse user data.</li>
+<li>Spam users.</li>
+<li>Harass, intimidate, discriminate against, or exploit users.</li>
+<li>Request unpaid work in a deceptive or unfair manner.</li>
+<li>Fail to pay amounts owed.</li>
+<li>Manipulate search, ranking, matching, reviews, applications, or recommendations.</li>
+<li>Use another user's account.</li>
+<li>Create accounts to evade enforcement.</li>
+<li>Violate any law, contract, policy, or third-party right.</li>
+</ul></section>
+<section class="qava-legal-section" id="section-18"><h2 class="qava-legal-heading">18. Anti-Circumvention</h2><p>QAVA invests substantial resources in building the marketplace, attracting users, matching parties, and facilitating opportunities.</p>
+<p>You may not use QAVA to identify, solicit, contact, engage, hire, contract with, or transact with another user outside QAVA in order to avoid QAVA fees, subscriptions, commissions, platform rules, or payment processes.</p>
+<p>Unless otherwise agreed in writing, if you meet, discover, source, identify, or engage a user through QAVA, any resulting work, hire, project, internship, consulting relationship, advisory engagement, or paid opportunity during the applicable restricted period must be processed in accordance with QAVA's then-current commercial terms.</p>
+<p>QAVA may charge circumvention fees, suspend accounts, remove users, or pursue available remedies if we believe users have attempted to avoid QAVA fees or misuse marketplace access.</p></section>
+<section class="qava-legal-section" id="section-19"><h2 class="qava-legal-heading">19. Payments, Fees, and Subscriptions</h2><p>QAVA may charge fees for access, subscriptions, listings, placements, projects, jobs, internships, premium features, verification, promotion, transactions, success fees, commissions, or other products.</p>
+<p>You agree to pay all applicable fees disclosed to you.</p>
+<p>Fees may be non-refundable unless otherwise stated in writing.</p>
+<p>You are responsible for taxes, duties, levies, exchange fees, bank fees, card fees, and other charges associated with your use of QAVA.</p>
+<p>QAVA may change fees at any time, subject to applicable law and any written agreement then in effect.</p>
+<p>If payments fail, QAVA may suspend access, remove listings, pause services, charge late fees where permitted, recover collection costs, or terminate your account.</p>
+<p>QAVA may use third-party payment processors. Your use of payment services may be subject to additional third-party terms.</p></section>
+<section class="qava-legal-section" id="section-20"><h2 class="qava-legal-heading">20. Taxes</h2><p>QAVA does not provide tax advice.</p>
+<p>Users are solely responsible for determining and satisfying their own tax obligations, including income taxes, payroll taxes, withholding, sales taxes, VAT, GST, reporting, filings, and related obligations.</p>
+<p>QAVA may collect tax information or issue tax forms where required by law, but QAVA is not responsible for a user's tax compliance.</p></section>
+<section class="qava-legal-section" id="section-21"><h2 class="qava-legal-heading">21. Confidentiality</h2><p>Users may receive confidential or proprietary information through QAVA, including business plans, financial data, customer information, strategy documents, product roadmaps, technical materials, personal information, compensation information, and other sensitive materials.</p>
+<p>You agree not to disclose or misuse confidential information unless authorized.</p>
+<p>You may not upload confidential information to QAVA unless you have authority to do so.</p>
+<p>QAVA is not responsible for unauthorized disclosure by users.</p>
+<p>Clients and talent should enter separate confidentiality, invention assignment, data protection, or services agreements where appropriate.</p></section>
+<section class="qava-legal-section" id="section-22"><h2 class="qava-legal-heading">22. Intellectual Property in Work Product</h2><p>QAVA does not automatically own work product created between users unless separately agreed in writing.</p>
+<p>Ownership of work product, deliverables, inventions, materials, data, code, designs, research, or other outputs should be addressed in a separate agreement between the relevant client and talent.</p>
+<p>If users do not enter a separate written agreement, disputes over ownership are between those users and not QAVA.</p>
+<p>QAVA is not responsible for determining, enforcing, or adjudicating ownership of user-created work product.</p></section>
+<section class="qava-legal-section" id="section-23"><h2 class="qava-legal-heading">23. Third-Party Agreements Between Users</h2><p>Users may enter separate agreements for projects, jobs, internships, consulting work, employment, advisory roles, confidentiality, intellectual property, payment, compliance, or other matters.</p>
+<p>QAVA is not a party to those agreements unless QAVA expressly signs them.</p>
+<p>Users are solely responsible for reviewing, negotiating, and complying with agreements they enter.</p>
+<p>QAVA does not provide legal advice or guarantee that any user agreement is valid, enforceable, complete, or appropriate.</p></section>
+<section class="qava-legal-section" id="section-24"><h2 class="qava-legal-heading">24. Compliance with Employment, Labor, and Internship Laws</h2><p>Clients are solely responsible for compliance with employment, labor, wage and hour, internship, contractor classification, workplace safety, immigration, tax, benefits, anti-discrimination, background check, and hiring laws.</p>
+<p>Talent are responsible for confirming that they are legally authorized to perform work they accept.</p>
+<p>QAVA does not determine whether an opportunity is properly classified as a job, internship, project, contractor role, volunteer role, fellowship, or other arrangement.</p>
+<p>Clients must not publish opportunities that unlawfully prefer or discourage applicants based on protected characteristics.</p></section>
+<section class="qava-legal-section" id="section-25"><h2 class="qava-legal-heading">25. Equal Opportunity and Non-Discrimination</h2><p>QAVA is committed to lawful, fair, and professional marketplace access.</p>
+<p>Users may not discriminate, harass, exclude, or retaliate unlawfully based on race, color, religion, sex, pregnancy, sexual orientation, gender identity, national origin, age, disability, genetic information, veteran status, citizenship status, or any other characteristic protected by applicable law.</p>
+<p>Users may not post opportunities or requirements that unlawfully express preferences or limitations based on protected characteristics.</p></section>
+<section class="qava-legal-section" id="section-26"><h2 class="qava-legal-heading">26. Privacy</h2><p>Your use of QAVA is also governed by our Privacy Policy.</p>
+<p>You agree that QAVA may collect, use, disclose, store, and process information as described in the Privacy Policy.</p>
+<p>Users must comply with all applicable privacy and data protection laws when using information obtained through QAVA.</p>
+<p>You may not use QAVA to collect, process, store, sell, or disclose personal information for unrelated, unauthorized, unlawful, or deceptive purposes.</p></section>
+<section class="qava-legal-section" id="section-27"><h2 class="qava-legal-heading">27. Communications</h2><p>By using QAVA, you agree that QAVA may send you service messages, transactional messages, platform notices, security alerts, opportunity updates, product updates, marketing communications, and other communications.</p>
+<p>You may opt out of certain marketing communications where legally required, but we may still send important service-related messages.</p>
+<p>You agree that electronic communications satisfy any legal requirement that communications be in writing.</p></section>
+<section class="qava-legal-section" id="section-28"><h2 class="qava-legal-heading">28. Third-Party Services and Links</h2><p>QAVA may contain links to third-party websites, services, tools, content, payment processors, identity verification providers, communication tools, analytics tools, AI providers, or integrations.</p>
+<p>QAVA does not control and is not responsible for third-party services.</p>
+<p>Your use of third-party services is at your own risk and may be governed by separate terms and privacy policies.</p>
+<p>QAVA does not endorse, guarantee, or assume liability for third-party services.</p></section>
+<section class="qava-legal-section" id="section-29"><h2 class="qava-legal-heading">29. Copyright Complaints</h2><p>QAVA respects intellectual property rights.</p>
+<p>If you believe content on QAVA infringes your copyright, you may send a notice to QAVA's designated copyright contact at:</p>
+<ul>
+<li>Copyright Agent: [Insert Name]</li>
+<li>Email: [Insert Email]</li>
+<li>Address: [Insert Address]</li>
+</ul>
+<p>Your notice should include:</p>
+<ul>
+<li>Your physical or electronic signature.</li>
+<li>Identification of the copyrighted work claimed to be infringed.</li>
+<li>Identification of the material claimed to be infringing and information sufficient for QAVA to locate it.</li>
+<li>Your contact information.</li>
+<li>A statement that you have a good-faith belief the disputed use is not authorized.</li>
+<li>A statement, under penalty of perjury, that the information in your notice is accurate and that you are the copyright owner or authorized to act on behalf of the owner.</li>
+</ul>
+<p>QAVA may remove or disable content and may terminate repeat infringers where appropriate.</p></section>
+<section class="qava-legal-section" id="section-30"><h2 class="qava-legal-heading">30. Monitoring and Enforcement</h2><p>QAVA may, but has no obligation to, monitor, review, investigate, moderate, remove, restrict, or disable access to content or accounts.</p>
+<p>We may take action if we believe, in our sole discretion, that a user has violated these Terms, created risk, harmed the marketplace, infringed rights, violated law, or acted inconsistently with QAVA's interests.</p>
+<p>Actions may include:</p>
+<ul>
+<li>Warning the user.</li>
+<li>Removing content.</li>
+<li>Restricting features.</li>
+<li>Suspending or terminating accounts.</li>
+<li>Removing listings or applications.</li>
+<li>Withholding, reversing, or delaying transactions where legally permitted.</li>
+<li>Reporting conduct to authorities.</li>
+<li>Cooperating with investigations.</li>
+<li>Pursuing legal remedies.</li>
+</ul>
+<p>Failure to enforce any provision does not waive QAVA's right to enforce it later.</p></section>
+<section class="qava-legal-section" id="section-31"><h2 class="qava-legal-heading">31. Availability and Platform Changes</h2><p>QAVA may change, suspend, restrict, or discontinue any part of the platform at any time.</p>
+<p>We do not guarantee uninterrupted, secure, error-free, or available access.</p>
+<p>QAVA is not liable for downtime, data loss, interruptions, delays, errors, bugs, security incidents, or platform changes, except where liability cannot be excluded by law.</p></section>
+<section class="qava-legal-section" id="section-32"><h2 class="qava-legal-heading">32. Beta Features</h2><p>QAVA may release beta, experimental, pilot, or early-access features.</p>
+<p>Beta features are provided "as is," may change or disappear at any time, may contain errors, and may not work as intended.</p>
+<p>You use beta features at your own risk.</p></section>
+<section class="qava-legal-section" id="section-33"><h2 class="qava-legal-heading">33. Disclaimers</h2><p>QAVA is provided "as is" and "as available."</p>
+<p>To the fullest extent permitted by law, QAVA disclaims all warranties, whether express, implied, statutory, or otherwise, including warranties of merchantability, fitness for a particular purpose, title, non-infringement, accuracy, availability, reliability, security, and course of dealing.</p>
+<p>QAVA does not warrant that:</p>
+<ul>
+<li>The platform will meet your needs.</li>
+<li>Users are who they claim to be.</li>
+<li>Listings are accurate.</li>
+<li>Talent are qualified.</li>
+<li>Clients will pay.</li>
+<li>Work will be completed.</li>
+<li>Opportunities are legitimate.</li>
+<li>AI outputs are accurate.</li>
+<li>The platform will be uninterrupted or error-free.</li>
+<li>Defects will be corrected.</li>
+</ul></section>
+<section class="qava-legal-section" id="section-34"><h2 class="qava-legal-heading">34. Limitation of Liability</h2><p>To the fullest extent permitted by law, QAVA and its owners, officers, directors, employees, contractors, advisors, affiliates, agents, successors, and assigns will not be liable for indirect, incidental, consequential, special, exemplary, punitive, or enhanced damages, including lost profits, lost revenue, lost business, lost opportunity, lost data, reputational harm, emotional distress, business interruption, or cost of substitute services.</p>
+<p>To the fullest extent permitted by law, QAVA's total liability for any claim arising out of or relating to these Terms, QAVA, the platform, or any user interaction will not exceed the greater of:</p>
+<ul>
+<li>The amount you paid to QAVA in the three months before the claim arose; or</li>
+<li>One hundred U.S. dollars.</li>
+</ul>
+<p>These limitations apply whether the claim is based on contract, tort, negligence, strict liability, statute, warranty, or any other legal theory, even if QAVA has been advised of the possibility of damages.</p></section>
+<section class="qava-legal-section" id="section-35"><h2 class="qava-legal-heading">35. Indemnification</h2><p>You agree to defend, indemnify, and hold harmless QAVA and its owners, officers, directors, employees, contractors, advisors, affiliates, agents, successors, and assigns from and against any claims, demands, actions, damages, losses, liabilities, judgments, settlements, costs, and expenses, including reasonable attorneys' fees, arising out of or relating to:</p>
+<ul>
+<li>Your use of QAVA.</li>
+<li>Your User Content.</li>
+<li>Your violation of these Terms.</li>
+<li>Your violation of law.</li>
+<li>Your violation of another person's rights.</li>
+<li>Your misrepresentation.</li>
+<li>Your relationship, contract, dispute, or transaction with another user.</li>
+<li>Your hiring, employment, internship, contractor, tax, payment, classification, or compliance decisions.</li>
+<li>Your AI use or failure to disclose AI use where required.</li>
+<li>Your infringement or alleged infringement of intellectual property, privacy, publicity, confidentiality, or other rights.</li>
+</ul>
+<p>QAVA may control the defense of any matter subject to indemnification, and you agree to cooperate with us.</p></section>
+<section class="qava-legal-section" id="section-36"><h2 class="qava-legal-heading">36. Release of QAVA</h2><p>You release QAVA and its owners, officers, directors, employees, contractors, advisors, affiliates, agents, successors, and assigns from claims, demands, damages, losses, and liabilities arising out of disputes with other users, including disputes over payment, performance, hiring, firing, interviews, internships, employment, classification, work product, intellectual property, confidentiality, reviews, ratings, discrimination, harassment, or user conduct.</p>
+<p>If you are a California resident, you waive California Civil Code Section 1542 to the extent permitted by law.</p></section>
+<section class="qava-legal-section" id="section-37"><h2 class="qava-legal-heading">37. Disputes Between Users</h2><p>QAVA may, but is not required to, assist with disputes between users.</p>
+<p>QAVA has no obligation to mediate, arbitrate, investigate, resolve, pay, refund, enforce, or otherwise participate in user disputes.</p>
+<p>Any dispute between users is solely between those users.</p></section>
+<section class="qava-legal-section" id="section-38"><h2 class="qava-legal-heading">38. Governing Law</h2><p>These Terms are governed by the laws of the State of New York, without regard to conflict-of-law principles.</p></section>
+<section class="qava-legal-section" id="section-39"><h2 class="qava-legal-heading">39. Arbitration and Class Action Waiver</h2><p>To the fullest extent permitted by law, you and QAVA agree to resolve disputes through binding individual arbitration rather than in court, except for claims that may be brought in small claims court or claims seeking injunctive relief for misuse of intellectual property, confidential information, or platform technology.</p>
+<p>You and QAVA waive the right to a jury trial.</p>
+<p>You and QAVA agree that disputes must be brought only on an individual basis and not as a class, collective, consolidated, representative, or private attorney general action.</p>
+<p>The arbitration will be administered by [AAA/JAMS] under its applicable rules. The seat of arbitration will be New York, New York, unless otherwise required by law.</p></section>
+<section class="qava-legal-section" id="section-40"><h2 class="qava-legal-heading">40. Injunctive Relief</h2><p>You agree that misuse of QAVA's intellectual property, confidential information, platform data, users, marketplace relationships, or technology may cause irreparable harm.</p>
+<p>QAVA may seek injunctive or equitable relief without posting bond or proving actual damages.</p></section>
+<section class="qava-legal-section" id="section-41"><h2 class="qava-legal-heading">41. Termination</h2><p>You may stop using QAVA at any time.</p>
+<p>QAVA may suspend, restrict, or terminate your access at any time, with or without notice, if we believe it is appropriate.</p>
+<p>After termination, provisions that by their nature should survive will survive, including intellectual property, User Content licenses, payment obligations, disclaimers, limitations of liability, indemnification, releases, dispute resolution, and enforcement rights.</p></section>
+<section class="qava-legal-section" id="section-42"><h2 class="qava-legal-heading">42. Changes to These Terms</h2><p>QAVA may update these Terms from time to time.</p>
+<p>If we make material changes, we may provide notice by posting the updated Terms, emailing you, or using another reasonable method.</p>
+<p>Your continued use of QAVA after changes become effective means you accept the updated Terms.</p>
+<p>If you do not agree, you must stop using QAVA.</p></section>
+<section class="qava-legal-section" id="section-43"><h2 class="qava-legal-heading">43. Assignment</h2><p>You may not assign or transfer these Terms without QAVA's prior written consent.</p>
+<p>QAVA may assign or transfer these Terms, in whole or in part, without restriction, including in connection with a merger, acquisition, financing, restructuring, sale of assets, or transfer of business.</p></section>
+<section class="qava-legal-section" id="section-44"><h2 class="qava-legal-heading">44. Severability</h2><p>If any provision of these Terms is found unenforceable, the remaining provisions will remain in full force and effect.</p>
+<p>The unenforceable provision will be modified to the minimum extent necessary to make it enforceable.</p></section>
+<section class="qava-legal-section" id="section-45"><h2 class="qava-legal-heading">45. Entire Agreement</h2><p>These Terms, together with any policies, agreements, or additional terms incorporated by reference, constitute the entire agreement between you and QAVA regarding your use of the platform.</p></section>
+<section class="qava-legal-section" id="section-46"><h2 class="qava-legal-heading">46. No Waiver</h2><p>QAVA's failure to enforce any provision does not waive our right to enforce it later.</p></section>
+<section class="qava-legal-section" id="section-47"><h2 class="qava-legal-heading">47. Contact</h2><p>Questions about these Terms may be sent to:</p>
+<ul>
+<li>QAVA.ai</li>
+<li>Email: legal@qava.ai</li>
+</ul></section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer-section"></footer>
+
+  <script src="./qava-footer.js"></script>
+  <script>
+    (function () {
+      if (typeof window.applyQavaFooter === "function") {
+        window.applyQavaFooter(document);
+      }
+
+      const inner = document.getElementById("qava-nav-logo-inner");
+      if (inner) {
+        let flipped = false;
+        setInterval(() => {
+          flipped = !flipped;
+          inner.classList.toggle("is-flipped", flipped);
+        }, 5000);
+      }
+    })();
+  </script>
+</body>
+</html>

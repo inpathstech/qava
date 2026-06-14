@@ -494,6 +494,15 @@
       color: #111827;
     }
 
+    .qava-nl-error {
+      display: none;
+      margin-top: 12px;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: #b91c1c;
+    }
+
     .footer-section {
       background: transparent;
       width: 100%;
@@ -645,6 +654,7 @@
         </div>
       </div>
 
+      <form class="qava-nl-form" id="qava-nl-form" novalidate>
       <div class="qava-nl-group">
         <p class="qava-nl-group-label">What would you like to hear about?</p>
         <p class="qava-nl-group-hint">Select all that apply.</p>
@@ -697,13 +707,16 @@
         </div>
       </div>
 
-      <button type="button" class="qava-nl-submit" id="qava-nl-submit">Subscribe ↗</button>
+      <button type="submit" class="qava-nl-submit" id="qava-nl-submit">Subscribe ↗</button>
+      <p class="qava-nl-error" id="qava-nl-error" role="alert"></p>
       <p class="qava-nl-success" id="qava-nl-success">Thanks for subscribing! We'll be in touch.</p>
+      </form>
     </div>
   </main>
 
   <footer class="footer-section"></footer>
 
+  <script src="./qava-newsletter-api.js"></script>
   <script src="./qava-footer.js"></script>
   <script>
     (function () {
@@ -756,39 +769,71 @@
         }, 5000);
       }
 
+      function collectChecked(containerId) {
+        return Array.from(document.querySelectorAll(`#${containerId} .qava-nl-check.checked`))
+          .map((item) => item.getAttribute("data-value"))
+          .filter(Boolean);
+      }
+
+      function getSelectedFrequency() {
+        const selected = document.querySelector("#qava-nl-freq .qava-nl-radio.selected span:last-child");
+        return selected ? selected.textContent.trim() : "Weekly";
+      }
+
+      const form = document.getElementById("qava-nl-form");
       const submitBtn = document.getElementById("qava-nl-submit");
       const successEl = document.getElementById("qava-nl-success");
+      const errorEl = document.getElementById("qava-nl-error");
 
-      submitBtn.addEventListener("click", () => {
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        errorEl.style.display = "none";
+        errorEl.textContent = "";
+
         const firstName = document.getElementById("qava-nl-first-name").value.trim();
+        const familyName = document.getElementById("qava-nl-family-name").value.trim();
         const email = document.getElementById("qava-nl-email").value.trim();
-        if (!firstName || !email) return;
+        const location = document.getElementById("qava-nl-location").value.trim();
+        const phone = document.getElementById("qava-nl-phone").value.trim();
 
-        submitBtn.disabled = true;
+        if (!firstName || !email) {
+          errorEl.textContent = "Please enter your first name and email.";
+          errorEl.style.display = "block";
+          return;
+        }
+
+        if (typeof window.qavaNewsletterSubscribe !== "function") {
+          errorEl.textContent = "Subscription is temporarily unavailable. Please try again shortly.";
+          errorEl.style.display = "block";
+          return;
+        }
+
         const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
         submitBtn.textContent = "...";
 
-        fetch("https://api.qava.ai/admin/newsletter-subscribe", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            firstName,
+        try {
+          await window.qavaNewsletterSubscribe({
+            firstName: [firstName, familyName].filter(Boolean).join(" "),
             email,
-            source: "newsletter-page"
-          })
-        })
-          .then(() => {
-            submitBtn.style.display = "none";
-            successEl.style.display = "block";
-          })
-          .catch(() => {
-            submitBtn.style.display = "none";
-            successEl.style.display = "block";
-          })
-          .finally(() => {
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalText;
+            source: "newsletter-page",
+            metadata: {
+              hearAbout: collectChecked("qava-nl-hear-about"),
+              succeedGoals: collectChecked("qava-nl-succeed"),
+              location: location || null,
+              phone: phone || null,
+              frequency: getSelectedFrequency(),
+            },
           });
+
+          form.style.display = "none";
+          successEl.style.display = "block";
+        } catch (error) {
+          errorEl.textContent = error && error.message ? error.message : "Unable to subscribe right now. Please try again.";
+          errorEl.style.display = "block";
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        }
       });
     })();
   </script>

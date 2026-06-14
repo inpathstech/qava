@@ -5210,7 +5210,7 @@
         <div class="header-right">
             <div class="auth-section">
                 <a href="https://qava.ai/howitworks" class="auth-item">
-                    <div class="nav-text">How Qava Works</div>
+                    <div class="nav-text">How it works</div>
                 </a>
                 <a href="https://app.qava.ai/" class="auth-item">
                     <div class="nav-text">Log in</div>
@@ -5507,39 +5507,39 @@
         </div>
     </section>
 
+    <script src="qava-newsletter-api.js"></script>
     <script>
     (function() {
         var form = document.getElementById('newsletter-form');
         var success = document.getElementById('newsletter-success');
-        if (form) {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                var firstName = form.querySelector('input[type="text"]').value.trim();
-                var email = form.querySelector('input[type="email"]').value.trim();
-                if (!firstName || !email) return;
+        if (!form || typeof window.qavaNewsletterSubscribe !== 'function') return;
 
-                var btn = form.querySelector('button[type="submit"]');
-                // Lock button width before changing text to avoid shrinking during loading
-                btn.style.width = btn.offsetWidth + 'px';
-                btn.textContent = '...';
-                btn.disabled = true;
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            var firstName = form.querySelector('input[type="text"]').value.trim();
+            var email = form.querySelector('input[type="email"]').value.trim();
+            if (!firstName || !email) return;
 
-                fetch('https://api.qava.ai/admin/newsletter-subscribe', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ firstName: firstName, email: email, source: 'landing-page' })
-                })
-                .then(function(res) { return res.json(); })
-                .then(function(data) {
-                    form.style.display = 'none';
-                    success.style.display = 'flex';
-                })
-                .catch(function() {
-                    form.style.display = 'none';
-                    success.style.display = 'flex';
+            var btn = form.querySelector('button[type="submit"]');
+            var originalText = btn.textContent;
+            btn.style.width = btn.offsetWidth + 'px';
+            btn.textContent = '...';
+            btn.disabled = true;
+
+            try {
+                await window.qavaNewsletterSubscribe({
+                    firstName: firstName,
+                    email: email,
+                    source: 'landing-page'
                 });
-            });
-        }
+                form.style.display = 'none';
+                success.style.display = 'flex';
+            } catch (error) {
+                btn.disabled = false;
+                btn.textContent = originalText;
+                btn.style.width = '';
+            }
+        });
     })();
     </script>
 
@@ -6901,7 +6901,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
                         <ul class="footer-link-list">
                             <li><a href="https://app.qava.ai/guest" class="footer-link">Create Listing</a></li>
                             <li><a href="https://app.qava.ai/projects" class="footer-link">Search Listings</a></li>
-                            <li><a href="https://qava.ai/howqavaworks" class="footer-link">How Qava Works</a></li>
+                            <li><a href="https://qava.ai/howitworks" class="footer-link">How it works</a></li>
                             <li><span class="footer-link disabled-link">What's New</span></li>
                         </ul>
                     </div>

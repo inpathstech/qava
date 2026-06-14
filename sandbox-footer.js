@@ -28,8 +28,10 @@
               <li><a href="https://qava.ai/request-demo" class="footer-link">Request a demo</a></li>
               <li><a href="/SANDBOXpricing.html" class="footer-link">Pricing</a></li>
               <li><a href="/SANDBOXsuccessstories.html" class="footer-link">Success stories</a></li>
+              <li><a href="https://qava.ai/termsofuse" class="footer-link">Terms of Use</a></li>
               <li><a href="terms" class="footer-link">Terms &amp; privacy</a></li>
               <li><a href="terms" class="footer-link">California privacy notice</a></li>
+              <li><a href="https://qava.ai/useragreement" class="footer-link">User Agreement</a></li>
             </ul>
           </div>
           <div class="footer-copyright">© 2026 qava</div>

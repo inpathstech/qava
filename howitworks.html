@@ -171,6 +171,11 @@
 
         .footer-section {
           display: none !important;
+          visibility: hidden !important;
+          height: 0 !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          overflow: hidden !important;
         }
       `;
       const embedStyles = `
@@ -233,11 +238,15 @@
           padding-bottom: 80px !important;
         }
 
-        /* ---------- Footer (ported) ---------- */
+        footer.footer-section,
         .footer-section {
-          margin-top: 0 !important;
-          padding: 48px 0 46px 0 !important;
-          background: transparent !important;
+          display: none !important;
+          visibility: hidden !important;
+          height: 0 !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          overflow: hidden !important;
+          border: 0 !important;
         }
 
         /* ---------- Navbar (ported from SANDBOXindex) ---------- */
@@ -400,12 +409,6 @@
 
         .header-container .auth-section {
           gap: 28px !important;
-        }
-
-        .footer-heading {
-          font-family: ${DISPLAY_FONT} !important;
-          font-weight: 400 !important;
-          letter-spacing: -0.012em !important;
         }
 
         /* ---------- Hero ---------- */
@@ -1575,8 +1578,13 @@
           }
         }
 
-        if (typeof window.applySandboxFooter === "function" && IS_EMBED) {
-          window.applySandboxFooter(frameDoc);
+        if (typeof window.applyQavaFooter === "function") {
+          if (IS_EMBED) {
+            window.applyQavaFooter(frameDoc);
+          } else {
+            frameDoc.querySelectorAll("footer.footer-section").forEach((footer) => footer.remove());
+            window.applyQavaFooter(document);
+          }
         }
 
         syncIframeHeight = () => {

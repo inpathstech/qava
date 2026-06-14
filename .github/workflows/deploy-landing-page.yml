@@ -12,6 +12,7 @@ on:
       - '*.svg'
       - '*.mp4'
       - 'How it works/**'
+      - 'pricing/**'
       - 'Landing Page Trusted by/**'
       - 'Testimonial images/**'
       - 'Testimonial company logos/**'
@@ -64,6 +65,18 @@ jobs:
           --content-type "text/html" \
           --cache-control "max-age=3600"
 
+        aws s3 cp aiphilosophy.html s3://${{ secrets.S3_BUCKET_NAME }}/aiphilosophy.html \
+          --content-type "text/html" \
+          --cache-control "max-age=3600"
+
+        aws s3 cp termsofuse.html s3://${{ secrets.S3_BUCKET_NAME }}/termsofuse.html \
+          --content-type "text/html" \
+          --cache-control "max-age=3600"
+
+        aws s3 cp useragreement.html s3://${{ secrets.S3_BUCKET_NAME }}/useragreement.html \
+          --content-type "text/html" \
+          --cache-control "max-age=3600"
+
         aws s3 sync howitworks/ s3://${{ secrets.S3_BUCKET_NAME }}/howitworks/ \
           --content-type "text/html" \
           --cache-control "max-age=3600"
@@ -73,6 +86,18 @@ jobs:
           --cache-control "max-age=3600"
 
         aws s3 cp howqavaworks.html s3://${{ secrets.S3_BUCKET_NAME }}/howqavaworks.html \
+          --content-type "text/html" \
+          --cache-control "max-age=3600"
+
+        aws s3 cp pricing.html s3://${{ secrets.S3_BUCKET_NAME }}/pricing.html \
+          --content-type "text/html" \
+          --cache-control "max-age=3600"
+
+        aws s3 cp pricing-content.html s3://${{ secrets.S3_BUCKET_NAME }}/pricing-content.html \
+          --content-type "text/html" \
+          --cache-control "max-age=3600"
+
+        aws s3 sync pricing/ s3://${{ secrets.S3_BUCKET_NAME }}/pricing/ \
           --content-type "text/html" \
           --cache-control "max-age=3600"
 
