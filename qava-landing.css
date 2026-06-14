@@ -1698,6 +1698,142 @@
           text-decoration: underline;
         }
 
+        @media (max-width: 600px) {
+          .qava-blog-row {
+            width: calc(100vw - 32px);
+            max-width: calc(100vw - 32px);
+            margin-top: 56px;
+            left: 50%;
+            transform: translateX(-50%);
+            grid-template-columns: 1fr;
+            gap: 28px;
+          }
+
+          .qava-blog-card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: none;
+          }
+
+          .qava-blog-card:hover {
+            transform: none;
+            box-shadow: none;
+          }
+
+          .qava-blog-thumb {
+            aspect-ratio: 1 / 1;
+          }
+
+          .qava-blog-body {
+            padding: 14px 4px 0;
+          }
+
+          .qava-hero-heading {
+            white-space: normal !important;
+            line-height: 1.04 !important;
+            text-align: center !important;
+          }
+
+          .qava-hero-heading .qava-hero-line {
+            display: block !important;
+          }
+
+          .qava-hero-subheader {
+            line-height: 1.25 !important;
+            text-align: center !important;
+          }
+
+          .qava-hero-subheader .qava-sub-line {
+            display: block !important;
+          }
+
+          .matching-cta-buttons {
+            flex-direction: row !important;
+            flex-wrap: nowrap !important;
+            gap: 12px !important;
+            justify-content: center !important;
+            align-items: center !important;
+          }
+
+          .qava-showcase-toggle {
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+          }
+
+          .qava-toggle-prompt {
+            margin-right: 0;
+          }
+
+          .qava-hero-showcase-box {
+            width: calc(100vw - 32px);
+            max-width: calc(100vw - 32px);
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+          }
+
+          #qava-showcase-dynamic-content {
+            width: 720px;
+            flex: 1 0 auto;
+          }
+
+          .feature-cards-logos {
+            flex-direction: row !important;
+            flex-wrap: wrap !important;
+            justify-content: center !important;
+            align-items: center;
+            gap: 16px !important;
+          }
+
+          .feature-cards-logos .qava-logos-row {
+            display: contents;
+          }
+
+          .feature-cards-logos .feature-logo-item {
+            width: calc(25% - 12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .feature-cards-logos .feature-logo-item img {
+            max-width: 100%;
+          }
+
+          #qava-stories-section.qava-stories-section {
+            width: calc(100vw - 32px);
+            max-width: calc(100vw - 32px);
+            padding-left: 14px;
+            padding-right: 14px;
+          }
+
+          #qava-faq-section.qava-faq-section {
+            width: calc(100vw - 32px);
+            max-width: calc(100vw - 32px);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+          }
+
+          #qava-faq-section .qava-faq-title {
+            position: sticky;
+            left: 0;
+          }
+
+          #qava-faq-section .qava-faq-list {
+            width: max-content;
+            min-width: 100%;
+          }
+
+          #qava-faq-section .qava-faq-q-text {
+            white-space: nowrap;
+          }
+
+          #qava-faq-section .qava-faq-a {
+            width: calc(100vw - 112px);
+          }
+        }
+
         .qava-logos-testimonial {
           width: min(680px, calc(100vw - 80px));
           margin: 0 auto 32px auto;
@@ -1971,21 +2107,20 @@
         }
 
         @media (max-width: 760px) {
+          #qava-calc-section.qava-calc-section {
+            width: calc(100vw - 32px);
+            max-width: calc(100vw - 32px);
+          }
+
+          .qava-calc-panel {
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+          }
+
           .qava-calc-grid,
           .qava-calc-results {
-            grid-template-columns: 1fr;
-            gap: 0;
-          }
-
-          .qava-calc-col,
-          .qava-calc-result {
-            border-right: none;
-            border-bottom: 1px solid #ececee;
-          }
-
-          .qava-calc-col:last-child,
-          .qava-calc-result:last-child {
-            border-bottom: none;
+            min-width: 540px;
           }
         }
 
