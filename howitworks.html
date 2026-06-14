@@ -626,7 +626,7 @@
         .qava-hiw-flow {
           display: none;
           width: min(1100px, calc(100% - 48px));
-          margin: 4px auto 56px auto;
+          margin: 40px auto 56px auto;
           font-family: "Inter", sans-serif;
         }
 
@@ -1143,6 +1143,17 @@
         let syncIframeHeight = () => {};
         let scheduleIframeHeight = () => {};
 
+        // The navbar/footer links live inside this iframe. Without a top-level
+        // target they navigate the frame itself (e.g. loading qava.ai inside the
+        // frame, which can't be framed and shows a blank page). Force every link
+        // to break out and navigate the whole window.
+        if (!frameDoc.querySelector("base[data-qava-top-target]")) {
+          const baseTag = frameDoc.createElement("base");
+          baseTag.setAttribute("target", "_top");
+          baseTag.setAttribute("data-qava-top-target", "true");
+          frameDoc.head.insertBefore(baseTag, frameDoc.head.firstChild);
+        }
+
         if (!frameDoc.getElementById("qava-sandbox-canela-link")) {
           const fontLink = frameDoc.createElement("link");
           fontLink.id = "qava-sandbox-canela-link";
@@ -1216,6 +1227,29 @@
         });
         if (howItWorksNavText) {
           howItWorksNavText.textContent = "How it works";
+        }
+
+        // Mobile menu: mirror the desktop cleanup so it matches the other pages.
+        const mobileMenu = frameDoc.querySelector(".mobile-menu");
+        if (mobileMenu) {
+          Array.from(mobileMenu.querySelectorAll("a.mobile-nav-item")).forEach((a) => {
+            const label = a.querySelector(".nav-text") || a;
+            const t = (a.textContent || "").trim().toLowerCase();
+            if (t === "search listings") label.textContent = "Find work";
+            else if (t === "create listing") label.textContent = "Create listing";
+            else if (t === "pricing") a.remove();
+            else if (t === "about") {
+              a.href = "https://qava.ai/newsletter";
+              label.textContent = "Newsletter";
+            } else if (t === "how qava works" || t === "how it works") {
+              a.remove();
+            }
+          });
+          mobileMenu.querySelectorAll(".mobile-dropdown-item").forEach((a) => {
+            const h = a.getAttribute("href") || "";
+            if (h.includes("client-how-it-works")) a.href = "https://qava.ai/clienthowitworks";
+            if (h.includes("talent-how-it-works")) a.href = "https://qava.ai/talenthowitworks";
+          });
         }
 
         frameDoc.querySelectorAll(".info-section-wrapper").forEach((el) => el.remove());
@@ -1518,11 +1552,9 @@
             const renderFlow = (key) => {
               const f = flowData[key];
               if (!f) return;
-              updateHero(
-                f.heroTitle || defaultHero.title,
-                f.heroSub !== undefined ? f.heroSub : defaultHero.sub
-              );
               flow.innerHTML = `
+                <h2 class="qava-hiw-q-title">${f.title}</h2>
+                <p class="qava-hiw-q-sub">${f.sub}</p>
                 <div class="qava-hiw-panel">
                   <div class="qava-hiw-menu" role="tablist">
                     <span class="qava-hiw-menu-indicator" id="qava-hiw-menu-indicator"></span>
@@ -1535,7 +1567,6 @@
                   <div class="qava-hiw-content" role="tabpanel"></div>
                 </div>
                 <div class="qava-hiw-q-nav">
-                  <button type="button" class="qava-hiw-back">Back</button>
                   <a href="https://app.qava.ai/" class="qava-hiw-join">Join for free</a>
                 </div>
               `;
@@ -1571,7 +1602,6 @@
               selectItem(0);
               setTimeout(() => moveIndicator(items[0]), 50);
 
-              flow.querySelector(".qava-hiw-back").addEventListener("click", showChoices);
               window.__qavaHiwScheduleHeight?.();
             };
 
@@ -1587,10 +1617,8 @@
                 const flowKey = choiceData[idx] && choiceData[idx].flow;
                 if (flowKey && flowData[flowKey]) {
                   renderFlow(flowKey);
-                  choices.style.display = "none";
                   flow.classList.add("active");
                   window.__qavaHiwScheduleHeight?.();
-                  try { frameDoc.defaultView.scrollTo({ top: 0, behavior: "smooth" }); } catch (e) {}
                 }
               });
             });
