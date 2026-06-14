@@ -814,12 +814,13 @@
 
         try {
           await window.qavaNewsletterSubscribe({
-            firstName: [firstName, familyName].filter(Boolean).join(" "),
+            firstName,
             email,
             source: "newsletter-page",
             metadata: {
-              hearAbout: collectChecked("qava-nl-hear-about"),
-              succeedGoals: collectChecked("qava-nl-succeed"),
+              familyName: familyName || null,
+              topics: collectChecked("qava-nl-hear-about"),
+              goals: collectChecked("qava-nl-succeed"),
               location: location || null,
               phone: phone || null,
               frequency: getSelectedFrequency(),
