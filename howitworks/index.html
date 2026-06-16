@@ -387,6 +387,28 @@
           padding: 0 !important;
         }
 
+        .qava-hiw-hero-icon {
+          width: 124px !important;
+          height: 124px !important;
+          border-radius: 28px !important;
+          object-fit: cover !important;
+          display: block !important;
+          margin: 0 auto 26px auto !important;
+          box-shadow: 0 16px 50px rgba(20, 10, 22, 0.18) !important;
+          transform-style: preserve-3d;
+          backface-visibility: hidden;
+          will-change: transform;
+          animation: qavaHiwHeroFlip 2.4s linear infinite;
+        }
+
+        @keyframes qavaHiwHeroFlip {
+          0% { transform: perspective(900px) rotateY(-22deg) rotateZ(-1deg); }
+          25% { transform: perspective(900px) rotateY(0deg) rotateZ(0deg); }
+          50% { transform: perspective(900px) rotateY(22deg) rotateZ(1deg); }
+          75% { transform: perspective(900px) rotateY(0deg) rotateZ(0deg); }
+          100% { transform: perspective(900px) rotateY(-22deg) rotateZ(-1deg); }
+        }
+
         .hero-title {
           font-family: ${DISPLAY_FONT} !important;
           font-weight: 400 !important;
@@ -774,6 +796,69 @@
         .qava-hiw-join:hover {
           background: #000000;
           color: #ffffff;
+        }
+
+        .qava-hiw-tellmore {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          background: #2b2b2b;
+          color: #ffffff;
+          border: none;
+          border-radius: 6px;
+          padding: 6px 12px;
+          font-family: "Inter", sans-serif;
+          font-size: 13px;
+          font-weight: 400;
+          line-height: 1.2;
+          white-space: nowrap;
+          cursor: pointer;
+          transition: background 0.18s ease;
+        }
+
+        .qava-hiw-tellmore:hover {
+          background: #000000;
+        }
+
+        .qava-hiw-more {
+          background: #ffffff;
+          border-radius: 12px;
+          box-shadow: 0 1px 3px rgba(17, 24, 39, 0.06);
+          padding: 26px 28px;
+          margin-top: 16px;
+          text-align: left;
+        }
+
+        .qava-hiw-more[hidden] {
+          display: none;
+        }
+
+        .qava-hiw-more-text {
+          font-family: "Inter", sans-serif;
+          font-size: 15px;
+          font-weight: 300;
+          color: #111827;
+          line-height: 1.7;
+          margin: 0;
+        }
+
+        .qava-hiw-more-list {
+          margin: 12px 0;
+          padding-left: 20px;
+          list-style: disc;
+        }
+
+        .qava-hiw-more-list li {
+          font-size: 15px;
+          font-weight: 400;
+          color: #111827;
+          line-height: 1.7;
+        }
+
+        .qava-hiw-more-nav {
+          display: flex;
+          justify-content: flex-start;
+          margin-top: 20px;
         }
 
         .qava-hiw-continue {
@@ -1195,6 +1280,16 @@
         };
         updateHero(defaultHero.title, defaultHero.sub);
 
+        // Add the hero icon above the title, matching the landing page.
+        if (heroTitleEl && !frameDoc.getElementById("qava-hiw-hero-icon")) {
+          const heroIcon = frameDoc.createElement("img");
+          heroIcon.id = "qava-hiw-hero-icon";
+          heroIcon.className = "qava-hiw-hero-icon";
+          heroIcon.alt = "";
+          heroIcon.src = "/qava-hiw-hero-target.png";
+          heroTitleEl.parentNode.insertBefore(heroIcon, heroTitleEl);
+        }
+
         // Replace the old path-card grid with three selectable audience choices.
         if (!frameDoc.getElementById("qava-hiw-choices")) {
           const pathSelectionWrapper = frameDoc.querySelector(".path-selection-wrapper");
@@ -1209,6 +1304,7 @@
               work: {
                 heroTitle: "Your new work hub.",
                 heroSub: "Paid projects, real experience, on your terms.",
+                tellMore: "Finding work has never been easy — and in the age of AI and massive disruption, it's harder than ever. Our purpose, our mission, is to connect you with interesting projects and valuable work that help you earn extra income, stand out, and build real stories to tell. You'll gain real experience you can use for the rest of your career as you grow — as a leader, an architect of big ideas, a problem solver, a connector, and a networker.",
                 title: "What are your goals?",
                 sub: "Select a goal to see how Qava can help.",
                 items: [
@@ -1289,6 +1385,7 @@
               brainpower: {
                 heroTitle: "Where builders build.",
                 heroSub: "Sharp talent on demand, without the long hire.",
+                tellMore: "Running a business is not a linear exercise. When you need access to talent, you have to move fast — to brainstorm a problem, develop a strategy, and execute. Our whole purpose is to help you do exactly that: defining discrete goals, setting clear expectations around AI usage, and finding the people who are square pegs for square holes.",
                 title: "What are your goals?",
                 sub: "Select a goal to see how Qava can help.",
                 items: [
@@ -1369,6 +1466,7 @@
               team: {
                 heroTitle: "Your modern force.",
                 heroSub: "Build a cross-functional team around your challenge.",
+                tellMore: "This is all about assembling your master team — different specialties coming together around a common goal: to brainstorm and develop —<ul class='qava-hiw-more-list'><li>a work product</li><li>a product roadmap</li><li>a business plan</li><li>a financial model</li></ul>— so you can actually close out the task, instead of letting it sit on the back burner without the attention it deserves. There are a hundred ways to use this.",
                 title: "What are your goals?",
                 sub: "Select a goal to see how Qava can help.",
                 items: [
@@ -1493,7 +1591,13 @@
                   <div class="qava-hiw-content" role="tabpanel"></div>
                 </div>
                 <div class="qava-hiw-q-nav">
-                  <a href="https://app.qava.ai/" class="qava-hiw-join">Join for free</a>
+                  <button type="button" class="qava-hiw-tellmore">Tell me more</button>
+                </div>
+                <div class="qava-hiw-more" hidden>
+                  <div class="qava-hiw-more-text">${f.tellMore}</div>
+                  <div class="qava-hiw-more-nav">
+                    <a href="https://app.qava.ai/" class="qava-hiw-join">Join for free</a>
+                  </div>
                 </div>
               `;
 
@@ -1527,6 +1631,16 @@
               items.forEach((it, i) => it.addEventListener("click", () => selectItem(i)));
               selectItem(0);
               setTimeout(() => moveIndicator(items[0]), 50);
+
+              const tellMoreBtn = flow.querySelector(".qava-hiw-tellmore");
+              const moreBox = flow.querySelector(".qava-hiw-more");
+              if (tellMoreBtn && moreBox) {
+                tellMoreBtn.addEventListener("click", () => {
+                  moreBox.hidden = false;
+                  tellMoreBtn.style.display = "none";
+                  window.__qavaHiwScheduleHeight?.();
+                });
+              }
 
               window.__qavaHiwScheduleHeight?.();
             };
