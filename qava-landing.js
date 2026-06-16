@@ -700,6 +700,11 @@
                       talentMain.innerHTML = talentSteps[step] || signupStepHTML;
                       talentMain.classList.toggle("qava-main-fade", step === "explore");
                       talentMain.classList.remove("qava-dots-hidden");
+                      if (step === "explore") {
+                        talentMain.querySelectorAll(".qava-explore-row").forEach((row, i) => {
+                          row.style.animationDelay = (i * 0.06).toFixed(2) + "s";
+                        });
+                      }
                     });
                   });
                 }
