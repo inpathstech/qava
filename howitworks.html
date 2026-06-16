@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>How It Works | Qava</title>
   <style>
+    *, *::before, *::after { box-sizing: border-box; }
     html,
     body {
       margin: 0;
@@ -68,84 +69,10 @@
       z-index: 1;
     }
 
-    /* Match qava.ai landing page footer */
-    body:not(.qava-hiw-embed-mode) #qava-hiw-shell-footer.footer-section {
-      display: block;
-      position: relative;
-      background: #ffffff;
-      width: 100%;
-      max-width: 1070px;
-      margin: 50px auto 0 auto;
-      padding: 78px 0 46px 0;
-      border-top: 1px solid #EBEBEB;
-    }
-
-    #qava-hiw-shell-footer .footer-container {
-      max-width: 940px;
-      margin: 0 auto;
-      padding: 0 20px;
-      box-sizing: border-box;
-    }
-
-    #qava-hiw-shell-footer .footer-content { display: flex; flex-wrap: wrap; }
-    #qava-hiw-shell-footer .footer-logo { width: 39%; padding: 2px 15px 0 0; margin-bottom: 30px; }
-    #qava-hiw-shell-footer .footer-logo-img { width: 40px; height: auto; cursor: pointer; }
-    #qava-hiw-shell-footer .footer-links {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      width: 60%;
-      gap: 16px 25px;
-      padding: 0 15px 0 10px;
-    }
-    #qava-hiw-shell-footer .footer-column {
-      display: flex;
-      flex-direction: column;
-    }
-    #qava-hiw-shell-footer .footer-heading {
-      font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
-      font-weight: 400;
-      font-size: 17px;
-      letter-spacing: -0.012em;
-      color: #000000;
-      margin: 0 0 8px;
-    }
-    #qava-hiw-shell-footer .footer-link-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      margin: 0;
-      padding: 0;
-    }
-    #qava-hiw-shell-footer .footer-link-list li {
-      margin: 0;
-      padding: 0;
-    }
-    #qava-hiw-shell-footer .footer-link {
-      font-family: "Inter", sans-serif;
-      font-size: 13px;
-      font-weight: 300;
-      color: #797979;
-      text-decoration: none;
-      line-height: 1.2;
-      transition: text-decoration 0.2s ease;
-    }
-    #qava-hiw-shell-footer .footer-link:hover { text-decoration: underline; }
-    #qava-hiw-shell-footer .footer-copyright {
-      grid-column: 1 / -1;
-      margin-top: 14px;
-      font-family: "Inter", sans-serif;
-      font-size: 13px;
-      font-weight: 300;
-      color: #797979;
-    }
-
-    @media (max-width: 860px) {
-      #qava-hiw-shell-footer .footer-logo,
-      #qava-hiw-shell-footer .footer-links { width: 100%; }
-      #qava-hiw-shell-footer .footer-links { grid-template-columns: repeat(2, 1fr); }
-      #qava-hiw-shell-footer .footer-container { max-width: none; width: calc(100vw - 40px); padding: 0 20px; }
-    }
+    /* Footer styling comes entirely from qava-footer.js (applyQavaFooter),
+       the exact same source as the qava.ai landing page, so the two stay
+       identical. Only shell-specific concerns (dots, embed hiding, layering)
+       are handled above. */
   </style>
 </head>
 <body>
@@ -446,6 +373,7 @@
           min-height: 0 !important;
           height: auto !important;
           align-items: center !important;
+          transition: none !important;
         }
 
         .path-columns-wrapper {
