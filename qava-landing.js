@@ -239,7 +239,7 @@
                 </div>
               </a>
               <a class="qava-blog-card" href="https://qava.ai/liquidskateboard">
-                <img class="qava-blog-thumb" src="./qava-blog-4.png" alt="" />
+                <img class="qava-blog-thumb" src="./liquidskateboard-card.png" alt="" />
                 <div class="qava-blog-body">
                   <div class="qava-blog-tag">Product</div>
                   <div class="qava-blog-title">Finding Flow On and Off the Board</div>
