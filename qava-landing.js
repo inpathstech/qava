@@ -289,6 +289,21 @@
             viewAllLink.textContent = "View all";
             blogActions.appendChild(viewAllLink);
             blogRow.insertAdjacentElement("afterend", blogActions);
+
+            blogRow.querySelectorAll(".qava-blog-card").forEach((card) => {
+              const thumb = card.querySelector(".qava-blog-thumb");
+              if (!thumb) {
+                card.classList.add("is-loaded");
+                return;
+              }
+              const markLoaded = () => card.classList.add("is-loaded");
+              if (thumb.complete && thumb.naturalWidth > 0) {
+                markLoaded();
+              } else {
+                thumb.addEventListener("load", markLoaded, { once: true });
+                thumb.addEventListener("error", markLoaded, { once: true });
+              }
+            });
           }
 
           if (showcaseBox && !doc.getElementById("qava-showcase-dynamic-content")) {
