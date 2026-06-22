@@ -232,34 +232,50 @@
             blogRow.innerHTML = `
               <a class="qava-blog-card" href="https://qava.ai/therisegroup">
                 <img class="qava-blog-thumb" src="./qava-blog-1.png" alt="" />
-                <div class="qava-blog-body">
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
                   <div class="qava-blog-tag">Creator economy</div>
                   <div class="qava-blog-title">An Agency's Rise to the Top</div>
-                  <span class="qava-blog-read">Read ${blogReadArrow}</span>
+                  <div class="qava-blog-more">
+                    <div class="qava-blog-excerpt">How an ambitious agency climbed to the top of its field.</div>
+                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
+                  </div>
                 </div>
               </a>
               <a class="qava-blog-card" href="https://qava.ai/liquidskateboard">
                 <img class="qava-blog-thumb" src="./liquidskateboard-card.png" alt="" />
-                <div class="qava-blog-body">
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
                   <div class="qava-blog-tag">Product</div>
                   <div class="qava-blog-title">Finding Flow On and Off the Board</div>
-                  <span class="qava-blog-read">Read ${blogReadArrow}</span>
+                  <div class="qava-blog-more">
+                    <div class="qava-blog-excerpt">The story behind an electric board built around natural motion.</div>
+                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
+                  </div>
                 </div>
               </a>
               <a class="qava-blog-card" href="https://qava.ai/noonesark">
                 <img class="qava-blog-thumb" src="./qava-blog-3.png" alt="" />
-                <div class="qava-blog-body">
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
                   <div class="qava-blog-tag">Non-profit</div>
                   <div class="qava-blog-title">Pirates of the Planet</div>
-                  <span class="qava-blog-read">Read ${blogReadArrow}</span>
+                  <div class="qava-blog-more">
+                    <div class="qava-blog-excerpt">A bold mission to protect the planet's future.</div>
+                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
+                  </div>
                 </div>
               </a>
               <a class="qava-blog-card" href="https://qava.ai/attentioncapital">
                 <img class="qava-blog-thumb" src="./anti-fund.png" alt="Anti Fund" />
-                <div class="qava-blog-body">
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
                   <div class="qava-blog-tag">Venture Capital</div>
                   <div class="qava-blog-title">Attention Has Become More Valuable Than Capital</div>
-                  <span class="qava-blog-read">Read ${blogReadArrow}</span>
+                  <div class="qava-blog-more">
+                    <div class="qava-blog-excerpt">Why distribution, not money, is becoming the real moat.</div>
+                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
+                  </div>
                 </div>
               </a>
             `;
