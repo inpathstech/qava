@@ -1552,10 +1552,10 @@
         .qava-blog-card {
           position: relative;
           display: block;
-          aspect-ratio: 3 / 4;
+          aspect-ratio: 1 / 1;
           background: #1a1a1a;
           border: none;
-          border-radius: 14px;
+          border-radius: 8px;
           overflow: hidden;
           box-shadow: 0 6px 20px rgba(15, 23, 42, 0.12);
           text-align: left;
@@ -1578,11 +1578,6 @@
           object-fit: cover;
           display: block;
           z-index: 0;
-          transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        .qava-blog-card:hover .qava-blog-thumb {
-          transform: scale(1.06);
         }
 
         .qava-blog-scrim {
@@ -1600,7 +1595,7 @@
           bottom: 12px;
           z-index: 2;
           padding: 14px 16px;
-          border-radius: 12px;
+          border-radius: 6px;
           background: rgba(20, 20, 22, 0.30);
           -webkit-backdrop-filter: blur(16px) saturate(150%);
           backdrop-filter: blur(16px) saturate(150%);
@@ -1754,7 +1749,7 @@
 
           .qava-blog-card {
             aspect-ratio: 4 / 5;
-            border-radius: 14px;
+            border-radius: 8px;
           }
 
           .qava-blog-card:hover {
