@@ -65,6 +65,10 @@ jobs:
           --content-type "text/html" \
           --cache-control "max-age=3600"
 
+        aws s3 cp attentioncapital.html s3://${{ secrets.S3_BUCKET_NAME }}/attentioncapital.html \
+          --content-type "text/html" \
+          --cache-control "max-age=3600"
+
         aws s3 cp aiphilosophy.html s3://${{ secrets.S3_BUCKET_NAME }}/aiphilosophy.html \
           --content-type "text/html" \
           --cache-control "max-age=3600"

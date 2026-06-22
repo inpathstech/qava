@@ -254,11 +254,11 @@
                   <span class="qava-blog-read">Read ${blogReadArrow}</span>
                 </div>
               </a>
-              <a class="qava-blog-card" href="https://qava.ai/mmento">
-                <img class="qava-blog-thumb" src="./Kristina%20Boxer%20Profile%20Photo.png" alt="Kristina Boxer" />
+              <a class="qava-blog-card" href="https://qava.ai/attentioncapital">
+                <img class="qava-blog-thumb" src="./anti-fund.png" alt="Anti Fund" />
                 <div class="qava-blog-body">
-                  <div class="qava-blog-tag">Consumer tech</div>
-                  <div class="qava-blog-title">Showing up when it matters</div>
+                  <div class="qava-blog-tag">Venture Capital</div>
+                  <div class="qava-blog-title">Attention Has Become More Valuable Than Capital</div>
                   <span class="qava-blog-read">Read ${blogReadArrow}</span>
                 </div>
               </a>
