@@ -1048,12 +1048,11 @@
                       <div class="qava-signup-sections">
                         <article class="qava-signup-question">
                           <h4>What brings you here?</h4>
-                          <p class="qava-signup-qsub">What are you hoping to accomplish</p>
                           <div class="qava-signup-chips">
-                            <span class="qava-signup-chip">🔍 Find project talent</span>
+                            <span class="qava-signup-chip is-selected">🔍 Find project talent</span>
                             <span class="qava-signup-chip">🎓 Access MBA talent</span>
-                            <span class="qava-signup-chip">🧠 Fresh perspectives</span>
-                            <span class="qava-signup-chip">⚡ Accelerate a project</span>
+                            <span class="qava-signup-chip is-selected">🧠 Fresh perspectives</span>
+                            <span class="qava-signup-chip is-selected">⚡ Accelerate a project</span>
                             <span class="qava-signup-chip">🧩 Solve a challenge</span>
                             <span class="qava-signup-chip">💡 Test new ideas</span>
                             <span class="qava-signup-chip">🧰 Fill skill gaps</span>
@@ -1068,7 +1067,6 @@
 
                         <article class="qava-signup-question">
                           <h4>What's the name of your organization?</h4>
-                          <p class="qava-signup-qsub">No worries if you're still working on it</p>
                           <input class="qava-client-input" type="text" placeholder="Stealth mode" disabled />
                           <div class="qava-signup-checklist" style="flex-direction: row; flex-wrap: nowrap; gap: 18px; margin-top: 10px;">
                             <label class="qava-signup-group-check"><input type="checkbox" checked disabled><span>🥷 I'm in stealth mode</span></label>
@@ -1078,25 +1076,24 @@
 
                         <article class="qava-signup-question">
                           <h4>What best describes your organization?</h4>
-                          <p class="qava-signup-qsub">You can change or edit these later too</p>
                           <div class="qava-signup-chips">
                             <span class="qava-signup-chip">📌 Agency</span>
-                            <span class="qava-signup-chip">🤖 Artificial Intelligence</span>
+                            <span class="qava-signup-chip is-selected">🤖 Artificial Intelligence</span>
                             <span class="qava-signup-chip">♻️ B Corp Certified</span>
                             <span class="qava-signup-chip">🖤 Black led or owned</span>
                             <span class="qava-signup-chip">🛒 Direct-to-Consumer</span>
                             <span class="qava-signup-chip">💥 Disruptor</span>
                             <span class="qava-signup-chip">💵 FinTech</span>
-                            <span class="qava-signup-chip">📈 High Growth</span>
+                            <span class="qava-signup-chip is-selected">📈 High Growth</span>
                             <span class="qava-signup-chip">🪅 Hispanic led or owned</span>
                             <span class="qava-signup-chip">🪶 Indigenous led or owned</span>
                             <span class="qava-signup-chip">🏢 Large Enterprise</span>
                             <span class="qava-signup-chip">🧘 Lifestyle</span>
                             <span class="qava-signup-chip">🏳️‍🌈 LGBTQ+ led or owned</span>
-                            <span class="qava-signup-chip">💻 SaaS</span>
+                            <span class="qava-signup-chip is-selected">💻 SaaS</span>
                             <span class="qava-signup-chip">🧑‍💼 Services</span>
                             <span class="qava-signup-chip">🌍 Social Impact</span>
-                            <span class="qava-signup-chip">🚀 Startups</span>
+                            <span class="qava-signup-chip is-selected">🚀 Startups</span>
                             <span class="qava-signup-chip">🔁 Subscription-Based</span>
                             <span class="qava-signup-chip">🌳 Sustainable</span>
                             <span class="qava-signup-chip">🦄 Tech Unicorns</span>
@@ -1277,7 +1274,7 @@
               const reviewApplicants = [
                 {
                   name: "Mateo Rivera",
-                  badge: "Pending decision",
+                  badge: "Shortlisted",
                   available: "19 May 2026",
                   coverLetter: [
                     "What excites me most about this opportunity is the chance to contribute to an innovative startup that is redefining how cat owners approach pet health and well-being. As a lifelong cat owner, I am especially drawn to the mission-driven aspect of the role and the chance to create content that educates and supports pet owners.",
@@ -1291,7 +1288,7 @@
                 },
                 {
                   name: "Priya Anand",
-                  badge: "Pending decision",
+                  badge: "Shortlisted",
                   available: "2 Jun 2026",
                   coverLetter: [
                     "I have spent the last three years turning messy consumer data into clear product decisions, and a pet health startup is exactly where I want to apply that lens next. Understanding how owners actually care for their cats — and where they get stuck — is a problem I find genuinely fascinating.",
@@ -1305,7 +1302,7 @@
                 },
                 {
                   name: "Liam O'Connor",
-                  badge: "Pending decision",
+                  badge: "Shortlisted",
                   available: "26 May 2026",
                   coverLetter: [
                     "Growth marketing for early-stage D2C brands is what gets me out of bed, and the pet wellness space is one of the most loyal, community-driven categories out there. I am excited by the idea of building a brand that cat owners genuinely trust.",
@@ -1319,7 +1316,7 @@
                 },
                 {
                   name: "Sofia Marchetti",
-                  badge: "Pending decision",
+                  badge: "Shortlisted",
                   available: "9 Jun 2026",
                   coverLetter: [
                     "Coming from strategy consulting in healthcare, I have seen how powerful clear positioning can be for a mission-led company. A startup focused on cat health sits at the intersection of two things I care about deeply: wellbeing and thoughtful brand building.",
