@@ -1032,6 +1032,152 @@
       margin-top: 14px;
     }
 
+    /* ---------- Manage / cancel membership ---------- */
+    .pcancel-trigger {
+      margin-top: 22px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.5);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: rgba(255, 255, 255, 0.28);
+      transition: color 0.15s ease, text-decoration-color 0.15s ease;
+    }
+
+    .pcancel-trigger:hover {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration-color: rgba(255, 255, 255, 0.6);
+    }
+
+    .pcancel-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(17, 24, 39, 0.42);
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+    }
+
+    .pcancel-overlay.is-open { display: flex; animation: pcancelFade 0.2s ease; }
+
+    @keyframes pcancelFade { from { opacity: 0; } to { opacity: 1; } }
+
+    .pcancel-modal {
+      position: relative;
+      width: 100%;
+      max-width: 440px;
+      background: #ffffff;
+      border: 1px solid var(--hairline);
+      border-radius: 12px;
+      padding: 40px 34px 30px;
+      box-shadow: 0 32px 70px rgba(17, 24, 39, 0.24), 0 4px 14px rgba(17, 24, 39, 0.10);
+      animation: pcoFieldIn 0.24s ease;
+    }
+
+    .pcancel-close {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      width: 30px;
+      height: 30px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 24px;
+      line-height: 1;
+      color: #9ca3af;
+      transition: color 0.15s ease;
+    }
+
+    .pcancel-close:hover { color: #111827; }
+
+    .pcancel-title {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(22px, 2.4vw, 27px);
+      letter-spacing: -0.012em;
+      line-height: 1.15;
+      color: var(--ink);
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .pcancel-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.55;
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .pcancel-submit {
+      width: 100%;
+      margin-top: 6px;
+      padding: 13px 16px;
+      background: #111827;
+      color: #ffffff;
+      border: none;
+      border-radius: 7px;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 1px 3px rgba(17, 24, 39, 0.28);
+    }
+
+    .pcancel-submit:hover { background: #000000; box-shadow: 0 6px 16px rgba(17, 24, 39, 0.30); }
+    .pcancel-submit:disabled { opacity: 0.7; cursor: wait; }
+
+    .pcancel-keep {
+      display: block;
+      width: 100%;
+      margin-top: 12px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--muted);
+      text-align: center;
+      transition: color 0.15s ease;
+    }
+
+    .pcancel-keep:hover { color: var(--ink); }
+
+    .pcancel-eyebrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .pcancel-eyebrow::before,
+    .pcancel-eyebrow::after {
+      content: "";
+      width: 22px;
+      height: 1px;
+      background: rgba(17, 24, 39, 0.22);
+    }
+
     @media (max-width: 940px) {
       .premium-tgrid { grid-template-columns: repeat(2, 1fr); }
       .premium-layout {
@@ -1349,8 +1495,37 @@
      <p>Join the ambitious people building careers and companies faster on Qava.</p>
      <a href="#premium-checkout" class="premium-cta" id="premium-start-bottom">Get Premium Plus</a>
      <p class="premium-final-note">$6.99/month · Cancel anytime</p>
+     <button type="button" class="pcancel-trigger" id="pcancel-open">Already a member? Manage or cancel your membership</button>
    </section>
   </main>
+
+  <div class="pcancel-overlay" id="pcancel-overlay" aria-hidden="true">
+    <div class="pcancel-modal" role="dialog" aria-modal="true" aria-labelledby="pcancel-title">
+      <button type="button" class="pcancel-close" id="pcancel-close" aria-label="Close">&times;</button>
+
+      <div id="pcancel-form-view">
+        <p class="pcancel-eyebrow">Membership</p>
+        <h2 class="pcancel-title" id="pcancel-title">Cancel your membership</h2>
+        <p class="pcancel-sub">Enter the email you subscribed with. You'll keep full Premium Plus access until the end of your current billing period — you won't be charged again after that.</p>
+        <form id="pcancel-form" novalidate>
+          <div class="pco-field">
+            <label class="pco-label" for="pcancel-email">Email</label>
+            <input type="email" class="pco-input" id="pcancel-email" placeholder="you@email.com" autocomplete="email" required />
+          </div>
+          <button type="submit" class="pcancel-submit" id="pcancel-submit">Cancel membership</button>
+          <p class="pco-error" id="pcancel-error" role="alert"></p>
+          <button type="button" class="pcancel-keep" id="pcancel-keep">Never mind — keep my membership</button>
+        </form>
+      </div>
+
+      <div id="pcancel-success-view" style="display: none;">
+        <p class="pcancel-eyebrow">Membership</p>
+        <h2 class="pcancel-title">Your membership is set to cancel</h2>
+        <p class="pcancel-sub" id="pcancel-success-text">You'll keep full Premium Plus access until the end of your current billing period. After that, you won't be charged again.</p>
+        <button type="button" class="pcancel-submit" id="pcancel-done">Done</button>
+      </div>
+    </div>
+  </div>
 
   <footer class="footer-section"></footer>
 
@@ -1653,6 +1828,97 @@
           showError(err && err.message ? err.message : "Payment could not be completed. Please try again.");
           submitBtn.disabled = false;
           submitBtn.textContent = original;
+        }
+      });
+    })();
+  </script>
+  <script>
+    (function () {
+      var API = "https://api.qava.ai/api";
+      var overlay = document.getElementById("pcancel-overlay");
+      if (!overlay) return;
+
+      var openBtn = document.getElementById("pcancel-open");
+      var closeBtn = document.getElementById("pcancel-close");
+      var keepBtn = document.getElementById("pcancel-keep");
+      var doneBtn = document.getElementById("pcancel-done");
+      var form = document.getElementById("pcancel-form");
+      var emailEl = document.getElementById("pcancel-email");
+      var submitBtn = document.getElementById("pcancel-submit");
+      var errorEl = document.getElementById("pcancel-error");
+      var formView = document.getElementById("pcancel-form-view");
+      var successView = document.getElementById("pcancel-success-view");
+      var successText = document.getElementById("pcancel-success-text");
+
+      function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+      function showError(msg) { errorEl.textContent = msg; errorEl.style.display = "block"; }
+
+      function resetView() {
+        formView.style.display = "block";
+        successView.style.display = "none";
+        errorEl.style.display = "none";
+        errorEl.textContent = "";
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Cancel membership";
+      }
+
+      function openModal() {
+        resetView();
+        overlay.classList.add("is-open");
+        overlay.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        try { emailEl.focus(); } catch (e) {}
+      }
+
+      function closeModal() {
+        overlay.classList.remove("is-open");
+        overlay.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+      }
+
+      if (openBtn) openBtn.addEventListener("click", function (e) { e.preventDefault(); openModal(); });
+      if (closeBtn) closeBtn.addEventListener("click", closeModal);
+      if (keepBtn) keepBtn.addEventListener("click", closeModal);
+      if (doneBtn) doneBtn.addEventListener("click", closeModal);
+      overlay.addEventListener("click", function (e) { if (e.target === overlay) closeModal(); });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && overlay.classList.contains("is-open")) closeModal();
+      });
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        errorEl.style.display = "none";
+        var email = (emailEl.value || "").trim();
+        if (!isValidEmail(email)) { showError("Please enter the email you subscribed with."); emailEl.focus(); return; }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Cancelling…";
+        try {
+          var res = await fetch(API + "/subscription/cancel", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: email })
+          });
+          var data = await res.json();
+          if (!res.ok || data.status === false) {
+            throw new Error((data && (data.message || data.error)) || "We couldn't cancel your membership. Please try again.");
+          }
+
+          var when = "";
+          if (data.currentPeriodEnd) {
+            try {
+              when = new Date(data.currentPeriodEnd).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+            } catch (ignore) {}
+          }
+          successText.textContent = when
+            ? "You'll keep full Premium Plus access until " + when + ". After that, you won't be charged again."
+            : "You'll keep full Premium Plus access until the end of your current billing period. After that, you won't be charged again.";
+          formView.style.display = "none";
+          successView.style.display = "block";
+        } catch (err) {
+          showError(err && err.message ? err.message : "We couldn't cancel your membership. Please try again.");
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Cancel membership";
         }
       });
     })();
