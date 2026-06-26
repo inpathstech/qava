@@ -761,7 +761,20 @@
         const newsletterNav = Array.from(frameDoc.querySelectorAll(".navigation a.nav-item")).find((a) =>
           (a.textContent || "").trim().toLowerCase() === "newsletter"
         );
-        if (newsletterNav) newsletterNav.href = "https://qava.ai/newsletter";
+        if (newsletterNav) {
+          newsletterNav.href = "https://qava.ai/newsletter";
+          const qavaNavRow = newsletterNav.parentElement;
+          const qavaHasPremium = qavaNavRow && Array.from(qavaNavRow.querySelectorAll("a.nav-item")).some(
+            (a) => (a.textContent || "").trim().toLowerCase() === "premium"
+          );
+          if (!qavaHasPremium) {
+            const premiumNav = newsletterNav.cloneNode(true);
+            premiumNav.href = "https://qava.ai/premium";
+            const premiumText = premiumNav.querySelector(".nav-text") || premiumNav;
+            premiumText.textContent = "Premium";
+            newsletterNav.insertAdjacentElement("afterend", premiumNav);
+          }
+        }
 
         const pricingNav = Array.from(frameDoc.querySelectorAll(".navigation a.nav-item, .mobile-nav-item")).filter((a) =>
           (a.textContent || "").trim().toLowerCase() === "pricing"
