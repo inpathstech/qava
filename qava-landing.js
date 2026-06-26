@@ -319,12 +319,13 @@
                 dynamicContent.innerHTML = `
                   <div class="qava-showcase-layout">
                     <aside class="qava-showcase-side-menu" id="qava-talent-side-menu">
+                      <p class="qava-side-menu-title">Steps</p>
                       <span class="qava-side-menu-indicator" id="qava-talent-menu-indicator"></span>
-                      <button type="button" class="qava-side-menu-item active" data-step="signup">Join for free</button>
-                      <button type="button" class="qava-side-menu-item" data-step="explore">Explore</button>
-                      <button type="button" class="qava-side-menu-item" data-step="apply">Apply</button>
-                      <button type="button" class="qava-side-menu-item" data-step="work">Work</button>
-                      <button type="button" class="qava-side-menu-item" data-step="getpaid">Paid fast</button>
+                      <button type="button" class="qava-side-menu-item active" data-step="signup"><span class="qava-side-menu-num">1</span>Join</button>
+                      <button type="button" class="qava-side-menu-item" data-step="explore"><span class="qava-side-menu-num">2</span>Explore</button>
+                      <button type="button" class="qava-side-menu-item" data-step="apply"><span class="qava-side-menu-num">3</span>Apply</button>
+                      <button type="button" class="qava-side-menu-item" data-step="work"><span class="qava-side-menu-num">4</span>Work</button>
+                      <button type="button" class="qava-side-menu-item" data-step="getpaid"><span class="qava-side-menu-num">5</span>Paid fast</button>
                     </aside>
                     <section class="qava-showcase-main" id="qava-talent-main">
                       <div class="qava-signup-illustration qava-signup-static" aria-label="Sign-up form preview illustration">
@@ -754,10 +755,11 @@
                 dynamicContent.innerHTML = `
                   <div class="qava-showcase-layout">
                     <aside class="qava-showcase-side-menu" id="qava-team-side-menu">
+                      <p class="qava-side-menu-title">Steps</p>
                       <span class="qava-side-menu-indicator" id="qava-team-menu-indicator"></span>
-                      <button type="button" class="qava-side-menu-item active" data-step="design">Design team</button>
-                      <button type="button" class="qava-side-menu-item" data-step="deliverables">Deliverables</button>
-                      <button type="button" class="qava-side-menu-item" data-step="timeframe">Timeframe</button>
+                      <button type="button" class="qava-side-menu-item active" data-step="design"><span class="qava-side-menu-num">1</span>Design team</button>
+                      <button type="button" class="qava-side-menu-item" data-step="deliverables"><span class="qava-side-menu-num">2</span>Deliverables</button>
+                      <button type="button" class="qava-side-menu-item" data-step="timeframe"><span class="qava-side-menu-num">3</span>Timeframe</button>
                     </aside>
                     <section class="qava-showcase-main" id="qava-team-main">
                       <div class="qava-signup-illustration" aria-label="Design team preview illustration">
@@ -1029,12 +1031,13 @@
               dynamicContent.innerHTML = `
                 <div class="qava-showcase-layout">
                   <aside class="qava-showcase-side-menu" id="qava-client-side-menu">
+                    <p class="qava-side-menu-title">Steps</p>
                     <span class="qava-side-menu-indicator" id="qava-client-menu-indicator"></span>
-                    <button type="button" class="qava-side-menu-item active" data-step="signup">Join for free</button>
-                    <button type="button" class="qava-side-menu-item" data-step="post">Create listing</button>
-                    <button type="button" class="qava-side-menu-item" data-step="review">Pick talent</button>
-                    <button type="button" class="qava-side-menu-item" data-step="collaborate">Collaborate</button>
-                    <button type="button" class="qava-side-menu-item" data-step="pay">Feedback</button>
+                    <button type="button" class="qava-side-menu-item active" data-step="signup"><span class="qava-side-menu-num">1</span>Join</button>
+                    <button type="button" class="qava-side-menu-item" data-step="post"><span class="qava-side-menu-num">2</span>Create listing</button>
+                    <button type="button" class="qava-side-menu-item" data-step="review"><span class="qava-side-menu-num">3</span>Pick talent</button>
+                    <button type="button" class="qava-side-menu-item" data-step="collaborate"><span class="qava-side-menu-num">4</span>Collaborate</button>
+                    <button type="button" class="qava-side-menu-item" data-step="pay"><span class="qava-side-menu-num">5</span>Feedback</button>
                   </aside>
                   <section class="qava-showcase-main" id="qava-client-main">
                     <div class="qava-signup-illustration" aria-label="Client sign-up form preview illustration">
