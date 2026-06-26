@@ -1178,6 +1178,40 @@
       background: rgba(17, 24, 39, 0.22);
     }
 
+    .pcancel-reasons {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 14px;
+      text-align: left;
+    }
+
+    .pcancel-reason {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 8px 0;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .pcancel-reason:hover .pco-check-box { border-color: rgba(17, 24, 39, 0.4); }
+
+    .pcancel-reason-label {
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: #374151;
+    }
+
+    .pcancel-textarea {
+      height: auto;
+      min-height: 76px;
+      padding: 11px 12px;
+      line-height: 1.5;
+      resize: vertical;
+      margin-bottom: 4px;
+    }
+
     @media (max-width: 940px) {
       .premium-tgrid { grid-template-columns: repeat(2, 1fr); }
       .premium-layout {
@@ -1512,10 +1546,46 @@
             <label class="pco-label" for="pcancel-email">Email</label>
             <input type="email" class="pco-input" id="pcancel-email" placeholder="you@email.com" autocomplete="email" required />
           </div>
-          <button type="submit" class="pcancel-submit" id="pcancel-submit">Cancel membership</button>
+          <button type="submit" class="pcancel-submit" id="pcancel-submit">Continue</button>
           <p class="pco-error" id="pcancel-error" role="alert"></p>
           <button type="button" class="pcancel-keep" id="pcancel-keep">Never mind — keep my membership</button>
         </form>
+      </div>
+
+      <div id="pcancel-reason-view" style="display: none;">
+        <p class="pcancel-eyebrow">Before you go</p>
+        <h2 class="pcancel-title">Mind sharing why?</h2>
+        <p class="pcancel-sub">It's optional, but your feedback genuinely helps us make Qava better.</p>
+        <div class="pcancel-reasons" id="pcancel-reasons">
+          <span class="pcancel-reason" data-reason="too_expensive" role="checkbox" aria-checked="false" tabindex="0">
+            <span class="pco-check-box"><svg width="11" height="9" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="pcancel-reason-label">It's too expensive</span>
+          </span>
+          <span class="pcancel-reason" data-reason="unused" role="checkbox" aria-checked="false" tabindex="0">
+            <span class="pco-check-box"><svg width="11" height="9" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="pcancel-reason-label">I'm not using it enough</span>
+          </span>
+          <span class="pcancel-reason" data-reason="missing_features" role="checkbox" aria-checked="false" tabindex="0">
+            <span class="pco-check-box"><svg width="11" height="9" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="pcancel-reason-label">It's missing features I need</span>
+          </span>
+          <span class="pcancel-reason" data-reason="switched_service" role="checkbox" aria-checked="false" tabindex="0">
+            <span class="pco-check-box"><svg width="11" height="9" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="pcancel-reason-label">I found a better alternative</span>
+          </span>
+          <span class="pcancel-reason" data-reason="low_quality" role="checkbox" aria-checked="false" tabindex="0">
+            <span class="pco-check-box"><svg width="11" height="9" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="pcancel-reason-label">I ran into bugs or issues</span>
+          </span>
+          <span class="pcancel-reason" data-reason="other" role="checkbox" aria-checked="false" tabindex="0">
+            <span class="pco-check-box"><svg width="11" height="9" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="pcancel-reason-label">Something else</span>
+          </span>
+        </div>
+        <textarea class="pco-input pcancel-textarea" id="pcancel-feedback" placeholder="Help us. How can we be better?"></textarea>
+        <button type="button" class="pcancel-submit" id="pcancel-confirm">Cancel my membership</button>
+        <p class="pco-error" id="pcancel-error2" role="alert"></p>
+        <button type="button" class="pcancel-keep" id="pcancel-keep2">Never mind — keep my membership</button>
       </div>
 
       <div id="pcancel-success-view" style="display: none;">
@@ -1840,30 +1910,45 @@
 
       var openBtn = document.getElementById("pcancel-open");
       var closeBtn = document.getElementById("pcancel-close");
-      var keepBtn = document.getElementById("pcancel-keep");
       var doneBtn = document.getElementById("pcancel-done");
       var form = document.getElementById("pcancel-form");
       var emailEl = document.getElementById("pcancel-email");
       var submitBtn = document.getElementById("pcancel-submit");
       var errorEl = document.getElementById("pcancel-error");
+      var error2El = document.getElementById("pcancel-error2");
+      var confirmBtn = document.getElementById("pcancel-confirm");
+      var feedbackEl = document.getElementById("pcancel-feedback");
+      var reasonsWrap = document.getElementById("pcancel-reasons");
       var formView = document.getElementById("pcancel-form-view");
+      var reasonView = document.getElementById("pcancel-reason-view");
       var successView = document.getElementById("pcancel-success-view");
       var successText = document.getElementById("pcancel-success-text");
+      var keepBtns = [document.getElementById("pcancel-keep"), document.getElementById("pcancel-keep2")];
 
       function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
-      function showError(msg) { errorEl.textContent = msg; errorEl.style.display = "block"; }
 
-      function resetView() {
-        formView.style.display = "block";
-        successView.style.display = "none";
-        errorEl.style.display = "none";
-        errorEl.textContent = "";
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Cancel membership";
+      function showStep(step) {
+        formView.style.display = step === "form" ? "block" : "none";
+        reasonView.style.display = step === "reason" ? "block" : "none";
+        successView.style.display = step === "success" ? "block" : "none";
+      }
+
+      function resetModal() {
+        showStep("form");
+        errorEl.style.display = "none"; errorEl.textContent = "";
+        error2El.style.display = "none"; error2El.textContent = "";
+        submitBtn.disabled = false; submitBtn.textContent = "Continue";
+        confirmBtn.disabled = false; confirmBtn.textContent = "Cancel my membership";
+        if (feedbackEl) feedbackEl.value = "";
+        Array.prototype.forEach.call(reasonsWrap.querySelectorAll(".pcancel-reason"), function (r) {
+          r.setAttribute("aria-checked", "false");
+          var box = r.querySelector(".pco-check-box");
+          if (box) box.classList.remove("checked");
+        });
       }
 
       function openModal() {
-        resetView();
+        resetModal();
         overlay.classList.add("is-open");
         overlay.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
@@ -1878,26 +1963,56 @@
 
       if (openBtn) openBtn.addEventListener("click", function (e) { e.preventDefault(); openModal(); });
       if (closeBtn) closeBtn.addEventListener("click", closeModal);
-      if (keepBtn) keepBtn.addEventListener("click", closeModal);
+      keepBtns.forEach(function (b) { if (b) b.addEventListener("click", closeModal); });
       if (doneBtn) doneBtn.addEventListener("click", closeModal);
       overlay.addEventListener("click", function (e) { if (e.target === overlay) closeModal(); });
       document.addEventListener("keydown", function (e) {
         if (e.key === "Escape" && overlay.classList.contains("is-open")) closeModal();
       });
 
-      form.addEventListener("submit", async function (e) {
+      function toggleReason(row) {
+        var box = row.querySelector(".pco-check-box");
+        var on = box.classList.toggle("checked");
+        row.setAttribute("aria-checked", on ? "true" : "false");
+      }
+      Array.prototype.forEach.call(reasonsWrap.querySelectorAll(".pcancel-reason"), function (row) {
+        row.addEventListener("click", function () { toggleReason(row); });
+        row.addEventListener("keydown", function (e) {
+          if (e.key === " " || e.key === "Enter") { e.preventDefault(); toggleReason(row); }
+        });
+      });
+
+      // Step 1: validate email, then ask why.
+      form.addEventListener("submit", function (e) {
         e.preventDefault();
         errorEl.style.display = "none";
         var email = (emailEl.value || "").trim();
-        if (!isValidEmail(email)) { showError("Please enter the email you subscribed with."); emailEl.focus(); return; }
+        if (!isValidEmail(email)) {
+          errorEl.textContent = "Please enter the email you subscribed with.";
+          errorEl.style.display = "block";
+          emailEl.focus();
+          return;
+        }
+        showStep("reason");
+      });
 
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Cancelling…";
+      // Step 2: collect reason + feedback, then cancel.
+      confirmBtn.addEventListener("click", async function () {
+        error2El.style.display = "none";
+        var email = (emailEl.value || "").trim();
+        var reasons = Array.prototype.map.call(
+          reasonsWrap.querySelectorAll(".pcancel-reason[aria-checked='true']"),
+          function (r) { return r.getAttribute("data-reason"); }
+        );
+        var feedback = (feedbackEl && feedbackEl.value || "").trim();
+
+        confirmBtn.disabled = true;
+        confirmBtn.textContent = "Cancelling…";
         try {
           var res = await fetch(API + "/subscription/cancel", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email: email })
+            body: JSON.stringify({ email: email, reasons: reasons, feedback: feedback || undefined })
           });
           var data = await res.json();
           if (!res.ok || data.status === false) {
@@ -1913,12 +2028,12 @@
           successText.textContent = when
             ? "You'll keep full Premium Plus access until " + when + ". After that, you won't be charged again."
             : "You'll keep full Premium Plus access until the end of your current billing period. After that, you won't be charged again.";
-          formView.style.display = "none";
-          successView.style.display = "block";
+          showStep("success");
         } catch (err) {
-          showError(err && err.message ? err.message : "We couldn't cancel your membership. Please try again.");
-          submitBtn.disabled = false;
-          submitBtn.textContent = "Cancel membership";
+          error2El.textContent = err && err.message ? err.message : "We couldn't cancel your membership. Please try again.";
+          error2El.style.display = "block";
+          confirmBtn.disabled = false;
+          confirmBtn.textContent = "Cancel my membership";
         }
       });
     })();
