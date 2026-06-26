@@ -3,7 +3,7 @@
     <div class="footer-container">
       <div class="footer-content">
         <div class="footer-logo">
-          <a href="https://qava.ai/"><img src="/qava-logo.svg" alt="Qava" class="footer-logo-img" /></a>
+          <a href="https://qava.ai/"><img src="https://qava.ai/qava-logo.svg" alt="Qava" class="footer-logo-img" /></a>
         </div>
         <div class="footer-links">
           <div class="footer-column">
@@ -13,6 +13,8 @@
               <li><a href="https://app.qava.ai/projects" class="footer-link">Find work</a></li>
               <li><a href="https://qava.ai/howitworks" class="footer-link">How it works</a></li>
               <li><a href="https://qava.ai/newsletter" class="footer-link">Newsletter</a></li>
+              <li><a href="https://qava.ai/premium" class="footer-link">Premium</a></li>
+              <li><a href="https://qava.ai/premium" class="footer-link">Premium</a></li>
             </ul>
           </div>
           <div class="footer-column">

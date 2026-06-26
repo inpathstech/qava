@@ -1,0 +1,1044 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Premium Plus | Qava</title>
+  <link rel="icon" type="image/svg+xml" href="../qava-logo.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --display: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+      --ink: #111827;
+      --muted: #6B6B6B;
+      --hairline: rgba(17, 24, 39, 0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      font-family: "Inter", sans-serif;
+      background: #ffffff;
+      color: var(--ink);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      position: relative;
+      min-height: 100vh;
+    }
+
+    #qava-dot-base-fixed {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image: radial-gradient(circle, rgba(17, 24, 39, 0.16) 1px, transparent 1.35px);
+      background-size: 20px 20px;
+      background-repeat: repeat;
+    }
+
+    body > *:not(#qava-dot-base-fixed) {
+      position: relative;
+      z-index: 1;
+    }
+
+    a { color: inherit; }
+
+    /* ---------- Navbar ---------- */
+    .header-container {
+      width: calc(100% - 22px);
+      margin: 0 auto;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 56px;
+      position: sticky;
+      top: 0;
+      z-index: 1200;
+      background: rgba(255, 255, 255, 0.24);
+      -webkit-backdrop-filter: blur(18px) saturate(150%);
+      backdrop-filter: blur(18px) saturate(150%);
+      border: 0;
+      box-shadow: none;
+      isolation: isolate;
+    }
+
+    .header-container::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      right: 6px;
+      top: 3px;
+      bottom: 3px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.44) 100%);
+      -webkit-backdrop-filter: blur(26px) saturate(165%);
+      backdrop-filter: blur(26px) saturate(165%);
+      box-shadow: 0 10px 24px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .header-container > * { position: relative; z-index: 1; }
+
+    .header-logo, .logo-container, .logo { display: flex; align-items: center; }
+
+    .header-container .logo {
+      background: transparent;
+      padding: 0;
+      border: none;
+      box-shadow: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header-center {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex: 1;
+      margin-left: 40px;
+    }
+
+    .header-right { display: flex; align-items: center; gap: 8px; }
+
+    .navigation { display: flex; align-items: center; gap: 8px; }
+
+    .header-container .nav-item,
+    .header-container .auth-item {
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      border-radius: 0;
+      padding: 0;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      transition: color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .header-container .nav-item .nav-text,
+    .header-container .auth-item .nav-text {
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: #6b6b6b;
+      line-height: 1.4;
+      transition: color 0.2s ease;
+      padding: 0 4px;
+      white-space: nowrap;
+    }
+
+    .header-container .nav-item.newsletter .nav-text {
+      color: #000000;
+    }
+
+    .header-container .nav-item:hover .nav-text,
+    .header-container .auth-item:hover .nav-text {
+      color: #000000;
+    }
+
+    .auth-section { display: flex; align-items: center; gap: 28px; }
+
+    .join-button {
+      padding: 6px 12px;
+      background: #2b2b2b;
+      border: 1px solid #2b2b2b;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: background-color 0.18s ease, border-color 0.18s ease;
+    }
+
+    .join-button:hover {
+      background: #000000;
+      border-color: #000000;
+    }
+
+    .join-text {
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .header-container .logo img,
+    .qava-nav-logo-face {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .qava-nav-logo-flip {
+      width: 40px;
+      height: 40px;
+      perspective: 600px;
+    }
+
+    .qava-nav-logo-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease;
+    }
+
+    .qava-nav-logo-inner.is-flipped { transform: rotateY(180deg); }
+
+    .qava-nav-logo-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+    }
+
+    .qava-nav-logo-back { transform: rotateY(180deg); }
+
+    .hamburger-menu {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .hamburger-line {
+      width: 20px;
+      height: 2px;
+      background: #111827;
+      border-radius: 1px;
+    }
+
+    /* ---------- Footer (base; qava-footer.js refines) ---------- */
+    .footer-section {
+      background: transparent;
+      width: 100%;
+      margin: 0;
+      padding: 48px 0 46px;
+      border-top: 1px solid #EBEBEB;
+    }
+
+    /* ---------- Premium page ---------- */
+    .premium-wrapper {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 80px 24px 96px;
+    }
+
+    /* ---------- Centered header ---------- */
+    .premium-head {
+      text-align: center;
+      max-width: 660px;
+      margin: 0 auto 52px;
+    }
+
+    .premium-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .premium-eyebrow::before,
+    .premium-eyebrow::after {
+      content: "";
+      width: 26px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(17, 24, 39, 0.28));
+    }
+
+    .premium-eyebrow::after {
+      background: linear-gradient(90deg, rgba(17, 24, 39, 0.28), transparent);
+    }
+
+    .premium-title {
+      font-family: var(--display);
+      font-size: clamp(40px, 5.6vw, 62px);
+      font-weight: 400;
+      line-height: 1.04;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    .premium-lead {
+      font-family: "Inter", sans-serif;
+      font-size: 17px;
+      font-weight: 300;
+      line-height: 1.6;
+      color: var(--muted);
+      margin-top: 16px;
+    }
+
+    .premium-layout {
+      display: grid;
+      grid-template-columns: 0.82fr 1.18fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* ---------- Dark pricing card ---------- */
+    .premium-paywall {
+      position: sticky;
+      top: 96px;
+      background: linear-gradient(168deg, #232323 0%, #0d0d0d 46%, #000000 100%);
+      border-radius: 12px;
+      padding: 38px 34px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow:
+        0 32px 70px rgba(0, 0, 0, 0.42),
+        0 4px 14px rgba(0, 0, 0, 0.30),
+        inset 0 1px 0 rgba(255, 255, 255, 0.10);
+      overflow: hidden;
+    }
+
+    .premium-paywall::before {
+      content: "";
+      position: absolute;
+      top: -60%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 140%;
+      height: 110%;
+      background: radial-gradient(50% 50% at 50% 38%, rgba(255, 255, 255, 0.10) 0%, transparent 62%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* hairline sheen along the top edge for a glassy, premium feel */
+    .premium-paywall::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 18%;
+      right: 18%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .premium-paywall > * { position: relative; z-index: 1; }
+
+    .premium-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 14px 6px 11px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+
+    .premium-price {
+      display: flex;
+      align-items: baseline;
+      justify-content: flex-start;
+      gap: 4px;
+      margin-top: 26px;
+    }
+
+    .premium-price-amount {
+      font-family: var(--display);
+      font-size: clamp(48px, 5.4vw, 60px);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      background: linear-gradient(180deg, #ffffff 0%, #c7cad1 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+
+    .premium-price-period {
+      font-family: "Inter", sans-serif;
+      font-size: 16px;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .premium-price-note {
+      font-family: "Inter", sans-serif;
+      font-size: 13.5px;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.55);
+      margin-top: 9px;
+    }
+
+    .premium-cta {
+      margin-top: 28px;
+      padding: 14px 30px;
+      background: #ffffff;
+      border: 1px solid #ffffff;
+      border-radius: 7px;
+      color: var(--ink);
+      font-family: "Inter", sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.2;
+      text-decoration: none;
+      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+    }
+
+    .premium-cta .premium-cta-arrow {
+      transition: transform 0.2s ease;
+    }
+
+    .premium-cta:hover {
+      background: #ffffff;
+      border-color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.34);
+    }
+
+    .premium-cta:hover .premium-cta-arrow {
+      transform: translateX(3px);
+    }
+
+    .premium-proof {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      margin-top: 26px;
+      padding-top: 24px;
+      width: 100%;
+      border-top: 1px solid rgba(255, 255, 255, 0.10);
+    }
+
+    .premium-avatars { display: flex; }
+
+    .premium-avatars span {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 2px solid #1c1c1c;
+      margin-left: -10px;
+      background: linear-gradient(160deg, #525252, #1a1a1a);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Inter", sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .premium-avatars span:first-child { margin-left: 0; }
+
+    .premium-proof-text {
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.66);
+      line-height: 1.35;
+    }
+
+    .premium-card {
+      margin-top: 0;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(17, 24, 39, 0.05), 0 12px 32px rgba(17, 24, 39, 0.05);
+      padding: 6px 28px 14px;
+    }
+
+    .premium-card-head {
+      padding: 20px 0 8px;
+      border-bottom: 1px solid var(--hairline);
+      margin-bottom: 4px;
+    }
+
+    .premium-card-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: "Inter", sans-serif;
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .premium-card-eyebrow::before {
+      content: "";
+      width: 16px;
+      height: 1px;
+      background: rgba(17, 24, 39, 0.3);
+    }
+
+    .premium-check {
+      flex: 0 0 auto;
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      background: #111827;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 16px rgba(17, 24, 39, 0.16);
+      transition: transform 0.18s ease, background-color 0.18s ease;
+    }
+
+    /* ---------- Benefits list ---------- */
+    .premium-feat-item {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 21px 14px;
+      margin: 0 -14px;
+      border-radius: 12px;
+      border-bottom: 1px solid rgba(17, 24, 39, 0.07);
+      transition: background-color 0.18s ease;
+    }
+
+    .premium-feat-item:last-child { border-bottom: none; }
+
+    .premium-feat-item:hover .premium-check {
+      transform: translateY(-1px) scale(1.04);
+    }
+
+    .premium-feat-title {
+      flex: 1;
+      font-family: var(--display);
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    .premium-foot-note {
+      margin-top: 20px;
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--muted);
+    }
+
+    /* ---------- Testimonials ---------- */
+    .premium-testimonials {
+      margin-top: 104px;
+      width: 100vw;
+      margin-left: 50%;
+      transform: translateX(-50%);
+      background: #fafafa;
+      border-top: 1px solid var(--hairline);
+      border-bottom: 1px solid var(--hairline);
+      padding: 88px 24px;
+    }
+
+    .premium-tinner {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+
+    .premium-featured-quote {
+      text-align: center;
+      max-width: none;
+      margin: 0 auto 76px;
+    }
+
+    .premium-featured-quote::before {
+      content: "\201C";
+      display: block;
+      font-family: var(--display);
+      font-size: 84px;
+      line-height: 0.5;
+      color: rgba(17, 24, 39, 0.16);
+      margin-bottom: 8px;
+    }
+
+    .premium-featured-text {
+      font-family: var(--display);
+      font-size: clamp(20px, 3.3vw, 38px);
+      font-weight: 400;
+      line-height: 1.16;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .premium-featured-person {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .premium-tsection-head {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .premium-tsection-head h2 {
+      font-family: var(--display);
+      font-size: clamp(28px, 3.4vw, 40px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+
+    .premium-tsection-head p {
+      font-family: "Inter", sans-serif;
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--muted);
+    }
+
+    .premium-tgrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .premium-tcard {
+      background: #ffffff;
+      border-radius: 8px;
+      border: 1px solid var(--hairline);
+      box-shadow: 0 1px 3px rgba(17, 24, 39, 0.04);
+      padding: 26px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .premium-tcard:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .premium-tquote {
+      font-family: "Inter", sans-serif;
+      font-size: 15.5px;
+      font-weight: 300;
+      line-height: 1.55;
+      color: var(--ink);
+    }
+
+    .premium-tstars {
+      font-size: 13px;
+      letter-spacing: 2px;
+      line-height: 1;
+      color: var(--ink);
+    }
+
+    .premium-tattrib {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: auto;
+    }
+
+    .premium-tlogo {
+      height: 26px;
+      max-width: 150px;
+      object-fit: contain;
+      object-position: left;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .premium-tlogo-square { height: 30px; max-width: 30px; }
+
+    .premium-tlogo-crop {
+      width: 28px;
+      height: 28px;
+      overflow: hidden;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+
+    .premium-tlogo-boon {
+      height: 28px;
+      transform: scale(2.6);
+      transform-origin: left center;
+      display: block;
+    }
+
+    .premium-tperson {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: auto;
+    }
+
+    .premium-avatar {
+      flex: 0 0 auto;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(17, 24, 39, 0.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .premium-tname {
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .premium-trole {
+      font-family: "Inter", sans-serif;
+      font-size: 12.5px;
+      font-weight: 300;
+      color: var(--muted);
+    }
+
+    /* ---------- Final CTA ---------- */
+    .premium-final-cta {
+      position: relative;
+      margin-top: 96px;
+      text-align: center;
+      background: linear-gradient(170deg, #1a1a1a 0%, #000000 72%);
+      border-radius: 12px;
+      padding: 72px 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 24px 60px rgba(17, 24, 39, 0.22);
+      overflow: hidden;
+    }
+
+    .premium-final-cta::before {
+      content: "";
+      position: absolute;
+      top: -60%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      height: 120%;
+      background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.06) 0%, transparent 66%);
+      pointer-events: none;
+    }
+
+    .premium-final-cta > * { position: relative; z-index: 1; }
+
+    .premium-final-cta h2 {
+      font-family: var(--display);
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 400;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      white-space: nowrap;
+    }
+
+    .premium-final-cta p {
+      font-family: "Inter", sans-serif;
+      font-size: 16px;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.72);
+      margin-top: 16px;
+      white-space: nowrap;
+    }
+
+    .premium-final-cta .premium-cta {
+      margin-top: 32px;
+    }
+
+    .premium-final-note {
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.55);
+      margin-top: 14px;
+    }
+
+    @media (max-width: 940px) {
+      .premium-tgrid { grid-template-columns: repeat(2, 1fr); }
+      .premium-layout {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+      .premium-paywall { position: static; top: auto; }
+    }
+
+    @media (max-width: 860px) {
+      .header-center, .auth-section .auth-item { display: none; }
+      .hamburger-menu { display: flex; }
+    }
+
+    @media (max-width: 768px) {
+      .premium-wrapper { padding: 48px 20px 72px; }
+      .premium-card { padding: 8px 22px; }
+      .premium-benefit { padding: 20px 0; gap: 13px; }
+      .premium-benefit-title { font-size: 17px; }
+      .premium-benefit-desc { font-size: 14px; }
+      .premium-testimonials { margin-top: 72px; padding: 60px 20px; }
+      .premium-featured-quote { margin-bottom: 56px; }
+      .premium-featured-text { white-space: normal; font-size: clamp(24px, 5.6vw, 32px); }
+      .premium-tgrid { grid-template-columns: 1fr; }
+      .premium-final-cta { margin-top: 72px; padding: 48px 24px; border-radius: 12px; }
+      .premium-final-cta h2 { white-space: normal; font-size: clamp(28px, 6vw, 40px); }
+      .premium-final-cta p { white-space: normal; }
+      .footer-section { padding: 60px 24px 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+<div id="qava-dot-base-fixed" aria-hidden="true"></div>
+
+  <header class="header-container">
+    <div class="header-logo">
+      <div class="logo-container">
+        <div class="logo">
+          <a href="https://qava.ai/">
+            <div class="qava-nav-logo-flip" id="qava-nav-logo-flip">
+              <div class="qava-nav-logo-inner" id="qava-nav-logo-inner">
+                <img class="qava-nav-logo-face qava-nav-logo-front" src="../qava-logo-q.png" alt="Qava">
+                <img class="qava-nav-logo-face qava-nav-logo-back" src="../qava-hero-arrow-2.png" alt="">
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="header-center">
+      <nav class="navigation">
+        <a href="https://app.qava.ai/guest" class="nav-item create-listing">
+          <div class="nav-text">Create listing</div>
+        </a>
+        <a href="https://app.qava.ai/projects" class="nav-item search-listings">
+          <div class="nav-text">Find work</div>
+        </a>
+        <a href="https://qava.ai/newsletter" class="nav-item newsletter">
+          <div class="nav-text">Newsletter</div>
+        </a>
+      </nav>
+    </div>
+    <div class="header-right">
+      <div class="auth-section">
+        <a href="https://qava.ai/howitworks" class="auth-item">
+          <div class="nav-text">How it works</div>
+        </a>
+        <a href="https://app.qava.ai/" class="auth-item">
+          <div class="nav-text">Log in</div>
+        </a>
+        <a href="https://app.qava.ai/" class="join-button">
+          <div class="join-text">Get Started</div>
+        </a>
+      </div>
+      <div class="hamburger-menu" aria-hidden="true">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="premium-wrapper">
+   <div class="premium-head">
+     <p class="premium-eyebrow">Membership</p>
+     <h1 class="premium-title">Go far. Faster.</h1>
+     <p class="premium-lead">Exclusive opportunities, the right people, and proof that you deliver.</p>
+   </div>
+
+   <div class="premium-layout">
+    <aside class="premium-paywall">
+      <span class="premium-badge">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 6.3L21 9.3l-5 4.1 1.7 6.6L12 16.9 6.3 20l1.7-6.6-5-4.1 6.6-1z"/></svg>
+        Premium Plus
+      </span>
+      <div class="premium-price">
+        <span class="premium-price-amount">$6.99</span>
+        <span class="premium-price-period">/month</span>
+      </div>
+      <p class="premium-price-note">Billed monthly · Cancel anytime</p>
+      <a href="https://app.qava.ai/" class="premium-cta">Get Premium Plus<svg class="premium-cta-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      <div class="premium-proof">
+        <div class="premium-avatars">
+          <span>MC</span>
+          <span>DO</span>
+          <span>PS</span>
+          <span>+</span>
+        </div>
+        <span class="premium-proof-text">Join 10,000+ ambitious members</span>
+      </div>
+    </aside>
+
+    <section class="premium-card">
+      <div class="premium-card-head">
+        <span class="premium-card-eyebrow">Everything included</span>
+      </div>
+      <div class="premium-feat-item">
+        <span class="premium-check">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/><line x1="11" x2="11" y1="8" y2="14"/><line x1="8" x2="14" y1="11" y2="11"/></svg>
+        </span>
+        <span class="premium-feat-title">Access exclusive opportunities and elite talent first</span>
+      </div>
+
+      <div class="premium-feat-item">
+        <span class="premium-check">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 16a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1h3.293a.707.707 0 0 0 .5-1.207l-6.939-6.939a1.207 1.207 0 0 0-1.708 0l-6.94 6.94a.707.707 0 0 0 .5 1.206H8a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1z"/><path d="M9 20h6"/></svg>
+        </span>
+        <span class="premium-feat-title">Move faster with AI-powered recommendations</span>
+      </div>
+
+      <div class="premium-feat-item">
+        <span class="premium-check">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m10.586 5.414-5.172 5.172"/><path d="m18.586 13.414-5.172 5.172"/><path d="M6 12h12"/><circle cx="12" cy="20" r="2"/><circle cx="12" cy="4" r="2"/><circle cx="20" cy="12" r="2"/><circle cx="4" cy="12" r="2"/></svg>
+        </span>
+        <span class="premium-feat-title">Turn connections into meaningful outcomes</span>
+      </div>
+
+      <div class="premium-feat-item">
+        <span class="premium-check">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m19 16-3 3"/><path d="M2 21a8 8 0 0 1 12.664-6.5"/><path d="M22 19h-6l3 3"/><circle cx="10" cy="8" r="5"/></svg>
+        </span>
+        <span class="premium-feat-title">Build proof, not just profiles</span>
+      </div>
+
+      <div class="premium-feat-item">
+        <span class="premium-check">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 22V7a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a1 1 0 0 0-1-1H2"/><rect x="14" y="2" width="8" height="8" rx="1"/></svg>
+        </span>
+        <span class="premium-feat-title">Learn, grow, and execute with confidence</span>
+      </div>
+    </section>
+   </div>
+
+   <section class="premium-testimonials">
+    <div class="premium-tinner">
+     <div class="premium-featured-quote">
+       <p class="premium-featured-text">It's like Reddit, Notion and Wharton had a baby.</p>
+       <div class="premium-featured-person">
+         <span class="premium-avatar">MC</span>
+         <div style="text-align: left;">
+           <div class="premium-tname">Maya Chen</div>
+           <div class="premium-trole">Founder · Premium Plus member</div>
+         </div>
+       </div>
+     </div>
+
+     <div class="premium-tgrid">
+       <article class="premium-tcard">
+         <div class="premium-tstars">★★★★★</div>
+         <p class="premium-tquote">Qava has saved me valuable time, and I get to work with a diverse pool of fresh, bright perspectives on targeted problems.</p>
+         <div class="premium-tattrib">
+           <img class="premium-tlogo" src="../Testimonial company logos/mmento logo.svg" alt="mmento">
+           <div class="premium-tname">Founder &amp; CEO</div>
+         </div>
+       </article>
+
+       <article class="premium-tcard">
+         <div class="premium-tstars">★★★★★</div>
+         <p class="premium-tquote">We streamlined our workflows and accelerated our sales cycle using incredible interns and AI.</p>
+         <div class="premium-tattrib">
+           <span class="premium-tlogo-crop"><img class="premium-tlogo-boon" src="../Testimonial company logos/Boon.svg" alt="Boon"></span>
+           <div class="premium-tname">Chief Revenue Officer</div>
+         </div>
+       </article>
+
+       <article class="premium-tcard">
+         <div class="premium-tstars">★★★★★</div>
+         <p class="premium-tquote">I used Qava to set up our P&amp;L with charts showing where our revenue is growing and how our expenses are trending.</p>
+         <div class="premium-tattrib">
+           <img class="premium-tlogo premium-tlogo-square" src="../Testimonial company logos/The Rise Group Square Logo.svg" alt="The Rise Group">
+           <div class="premium-tname">CEO</div>
+         </div>
+       </article>
+
+       <article class="premium-tcard">
+         <div class="premium-tstars">★★★★★</div>
+         <p class="premium-tquote">Working with startups gave me hands-on experience that no case study could match. I helped build go-to-market strategies that actually launched products.</p>
+         <div class="premium-tattrib">
+           <img class="premium-tlogo" src="../Landing Page Trusted by/Kellogg.png" alt="Kellogg">
+           <div class="premium-tname">Kellogg School of Management</div>
+           <div class="premium-trole">Class of 2024</div>
+         </div>
+       </article>
+
+       <article class="premium-tcard">
+         <div class="premium-tstars">★★★★★</div>
+         <p class="premium-tquote">I helped companies raise capital. I built pitch decks and financial models. This experience accelerated my career by 10 years.</p>
+         <div class="premium-tattrib">
+           <img class="premium-tlogo" src="../Landing Page Trusted by/Wharton.png" alt="Wharton">
+           <div class="premium-tname">The Wharton School</div>
+           <div class="premium-trole">Class of 2023</div>
+         </div>
+       </article>
+
+       <article class="premium-tcard">
+         <div class="premium-tstars">★★★★★</div>
+         <p class="premium-tquote">I worked on real strategic projects for growing companies that I will stay in touch with for years to come.</p>
+         <div class="premium-tattrib">
+           <img class="premium-tlogo" src="../Testimonial images/Columbia Business School Logo 2.png" alt="Columbia Business School">
+           <div class="premium-tname">Columbia Business School</div>
+           <div class="premium-trole">Class of 2024</div>
+         </div>
+       </article>
+     </div>
+    </div>
+   </section>
+
+   <section class="premium-final-cta">
+     <h2>Your next breakthrough is waiting for you.</h2>
+     <p>Join the ambitious people building careers and companies faster on Qava.</p>
+     <a href="https://app.qava.ai/" class="premium-cta">Get Premium Plus</a>
+     <p class="premium-final-note">$6.99/month · Cancel anytime</p>
+   </section>
+  </main>
+
+  <footer class="footer-section"></footer>
+
+  <script src="../qava-footer.js"></script>
+  <script>
+    (function () {
+      if (typeof window.applyQavaFooter === "function") {
+        window.applyQavaFooter(document);
+      }
+
+      const inner = document.getElementById("qava-nav-logo-inner");
+      if (inner) {
+        let flipped = false;
+        setInterval(() => {
+          flipped = !flipped;
+          inner.classList.toggle("is-flipped", flipped);
+        }, 5000);
+      }
+    })();
+  </script>
+</body>
+</html>

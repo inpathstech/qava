@@ -13,6 +13,7 @@ on:
       - '*.mp4'
       - 'How it works/**'
       - 'pricing/**'
+      - 'premium/**'
       - 'Landing Page Trusted by/**'
       - 'Testimonial images/**'
       - 'Testimonial company logos/**'
@@ -102,6 +103,10 @@ jobs:
           --cache-control "max-age=3600"
 
         aws s3 sync pricing/ s3://${{ secrets.S3_BUCKET_NAME }}/pricing/ \
+          --content-type "text/html" \
+          --cache-control "max-age=3600"
+
+        aws s3 sync premium/ s3://${{ secrets.S3_BUCKET_NAME }}/premium/ \
           --content-type "text/html" \
           --cache-control "max-age=3600"
 
