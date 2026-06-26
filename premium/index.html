@@ -1032,24 +1032,29 @@
     }
 
     /* ---------- Manage / cancel membership ---------- */
+    .pcancel-trigger-wrap {
+      text-align: center;
+      margin: 40px auto 0;
+      padding: 0 24px;
+    }
+
     .pcancel-trigger {
-      margin-top: 22px;
       background: none;
       border: none;
       cursor: pointer;
       font-family: "Inter", sans-serif;
       font-size: 13px;
       font-weight: 300;
-      color: rgba(255, 255, 255, 0.5);
+      color: rgba(17, 24, 39, 0.5);
       text-decoration: underline;
       text-underline-offset: 3px;
-      text-decoration-color: rgba(255, 255, 255, 0.28);
+      text-decoration-color: rgba(17, 24, 39, 0.25);
       transition: color 0.15s ease, text-decoration-color 0.15s ease;
     }
 
     .pcancel-trigger:hover {
-      color: rgba(255, 255, 255, 0.9);
-      text-decoration-color: rgba(255, 255, 255, 0.6);
+      color: rgba(17, 24, 39, 0.9);
+      text-decoration-color: rgba(17, 24, 39, 0.6);
     }
 
     .pcancel-overlay {
@@ -1528,9 +1533,12 @@
      <p>Join the ambitious people building careers and companies faster on Qava.</p>
      <a href="#premium-checkout" class="premium-cta" id="premium-start-bottom">Get Premium Plus</a>
      <p class="premium-final-note">$6.99/month · Cancel anytime</p>
-     <button type="button" class="pcancel-trigger" id="pcancel-open">Already a member? Manage or cancel your membership</button>
    </section>
   </main>
+
+  <div class="pcancel-trigger-wrap">
+    <button type="button" class="pcancel-trigger" id="pcancel-open">Already a member? Manage or cancel your membership</button>
+  </div>
 
   <div class="pcancel-overlay" id="pcancel-overlay" aria-hidden="true">
     <div class="pcancel-modal" role="dialog" aria-modal="true" aria-labelledby="pcancel-title">
