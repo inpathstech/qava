@@ -14,7 +14,6 @@
               <li><a href="https://qava.ai/howitworks" class="footer-link">How it works</a></li>
               <li><a href="https://qava.ai/newsletter" class="footer-link">Newsletter</a></li>
               <li><a href="https://qava.ai/premium" class="footer-link">Premium</a></li>
-              <li><a href="https://qava.ai/premium" class="footer-link">Premium</a></li>
             </ul>
           </div>
           <div class="footer-column">
