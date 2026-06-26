@@ -1095,8 +1095,10 @@
       background: none;
       border: none;
       cursor: pointer;
-      font-size: 24px;
-      line-height: 1;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       color: #9ca3af;
       transition: color 0.15s ease;
     }
@@ -1542,7 +1544,7 @@
 
   <div class="pcancel-overlay" id="pcancel-overlay" aria-hidden="true">
     <div class="pcancel-modal" role="dialog" aria-modal="true" aria-labelledby="pcancel-title">
-      <button type="button" class="pcancel-close" id="pcancel-close" aria-label="Close">&times;</button>
+      <button type="button" class="pcancel-close" id="pcancel-close" aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
 
       <div id="pcancel-form-view">
         <p class="pcancel-eyebrow">Membership</p>
