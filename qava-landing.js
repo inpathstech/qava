@@ -1450,7 +1450,7 @@
                 <div class="qava-applicant-card${i === selectedIndex ? " selected" : ""}" data-index="${i}">
                   <svg class="qava-applicant-clip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
                   <div class="qava-applicant-name">${app.name}</div>
-                  <span class="qava-applicant-badge">${app.badge}</span>
+                  <span class="qava-applicant-badge${app.badge === "Shortlisted" ? " is-shortlisted" : ""}">${app.badge}</span>
                 </div>
               `).join("");
 
@@ -1621,6 +1621,117 @@
                 if (radio.checked) renderShowcaseView(radio.value);
               });
             });
+
+            // ---- "How it works": scroll-driven step sequence (desktop only) ----
+            // Pin the showcase card while the user scrolls through a tall track,
+            // mapping scroll progress onto the side-menu steps. Reuses each step
+            // button's existing click handler (content swap + indicator). Manual
+            // clicks still work and re-align the page scroll so continued
+            // scrolling resumes from the chosen step.
+            (function setupHowItWorksScrollPin() {
+              const box = doc.getElementById("qava-hero-showcase-box");
+              if (!box || box.__qavaPinSetup) return;
+              box.__qavaPinSetup = true;
+
+              const track = doc.createElement("div");
+              track.className = "qava-hiw-pin-track";
+              const inner = doc.createElement("div");
+              inner.className = "qava-hiw-pin-inner";
+              box.parentNode.insertBefore(track, box);
+              track.appendChild(inner);
+              inner.appendChild(box);
+
+              const STEP_FRACTION = 0.45; // "short" feel: ~45% of viewport per step
+              const MOBILE_BP = 860;
+              const reduceMotion = win.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+              let enabled = false;
+              let stuckDistance = 0;
+              let lastIndex = -1;
+              let aligning = false;
+
+              const getItems = () => Array.from(box.querySelectorAll(".qava-side-menu-item"));
+              const isDesktop = () => !reduceMotion && win.innerWidth > MOBILE_BP && win.innerHeight > 560;
+
+              const layout = () => {
+                const stepCount = getItems().length;
+                if (!isDesktop() || stepCount < 2) {
+                  enabled = false;
+                  inner.style.position = "";
+                  inner.style.top = "";
+                  track.style.height = "";
+                  box.style.marginTop = "";
+                  return;
+                }
+                enabled = true;
+                const stepDistance = Math.round(win.innerHeight * STEP_FRACTION);
+                stuckDistance = stepDistance * stepCount;
+                box.style.marginTop = "0px";
+                const cardH = box.offsetHeight;
+                const top = Math.max(64, Math.round((win.innerHeight - cardH) / 2));
+                inner.style.position = "sticky";
+                inner.style.top = top + "px";
+                track.style.height = (cardH + stuckDistance) + "px";
+              };
+
+              const activate = (index) => {
+                const items = getItems();
+                if (!items.length) return;
+                const clamped = Math.max(0, Math.min(items.length - 1, index));
+                if (items[clamped].classList.contains("active")) return;
+                box.__qavaProgrammatic = true;
+                items[clamped].click();
+                box.__qavaProgrammatic = false;
+              };
+
+              const zoneStart = () => {
+                const trackTop = track.getBoundingClientRect().top + win.scrollY;
+                const innerTop = parseInt(inner.style.top, 10) || 0;
+                return trackTop - innerTop;
+              };
+
+              const onScroll = () => {
+                if (!enabled || aligning) return;
+                const stepCount = getItems().length;
+                if (stepCount < 2) return;
+                const progress = (win.scrollY - zoneStart()) / stuckDistance;
+                if (progress < 0 || progress > 1) return;
+                const index = Math.max(0, Math.min(stepCount - 1, Math.floor(progress * stepCount)));
+                if (index !== lastIndex) {
+                  lastIndex = index;
+                  activate(index);
+                }
+              };
+
+              const wireManual = () => {
+                getItems().forEach((btn, i) => {
+                  if (btn.__qavaPinWired) return;
+                  btn.__qavaPinWired = true;
+                  btn.addEventListener("click", () => {
+                    if (!enabled || box.__qavaProgrammatic) return;
+                    const count = getItems().length;
+                    const target = Math.round(zoneStart() + ((i + 0.5) / count) * stuckDistance);
+                    aligning = true;
+                    lastIndex = i;
+                    win.scrollTo({ top: target, behavior: "auto" });
+                    win.setTimeout(() => { aligning = false; }, 60);
+                  });
+                });
+              };
+
+              const refresh = () => { layout(); wireManual(); onScroll(); };
+
+              doc.querySelectorAll("input[name='qava-audience-toggle']").forEach((radio) => {
+                radio.addEventListener("change", () => {
+                  lastIndex = -1;
+                  win.requestAnimationFrame(() => win.requestAnimationFrame(refresh));
+                });
+              });
+
+              win.addEventListener("scroll", onScroll, { passive: true });
+              win.addEventListener("resize", () => { lastIndex = -1; refresh(); });
+              win.requestAnimationFrame(() => win.requestAnimationFrame(refresh));
+            })();
           }
 
           const universityLogosRow = doc.querySelector(".feature-cards-logos");
@@ -1812,7 +1923,7 @@
               calcSection.innerHTML = `
                 <div class="qava-calc-header">
                   <h2 class="qava-calc-title">More value. More control.</h2>
-                  <p class="qava-calc-sub">On-demand talent to fill gaps or start a fresh idea from scratch.</p>
+                  <p class="qava-calc-sub">On-demand talent to fill gaps or start on the right foot.</p>
                   <a class="qava-calc-pricing" href="https://qava.ai/pricing">See pricing plans ${arrowSvg}</a>
                 </div>
                 <div class="qava-calc-body">
