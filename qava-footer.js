@@ -150,4 +150,82 @@
 
   window.applyQavaFooter = applyQavaFooter;
   window.applySandboxFooter = applyQavaFooter;
+
+  // ---- Consistent active nav state ----
+  // Whichever page we're on, that nav item renders black; everything else is
+  // the default gray. This also neutralizes the legacy "Newsletter is always
+  // black" emphasis so Newsletter only goes black on the newsletter page.
+  function normalizeLocation(url) {
+    try {
+      const a = document.createElement("a");
+      a.href = url;
+      const path = a.pathname
+        .toLowerCase()
+        .replace(/index\.html$/, "")
+        .replace(/\.html$/, "")
+        .replace(/\/+$/, "");
+      return { host: a.hostname.toLowerCase(), path: path };
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function setActiveNav(doc) {
+    if (!doc) return;
+    const view = doc.defaultView || window;
+    const items = Array.prototype.slice.call(
+      doc.querySelectorAll(
+        ".header-container .navigation a.nav-item, .header-container .auth-section .auth-item"
+      )
+    );
+    if (!items.length) return;
+
+    const here = normalizeLocation(view.location.href);
+    if (!here) return;
+
+    // Default (gray) color, read from a non-"newsletter" item so the legacy
+    // black emphasis doesn't skew it.
+    let baseColor = "";
+    for (let i = 0; i < items.length; i++) {
+      if (!items[i].classList.contains("newsletter")) {
+        const t0 = items[i].querySelector(".nav-text") || items[i];
+        baseColor = view.getComputedStyle(t0).color;
+        break;
+      }
+    }
+
+    items.forEach((a) => {
+      const dest = normalizeLocation(a.getAttribute("href") || "");
+      if (dest && dest.path && dest.host === here.host && dest.path === here.path) {
+        a.classList.add("qava-nav-current");
+      }
+    });
+
+    if (!doc.getElementById("qava-nav-active-style")) {
+      const st = doc.createElement("style");
+      st.id = "qava-nav-active-style";
+      st.textContent =
+        ".header-container .nav-item.newsletter .nav-text{color:" +
+        (baseColor || "#6b6b6b") +
+        ";}" +
+        ".header-container .nav-item.newsletter:hover .nav-text{color:#000;}" +
+        ".header-container .nav-item.qava-nav-current .nav-text," +
+        ".header-container .auth-item.qava-nav-current .nav-text{color:#000;}";
+      doc.head.appendChild(st);
+    }
+  }
+
+  window.setQavaActiveNav = setActiveNav;
+
+  function initActiveNav() {
+    try {
+      setActiveNav(document);
+    } catch (e) {}
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initActiveNav);
+  } else {
+    initActiveNav();
+  }
 })();
