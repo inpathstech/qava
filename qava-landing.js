@@ -346,8 +346,8 @@
 
             const viewAllLink = doc.createElement("a");
             viewAllLink.className = "qava-blog-actbtn";
-            viewAllLink.href = "https://app.qava.ai/";
-            viewAllLink.textContent = "View all";
+            viewAllLink.href = "https://qava.ai/newsletter";
+            viewAllLink.textContent = "Newsletter";
             blogActions.appendChild(viewAllLink);
             blogRow.insertAdjacentElement("afterend", blogActions);
 
