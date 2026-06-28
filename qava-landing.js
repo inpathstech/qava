@@ -205,6 +205,14 @@
             toggleWrap.innerHTML = `
               <div class="qava-howitworks-title">How it works</div>
               <div class="qava-howitworks-sub">We connect entrepreneurs and leaders with<br>AI-enabled professionals, graduates, and students.</div>
+            `;
+            showcaseBox.insertAdjacentElement("beforebegin", toggleWrap);
+
+            // The audience toggle lives inside the showcase box as a sticky pill so
+            // it stays visible (and switchable) while the user scrolls the deck.
+            const toggleBar = doc.createElement("div");
+            toggleBar.className = "qava-showcase-toggle-sticky";
+            toggleBar.innerHTML = `
               <div class="qava-showcase-toggle" id="qava-showcase-toggle" role="radiogroup" aria-label="Audience toggle">
                 <span class="qava-toggle-prompt">I'm looking for:</span>
                 <label class="qava-toggle-radio">
@@ -221,7 +229,7 @@
                 </label>
               </div>
             `;
-            showcaseBox.insertAdjacentElement("beforebegin", toggleWrap);
+            showcaseBox.insertAdjacentElement("afterbegin", toggleBar);
           }
 
           if (showcaseBox && !doc.getElementById("qava-blog-row")) {
@@ -345,7 +353,7 @@
             }
 
             const viewAllLink = doc.createElement("a");
-            viewAllLink.className = "qava-blog-actbtn";
+            viewAllLink.className = "qava-blog-actbtn qava-blog-shimmer";
             viewAllLink.href = "https://qava.ai/newsletter";
             viewAllLink.textContent = "Newsletter";
             blogActions.appendChild(viewAllLink);
@@ -403,6 +411,7 @@
 
             // Pin each card at an increasing top offset so they stack like a deck
             // (Function Health). Desktop only; on mobile the cards just flow.
+            const STEP_STACK_GAP = 14; // visible sliver of white between stacked tabs
             const getStickyNavOffset = () => {
               const nav = doc.querySelector(".header-container");
               if (!nav) return 0;
@@ -411,26 +420,63 @@
               return nav.offsetHeight || 0;
             };
 
+            const isStackDesktop = () =>
+              win.innerWidth > 860 &&
+              !win.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
             const setStackOffsets = () => {
               const cards = Array.prototype.slice.call(
                 dynamicContent.querySelectorAll(".qava-hiw-step")
               );
               if (!cards.length) return;
-              const desktop = win.innerWidth > 860 &&
-                !win.matchMedia("(prefers-reduced-motion: reduce)").matches;
+              const desktop = isStackDesktop();
               const headerEl = cards[0].querySelector(".qava-hiw-step-header");
-              const headerH = headerEl ? headerEl.offsetHeight : 50;
-              const base = getStickyNavOffset() + 16;
+              const headerH = headerEl ? headerEl.offsetHeight : 52;
+              const navOffset = getStickyNavOffset();
+              // Keep the audience toggle pinned just below the nav, then tuck the
+              // card stack underneath it so the radios stay visible while scrolling.
+              const toggleBar = showcaseBox
+                ? showcaseBox.querySelector(".qava-showcase-toggle-sticky")
+                : null;
+              let base = navOffset + 16;
+              if (toggleBar && desktop) {
+                const toggleTop = navOffset + 8;
+                toggleBar.style.top = toggleTop + "px";
+                base = toggleTop + toggleBar.offsetHeight + 12;
+              }
+              const step = headerH + STEP_STACK_GAP;
               cards.forEach((card, i) => {
                 card.style.zIndex = String(i + 1);
                 if (desktop) {
+                  const top = base + i * step;
                   card.style.position = "sticky";
-                  card.style.top = (base + i * headerH) + "px";
+                  card.style.top = top + "px";
+                  card.dataset.stackTop = String(top);
                 } else {
                   card.style.position = "";
                   card.style.top = "";
+                  delete card.dataset.stackTop;
                 }
               });
+            };
+
+            // Click a (stacked) step tab to bring that card into view: the cards
+            // above stay pinned while the ones below slide away as we scroll to it.
+            const scrollStepIntoView = (card) => {
+              if (!isStackDesktop()) {
+                card.scrollIntoView({ behavior: "smooth", block: "start" });
+                return;
+              }
+              const stored = parseFloat(card.dataset.stackTop || "");
+              const stickyTop = isNaN(stored) ? getStickyNavOffset() + 16 : stored;
+              // While a card is pinned its rect.top already equals stickyTop, so we
+              // briefly drop sticky to read its true flow position; scrolling there
+              // pins this card with the ones below slid away (body fully revealed).
+              const prev = card.style.position;
+              card.style.position = "static";
+              const naturalTop = card.getBoundingClientRect().top + win.scrollY;
+              card.style.position = prev;
+              win.scrollTo({ top: naturalTop - stickyTop, behavior: "smooth" });
             };
 
             const renderShowcaseView = (mode) => {
@@ -1708,6 +1754,24 @@
             });
 
             win.addEventListener("resize", () => setStackOffsets());
+
+            // Bring a step into view when its tab is clicked (event-delegated so it
+            // survives the audience-toggle re-renders of dynamicContent).
+            dynamicContent.addEventListener("click", (e) => {
+              const header = e.target && e.target.closest
+                ? e.target.closest(".qava-hiw-step-header")
+                : null;
+              if (!header) return;
+              const card = header.closest(".qava-hiw-step");
+              if (card) scrollStepIntoView(card);
+            });
+
+            // Header height settles once the Inter web font loads; recompute then
+            // (and on full load) so the stacked tabs never overlap on first paint.
+            if (doc.fonts && doc.fonts.ready) {
+              doc.fonts.ready.then(() => setStackOffsets());
+            }
+            win.addEventListener("load", () => setStackOffsets());
           }
 
           const universityLogosRow = doc.querySelector(".feature-cards-logos");

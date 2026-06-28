@@ -98,7 +98,7 @@
         }
 
         .qava-hero-showcase-box {
-          width: min(1040px, calc(100vw - 120px));
+          width: min(840px, calc(100vw - 120px));
           height: auto;
           margin: 16px 0 0 0;
           position: relative;
@@ -149,9 +149,12 @@
           display: flex;
           align-items: center;
           gap: 10px;
-          padding: 16px 24px;
-          background: #ffffff;
-          border-bottom: 1px solid rgba(17, 24, 39, 0.07);
+          height: 52px;
+          padding: 0 24px;
+          box-sizing: border-box;
+          background: #111827;
+          border-bottom: 0;
+          cursor: pointer;
           font-family: "Inter", sans-serif;
           font-size: 12px;
           font-weight: 600;
@@ -160,23 +163,23 @@
         }
 
         .qava-hiw-step-num {
-          color: #111827;
+          color: #ffffff;
         }
 
         .qava-hiw-step-dot {
-          color: #c4c7cc;
+          color: rgba(255, 255, 255, 0.4);
         }
 
         .qava-hiw-step-label {
-          color: #6b6b6b;
+          color: rgba(255, 255, 255, 0.72);
         }
 
         .qava-hiw-step-row {
           display: grid;
           grid-template-columns: 0.82fr 1.18fr;
-          gap: 32px;
+          gap: 26px;
           align-items: center;
-          padding: 30px 30px 32px;
+          padding: 24px 26px 26px;
         }
 
         .qava-hiw-step-copy {
@@ -184,19 +187,19 @@
         }
 
         .qava-hiw-step-heading {
-          margin: 0 0 10px 0;
+          margin: 0 0 9px 0;
           font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
           font-weight: 400;
           letter-spacing: -0.012em;
-          font-size: clamp(24px, 2.2vw, 32px);
+          font-size: clamp(21px, 1.9vw, 27px);
           line-height: 1.12;
           color: #111827;
         }
 
         .qava-hiw-step-desc {
-          margin: 0 0 18px 0;
+          margin: 0 0 15px 0;
           font-family: "Inter", sans-serif;
-          font-size: 14.5px;
+          font-size: 13.5px;
           font-weight: 300;
           line-height: 1.55;
           color: #6b6b6b;
@@ -213,9 +216,9 @@
 
         .qava-hiw-step-bullets li {
           position: relative;
-          padding-left: 26px;
+          padding-left: 24px;
           font-family: "Inter", sans-serif;
-          font-size: 14px;
+          font-size: 13px;
           font-weight: 400;
           line-height: 1.4;
           color: #111827;
@@ -242,7 +245,7 @@
 
         .qava-hiw-step-visual {
           position: relative;
-          height: clamp(360px, 40vw, 460px);
+          height: clamp(300px, 33vw, 380px);
           min-width: 0;
         }
 
@@ -298,6 +301,17 @@
           margin-bottom: 34px;
         }
 
+        .qava-showcase-toggle-sticky {
+          position: sticky;
+          top: 72px;
+          z-index: 30;
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          margin: 0 0 14px;
+          pointer-events: none;
+        }
+
         .qava-showcase-toggle {
             display: flex;
             align-items: center;
@@ -305,6 +319,17 @@
           padding: 0;
           background: transparent;
           border: 0;
+        }
+
+        .qava-showcase-toggle-sticky .qava-showcase-toggle {
+          pointer-events: auto;
+          padding: 9px 18px;
+          background: rgba(255, 255, 255, 0.92);
+          -webkit-backdrop-filter: blur(12px) saturate(160%);
+          backdrop-filter: blur(12px) saturate(160%);
+          border: 1px solid rgba(17, 24, 39, 0.08);
+          border-radius: 999px;
+          box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
         }
 
         .qava-toggle-prompt {
@@ -1959,6 +1984,49 @@
           text-decoration: underline;
         }
 
+        /* Cursor-style "shimmer": a lighter highlight band sweeps across the text
+           while the base color stays #6B6B6B. The gradient is clipped to the
+           glyphs and its position is animated on a loop. */
+        .qava-blog-shimmer {
+          background-image: linear-gradient(
+            100deg,
+            #6b6b6b 0%,
+            #6b6b6b 38%,
+            #c9c9c9 50%,
+            #6b6b6b 62%,
+            #6b6b6b 100%
+          );
+          background-size: 220% 100%;
+          background-repeat: repeat;
+          background-position: 150% 0;
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          color: transparent;
+          animation: qava-blog-shimmer 2.6s linear infinite;
+        }
+
+        .qava-blog-shimmer:hover {
+          -webkit-text-fill-color: #111827;
+          color: #111827;
+        }
+
+        @keyframes qava-blog-shimmer {
+          0% {
+            background-position: 150% 0;
+          }
+          100% {
+            background-position: -50% 0;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .qava-blog-shimmer {
+            animation: none;
+            background-position: 50% 0;
+          }
+        }
+
         @media (max-width: 600px) {
           .qava-blog-row {
             width: calc(100vw - 32px);
@@ -2596,6 +2664,11 @@
         @media (max-width: 860px) {
           .qava-stories-grid {
             grid-template-columns: 1fr;
+          }
+
+          .qava-showcase-toggle-sticky {
+            position: static;
+            top: auto;
           }
         }
 
