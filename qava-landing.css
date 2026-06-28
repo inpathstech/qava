@@ -3774,16 +3774,16 @@
 
         .qava-signup-free-text {
           border: 1px solid rgba(17, 24, 39, 0.1);
-          border-radius: 10px;
+          border-radius: 8px;
           background: #ffffff;
-          min-height: 48px;
-          padding: 8px 10px;
+          min-height: 30px;
+          padding: 5px 9px;
           font-family: "Inter", sans-serif;
           font-size: 11px;
           font-weight: 400;
-          line-height: 1.45;
+          line-height: 1.3;
           color: #111827;
-          margin-bottom: 6px;
+          margin-bottom: 0;
           text-align: left;
           width: 100%;
           box-sizing: border-box;
@@ -3811,7 +3811,21 @@
         }
 
         .qava-apply-illustration {
-          overflow-y: auto;
+          overflow: hidden;
+          gap: 5px;
+          padding: 12px 16px 8px;
+        }
+
+        .qava-apply-illustration .qava-signup-sections {
+          gap: 4px;
+        }
+
+        .qava-apply-illustration .qava-signup-question {
+          padding: 6px 9px;
+        }
+
+        .qava-apply-illustration .qava-signup-question h4 {
+          margin-bottom: 2px;
         }
 
         .qava-apply-radios {
@@ -4067,55 +4081,46 @@
         }
 
         .qava-work-illustration {
-          overflow-y: auto;
-          overflow-x: hidden;
-          padding: 38px 25px 25px 25px;
+          overflow: hidden;
+          padding: 14px 16px 12px;
         }
 
         .qava-work-title {
           margin: 0;
           font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
-            font-size: 24px;
+          font-size: 19px;
           font-weight: 400;
           color: #111827;
           line-height: 1.1;
-          text-align: left;
+          text-align: center;
         }
 
         .qava-work-subtitle {
-          margin: 4px 0 12px 0;
+          margin: 2px 0 10px 0;
           font-family: "Inter", sans-serif;
-          font-size: 14px;
-            font-weight: 300;
+          font-size: 11px;
+          font-weight: 400;
           color: #6b6b6b;
           line-height: 1.3;
-          text-align: left;
+          text-align: center;
         }
 
-        .qava-work-grid {
+        .qava-phases-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          grid-template-rows: repeat(3, minmax(116px, 1fr));
-          gap: 16px;
+          gap: 10px;
           width: 100%;
           flex: 1 1 auto;
           min-height: 0;
+          align-items: start;
         }
 
-        .qava-work-slide {
-          border: 0;
-          border-radius: 10px;
-          background: #ffffff;
-          box-shadow: 0 1px 5px rgba(15, 23, 42, 0.08);
-          padding: 12px;
+        .qava-phase {
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: center;
-          text-align: center;
-          gap: 8px;
-          overflow: hidden;
-          min-height: 0;
+          gap: 4px;
+          min-width: 0;
           opacity: 0;
           animation: qava-work-phase-in 0.5s ease forwards;
         }
@@ -4131,36 +4136,57 @@
           }
         }
 
-        .qava-work-slide-illustration {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          color: #111827;
-            flex: 0 0 auto;
+        .qava-phase-head {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0;
+          text-align: center;
         }
 
-        .qava-work-svg {
-          height: 28px;
-          width: auto;
-        }
-
-        .qava-work-slide-title {
-            margin: 0;
+        .qava-phase-num {
           font-family: "Inter", sans-serif;
-          font-size: 12px;
+          font-size: 8px;
           font-weight: 600;
-          color: #111827;
-          line-height: 1.2;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: #9ca3af;
         }
 
-        .qava-work-slide-text {
+        .qava-phase-name {
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+          font-size: 15px;
+          font-weight: 400;
+          color: #111827;
+          line-height: 1.1;
+        }
+
+        .qava-phase-diagram {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+        }
+
+        .qava-phase-svg {
+          width: 100%;
+          height: auto;
+          display: block;
+        }
+
+        .qava-phase-text {
           margin: 0;
+          width: 100%;
           font-family: "Inter", sans-serif;
-          font-size: 10px;
-            font-weight: 300;
+          font-size: 8px;
+          font-weight: 300;
           color: #4b5563;
-          line-height: 1.4;
-            overflow: hidden;
+          line-height: 1.35;
+          text-align: center;
+        }
+
+        .qava-phase-text span {
+          font-weight: 700;
+          color: #111827;
         }
 
         .qava-getpaid-illustration {
@@ -4508,41 +4534,46 @@
 
         .qava-apply-jobcard {
           display: flex;
-          flex-direction: column;
+          flex-direction: row;
           align-items: center;
-          text-align: center;
-          gap: 8px;
-          border: 0;
-          border-radius: 12px;
-          padding: 16px 14px;
+          text-align: left;
+          gap: 10px;
+          width: 100%;
+          box-sizing: border-box;
+          border: 1px solid rgba(17, 24, 39, 0.06);
+          border-radius: 8px;
+          padding: 6px 9px;
           background: #ffffff;
+          box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
         }
 
         .qava-apply-jobcard-img {
-          width: min(420px, 80%);
-          height: 170px;
+          width: 56px;
+          height: 40px;
           object-fit: cover;
-          border-radius: 10px;
+          border-radius: 6px;
           flex: 0 0 auto;
         }
 
-        .qava-apply-jobcard-tag {
-          background: #f3f4f6;
-          border-radius: 999px;
-          padding: 2px 10px;
-          font-family: "Inter", sans-serif;
-          font-size: 10px;
-          font-weight: 500;
-          color: #374151;
+        .qava-apply-jobcard-info {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+          min-width: 0;
+          flex: 1 1 auto;
         }
 
         .qava-apply-jobcard-title {
-          margin: 2px 0 0 0;
+          margin: 0;
           font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
-          font-size: 20px;
+          font-size: 15px;
           font-weight: 400;
           color: #111827;
           line-height: 1.2;
+          width: 100%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         .qava-apply-jobcard-meta {
@@ -4551,6 +4582,10 @@
           font-size: 11px;
           font-weight: 400;
           color: #6b7280;
+          width: 100%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         .qava-apply-subtitle {
@@ -4568,7 +4603,7 @@
           border: 1px solid rgba(17, 24, 39, 0.1);
           border-radius: 8px;
           background: #ffffff;
-          padding: 7px 10px;
+          padding: 5px 9px;
           font-family: "Inter", sans-serif;
           font-size: 11px;
           font-weight: 400;
@@ -4578,20 +4613,21 @@
 
         .qava-apply-uploads {
           display: flex;
-          gap: 8px;
+          gap: 6px;
           width: 100%;
         }
 
         .qava-apply-upload {
           flex: 1;
+          min-width: 0;
           border: 1px dashed rgba(17, 24, 39, 0.18);
-          border-radius: 10px;
+          border-radius: 8px;
           background: #fafafa;
-          padding: 10px 8px;
+          padding: 6px 6px;
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 2px;
+          gap: 1px;
           text-align: center;
         }
 

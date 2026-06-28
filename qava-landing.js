@@ -546,29 +546,26 @@
                               <span class="qava-signup-chip"><span class="qava-tool-logo-badge qava-tool-gemini" aria-hidden="true">G</span>Gemini</span>
                               <span class="qava-signup-chip"><span class="qava-tool-logo-badge qava-tool-midjourney" aria-hidden="true">MJ</span>Midjourney</span>
                               <span class="qava-signup-chip"><span class="qava-tool-logo-badge qava-tool-figma" aria-hidden="true">F</span>Figma AI</span>
-                </div>
-                          </article>
                             </div>
-                        <div class="qava-signup-actions">
-                          <button type="button" class="qava-signup-btn-back">Back</button>
-                          <button type="button" class="qava-signup-btn-next qava-signup-btn-icon" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+                          </article>
                         </div>
                     </div>
                 `;
 
                 const applyStepHTML = `
                   <div class="qava-signup-illustration qava-apply-illustration" aria-label="Apply flow preview illustration">
+                    <h3 class="qava-signup-title">Let's get your application in!</h3>
                     <div class="qava-apply-jobcard">
                       <img class="qava-apply-jobcard-img" src="./Acquculture.png" alt="Project cover" />
-                      <h4 class="qava-apply-jobcard-title">Aquaculture Growth Strategy</h4>
-                      <p class="qava-apply-jobcard-meta">QA93294 · Boston · 16 applicants · $125 p/hr</p>
-                      <span class="qava-apply-jobcard-tag">Job</span>
-                            </div>
-                    <h3 class="qava-signup-title">Let's get your application in!</h3>
+                      <div class="qava-apply-jobcard-info">
+                        <p class="qava-apply-jobcard-title">Aquaculture Growth Strategy</p>
+                        <p class="qava-apply-jobcard-meta"><span class="qava-explore-row-type">Project</span> · QA93294 · Boston · 16 applicants · $125/hr</p>
+                      </div>
+                    </div>
                     <div class="qava-signup-sections">
                       <article class="qava-signup-question">
                         <h4>What excites you about this opportunity?</h4>
-                        <div class="qava-signup-free-text">I'm completing my MBA and have hands-on experience in operations and finance. I'm excited about this project because it lets me apply my strategy and data analysis skills to a real growth challenge.</div>
+                        <div class="qava-signup-free-text">Completing my MBA with hands-on operations and finance experience — excited to apply my strategy and data skills to a real growth challenge.</div>
                       </article>
 
                       <article class="qava-signup-question">
@@ -579,26 +576,22 @@
                       <article class="qava-signup-question">
                         <h4>Attach your resume, testimonials, and/or work samples</h4>
                         <div class="qava-apply-uploads">
-                          <div class="qava-apply-upload"><span class="qava-apply-upload-title">My CV</span><span class="qava-apply-upload-sub">Drag and drop your files</span></div>
-                          <div class="qava-apply-upload"><span class="qava-apply-upload-title">Work Sample</span><span class="qava-apply-upload-sub">Drag and drop your files</span></div>
-                          <div class="qava-apply-upload"><span class="qava-apply-upload-title">Testimonial</span><span class="qava-apply-upload-sub">Drag and drop your files</span></div>
+                          <div class="qava-apply-upload"><span class="qava-apply-upload-title">My CV</span><span class="qava-apply-upload-sub">Drag &amp; drop</span></div>
+                          <div class="qava-apply-upload"><span class="qava-apply-upload-title">Work Sample</span><span class="qava-apply-upload-sub">Drag &amp; drop</span></div>
+                          <div class="qava-apply-upload"><span class="qava-apply-upload-title">Testimonial</span><span class="qava-apply-upload-sub">Drag &amp; drop</span></div>
                 </div>
                       </article>
 
                       <article class="qava-signup-question">
                         <h4>When are you available to start?</h4>
                         <div class="qava-apply-radios">
-                          <label class="qava-apply-radio"><input type="radio" name="qava-availability" checked disabled><span>Immediately</span></label>
-                          <label class="qava-apply-radio"><input type="radio" name="qava-availability" disabled><span>In 1-2 weeks</span></label>
+                          <label class="qava-apply-radio"><input type="radio" name="qava-availability" disabled><span>Immediately</span></label>
+                          <label class="qava-apply-radio"><input type="radio" name="qava-availability" checked disabled><span>In 1-2 weeks</span></label>
                           <label class="qava-apply-radio"><input type="radio" name="qava-availability" disabled><span>In a month</span></label>
                           <label class="qava-apply-radio"><input type="radio" name="qava-availability" disabled><span>Pick a date</span></label>
                     </div>
                       </article>
                 </div>
-                    <div class="qava-signup-actions">
-                      <button type="button" class="qava-signup-btn-back">Back</button>
-                      <button type="button" class="qava-signup-btn-next qava-signup-btn-icon" aria-label="Submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
-                    </div>
             </div>
                 `;
 
@@ -616,77 +609,77 @@
                       <div class="qava-explore-row">
                         <img class="qava-explore-thumb" src="./Acquculture.png" alt="" />
                         <div class="qava-explore-row-info">
-                          <p class="qava-explore-row-title">Integration Roadmap for DTC Skincare</p>
-                          <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Project</span> · QA00521 · Boston · 12 applicants · $480</p>
+                          <p class="qava-explore-row-title">Integration Roadmap for a DTC Skincare Brand</p>
+                          <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Project</span> · QA00521 · Boston · 60 hrs · 12 applicants · $480</p>
                         </div>
                       </div>
                       <div class="qava-explore-row">
                         <img class="qava-explore-thumb" src="./Growth%20Strategy.png" alt="" />
                         <div class="qava-explore-row-info">
-                          <p class="qava-explore-row-title">Sustainability Marketing Lead</p>
+                          <p class="qava-explore-row-title">Sustainability Marketing Lead, Consumer Goods</p>
                           <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Job</span> · QA00527 · New York · 8 applicants · $430</p>
                         </div>
                       </div>
                       <div class="qava-explore-row">
                         <img class="qava-explore-thumb" src="./Industry%20Analysis.png" alt="" />
                         <div class="qava-explore-row-info">
-                          <p class="qava-explore-row-title">GTM Strategy for MBA-Startup Marketplace</p>
+                          <p class="qava-explore-row-title">GTM Strategy Intern for an MBA-Startup Marketplace</p>
                           <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Internship</span> · QA00533 · Remote · 9 applicants · $475</p>
                         </div>
                       </div>
                       <div class="qava-explore-row">
                         <img class="qava-explore-thumb" src="./Sunrise.png" alt="" />
                         <div class="qava-explore-row-info">
-                          <p class="qava-explore-row-title">Go-To-Market Strategy for Non-Profit Marketplace</p>
-                          <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Project</span> · QA00532 · California · 6 applicants · $370</p>
+                          <p class="qava-explore-row-title">Go-To-Market Strategy for a Non-Profit Marketplace</p>
+                          <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Project</span> · QA00532 · California · 45 hrs · 6 applicants · $370</p>
                         </div>
                       </div>
                       <div class="qava-explore-row">
                         <img class="qava-explore-thumb" src="./Sunset.png" alt="" />
                         <div class="qava-explore-row-info">
-                          <p class="qava-explore-row-title">Market Entry Strategy for Fintech</p>
+                          <p class="qava-explore-row-title">Market Entry Strategy Lead for a Fintech Scale-up</p>
                           <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Job</span> · QA00541 · London · 11 applicants · $520</p>
                         </div>
                       </div>
                       <div class="qava-explore-row">
                         <img class="qava-explore-thumb" src="./Sky.png" alt="" />
                         <div class="qava-explore-row-info">
-                          <p class="qava-explore-row-title">Corporate Strategy Sprint</p>
-                          <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Project</span> · QA00547 · Chicago · 14 applicants · $560</p>
+                          <p class="qava-explore-row-title">Corporate Strategy Sprint for a Series B SaaS</p>
+                          <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Project</span> · QA00547 · Chicago · 80 hrs · 14 applicants · $560</p>
                         </div>
                       </div>
                       <div class="qava-explore-row">
                         <img class="qava-explore-thumb" src="./Stream.png" alt="" />
                         <div class="qava-explore-row-info">
-                          <p class="qava-explore-row-title">Growth Marketing Playbook for SaaS</p>
+                          <p class="qava-explore-row-title">Growth Marketing Playbook Intern for B2B SaaS</p>
                           <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Internship</span> · QA00550 · Austin · 7 applicants · $410</p>
                         </div>
                       </div>
                       <div class="qava-explore-row">
                         <img class="qava-explore-thumb" src="./Branch.png" alt="" />
                         <div class="qava-explore-row-info">
-                          <p class="qava-explore-row-title">Demand Generation Playbook</p>
-                          <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Project</span> · QA00558 · Remote · 5 applicants · $400</p>
+                          <p class="qava-explore-row-title">Demand Generation Playbook for a Healthtech</p>
+                          <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Project</span> · QA00558 · Remote · 50 hrs · 5 applicants · $400</p>
                         </div>
                       </div>
                       <div class="qava-explore-row">
                         <img class="qava-explore-thumb" src="./Blue.png" alt="" />
                         <div class="qava-explore-row-info">
-                          <p class="qava-explore-row-title">Retention &amp; Lifecycle Strategy</p>
+                          <p class="qava-explore-row-title">Retention &amp; Lifecycle Strategy for a Subscription App</p>
                           <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Job</span> · QA00562 · Toronto · 4 applicants · $390</p>
                         </div>
                       </div>
                       <div class="qava-explore-row">
                         <img class="qava-explore-thumb" src="./Green.png" alt="" />
                         <div class="qava-explore-row-info">
-                          <p class="qava-explore-row-title">Financial Model for Seed-Stage Startup</p>
-                          <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Project</span> · QA00571 · Remote · 10 applicants · $450</p>
+                          <p class="qava-explore-row-title">Financial Model for a Seed-Stage Climate Startup</p>
+                          <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Project</span> · QA00571 · Remote · 35 hrs · 10 applicants · $450</p>
                         </div>
                       </div>
                       <div class="qava-explore-row">
                         <img class="qava-explore-thumb" src="./Markdowns.png" alt="" />
                         <div class="qava-explore-row-info">
-                          <p class="qava-explore-row-title">Financial Planning &amp; Analysis Model</p>
+                          <p class="qava-explore-row-title">Financial Planning &amp; Analysis Model for Retail</p>
                           <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Internship</span> · QA00578 · San Francisco · 18 applicants · $510</p>
                         </div>
                       </div>
@@ -700,36 +693,64 @@
                 </div>
                 `;
 
-                const svgBars = '<svg class="qava-work-svg" viewBox="0 0 56 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="6" y1="29" x2="6" y2="20"/><line x1="20" y1="29" x2="20" y2="12"/><line x1="34" y1="29" x2="34" y2="5"/><line x1="48" y1="29" x2="48" y2="16"/></svg>';
-                const svgLine = '<svg class="qava-work-svg" viewBox="0 0 56 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,26 18,18 32,22 52,6"/></svg>';
-                const svgPie = '<svg class="qava-work-svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="16" cy="16" r="11"/><line x1="16" y1="16" x2="16" y2="5"/><line x1="16" y1="16" x2="25.5" y2="21"/></svg>';
-                const svgTarget = '<svg class="qava-work-svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="16" cy="16" r="11"/><circle cx="16" cy="16" r="5.5"/><circle cx="16" cy="16" r="1" fill="currentColor" stroke="none"/></svg>';
-                const svgFunnel = '<svg class="qava-work-svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M5 7h22l-8 9v8l-6 3v-11z"/></svg>';
-                const svgBulb = '<svg class="qava-work-svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M16 5a8 8 0 0 0-4.5 14.6V23h9v-3.4A8 8 0 0 0 16 5z"/><line x1="12.5" y1="26.5" x2="19.5" y2="26.5"/></svg>';
-                const svgTimeline = '<svg class="qava-work-svg" viewBox="0 0 56 16" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="5" y1="8" x2="51" y2="8"/><circle cx="8" cy="8" r="3"/><circle cx="28" cy="8" r="3"/><circle cx="48" cy="8" r="3"/></svg>';
+                const PHASE_TEAL = "#5ec4b6";
+                const PHASE_GRAY = "#aab2c0";
+                const PHASE_PEACH = "#f3d6ad";
+                const phaseLine = (x1, y1, x2, y2) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#cbd5e1" stroke-width="1.4"/>`;
+                const phaseLabel = (cx, cy, lines) => {
+                  const lh = 6.6;
+                  const start = cy - ((lines.length - 1) * lh) / 2;
+                  return `<text x="${cx}" y="${start}" text-anchor="middle" dominant-baseline="middle" font-family="Inter, sans-serif" font-size="5.6" font-weight="600" fill="#1f2937">${lines.map((l, i) => `<tspan x="${cx}" dy="${i === 0 ? 0 : lh}">${l}</tspan>`).join("")}</text>`;
+                };
+                const phaseCircle = (cx, cy, color, lines) => `<circle cx="${cx}" cy="${cy}" r="17" fill="${color}"/>${phaseLabel(cx, cy, lines)}`;
+                const phaseSquare = (cx, cy, color, lines) => `<rect x="${cx - 17}" y="${cy - 17}" width="34" height="34" rx="5" fill="${color}"/>${phaseLabel(cx, cy, lines)}`;
 
-                const workSlides = [
-                  { svg: svgTarget, title: "Executive Summary", text: "A bold plan to 3x revenue in 18 months across three core growth levers." },
-                  { svg: svgPie, title: "Market Opportunity", text: "$4.2B addressable market growing 22% YoY with fragmented incumbents." },
-                  { svg: svgBars, title: "Target Segments", text: "Focus on MBA-led startups, SMB operators, and mission-driven non-profits." },
-                  { svg: svgBulb, title: "Value Proposition", text: "Faster, AI-assisted strategy delivery at a fraction of agency cost." },
-                  { svg: svgFunnel, title: "Go-To-Market", text: "Lead with community and content, convert via curated project matching." },
-                  { svg: svgBars, title: "Growth Channels", text: "University partners, referrals, and SEO drive low-cost acquisition." },
-                  { svg: svgLine, title: "Financial Model", text: "Take-rate plus subscriptions reach profitability by month 14." },
-                  { svg: svgTimeline, title: "Roadmap & Milestones", text: "Launch, expand categories, then open the marketplace to enterprise." },
-                  { svg: svgPie, title: "KPIs & Metrics", text: "Track activation, match rate, retention, and net revenue retention." }
+                const phase1Svg = `<svg class="qava-phase-svg" viewBox="0 0 180 132">
+                  ${phaseLine(31, 33, 90, 33)}${phaseLine(90, 33, 149, 33)}${phaseLine(31, 97, 90, 97)}${phaseLine(90, 97, 149, 97)}${phaseLine(90, 33, 90, 97)}
+                  ${phaseCircle(31, 33, PHASE_TEAL, ["Walks"])}
+                  ${phaseSquare(90, 33, PHASE_GRAY, ["Pet", "owners"])}
+                  ${phaseCircle(149, 33, PHASE_GRAY, ["Daycare"])}
+                  ${phaseSquare(31, 97, PHASE_PEACH, ["City", "parents"])}
+                  ${phaseCircle(90, 97, PHASE_PEACH, ["Insure"])}
+                  ${phaseSquare(149, 97, PHASE_TEAL, ["Couples"])}
+                </svg>`;
+
+                const phase2Svg = `<svg class="qava-phase-svg" viewBox="0 0 180 132">
+                  ${phaseLine(90, 33, 90, 97)}
+                  ${phaseCircle(90, 33, PHASE_TEAL, ["Daycare"])}
+                  ${phaseSquare(90, 97, PHASE_TEAL, ["Pet", "owners"])}
+                </svg>`;
+
+                const phase3Svg = `<svg class="qava-phase-svg" viewBox="0 0 180 132">
+                  ${phaseLine(45, 30, 27, 92)}${phaseLine(45, 30, 63, 92)}
+                  ${phaseCircle(45, 30, PHASE_TEAL, ["Daycare"])}
+                  ${phaseSquare(27, 92, PHASE_PEACH, ["City", "parents"])}
+                  ${phaseSquare(63, 92, PHASE_TEAL, ["Couples"])}
+                  ${phaseLine(117, 30, 135, 92)}${phaseLine(153, 30, 135, 92)}
+                  ${phaseCircle(117, 30, PHASE_GRAY, ["Walks"])}
+                  ${phaseCircle(153, 30, PHASE_TEAL, ["Insure"])}
+                  ${phaseSquare(135, 92, PHASE_TEAL, ["Pet", "owners"])}
+                  <text x="45" y="126" text-anchor="middle" font-family="Inter, sans-serif" font-size="5.4" font-style="italic" fill="#9ca3af">Horizontal</text>
+                  <text x="135" y="126" text-anchor="middle" font-family="Inter, sans-serif" font-size="5.4" font-style="italic" fill="#9ca3af">Vertical</text>
+                </svg>`;
+
+                const workPhases = [
+                  { num: "Phase 1", name: "Learn", svg: phase1Svg, goal: "Find the offering + audience with product/market fit inside a $2.1B TAM.", how: "Sell and satisfy your first customers." },
+                  { num: "Phase 2", name: "Focus", svg: phase2Svg, goal: "Build a repeatable system to win one niche (1 offering + 1 audience).", how: "Stay focused on Daycare for pet owners." },
+                  { num: "Phase 3", name: "Expand", svg: phase3Svg, goal: "Build a new repeatable system for a new audience or offering.", how: "Add one new audience or offering at a time." }
                 ];
 
                 const workStepHTML = `
-                  <div class="qava-signup-illustration qava-work-illustration" aria-label="Work growth strategy deck preview">
-                    <h3 class="qava-work-title">Growth Strategy</h3>
-                    <p class="qava-work-subtitle">Your Path to Double Revenue in the Next 18 Months</p>
-                    <div class="qava-work-grid">
-                      ${workSlides.map((s, i) => `
-                        <div class="qava-work-slide" style="animation-delay: ${(i * 0.11).toFixed(2)}s">
-                          <div class="qava-work-slide-illustration">${s.svg}</div>
-                          <h4 class="qava-work-slide-title">${s.title}</h4>
-                          <p class="qava-work-slide-text">${s.text}</p>
+                  <div class="qava-signup-illustration qava-work-illustration" aria-label="Startup growth strategy preview">
+                    <h3 class="qava-work-title">The 3 Phases of Startup Growth</h3>
+                    <p class="qava-work-subtitle">Pet-care marketplace · $2.1B TAM</p>
+                    <div class="qava-phases-grid">
+                      ${workPhases.map((p, i) => `
+                        <div class="qava-phase" style="animation-delay: ${(i * 0.12).toFixed(2)}s">
+                          <div class="qava-phase-head"><span class="qava-phase-num">${p.num}</span><span class="qava-phase-name">${p.name}</span></div>
+                          <div class="qava-phase-diagram">${p.svg}</div>
+                          <p class="qava-phase-text"><span>Goal:</span> ${p.goal}</p>
+                          <p class="qava-phase-text"><span>How:</span> ${p.how}</p>
                         </div>
                       `).join("")}
                     </div>
