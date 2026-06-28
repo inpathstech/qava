@@ -152,26 +152,35 @@
           height: 52px;
           padding: 0 24px;
           box-sizing: border-box;
-          background: #111827;
-          border-bottom: 0;
+          background: #ffffff;
+          border-bottom: 1px solid rgba(17, 24, 39, 0.08);
           cursor: pointer;
-          font-family: "Inter", sans-serif;
-          font-size: 12px;
-          font-weight: 600;
-          letter-spacing: 0.13em;
-          text-transform: uppercase;
         }
 
         .qava-hiw-step-num {
-          color: #ffffff;
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+          font-weight: 400;
+          font-size: 18px;
+          line-height: 1;
+          letter-spacing: -0.012em;
+          text-transform: none;
+          color: #9ca3af;
         }
 
         .qava-hiw-step-dot {
-          color: rgba(255, 255, 255, 0.4);
+          color: #d1d5db;
+          font-size: 12px;
+          line-height: 1;
         }
 
         .qava-hiw-step-label {
-          color: rgba(255, 255, 255, 0.72);
+          font-family: "Inter", sans-serif;
+          font-size: 12px;
+          font-weight: 600;
+          line-height: 1;
+          letter-spacing: 0.13em;
+          text-transform: uppercase;
+          color: #111827;
         }
 
         .qava-hiw-step-row {
@@ -247,21 +256,6 @@
           position: relative;
           height: clamp(300px, 33vw, 380px);
           min-width: 0;
-        }
-
-        .qava-hiw-step-visual::before {
-          content: "";
-          position: absolute;
-          top: 15px;
-          left: 16px;
-          width: 49px;
-          height: 11px;
-          z-index: 5;
-          pointer-events: none;
-          background-image:
-            radial-gradient(circle at 5.5px 50%, #ff5f57 5.5px, transparent 6px),
-            radial-gradient(circle at 24.5px 50%, #febc2e 5.5px, transparent 6px),
-            radial-gradient(circle at 43.5px 50%, #28c840 5.5px, transparent 6px);
         }
 
         .qava-hiw-step-visual .qava-signup-illustration {

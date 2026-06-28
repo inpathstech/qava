@@ -207,29 +207,6 @@
               <div class="qava-howitworks-sub">We connect entrepreneurs and leaders with<br>AI-enabled professionals, graduates, and students.</div>
             `;
             showcaseBox.insertAdjacentElement("beforebegin", toggleWrap);
-
-            // The audience toggle lives inside the showcase box as a sticky pill so
-            // it stays visible (and switchable) while the user scrolls the deck.
-            const toggleBar = doc.createElement("div");
-            toggleBar.className = "qava-showcase-toggle-sticky";
-            toggleBar.innerHTML = `
-              <div class="qava-showcase-toggle" id="qava-showcase-toggle" role="radiogroup" aria-label="Audience toggle">
-                <span class="qava-toggle-prompt">I'm looking for:</span>
-                <label class="qava-toggle-radio">
-                  <input type="radio" name="qava-audience-toggle" value="talent" checked />
-                  <span>work</span>
-                </label>
-                <label class="qava-toggle-radio">
-                  <input type="radio" name="qava-audience-toggle" value="client" />
-                  <span>brain power</span>
-                </label>
-                <label class="qava-toggle-radio">
-                  <input type="radio" name="qava-audience-toggle" value="team" />
-                  <span>master team</span>
-                </label>
-              </div>
-            `;
-            showcaseBox.insertAdjacentElement("afterbegin", toggleBar);
           }
 
           if (showcaseBox && !doc.getElementById("qava-blog-row")) {
@@ -376,7 +353,26 @@
           }
 
           if (showcaseBox && !doc.getElementById("qava-showcase-dynamic-content")) {
+            // The audience toggle lives inside the showcase box as a sticky pill so
+            // it stays visible (and switchable) while the user scrolls the deck.
             showcaseBox.innerHTML = `
+              <div class="qava-showcase-toggle-sticky">
+                <div class="qava-showcase-toggle" id="qava-showcase-toggle" role="radiogroup" aria-label="Audience toggle">
+                  <span class="qava-toggle-prompt">I'm looking for:</span>
+                  <label class="qava-toggle-radio">
+                    <input type="radio" name="qava-audience-toggle" value="talent" checked />
+                    <span>work</span>
+                  </label>
+                  <label class="qava-toggle-radio">
+                    <input type="radio" name="qava-audience-toggle" value="client" />
+                    <span>brain power</span>
+                  </label>
+                  <label class="qava-toggle-radio">
+                    <input type="radio" name="qava-audience-toggle" value="team" />
+                    <span>master team</span>
+                  </label>
+                </div>
+              </div>
               <div id="qava-showcase-dynamic-content"></div>
             `;
 
@@ -390,7 +386,7 @@
                 ${steps.map((s) => `
                   <article class="qava-hiw-step">
                     <header class="qava-hiw-step-header">
-                      <span class="qava-hiw-step-num">Step ${String(s.num).padStart(2, "0")}</span>
+                      <span class="qava-hiw-step-num">Step ${s.num}</span>
                       <span class="qava-hiw-step-dot">•</span>
                       <span class="qava-hiw-step-label">${s.label}</span>
                     </header>
@@ -411,7 +407,7 @@
 
             // Pin each card at an increasing top offset so they stack like a deck
             // (Function Health). Desktop only; on mobile the cards just flow.
-            const STEP_STACK_GAP = 14; // visible sliver of white between stacked tabs
+            const STEP_STACK_GAP = 0; // tabs stack flush, each directly under the one above
             const getStickyNavOffset = () => {
               const nav = doc.querySelector(".header-container");
               if (!nav) return 0;
