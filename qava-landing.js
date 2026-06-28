@@ -606,134 +606,92 @@
                   <div class="qava-signup-illustration qava-explore-illustration" aria-label="Explore marketplace preview">
                     <div class="qava-explore-filterbar">
                       <span class="qava-explore-filterbar-label">Filter by</span>
-                      <span class="qava-explore-filter-pill">↓ Highest rate</span>
+                      <span class="qava-explore-filter-pill is-active">↓ Highest rate</span>
+                      <span class="qava-explore-filter-pill">Remote</span>
+                      <span class="qava-explore-filter-pill">Strategy</span>
+                      <span class="qava-explore-filter-pill">Finance</span>
+                      <span class="qava-explore-filter-pill">AI</span>
                     </div>
-                    <div class="qava-explore-layout">
-                      <aside class="qava-explore-filters">
-                        <div class="qava-explore-filter-group">
-                          <p class="qava-explore-filter-title">Listing</p>
-                          <label class="qava-explore-filter-item"><input type="checkbox" checked disabled><span>Projects</span><span class="qava-explore-filter-count">17</span></label>
-                          <label class="qava-explore-filter-item"><input type="checkbox" disabled><span>Jobs</span><span class="qava-explore-filter-count">7</span></label>
-                          <label class="qava-explore-filter-item"><input type="checkbox" disabled><span>Internships</span><span class="qava-explore-filter-count">5</span></label>
-            </div>
-                        <div class="qava-explore-filter-group">
-                          <p class="qava-explore-filter-title">Focus</p>
-                          <label class="qava-explore-filter-item"><input type="checkbox" checked disabled><span>Strategy</span><span class="qava-explore-filter-count">10</span></label>
-                          <label class="qava-explore-filter-item"><input type="checkbox" checked disabled><span>Growth</span><span class="qava-explore-filter-count">10</span></label>
-                          <label class="qava-explore-filter-item"><input type="checkbox" checked disabled><span>Finance</span><span class="qava-explore-filter-count">6</span></label>
-                          <label class="qava-explore-filter-item"><input type="checkbox" checked disabled><span>Technology</span><span class="qava-explore-filter-count">3</span></label>
-                          <label class="qava-explore-filter-item"><input type="checkbox" checked disabled><span>Operations</span><span class="qava-explore-filter-count">4</span></label>
-            </div>
-                        <div class="qava-explore-filter-group">
-                          <p class="qava-explore-filter-title">Other</p>
-                          <label class="qava-explore-filter-item"><input type="checkbox" checked disabled><span>Black-led/owned</span><span class="qava-explore-filter-count">8</span></label>
-                          <label class="qava-explore-filter-item"><input type="checkbox" checked disabled><span>Indigenous-led/owned</span><span class="qava-explore-filter-count">8</span></label>
-                          <label class="qava-explore-filter-item"><input type="checkbox" checked disabled><span>Agency</span><span class="qava-explore-filter-count">12</span></label>
-                          <label class="qava-explore-filter-item"><input type="checkbox" checked disabled><span>Artificial intelligence</span><span class="qava-explore-filter-count">13</span></label>
-                          <label class="qava-explore-filter-item"><input type="checkbox" checked disabled><span>B Corp certified</span><span class="qava-explore-filter-count">8</span></label>
-                          <label class="qava-explore-filter-item"><input type="checkbox" checked disabled><span>Mission-driven</span><span class="qava-explore-filter-count">7</span></label>
-        </div>
-                      </aside>
-
-                      <section class="qava-explore-list">
-                        <h3 class="qava-explore-section-title">Featured</h3>
-                        <div class="qava-explore-row">
-                          <img class="qava-explore-thumb" src="./Acquculture.png" alt="" />
-                          <div class="qava-explore-row-info">
-                            <span class="qava-explore-row-type qava-type-project">Project</span>
-                            <p class="qava-explore-row-title">Integration Roadmap for DTC Skincare</p>
-                            <p class="qava-explore-row-meta">QA00521 · Boston · 12 applicants · $480</p>
-                                </div>
-                            </div>
-                        <div class="qava-explore-row">
-                          <img class="qava-explore-thumb" src="./Growth%20Strategy.png" alt="" />
-                          <div class="qava-explore-row-info">
-                            <span class="qava-explore-row-type qava-type-project">Project</span>
-                            <p class="qava-explore-row-title">Sustainability Marketing Strategy</p>
-                            <p class="qava-explore-row-meta">QA00527 · New York · 8 applicants · $430</p>
-                                </div>
-                            </div>
-
-                        <h3 class="qava-explore-section-title">Strategy</h3>
-                        <div class="qava-explore-row">
-                          <img class="qava-explore-thumb" src="./Industry%20Analysis.png" alt="" />
-                          <div class="qava-explore-row-info">
-                            <span class="qava-explore-row-type qava-type-project">Project</span>
-                            <p class="qava-explore-row-title">GTM Strategy for MBA-Startup Marketplace</p>
-                            <p class="qava-explore-row-meta">QA00533 · Remote · 9 applicants · $475</p>
-                                </div>
-                            </div>
-                        <div class="qava-explore-row">
-                          <img class="qava-explore-thumb" src="./Sunrise.png" alt="" />
-                          <div class="qava-explore-row-info">
-                            <span class="qava-explore-row-type qava-type-project">Project</span>
-                            <p class="qava-explore-row-title">Go-To-Market Strategy for Non-Profit Marketplace</p>
-                            <p class="qava-explore-row-meta">QA00532 · California · 6 applicants · $370</p>
+                    <section class="qava-explore-list">
+                      <div class="qava-explore-row">
+                        <img class="qava-explore-thumb" src="./Acquculture.png" alt="" />
+                        <div class="qava-explore-row-info">
+                          <p class="qava-explore-row-title">Integration Roadmap for DTC Skincare</p>
+                          <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Project</span> · QA00521 · Boston · 12 applicants · $480</p>
                         </div>
-                                    </div>
-                        <div class="qava-explore-row">
-                          <img class="qava-explore-thumb" src="./Sunset.png" alt="" />
-                          <div class="qava-explore-row-info">
-                            <span class="qava-explore-row-type qava-type-project">Project</span>
-                            <p class="qava-explore-row-title">Market Entry Strategy for Fintech</p>
-                            <p class="qava-explore-row-meta">QA00541 · London · 11 applicants · $520</p>
-                                        </div>
-                                    </div>
-                        <div class="qava-explore-row">
-                          <img class="qava-explore-thumb" src="./Sky.png" alt="" />
-                          <div class="qava-explore-row-info">
-                            <span class="qava-explore-row-type qava-type-project">Project</span>
-                            <p class="qava-explore-row-title">Corporate Strategy Sprint</p>
-                            <p class="qava-explore-row-meta">QA00547 · Chicago · 14 applicants · $560</p>
-                                </div>
-                            </div>
-
-                        <h3 class="qava-explore-section-title">Growth</h3>
-                        <div class="qava-explore-row">
-                          <img class="qava-explore-thumb" src="./Stream.png" alt="" />
-                          <div class="qava-explore-row-info">
-                            <span class="qava-explore-row-type qava-type-project">Project</span>
-                            <p class="qava-explore-row-title">Growth Marketing Playbook for SaaS</p>
-                            <p class="qava-explore-row-meta">QA00550 · Austin · 7 applicants · $410</p>
-                                </div>
-                            </div>
-                        <div class="qava-explore-row">
-                          <img class="qava-explore-thumb" src="./Branch.png" alt="" />
-                          <div class="qava-explore-row-info">
-                            <span class="qava-explore-row-type qava-type-project">Project</span>
-                            <p class="qava-explore-row-title">Demand Generation Playbook</p>
-                            <p class="qava-explore-row-meta">QA00558 · Remote · 5 applicants · $400</p>
-                                </div>
-                            </div>
-                        <div class="qava-explore-row">
-                          <img class="qava-explore-thumb" src="./Blue.png" alt="" />
-                          <div class="qava-explore-row-info">
-                            <span class="qava-explore-row-type qava-type-project">Project</span>
-                            <p class="qava-explore-row-title">Retention & Lifecycle Strategy</p>
-                            <p class="qava-explore-row-meta">QA00562 · Toronto · 4 applicants · $390</p>
-                            </div>
+                      </div>
+                      <div class="qava-explore-row">
+                        <img class="qava-explore-thumb" src="./Growth%20Strategy.png" alt="" />
+                        <div class="qava-explore-row-info">
+                          <p class="qava-explore-row-title">Sustainability Marketing Lead</p>
+                          <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Job</span> · QA00527 · New York · 8 applicants · $430</p>
                         </div>
-                        
-                        <h3 class="qava-explore-section-title">Finance</h3>
-                        <div class="qava-explore-row">
-                          <img class="qava-explore-thumb" src="./Green.png" alt="" />
-                          <div class="qava-explore-row-info">
-                            <span class="qava-explore-row-type qava-type-project">Project</span>
-                            <p class="qava-explore-row-title">Financial Model for Seed-Stage Startup</p>
-                            <p class="qava-explore-row-meta">QA00571 · Remote · 10 applicants · $450</p>
-                                </div>
-                            </div>
-                        <div class="qava-explore-row">
-                          <img class="qava-explore-thumb" src="./Markdowns.png" alt="" />
-                          <div class="qava-explore-row-info">
-                            <span class="qava-explore-row-type qava-type-project">Project</span>
-                            <p class="qava-explore-row-title">Financial Planning &amp; Analysis Model</p>
-                            <p class="qava-explore-row-meta">QA00578 · San Francisco · 18 applicants · $510</p>
-                                </div>
-                            </div>
-                      </section>
-                                    </div>
-                                        </div>
+                      </div>
+                      <div class="qava-explore-row">
+                        <img class="qava-explore-thumb" src="./Industry%20Analysis.png" alt="" />
+                        <div class="qava-explore-row-info">
+                          <p class="qava-explore-row-title">GTM Strategy for MBA-Startup Marketplace</p>
+                          <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Internship</span> · QA00533 · Remote · 9 applicants · $475</p>
+                        </div>
+                      </div>
+                      <div class="qava-explore-row">
+                        <img class="qava-explore-thumb" src="./Sunrise.png" alt="" />
+                        <div class="qava-explore-row-info">
+                          <p class="qava-explore-row-title">Go-To-Market Strategy for Non-Profit Marketplace</p>
+                          <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Project</span> · QA00532 · California · 6 applicants · $370</p>
+                        </div>
+                      </div>
+                      <div class="qava-explore-row">
+                        <img class="qava-explore-thumb" src="./Sunset.png" alt="" />
+                        <div class="qava-explore-row-info">
+                          <p class="qava-explore-row-title">Market Entry Strategy for Fintech</p>
+                          <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Job</span> · QA00541 · London · 11 applicants · $520</p>
+                        </div>
+                      </div>
+                      <div class="qava-explore-row">
+                        <img class="qava-explore-thumb" src="./Sky.png" alt="" />
+                        <div class="qava-explore-row-info">
+                          <p class="qava-explore-row-title">Corporate Strategy Sprint</p>
+                          <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Project</span> · QA00547 · Chicago · 14 applicants · $560</p>
+                        </div>
+                      </div>
+                      <div class="qava-explore-row">
+                        <img class="qava-explore-thumb" src="./Stream.png" alt="" />
+                        <div class="qava-explore-row-info">
+                          <p class="qava-explore-row-title">Growth Marketing Playbook for SaaS</p>
+                          <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Internship</span> · QA00550 · Austin · 7 applicants · $410</p>
+                        </div>
+                      </div>
+                      <div class="qava-explore-row">
+                        <img class="qava-explore-thumb" src="./Branch.png" alt="" />
+                        <div class="qava-explore-row-info">
+                          <p class="qava-explore-row-title">Demand Generation Playbook</p>
+                          <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Project</span> · QA00558 · Remote · 5 applicants · $400</p>
+                        </div>
+                      </div>
+                      <div class="qava-explore-row">
+                        <img class="qava-explore-thumb" src="./Blue.png" alt="" />
+                        <div class="qava-explore-row-info">
+                          <p class="qava-explore-row-title">Retention &amp; Lifecycle Strategy</p>
+                          <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Job</span> · QA00562 · Toronto · 4 applicants · $390</p>
+                        </div>
+                      </div>
+                      <div class="qava-explore-row">
+                        <img class="qava-explore-thumb" src="./Green.png" alt="" />
+                        <div class="qava-explore-row-info">
+                          <p class="qava-explore-row-title">Financial Model for Seed-Stage Startup</p>
+                          <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Project</span> · QA00571 · Remote · 10 applicants · $450</p>
+                        </div>
+                      </div>
+                      <div class="qava-explore-row">
+                        <img class="qava-explore-thumb" src="./Markdowns.png" alt="" />
+                        <div class="qava-explore-row-info">
+                          <p class="qava-explore-row-title">Financial Planning &amp; Analysis Model</p>
+                          <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Internship</span> · QA00578 · San Francisco · 18 applicants · $510</p>
+                        </div>
+                      </div>
+                    </section>
+                  </div>
                 `;
 
                 const placeholderStepHTML = (label) => `

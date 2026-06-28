@@ -3852,7 +3852,7 @@
 
         .qava-explore-illustration {
           overflow: hidden;
-          padding: 38px 25px 25px 25px;
+          padding: 14px 14px 12px 14px;
           text-align: left;
         }
 
@@ -3860,10 +3860,10 @@
             display: flex;
           flex-wrap: wrap;
             align-items: center;
-          gap: 8px;
+          gap: 6px;
           flex: 0 0 auto;
-          padding-bottom: 14px;
-          margin-bottom: 14px;
+          padding-bottom: 10px;
+          margin-bottom: 10px;
           border-bottom: 1px solid rgba(17, 24, 39, 0.06);
         }
 
@@ -3879,9 +3879,9 @@
           border: 1px solid rgba(17, 24, 39, 0.18);
           border-radius: 999px;
           background: #ffffff;
-          padding: 3px 11px;
+          padding: 2px 9px;
           font-family: "Inter", sans-serif;
-          font-size: 12px;
+          font-size: 11px;
           font-weight: 400;
           color: #374151;
           white-space: nowrap;
@@ -3891,6 +3891,12 @@
         .qava-explore-filter-pill:hover {
           border-color: rgba(17, 24, 39, 0.4);
           color: #111827;
+        }
+
+        .qava-explore-filter-pill.is-active {
+          background: #111827;
+          border-color: #111827;
+          color: #ffffff;
         }
 
         .qava-explore-layout {
@@ -3988,8 +3994,10 @@
         .qava-explore-list {
           overflow-y: auto;
           min-height: 0;
+          flex: 1 1 auto;
             display: flex;
             flex-direction: column;
+          gap: 5px;
         }
 
         .qava-explore-section-title {
@@ -4008,12 +4016,12 @@
         .qava-explore-row {
             display: flex;
             align-items: center;
-          gap: 12px;
-          padding: 8px 12px;
-          margin-bottom: 8px;
+          gap: 9px;
+          padding: 5px 8px;
+          margin-bottom: 0;
           background: #ffffff;
           border: 1px solid rgba(17, 24, 39, 0.06);
-          border-radius: 10px;
+          border-radius: 8px;
           box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
           animation: qavaExploreRowUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
         }
@@ -4036,10 +4044,10 @@
         }
 
         .qava-explore-thumb {
-          width: 56px;
-          height: 44px;
+          width: 40px;
+          height: 36px;
           object-fit: cover;
-          border-radius: 8px;
+          border-radius: 6px;
           flex: 0 0 auto;
         }
 
@@ -4049,39 +4057,13 @@
           align-items: flex-start;
           gap: 1px;
           min-width: 0;
+          flex: 1 1 auto;
           text-align: left;
         }
 
         .qava-explore-row-type {
-          align-self: flex-start;
-          display: inline-flex;
-          align-items: center;
-          border: 1px solid transparent;
-          border-radius: 999px;
-          padding: 0 7px;
-          margin-bottom: 2px;
-          font-family: "Inter", sans-serif;
-          font-size: 9px;
-          font-weight: 500;
-          line-height: 16px;
-        }
-
-        .qava-type-job {
-          background: #eff6ff;
-          border-color: #bfdbfe;
-          color: #1d4ed8;
-        }
-
-        .qava-type-project {
-          background: #ecfdf5;
-          border-color: #a7f3d0;
-          color: #047857;
-        }
-
-        .qava-type-internship {
-          background: #f5f3ff;
-          border-color: #ddd6fe;
-          color: #6d28d9;
+          font-weight: 700;
+          color: #111827;
         }
 
         .qava-work-illustration {
@@ -4445,12 +4427,16 @@
 
         .qava-explore-row-title {
           margin: 0;
-          font-family: "Inter", sans-serif;
-          font-size: 13px;
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+          font-size: 14px;
           font-weight: 400;
           color: #111827;
-          line-height: 1.25;
+          line-height: 1.2;
           text-align: left;
+          width: 100%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         .qava-explore-row-meta {
@@ -4459,6 +4445,10 @@
           font-size: 11px;
           font-weight: 300;
           color: #6b7280;
+          width: 100%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         .qava-signup-actions {
