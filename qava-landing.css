@@ -1587,11 +1587,11 @@
           gap: 16px;
         }
 
-        .qava-blog-hidden {
+        .qava-blog-card.qava-blog-hidden {
           display: none;
         }
 
-        .qava-blog-row.qava-blog-expanded .qava-blog-hidden {
+        .qava-blog-row.qava-blog-expanded .qava-blog-card.qava-blog-hidden {
           display: block;
         }
 
