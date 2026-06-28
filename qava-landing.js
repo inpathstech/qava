@@ -441,6 +441,16 @@
                 base = toggleTop + toggleBar.offsetHeight + 12;
               }
               const step = headerH + STEP_STACK_GAP;
+              // Sticky elements are clamped to the bottom of their containing
+              // block, so without trailing room the last cards collapse onto each
+              // other near the end of the deck. Reserve (n-1)*step of space below
+              // the stack so every card can hold its staggered offset.
+              const stepsEl = dynamicContent.querySelector(".qava-hiw-steps");
+              if (stepsEl) {
+                stepsEl.style.paddingBottom = desktop
+                  ? (cards.length - 1) * step + "px"
+                  : "";
+              }
               cards.forEach((card, i) => {
                 card.style.zIndex = String(i + 1);
                 if (desktop) {
@@ -481,9 +491,6 @@
               if (mode === "talent") {
                 const signupStepHTML = `
                       <div class="qava-signup-illustration qava-signup-static" aria-label="Sign-up form preview illustration">
-                        <div class="qava-signup-progress">
-                          <span class="active"></span><span class="active"></span><span class="active"></span><span></span><span></span>
-            </div>
                         <h3 class="qava-signup-title">Let's get to know each other!</h3>
                         <div class="qava-signup-sections">
                           <article class="qava-signup-question">
@@ -494,7 +501,6 @@
                               <label class="qava-signup-group-check"><input type="checkbox" disabled checked><span>Finance</span></label>
                               <label class="qava-signup-group-check"><input type="checkbox" disabled><span>Technology</span></label>
                               <label class="qava-signup-group-check"><input type="checkbox" disabled checked><span>Operations</span></label>
-                              <label class="qava-signup-group-check"><input type="checkbox" disabled><span>Innovation</span></label>
                               <label class="qava-signup-group-check"><input type="checkbox" disabled><span>Non-Profits</span></label>
             </div>
                             <div class="qava-signup-chips">
@@ -513,7 +519,6 @@
 
                           <article class="qava-signup-question">
                             <h4>What excites you the most?</h4>
-                            <div class="qava-signup-free-text">I am excited to work on real strategy projects where I can contribute ideas, execute with AI tools, and build practical experience with high-growth teams. I want to learn from sharp operators while shipping work that actually moves the needle.</div>
                             <div class="qava-signup-quick-actions">
                               <span class="qava-signup-quick-action is-selected">🛠️ Build experience</span>
                               <span class="qava-signup-quick-action is-selected">🌐 Grow network</span>

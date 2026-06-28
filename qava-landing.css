@@ -134,7 +134,7 @@
           position: relative;
           background: #ffffff;
           border: 1px solid rgba(17, 24, 39, 0.08);
-          border-radius: 16px;
+          border-radius: 10px;
           box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
           overflow: hidden;
           margin-bottom: 28px;
@@ -263,7 +263,7 @@
         }
 
         .qava-hiw-step-visual .qava-signup-static {
-          overflow-y: auto;
+          overflow: hidden;
         }
 
         .qava-showcase-toggle-wrap {
@@ -538,15 +538,15 @@
           width: 100%;
           height: 100%;
           border: 1px solid rgba(17, 24, 39, 0.06);
-          border-radius: 12px;
+          border-radius: 10px;
           background: #f6f6f7;
           box-shadow: 0 1px 6px rgba(15, 23, 42, 0.08);
-          padding: 38px 25px 25px 25px;
+          padding: 12px 16px;
           overflow-y: auto;
           overflow-x: hidden;
             display: flex;
           flex-direction: column;
-          gap: 10px;
+          gap: 7px;
         }
 
         .qava-signup-static {
@@ -554,9 +554,9 @@
         }
 
         .qava-signup-title {
-          margin: 0 0 4px 0;
+          margin: 0 0 2px 0;
           font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
-          font-size: 24px;
+          font-size: 20px;
           font-weight: 400;
             line-height: 1.1;
           color: #111827;
@@ -585,7 +585,7 @@
           display: flex;
           flex-direction: column;
           justify-content: flex-start;
-          gap: 14px;
+          gap: 6px;
         }
 
         .qava-signup-question {
@@ -596,9 +596,9 @@
           width: 100%;
           background: #ffffff;
           border: 1px solid rgba(17, 24, 39, 0.06);
-          border-radius: 12px;
+          border-radius: 8px;
           box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
-          padding: 12px;
+          padding: 8px 10px;
         }
 
         .qava-signup-question:last-child {
@@ -610,20 +610,21 @@
         }
 
         .qava-signup-question h4 {
-          margin: 0 0 6px 0;
+          margin: 0 0 4px 0;
           font-family: "Inter", sans-serif;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 300;
           color: #111827;
-          line-height: 1.4;
+          line-height: 1.25;
           text-align: left;
         }
 
         .qava-signup-groups {
             display: flex;
-          flex-wrap: wrap;
-          gap: 8px;
-          margin-bottom: 8px;
+          flex-wrap: nowrap;
+          gap: 6px;
+          margin-bottom: 5px;
+          width: 100%;
         }
 
         .qava-signup-group-check {
@@ -633,9 +634,9 @@
           border: 0;
           border-radius: 999px;
           background: transparent;
-          padding: 1px 4px;
+          padding: 0 2px;
           font-family: "Inter", sans-serif;
-          font-size: 11px;
+          font-size: 10px;
           font-weight: 400;
           color: #4b5563;
           line-height: 1.15;
@@ -3700,19 +3701,19 @@
         .qava-signup-chips {
           display: flex;
           flex-wrap: wrap;
-          gap: 6px;
+          gap: 4px;
         }
 
         .qava-signup-chip {
           border: 1px solid rgba(17, 24, 39, 0.1);
           border-radius: 999px;
-          padding: 1px 8px;
+          padding: 1px 4px;
           background: #ffffff;
           display: inline-flex;
             align-items: center;
-          gap: 5px;
+          gap: 3px;
           font-family: "Inter", sans-serif;
-          font-size: 11px;
+          font-size: 9px;
           font-weight: 400;
           color: #374151;
           white-space: nowrap;
@@ -3791,7 +3792,7 @@
         .qava-signup-quick-actions {
           display: flex;
           flex-wrap: wrap;
-          gap: 6px;
+          gap: 4px;
           width: 100%;
         }
 
@@ -3799,9 +3800,9 @@
           border: 1px solid rgba(17, 24, 39, 0.1);
           border-radius: 999px;
           background: #ffffff;
-          padding: 2px 9px;
+          padding: 1px 4px;
           font-family: "Inter", sans-serif;
-          font-size: 11px;
+          font-size: 9px;
           font-weight: 400;
           color: #374151;
           white-space: nowrap;
@@ -4464,8 +4465,8 @@
           display: flex;
           justify-content: flex-end;
           align-items: center;
-          gap: 10px;
-          margin-top: 6px;
+          gap: 8px;
+          margin-top: 2px;
         }
 
         .qava-signup-btn-back {
@@ -4473,9 +4474,9 @@
           background: transparent;
           color: #6b6b6b;
           font-family: "Inter", sans-serif;
-                font-size: 14px;
+                font-size: 12px;
           font-weight: 300;
-          padding: 8px 14px;
+          padding: 3px 8px;
           border-radius: 8px;
           cursor: pointer;
         }
@@ -4502,17 +4503,17 @@
 
         .qava-signup-btn-next.qava-signup-btn-icon {
           padding: 0;
-          width: 38px;
-          height: 38px;
+          width: 26px;
+          height: 26px;
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          border-radius: 10px;
+          border-radius: 8px;
         }
 
         .qava-signup-btn-icon svg {
-          width: 16px;
-          height: 16px;
+          width: 14px;
+          height: 14px;
         }
 
         .qava-apply-jobcard {
