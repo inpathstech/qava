@@ -693,43 +693,42 @@
                 </div>
                 `;
 
-                const PHASE_TEAL = "#5ec4b6";
-                const PHASE_GRAY = "#aab2c0";
-                const PHASE_PEACH = "#f3d6ad";
+                const PHASE_BLACK = "#111827";
+                const PHASE_GREY = "#e5e7eb";
                 const phaseLine = (x1, y1, x2, y2) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#cbd5e1" stroke-width="1.4"/>`;
-                const phaseLabel = (cx, cy, lines) => {
+                const phaseLabel = (cx, cy, lines, fill) => {
                   const lh = 6.6;
                   const start = cy - ((lines.length - 1) * lh) / 2;
-                  return `<text x="${cx}" y="${start}" text-anchor="middle" dominant-baseline="middle" font-family="Inter, sans-serif" font-size="5.6" font-weight="600" fill="#1f2937">${lines.map((l, i) => `<tspan x="${cx}" dy="${i === 0 ? 0 : lh}">${l}</tspan>`).join("")}</text>`;
+                  return `<text x="${cx}" y="${start}" text-anchor="middle" dominant-baseline="middle" font-family="Inter, sans-serif" font-size="5.6" font-weight="600" fill="${fill}">${lines.map((l, i) => `<tspan x="${cx}" dy="${i === 0 ? 0 : lh}">${l}</tspan>`).join("")}</text>`;
                 };
-                const phaseCircle = (cx, cy, color, lines) => `<circle cx="${cx}" cy="${cy}" r="17" fill="${color}"/>${phaseLabel(cx, cy, lines)}`;
-                const phaseSquare = (cx, cy, color, lines) => `<rect x="${cx - 17}" y="${cy - 17}" width="34" height="34" rx="5" fill="${color}"/>${phaseLabel(cx, cy, lines)}`;
+                const phaseCircle = (cx, cy, color, lines) => `<circle cx="${cx}" cy="${cy}" r="17" fill="${PHASE_BLACK}"/>${phaseLabel(cx, cy, lines, "#ffffff")}`;
+                const phaseSquare = (cx, cy, color, lines) => `<rect x="${cx - 17}" y="${cy - 17}" width="34" height="34" rx="5" fill="${PHASE_GREY}"/>${phaseLabel(cx, cy, lines, "#1f2937")}`;
 
                 const phase1Svg = `<svg class="qava-phase-svg" viewBox="0 0 180 132">
                   ${phaseLine(31, 33, 90, 33)}${phaseLine(90, 33, 149, 33)}${phaseLine(31, 97, 90, 97)}${phaseLine(90, 97, 149, 97)}${phaseLine(90, 33, 90, 97)}
-                  ${phaseCircle(31, 33, PHASE_TEAL, ["Walks"])}
-                  ${phaseSquare(90, 33, PHASE_GRAY, ["Pet", "owners"])}
-                  ${phaseCircle(149, 33, PHASE_GRAY, ["Daycare"])}
-                  ${phaseSquare(31, 97, PHASE_PEACH, ["City", "parents"])}
-                  ${phaseCircle(90, 97, PHASE_PEACH, ["Insure"])}
-                  ${phaseSquare(149, 97, PHASE_TEAL, ["Couples"])}
+                  ${phaseCircle(31, 33, PHASE_BLACK, ["Walks"])}
+                  ${phaseSquare(90, 33, PHASE_GREY, ["Pet", "owners"])}
+                  ${phaseCircle(149, 33, PHASE_BLACK, ["Daycare"])}
+                  ${phaseSquare(31, 97, PHASE_GREY, ["City", "parents"])}
+                  ${phaseCircle(90, 97, PHASE_BLACK, ["Insure"])}
+                  ${phaseSquare(149, 97, PHASE_GREY, ["Couples"])}
                 </svg>`;
 
                 const phase2Svg = `<svg class="qava-phase-svg" viewBox="0 0 180 132">
                   ${phaseLine(90, 33, 90, 97)}
-                  ${phaseCircle(90, 33, PHASE_TEAL, ["Daycare"])}
-                  ${phaseSquare(90, 97, PHASE_TEAL, ["Pet", "owners"])}
+                  ${phaseCircle(90, 33, PHASE_BLACK, ["Daycare"])}
+                  ${phaseSquare(90, 97, PHASE_GREY, ["Pet", "owners"])}
                 </svg>`;
 
                 const phase3Svg = `<svg class="qava-phase-svg" viewBox="0 0 180 132">
                   ${phaseLine(45, 30, 27, 92)}${phaseLine(45, 30, 63, 92)}
-                  ${phaseCircle(45, 30, PHASE_TEAL, ["Daycare"])}
-                  ${phaseSquare(27, 92, PHASE_PEACH, ["City", "parents"])}
-                  ${phaseSquare(63, 92, PHASE_TEAL, ["Couples"])}
+                  ${phaseCircle(45, 30, PHASE_BLACK, ["Daycare"])}
+                  ${phaseSquare(27, 92, PHASE_GREY, ["City", "parents"])}
+                  ${phaseSquare(63, 92, PHASE_GREY, ["Couples"])}
                   ${phaseLine(117, 30, 135, 92)}${phaseLine(153, 30, 135, 92)}
-                  ${phaseCircle(117, 30, PHASE_GRAY, ["Walks"])}
-                  ${phaseCircle(153, 30, PHASE_TEAL, ["Insure"])}
-                  ${phaseSquare(135, 92, PHASE_TEAL, ["Pet", "owners"])}
+                  ${phaseCircle(117, 30, PHASE_BLACK, ["Walks"])}
+                  ${phaseCircle(153, 30, PHASE_BLACK, ["Insure"])}
+                  ${phaseSquare(135, 92, PHASE_GREY, ["Pet", "owners"])}
                   <text x="45" y="126" text-anchor="middle" font-family="Inter, sans-serif" font-size="5.4" font-style="italic" fill="#9ca3af">Horizontal</text>
                   <text x="135" y="126" text-anchor="middle" font-family="Inter, sans-serif" font-size="5.4" font-style="italic" fill="#9ca3af">Vertical</text>
                 </svg>`;
@@ -758,74 +757,53 @@
                 `;
 
                 const getpaidProjects = [
-                  { name: "Integration Roadmap for DTC Skincare", amount: "$4,200", stars: 5, quote: "Sharp, fast, and a pleasure to work with.", status: "paid", start: "Jan 8, 2026" },
-                  { name: "Go-To-Market Strategy for Startup Marketplace", amount: "$3,150", stars: 5, quote: "Delivered well beyond what we expected.", status: "paid", start: "Feb 2, 2026" },
-                  { name: "Market Entry Strategy for Fintech", amount: "$5,200", stars: 4, quote: "Great insights, minor timeline slips.", status: "progress", start: "Mar 16, 2026" },
-                  { name: "Growth Marketing Playbook for SaaS", amount: "$2,870", stars: 5, quote: "Turned our funnel around completely.", status: "paid", start: "Apr 6, 2026" },
-                  { name: "Financial Model for Seed-Stage Startup", amount: "$3,000", stars: 5, quote: "Rigorous, clear, and investor-ready.", status: "paid", start: "May 11, 2026" }
+                  { name: "DTC Skincare Roadmap", amount: "$4,200", stars: 5, quote: "Sharp, fast, and a pleasure to work with.", status: "paid" },
+                  { name: "Marketplace GTM Strategy", amount: "$3,150", stars: 5, quote: "Delivered well beyond what we expected.", status: "paid" },
+                  { name: "Fintech Market Entry", amount: "$5,200", stars: 4, quote: "Great insights, minor timeline slips.", status: "progress" },
+                  { name: "SaaS Growth Playbook", amount: "$2,870", stars: 5, quote: "Turned our funnel around completely.", status: "paid" },
+                  { name: "Seed-Stage Financial Model", amount: "$3,000", stars: 5, quote: "Rigorous, clear, and investor-ready.", status: "paid" }
                 ];
 
-                const renderStars = (n) => "★".repeat(n);
+                const renderStars = (n) => `${"\u2605".repeat(n)}<span class="qava-gp-star-empty">${"\u2606".repeat(5 - n)}</span>`;
+                const getpaidTotal = "$18,420";
 
                 const getpaidStepHTML = `
-                  <div class="qava-signup-illustration qava-getpaid-illustration" aria-label="Billings page preview">
-                    <div class="qava-getpaid-header">
-                      <div class="qava-getpaid-total">
-                        <span class="qava-getpaid-total-label">Total earnings</span>
-                        <span class="qava-getpaid-total-value">$18,420</span>
-                    </div>
-                      <div class="qava-getpaid-charts-wrap">
-                        <div class="qava-getpaid-chart">
-                          <div class="qava-getpaid-barcol"><span class="qava-getpaid-bar-value">$1.8k</span><span class="qava-getpaid-bar" style="height: 30px;"></span><span class="qava-getpaid-bar-label">Jan</span></div>
-                          <div class="qava-getpaid-barcol"><span class="qava-getpaid-bar-value">$2.4k</span><span class="qava-getpaid-bar" style="height: 41px;"></span><span class="qava-getpaid-bar-label">Feb</span></div>
-                          <div class="qava-getpaid-barcol"><span class="qava-getpaid-bar-value">$2.9k</span><span class="qava-getpaid-bar" style="height: 49px;"></span><span class="qava-getpaid-bar-label">Mar</span></div>
-                          <div class="qava-getpaid-barcol"><span class="qava-getpaid-bar-value">$3.3k</span><span class="qava-getpaid-bar" style="height: 56px;"></span><span class="qava-getpaid-bar-label">Apr</span></div>
-                          <div class="qava-getpaid-barcol"><span class="qava-getpaid-bar-value">$3.8k</span><span class="qava-getpaid-bar" style="height: 64px;"></span><span class="qava-getpaid-bar-label">May</span></div>
-                          <div class="qava-getpaid-barcol"><span class="qava-getpaid-bar-value">$4.2k</span><span class="qava-getpaid-bar tallest" style="height: 72px;"></span><span class="qava-getpaid-bar-label">Jun</span></div>
-                            </div>
-                            </div>
-                      <svg class="qava-getpaid-radar" viewBox="-42 0 222 150" fill="none">
-                            <polygon points="80,17 135.16,57.08 114.09,121.92 45.91,121.92 24.84,57.08" stroke="#e5e7eb" stroke-width="1"/>
-                            <polygon points="80,36.72 116.41,63.17 102.5,105.96 57.5,105.96 43.59,63.17" stroke="#e5e7eb" stroke-width="1"/>
-                            <polygon points="80,55.86 98.2,69.09 91.25,90.48 68.75,90.48 61.8,69.09" stroke="#e5e7eb" stroke-width="1"/>
-                            <line x1="80" y1="75" x2="80" y2="17" stroke="#e5e7eb" stroke-width="1"/>
-                            <line x1="80" y1="75" x2="135.16" y2="57.08" stroke="#e5e7eb" stroke-width="1"/>
-                            <line x1="80" y1="75" x2="114.09" y2="121.92" stroke="#e5e7eb" stroke-width="1"/>
-                            <line x1="80" y1="75" x2="45.91" y2="121.92" stroke="#e5e7eb" stroke-width="1"/>
-                            <line x1="80" y1="75" x2="24.84" y2="57.08" stroke="#e5e7eb" stroke-width="1"/>
-                            <polygon points="80,19.9 110.34,65.14 108.98,114.88 69.09,90.02 63.45,69.62" fill="#ffffff" stroke="#111827" stroke-width="1.8" stroke-linejoin="round"/>
-                            <circle cx="80" cy="19.9" r="2" fill="#111827"/>
-                            <circle cx="110.34" cy="65.14" r="2" fill="#111827"/>
-                            <circle cx="108.98" cy="114.88" r="2" fill="#111827"/>
-                            <circle cx="69.09" cy="90.02" r="2" fill="#111827"/>
-                            <circle cx="63.45" cy="69.62" r="2" fill="#111827"/>
-                            <text x="80" y="11" text-anchor="middle" fill="#6b7280" font-family="Inter, sans-serif" font-size="8">Strategy</text>
-                            <text x="140" y="55" text-anchor="start" fill="#6b7280" font-family="Inter, sans-serif" font-size="8">Growth</text>
-                            <text x="114" y="135" text-anchor="middle" fill="#6b7280" font-family="Inter, sans-serif" font-size="8">Technology</text>
-                            <text x="46" y="135" text-anchor="middle" fill="#6b7280" font-family="Inter, sans-serif" font-size="8">Finance</text>
-                            <text x="20" y="54" text-anchor="end" fill="#6b7280" font-family="Inter, sans-serif" font-size="8">Operations</text>
-                          </svg>
-                        </div>
-                    <div class="qava-getpaid-table">
-                      <div class="qava-getpaid-row qava-getpaid-row-head">
-                        <span>Project</span><span>Started</span><span>Feedback</span><span>Earned</span><span>Status</span>
-                    </div>
-                      ${getpaidProjects.map((p) => `
-                        <div class="qava-getpaid-row">
-                          <span class="qava-getpaid-project">${p.name}</span>
-                          <span class="qava-getpaid-started">${p.start}</span>
-                          <span class="qava-getpaid-feedback">
-                            <span class="qava-getpaid-stars">${renderStars(p.stars)}</span>
-                            <span class="qava-getpaid-quote">"${p.quote}"</span>
-                          </span>
-                          <span class="qava-getpaid-amount">${p.amount}</span>
-                          <span>
-                            <span class="qava-getpaid-status ${p.status === "progress" ? "qava-status-progress" : "qava-status-paid"}">${p.status === "progress" ? "Work in progress" : "Paid"}</span>
-                          </span>
-                </div>
-                      `).join("")}
-                    </div>
-                    <button type="button" class="qava-getpaid-more">Find more projects</button>
+                  <div class="qava-signup-illustration qava-getpaid-illustration" aria-label="Earnings table preview">
+                    <h3 class="qava-getpaid-title">Your earnings</h3>
+                    <table class="qava-gp-table">
+                      <colgroup>
+                        <col class="c-proj" />
+                        <col class="c-fb" />
+                        <col class="c-earn" />
+                        <col class="c-status" />
+                      </colgroup>
+                      <thead>
+                        <tr>
+                          <th>Project</th>
+                          <th>Feedback</th>
+                          <th class="ta-right">Earned</th>
+                          <th class="ta-center">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        ${getpaidProjects.map((p) => `
+                          <tr>
+                            <td><div class="qava-gp-proj">${p.name}</div></td>
+                            <td><div class="qava-gp-fb"><span class="qava-gp-stars">${renderStars(p.stars)}</span><span class="qava-gp-quote">"${p.quote}"</span></div></td>
+                            <td class="qava-gp-earn">${p.amount}</td>
+                            <td class="ta-center"><span class="qava-gp-status ${p.status === "progress" ? "is-wip" : "is-paid"}">${p.status === "progress" ? "WIP" : "Paid"}</span></td>
+                          </tr>
+                        `).join("")}
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <td class="qava-gp-total-label">Total</td>
+                          <td></td>
+                          <td class="qava-gp-total-val">${getpaidTotal}</td>
+                          <td class="ta-center qava-gp-total-meta">5 projects</td>
+                        </tr>
+                      </tfoot>
+                    </table>
                                 </div>
                 `;
 
