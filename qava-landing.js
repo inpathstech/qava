@@ -1633,15 +1633,24 @@
               if (!box || box.__qavaPinSetup) return;
               box.__qavaPinSetup = true;
 
+              // The toggle wrap holds the "How it works" title, subtitle and the
+              // audience radios. Pin it together with the card so the heading and
+              // the work / brain power / master team selector stay on screen — and
+              // stay clickable — while the steps advance.
+              const toggleWrap = doc.getElementById("qava-showcase-toggle-wrap");
+              const pinned = toggleWrap ? [toggleWrap, box] : [box];
+              const groupTopMargin = win.getComputedStyle(pinned[0]).marginTop;
+
               const track = doc.createElement("div");
               track.className = "qava-hiw-pin-track";
               const inner = doc.createElement("div");
               inner.className = "qava-hiw-pin-inner";
-              box.parentNode.insertBefore(track, box);
+              pinned[0].parentNode.insertBefore(track, pinned[0]);
               track.appendChild(inner);
-              inner.appendChild(box);
+              pinned.forEach((el) => inner.appendChild(el));
 
               const STEP_FRACTION = 0.45; // "short" feel: ~45% of viewport per step
+              const MIN_TOP = 16;         // keep the heading + radios pinned near the top
               const MOBILE_BP = 860;
               const reduceMotion = win.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -1651,41 +1660,49 @@
               let aligning = false;
 
               const getItems = () => Array.from(box.querySelectorAll(".qava-side-menu-item"));
-              const isDesktop = () => !reduceMotion && win.innerWidth > MOBILE_BP && win.innerHeight > 560;
 
               // Other landing scripts insert sections via box.parentNode/afterend.
-              // Since the box now lives inside `inner`, those sections can land
-              // inside `inner` and inflate it past the track height, which breaks
-              // position:sticky. Evict anything that isn't the box back into flow.
+              // Since the pinned elements live inside `inner`, those sections can
+              // land inside `inner` and inflate it past the track height, breaking
+              // position:sticky. Evict anything outside the pinned group.
               const evictStrays = () => {
                 let ref = track;
                 Array.prototype.slice.call(inner.children).forEach((child) => {
-                  if (child === box) return;
+                  if (pinned.indexOf(child) !== -1) return;
                   track.parentNode.insertBefore(child, ref.nextSibling);
                   ref = child;
                 });
               };
 
+              const disablePin = () => {
+                enabled = false;
+                inner.style.position = "";
+                inner.style.top = "";
+                track.style.height = "";
+                track.style.marginTop = "";
+                if (toggleWrap) toggleWrap.style.marginTop = "";
+              };
+
               const layout = () => {
                 evictStrays();
                 const stepCount = getItems().length;
-                if (!isDesktop() || stepCount < 2) {
-                  enabled = false;
-                  inner.style.position = "";
-                  inner.style.top = "";
-                  track.style.height = "";
-                  box.style.marginTop = "";
-                  return;
-                }
+                const vh = win.innerHeight;
+                const desktop = !reduceMotion && win.innerWidth > MOBILE_BP && vh > 560;
+                if (!desktop || stepCount < 2) { disablePin(); return; }
+
+                // Shift the group's leading margin onto the track so the sticky
+                // inner starts flush while the space above the module is kept.
+                if (toggleWrap) toggleWrap.style.marginTop = "0px";
+                track.style.marginTop = groupTopMargin;
+
+                const groupH = Math.round(inner.getBoundingClientRect().height);
                 enabled = true;
-                const stepDistance = Math.round(win.innerHeight * STEP_FRACTION);
+                const stepDistance = Math.round(vh * STEP_FRACTION);
                 stuckDistance = stepDistance * stepCount;
-                box.style.marginTop = "0px";
-                const cardH = box.offsetHeight;
-                const top = Math.max(64, Math.round((win.innerHeight - cardH) / 2));
+                const top = Math.max(MIN_TOP, Math.round((vh - groupH) / 2));
                 inner.style.position = "sticky";
                 inner.style.top = top + "px";
-                track.style.height = (cardH + stuckDistance) + "px";
+                track.style.height = (groupH + stuckDistance) + "px";
               };
 
               const activate = (index) => {
