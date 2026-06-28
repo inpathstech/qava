@@ -99,7 +99,7 @@
 
         .qava-hero-showcase-box {
           width: min(1040px, calc(100vw - 120px));
-          height: clamp(320px, 44vw, 580px);
+          height: auto;
           margin: 16px 0 0 0;
           position: relative;
           left: 50%;
@@ -118,19 +118,155 @@
         #qava-showcase-dynamic-content {
           flex: 1 1 auto;
           min-height: 0;
-          display: flex;
-          flex-direction: column;
+          display: block;
         }
 
-        /* Scroll-driven step sequence: tall track + sticky card (desktop only;
-           sizing/position are set inline by JS and removed on mobile). */
-        .qava-hiw-pin-track {
+        /* Function-Health-style stacked-sticky step cards. Each card pins at an
+           increasing top offset (set inline by JS) so they stack like a deck as
+           the user scrolls. Desktop only; on mobile the cards just flow. */
+        .qava-hiw-steps {
           position: relative;
           width: 100%;
+          display: block;
         }
 
-        .qava-hiw-pin-inner {
-          width: 100%;
+        .qava-hiw-step {
+          position: relative;
+          background: #ffffff;
+          border: 1px solid rgba(17, 24, 39, 0.08);
+          border-radius: 16px;
+          box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
+          overflow: hidden;
+          margin-bottom: 28px;
+          text-align: left;
+        }
+
+        .qava-hiw-step:last-child {
+          margin-bottom: 0;
+        }
+
+        .qava-hiw-step-header {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 16px 24px;
+          background: #ffffff;
+          border-bottom: 1px solid rgba(17, 24, 39, 0.07);
+          font-family: "Inter", sans-serif;
+          font-size: 12px;
+          font-weight: 600;
+          letter-spacing: 0.13em;
+          text-transform: uppercase;
+        }
+
+        .qava-hiw-step-num {
+          color: #111827;
+        }
+
+        .qava-hiw-step-dot {
+          color: #c4c7cc;
+        }
+
+        .qava-hiw-step-label {
+          color: #6b6b6b;
+        }
+
+        .qava-hiw-step-row {
+          display: grid;
+          grid-template-columns: 0.82fr 1.18fr;
+          gap: 32px;
+          align-items: center;
+          padding: 30px 30px 32px;
+        }
+
+        .qava-hiw-step-copy {
+          min-width: 0;
+        }
+
+        .qava-hiw-step-heading {
+          margin: 0 0 10px 0;
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+          font-weight: 400;
+          letter-spacing: -0.012em;
+          font-size: clamp(24px, 2.2vw, 32px);
+          line-height: 1.12;
+          color: #111827;
+        }
+
+        .qava-hiw-step-desc {
+          margin: 0 0 18px 0;
+          font-family: "Inter", sans-serif;
+          font-size: 14.5px;
+          font-weight: 300;
+          line-height: 1.55;
+          color: #6b6b6b;
+        }
+
+        .qava-hiw-step-bullets {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .qava-hiw-step-bullets li {
+          position: relative;
+          padding-left: 26px;
+          font-family: "Inter", sans-serif;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 1.4;
+          color: #111827;
+        }
+
+        .qava-hiw-step-bullets li::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 2px;
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          background: #111827;
+          -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+          mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+          -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+          -webkit-mask-position: center;
+          mask-position: center;
+          -webkit-mask-size: 11px 11px;
+          mask-size: 11px 11px;
+        }
+
+        .qava-hiw-step-visual {
+          position: relative;
+          height: clamp(360px, 40vw, 460px);
+          min-width: 0;
+        }
+
+        .qava-hiw-step-visual::before {
+          content: "";
+          position: absolute;
+          top: 15px;
+          left: 16px;
+          width: 49px;
+          height: 11px;
+          z-index: 5;
+          pointer-events: none;
+          background-image:
+            radial-gradient(circle at 5.5px 50%, #ff5f57 5.5px, transparent 6px),
+            radial-gradient(circle at 24.5px 50%, #febc2e 5.5px, transparent 6px),
+            radial-gradient(circle at 43.5px 50%, #28c840 5.5px, transparent 6px);
+        }
+
+        .qava-hiw-step-visual .qava-signup-illustration {
+          height: 100%;
+        }
+
+        .qava-hiw-step-visual .qava-signup-static {
+          overflow-y: auto;
         }
 
         .qava-showcase-toggle-wrap {
@@ -1910,14 +2046,27 @@
             width: calc(100vw - 32px);
             max-width: calc(100vw - 32px);
             height: auto;
-            overflow-x: auto;
-            overflow-y: hidden;
-            -webkit-overflow-scrolling: touch;
+            overflow: visible;
           }
 
           #qava-showcase-dynamic-content {
-            width: 720px;
-            flex: 1 0 auto;
+            width: 100%;
+            flex: 1 1 auto;
+          }
+
+          .qava-hiw-step {
+            position: static !important;
+            top: auto !important;
+          }
+
+          .qava-hiw-step-row {
+            grid-template-columns: 1fr;
+            gap: 18px;
+            padding: 20px 18px 22px;
+          }
+
+          .qava-hiw-step-visual {
+            height: clamp(320px, 90vw, 420px);
           }
 
           .feature-cards-logos {

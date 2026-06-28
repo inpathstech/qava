@@ -373,22 +373,71 @@
             `;
 
             const dynamicContent = showcaseBox.querySelector("#qava-showcase-dynamic-content");
+
+            // Build a Function-Health-style stacked-sticky list of step cards.
+            // Each entry: { num, label, heading, desc, bullets[], visual } where
+            // `visual` is the existing interactive panel HTML reused as-is.
+            const buildStepStack = (steps) => `
+              <div class="qava-hiw-steps">
+                ${steps.map((s) => `
+                  <article class="qava-hiw-step">
+                    <header class="qava-hiw-step-header">
+                      <span class="qava-hiw-step-num">Step ${String(s.num).padStart(2, "0")}</span>
+                      <span class="qava-hiw-step-dot">•</span>
+                      <span class="qava-hiw-step-label">${s.label}</span>
+                    </header>
+                    <div class="qava-hiw-step-row">
+                      <div class="qava-hiw-step-copy">
+                        <h3 class="qava-hiw-step-heading">${s.heading}</h3>
+                        <p class="qava-hiw-step-desc">${s.desc}</p>
+                        <ul class="qava-hiw-step-bullets">
+                          ${(s.bullets || []).map((b) => `<li>${b}</li>`).join("")}
+                        </ul>
+                      </div>
+                      <div class="qava-hiw-step-visual">${s.visual}</div>
+                    </div>
+                  </article>
+                `).join("")}
+              </div>
+            `;
+
+            // Pin each card at an increasing top offset so they stack like a deck
+            // (Function Health). Desktop only; on mobile the cards just flow.
+            const getStickyNavOffset = () => {
+              const nav = doc.querySelector(".header-container");
+              if (!nav) return 0;
+              const cs = win.getComputedStyle(nav);
+              if (cs.position !== "sticky" && cs.position !== "fixed") return 0;
+              return nav.offsetHeight || 0;
+            };
+
+            const setStackOffsets = () => {
+              const cards = Array.prototype.slice.call(
+                dynamicContent.querySelectorAll(".qava-hiw-step")
+              );
+              if (!cards.length) return;
+              const desktop = win.innerWidth > 860 &&
+                !win.matchMedia("(prefers-reduced-motion: reduce)").matches;
+              const headerEl = cards[0].querySelector(".qava-hiw-step-header");
+              const headerH = headerEl ? headerEl.offsetHeight : 50;
+              const base = getStickyNavOffset() + 16;
+              cards.forEach((card, i) => {
+                card.style.zIndex = String(i + 1);
+                if (desktop) {
+                  card.style.position = "sticky";
+                  card.style.top = (base + i * headerH) + "px";
+                } else {
+                  card.style.position = "";
+                  card.style.top = "";
+                }
+              });
+            };
+
             const renderShowcaseView = (mode) => {
               if (!dynamicContent) return;
 
               if (mode === "talent") {
-                dynamicContent.innerHTML = `
-                  <div class="qava-showcase-layout">
-                    <aside class="qava-showcase-side-menu" id="qava-talent-side-menu">
-                      <p class="qava-side-menu-title">Steps</p>
-                      <span class="qava-side-menu-indicator" id="qava-talent-menu-indicator"></span>
-                      <button type="button" class="qava-side-menu-item active" data-step="signup"><span class="qava-side-menu-num">1</span>Join</button>
-                      <button type="button" class="qava-side-menu-item" data-step="explore"><span class="qava-side-menu-num">2</span>Explore</button>
-                      <button type="button" class="qava-side-menu-item" data-step="apply"><span class="qava-side-menu-num">3</span>Apply</button>
-                      <button type="button" class="qava-side-menu-item" data-step="work"><span class="qava-side-menu-num">4</span>Work</button>
-                      <button type="button" class="qava-side-menu-item" data-step="getpaid"><span class="qava-side-menu-num">5</span>Paid fast</button>
-                    </aside>
-                    <section class="qava-showcase-main" id="qava-talent-main">
+                const signupStepHTML = `
                       <div class="qava-signup-illustration qava-signup-static" aria-label="Sign-up form preview illustration">
                         <div class="qava-signup-progress">
                           <span class="active"></span><span class="active"></span><span class="active"></span><span></span><span></span>
@@ -458,13 +507,7 @@
                           <button type="button" class="qava-signup-btn-next qava-signup-btn-icon" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
                         </div>
                     </div>
-                    </section>
-                        </div>
                 `;
-
-                const talentMain = dynamicContent.querySelector("#qava-talent-main");
-                const talentSideMenu = dynamicContent.querySelector("#qava-talent-side-menu");
-                const signupStepHTML = talentMain ? talentMain.innerHTML : "";
 
                 const applyStepHTML = `
                   <div class="qava-signup-illustration qava-apply-illustration" aria-label="Apply flow preview illustration">
@@ -760,48 +803,54 @@
                                 </div>
                 `;
 
-                const talentSteps = {
-                  signup: signupStepHTML,
-                  explore: exploreStepHTML,
-                  apply: applyStepHTML,
-                  work: workStepHTML,
-                  getpaid: getpaidStepHTML
-                };
+                const talentStack = [
+                  {
+                    num: 1,
+                    label: "Join",
+                    heading: "Create your profile",
+                    desc: "Tell us what you're great at and what you want to work on. We tailor opportunities to your skills, interests, and the AI tools you love.",
+                    bullets: ["Set up in minutes", "Pick the projects that excite you", "Show the AI tools you use"],
+                    visual: signupStepHTML
+                  },
+                  {
+                    num: 2,
+                    label: "Explore",
+                    heading: "Browse live projects",
+                    desc: "See real briefs from founders and high-growth teams, filtered to match your skills and ambitions.",
+                    bullets: ["Filter by skill, pay, and time", "Real projects from real teams", "Fresh opportunities added daily"],
+                    visual: exploreStepHTML
+                  },
+                  {
+                    num: 3,
+                    label: "Apply",
+                    heading: "Apply in one click",
+                    desc: "Send a sharp application with your cover letter, links, and availability — no endless forms.",
+                    bullets: ["Reuse your profile instantly", "Attach work samples and links", "Share your availability"],
+                    visual: applyStepHTML
+                  },
+                  {
+                    num: 4,
+                    label: "Work",
+                    heading: "Do work that matters",
+                    desc: "Collaborate with ambitious teams and ship real, AI-powered deliverables.",
+                    bullets: ["Work on live deliverables", "Learn from sharp operators", "Build a portfolio that counts"],
+                    visual: workStepHTML
+                  },
+                  {
+                    num: 5,
+                    label: "Paid fast",
+                    heading: "Get paid fast",
+                    desc: "Track your earnings, get paid quickly, and line up your next project.",
+                    bullets: ["A clear earnings dashboard", "Fast, reliable payouts", "Find your next project in a tap"],
+                    visual: getpaidStepHTML
+                  }
+                ];
 
-                if (talentSideMenu && talentMain) {
-                  const menuIndicator = talentSideMenu.querySelector("#qava-talent-menu-indicator");
-                  const moveIndicator = (btn) => {
-                    if (!menuIndicator || !btn) return;
-                    menuIndicator.style.height = btn.offsetHeight + "px";
-                    menuIndicator.style.transform = "translateY(" + btn.offsetTop + "px)";
-                  };
-
-                  const activeBtn = talentSideMenu.querySelector(".qava-side-menu-item.active");
-                  requestAnimationFrame(() => moveIndicator(activeBtn));
-
-                  talentMain.addEventListener("scroll", (e) => {
-                    const scrolled = e.target && e.target.scrollTop > 4;
-                    talentMain.classList.toggle("qava-dots-hidden", scrolled);
-                  }, true);
-
-                  talentSideMenu.querySelectorAll(".qava-side-menu-item").forEach((btn) => {
-                    btn.addEventListener("click", () => {
-                      talentSideMenu.querySelectorAll(".qava-side-menu-item").forEach((item) => item.classList.remove("active"));
-                      btn.classList.add("active");
-                      moveIndicator(btn);
-                      const step = btn.getAttribute("data-step");
-                      talentMain.innerHTML = talentSteps[step] || signupStepHTML;
-                      talentMain.classList.toggle("qava-main-fade", step === "explore");
-                      talentMain.classList.remove("qava-dots-hidden");
-                      if (step === "explore") {
-                        talentMain.querySelectorAll(".qava-explore-row").forEach((row, i) => {
-                          row.style.animationDelay = (i * 0.06).toFixed(2) + "s";
-                        });
-                      }
-                    });
-                  });
-                }
-
+                dynamicContent.innerHTML = buildStepStack(talentStack);
+                dynamicContent.querySelectorAll(".qava-explore-row").forEach((row, i) => {
+                  row.style.animationDelay = (i * 0.06).toFixed(2) + "s";
+                });
+                setStackOffsets();
                 return;
               }
 
@@ -813,16 +862,7 @@
         </div>
                 `;
 
-                dynamicContent.innerHTML = `
-                  <div class="qava-showcase-layout">
-                    <aside class="qava-showcase-side-menu" id="qava-team-side-menu">
-                      <p class="qava-side-menu-title">Steps</p>
-                      <span class="qava-side-menu-indicator" id="qava-team-menu-indicator"></span>
-                      <button type="button" class="qava-side-menu-item active" data-step="design"><span class="qava-side-menu-num">1</span>Design team</button>
-                      <button type="button" class="qava-side-menu-item" data-step="deliverables"><span class="qava-side-menu-num">2</span>Deliverables</button>
-                      <button type="button" class="qava-side-menu-item" data-step="timeframe"><span class="qava-side-menu-num">3</span>Timeframe</button>
-                    </aside>
-                    <section class="qava-showcase-main" id="qava-team-main">
+                const designTeamHTML = `
                       <div class="qava-signup-illustration" aria-label="Design team preview illustration">
                         <h3 class="qava-signup-title" style="margin-top: 10px; margin-bottom: 2px;">Design your team</h3>
                         <p class="qava-signup-qsub" style="margin-top: 0;">Pick your slots and define what each member is for, where they studied, and the experience they bring.</p>
@@ -878,13 +918,7 @@
                             </div>
                         ${teamActions}
                         </div>
-                    </section>
-                            </div>
                 `;
-
-                const teamMain = dynamicContent.querySelector("#qava-team-main");
-                const teamSideMenu = dynamicContent.querySelector("#qava-team-side-menu");
-                const designTeamHTML = teamMain ? teamMain.innerHTML : "";
 
                 const deliverablesHTML = `
                   <div class="qava-signup-illustration" aria-label="Deliverables preview illustration">
@@ -1053,54 +1087,39 @@
                             </div>
                 `;
 
-                const teamSteps = {
-                  design: designTeamHTML,
-                  deliverables: deliverablesHTML,
-                  timeframe: timeframeHTML
-                };
+                const teamStack = [
+                  {
+                    num: 1,
+                    label: "Design team",
+                    heading: "Design your team",
+                    desc: "Assemble a multi-disciplinary team, define each role, and set the bar for experience and pedigree.",
+                    bullets: ["Pick the slots you need", "Define each member's focus", "Target top schools and experience"],
+                    visual: designTeamHTML
+                  },
+                  {
+                    num: 2,
+                    label: "Deliverables",
+                    heading: "Choose your deliverables",
+                    desc: "Select exactly what your team should produce, from business plans to go-to-market strategy.",
+                    bullets: ["Pick from proven deliverables", "Combine multiple outputs", "Add your own"],
+                    visual: deliverablesHTML
+                  },
+                  {
+                    num: 3,
+                    label: "Timeframe",
+                    heading: "Set the pace",
+                    desc: "Tell your team when to start and how you'd like to work together.",
+                    bullets: ["Choose your start date", "Pick a format that fits", "See your schedule at a glance"],
+                    visual: timeframeHTML
+                  }
+                ];
 
-                if (teamSideMenu && teamMain) {
-                  const menuIndicator = teamSideMenu.querySelector("#qava-team-menu-indicator");
-                  const moveIndicator = (btn) => {
-                    if (!menuIndicator || !btn) return;
-                    menuIndicator.style.height = btn.offsetHeight + "px";
-                    menuIndicator.style.transform = "translateY(" + btn.offsetTop + "px)";
-                  };
-
-                  const activeBtn = teamSideMenu.querySelector(".qava-side-menu-item.active");
-                  requestAnimationFrame(() => moveIndicator(activeBtn));
-
-                  teamMain.addEventListener("scroll", (e) => {
-                    const scrolled = e.target && e.target.scrollTop > 4;
-                    teamMain.classList.toggle("qava-dots-hidden", scrolled);
-                  }, true);
-
-                  teamSideMenu.querySelectorAll(".qava-side-menu-item").forEach((btn) => {
-                    btn.addEventListener("click", () => {
-                      teamSideMenu.querySelectorAll(".qava-side-menu-item").forEach((item) => item.classList.remove("active"));
-                      btn.classList.add("active");
-                      moveIndicator(btn);
-                      const step = btn.getAttribute("data-step");
-                      teamMain.innerHTML = teamSteps[step] || designTeamHTML;
-                      teamMain.classList.remove("qava-dots-hidden");
-                    });
-                  });
-                }
+                dynamicContent.innerHTML = buildStepStack(teamStack);
+                setStackOffsets();
                 return;
               }
 
-              dynamicContent.innerHTML = `
-                <div class="qava-showcase-layout">
-                  <aside class="qava-showcase-side-menu" id="qava-client-side-menu">
-                    <p class="qava-side-menu-title">Steps</p>
-                    <span class="qava-side-menu-indicator" id="qava-client-menu-indicator"></span>
-                    <button type="button" class="qava-side-menu-item active" data-step="signup"><span class="qava-side-menu-num">1</span>Join</button>
-                    <button type="button" class="qava-side-menu-item" data-step="post"><span class="qava-side-menu-num">2</span>Create listing</button>
-                    <button type="button" class="qava-side-menu-item" data-step="review"><span class="qava-side-menu-num">3</span>Pick talent</button>
-                    <button type="button" class="qava-side-menu-item" data-step="collaborate"><span class="qava-side-menu-num">4</span>Collaborate</button>
-                    <button type="button" class="qava-side-menu-item" data-step="pay"><span class="qava-side-menu-num">5</span>Feedback</button>
-                  </aside>
-                  <section class="qava-showcase-main" id="qava-client-main">
+              const clientSignupHTML = `
                     <div class="qava-signup-illustration" aria-label="Client sign-up form preview illustration">
                       <div class="qava-signup-progress">
                         <span class="active"></span><span class="active"></span><span></span><span></span><span></span>
@@ -1184,13 +1203,8 @@
                         <button type="button" class="qava-signup-btn-next qava-signup-btn-icon" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
             </div>
                 </div>
-                  </section>
-                </div>
               `;
 
-              const clientMain = dynamicContent.querySelector("#qava-client-main");
-              const clientSideMenu = dynamicContent.querySelector("#qava-client-side-menu");
-              const clientSignupHTML = clientMain ? clientMain.innerHTML : "";
               const clientPlaceholder = (label) => `
                 <div class="qava-signup-illustration" style="align-items: center; justify-content: center;" aria-label="${label} preview">
                   <div class="qava-showcase-main-placeholder">${label} preview coming next</div>
@@ -1636,42 +1650,52 @@
                 </div>
               `;
 
-              const clientSteps = {
-                signup: clientSignupHTML,
-                post: createListingHTML,
-                review: reviewApplicantsHTML,
-                collaborate: templatesHTML,
-                pay: feedbackHTML
-              };
+              const clientStack = [
+                {
+                  num: 1,
+                  label: "Join",
+                  heading: "Set up your organization",
+                  desc: "Tell us about your company and what you're trying to achieve so we can match you with the right people.",
+                  bullets: ["Share what brings you here", "Add your organization details", "Set up in minutes"],
+                  visual: clientSignupHTML
+                },
+                {
+                  num: 2,
+                  label: "Create listing",
+                  heading: "Post a listing in minutes",
+                  desc: "Use AI to draft a clear brief, set the scope, and define exactly who you're looking for.",
+                  bullets: ["AI-assisted brief drafting", "Set scope, hours, and rate", "Describe your ideal applicants"],
+                  visual: createListingHTML
+                },
+                {
+                  num: 3,
+                  label: "Pick talent",
+                  heading: "Pick the right talent",
+                  desc: "Review shortlisted applicants side by side and choose the people who fit best.",
+                  bullets: ["Compare applicants at a glance", "See education, skills, and links", "Shortlist your favorites"],
+                  visual: reviewApplicantsHTML
+                },
+                {
+                  num: 4,
+                  label: "Collaborate",
+                  heading: "Kick off and collaborate",
+                  desc: "Start fast with ready-made templates for every stage of the project.",
+                  bullets: ["Project kick-off templates", "Status updates and plans", "Everything in one place"],
+                  visual: templatesHTML
+                },
+                {
+                  num: 5,
+                  label: "Feedback",
+                  heading: "Close the loop",
+                  desc: "Share feedback at the end so great talent builds a track record — and you remember who to rehire.",
+                  bullets: ["Rate communication and quality", "Recognize standout work", "Build your go-to bench"],
+                  visual: feedbackHTML
+                }
+              ];
 
-              if (clientSideMenu && clientMain) {
-                const menuIndicator = clientSideMenu.querySelector("#qava-client-menu-indicator");
-                const moveIndicator = (btn) => {
-                  if (!menuIndicator || !btn) return;
-                  menuIndicator.style.height = btn.offsetHeight + "px";
-                  menuIndicator.style.transform = "translateY(" + btn.offsetTop + "px)";
-                };
-
-                const activeBtn = clientSideMenu.querySelector(".qava-side-menu-item.active");
-                requestAnimationFrame(() => moveIndicator(activeBtn));
-
-                clientMain.addEventListener("scroll", (e) => {
-                  const scrolled = e.target && e.target.scrollTop > 4;
-                  clientMain.classList.toggle("qava-dots-hidden", scrolled);
-                }, true);
-
-                clientSideMenu.querySelectorAll(".qava-side-menu-item").forEach((btn) => {
-                  btn.addEventListener("click", () => {
-                    clientSideMenu.querySelectorAll(".qava-side-menu-item").forEach((item) => item.classList.remove("active"));
-                    btn.classList.add("active");
-                    moveIndicator(btn);
-                    const step = btn.getAttribute("data-step");
-                    clientMain.innerHTML = clientSteps[step] || clientSignupHTML;
-                    if (step === "review") wireReview(clientMain);
-                    clientMain.classList.remove("qava-dots-hidden");
-                        });
-                    });
-              }
+              dynamicContent.innerHTML = buildStepStack(clientStack);
+              wireReview(dynamicContent);
+              setStackOffsets();
             };
 
             renderShowcaseView("talent");
@@ -1683,147 +1707,7 @@
               });
             });
 
-            // ---- "How it works": scroll-driven step sequence (desktop only) ----
-            // Pin the showcase card while the user scrolls through a tall track,
-            // mapping scroll progress onto the side-menu steps. Reuses each step
-            // button's existing click handler (content swap + indicator). Manual
-            // clicks still work and re-align the page scroll so continued
-            // scrolling resumes from the chosen step.
-            (function setupHowItWorksScrollPin() {
-              const box = doc.getElementById("qava-hero-showcase-box");
-              if (!box || box.__qavaPinSetup) return;
-              box.__qavaPinSetup = true;
-
-              // The toggle wrap holds the "How it works" title, subtitle and the
-              // audience radios. Pin it together with the card so the heading and
-              // the work / brain power / master team selector stay on screen — and
-              // stay clickable — while the steps advance.
-              const toggleWrap = doc.getElementById("qava-showcase-toggle-wrap");
-              const pinned = toggleWrap ? [toggleWrap, box] : [box];
-              const groupTopMargin = win.getComputedStyle(pinned[0]).marginTop;
-
-              const track = doc.createElement("div");
-              track.className = "qava-hiw-pin-track";
-              const inner = doc.createElement("div");
-              inner.className = "qava-hiw-pin-inner";
-              pinned[0].parentNode.insertBefore(track, pinned[0]);
-              track.appendChild(inner);
-              pinned.forEach((el) => inner.appendChild(el));
-
-              const STEP_FRACTION = 0.45; // "short" feel: ~45% of viewport per step
-              const MIN_TOP = 16;         // keep the heading + radios pinned near the top
-              const MOBILE_BP = 860;
-              const reduceMotion = win.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-              let enabled = false;
-              let stuckDistance = 0;
-              let lastIndex = -1;
-              let aligning = false;
-
-              const getItems = () => Array.from(box.querySelectorAll(".qava-side-menu-item"));
-
-              // Other landing scripts insert sections via box.parentNode/afterend.
-              // Since the pinned elements live inside `inner`, those sections can
-              // land inside `inner` and inflate it past the track height, breaking
-              // position:sticky. Evict anything outside the pinned group.
-              const evictStrays = () => {
-                let ref = track;
-                Array.prototype.slice.call(inner.children).forEach((child) => {
-                  if (pinned.indexOf(child) !== -1) return;
-                  track.parentNode.insertBefore(child, ref.nextSibling);
-                  ref = child;
-                });
-              };
-
-              const disablePin = () => {
-                enabled = false;
-                inner.style.position = "";
-                inner.style.top = "";
-                track.style.height = "";
-                track.style.marginTop = "";
-                if (toggleWrap) toggleWrap.style.marginTop = "";
-              };
-
-              const layout = () => {
-                evictStrays();
-                const stepCount = getItems().length;
-                const vh = win.innerHeight;
-                const desktop = !reduceMotion && win.innerWidth > MOBILE_BP && vh > 560;
-                if (!desktop || stepCount < 2) { disablePin(); return; }
-
-                // Shift the group's leading margin onto the track so the sticky
-                // inner starts flush while the space above the module is kept.
-                if (toggleWrap) toggleWrap.style.marginTop = "0px";
-                track.style.marginTop = groupTopMargin;
-
-                const groupH = Math.round(inner.getBoundingClientRect().height);
-                enabled = true;
-                const stepDistance = Math.round(vh * STEP_FRACTION);
-                stuckDistance = stepDistance * stepCount;
-                const top = Math.max(MIN_TOP, Math.round((vh - groupH) / 2));
-                inner.style.position = "sticky";
-                inner.style.top = top + "px";
-                track.style.height = (groupH + stuckDistance) + "px";
-              };
-
-              const activate = (index) => {
-                const items = getItems();
-                if (!items.length) return;
-                const clamped = Math.max(0, Math.min(items.length - 1, index));
-                if (items[clamped].classList.contains("active")) return;
-                box.__qavaProgrammatic = true;
-                items[clamped].click();
-                box.__qavaProgrammatic = false;
-              };
-
-              const zoneStart = () => {
-                const trackTop = track.getBoundingClientRect().top + win.scrollY;
-                const innerTop = parseInt(inner.style.top, 10) || 0;
-                return trackTop - innerTop;
-              };
-
-              const onScroll = () => {
-                if (!enabled || aligning) return;
-                const stepCount = getItems().length;
-                if (stepCount < 2) return;
-                const progress = (win.scrollY - zoneStart()) / stuckDistance;
-                if (progress < 0 || progress > 1) return;
-                const index = Math.max(0, Math.min(stepCount - 1, Math.floor(progress * stepCount)));
-                if (index !== lastIndex) {
-                  lastIndex = index;
-                  activate(index);
-                }
-              };
-
-              const wireManual = () => {
-                getItems().forEach((btn, i) => {
-                  if (btn.__qavaPinWired) return;
-                  btn.__qavaPinWired = true;
-                  btn.addEventListener("click", () => {
-                    if (!enabled || box.__qavaProgrammatic) return;
-                    const count = getItems().length;
-                    const target = Math.round(zoneStart() + ((i + 0.5) / count) * stuckDistance);
-                    aligning = true;
-                    lastIndex = i;
-                    win.scrollTo({ top: target, behavior: "auto" });
-                    win.setTimeout(() => { aligning = false; }, 60);
-                  });
-                });
-              };
-
-              const refresh = () => { layout(); wireManual(); onScroll(); };
-
-              doc.querySelectorAll("input[name='qava-audience-toggle']").forEach((radio) => {
-                radio.addEventListener("change", () => {
-                  lastIndex = -1;
-                  win.requestAnimationFrame(() => win.requestAnimationFrame(refresh));
-                });
-              });
-
-              win.addEventListener("scroll", onScroll, { passive: true });
-              win.addEventListener("resize", () => { lastIndex = -1; refresh(); });
-              win.requestAnimationFrame(() => win.requestAnimationFrame(refresh));
-            })();
+            win.addEventListener("resize", () => setStackOffsets());
           }
 
           const universityLogosRow = doc.querySelector(".feature-cards-logos");
