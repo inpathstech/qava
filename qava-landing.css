@@ -132,13 +132,23 @@
 
         .qava-hiw-step {
           position: relative;
+          display: flex;
+          flex-direction: column;
+          min-height: clamp(540px, calc(100vh - 116px), 760px);
           background: #ffffff;
           border: 1px solid rgba(17, 24, 39, 0.08);
           border-radius: 10px;
-          box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
+          box-shadow: 0 1px 4px rgba(15, 23, 42, 0.06);
           overflow: hidden;
-          margin-bottom: 28px;
+          margin-bottom: 0;
           text-align: left;
+        }
+
+        /* When a card slides up over the one beneath it, cast a soft shadow
+           upward from its top edge so the stack reads as layered (not a
+           heavy ambient shadow that smears where the cards overlap). */
+        .qava-hiw-step:not(:first-child) {
+          box-shadow: 0 -14px 28px -18px rgba(15, 23, 42, 0.24), 0 1px 4px rgba(15, 23, 42, 0.06);
         }
 
         .qava-hiw-step:last-child {
@@ -189,6 +199,7 @@
           gap: 26px;
           align-items: center;
           padding: 24px 26px 26px;
+          flex: 1 1 auto;
         }
 
         .qava-hiw-step-copy {
@@ -2120,6 +2131,8 @@
           .qava-hiw-step {
             position: static !important;
             top: auto !important;
+            min-height: 0 !important;
+            margin-bottom: 18px;
           }
 
           .qava-hiw-step-row {

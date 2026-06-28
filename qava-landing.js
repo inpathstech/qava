@@ -441,15 +441,14 @@
                 base = toggleTop + toggleBar.offsetHeight + 12;
               }
               const step = headerH + STEP_STACK_GAP;
-              // Sticky elements are clamped to the bottom of their containing
-              // block, so without trailing room the last cards collapse onto each
-              // other near the end of the deck. Reserve (n-1)*step of space below
-              // the stack so every card can hold its staggered offset.
+              // Each card now fills the viewport (min-height), so the deck is long
+              // enough for every card to hold its staggered offset without a
+              // trailing reserve. Keeping paddingBottom at 0 means the deck ends
+              // right as the stack completes, so the sticky audience toggle stops
+              // with the deck instead of floating over an empty tail below it.
               const stepsEl = dynamicContent.querySelector(".qava-hiw-steps");
               if (stepsEl) {
-                stepsEl.style.paddingBottom = desktop
-                  ? (cards.length - 1) * step + "px"
-                  : "";
+                stepsEl.style.paddingBottom = "";
               }
               cards.forEach((card, i) => {
                 card.style.zIndex = String(i + 1);
