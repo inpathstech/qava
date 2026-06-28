@@ -266,7 +266,19 @@
                   </div>
                 </div>
               </a>
-              <a class="qava-blog-card" href="https://qava.ai/attentioncapital">
+              <a class="qava-blog-card" href="https://qava.ai/5-to-9">
+                <img class="qava-blog-thumb" src="./5to9-card.png" alt="Building your future after hours" />
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
+                  <div class="qava-blog-tag">Productivity</div>
+                  <div class="qava-blog-title">Your 9-to-5 Pays the Bills. Your 5-to-9 Builds Your Future.</div>
+                  <div class="qava-blog-more">
+                    <div class="qava-blog-excerpt">Most people think they're falling behind because of their job. They're not.</div>
+                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
+                  </div>
+                </div>
+              </a>
+              <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/attentioncapital">
                 <img class="qava-blog-thumb" src="./anti-fund.png" alt="Anti Fund" />
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
@@ -278,11 +290,36 @@
                   </div>
                 </div>
               </a>
+              <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/mmento">
+                <img class="qava-blog-thumb" src="./Kristina%20Boxer%20Profile%20Photo.png" alt="Kristina Boxer" />
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
+                  <div class="qava-blog-tag">Consumer tech</div>
+                  <div class="qava-blog-title">Showing up when it matters</div>
+                  <div class="qava-blog-more">
+                    <div class="qava-blog-excerpt">How one founder built a smarter system for remembering what matters.</div>
+                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
+                  </div>
+                </div>
+              </a>
             `;
             ctaButtonsRow.insertAdjacentElement("afterend", blogRow);
 
             const blogActions = doc.createElement("div");
             blogActions.className = "qava-blog-actions";
+
+            if (blogRow.querySelector(".qava-blog-hidden")) {
+              const moreBtn = doc.createElement("button");
+              moreBtn.type = "button";
+              moreBtn.className = "qava-blog-actbtn qava-blog-morebtn";
+              moreBtn.textContent = "More";
+              moreBtn.addEventListener("click", () => {
+                const expanded = blogRow.classList.toggle("qava-blog-expanded");
+                moreBtn.textContent = expanded ? "Show less" : "More";
+              });
+              blogActions.appendChild(moreBtn);
+            }
+
             const viewAllLink = doc.createElement("a");
             viewAllLink.className = "qava-blog-actbtn";
             viewAllLink.href = "https://app.qava.ai/";

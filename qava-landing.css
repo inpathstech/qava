@@ -1587,6 +1587,14 @@
           gap: 16px;
         }
 
+        .qava-blog-hidden {
+          display: none;
+        }
+
+        .qava-blog-row.qava-blog-expanded .qava-blog-hidden {
+          display: block;
+        }
+
         .qava-blog-card {
           position: relative;
           display: block;
