@@ -705,43 +705,43 @@
 
                 const phase1Svg = `<svg class="qava-phase-svg" viewBox="0 0 180 132">
                   ${phaseLine(31, 33, 90, 33)}${phaseLine(90, 33, 149, 33)}${phaseLine(31, 97, 90, 97)}${phaseLine(90, 97, 149, 97)}${phaseLine(90, 33, 90, 97)}
-                  ${phaseCircle(31, 33, PHASE_BLACK, ["Walks"])}
-                  ${phaseSquare(90, 33, PHASE_GREY, ["Pet", "owners"])}
-                  ${phaseCircle(149, 33, PHASE_BLACK, ["Daycare"])}
-                  ${phaseSquare(31, 97, PHASE_GREY, ["City", "parents"])}
-                  ${phaseCircle(90, 97, PHASE_BLACK, ["Insure"])}
-                  ${phaseSquare(149, 97, PHASE_GREY, ["Couples"])}
+                  ${phaseCircle(31, 33, PHASE_BLACK, ["Copilot"])}
+                  ${phaseSquare(90, 33, PHASE_GREY, ["Devs"])}
+                  ${phaseCircle(149, 33, PHASE_BLACK, ["Agents"])}
+                  ${phaseSquare(31, 97, PHASE_GREY, ["Sales"])}
+                  ${phaseCircle(90, 97, PHASE_BLACK, ["Search"])}
+                  ${phaseSquare(149, 97, PHASE_GREY, ["Support"])}
                 </svg>`;
 
                 const phase2Svg = `<svg class="qava-phase-svg" viewBox="0 0 180 132">
                   ${phaseLine(90, 33, 90, 97)}
-                  ${phaseCircle(90, 33, PHASE_BLACK, ["Daycare"])}
-                  ${phaseSquare(90, 97, PHASE_GREY, ["Pet", "owners"])}
+                  ${phaseCircle(90, 33, PHASE_BLACK, ["Copilot"])}
+                  ${phaseSquare(90, 97, PHASE_GREY, ["Devs"])}
                 </svg>`;
 
                 const phase3Svg = `<svg class="qava-phase-svg" viewBox="0 0 180 132">
                   ${phaseLine(45, 30, 27, 92)}${phaseLine(45, 30, 63, 92)}
-                  ${phaseCircle(45, 30, PHASE_BLACK, ["Daycare"])}
-                  ${phaseSquare(27, 92, PHASE_GREY, ["City", "parents"])}
-                  ${phaseSquare(63, 92, PHASE_GREY, ["Couples"])}
+                  ${phaseCircle(45, 30, PHASE_BLACK, ["Copilot"])}
+                  ${phaseSquare(27, 92, PHASE_GREY, ["Sales"])}
+                  ${phaseSquare(63, 92, PHASE_GREY, ["Support"])}
                   ${phaseLine(117, 30, 135, 92)}${phaseLine(153, 30, 135, 92)}
-                  ${phaseCircle(117, 30, PHASE_BLACK, ["Walks"])}
-                  ${phaseCircle(153, 30, PHASE_BLACK, ["Insure"])}
-                  ${phaseSquare(135, 92, PHASE_GREY, ["Pet", "owners"])}
+                  ${phaseCircle(117, 30, PHASE_BLACK, ["Agents"])}
+                  ${phaseCircle(153, 30, PHASE_BLACK, ["Search"])}
+                  ${phaseSquare(135, 92, PHASE_GREY, ["Devs"])}
                   <text x="45" y="126" text-anchor="middle" font-family="Inter, sans-serif" font-size="5.4" font-style="italic" fill="#9ca3af">Horizontal</text>
                   <text x="135" y="126" text-anchor="middle" font-family="Inter, sans-serif" font-size="5.4" font-style="italic" fill="#9ca3af">Vertical</text>
                 </svg>`;
 
                 const workPhases = [
-                  { num: "Phase 1", name: "Learn", svg: phase1Svg, goal: "Find the offering + audience with product/market fit inside a $2.1B TAM.", how: "Sell and satisfy your first customers." },
-                  { num: "Phase 2", name: "Focus", svg: phase2Svg, goal: "Build a repeatable system to win one niche (1 offering + 1 audience).", how: "Stay focused on Daycare for pet owners." },
+                  { num: "Phase 1", name: "Learn", svg: phase1Svg, goal: "Find the offering + audience with product/market fit inside a $6.4B TAM.", how: "Sell and satisfy your first customers." },
+                  { num: "Phase 2", name: "Focus", svg: phase2Svg, goal: "Build a repeatable system to win one niche (1 offering + 1 audience).", how: "Stay focused on Copilot for dev teams." },
                   { num: "Phase 3", name: "Expand", svg: phase3Svg, goal: "Build a new repeatable system for a new audience or offering.", how: "Add one new audience or offering at a time." }
                 ];
 
                 const workStepHTML = `
                   <div class="qava-signup-illustration qava-work-illustration" aria-label="Startup growth strategy preview">
                     <h3 class="qava-work-title">The 3 Phases of Startup Growth</h3>
-                    <p class="qava-work-subtitle">Pet-care marketplace · $2.1B TAM</p>
+                    <p class="qava-work-subtitle">AI workflow platform · $6.4B TAM</p>
                     <div class="qava-phases-grid">
                       ${workPhases.map((p, i) => `
                         <div class="qava-phase" style="animation-delay: ${(i * 0.12).toFixed(2)}s">
