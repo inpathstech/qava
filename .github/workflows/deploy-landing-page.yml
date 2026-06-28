@@ -70,6 +70,14 @@ jobs:
           --content-type "text/html" \
           --cache-control "max-age=3600"
 
+        aws s3 cp lumi.html s3://${{ secrets.S3_BUCKET_NAME }}/lumi.html \
+          --content-type "text/html" \
+          --cache-control "max-age=3600"
+
+        aws s3 cp roam.html s3://${{ secrets.S3_BUCKET_NAME }}/roam.html \
+          --content-type "text/html" \
+          --cache-control "max-age=3600"
+
         aws s3 cp aiphilosophy.html s3://${{ secrets.S3_BUCKET_NAME }}/aiphilosophy.html \
           --content-type "text/html" \
           --cache-control "max-age=3600"

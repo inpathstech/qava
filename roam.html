@@ -35,26 +35,57 @@
         
         /* Cache buster v3 - Updated for No One's Ark */
 
-        /* NAVBAR STYLES - Copied from index.html */
+        /* NAVBAR STYLES - shared Qava chrome */
+        a { color: inherit; }
+
         .header-container {
-            width: 100%;
-            padding: 16px 32px;
-            background: white;
+            width: calc(100% - 22px);
+            margin: 0 auto;
+            padding: 8px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            min-height: 64px;
-            box-sizing: border-box;
+            min-height: 56px;
             position: sticky;
             top: 0;
-            z-index: 1000;
-            overflow: visible;
+            z-index: 1200;
+            background: rgba(255, 255, 255, 0.24);
+            -webkit-backdrop-filter: blur(18px) saturate(150%);
+            backdrop-filter: blur(18px) saturate(150%);
+            border: 0;
+            box-shadow: none;
+            isolation: isolate;
+            box-sizing: border-box;
         }
 
-        .header-logo {
-            display: flex;
+        .header-container::before {
+            content: "";
+            position: absolute;
+            left: 6px;
+            right: 6px;
+            top: 3px;
+            bottom: 3px;
+            border-radius: 12px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.44) 100%);
+            -webkit-backdrop-filter: blur(26px) saturate(165%);
+            backdrop-filter: blur(26px) saturate(165%);
+            box-shadow: 0 10px 24px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .header-container > * { position: relative; z-index: 1; }
+
+        .header-logo, .logo-container, .logo { display: flex; align-items: center; }
+
+        .header-container .logo {
+            background: transparent;
+            padding: 0;
+            border: none;
+            box-shadow: none;
+            display: inline-flex;
             align-items: center;
-            flex-shrink: 0;
+            justify-content: center;
         }
 
         .header-center {
@@ -65,428 +96,108 @@
             margin-left: 40px;
         }
 
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-shrink: 0;
-        }
+        .header-right { display: flex; align-items: center; gap: 8px; }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-            flex-shrink: 0;
-        }
+        .navigation { display: flex; align-items: center; gap: 8px; }
 
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-
-        .logo img {
-            width: 36px;
-            height: 36px;
-        }
-
-        .navigation {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-item {
-            padding: 6px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            font-size: 13px;
-            font-weight: 400;
-            line-height: 1;
-            height: 25px;
-            color: #000000;
-            white-space: nowrap;
+        .header-container .nav-item,
+        .header-container .auth-item {
+            background: transparent;
+            border: 0;
+            box-shadow: none;
+            border-radius: 0;
+            padding: 0;
+            text-decoration: none;
             display: inline-flex;
             align-items: center;
-            position: relative;
-            gap: 4px;
-            text-decoration: none;
-            vertical-align: middle;
-            box-sizing: border-box;
-        }
-
-        .nav-item:hover,
-        .nav-item.active {
-            background-color: transparent;
-            color: #000000;
-        }
-
-        .nav-item:visited {
-            color: #000000;
-        }
-
-        .nav-item:active {
-            color: #000000;
-        }
-
-        .dropdown-arrow {
-            color: #000000;
-            transition: all 0.2s ease;
-        }
-
-        .nav-item:hover .dropdown-arrow {
-            color: #000000;
-        }
-
-        .nav-text {
-            color: inherit;
-            font-size: inherit;
-            font-weight: inherit;
-            white-space: nowrap;
-            padding: 0 4px;
-            display: inline;
-        }
-        .nav-item:hover .nav-text,
-        .nav-item.active .nav-text {
-            background: linear-gradient(180deg, transparent 60%, rgba(15, 98, 254, 0.1) 60%);
-        }
-
-
-        .dropdown-menu {
-            position: absolute;
-            top: calc(100% + 8px);
-            left: 50%;
-            transform: translateX(-50%);
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(0, 0, 0, 0.06);
-            padding: 8px;
-            min-width: 280px;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.2s ease;
-            z-index: 10000;
-        }
-
-        .nav-item.has-dropdown:hover .dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .dropdown-item {
-            padding: 8px;
-            border-radius: 4px;
+            transition: color 0.2s ease;
             cursor: pointer;
-            transition: background-color 0.2s ease;
+        }
+
+        .header-container .nav-item .nav-text,
+        .header-container .auth-item .nav-text {
+            font-family: "Inter", sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            color: #6b6b6b;
+            line-height: 1.4;
+            transition: color 0.2s ease;
+            padding: 0 4px;
+            white-space: nowrap;
+        }
+
+        .header-container .nav-item.newsletter .nav-text { color: #000000; }
+
+        .header-container .nav-item:hover .nav-text,
+        .header-container .auth-item:hover .nav-text { color: #000000; }
+
+        .auth-section { display: flex; align-items: center; gap: 28px; }
+
+        .join-button {
+            padding: 6px 12px;
+            background: #2b2b2b;
+            border: 1px solid #2b2b2b;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-decoration: none;
+            transition: background-color 0.18s ease, border-color 0.18s ease;
+        }
+
+        .join-button:hover { background: #000000; border-color: #000000; }
+
+        .join-text {
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .header-container .logo img,
+        .qava-nav-logo-face {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
             display: block;
         }
 
-        .dropdown-item:hover {
-            background-color: rgba(55, 53, 47, 0.04);
+        .qava-nav-logo-flip { width: 40px; height: 40px; perspective: 600px; }
+
+        .qava-nav-logo-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s ease;
         }
 
-        .dropdown-title {
-            font-family: 'Inter', sans-serif;
-            font-size: 13px;
-            font-weight: 500;
-            color: #000000;
-            margin-bottom: 2px;
+        .qava-nav-logo-inner.is-flipped { transform: rotateY(180deg); }
+
+        .qava-nav-logo-face {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
         }
 
-        .dropdown-subtitle {
-            font-family: 'Inter', sans-serif;
-            font-size: 11px;
-            font-weight: 300;
-            color: #6B6B6B;
-        }
-
-        .auth-section {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .auth-item {
-            padding: 6px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            font-size: 13px;
-            font-weight: 400;
-            line-height: 1;
-            height: 25px;
-            color: #000000;
-            text-decoration: none;
-            white-space: nowrap;
-            display: inline-flex;
-            align-items: center;
-        }
-
-        .auth-item:hover {
-            background-color: rgba(0, 0, 0, 0.06);
-        }
-
-        .join-button {
-            background-color: #ECF2FF;
-            color: #1163FE;
-            padding: 7px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 13px;
-            font-weight: 500;
-            line-height: 1;
-            height: 28px;
-            text-decoration: none;
-            white-space: nowrap;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 1px 3px rgba(17, 99, 254, 0.15);
-        }
-
-        .join-button:hover {
-            background-color: #DCE8FF;
-            box-shadow: 0 2px 6px rgba(15, 98, 254, 0.4);
-        }
-
-        .join-text {
-            color: #1163FE;
-            font-size: 13px;
-            font-weight: 500;
-        }
+        .qava-nav-logo-back { transform: rotateY(180deg); }
 
         .hamburger-menu {
             display: none;
             flex-direction: column;
-            gap: 3px;
+            gap: 4px;
             cursor: pointer;
-            padding: 6px;
-            z-index: 1001;
         }
 
         .hamburger-line {
             width: 20px;
             height: 2px;
-            background-color: #000000;
-            transition: all 0.3s ease;
+            background: #111827;
+            border-radius: 1px;
         }
 
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: white;
-            z-index: 999;
-            display: none;
-            flex-direction: column;
-            padding: 80px 32px 32px 32px;
-            overflow-y: auto;
-        }
-
-        .mobile-menu.active {
-            display: flex;
-        }
-
-        .close-menu {
-            position: absolute;
-            top: 20px;
-            right: 32px;
-            font-size: 28px;
-            cursor: pointer;
-            color: #000000;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .mobile-nav-item {
-            padding: 16px 0;
-            font-size: 16px;
-            font-weight: 400;
-            color: #000000;
-            text-decoration: none;
-            border-bottom: 1px solid #EBEBEB;
-        }
-
-        .mobile-dropdown-toggle {
-            cursor: pointer;
-        }
-
-        .mobile-dropdown-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .mobile-dropdown-arrow {
-            font-size: 18px;
-            transition: transform 0.2s ease;
-        }
-
-        .mobile-dropdown-toggle.active .mobile-dropdown-arrow {
-            transform: rotate(45deg);
-        }
-
-        .mobile-dropdown-content {
-            display: none;
-            flex-direction: column;
-            padding-left: 16px;
-        }
-
-        .mobile-dropdown-content.active {
-            display: flex;
-        }
-
-        .mobile-dropdown-item {
-            padding: 12px 0;
-            text-decoration: none;
-            border-bottom: 1px solid #F5F5F5;
-        }
-
-        .mobile-auth-section {
-            margin-top: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            padding-top: 24px;
-        }
-
-        /* Fix navbar underline issue */
-        .navigation .nav-item,
-        .navigation .nav-item:link,
-        .navigation .nav-item:visited,
-        .navigation .nav-item:hover,
-        .navigation .nav-item:active,
-        .navigation .nav-item:focus {
-            text-decoration: none !important;
-        }
-
-        /* FOOTER STYLES - Copied from index.html */
-        .footer-section {
-            background: white;
-            width: 100%;
-            max-width: 1070px;
-            margin: 0 auto;
-            padding: 78px 0 46px 0;
-            margin-top: 50px;
-            border-top: 1px solid #EBEBEB;
-        }
-
-        .footer-container {
-            max-width: 940px;
-            margin: 0 auto;
-        }
-
-        .footer-content {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .footer-logo {
-            width: 39%;
-            padding: 2px 15px 0 0;
-            margin-bottom: 30px;
-        }
-
-        .footer-logo-img {
-            width: 40px;
-            height: auto;
-            cursor: pointer;
-        }
-
-        .footer-links {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            width: 60%;
-            gap: 16px 25px;
-            padding: 0 15px 0 10px;
-        }
-
-        .footer-column {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .footer-heading {
-            font-family: 'Inter', sans-serif;
-            font-size: 17px;
-            color: #000000;
-            margin-bottom: 8px;
-            font-weight: 600;
-            margin: 0 0 8px 0;
-        }
-
-        .footer-link-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .footer-link-list li {
-            margin: 0;
-            padding: 0;
-        }
-
-        .footer-link {
-            font-family: 'Inter', sans-serif;
-            font-size: 13px;
-            font-weight: 300;
-            color: #797979;
-            text-decoration: none;
-            line-height: 1.2;
-            transition: text-decoration 0.2s ease;
-        }
-
-        .footer-link:hover {
-            text-decoration: underline;
-        }
-
-        .footer-link.disabled-link {
-            cursor: not-allowed;
-            opacity: 0.6;
-            position: relative;
-        }
-
-        .footer-link.disabled-link:hover {
-            text-decoration: none;
-            opacity: 0.8;
-            color: #999999;
-        }
-
-        .footer-link.disabled-link:hover::before {
-            content: "Coming Soon";
-            position: absolute;
-            top: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #000000;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 500;
-            white-space: nowrap;
-            z-index: 1000;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        .footer-copyright {
-            grid-column: 1 / -1;
-            margin-top: 14px;
-            font-family: 'Inter', sans-serif;
-            font-size: 13px;
-            font-weight: 300;
-            color: #797979;
-        }
+        /* FOOTER STYLES - injected by qava-footer.js */
 
         /* BLOG POST STYLES */
         .story-wrapper {
@@ -893,34 +604,9 @@
         }
 
         /* RESPONSIVE */
-        @media (max-width: 1400px) {
-            .header-container {
-                padding: 16px 24px;
-            }
-        }
-
-        @media (max-width: 1200px) {
-            .header-container {
-                padding: 16px 20px;
-            }
-        }
-
-        @media (max-width: 1100px) {
-            .header-container {
-                padding: 12px 24px;
-            }
-
-            .navigation {
-                display: none;
-            }
-
-            .auth-section {
-                display: none;
-            }
-
-            .hamburger-menu {
-                display: flex;
-            }
+        @media (max-width: 860px) {
+            .header-center, .auth-section .auth-item { display: none; }
+            .hamburger-menu { display: flex; }
         }
 
         @media (max-width: 768px) {
@@ -1001,22 +687,6 @@
                 padding: 8px 16px;
             }
 
-            .footer-section {
-                padding: 60px 24px 40px 24px;
-            }
-
-            .footer-logo {
-                width: 100%;
-                padding: 0;
-                margin-bottom: 32px;
-            }
-
-            .footer-links {
-                width: 100%;
-                grid-template-columns: 1fr;
-                padding: 0;
-                gap: 24px;
-            }
         }
 
         @media (max-width: 480px) {
@@ -1069,98 +739,56 @@
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <div class="header-container">
-        <!-- Logo on the left -->
-        <div class="header-logo">
-            <div class="logo-container">
-                <div class="logo">
-                    <a href="https://qava.ai/">
-                        <img src="qava-logo.svg" alt="Qava Logo">
-                    </a>
-                </div>
+  <header class="header-container">
+    <div class="header-logo">
+      <div class="logo-container">
+        <div class="logo">
+          <a href="https://qava.ai/">
+            <div class="qava-nav-logo-flip" id="qava-nav-logo-flip">
+              <div class="qava-nav-logo-inner" id="qava-nav-logo-inner">
+                <img class="qava-nav-logo-face qava-nav-logo-front" src="qava-logo.svg" alt="Qava">
+                <img class="qava-nav-logo-face qava-nav-logo-back" src="./qava-hero-arrow-2.png" alt="">
+              </div>
             </div>
+          </a>
         </div>
-        
-        <!-- Navigation in the center -->
-        <div class="header-center">
-            <div class="navigation">
-                <a href="https://app.qava.ai/" class="nav-item create-listing">
-                    <div class="nav-text">Create Listing</div>
-                </a>
-                <a href="https://app.qava.ai/projects" class="nav-item search-listings">
-                    <div class="nav-text">Search Listings</div>
-                </a>
-                <a href="https://qava.ai/pricing" class="nav-item pricing">
-                    <div class="nav-text">Pricing</div>
-                </a>
-                <a href="https://qava.ai/about" class="nav-item about">
-                    <div class="nav-text">About</div>
-                </a>
-            </div>
-        </div>
-        
-        <!-- Auth section on the right -->
-        <div class="header-right">
-            <div class="auth-section">
-                <a href="https://qava.ai/howqavaworks" class="auth-item">
-                    <div class="nav-text">How Qava Works</div>
-                </a>
-                <a href="https://app.qava.ai/" class="auth-item">
-                    <div class="nav-text">Log in</div>
-                </a>
-                <a href="https://app.qava.ai/" class="join-button">
-                    <div class="join-text">Get Started</div>
-                </a>
-            </div>
-
-            <!-- Hamburger Menu Icon -->
-            <div class="hamburger-menu" onclick="toggleMobileMenu()">
-                <div class="hamburger-line"></div>
-                <div class="hamburger-line"></div>
-                <div class="hamburger-line"></div>
-            </div>
-        </div>
+      </div>
     </div>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
-        <a href="https://app.qava.ai/" class="mobile-nav-item">
-            <div class="nav-text">Create Listing</div>
+    <div class="header-center">
+      <nav class="navigation">
+        <a href="https://app.qava.ai/guest" class="nav-item create-listing">
+          <div class="nav-text">Create listing</div>
         </a>
-        <a href="https://app.qava.ai/projects" class="mobile-nav-item">
-            <div class="nav-text">Search Listings</div>
+        <a href="https://app.qava.ai/projects" class="nav-item search-listings">
+          <div class="nav-text">Find work</div>
         </a>
-        <div class="mobile-nav-item mobile-dropdown-toggle" onclick="toggleMobileDropdown()">
-            <div class="mobile-dropdown-header">
-                <div class="nav-text">How It Works</div>
-                <span class="mobile-dropdown-arrow">+</span>
-            </div>
-        </div>
-        <div class="mobile-dropdown-content" id="mobileDropdown">
-            <a href="https://qava.ai/clienthowitworks" class="mobile-dropdown-item">
-                <div class="dropdown-title">For Clients 🚀</div>
-                <div class="dropdown-subtitle">Hiring for current or future work</div>
-            </a>
-            <a href="https://qava.ai/talenthowitworks" class="mobile-dropdown-item">
-                <div class="dropdown-title">For Talent 👩‍💻</div>
-                <div class="dropdown-subtitle">Interested in current or future work</div>
-            </a>
-        </div>
-        <a href="https://qava.ai/pricing" class="mobile-nav-item">
-            <div class="nav-text">Pricing</div>
+        <a href="https://qava.ai/newsletter" class="nav-item newsletter">
+          <div class="nav-text">Newsletter</div>
         </a>
-        <a href="https://qava.ai/about" class="mobile-nav-item">
-            <div class="nav-text">About</div>
+        <a href="https://qava.ai/premium" class="nav-item premium">
+          <div class="nav-text">Premium</div>
         </a>
-        <div class="mobile-auth-section">
-            <a href="https://app.qava.ai/" class="mobile-nav-item">Log in</a>
-            <a href="https://app.qava.ai/" class="join-button">
-                <div class="join-text">Get Started</div>
-            </a>
-        </div>
+      </nav>
     </div>
+    <div class="header-right">
+      <div class="auth-section">
+        <a href="https://qava.ai/howitworks" class="auth-item">
+          <div class="nav-text">How it works</div>
+        </a>
+        <a href="https://app.qava.ai/" class="auth-item">
+          <div class="nav-text">Log in</div>
+        </a>
+        <a href="https://app.qava.ai/" class="join-button">
+          <div class="join-text">Get Started</div>
+        </a>
+      </div>
+      <div class="hamburger-menu" aria-hidden="true">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </div>
+    </div>
+  </header>
 
     <!-- Blog Content -->
     <main class="story-wrapper">
@@ -1495,124 +1123,24 @@
         </div>
     </main>
 
-    <!-- Footer Section -->
-    <footer class="footer-section">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <a href="https://qava.ai/">
-                        <img src="qava-logo.svg" alt="Qava" class="footer-logo-img" />
-                    </a>
-                </div>
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4 class="footer-heading">Welcome</h4>
-                        <ul class="footer-link-list">
-                            <li><a href="https://app.qava.ai/" class="footer-link">Create Listing</a></li>
-                            <li><a href="https://app.qava.ai/projects" class="footer-link">Search Listings</a></li>
-                            <li><a href="https://qava.ai/howqavaworks" class="footer-link">How Qava Works</a></li>
-                            <li><span class="footer-link disabled-link">What's New</span></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4 class="footer-heading">Get Started</h4>
-                        <ul class="footer-link-list">
-                            <li><a href="https://app.qava.ai/" class="footer-link">Sign Up</a></li>
-                            <li><a href="https://app.qava.ai/" class="footer-link">Log In</a></li>
-                            <li><span class="footer-link disabled-link">AI Prompts</span></li>
-                            <li><span class="footer-link disabled-link">Project Templates</span></li>
-                            <li><span class="footer-link disabled-link">Application Tips</span></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4 class="footer-heading">Resources</h4>
-                        <ul class="footer-link-list">
-                            <li><a href="https://qava.ai/request-demo" class="footer-link">Request a Demo</a></li>
-                            <li><a href="https://qava.ai/pricing" class="footer-link">Pricing</a></li>
-                            <li><a href="https://qava.ai/about" class="footer-link">About Us</a></li>
-                            <li><a href="https://qava.ai/aialoneisnotenough" class="footer-link">AI Not Enough</a></li>
-                            <li><a href="https://qava.ai/partners" class="footer-link">Partner Network</a></li>
-                            <li><span class="footer-link disabled-link">Careers</span></li>
-                            <li><span class="footer-link disabled-link">Media Kit</span></li>
-                            <li><span class="footer-link disabled-link">Contact Us</span></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4 class="footer-heading">Learn</h4>
-                        <ul class="footer-link-list">
-                            <li><a href="https://qava.ai/successstories" class="footer-link">Success Stories</a></li>
-                            <li><span class="footer-link disabled-link">Help Center</span></li>
-                            <li><span class="footer-link disabled-link">Webinars</span></li>
-                            <li><a href="https://qava.ai/blog" class="footer-link">Blog</a></li>
-                            <li><span class="footer-link disabled-link">Community</span></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4 class="footer-heading">Legal</h4>
-                        <ul class="footer-link-list">
-                            <li><a href="terms" class="footer-link">Terms & Privacy</a></li>
-                            <li><a href="terms" class="footer-link">California Privacy Notice</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-copyright">
-                        © 2025 qava
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+  <footer class="footer-section"></footer>
 
-    <script>
-        function toggleMobileMenu() {
-            const mobileMenu = document.getElementById('mobileMenu');
-            mobileMenu.classList.toggle('active');
-            
-            // Prevent body scroll when mobile menu is open
-            if (mobileMenu.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
-        }
+  <script src="./qava-footer.js"></script>
+  <script>
+    (function () {
+      if (typeof window.applyQavaFooter === "function") {
+        window.applyQavaFooter(document);
+      }
 
-        function toggleMobileDropdown() {
-            const dropdown = document.getElementById('mobileDropdown');
-            const toggle = document.querySelector('.mobile-dropdown-toggle');
-            
-            dropdown.classList.toggle('active');
-            toggle.classList.toggle('active');
-        }
-
-        function copyListingLink(listingId, button) {
-            const publicLink = `https://app.qava.ai/projects?listing=${listingId}`;
-            
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(publicLink).then(function() {
-                    const tooltip = button.querySelector('.copy-link-tooltip');
-                    const originalText = tooltip.textContent;
-                    tooltip.textContent = 'Copied!';
-                    setTimeout(function() {
-                        tooltip.textContent = originalText;
-                    }, 2000);
-                }).catch(function(err) {
-                    console.error('Failed to copy: ', err);
-                });
-            } else {
-                // Fallback for older browsers
-                const tempInput = document.createElement('input');
-                tempInput.value = publicLink;
-                document.body.appendChild(tempInput);
-                tempInput.select();
-                document.execCommand('copy');
-                document.body.removeChild(tempInput);
-                const tooltip = button.querySelector('.copy-link-tooltip');
-                const originalText = tooltip.textContent;
-                tooltip.textContent = 'Copied!';
-                setTimeout(function() {
-                    tooltip.textContent = originalText;
-                }, 2000);
-            }
-        }
-    </script>
+      const inner = document.getElementById("qava-nav-logo-inner");
+      if (inner) {
+        let flipped = false;
+        setInterval(() => {
+          flipped = !flipped;
+          inner.classList.toggle("is-flipped", flipped);
+        }, 5000);
+      }
+    })();
+  </script>
 </body>
 </html>
