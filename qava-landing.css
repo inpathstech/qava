@@ -98,7 +98,7 @@
         }
 
         .qava-hero-showcase-box {
-          width: min(840px, calc(100vw - 120px));
+          width: min(1040px, calc(100vw - 120px));
           height: auto;
           margin: 16px 0 0 0;
           position: relative;
