@@ -302,6 +302,30 @@
                   </div>
                 </div>
               </a>
+              <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/lumi">
+                <img class="qava-blog-thumb" src="./Lumi/Family.jpg" alt="Lumi" />
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
+                  <div class="qava-blog-tag">Health tech</div>
+                  <div class="qava-blog-title">The AI Startup Bringing Real-Time Support to Neurodiverse Families</div>
+                  <div class="qava-blog-more">
+                    <div class="qava-blog-excerpt">Real-time, science-backed support for neurodiverse households.</div>
+                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
+                  </div>
+                </div>
+              </a>
+              <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/roam">
+                <img class="qava-blog-thumb" src="./Roam/Hand%20Holding%20Bottle.jpg" alt="Roam" />
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
+                  <div class="qava-blog-tag">Sustainability</div>
+                  <div class="qava-blog-title">Reimagining Hydration &amp; Sustainability for a World on the Move</div>
+                  <div class="qava-blog-more">
+                    <div class="qava-blog-excerpt">Rethinking hydration and sustainability for a world on the move.</div>
+                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
+                  </div>
+                </div>
+              </a>
             `;
             ctaButtonsRow.insertAdjacentElement("afterend", blogRow);
 
