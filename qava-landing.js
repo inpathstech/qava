@@ -266,19 +266,7 @@
                   </div>
                 </div>
               </a>
-              <a class="qava-blog-card" href="https://qava.ai/5-to-9">
-                <img class="qava-blog-thumb" src="./5to9-card.png" alt="Building your future after hours" />
-                <div class="qava-blog-scrim"></div>
-                <div class="qava-blog-glass">
-                  <div class="qava-blog-tag">Productivity</div>
-                  <div class="qava-blog-title">Your 9-to-5 Pays the Bills. Your 5-to-9 Builds Your Future.</div>
-                  <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">Most people think they're falling behind because of their job. They're not.</div>
-                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
-                  </div>
-                </div>
-              </a>
-              <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/attentioncapital">
+              <a class="qava-blog-card" href="https://qava.ai/attentioncapital">
                 <img class="qava-blog-thumb" src="./anti-fund.png" alt="Anti Fund" />
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
@@ -286,6 +274,18 @@
                   <div class="qava-blog-title">Attention Has Become More Valuable Than Capital</div>
                   <div class="qava-blog-more">
                     <div class="qava-blog-excerpt">Why distribution, not money, is becoming the real moat.</div>
+                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
+                  </div>
+                </div>
+              </a>
+              <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/5-to-9">
+                <img class="qava-blog-thumb" src="./5to9-card.png" alt="Building your future after hours" />
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
+                  <div class="qava-blog-tag">Productivity</div>
+                  <div class="qava-blog-title">Your 9-to-5 Pays the Bills. Your 5-to-9 Builds Your Future.</div>
+                  <div class="qava-blog-more">
+                    <div class="qava-blog-excerpt">Most people think they're falling behind because of their job. They're not.</div>
                     <span class="qava-blog-read">Read ${blogReadArrow}</span>
                   </div>
                 </div>
