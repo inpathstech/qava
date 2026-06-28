@@ -1653,7 +1653,21 @@
               const getItems = () => Array.from(box.querySelectorAll(".qava-side-menu-item"));
               const isDesktop = () => !reduceMotion && win.innerWidth > MOBILE_BP && win.innerHeight > 560;
 
+              // Other landing scripts insert sections via box.parentNode/afterend.
+              // Since the box now lives inside `inner`, those sections can land
+              // inside `inner` and inflate it past the track height, which breaks
+              // position:sticky. Evict anything that isn't the box back into flow.
+              const evictStrays = () => {
+                let ref = track;
+                Array.prototype.slice.call(inner.children).forEach((child) => {
+                  if (child === box) return;
+                  track.parentNode.insertBefore(child, ref.nextSibling);
+                  ref = child;
+                });
+              };
+
               const layout = () => {
+                evictStrays();
                 const stepCount = getItems().length;
                 if (!isDesktop() || stepCount < 2) {
                   enabled = false;
