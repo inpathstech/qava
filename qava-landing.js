@@ -1142,6 +1142,7 @@
               `;
               const createListingHTML = `
                 <div class="qava-signup-illustration qava-createlisting-illustration" aria-label="Create listing form preview illustration">
+                  <h3 class="qava-signup-title">Let's create your listing!</h3>
                   <div class="qava-signup-sections">
                     <section class="qava-create-section">
                       <h4 class="qava-create-heading">I want to create a —</h4>
@@ -1195,6 +1196,27 @@
                           <div class="qava-skill-level"><span class="qava-skill-emoji">🚁</span><span class="qava-skill-label">Average</span></div>
                           <div class="qava-skill-level active"><span class="qava-skill-emoji">✈️</span><span class="qava-skill-label">Strong</span></div>
                           <div class="qava-skill-level"><span class="qava-skill-emoji">🚀</span><span class="qava-skill-label">Expert</span></div>
+                </div>
+                      </section>
+            </div>
+
+                    <div class="qava-create-row">
+                      <section class="qava-create-section">
+                        <h4 class="qava-create-heading">AI tools my team can use</h4>
+                        <div class="qava-signup-chips qava-create-tools">
+                          <span class="qava-signup-chip is-selected"><img class="qava-tool-logo" src="./qava-chip-chatgpt.png" alt="" aria-hidden="true">ChatGPT</span>
+                          <span class="qava-signup-chip is-selected"><img class="qava-tool-logo" src="./qava-chip-claude.png" alt="" aria-hidden="true">Claude</span>
+                          <span class="qava-signup-chip"><img class="qava-tool-logo" src="./qava-chip-perplexity.png" alt="" aria-hidden="true">Perplexity</span>
+                          <span class="qava-signup-chip"><img class="qava-tool-logo" src="./qava-chip-gemini.png" alt="" aria-hidden="true">Gemini</span>
+                          <span class="qava-signup-chip is-selected"><img class="qava-tool-logo" src="./qava-chip-figma.png" alt="" aria-hidden="true">Figma AI</span>
+                </div>
+                      </section>
+
+                      <section class="qava-create-section">
+                        <h4 class="qava-create-heading">Project value</h4>
+                        <div class="qava-create-budget">
+                          <div class="qava-create-budget-amount">$8,000 <span>fixed</span></div>
+                          <div class="qava-create-budget-meta">≈ $125/hr · approx. 64 hrs</div>
                 </div>
                       </section>
             </div>

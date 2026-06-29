@@ -289,17 +289,45 @@
 
         /* --- Create listing: kill the empty image area on the
            Project/Job/Internship boxes and tighten the long form. --- */
-        .qava-createlisting-illustration .qava-signup-sections { gap: 9px; }
-        .qava-createlisting-illustration .qava-create-section { padding: 11px 13px; }
-        .qava-createlisting-illustration .qava-create-heading { font-size: 13px; margin-bottom: 7px; }
+        .qava-createlisting-illustration .qava-signup-sections { gap: 7px; }
+        .qava-createlisting-illustration .qava-create-section { padding: 8px 12px; }
+        .qava-createlisting-illustration .qava-create-heading { font-size: 13px; margin-bottom: 5px; }
         .qava-createlisting-illustration .qava-listing-type-grid { gap: 10px; }
-        .qava-createlisting-illustration .qava-listing-card { padding: 9px 11px; }
+        .qava-createlisting-illustration .qava-listing-card { padding: 8px 10px; }
         .qava-createlisting-illustration .qava-listing-card-img { display: none; }
         .qava-createlisting-illustration .qava-listing-card-body { padding: 0; }
         .qava-createlisting-illustration .qava-listing-card-desc { margin-top: 4px; }
         .qava-createlisting-illustration .qava-create-row { gap: 11px; }
         .qava-createlisting-illustration .qava-ai-usage-row { gap: 18px; }
         .qava-createlisting-illustration .qava-ai-tool-pills { gap: 5px; }
+        .qava-createlisting-illustration .qava-signup-title { font-size: 18px; margin-bottom: 5px; }
+        .qava-createlisting-illustration .qava-create-checklist { gap: 3px; }
+        .qava-createlisting-illustration .qava-create-tools { gap: 4px; }
+
+        /* Create listing: compact "Project value" field. */
+        .qava-create-budget {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+        }
+        .qava-create-budget-amount {
+          font-family: "Inter", sans-serif;
+          font-size: 18px;
+          font-weight: 700;
+          color: #111827;
+          line-height: 1.05;
+        }
+        .qava-create-budget-amount span {
+          font-size: 11px;
+          font-weight: 500;
+          color: #6b7280;
+        }
+        .qava-create-budget-meta {
+          font-family: "Inter", sans-serif;
+          font-size: 11px;
+          font-weight: 400;
+          color: #6b7280;
+        }
 
         /* --- Design your team: truncate role blurbs, tighten summary so the
            four slots + the at-a-glance recap all fit the uniform card. --- */
