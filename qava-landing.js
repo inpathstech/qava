@@ -172,7 +172,7 @@
             const aiToolsetCta = doc.createElement("a");
             aiToolsetCta.id = "qava-ai-toolset-cta";
             aiToolsetCta.href = "https://qava.ai/templates";
-            aiToolsetCta.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.983 21.186a1 1 0 0 1-1.966 0 10 10 0 0 0-8.203-8.203 1 1 0 0 1 0-1.966 10 10 0 0 0 8.203-8.203 1 1 0 0 1 1.966 0 10 10 0 0 0 8.203 8.203 1 1 0 0 1 0 1.966 10 10 0 0 0-8.203 8.203"/></svg><span>Templates Hub</span>';
+            aiToolsetCta.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.983 21.186a1 1 0 0 1-1.966 0 10 10 0 0 0-8.203-8.203 1 1 0 0 1 0-1.966 10 10 0 0 0 8.203-8.203 1 1 0 0 1 1.966 0 10 10 0 0 0 8.203 8.203 1 1 0 0 1 0 1.966 10 10 0 0 0-8.203 8.203"/></svg><span class="qava-blog-shimmer">Templates Library</span>';
             const primaryCta = ctaButtonsRow.querySelector(".cta-button-primary") || ctaButtonsRow.querySelector("a");
             if (primaryCta) {
               primaryCta.insertAdjacentElement("afterend", aiToolsetCta);
@@ -330,7 +330,7 @@
             }
 
             const viewAllLink = doc.createElement("a");
-            viewAllLink.className = "qava-blog-actbtn qava-blog-shimmer";
+            viewAllLink.className = "qava-blog-actbtn";
             viewAllLink.href = "https://qava.ai/newsletter";
             viewAllLink.textContent = "Newsletter";
             blogActions.appendChild(viewAllLink);
@@ -1439,24 +1439,86 @@
                   <h2 class="qava-templates-title">Templates</h2>
                   <p class="qava-templates-sub">Ready-to-use templates for every goal.</p>
                   <div class="qava-templates-divider"></div>
-                  <div class="qava-templates-grid">
-                    <div class="qava-template-card">
-                      <div class="qava-template-img" style="background-image: url('./Project%20Kick%20Off.png');"></div>
-                      <div class="qava-template-name">Project Kick Off</div>
-                      <div class="qava-template-desc">Template for starting new projects with clear objectives and team alignment</div>
-                      <button type="button" class="qava-template-btn">Download Template</button>
+                  <div class="qava-template-rows">
+                    <div class="qava-template-row">
+                      <img class="qava-template-thumb" src="./Project%20Kick%20Off.png" alt="" />
+                      <div class="qava-template-row-info">
+                        <p class="qava-template-row-title">Project Kick Off</p>
+                        <p class="qava-template-row-desc">Start new projects with clear objectives and alignment</p>
+                      </div>
+                      <button type="button" class="qava-template-dl">Download</button>
                     </div>
-                    <div class="qava-template-card">
-                      <div class="qava-template-img" style="background-image: url('./Project%20Status%20Updates.png');"></div>
-                      <div class="qava-template-name">Project Status Updates</div>
-                      <div class="qava-template-desc">Regular status reporting template for project progress tracking</div>
-                      <button type="button" class="qava-template-btn">Download Template</button>
+                    <div class="qava-template-row">
+                      <img class="qava-template-thumb" src="./Project%20Plan.png" alt="" />
+                      <div class="qava-template-row-info">
+                        <p class="qava-template-row-title">Project Plan</p>
+                        <p class="qava-template-row-desc">Phased plan with timelines and milestones</p>
+                      </div>
+                      <button type="button" class="qava-template-dl">Download</button>
                     </div>
-                    <div class="qava-template-card">
-                      <div class="qava-template-img" style="background-image: url('./Project%20Plan.png');"></div>
-                      <div class="qava-template-name">Project Plan</div>
-                      <div class="qava-template-desc">Comprehensive project planning template with timelines and milestones</div>
-                      <button type="button" class="qava-template-btn">Download Template</button>
+                    <div class="qava-template-row">
+                      <img class="qava-template-thumb" src="./Project%20Status%20Updates.png" alt="" />
+                      <div class="qava-template-row-info">
+                        <p class="qava-template-row-title">Project Status Updates</p>
+                        <p class="qava-template-row-desc">Regular status reporting for progress tracking</p>
+                      </div>
+                      <button type="button" class="qava-template-dl">Download</button>
+                    </div>
+                    <div class="qava-template-row">
+                      <img class="qava-template-thumb" src="./Sky.png" alt="" />
+                      <div class="qava-template-row-info">
+                        <p class="qava-template-row-title">Board Deck</p>
+                        <p class="qava-template-row-desc">Board meeting deck covering performance and risks</p>
+                      </div>
+                      <button type="button" class="qava-template-dl">Download</button>
+                    </div>
+                    <div class="qava-template-row">
+                      <img class="qava-template-thumb" src="./Sunset.png" alt="" />
+                      <div class="qava-template-row-info">
+                        <p class="qava-template-row-title">Pitch Deck</p>
+                        <p class="qava-template-row-desc">Win investors with a proven pitch structure</p>
+                      </div>
+                      <button type="button" class="qava-template-dl">Download</button>
+                    </div>
+                    <div class="qava-template-row">
+                      <img class="qava-template-thumb" src="./Green.png" alt="" />
+                      <div class="qava-template-row-info">
+                        <p class="qava-template-row-title">Financial Model</p>
+                        <p class="qava-template-row-desc">Three-statement model with assumptions built in</p>
+                      </div>
+                      <button type="button" class="qava-template-dl">Download</button>
+                    </div>
+                    <div class="qava-template-row">
+                      <img class="qava-template-thumb" src="./Markdowns.png" alt="" />
+                      <div class="qava-template-row-info">
+                        <p class="qava-template-row-title">Budget Slide</p>
+                        <p class="qava-template-row-desc">Present spend, allocations and runway clearly</p>
+                      </div>
+                      <button type="button" class="qava-template-dl">Download</button>
+                    </div>
+                    <div class="qava-template-row">
+                      <img class="qava-template-thumb" src="./Growth%20Strategy.png" alt="" />
+                      <div class="qava-template-row-info">
+                        <p class="qava-template-row-title">Go-to-Market Plan</p>
+                        <p class="qava-template-row-desc">Map audience, channels, messaging and metrics</p>
+                      </div>
+                      <button type="button" class="qava-template-dl">Download</button>
+                    </div>
+                    <div class="qava-template-row">
+                      <img class="qava-template-thumb" src="./Stream.png" alt="" />
+                      <div class="qava-template-row-info">
+                        <p class="qava-template-row-title">Task List</p>
+                        <p class="qava-template-row-desc">Capture, prioritise and assign every action</p>
+                      </div>
+                      <button type="button" class="qava-template-dl">Download</button>
+                    </div>
+                    <div class="qava-template-row">
+                      <img class="qava-template-thumb" src="./Branch.png" alt="" />
+                      <div class="qava-template-row-info">
+                        <p class="qava-template-row-title">Governance Deck</p>
+                        <p class="qava-template-row-desc">Document decisions, roles and controls</p>
+                      </div>
+                      <button type="button" class="qava-template-dl">Download</button>
                     </div>
                   </div>
                 </div>
