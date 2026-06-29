@@ -436,29 +436,30 @@
                 : null;
               let base = navOffset + 16;
               if (toggleBar && desktop) {
-                const toggleTop = navOffset + 8;
+                // Sit the toggle a comfortable gap below the nav for breathing room.
+                const toggleTop = navOffset + 28;
                 toggleBar.style.top = toggleTop + "px";
                 base = toggleTop + toggleBar.offsetHeight + 12;
               }
               const step = headerH + STEP_STACK_GAP;
               const stepsEl = dynamicContent.querySelector(".qava-hiw-steps");
 
-              // Pin each card at a staggered offset, then give it a near
-              // full-viewport scroll "slot" via a transparent bottom margin. That
-              // gap keeps the NEXT step off-screen while you're reading the current
-              // one — it only slides up (and pins over this card) once you scroll a
-              // screenful.
+              // Pin each card at a staggered offset, then give it a transparent
+              // bottom-margin "slot" so the NEXT step stays just below the fold
+              // until you scroll — it only slides up (and pins over this card) once
+              // you scroll a screenful.
               //
-              // The LAST card is special: a sticky element is confined to its
-              // containing block's content box, and its OWN bottom margin counts
-              // against how far up it can pin. Since nothing follows the last card
-              // inside the container, a bottom margin on it would let it reach its
-              // pinned spot only for an instant before being shoved back up — so it
-              // visibly stalls partway instead of tucking under the previous header.
-              // Fix: give the last card no margin and instead add a real spacer
-              // element after it (below), which extends the container so the card
-              // can slide all the way up and hold at the stacked position.
-              let lastSlot = 0;
+              // The slot is sized as exactly the room needed to push the next card
+              // off the bottom of the viewport while this card is pinned:
+              //   margin = viewportHeight - cardHeight - pinnedTop
+              // Because a later step pins HIGHER (larger top), it needs a SMALLER
+              // gap, so the margin shrinks by `step` per card. This has a key payoff
+              // on the way out: every card's sticky range now ends at the SAME
+              // scroll position (when the container's bottom edge reaches the bottom
+              // of the viewport, i.e. top_i + h + margin_i === viewportHeight for all
+              // i). So once the deck is fully stacked it scrolls away as a single
+              // unit, instead of earlier steps peeling off one at a time.
+              const ih = win.innerHeight;
               cards.forEach((card, i) => {
                 card.style.zIndex = String(i + 1);
                 if (desktop) {
@@ -467,13 +468,10 @@
                   card.style.top = top + "px";
                   card.dataset.stackTop = String(top);
                   const h = card.offsetHeight;
-                  const isLast = i === cards.length - 1;
-                  const slot = Math.max(
-                    Math.round(win.innerHeight * 0.25),
-                    Math.round(win.innerHeight - h - step)
-                  );
-                  card.style.marginBottom = isLast ? "0px" : slot + "px";
-                  if (isLast) lastSlot = slot;
+                  // Keep a small floor so very short viewports never collapse the
+                  // gap entirely (minor stagger there is an acceptable fallback).
+                  const slot = Math.max(0, Math.round(ih - h - top));
+                  card.style.marginBottom = slot + "px";
                 } else {
                   card.style.position = "";
                   card.style.top = "";
@@ -482,9 +480,12 @@
                 }
               });
 
-              // Trailing spacer (real flow content, not a margin) so the last card
-              // has room to slide up and pin under the previous header. Created once
-              // and resized on each layout pass; collapsed on mobile.
+              // A sticky element is confined to its container's content box and its
+              // own bottom margin counts against how far it can pin, so the last card
+              // needs real flow content after it to hold at the stacked position
+              // (otherwise it reaches its spot only for an instant). This trailing
+              // spacer provides that hold: the finished stack stays put for ~a third
+              // of a screen before the whole deck releases together.
               if (stepsEl) {
                 let spacer = stepsEl.querySelector(":scope > .qava-hiw-stack-spacer");
                 if (desktop) {
@@ -494,7 +495,7 @@
                     spacer.setAttribute("aria-hidden", "true");
                     stepsEl.appendChild(spacer);
                   }
-                  spacer.style.height = lastSlot + "px";
+                  spacer.style.height = Math.round(ih * 0.35) + "px";
                 } else if (spacer) {
                   spacer.style.height = "0px";
                 }

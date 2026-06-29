@@ -412,7 +412,7 @@
 
         .qava-showcase-toggle-sticky {
           position: sticky;
-          top: 72px;
+          top: 92px;
           z-index: 30;
           display: flex;
           justify-content: center;
