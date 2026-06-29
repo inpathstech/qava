@@ -23,8 +23,25 @@
             background-color: #ffffff;
             color: #1f1f1f;
             overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
         }
-        
+
+        #qava-dot-base-fixed {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background-image: radial-gradient(circle, rgba(17, 24, 39, 0.16) 1px, transparent 1.35px);
+            background-size: 20px 20px;
+            background-repeat: repeat;
+        }
+
+        body > *:not(#qava-dot-base-fixed) {
+            position: relative;
+            z-index: 1;
+        }
+
         /* Cache buster v2 - Updated styling */
 
         /* NAVBAR STYLES - Copied from index.html */
@@ -969,6 +986,8 @@
     </style>
 </head>
 <body>
+<div id="qava-dot-base-fixed" aria-hidden="true"></div>
+
     <!-- Navigation Bar -->
     <div class="header-container">
         <!-- Logo on the left -->
