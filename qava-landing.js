@@ -171,8 +171,8 @@
           if (!doc.getElementById("qava-ai-toolset-cta")) {
             const aiToolsetCta = doc.createElement("a");
             aiToolsetCta.id = "qava-ai-toolset-cta";
-            aiToolsetCta.href = "https://qava.ai/aiphilosophy";
-            aiToolsetCta.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.983 21.186a1 1 0 0 1-1.966 0 10 10 0 0 0-8.203-8.203 1 1 0 0 1 0-1.966 10 10 0 0 0 8.203-8.203 1 1 0 0 1 1.966 0 10 10 0 0 0 8.203 8.203 1 1 0 0 1 0 1.966 10 10 0 0 0-8.203 8.203"/></svg><span>Our philosophy</span>';
+            aiToolsetCta.href = "https://qava.ai/templates";
+            aiToolsetCta.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.983 21.186a1 1 0 0 1-1.966 0 10 10 0 0 0-8.203-8.203 1 1 0 0 1 0-1.966 10 10 0 0 0 8.203-8.203 1 1 0 0 1 1.966 0 10 10 0 0 0 8.203 8.203 1 1 0 0 1 0 1.966 10 10 0 0 0-8.203 8.203"/></svg><span>Templates Hub</span>';
             const primaryCta = ctaButtonsRow.querySelector(".cta-button-primary") || ctaButtonsRow.querySelector("a");
             if (primaryCta) {
               primaryCta.insertAdjacentElement("afterend", aiToolsetCta);
@@ -183,7 +183,7 @@
 
           const existingAiCta = doc.getElementById("qava-ai-toolset-cta");
           if (existingAiCta) {
-            existingAiCta.href = "https://qava.ai/aiphilosophy";
+            existingAiCta.href = "https://qava.ai/templates";
           }
 
           // "How it works" links navigate directly to the standalone

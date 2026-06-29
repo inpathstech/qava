@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Templates Hub | Qava</title>
+    <link rel="icon" type="image/svg+xml" href="qava-logo.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+        }
+
+        /* NAVBAR STYLES */
+        .header-container {
+            width: 100%;
+            padding: 16px 32px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 64px;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            overflow: visible;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .header-center {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex: 1;
+            margin-left: 40px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 36px;
+            height: 36px;
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1;
+            height: 25px;
+            color: #000000;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+            gap: 4px;
+            text-decoration: none;
+            vertical-align: middle;
+            box-sizing: border-box;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background-color: transparent;
+            color: #000000;
+        }
+
+        .nav-item:visited {
+            color: #000000;
+        }
+
+        .nav-item:active {
+            color: #000000;
+        }
+
+        .nav-text {
+            color: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            white-space: nowrap;
+            padding: 0 4px;
+            display: inline;
+        }
+        .nav-item:hover .nav-text,
+        .nav-item.active .nav-text {
+            background: linear-gradient(180deg, transparent 60%, rgba(15, 98, 254, 0.1) 60%);
+        }
+
+        .auth-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .auth-item {
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 400;
+            color: #000000;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .auth-item:hover {
+            background-color: rgba(0, 0, 0, 0.06);
+            color: #000000;
+        }
+
+        .join-button {
+            padding: 6px 12px;
+            background: #ECF2FF;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            font-family: inherit;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .join-button:hover {
+            background: #DCE8FF;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(17, 99, 254, 0.15);
+        }
+
+        .join-text {
+            color: #1163FE;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        /* Hamburger Menu Styles */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            padding: 6px;
+            z-index: 1001;
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+        }
+
+        .hamburger-menu:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        .hamburger-line {
+            width: 18px;
+            height: 2px;
+            background-color: #000000;
+            margin: 2px 0;
+            transition: 0.2s ease;
+            border-radius: 1px;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: white;
+            z-index: 1000;
+            flex-direction: column;
+            padding: 80px 16px 32px 16px;
+            overflow-y: auto;
+            animation: slideDown 0.2s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-nav-item {
+            padding: 12px 24px;
+            border-bottom: none;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 400;
+            color: #000000;
+            transition: color 0.2s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .mobile-nav-item:hover {
+            color: rgba(55, 53, 47, 1);
+        }
+
+        .mobile-nav-item:visited {
+            color: #000000;
+        }
+
+        .mobile-nav-item:active {
+            color: #000000;
+        }
+
+        /* Mobile Dropdown Styles */
+        .mobile-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .mobile-dropdown-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .mobile-dropdown-arrow {
+            font-size: 13px;
+            transition: all 0.2s ease;
+            color: rgba(55, 53, 47, 0.6);
+            margin-left: 0;
+        }
+
+        .mobile-dropdown-toggle.active .mobile-dropdown-arrow::before {
+            content: "−";
+        }
+
+        .mobile-dropdown-toggle.active .mobile-dropdown-arrow {
+            opacity: 0;
+        }
+
+        .mobile-dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: rgba(55, 53, 47, 0.04);
+            border-radius: 6px;
+            margin: 0 16px 0 16px;
+        }
+
+        .mobile-dropdown-content.active {
+            max-height: 200px;
+            padding: 8px 0;
+            margin: 0 16px 8px 16px;
+        }
+
+        .mobile-dropdown-item {
+            padding: 16px 24px;
+            border-bottom: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+        }
+
+        .mobile-dropdown-item:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        .mobile-dropdown-item:visited {
+            color: inherit;
+        }
+
+        .mobile-dropdown-item:active {
+            color: inherit;
+        }
+
+        .mobile-dropdown-item .dropdown-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 2px;
+        }
+
+        .mobile-dropdown-item .dropdown-subtitle {
+            font-size: 13px;
+            font-weight: 300;
+            color: rgba(55, 53, 47, 0.6);
+            line-height: 1.3;
+        }
+
+        .mobile-menu-join-button {
+            margin: 12px 24px;
+            width: calc(100% - 48px);
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 13px;
+            cursor: pointer;
+            color: #000000;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            transition: background-color 0.2s ease;
+        }
+
+        .close-menu:hover {
+            background-color: rgba(55, 53, 47, 0.08);
+        }
+
+        /* HERO / FEATURE CARDS SECTION STYLES */
+        .feature-cards-section {
+            background: white;
+            padding: 100px 0;
+        }
+
+        .hero-layout {
+            display: block;
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .feature-cards-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        .feature-cards-header {
+            font-family: 'Inter', sans-serif;
+            font-size: 52px;
+            font-weight: 600;
+            color: #000000;
+            text-align: center;
+            margin: 0 0 8px 0;
+            line-height: 1.2;
+        }
+
+        .feature-cards-subheader {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            color: #6B6B6B;
+            text-align: center;
+            margin: 8px 0 16px 0;
+        }
+
+        /* Navbar responsive behavior (matches landing page) */
+        @media (max-width: 1100px) {
+            .header-container {
+                padding: 12px 20px;
+            }
+
+            .navigation {
+                display: none;
+            }
+
+            .hamburger-menu {
+                display: flex;
+            }
+
+            .header-right {
+                flex-shrink: 0;
+                gap: 8px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 12px 16px;
+            }
+
+            .navigation {
+                display: none;
+            }
+
+            .header-right {
+                gap: 12px;
+            }
+
+            .auth-item {
+                display: none;
+            }
+
+            .auth-section {
+                display: flex;
+            }
+
+            .hamburger-menu {
+                display: flex;
+                margin-left: 0;
+                padding: 6px;
+                border-radius: 4px;
+                transition: background-color 0.2s ease;
+                order: 2;
+            }
+
+            .hamburger-menu:hover {
+                background-color: rgba(55, 53, 47, 0.08);
+            }
+
+            .join-button {
+                padding: 6px 12px;
+                font-size: 13px;
+                width: auto;
+                height: auto;
+                min-width: 100px;
+                white-space: nowrap;
+                overflow: visible;
+            }
+
+            .join-text {
+                font-size: 13px;
+            }
+        }
+
+        /* Fix navbar underline issue - only for main nav items, not dropdown items */
+        .navigation .nav-item,
+        .navigation .nav-item:link,
+        .navigation .nav-item:visited,
+        .navigation .nav-item:hover,
+        .navigation .nav-item:active,
+        .navigation .nav-item:focus {
+            text-decoration: none !important;
+        }
+    </style>
+    <link rel="stylesheet" href="qava-landing.css" />
+    <style>
+        /* Template cards: reuse the landing-page blog card styling, but render
+           a flat gray placeholder image (no photo, no shimmer) and keep the
+           tag/title overlay always visible. */
+        .qava-template-row {
+            margin-top: 32px;
+        }
+
+        .qava-template-card {
+            background: #e9e9ec;
+            cursor: pointer;
+        }
+
+        .qava-template-card::before {
+            background-image: none;
+            background-color: #e9e9ec;
+            animation: none;
+            opacity: 1;
+        }
+
+        .qava-template-card .qava-blog-scrim,
+        .qava-template-card .qava-blog-glass {
+            opacity: 1;
+        }
+
+        @media (max-width: 600px) {
+            .qava-template-row {
+                margin-top: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="qava-dot-base-fixed" aria-hidden="true"></div>
+    <!-- Navigation Bar -->
+    <div class="header-container">
+        <!-- Logo on the left -->
+        <div class="header-logo">
+            <div class="logo-container">
+                <div class="logo">
+                    <a href="https://qava.ai/">
+                        <div class="qava-nav-logo-flip" id="qava-nav-logo-flip">
+                            <div class="qava-nav-logo-inner" id="qava-nav-logo-inner">
+                                <img class="qava-nav-logo-face qava-nav-logo-front" src="qava-logo.svg" alt="Qava">
+                                <img class="qava-nav-logo-face qava-nav-logo-back" src="qava-hero-arrow-2.png" alt="">
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation in the center -->
+        <div class="header-center">
+            <div class="navigation">
+                <a href="https://app.qava.ai/guest" class="nav-item create-listing">
+                    <div class="nav-text">Create listing</div>
+                </a>
+                <a href="https://app.qava.ai/projects" class="nav-item search-listings">
+                    <div class="nav-text">Find work</div>
+                </a>
+                <a href="https://qava.ai/newsletter" class="nav-item newsletter">
+                    <div class="nav-text">Newsletter</div>
+                </a>
+                <a href="https://qava.ai/premium" class="nav-item premium">
+                    <div class="nav-text">Premium</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Auth section on the right -->
+        <div class="header-right">
+            <div class="auth-section">
+                <a href="https://qava.ai/howitworks" class="auth-item">
+                    <div class="nav-text">How it works</div>
+                </a>
+                <a href="https://app.qava.ai/" class="auth-item">
+                    <div class="nav-text">Log in</div>
+                </a>
+                <a href="https://app.qava.ai/" class="join-button">
+                    <div class="join-text">Get Started</div>
+                </a>
+            </div>
+
+            <!-- Hamburger Menu Button -->
+            <div class="hamburger-menu" onclick="toggleMobileMenu()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
+        <a href="https://app.qava.ai/guest" class="mobile-nav-item">
+            <div class="nav-text">Create listing</div>
+        </a>
+        <a href="https://app.qava.ai/projects" class="mobile-nav-item">
+            <div class="nav-text">Find work</div>
+        </a>
+        <div class="mobile-nav-item mobile-dropdown-toggle" onclick="toggleMobileDropdown()">
+            <div class="mobile-dropdown-header">
+                <div class="nav-text">How It Works</div>
+                <span class="mobile-dropdown-arrow">+</span>
+            </div>
+        </div>
+        <div class="mobile-dropdown-content" id="mobileDropdown">
+            <a href="https://qava.ai/clienthowitworks" class="mobile-dropdown-item">
+                <div class="dropdown-title">For Clients 🚀</div>
+                <div class="dropdown-subtitle">Hiring for current or future work</div>
+            </a>
+            <a href="https://qava.ai/talenthowitworks" class="mobile-dropdown-item">
+                <div class="dropdown-title">For Talent 👩‍💻</div>
+                <div class="dropdown-subtitle">Interested in current or future work</div>
+            </a>
+        </div>
+        <a href="https://qava.ai/newsletter" class="mobile-nav-item">
+            <div class="nav-text">Newsletter</div>
+        </a>
+        <a href="https://qava.ai/premium" class="mobile-nav-item">
+            <div class="nav-text">Premium</div>
+        </a>
+            <a href="https://app.qava.ai/" class="mobile-nav-item">Log in</a>
+        <a href="https://app.qava.ai/" class="join-button mobile-menu-join-button">
+                <div class="join-text">Get Started</div>
+            </a>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="feature-cards-section">
+        <div class="feature-cards-container">
+            <div class="hero-layout">
+                <div class="hero-content">
+                    <img id="qava-hero-icon" class="qava-hero-icon" src="./qava-hero-arrow.png" alt="Hero icon">
+                    <h2 class="feature-cards-header qava-hero-heading"><span class="qava-hero-line">Battle-tested templates.</span></h2>
+                    <p class="feature-cards-subheader qava-hero-subheader"><span class="qava-sub-line">From startups to large corporate transformation,</span> <span class="qava-sub-line">the right template is key.</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Template grid (blog-card style, gray placeholders) -->
+        <div class="qava-blog-row qava-template-row">
+            <div class="qava-blog-card qava-template-card">
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
+                    <div class="qava-blog-tag">Planning</div>
+                    <div class="qava-blog-title">Project Plan</div>
+                    <div class="qava-blog-more">
+                        <div class="qava-blog-excerpt">A clear, phased plan to take any initiative from kickoff to delivery.</div>
+                        <span class="qava-blog-read">Use template <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                    </div>
+                </div>
+            </div>
+            <div class="qava-blog-card qava-template-card">
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
+                    <div class="qava-blog-tag">Governance</div>
+                    <div class="qava-blog-title">Board Deck</div>
+                    <div class="qava-blog-more">
+                        <div class="qava-blog-excerpt">A polished board meeting deck covering performance, risks and asks.</div>
+                        <span class="qava-blog-read">Use template <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                    </div>
+                </div>
+            </div>
+            <div class="qava-blog-card qava-template-card">
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
+                    <div class="qava-blog-tag">Fundraising</div>
+                    <div class="qava-blog-title">Pitch Deck</div>
+                    <div class="qava-blog-more">
+                        <div class="qava-blog-excerpt">Tell your story and win investors with a proven pitch structure.</div>
+                        <span class="qava-blog-read">Use template <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                    </div>
+                </div>
+            </div>
+            <div class="qava-blog-card qava-template-card">
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
+                    <div class="qava-blog-tag">Roadmap</div>
+                    <div class="qava-blog-title">Timeline Slide</div>
+                    <div class="qava-blog-more">
+                        <div class="qava-blog-excerpt">A clean visual timeline for milestones, phases and key dates.</div>
+                        <span class="qava-blog-read">Use template <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                    </div>
+                </div>
+            </div>
+            <div class="qava-blog-card qava-template-card">
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
+                    <div class="qava-blog-tag">Finance</div>
+                    <div class="qava-blog-title">Budget Slide</div>
+                    <div class="qava-blog-more">
+                        <div class="qava-blog-excerpt">Present spend, allocations and runway in one tidy slide.</div>
+                        <span class="qava-blog-read">Use template <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                    </div>
+                </div>
+            </div>
+            <div class="qava-blog-card qava-template-card">
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
+                    <div class="qava-blog-tag">Spreadsheet</div>
+                    <div class="qava-blog-title">Excel Tracker</div>
+                    <div class="qava-blog-more">
+                        <div class="qava-blog-excerpt">A ready-to-use spreadsheet to track tasks, owners and status.</div>
+                        <span class="qava-blog-read">Use template <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                    </div>
+                </div>
+            </div>
+            <div class="qava-blog-card qava-template-card">
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
+                    <div class="qava-blog-tag">Finance</div>
+                    <div class="qava-blog-title">Financial Model</div>
+                    <div class="qava-blog-more">
+                        <div class="qava-blog-excerpt">A three-statement model with assumptions and scenarios built in.</div>
+                        <span class="qava-blog-read">Use template <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                    </div>
+                </div>
+            </div>
+            <div class="qava-blog-card qava-template-card">
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
+                    <div class="qava-blog-tag">Productivity</div>
+                    <div class="qava-blog-title">Task List</div>
+                    <div class="qava-blog-more">
+                        <div class="qava-blog-excerpt">Capture, prioritise and assign every action in one simple list.</div>
+                        <span class="qava-blog-read">Use template <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                    </div>
+                </div>
+            </div>
+            <div class="qava-blog-card qava-template-card">
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
+                    <div class="qava-blog-tag">Governance</div>
+                    <div class="qava-blog-title">Governance Deck</div>
+                    <div class="qava-blog-more">
+                        <div class="qava-blog-excerpt">Document decisions, roles and controls for your stakeholders.</div>
+                        <span class="qava-blog-read">Use template <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                    </div>
+                </div>
+            </div>
+            <div class="qava-blog-card qava-template-card">
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
+                    <div class="qava-blog-tag">Strategy</div>
+                    <div class="qava-blog-title">Go-to-Market Plan</div>
+                    <div class="qava-blog-more">
+                        <div class="qava-blog-excerpt">Map your launch: audience, channels, messaging and metrics.</div>
+                        <span class="qava-blog-read">Use template <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                    </div>
+                </div>
+            </div>
+            <div class="qava-blog-card qava-template-card">
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
+                    <div class="qava-blog-tag">Goals</div>
+                    <div class="qava-blog-title">OKR Tracker</div>
+                    <div class="qava-blog-more">
+                        <div class="qava-blog-excerpt">Set objectives and track measurable key results each quarter.</div>
+                        <span class="qava-blog-read">Use template <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                    </div>
+                </div>
+            </div>
+            <div class="qava-blog-card qava-template-card">
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
+                    <div class="qava-blog-tag">Operations</div>
+                    <div class="qava-blog-title">Org Chart</div>
+                    <div class="qava-blog-more">
+                        <div class="qava-blog-excerpt">Visualise teams, reporting lines and ownership at a glance.</div>
+                        <span class="qava-blog-read">Use template <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section (populated by qava-footer.js) -->
+    <footer class="footer-section"></footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function toggleMobileDropdown() {
+            const dropdown = document.getElementById('mobileDropdown');
+            const toggle = document.querySelector('.mobile-dropdown-toggle');
+
+            dropdown.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+
+            if (mobileMenu.classList.contains('active') &&
+                !mobileMenu.contains(event.target) &&
+                !hamburgerMenu.contains(event.target)) {
+                toggleMobileMenu();
+            }
+        });
+
+        // Prevent scroll on mobile when menu is open
+        document.addEventListener('touchmove', function(e) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu.classList.contains('active')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Handle responsive behavior
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 1100) {
+                const mobileMenu = document.getElementById('mobileMenu');
+                if (mobileMenu.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            }
+        });
+    </script>
+
+    <script src="qava-footer.js"></script>
+    <script>
+        (function () {
+            if (typeof window.applyQavaFooter === "function") {
+                window.applyQavaFooter(document);
+            }
+            var inner = document.getElementById("qava-nav-logo-inner");
+            if (inner) {
+                var flipped = false;
+                setInterval(function () {
+                    flipped = !flipped;
+                    inner.classList.toggle("is-flipped", flipped);
+                }, 5000);
+            }
+        })();
+    </script>
+</body>
+</html>

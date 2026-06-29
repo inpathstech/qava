@@ -82,6 +82,10 @@ jobs:
           --content-type "text/html" \
           --cache-control "max-age=3600"
 
+        aws s3 cp templates.html s3://${{ secrets.S3_BUCKET_NAME }}/templates.html \
+          --content-type "text/html" \
+          --cache-control "max-age=3600"
+
         aws s3 cp termsofuse.html s3://${{ secrets.S3_BUCKET_NAME }}/termsofuse.html \
           --content-type "text/html" \
           --cache-control "max-age=3600"
