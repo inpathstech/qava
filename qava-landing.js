@@ -591,13 +591,13 @@
                           <article class="qava-signup-question">
                             <h4>What sort of AI tools do you work with?</h4>
                             <div class="qava-signup-chips">
-                              <span class="qava-signup-chip is-selected"><span class="qava-tool-logo-badge qava-tool-openai" aria-hidden="true">AI</span>ChatGPT</span>
-                              <span class="qava-signup-chip is-selected"><span class="qava-tool-logo-badge qava-tool-claude" aria-hidden="true">C</span>Claude</span>
-                              <span class="qava-signup-chip is-selected"><span class="qava-tool-logo-badge qava-tool-perplexity" aria-hidden="true">P</span>Perplexity</span>
-                              <span class="qava-signup-chip"><span class="qava-tool-logo-badge qava-tool-notion" aria-hidden="true">N</span>Notion AI</span>
-                              <span class="qava-signup-chip"><span class="qava-tool-logo-badge qava-tool-gemini" aria-hidden="true">G</span>Gemini</span>
-                              <span class="qava-signup-chip"><span class="qava-tool-logo-badge qava-tool-midjourney" aria-hidden="true">MJ</span>Midjourney</span>
-                              <span class="qava-signup-chip"><span class="qava-tool-logo-badge qava-tool-figma" aria-hidden="true">F</span>Figma AI</span>
+                              <span class="qava-signup-chip is-selected"><img class="qava-tool-logo" src="./qava-chip-chatgpt.png" alt="" aria-hidden="true">ChatGPT</span>
+                              <span class="qava-signup-chip is-selected"><img class="qava-tool-logo" src="./qava-chip-claude.png" alt="" aria-hidden="true">Claude</span>
+                              <span class="qava-signup-chip is-selected"><img class="qava-tool-logo" src="./qava-chip-perplexity.png" alt="" aria-hidden="true">Perplexity</span>
+                              <span class="qava-signup-chip"><img class="qava-tool-logo" src="./qava-chip-notion.png" alt="" aria-hidden="true">Notion AI</span>
+                              <span class="qava-signup-chip"><img class="qava-tool-logo" src="./qava-chip-gemini.png" alt="" aria-hidden="true">Gemini</span>
+                              <span class="qava-signup-chip"><img class="qava-tool-logo" src="./qava-chip-midjourney.png" alt="" aria-hidden="true">Midjourney</span>
+                              <span class="qava-signup-chip"><img class="qava-tool-logo" src="./qava-chip-figma.png" alt="" aria-hidden="true">Figma AI</span>
                             </div>
                           </article>
                         </div>

@@ -3846,7 +3846,9 @@
         }
 
         .qava-signup-chip:not(.is-selected):not(.is-highlighted) .qava-tool-logo-badge,
-        .qava-signup-chip.is-selected .qava-tool-logo-badge {
+        .qava-signup-chip.is-selected .qava-tool-logo-badge,
+        .qava-signup-chip:not(.is-selected):not(.is-highlighted) .qava-tool-logo,
+        .qava-signup-chip.is-selected .qava-tool-logo {
           opacity: 1;
         }
 
