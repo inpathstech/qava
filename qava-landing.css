@@ -18,7 +18,7 @@
           background-repeat: repeat;
         }
 
-        body > *:not(#qava-dot-base-fixed) {
+        body > *:not(#qava-dot-base-fixed):not(.qava-modal-overlay) {
             position: relative;
           z-index: 1;
         }
