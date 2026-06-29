@@ -493,7 +493,7 @@
            a flat gray placeholder image (no photo, no shimmer) and keep the
            tag/title overlay always visible. */
         .qava-tpl-grid {
-            margin-top: 32px;
+            margin-top: 20px;
             background: transparent;
         }
 
@@ -644,12 +644,14 @@
         /* Filter dropdowns above the grid */
         .qava-tpl-filters {
             width: min(1040px, calc(100vw - 120px));
-            margin: 18px auto 0;
+            margin: 46px auto 0;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             gap: 8px 28px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(17, 24, 39, 0.08);
         }
 
         .qava-tpl-dropdown {
@@ -708,8 +710,7 @@
         .qava-tpl-dd-panel {
             position: absolute;
             top: calc(100% + 8px);
-            left: 50%;
-            transform: translateX(-50%);
+            left: 0;
             z-index: 20;
             display: none;
             flex-wrap: wrap;
@@ -1054,6 +1055,7 @@
                 width: calc(100vw - 40px);
             }
             .qava-tpl-filters {
+                margin-top: 34px;
                 gap: 8px 20px;
             }
             .qava-modal-actions {
@@ -1401,10 +1403,8 @@
             var activeFilters = { stage: [], category: [] };
 
             function matchesFilters(t) {
-                var stageOk = activeFilters.stage.length === 0 ||
-                    activeFilters.stage.some(function (s) { return t.stage.indexOf(s) !== -1; });
-                var catOk = activeFilters.category.length === 0 ||
-                    activeFilters.category.some(function (c) { return t.cats.indexOf(c) !== -1; });
+                var stageOk = activeFilters.stage.some(function (s) { return t.stage.indexOf(s) !== -1; });
+                var catOk = activeFilters.category.some(function (c) { return t.cats.indexOf(c) !== -1; });
                 return stageOk && catOk;
             }
 
@@ -1412,7 +1412,7 @@
                 if (!grid) return;
                 var list = QAVA_TEMPLATES.filter(matchesFilters);
                 if (list.length === 0) {
-                    grid.innerHTML = '<div class="qava-tpl-empty">No templates match those filters yet. Try removing one, or <button type="button" class="qava-tpl-empty-link" id="qava-tpl-clear">clear all filters</button>.</div>';
+                    grid.innerHTML = '<div class="qava-tpl-empty">No templates match those filters. <button type="button" class="qava-tpl-empty-link" id="qava-tpl-clear">Reset filters</button>.</div>';
                     return;
                 }
                 grid.innerHTML = list.map(cardHTML).join("");
@@ -1447,14 +1447,22 @@
                 });
             }
 
-            function clearFilters() {
+            function selectAllFilters() {
                 activeFilters.stage = [];
                 activeFilters.category = [];
-                if (filterBar) {
-                    filterBar.querySelectorAll(".qava-tpl-filter-pill.is-active").forEach(function (p) {
-                        p.classList.remove("is-active");
-                    });
-                }
+                if (!filterBar) return;
+                filterBar.querySelectorAll(".qava-tpl-filter-pill").forEach(function (p) {
+                    var group = p.getAttribute("data-group");
+                    var value = p.getAttribute("data-value");
+                    if (activeFilters[group] && activeFilters[group].indexOf(value) === -1) {
+                        activeFilters[group].push(value);
+                    }
+                    p.classList.add("is-active");
+                });
+            }
+
+            function clearFilters() {
+                selectAllFilters();
                 updateTriggers();
                 renderGrid();
             }
@@ -1493,6 +1501,8 @@
                 });
             }
 
+            selectAllFilters();
+            updateTriggers();
             renderGrid();
 
             /* ---------- Modal helpers ---------- */
