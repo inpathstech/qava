@@ -447,10 +447,18 @@
               // full-viewport scroll "slot" via a transparent bottom margin. That
               // gap keeps the NEXT step off-screen while you're reading the current
               // one — it only slides up (and pins over this card) once you scroll a
-              // screenful. Every card (including the last) gets the same slot so it
-              // has enough travel to pin all the way up under the previous header;
-              // the last card's slot is the trailing scroll room that lets it reach
-              // its pinned position before the section releases.
+              // screenful.
+              //
+              // The LAST card is special: a sticky element is confined to its
+              // containing block's content box, and its OWN bottom margin counts
+              // against how far up it can pin. Since nothing follows the last card
+              // inside the container, a bottom margin on it would let it reach its
+              // pinned spot only for an instant before being shoved back up — so it
+              // visibly stalls partway instead of tucking under the previous header.
+              // Fix: give the last card no margin and instead add a real spacer
+              // element after it (below), which extends the container so the card
+              // can slide all the way up and hold at the stacked position.
+              let lastSlot = 0;
               cards.forEach((card, i) => {
                 card.style.zIndex = String(i + 1);
                 if (desktop) {
@@ -459,11 +467,13 @@
                   card.style.top = top + "px";
                   card.dataset.stackTop = String(top);
                   const h = card.offsetHeight;
+                  const isLast = i === cards.length - 1;
                   const slot = Math.max(
                     Math.round(win.innerHeight * 0.25),
                     Math.round(win.innerHeight - h - step)
                   );
-                  card.style.marginBottom = slot + "px";
+                  card.style.marginBottom = isLast ? "0px" : slot + "px";
+                  if (isLast) lastSlot = slot;
                 } else {
                   card.style.position = "";
                   card.style.top = "";
@@ -472,10 +482,22 @@
                 }
               });
 
-              // The per-card margins above already grow the container's flow height
-              // enough for every card to hold its pinned offset until the next one
-              // slides over it, so no extra min-height is needed.
+              // Trailing spacer (real flow content, not a margin) so the last card
+              // has room to slide up and pin under the previous header. Created once
+              // and resized on each layout pass; collapsed on mobile.
               if (stepsEl) {
+                let spacer = stepsEl.querySelector(":scope > .qava-hiw-stack-spacer");
+                if (desktop) {
+                  if (!spacer) {
+                    spacer = doc.createElement("div");
+                    spacer.className = "qava-hiw-stack-spacer";
+                    spacer.setAttribute("aria-hidden", "true");
+                    stepsEl.appendChild(spacer);
+                  }
+                  spacer.style.height = lastSlot + "px";
+                } else if (spacer) {
+                  spacer.style.height = "0px";
+                }
                 stepsEl.style.paddingBottom = "";
                 stepsEl.style.minHeight = "";
               }
