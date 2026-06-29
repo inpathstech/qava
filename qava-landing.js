@@ -203,7 +203,7 @@
             toggleWrap.id = "qava-showcase-toggle-wrap";
             toggleWrap.className = "qava-showcase-toggle-wrap";
             toggleWrap.innerHTML = `
-              <div class="qava-howitworks-title">How it works</div>
+              <div class="qava-howitworks-title">How matching-making works</div>
               <div class="qava-howitworks-sub">We connect entrepreneurs and leaders with<br>AI-enabled professionals, graduates, and students.</div>
             `;
             showcaseBox.insertAdjacentElement("beforebegin", toggleWrap);
