@@ -492,8 +492,9 @@
         /* Template cards: reuse the landing-page blog card styling, but render
            a flat gray placeholder image (no photo, no shimmer) and keep the
            tag/title overlay always visible. */
-        .qava-template-row {
+        .qava-tpl-grid {
             margin-top: 32px;
+            background: transparent;
         }
 
         .qava-template-card {
@@ -635,15 +636,9 @@
             color: #9aa1ab;
         }
 
-        .qava-template-note a {
+        .qava-template-note strong {
             color: #111827;
-            font-weight: 500;
-            text-decoration: underline;
-            text-underline-offset: 2px;
-        }
-
-        .qava-template-note a:hover {
-            text-decoration: underline;
+            font-weight: 600;
         }
 
         /* Request CTA below the grid */
@@ -917,7 +912,7 @@
         }
 
         @media (max-width: 600px) {
-            .qava-template-row {
+            .qava-tpl-grid {
                 margin-top: 24px;
             }
             .qava-template-note,
@@ -1047,11 +1042,11 @@
         <!-- Premium-only note -->
         <p class="qava-template-note">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            <span>Every template is exclusive to <a href="https://qava.ai/premium">Qava&nbsp;Premium</a> members.</span>
+            <span>Every template is exclusive to <strong>Premium</strong> members.</span>
         </p>
 
         <!-- Template grid (rendered by JS from QAVA_TEMPLATES) -->
-        <div class="qava-blog-row qava-template-row" id="qava-template-grid"></div>
+        <div class="qava-blog-row qava-tpl-grid" id="qava-template-grid"></div>
 
         <!-- Request a template CTA -->
         <div class="qava-template-request">
@@ -1068,7 +1063,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
             </div>
             <h3 class="qava-modal-title" id="qava-gate-title">This template is a Premium perk</h3>
-            <p class="qava-modal-sub">Downloads are unlocked for <strong>Qava&nbsp;Premium</strong> members. Log in if you're already a member, or go Premium to get every template — plus future updates.</p>
+            <p class="qava-modal-sub">Downloads are unlocked for <strong>Premium</strong> members. Log in if you're already a member, or go Premium to get every template — plus future updates.</p>
             <div class="qava-modal-actions">
                 <a href="https://qava.ai/premium" class="qava-modal-btn qava-modal-btn-primary">Go Premium</a>
                 <a href="https://app.qava.ai/" class="qava-modal-btn qava-modal-btn-ghost">Log in</a>
@@ -1208,7 +1203,7 @@
             }
 
             function cardHTML(t) {
-                var likeText = t.likes.toLocaleString() + " people like this";
+                var likeText = t.likes.toLocaleString() + " likes";
                 return '' +
                     '<div class="qava-template-item">' +
                         '<div class="qava-blog-card qava-template-card" role="button" tabindex="0" data-template="' + esc(t.title) + '">' +
