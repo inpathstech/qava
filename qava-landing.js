@@ -1964,11 +1964,11 @@
 
               const stories = [
                 { quote: "Qava has saved me valuable time, and I get to work with a diverse pool of fresh, bright perspectives on targeted problems.", logo: "./Testimonial%20company%20logos/mmento%20logo.svg", h: 22, name: "Founder &amp; CEO" },
-                { quote: "We streamlined our workflows and accelerated our sales cycle using incredible interns and AI.", logo: "./Testimonial%20company%20logos/Boon.svg", crop: true, name: "Chief Revenue Officer" },
+                { quote: "We streamlined our internal workflows and accelerated our entire sales cycle using a handful of incredible interns and AI.", logo: "./Testimonial%20company%20logos/Boon.svg", crop: true, name: "Chief Revenue Officer" },
                 { quote: "I used Qava to set up our P&amp;L with charts showing where our revenue is growing and how our expenses are trending.", logo: "./Testimonial%20company%20logos/The%20Rise%20Group%20Square%20Logo.svg", h: 26, name: "CEO" },
                 { quote: "Working with startups gave me hands-on experience that no case study could match. I helped build go-to-market strategies that actually launched products.", logo: "./Landing%20Page%20Trusted%20by/Kellogg.png", h: 32, name: "Kellogg School of Management", sub: "Class of 2024" },
-                { quote: "I helped companies raise capital. I built pitch decks and financial models. This experience accelerated my career by 10 years.", logo: "./Landing%20Page%20Trusted%20by/Wharton.png", h: 32, name: "The Wharton School", sub: "Class of 2023" },
-                { quote: "I worked on real strategic projects for growing companies that I will stay in touch with for years to come.", logo: "./Testimonial%20images/Columbia%20Business%20School%20Logo%202.png", h: 32, name: "Columbia Business School", sub: "Class of 2024" }
+                { quote: "I helped real companies raise capital. I built investor-ready pitch decks and financial models. This experience accelerated my career by 10 years.", logo: "./Landing%20Page%20Trusted%20by/Wharton.png", h: 32, name: "The Wharton School", sub: "Class of 2023" },
+                { quote: "I worked on real, high-impact strategic projects for ambitious growing companies that I will stay in touch with for years to come.", logo: "./Testimonial%20images/Columbia%20Business%20School%20Logo%202.png", h: 32, name: "Columbia Business School", sub: "Class of 2024" }
               ];
 
               const storiesSection = doc.createElement("section");

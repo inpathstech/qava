@@ -2720,7 +2720,7 @@
           background: #f4f4f5;
           border-radius: 8px;
           box-shadow: 0 1px 3px rgba(17, 24, 39, 0.04);
-          padding: 40px;
+          padding: 32px;
         }
 
         .qava-stories-title {
@@ -2740,13 +2740,13 @@
           font-weight: 300;
           color: #6B6B6B;
           text-align: center;
-          margin: 0 0 36px 0;
+          margin: 0 0 28px 0;
         }
 
         .qava-stories-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-          gap: 20px;
+          gap: 16px;
         }
 
         .qava-story-card {
@@ -2754,7 +2754,7 @@
             border: none;
             border-radius: 8px;
           box-shadow: none;
-          padding: 22px 22px 20px;
+          padding: 18px 18px 16px;
             display: flex;
             flex-direction: column;
           text-align: left;
@@ -2764,7 +2764,7 @@
           font-size: 13px;
           letter-spacing: 2px;
           color: #111827;
-          margin-bottom: 12px;
+          margin-bottom: 10px;
         }
 
         .qava-story-quote {
@@ -2772,8 +2772,8 @@
           font-size: 14px;
           font-weight: 300;
           color: #333333;
-          line-height: 1.55;
-          margin: 0 0 18px 0;
+          line-height: 1.5;
+          margin: 0 0 14px 0;
         }
 
         .qava-story-attr {
