@@ -641,6 +641,88 @@
             font-weight: 600;
         }
 
+        /* Filter bar above the grid */
+        .qava-tpl-filters {
+            width: min(1040px, calc(100vw - 120px));
+            margin: 22px auto 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 10px 16px;
+        }
+
+        .qava-tpl-filter-group {
+            display: inline-flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .qava-tpl-filter-label {
+            font-family: "Inter", sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #9aa1ab;
+            margin-right: 2px;
+        }
+
+        .qava-tpl-filter-divider {
+            width: 1px;
+            align-self: stretch;
+            min-height: 20px;
+            background: rgba(17, 24, 39, 0.1);
+            margin: 2px 2px;
+        }
+
+        .qava-tpl-filter-pill {
+            padding: 7px 15px;
+            border: 1px solid rgba(17, 24, 39, 0.14);
+            border-radius: 999px;
+            background: #ffffff;
+            color: #4b5563;
+            font-family: "Inter", sans-serif;
+            font-size: 12.5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+        }
+
+        .qava-tpl-filter-pill:hover {
+            border-color: rgba(17, 24, 39, 0.4);
+            color: #111827;
+        }
+
+        .qava-tpl-filter-pill.is-active {
+            background: #111827;
+            border-color: #111827;
+            color: #ffffff;
+        }
+
+        /* Empty state when no template matches the filters */
+        .qava-tpl-empty {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 48px 24px;
+            font-family: "Inter", sans-serif;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .qava-tpl-empty-link {
+            border: 0;
+            background: none;
+            padding: 0;
+            color: #111827;
+            font: inherit;
+            font-weight: 600;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            cursor: pointer;
+        }
+
         /* Request CTA below the grid */
         .qava-template-request {
             width: min(1040px, calc(100vw - 120px));
@@ -916,8 +998,17 @@
                 margin-top: 24px;
             }
             .qava-template-note,
-            .qava-template-request {
+            .qava-template-request,
+            .qava-tpl-filters {
                 width: calc(100vw - 40px);
+            }
+            .qava-tpl-filters {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .qava-tpl-filter-divider {
+                display: none;
             }
             .qava-modal-actions {
                 flex-direction: column;
@@ -1045,6 +1136,24 @@
             <span>Every template is exclusive to <strong>Premium</strong> members.</span>
         </p>
 
+        <!-- Filters -->
+        <div class="qava-tpl-filters" id="qava-template-filters">
+            <div class="qava-tpl-filter-group">
+                <span class="qava-tpl-filter-label">Stage</span>
+                <button type="button" class="qava-tpl-filter-pill" data-group="stage" data-value="startup">Start-up</button>
+                <button type="button" class="qava-tpl-filter-pill" data-group="stage" data-value="enterprise">Enterprise</button>
+            </div>
+            <div class="qava-tpl-filter-divider" aria-hidden="true"></div>
+            <div class="qava-tpl-filter-group">
+                <span class="qava-tpl-filter-label">Focus</span>
+                <button type="button" class="qava-tpl-filter-pill" data-group="category" data-value="strategy">Strategy</button>
+                <button type="button" class="qava-tpl-filter-pill" data-group="category" data-value="finance">Finance</button>
+                <button type="button" class="qava-tpl-filter-pill" data-group="category" data-value="transformation">Transformation</button>
+                <button type="button" class="qava-tpl-filter-pill" data-group="category" data-value="governance">Governance</button>
+                <button type="button" class="qava-tpl-filter-pill" data-group="category" data-value="fundraising">Fund-raising</button>
+            </div>
+        </div>
+
         <!-- Template grid (rendered by JS from QAVA_TEMPLATES) -->
         <div class="qava-blog-row qava-tpl-grid" id="qava-template-grid"></div>
 
@@ -1168,30 +1277,30 @@
     <script>
         (function () {
             var QAVA_TEMPLATES = [
-                { tag: "Planning",     title: "Project Plan",       excerpt: "A clear, phased plan to take any initiative from kickoff to delivery.",   version: "2.4", likes: 1840 },
-                { tag: "Governance",   title: "Board Deck",         excerpt: "A polished board meeting deck covering performance, risks and asks.",    version: "1.6", likes: 612 },
-                { tag: "Fundraising",  title: "Pitch Deck",         excerpt: "Tell your story and win investors with a proven pitch structure.",       version: "3.1", likes: 2740 },
-                { tag: "Roadmap",      title: "Timeline Slide",     excerpt: "A clean visual timeline for milestones, phases and key dates.",          version: "1.3", likes: 489 },
-                { tag: "Finance",      title: "Budget Slide",       excerpt: "Present spend, allocations and runway in one tidy slide.",               version: "2.0", likes: 933 },
-                { tag: "Spreadsheet",  title: "Excel Tracker",      excerpt: "A ready-to-use spreadsheet to track tasks, owners and status.",          version: "1.8", likes: 1457 },
-                { tag: "Finance",      title: "Financial Model",    excerpt: "A three-statement model with assumptions and scenarios built in.",       version: "2.6", likes: 2210 },
-                { tag: "Productivity", title: "Task List",          excerpt: "Capture, prioritise and assign every action in one simple list.",        version: "1.2", likes: 358 },
-                { tag: "Governance",   title: "Governance Deck",    excerpt: "Document decisions, roles and controls for your stakeholders.",          version: "1.5", likes: 521 },
-                { tag: "Strategy",     title: "Go-to-Market Plan",  excerpt: "Map your launch: audience, channels, messaging and metrics.",            version: "2.2", likes: 1690 },
-                { tag: "Goals",        title: "OKR Tracker",        excerpt: "Set objectives and track measurable key results each quarter.",          version: "1.9", likes: 1124 },
-                { tag: "Operations",   title: "Org Chart",          excerpt: "Visualise teams, reporting lines and ownership at a glance.",            version: "1.4", likes: 627 },
-                { tag: "Marketing",    title: "Content Calendar",   excerpt: "Plan and schedule every campaign, post and channel in one view.",        version: "2.1", likes: 1380 },
-                { tag: "Sales",        title: "Sales Pipeline",     excerpt: "Track deals, stages and forecasts to keep revenue predictable.",         version: "1.7", likes: 842 },
-                { tag: "Product",      title: "Product Roadmap",    excerpt: "Align your team around themes, releases and what ships next.",           version: "2.3", likes: 1975 },
-                { tag: "Research",     title: "User Research Plan",  excerpt: "Structure interviews, goals and findings into actionable insight.",      version: "1.1", likes: 396 },
-                { tag: "People",       title: "Hiring Plan",        excerpt: "Map roles, headcount and timing against your growth goals.",             version: "1.3", likes: 451 },
-                { tag: "Finance",      title: "Cap Table",          excerpt: "Model ownership, options and dilution across funding rounds.",           version: "2.5", likes: 1660 },
-                { tag: "Design",       title: "Brand Guidelines",   excerpt: "Lock in logo, colour, type and voice so the brand stays consistent.",    version: "1.8", likes: 1043 },
-                { tag: "Operations",   title: "Process SOP",        excerpt: "Document any repeatable process step-by-step for the whole team.",       version: "1.2", likes: 372 },
-                { tag: "Strategy",     title: "SWOT Analysis",      excerpt: "Weigh strengths, weaknesses, opportunities and threats at a glance.",    version: "1.5", likes: 988 },
-                { tag: "Meetings",     title: "Meeting Notes",      excerpt: "A repeatable format for agendas, decisions and clear action items.",     version: "1.6", likes: 715 },
-                { tag: "Risk",         title: "Risk Register",      excerpt: "Log, score and assign every risk with owners and mitigations.",          version: "1.4", likes: 564 },
-                { tag: "Analytics",    title: "KPI Dashboard",      excerpt: "Bring your headline metrics together in one living scorecard.",          version: "2.0", likes: 1512 }
+                { tag: "Planning",     title: "Project Plan",       excerpt: "A clear, phased plan to take any initiative from kickoff to delivery.",   version: "2.4", likes: 1840, stage: ["startup", "enterprise"], cats: ["transformation"] },
+                { tag: "Governance",   title: "Board Deck",         excerpt: "A polished board meeting deck covering performance, risks and asks.",    version: "1.6", likes: 612,  stage: ["startup", "enterprise"], cats: ["governance"] },
+                { tag: "Fundraising",  title: "Pitch Deck",         excerpt: "Tell your story and win investors with a proven pitch structure.",       version: "3.1", likes: 2740, stage: ["startup"],               cats: ["fundraising"] },
+                { tag: "Roadmap",      title: "Timeline Slide",     excerpt: "A clean visual timeline for milestones, phases and key dates.",          version: "1.3", likes: 489,  stage: ["startup", "enterprise"], cats: ["transformation"] },
+                { tag: "Finance",      title: "Budget Slide",       excerpt: "Present spend, allocations and runway in one tidy slide.",               version: "2.0", likes: 933,  stage: ["startup", "enterprise"], cats: ["finance"] },
+                { tag: "Spreadsheet",  title: "Excel Tracker",      excerpt: "A ready-to-use spreadsheet to track tasks, owners and status.",          version: "1.8", likes: 1457, stage: ["startup", "enterprise"], cats: ["transformation"] },
+                { tag: "Finance",      title: "Financial Model",    excerpt: "A three-statement model with assumptions and scenarios built in.",       version: "2.6", likes: 2210, stage: ["startup"],               cats: ["finance", "fundraising"] },
+                { tag: "Productivity", title: "Task List",          excerpt: "Capture, prioritise and assign every action in one simple list.",        version: "1.2", likes: 358,  stage: ["startup"],               cats: ["transformation"] },
+                { tag: "Governance",   title: "Governance Deck",    excerpt: "Document decisions, roles and controls for your stakeholders.",          version: "1.5", likes: 521,  stage: ["enterprise"],            cats: ["governance"] },
+                { tag: "Strategy",     title: "Go-to-Market Plan",  excerpt: "Map your launch: audience, channels, messaging and metrics.",            version: "2.2", likes: 1690, stage: ["startup"],               cats: ["strategy"] },
+                { tag: "Goals",        title: "OKR Tracker",        excerpt: "Set objectives and track measurable key results each quarter.",          version: "1.9", likes: 1124, stage: ["startup", "enterprise"], cats: ["strategy"] },
+                { tag: "Operations",   title: "Org Chart",          excerpt: "Visualise teams, reporting lines and ownership at a glance.",            version: "1.4", likes: 627,  stage: ["enterprise"],            cats: ["transformation"] },
+                { tag: "Marketing",    title: "Content Calendar",   excerpt: "Plan and schedule every campaign, post and channel in one view.",        version: "2.1", likes: 1380, stage: ["startup", "enterprise"], cats: ["strategy"] },
+                { tag: "Sales",        title: "Sales Pipeline",     excerpt: "Track deals, stages and forecasts to keep revenue predictable.",         version: "1.7", likes: 842,  stage: ["startup", "enterprise"], cats: ["strategy"] },
+                { tag: "Product",      title: "Product Roadmap",    excerpt: "Align your team around themes, releases and what ships next.",           version: "2.3", likes: 1975, stage: ["startup"],               cats: ["strategy"] },
+                { tag: "Research",     title: "User Research Plan",  excerpt: "Structure interviews, goals and findings into actionable insight.",      version: "1.1", likes: 396,  stage: ["startup"],               cats: ["strategy"] },
+                { tag: "People",       title: "Hiring Plan",        excerpt: "Map roles, headcount and timing against your growth goals.",             version: "1.3", likes: 451,  stage: ["startup", "enterprise"], cats: ["transformation"] },
+                { tag: "Finance",      title: "Cap Table",          excerpt: "Model ownership, options and dilution across funding rounds.",           version: "2.5", likes: 1660, stage: ["startup"],               cats: ["finance", "fundraising"] },
+                { tag: "Design",       title: "Brand Guidelines",   excerpt: "Lock in logo, colour, type and voice so the brand stays consistent.",    version: "1.8", likes: 1043, stage: ["startup", "enterprise"], cats: ["strategy"] },
+                { tag: "Operations",   title: "Process SOP",        excerpt: "Document any repeatable process step-by-step for the whole team.",       version: "1.2", likes: 372,  stage: ["enterprise"],            cats: ["transformation"] },
+                { tag: "Strategy",     title: "SWOT Analysis",      excerpt: "Weigh strengths, weaknesses, opportunities and threats at a glance.",    version: "1.5", likes: 988,  stage: ["startup", "enterprise"], cats: ["strategy"] },
+                { tag: "Meetings",     title: "Meeting Notes",      excerpt: "A repeatable format for agendas, decisions and clear action items.",     version: "1.6", likes: 715,  stage: ["startup", "enterprise"], cats: ["governance"] },
+                { tag: "Risk",         title: "Risk Register",      excerpt: "Log, score and assign every risk with owners and mitigations.",          version: "1.4", likes: 564,  stage: ["enterprise"],            cats: ["governance", "transformation"] },
+                { tag: "Analytics",    title: "KPI Dashboard",      excerpt: "Bring your headline metrics together in one living scorecard.",          version: "2.0", likes: 1512, stage: ["startup", "enterprise"], cats: ["finance", "strategy"] }
             ];
 
             var lockSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
@@ -1226,9 +1335,59 @@
             }
 
             var grid = document.getElementById("qava-template-grid");
-            if (grid) {
-                grid.innerHTML = QAVA_TEMPLATES.map(cardHTML).join("");
+            var filterBar = document.getElementById("qava-template-filters");
+            var activeFilters = { stage: [], category: [] };
+
+            function matchesFilters(t) {
+                var stageOk = activeFilters.stage.length === 0 ||
+                    activeFilters.stage.some(function (s) { return t.stage.indexOf(s) !== -1; });
+                var catOk = activeFilters.category.length === 0 ||
+                    activeFilters.category.some(function (c) { return t.cats.indexOf(c) !== -1; });
+                return stageOk && catOk;
             }
+
+            function renderGrid() {
+                if (!grid) return;
+                var list = QAVA_TEMPLATES.filter(matchesFilters);
+                if (list.length === 0) {
+                    grid.innerHTML = '<div class="qava-tpl-empty">No templates match those filters yet. Try removing one, or <button type="button" class="qava-tpl-empty-link" id="qava-tpl-clear">clear all filters</button>.</div>';
+                    return;
+                }
+                grid.innerHTML = list.map(cardHTML).join("");
+            }
+
+            function clearFilters() {
+                activeFilters.stage = [];
+                activeFilters.category = [];
+                if (filterBar) {
+                    filterBar.querySelectorAll(".qava-tpl-filter-pill.is-active").forEach(function (p) {
+                        p.classList.remove("is-active");
+                    });
+                }
+                renderGrid();
+            }
+
+            if (filterBar) {
+                filterBar.addEventListener("click", function (e) {
+                    var pill = e.target.closest(".qava-tpl-filter-pill");
+                    if (!pill) return;
+                    var group = pill.getAttribute("data-group");
+                    var value = pill.getAttribute("data-value");
+                    if (!activeFilters[group]) return;
+                    var arr = activeFilters[group];
+                    var idx = arr.indexOf(value);
+                    if (idx === -1) {
+                        arr.push(value);
+                        pill.classList.add("is-active");
+                    } else {
+                        arr.splice(idx, 1);
+                        pill.classList.remove("is-active");
+                    }
+                    renderGrid();
+                });
+            }
+
+            renderGrid();
 
             /* ---------- Modal helpers ---------- */
             var lastFocus = null;
@@ -1256,6 +1415,10 @@
             /* Any download / card click opens the premium gate */
             if (grid) {
                 grid.addEventListener("click", function (e) {
+                    if (e.target.closest("#qava-tpl-clear")) {
+                        clearFilters();
+                        return;
+                    }
                     var card = e.target.closest(".qava-template-card, .qava-template-dl-btn");
                     if (card) openModal("qava-gate-modal");
                 });
