@@ -447,8 +447,10 @@
               // full-viewport scroll "slot" via a transparent bottom margin. That
               // gap keeps the NEXT step off-screen while you're reading the current
               // one — it only slides up (and pins over this card) once you scroll a
-              // screenful. The last card gets a short hold instead of a full slot so
-              // the deck releases promptly at the end.
+              // screenful. Every card (including the last) gets the same slot so it
+              // has enough travel to pin all the way up under the previous header;
+              // the last card's slot is the trailing scroll room that lets it reach
+              // its pinned position before the section releases.
               cards.forEach((card, i) => {
                 card.style.zIndex = String(i + 1);
                 if (desktop) {
@@ -457,13 +459,10 @@
                   card.style.top = top + "px";
                   card.dataset.stackTop = String(top);
                   const h = card.offsetHeight;
-                  const isLast = i === cards.length - 1;
-                  const slot = isLast
-                    ? Math.round(win.innerHeight * 0.32)
-                    : Math.max(
-                        Math.round(win.innerHeight * 0.25),
-                        Math.round(win.innerHeight - h - step)
-                      );
+                  const slot = Math.max(
+                    Math.round(win.innerHeight * 0.25),
+                    Math.round(win.innerHeight - h - step)
+                  );
                   card.style.marginBottom = slot + "px";
                 } else {
                   card.style.position = "";
