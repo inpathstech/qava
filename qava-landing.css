@@ -344,12 +344,24 @@
 
         /* --- Deliverables: fade the unselected options so the chosen
            ones stand out, and keep the grid tight. --- */
-        .qava-deliv-illustration .qava-deliverable-grid { gap: 9px; }
-        .qava-deliv-illustration .qava-deliverable-card:not(.selected) {
-          opacity: 0.55;
-          background: #f3f4f6;
-          border-color: rgba(17, 24, 39, 0.08);
-          box-shadow: none;
+        /* Deliverables: let the 8 boxes size to their content (consistent height,
+           a little tighter) and float them into the vertical centre so there's a
+           touch more breathing room under the subtitle instead of stretched boxes. */
+        .qava-deliv-illustration .qava-deliverable-grid {
+          gap: 9px;
+          flex: 0 0 auto;
+          margin-top: auto;
+          margin-bottom: auto;
+        }
+        .qava-deliv-illustration .qava-deliverable-card { padding: 8px 9px; }
+        /* Unselected boxes keep a white background, just slightly transparent so
+           they read as unselected next to the solid, black-bordered selected ones. */
+        .qava-deliv-illustration .qava-deliverable-card:not(.selected),
+        .qava-tf-illustration .qava-tf-card:not(.selected) {
+          opacity: 0.6;
+          background: #ffffff;
+          border-color: rgba(17, 24, 39, 0.1);
+          box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
         }
 
         /* --- Timeframe: stop the schedule block from growing/centering
@@ -701,6 +713,13 @@
           flex-direction: column;
           justify-content: flex-start;
           gap: 6px;
+        }
+
+        /* Talent "Let's get to know each other" card: vertically center the
+           question boxes so there's breathing room under the title and less
+           empty space pooled at the bottom of the card. */
+        .qava-signup-static .qava-signup-sections {
+          justify-content: center;
         }
 
         .qava-signup-question {
@@ -4207,8 +4226,8 @@
         .qava-work-illustration {
           overflow: hidden;
           padding: 16px 18px;
-          background: #ffffff;
-          border: 1px solid rgba(17, 24, 39, 0.14);
+          background: #f6f6f7;
+          border: 1px solid rgba(17, 24, 39, 0.06);
           justify-content: flex-start;
           gap: 0;
         }
@@ -4318,8 +4337,8 @@
         .qava-getpaid-illustration {
           overflow: hidden;
           text-align: left;
-          background: #ffffff;
-          border: 1px solid rgba(17, 24, 39, 0.14);
+          background: #f6f6f7;
+          border: 1px solid rgba(17, 24, 39, 0.06);
           padding: 16px 18px;
           justify-content: flex-start;
           gap: 0;
@@ -4343,11 +4362,18 @@
         }
 
         /* Keep "Your earnings" pinned to the top like a slide title, but float
-           the table into the vertical center of the remaining space so the slack
-           is shared above and below it instead of pooling at the card's bottom. */
-        .qava-getpaid-illustration .qava-gp-table {
+           the white table panel into the vertical center of the remaining space so
+           the slack is shared above and below it instead of pooling at the bottom. */
+        .qava-getpaid-illustration .qava-gp-tablewrap {
           margin-top: auto;
           margin-bottom: auto;
+          width: 100%;
+          box-sizing: border-box;
+          background: #ffffff;
+          border: 1px solid rgba(17, 24, 39, 0.06);
+          border-radius: 10px;
+          box-shadow: 0 1px 4px rgba(15, 23, 42, 0.05);
+          padding: 8px 12px;
         }
 
         .qava-gp-table col.c-proj { width: 36%; }

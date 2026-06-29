@@ -740,7 +740,7 @@
                   return `<text x="${cx}" y="${start}" text-anchor="middle" dominant-baseline="middle" font-family="Inter, sans-serif" font-size="5.6" font-weight="600" fill="${fill}">${lines.map((l, i) => `<tspan x="${cx}" dy="${i === 0 ? 0 : lh}">${l}</tspan>`).join("")}</text>`;
                 };
                 const phaseCircle = (cx, cy, color, lines) => `<circle cx="${cx}" cy="${cy}" r="17" fill="${PHASE_BLACK}"/>${phaseLabel(cx, cy, lines, "#ffffff")}`;
-                const phaseSquare = (cx, cy, color, lines) => `<rect x="${cx - 17}" y="${cy - 17}" width="34" height="34" rx="5" fill="${PHASE_GREY}"/>${phaseLabel(cx, cy, lines, "#1f2937")}`;
+                const phaseSquare = (cx, cy, color, lines) => `<rect x="${cx - 17}" y="${cy - 17}" width="34" height="34" rx="5" fill="#ffffff" stroke="#d1d5db" stroke-width="1.2"/>${phaseLabel(cx, cy, lines, "#111827")}`;
 
                 const phase1Svg = `<svg class="qava-phase-svg" viewBox="0 0 180 132">
                   ${phaseLine(31, 33, 90, 33)}${phaseLine(90, 33, 149, 33)}${phaseLine(31, 97, 90, 97)}${phaseLine(90, 97, 149, 97)}${phaseLine(90, 33, 90, 97)}
@@ -797,17 +797,18 @@
                 const getpaidProjects = [
                   { name: "DTC Skincare Roadmap", amount: "$4,200", stars: 5, quote: "Sharp, fast, and a pleasure to work with.", status: "paid" },
                   { name: "Marketplace GTM Strategy", amount: "$3,150", stars: 5, quote: "Delivered well beyond what we expected.", status: "paid" },
-                  { name: "Fintech Market Entry", amount: "$5,200", stars: 4, quote: "Great insights, minor timeline slips.", status: "progress" },
+                  { name: "Fintech Market Entry", amount: "$5,200", stars: 4, quote: "Great insights, minor timeline slips.", status: "paid" },
                   { name: "SaaS Growth Playbook", amount: "$2,870", stars: 5, quote: "Turned our funnel around completely.", status: "paid" },
                   { name: "Seed-Stage Financial Model", amount: "$3,000", stars: 5, quote: "Rigorous, clear, and investor-ready.", status: "paid" }
                 ];
 
-                const renderStars = (n) => `${"\u2605".repeat(n)}<span class="qava-gp-star-empty">${"\u2606".repeat(5 - n)}</span>`;
+                const renderStars = (n) => "\u2605".repeat(n);
                 const getpaidTotal = "$18,420";
 
                 const getpaidStepHTML = `
                   <div class="qava-signup-illustration qava-getpaid-illustration" aria-label="Earnings table preview">
                     <h3 class="qava-getpaid-title">Your earnings</h3>
+                    <div class="qava-gp-tablewrap">
                     <table class="qava-gp-table">
                       <colgroup>
                         <col class="c-proj" />
@@ -829,7 +830,7 @@
                             <td><div class="qava-gp-proj">${p.name}</div></td>
                             <td><div class="qava-gp-fb"><span class="qava-gp-stars">${renderStars(p.stars)}</span><span class="qava-gp-quote">"${p.quote}"</span></div></td>
                             <td class="qava-gp-earn">${p.amount}</td>
-                            <td class="ta-center"><span class="qava-gp-status ${p.status === "progress" ? "is-wip" : "is-paid"}">${p.status === "progress" ? "WIP" : "Paid"}</span></td>
+                            <td class="ta-center"><span class="qava-gp-status ${p.status === "progress" ? "is-wip" : "is-paid"}">${p.status === "progress" ? "WIP" : "PAID"}</span></td>
                           </tr>
                         `).join("")}
                       </tbody>
@@ -842,6 +843,7 @@
                         </tr>
                       </tfoot>
                     </table>
+                    </div>
                                 </div>
                 `;
 
