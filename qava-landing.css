@@ -4340,6 +4340,14 @@
           font-family: "Inter", sans-serif;
         }
 
+        /* Keep "Your earnings" pinned to the top like a slide title, but float
+           the table into the vertical center of the remaining space so the slack
+           is shared above and below it instead of pooling at the card's bottom. */
+        .qava-getpaid-illustration .qava-gp-table {
+          margin-top: auto;
+          margin-bottom: auto;
+        }
+
         .qava-gp-table col.c-proj { width: 36%; }
         .qava-gp-table col.c-fb { width: 40%; }
         .qava-gp-table col.c-earn { width: 12%; }

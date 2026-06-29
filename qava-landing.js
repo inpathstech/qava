@@ -484,8 +484,15 @@
               // own bottom margin counts against how far it can pin, so the last card
               // needs real flow content after it to hold at the stacked position
               // (otherwise it reaches its spot only for an instant). This trailing
-              // spacer provides that hold: the finished stack stays put for ~a third
-              // of a screen before the whole deck releases together.
+              // spacer provides that hold before the whole deck releases together.
+              //
+              // The last card's own margin (ih - h - lastTop, required so it releases
+              // in sync with the rest) is BIGGER when there are fewer slides, since a
+              // shorter deck pins the last card higher. Left alone, that makes the gap
+              // before the next section vary by audience (the 3-slide deck gets the
+              // most empty space). To keep that trailing gap uniform, size the spacer
+              // to top every audience up to the same total — the worst case being the
+              // smallest (3-slide) deck — plus a small, constant hold.
               if (stepsEl) {
                 let spacer = stepsEl.querySelector(":scope > .qava-hiw-stack-spacer");
                 if (desktop) {
@@ -495,7 +502,14 @@
                     spacer.setAttribute("aria-hidden", "true");
                     stepsEl.appendChild(spacer);
                   }
-                  spacer.style.height = Math.round(ih * 0.35) + "px";
+                  const hLast = cards[cards.length - 1].offsetHeight;
+                  const lastTop = base + (cards.length - 1) * step;
+                  const refTop = base + 2 * step; // 3 slides = fewest = largest margin
+                  const lastMargin = Math.max(0, Math.round(ih - hLast - lastTop));
+                  const refMargin = Math.max(0, Math.round(ih - hLast - refTop));
+                  const minHold = Math.round(ih * 0.05);
+                  spacer.style.height =
+                    Math.max(minHold, refMargin + minHold - lastMargin) + "px";
                 } else if (spacer) {
                   spacer.style.height = "0px";
                 }
