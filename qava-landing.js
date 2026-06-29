@@ -441,15 +441,15 @@
                 base = toggleTop + toggleBar.offsetHeight + 12;
               }
               const step = headerH + STEP_STACK_GAP;
-              // Each card now fills the viewport (min-height), so the deck is long
-              // enough for every card to hold its staggered offset without a
-              // trailing reserve. Keeping paddingBottom at 0 means the deck ends
-              // right as the stack completes, so the sticky audience toggle stops
-              // with the deck instead of floating over an empty tail below it.
               const stepsEl = dynamicContent.querySelector(".qava-hiw-steps");
-              if (stepsEl) {
-                stepsEl.style.paddingBottom = "";
-              }
+
+              // Pin each card at a staggered offset and record how far down its
+              // pinned bottom reaches (top + height), plus the total flow height of
+              // the cards. They're content-sized now, not viewport-tall, so heights
+              // vary and we can't assume a uniform stack.
+              let maxPinnedBottom = 0;
+              let lastPinnedBottom = 0;
+              let cardsHeight = 0;
               cards.forEach((card, i) => {
                 card.style.zIndex = String(i + 1);
                 if (desktop) {
@@ -457,12 +457,37 @@
                   card.style.position = "sticky";
                   card.style.top = top + "px";
                   card.dataset.stackTop = String(top);
+                  const h = card.offsetHeight;
+                  cardsHeight += h;
+                  const pinnedBottom = top + h;
+                  if (pinnedBottom > maxPinnedBottom) maxPinnedBottom = pinnedBottom;
+                  lastPinnedBottom = pinnedBottom;
                 } else {
                   card.style.position = "";
                   card.style.top = "";
                   delete card.dataset.stackTop;
                 }
               });
+
+              // A sticky card is confined to the *content box* of its container, so
+              // padding adds no room — without extra content-box height the last
+              // cards collapse onto each other before the stack finishes forming
+              // (Step 5 "overlapping weirdly", even steps hidden). Grow the
+              // container's min-height past the cards' flow height so every card can
+              // hold its offset until the next slides over it (maxPinnedBottom -
+              // lastPinnedBottom), plus a window so the completed stack lingers
+              // briefly before the deck releases.
+              if (stepsEl) {
+                stepsEl.style.paddingBottom = "";
+                if (desktop) {
+                  const holdWindow = Math.round(win.innerHeight * 0.4);
+                  const reserve =
+                    Math.max(0, maxPinnedBottom - lastPinnedBottom) + holdWindow;
+                  stepsEl.style.minHeight = cardsHeight + reserve + "px";
+                } else {
+                  stepsEl.style.minHeight = "";
+                }
+              }
             };
 
             // Click a (stacked) step tab to bring that card into view: the cards
@@ -617,20 +642,6 @@
                         <div class="qava-explore-row-info">
                           <p class="qava-explore-row-title">Sustainability Marketing Lead, Consumer Goods</p>
                           <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Job</span> · QA00527 · New York · 8 applicants · $430</p>
-                        </div>
-                      </div>
-                      <div class="qava-explore-row">
-                        <img class="qava-explore-thumb" src="./Industry%20Analysis.png" alt="" />
-                        <div class="qava-explore-row-info">
-                          <p class="qava-explore-row-title">GTM Strategy Intern for an MBA-Startup Marketplace</p>
-                          <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Internship</span> · QA00533 · Remote · 9 applicants · $475</p>
-                        </div>
-                      </div>
-                      <div class="qava-explore-row">
-                        <img class="qava-explore-thumb" src="./Sunrise.png" alt="" />
-                        <div class="qava-explore-row-info">
-                          <p class="qava-explore-row-title">Go-To-Market Strategy for a Non-Profit Marketplace</p>
-                          <p class="qava-explore-row-meta"><span class="qava-explore-row-type">Project</span> · QA00532 · California · 45 hrs · 6 applicants · $370</p>
                         </div>
                       </div>
                       <div class="qava-explore-row">
@@ -858,15 +869,10 @@
               }
 
               if (mode === "team") {
-                const teamActions = `
-                  <div class="qava-signup-actions">
-                    <button type="button" class="qava-signup-btn-back">Back</button>
-                    <button type="button" class="qava-signup-btn-next qava-signup-btn-icon" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
-        </div>
-                `;
+                const teamActions = "";
 
                 const designTeamHTML = `
-                      <div class="qava-signup-illustration" aria-label="Design team preview illustration">
+                      <div class="qava-signup-illustration qava-team-illustration" aria-label="Design team preview illustration">
                         <h3 class="qava-signup-title" style="margin-top: 10px; margin-bottom: 2px;">Design your team</h3>
                         <p class="qava-signup-qsub" style="margin-top: 0;">Pick your slots and define what each member is for, where they studied, and the experience they bring.</p>
                         <div class="qava-team-grid">
@@ -924,7 +930,7 @@
                 `;
 
                 const deliverablesHTML = `
-                  <div class="qava-signup-illustration" aria-label="Deliverables preview illustration">
+                  <div class="qava-signup-illustration qava-deliv-illustration" aria-label="Deliverables preview illustration">
                     <h3 class="qava-signup-title" style="margin-top: 10px; margin-bottom: 2px;">What would you like to achieve?</h3>
                     <p class="qava-signup-qsub" style="margin-top: 0;">Select everything your team should deliver.</p>
                     <div class="qava-deliverable-grid">
@@ -984,42 +990,13 @@
                         </div>
                         <div class="qava-deliverable-desc">Long-term priorities and the path to reach them.</div>
                             </div>
-                      <div class="qava-deliverable-card">
-                        <div class="qava-deliverable-head">
-                          <div class="qava-deliverable-name">🗺️ Customer Journey Map</div>
-                          <input type="checkbox" class="qava-box-check" disabled>
-                        </div>
-                        <div class="qava-deliverable-desc">Every touchpoint from first click to loyalty.</div>
-                            </div>
-                      <div class="qava-deliverable-card">
-                        <div class="qava-deliverable-head">
-                          <div class="qava-deliverable-name">📋 Sales &amp; Marketing Strategy</div>
-                          <input type="checkbox" class="qava-box-check" disabled>
-                        </div>
-                        <div class="qava-deliverable-desc">An integrated plan to build pipeline and demand.</div>
-                            </div>
-                      <div class="qava-deliverable-card">
-                        <div class="qava-deliverable-head">
-                          <div class="qava-deliverable-name">⚙️ Operating Model Design</div>
-                          <input type="checkbox" class="qava-box-check" disabled>
-                        </div>
-                        <div class="qava-deliverable-desc">How the org, processes, and tools fit together.</div>
-                            </div>
-                      <div class="qava-deliverable-card">
-                        <div class="qava-deliverable-head">
-                          <div class="qava-deliverable-name">💡 Innovation Roadmap</div>
-                          <input type="checkbox" class="qava-box-check" disabled>
-                        </div>
-                        <div class="qava-deliverable-desc">A pipeline of bets to keep you ahead.</div>
-                            </div>
-                      <div class="qava-deliverable-card qava-deliverable-add">+ Add your own</div>
                         </div>
                     ${teamActions}
                             </div>
                 `;
 
                 const timeframeHTML = `
-                  <div class="qava-signup-illustration" aria-label="Timeframe preview illustration">
+                  <div class="qava-signup-illustration qava-tf-illustration" aria-label="Timeframe preview illustration">
                     <h3 class="qava-signup-title" style="margin-top: 10px; margin-bottom: 2px;">Timeframe</h3>
                     <p class="qava-signup-qsub" style="margin-top: 0;">Tell your team when to start and how you'd like to work together.</p>
 
@@ -1123,10 +1100,7 @@
               }
 
               const clientSignupHTML = `
-                    <div class="qava-signup-illustration" aria-label="Client sign-up form preview illustration">
-                      <div class="qava-signup-progress">
-                        <span class="active"></span><span class="active"></span><span></span><span></span><span></span>
-                </div>
+                    <div class="qava-signup-illustration qava-org-illustration" aria-label="Client sign-up form preview illustration">
                       <h3 class="qava-signup-title">Let's get to know your organization!</h3>
                       <div class="qava-signup-sections">
                         <article class="qava-signup-question">
@@ -1189,22 +1163,7 @@
                             <label class="qava-signup-group-check"><input type="checkbox" disabled><span>All</span></label>
                 </div>
                         </article>
-
-                        <article class="qava-signup-question">
-                          <h4>Which city are you closest to?</h4>
-                          <p class="qava-signup-qsub">This helps us find you better matches</p>
-                          <input class="qava-client-input" type="text" value="New York, NY, United States" disabled />
-                          <div class="qava-client-subfields">
-                            <div class="qava-client-subfield"><span class="qava-client-subfield-label">Nearest City</span><span class="qava-client-subfield-value">New York City</span></div>
-                            <div class="qava-client-subfield"><span class="qava-client-subfield-label">State</span><span class="qava-client-subfield-value">New York</span></div>
-                            <div class="qava-client-subfield"><span class="qava-client-subfield-label">Country</span><span class="qava-client-subfield-value">United States</span></div>
                 </div>
-                        </article>
-                </div>
-                      <div class="qava-signup-actions">
-                        <button type="button" class="qava-signup-btn-back">Back</button>
-                        <button type="button" class="qava-signup-btn-next qava-signup-btn-icon" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
-            </div>
                 </div>
               `;
 
@@ -1214,7 +1173,7 @@
                 </div>
               `;
               const createListingHTML = `
-                <div class="qava-signup-illustration" aria-label="Create listing form preview illustration">
+                <div class="qava-signup-illustration qava-createlisting-illustration" aria-label="Create listing form preview illustration">
                   <div class="qava-signup-sections">
                     <section class="qava-create-section">
                       <h4 class="qava-create-heading">I want to create a —</h4>
@@ -1319,12 +1278,7 @@
                             <span class="qava-ai-pill allow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Microsoft Copilot</span>
                             <span class="qava-ai-pill deny"><span class="mark">✕</span>Excel AI / Sheets AI</span>
                             <span class="qava-ai-pill deny"><span class="mark">✕</span>DataRobot</span>
-                            <span class="qava-ai-pill deny"><span class="mark">✕</span>Pigment</span>
-                            <span class="qava-ai-pill deny"><span class="mark">✕</span>AlphaSense</span>
                             <span class="qava-ai-pill deny"><span class="mark">✕</span>Figma AI</span>
-                            <span class="qava-ai-pill deny"><span class="mark">✕</span>Miro AI</span>
-                            <span class="qava-ai-pill deny"><span class="mark">✕</span>Gamma</span>
-                            <span class="qava-ai-pill deny"><span class="mark">✕</span>Tome</span>
                             <span class="qava-ai-pill deny"><span class="mark">+</span></span>
                     </div>
                     </div>
@@ -1342,10 +1296,6 @@
                     </div>
                     </section>
                     </div>
-                  <div class="qava-signup-actions">
-                    <button type="button" class="qava-signup-btn-back">Back</button>
-                    <button type="button" class="qava-signup-btn-next qava-signup-btn-icon" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
-                </div>
             </div>
               `;
 
@@ -1533,7 +1483,7 @@
               `).join("");
 
               const reviewApplicantsHTML = `
-                <div class="qava-signup-illustration" aria-label="Review applicants preview illustration">
+                <div class="qava-signup-illustration qava-review-illustration" aria-label="Review applicants preview illustration">
                   <div class="qava-review-head">
                     <span class="qava-review-listing">📁 Marketing Internship at Cat Health Startup</span>
                     <p class="qava-review-applied">${reviewApplicants.length} applied via qava</p>
@@ -1569,7 +1519,7 @@
               };
 
               const templatesHTML = `
-                <div class="qava-signup-illustration" aria-label="Templates preview illustration">
+                <div class="qava-signup-illustration qava-templates-illustration" aria-label="Templates preview illustration">
                   <h2 class="qava-templates-title">Templates</h2>
                   <p class="qava-templates-sub">Ready-to-use templates for every goal.</p>
                   <div class="qava-templates-divider"></div>
@@ -1625,7 +1575,7 @@
               `;
 
               const feedbackHTML = `
-                <div class="qava-signup-illustration" aria-label="Feedback form preview illustration">
+                <div class="qava-signup-illustration qava-feedback-illustration" aria-label="Feedback form preview illustration">
                   <h3 class="qava-signup-title">How did the collaboration go?</h3>
                   <div class="qava-signup-sections">
                     <article class="qava-signup-question">
@@ -1645,10 +1595,6 @@
                       ${feedbackStars}
                       <div class="qava-feedback-text">Showed outstanding initiative, anticipating needs and suggesting improvements without being asked. Took genuine ownership of the project from start to finish.</div>
                     </article>
-                  </div>
-                  <div class="qava-signup-actions">
-                    <button type="button" class="qava-signup-btn-back">Back</button>
-                    <button type="button" class="qava-signup-btn-next qava-signup-btn-icon" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
                   </div>
                 </div>
               `;

@@ -275,18 +275,114 @@
            visual + illustration hug that content instead of stretching to the
            fixed form height, so the card isn't padded with dead white space. */
         .qava-hiw-step-visual:has(.qava-getpaid-illustration),
-        .qava-hiw-step-visual:has(.qava-work-illustration) {
+        .qava-hiw-step-visual:has(.qava-work-illustration),
+        .qava-hiw-step-visual:has(.qava-explore-illustration),
+        .qava-hiw-step-visual:has(.qava-org-illustration),
+        .qava-hiw-step-visual:has(.qava-createlisting-illustration),
+        .qava-hiw-step-visual:has(.qava-review-illustration),
+        .qava-hiw-step-visual:has(.qava-templates-illustration),
+        .qava-hiw-step-visual:has(.qava-feedback-illustration),
+        .qava-hiw-step-visual:has(.qava-team-illustration),
+        .qava-hiw-step-visual:has(.qava-deliv-illustration),
+        .qava-hiw-step-visual:has(.qava-tf-illustration) {
           height: auto;
         }
 
         .qava-hiw-step-visual .qava-getpaid-illustration,
-        .qava-hiw-step-visual .qava-work-illustration {
+        .qava-hiw-step-visual .qava-work-illustration,
+        .qava-hiw-step-visual .qava-explore-illustration,
+        .qava-hiw-step-visual .qava-org-illustration,
+        .qava-hiw-step-visual .qava-createlisting-illustration,
+        .qava-hiw-step-visual .qava-review-illustration,
+        .qava-hiw-step-visual .qava-templates-illustration,
+        .qava-hiw-step-visual .qava-feedback-illustration,
+        .qava-hiw-step-visual .qava-team-illustration,
+        .qava-hiw-step-visual .qava-deliv-illustration,
+        .qava-hiw-step-visual .qava-tf-illustration {
           height: auto;
+        }
+
+        /* Brain-power (client) and master-team cards: fit everything on the one
+           card with no inner scrollbar. They hug their content (height auto above)
+           and clip rather than scroll. */
+        .qava-hiw-step-visual .qava-org-illustration,
+        .qava-hiw-step-visual .qava-createlisting-illustration,
+        .qava-hiw-step-visual .qava-review-illustration,
+        .qava-hiw-step-visual .qava-templates-illustration,
+        .qava-hiw-step-visual .qava-feedback-illustration,
+        .qava-hiw-step-visual .qava-team-illustration,
+        .qava-hiw-step-visual .qava-deliv-illustration,
+        .qava-hiw-step-visual .qava-tf-illustration {
+          overflow: hidden;
         }
 
         .qava-hiw-step-visual .qava-signup-static {
           overflow: hidden;
         }
+
+        /* ============================================================
+           Brain-power (client) + master-team card compaction.
+           Goal: squeeze every card onto one slide with no inner scroll.
+           ============================================================ */
+
+        /* --- Create listing: kill the empty image area on the
+           Project/Job/Internship boxes and tighten the long form. --- */
+        .qava-createlisting-illustration .qava-signup-sections { gap: 9px; }
+        .qava-createlisting-illustration .qava-create-section { padding: 11px 13px; }
+        .qava-createlisting-illustration .qava-create-heading { font-size: 13px; margin-bottom: 7px; }
+        .qava-createlisting-illustration .qava-listing-type-grid { gap: 10px; }
+        .qava-createlisting-illustration .qava-listing-card { padding: 9px 11px; }
+        .qava-createlisting-illustration .qava-listing-card-img { display: none; }
+        .qava-createlisting-illustration .qava-listing-card-body { padding: 0; }
+        .qava-createlisting-illustration .qava-listing-card-desc { margin-top: 4px; }
+        .qava-createlisting-illustration .qava-create-row { gap: 11px; }
+        .qava-createlisting-illustration .qava-ai-usage-row { gap: 18px; }
+        .qava-createlisting-illustration .qava-ai-tool-pills { gap: 5px; }
+
+        /* --- Design your team: truncate role blurbs, tighten summary. --- */
+        .qava-team-illustration .qava-team-grid { gap: 11px; }
+        .qava-team-illustration .qava-team-card { padding: 11px 12px; }
+        .qava-team-illustration .qava-team-req {
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        .qava-team-illustration .qava-team-summary { margin-top: 12px; }
+
+        /* --- Deliverables: fade the unselected options so the chosen
+           ones stand out, and keep the grid tight. --- */
+        .qava-deliv-illustration .qava-deliverable-grid { gap: 9px; }
+        .qava-deliv-illustration .qava-deliverable-card:not(.selected) {
+          opacity: 0.55;
+          background: #f3f4f6;
+          border-color: rgba(17, 24, 39, 0.08);
+          box-shadow: none;
+        }
+
+        /* --- Timeframe: stop the schedule block from growing/centering
+           (it was overlapping the format cards) and tighten spacing. --- */
+        .qava-tf-illustration .qava-tf-cards { gap: 9px; }
+        .qava-tf-illustration .qava-tf-schedule {
+          flex: 0 0 auto;
+          justify-content: flex-start;
+          padding: 13px 14px;
+        }
+        .qava-tf-illustration .qava-tf-timeline { gap: 14px; margin-top: 10px; }
+        .qava-tf-illustration .qava-deliverable-grid { flex: 0 0 auto; }
+
+        /* --- Review applicants: clamp the cover letter and tighten the
+           cards so the whole review fits without scrolling. --- */
+        .qava-review-illustration .qava-review-letter p {
+          display: -webkit-box;
+          -webkit-line-clamp: 4;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        .qava-review-illustration .qava-review-letter p + p { display: none; }
+        .qava-review-illustration .qava-review-card { padding: 10px 12px; }
+        .qava-review-illustration .qava-review-body { gap: 12px; }
+        .qava-review-illustration .qava-decision-grid { gap: 6px; }
 
         .qava-showcase-toggle-wrap {
           width: 100%;
@@ -4030,12 +4126,17 @@
         }
 
         .qava-explore-list {
-          overflow-y: auto;
+          overflow: hidden;
           min-height: 0;
           flex: 1 1 auto;
             display: flex;
             flex-direction: column;
           gap: 5px;
+          /* Show ~5 full rows; the 6th is clipped and faded so the list reads as
+             "there are more projects below" without a scrollbar. */
+          max-height: 286px;
+          -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 46px), transparent 100%);
+          mask-image: linear-gradient(to bottom, #000 calc(100% - 46px), transparent 100%);
         }
 
         .qava-explore-section-title {
