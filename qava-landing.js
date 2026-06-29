@@ -443,13 +443,12 @@
               const step = headerH + STEP_STACK_GAP;
               const stepsEl = dynamicContent.querySelector(".qava-hiw-steps");
 
-              // Pin each card at a staggered offset and record how far down its
-              // pinned bottom reaches (top + height), plus the total flow height of
-              // the cards. They're content-sized now, not viewport-tall, so heights
-              // vary and we can't assume a uniform stack.
-              let maxPinnedBottom = 0;
-              let lastPinnedBottom = 0;
-              let cardsHeight = 0;
+              // Pin each card at a staggered offset, then give it a near
+              // full-viewport scroll "slot" via a transparent bottom margin. That
+              // gap keeps the NEXT step off-screen while you're reading the current
+              // one — it only slides up (and pins over this card) once you scroll a
+              // screenful. The last card gets a short hold instead of a full slot so
+              // the deck releases promptly at the end.
               cards.forEach((card, i) => {
                 card.style.zIndex = String(i + 1);
                 if (desktop) {
@@ -458,35 +457,28 @@
                   card.style.top = top + "px";
                   card.dataset.stackTop = String(top);
                   const h = card.offsetHeight;
-                  cardsHeight += h;
-                  const pinnedBottom = top + h;
-                  if (pinnedBottom > maxPinnedBottom) maxPinnedBottom = pinnedBottom;
-                  lastPinnedBottom = pinnedBottom;
+                  const isLast = i === cards.length - 1;
+                  const slot = isLast
+                    ? Math.round(win.innerHeight * 0.32)
+                    : Math.max(
+                        Math.round(win.innerHeight * 0.25),
+                        Math.round(win.innerHeight - h - step)
+                      );
+                  card.style.marginBottom = slot + "px";
                 } else {
                   card.style.position = "";
                   card.style.top = "";
+                  card.style.marginBottom = "";
                   delete card.dataset.stackTop;
                 }
               });
 
-              // A sticky card is confined to the *content box* of its container, so
-              // padding adds no room — without extra content-box height the last
-              // cards collapse onto each other before the stack finishes forming
-              // (Step 5 "overlapping weirdly", even steps hidden). Grow the
-              // container's min-height past the cards' flow height so every card can
-              // hold its offset until the next slides over it (maxPinnedBottom -
-              // lastPinnedBottom), plus a window so the completed stack lingers
-              // briefly before the deck releases.
+              // The per-card margins above already grow the container's flow height
+              // enough for every card to hold its pinned offset until the next one
+              // slides over it, so no extra min-height is needed.
               if (stepsEl) {
                 stepsEl.style.paddingBottom = "";
-                if (desktop) {
-                  const holdWindow = Math.round(win.innerHeight * 0.4);
-                  const reserve =
-                    Math.max(0, maxPinnedBottom - lastPinnedBottom) + holdWindow;
-                  stepsEl.style.minHeight = cardsHeight + reserve + "px";
-                } else {
-                  stepsEl.style.minHeight = "";
-                }
+                stepsEl.style.minHeight = "";
               }
             };
 
