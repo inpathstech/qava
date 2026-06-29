@@ -908,23 +908,6 @@
                             <div class="qava-team-add-label">Add team member</div>
                             </div>
                         </div>
-                        <div class="qava-team-summary">
-                          <h4 class="qava-team-summary-title">Your team at a glance</h4>
-                          <div class="qava-team-stats">
-                            <div class="qava-team-stat">
-                              <div class="qava-team-stat-value">3 of 4 slots</div>
-                              <div class="qava-team-stat-label">Team members selected</div>
-                            </div>
-                            <div class="qava-team-stat">
-                              <div class="qava-team-stat-value">Finance · Technology · Operations</div>
-                              <div class="qava-team-stat-label">Disciplines covered</div>
-                        </div>
-                            <div class="qava-team-stat">
-                              <div class="qava-team-stat-value">Harvard · Stanford · Kellogg</div>
-                              <div class="qava-team-stat-label">Target schools</div>
-                            </div>
-                        </div>
-                            </div>
                         ${teamActions}
                         </div>
                 `;
@@ -1039,30 +1022,6 @@
                             </div>
                         </div>
                             </div>
-
-                    <div class="qava-tf-schedule">
-                      <h5 class="qava-create-subhead">Your schedule at a glance</h5>
-                      <div class="qava-tf-timeline">
-                        <div class="qava-tf-step">
-                          <div class="qava-tf-dot">1</div>
-                          <div class="qava-tf-week">Week 1</div>
-                          <div class="qava-tf-step-title">Discovery &amp; alignment</div>
-                          <div class="qava-tf-step-desc">Set goals, scope, and a shared plan with the team.</div>
-                        </div>
-                        <div class="qava-tf-step">
-                          <div class="qava-tf-dot">2</div>
-                          <div class="qava-tf-week">Week 2</div>
-                          <div class="qava-tf-step-title">Build &amp; decisions</div>
-                          <div class="qava-tf-step-desc">Develop options and make the key calls together.</div>
-                            </div>
-                        <div class="qava-tf-step">
-                          <div class="qava-tf-dot">3</div>
-                          <div class="qava-tf-week">Week 3</div>
-                          <div class="qava-tf-step-title">Finalize &amp; handover</div>
-                          <div class="qava-tf-step-desc">Polish the deliverables and wrap up the engagement.</div>
-                        </div>
-                            </div>
-                        </div>
                     ${teamActions}
                             </div>
                 `;
@@ -1089,7 +1048,7 @@
                     label: "Timeframe",
                     heading: "Set the pace",
                     desc: "Tell your team when to start and how you'd like to work together.",
-                    bullets: ["Choose your start date", "Pick a format that fits", "See your schedule at a glance"],
+                    bullets: ["Choose your start date", "Pick a format that fits", "Align on a clear plan"],
                     visual: timeframeHTML
                   }
                 ];
@@ -1112,12 +1071,6 @@
                             <span class="qava-signup-chip is-selected">⚡ Accelerate a project</span>
                             <span class="qava-signup-chip">🧩 Solve a challenge</span>
                             <span class="qava-signup-chip">💡 Test new ideas</span>
-                            <span class="qava-signup-chip">🧰 Fill skill gaps</span>
-                            <span class="qava-signup-chip">🤝 Flexible support</span>
-                            <span class="qava-signup-chip">🌱 Build talent pipeline</span>
-                            <span class="qava-signup-chip">🔎 Discover future hires</span>
-                            <span class="qava-signup-chip">🌍 Global collaboration</span>
-                            <span class="qava-signup-chip">🚀 Move faster</span>
                             <span class="qava-signup-chip">Add +</span>
                 </div>
                         </article>
@@ -1136,31 +1089,16 @@
                           <div class="qava-signup-chips">
                             <span class="qava-signup-chip">📌 Agency</span>
                             <span class="qava-signup-chip is-selected">🤖 Artificial Intelligence</span>
-                            <span class="qava-signup-chip">♻️ B Corp Certified</span>
-                            <span class="qava-signup-chip">🖤 Black led or owned</span>
                             <span class="qava-signup-chip">🛒 Direct-to-Consumer</span>
-                            <span class="qava-signup-chip">💥 Disruptor</span>
                             <span class="qava-signup-chip">💵 FinTech</span>
                             <span class="qava-signup-chip is-selected">📈 High Growth</span>
-                            <span class="qava-signup-chip">🪅 Hispanic led or owned</span>
-                            <span class="qava-signup-chip">🪶 Indigenous led or owned</span>
                             <span class="qava-signup-chip">🏢 Large Enterprise</span>
-                            <span class="qava-signup-chip">🧘 Lifestyle</span>
-                            <span class="qava-signup-chip">🏳️‍🌈 LGBTQ+ led or owned</span>
                             <span class="qava-signup-chip is-selected">💻 SaaS</span>
-                            <span class="qava-signup-chip">🧑‍💼 Services</span>
                             <span class="qava-signup-chip">🌍 Social Impact</span>
                             <span class="qava-signup-chip is-selected">🚀 Startups</span>
                             <span class="qava-signup-chip">🔁 Subscription-Based</span>
-                            <span class="qava-signup-chip">🌳 Sustainable</span>
-                            <span class="qava-signup-chip">🦄 Tech Unicorns</span>
-                            <span class="qava-signup-chip">🦋 Transformation</span>
                             <span class="qava-signup-chip">👩 Woman led or owned</span>
                             <span class="qava-signup-chip">+ Add</span>
-                </div>
-                          <div class="qava-signup-groups" style="margin-top: 8px;">
-                            <label class="qava-signup-group-check"><input type="checkbox" disabled><span>Minority led or owned</span></label>
-                            <label class="qava-signup-group-check"><input type="checkbox" disabled><span>All</span></label>
                 </div>
                         </article>
                 </div>
@@ -1230,71 +1168,6 @@
                 </div>
                       </section>
             </div>
-
-                    <section class="qava-create-section">
-                      <div class="qava-fixed-row">
-                        <div>
-                          <h5 class="qava-create-subhead">Fixed Hours <span class="req">*</span></h5>
-                          <div class="qava-fixed-fields">
-                            <div class="qava-fixed-field"><span class="qava-fixed-label">Work Hours</span><div class="qava-stepper">12</div></div>
-                            <div class="qava-fixed-field"><span class="qava-fixed-label">Q&amp;A Time</span><div class="qava-stepper">0.5</div></div>
-                            <div class="qava-fixed-field"><span class="qava-fixed-label">Total Hours</span><span class="qava-total-hours">12.5</span></div>
-        </div>
-                          <h5 class="qava-create-subhead" style="margin-top: 18px;">Hourly Rate <span class="req">*</span></h5>
-                          <p class="qava-fixed-note">The minimum hourly rate is $20</p>
-                          <div class="qava-rate-row">
-                            <div class="qava-stepper">$ 20</div>
-                            <label class="qava-create-check"><input type="checkbox" class="qava-box-check" disabled><span>This opportunity is unpaid</span></label>
-    </div>
-                </div>
-                        <div class="qava-rate-card">
-                          <div class="qava-rate-big">$20<span>/hr</span></div>
-                          <div class="qava-rate-sub">$250 total project value</div>
-                          <div class="qava-rate-bar"><span></span></div>
-                          <p class="qava-rate-desc">This rate works well for students and early-career talent who are eager to build their portfolio and gain hands-on, real-world project experience.</p>
-                </div>
-            </div>
-                    </section>
-
-                    <section class="qava-create-section">
-                      <h5 class="qava-create-subhead">AI Usage</h5>
-                      <p class="qava-fixed-note">Define how AI can be used on this project.</p>
-                      <div class="qava-ai-usage-row">
-                        <div class="qava-ai-usage-left">
-                          <span class="qava-fixed-label">Usage Level</span>
-                          <div class="qava-ai-wedge"><div class="qava-ai-wedge-marker"></div></div>
-                          <div class="qava-ai-wedge-labels">
-                            <span>No AI</span><span>Minimal</span><span class="active">Moderate</span><span>Heavy</span><span>AI-first</span>
-                </div>
-                    </div>
-                        <div>
-                          <p class="qava-ai-tools-title">Choose which AI tools talent can or cannot use.</p>
-                          <div class="qava-ai-tool-pills">
-                            <span class="qava-ai-pill allow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>ChatGPT</span>
-                            <span class="qava-ai-pill allow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Claude</span>
-                            <span class="qava-ai-pill allow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Gemini</span>
-                            <span class="qava-ai-pill allow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Perplexity</span>
-                            <span class="qava-ai-pill allow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Notion AI</span>
-                            <span class="qava-ai-pill allow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Microsoft Copilot</span>
-                            <span class="qava-ai-pill deny"><span class="mark">✕</span>Excel AI / Sheets AI</span>
-                            <span class="qava-ai-pill deny"><span class="mark">✕</span>DataRobot</span>
-                            <span class="qava-ai-pill deny"><span class="mark">✕</span>Figma AI</span>
-                            <span class="qava-ai-pill deny"><span class="mark">+</span></span>
-                    </div>
-                    </div>
-                    </div>
-                    </section>
-
-                    <section class="qava-create-section">
-                      <h4 class="qava-create-heading">Ideal Applicants <span class="req">*</span></h4>
-                      <div class="qava-create-checklist cols-2">
-                        <label class="qava-create-check"><input type="checkbox" class="qava-box-check" checked disabled><span>Experienced professional (5+ years)</span></label>
-                        <label class="qava-create-check"><input type="checkbox" class="qava-box-check" checked disabled><span>Current student (MBA or other)</span></label>
-                        <label class="qava-create-check"><input type="checkbox" class="qava-box-check" checked disabled><span>Career changer exploring a new field</span></label>
-                        <label class="qava-create-check"><input type="checkbox" class="qava-box-check" checked disabled><span>Startup founder or early-stage operator</span></label>
-                        <label class="qava-create-check"><input type="checkbox" class="qava-box-check" disabled><span>Other</span></label>
-                    </div>
-                    </section>
                     </div>
             </div>
               `;
@@ -1446,10 +1319,6 @@
                   <div class="qava-review-card-label">Available from ${app.available}</div>
                   <div class="qava-review-letter">${app.coverLetter.map((p) => "<p>" + p + "</p>").join("")}</div>
                 </div>
-                <div class="qava-review-card">
-                  <div class="qava-review-card-label bold">Talent would like to</div>
-                  <div class="qava-signup-chips">${app.wants.map((w) => '<span class="qava-signup-chip">' + w + "</span>").join("")}</div>
-                </div>
                 <div class="qava-review-row">
                   <div class="qava-review-card">
                     <div class="qava-review-card-label">Education</div>
@@ -1467,14 +1336,9 @@
                     <div class="qava-contact-line">${app.phone}</div>
                   </div>
                 </div>
-                <div class="qava-review-card">
-                  <div class="qava-review-card-label">Attachments</div>
-                  <div class="qava-resume-files">${app.attachments.map((f) => '<span class="qava-resume-file"><span class="qava-pdf-badge">PDF</span>' + f + "</span>").join("")}</div>
-                </div>
-                ${reviewDecisionBlock}
               `;
 
-              const renderReviewRail = (selectedIndex) => reviewApplicants.map((app, i) => `
+              const renderReviewRail = (selectedIndex) => reviewApplicants.slice(0, 3).map((app, i) => `
                 <div class="qava-applicant-card${i === selectedIndex ? " selected" : ""}" data-index="${i}">
                   <svg class="qava-applicant-clip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
                   <div class="qava-applicant-name">${app.name}</div>
@@ -1542,24 +1406,6 @@
                       <div class="qava-template-desc">Comprehensive project planning template with timelines and milestones</div>
                       <button type="button" class="qava-template-btn">Download Template</button>
                     </div>
-                    <div class="qava-template-card">
-                      <div class="qava-template-img" style="background-image: url('./Project%20Closeout.png');"></div>
-                      <div class="qava-template-name">Project Closeout</div>
-                      <div class="qava-template-desc">Template for wrapping up projects with lessons learned and deliverables</div>
-                      <button type="button" class="qava-template-btn">Download Template</button>
-                    </div>
-                    <div class="qava-template-card">
-                      <div class="qava-template-img" style="background-image: url('./Project%20Feedback.png');"></div>
-                      <div class="qava-template-name">Performance Feedback</div>
-                      <div class="qava-template-desc">Template for providing constructive performance reviews and feedback</div>
-                      <button type="button" class="qava-template-btn">Download Template</button>
-                    </div>
-                    <div class="qava-template-card">
-                      <div class="qava-template-img" style="background-image: url('./Team%20Retrospective.png');"></div>
-                      <div class="qava-template-name">Team Retrospective</div>
-                      <div class="qava-template-desc">Template for team reflection and continuous improvement sessions</div>
-                      <button type="button" class="qava-template-btn">Download Template</button>
-                    </div>
                   </div>
                 </div>
               `;
@@ -1593,7 +1439,7 @@
                     <article class="qava-signup-question">
                       <h4>What was the level of initiative taken?</h4>
                       ${feedbackStars}
-                      <div class="qava-feedback-text">Showed outstanding initiative, anticipating needs and suggesting improvements without being asked. Took genuine ownership of the project from start to finish.</div>
+                      <div class="qava-feedback-text">Showed outstanding initiative, anticipating needs and suggesting improvements without being asked. Took genuine ownership from start to finish.</div>
                     </article>
                   </div>
                 </div>
@@ -1652,7 +1498,14 @@
             const audienceRadios = doc.querySelectorAll("input[name='qava-audience-toggle']");
             audienceRadios.forEach((radio) => {
               radio.addEventListener("change", () => {
-                if (radio.checked) renderShowcaseView(radio.value);
+                if (!radio.checked) return;
+                renderShowcaseView(radio.value);
+                // Switching audience always starts the deck back at Step 1, so the
+                // user never lands mid-stack on a different flow.
+                const firstCard = dynamicContent.querySelector(".qava-hiw-step");
+                if (firstCard) {
+                  requestAnimationFrame(() => scrollStepIntoView(firstCard));
+                }
               });
             });
 
