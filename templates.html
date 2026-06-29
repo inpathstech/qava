@@ -641,40 +641,91 @@
             font-weight: 600;
         }
 
-        /* Filter bar above the grid */
+        /* Filter dropdowns above the grid */
         .qava-tpl-filters {
             width: min(1040px, calc(100vw - 120px));
-            margin: 22px auto 0;
+            margin: 18px auto 0;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: center;
-            gap: 10px 16px;
+            gap: 8px 28px;
         }
 
-        .qava-tpl-filter-group {
+        .qava-tpl-dropdown {
+            position: relative;
+        }
+
+        .qava-tpl-dd-trigger {
             display: inline-flex;
             align-items: center;
+            gap: 7px;
+            padding: 4px 2px;
+            border: 0;
+            background: none;
+            cursor: pointer;
+            font-family: "Inter", sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #6b7280;
+            transition: color 0.15s ease;
+        }
+
+        .qava-tpl-dd-trigger:hover,
+        .qava-tpl-dd-trigger.has-active,
+        .qava-tpl-dropdown.is-open .qava-tpl-dd-trigger {
+            color: #111827;
+        }
+
+        .qava-tpl-dd-count {
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .qava-tpl-dd-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #9aa1ab;
+        }
+
+        .qava-tpl-dd-trigger:hover .qava-tpl-dd-icon,
+        .qava-tpl-dd-trigger.has-active .qava-tpl-dd-icon,
+        .qava-tpl-dropdown.is-open .qava-tpl-dd-icon {
+            color: #111827;
+        }
+
+        .qava-tpl-dd-icon svg {
+            width: 13px;
+            height: 13px;
+            stroke: currentColor;
+        }
+
+        .qava-tpl-dd-icon .qava-icon-minus { display: none; }
+        .qava-tpl-dropdown.is-open .qava-tpl-dd-icon .qava-icon-plus { display: none; }
+        .qava-tpl-dropdown.is-open .qava-tpl-dd-icon .qava-icon-minus { display: inline-flex; }
+
+        .qava-tpl-dd-panel {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            display: none;
             flex-wrap: wrap;
             gap: 8px;
+            width: max-content;
+            max-width: 280px;
+            padding: 12px;
+            background: #ffffff;
+            border: 1px solid rgba(17, 24, 39, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
         }
 
-        .qava-tpl-filter-label {
-            font-family: "Inter", sans-serif;
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: #9aa1ab;
-            margin-right: 2px;
-        }
-
-        .qava-tpl-filter-divider {
-            width: 1px;
-            align-self: stretch;
-            min-height: 20px;
-            background: rgba(17, 24, 39, 0.1);
-            margin: 2px 2px;
+        .qava-tpl-dropdown.is-open .qava-tpl-dd-panel {
+            display: flex;
+            animation: qava-modal-fade 0.15s ease-out;
         }
 
         .qava-tpl-filter-pill {
@@ -1003,12 +1054,7 @@
                 width: calc(100vw - 40px);
             }
             .qava-tpl-filters {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 12px;
-            }
-            .qava-tpl-filter-divider {
-                display: none;
+                gap: 8px 20px;
             }
             .qava-modal-actions {
                 flex-direction: column;
@@ -1138,19 +1184,35 @@
 
         <!-- Filters -->
         <div class="qava-tpl-filters" id="qava-template-filters">
-            <div class="qava-tpl-filter-group">
-                <span class="qava-tpl-filter-label">Stage</span>
-                <button type="button" class="qava-tpl-filter-pill" data-group="stage" data-value="startup">Start-up</button>
-                <button type="button" class="qava-tpl-filter-pill" data-group="stage" data-value="enterprise">Enterprise</button>
+            <div class="qava-tpl-dropdown" data-dropdown="stage">
+                <button type="button" class="qava-tpl-dd-trigger" aria-expanded="false">
+                    <span class="qava-tpl-dd-text" data-label="Stage">Stage</span>
+                    <span class="qava-tpl-dd-icon">
+                        <svg class="qava-icon-plus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        <svg class="qava-icon-minus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </span>
+                </button>
+                <div class="qava-tpl-dd-panel">
+                    <button type="button" class="qava-tpl-filter-pill" data-group="stage" data-value="startup">Start-up</button>
+                    <button type="button" class="qava-tpl-filter-pill" data-group="stage" data-value="enterprise">Enterprise</button>
+                </div>
             </div>
-            <div class="qava-tpl-filter-divider" aria-hidden="true"></div>
-            <div class="qava-tpl-filter-group">
-                <span class="qava-tpl-filter-label">Focus</span>
-                <button type="button" class="qava-tpl-filter-pill" data-group="category" data-value="strategy">Strategy</button>
-                <button type="button" class="qava-tpl-filter-pill" data-group="category" data-value="finance">Finance</button>
-                <button type="button" class="qava-tpl-filter-pill" data-group="category" data-value="transformation">Transformation</button>
-                <button type="button" class="qava-tpl-filter-pill" data-group="category" data-value="governance">Governance</button>
-                <button type="button" class="qava-tpl-filter-pill" data-group="category" data-value="fundraising">Fund-raising</button>
+            <div class="qava-tpl-dropdown" data-dropdown="category">
+                <button type="button" class="qava-tpl-dd-trigger" aria-expanded="false">
+                    <span class="qava-tpl-dd-text" data-label="Focus">Focus</span>
+                    <span class="qava-tpl-dd-icon">
+                        <svg class="qava-icon-plus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        <svg class="qava-icon-minus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </span>
+                </button>
+                <div class="qava-tpl-dd-panel">
+                    <button type="button" class="qava-tpl-filter-pill" data-group="category" data-value="strategy">Strategy</button>
+                    <button type="button" class="qava-tpl-filter-pill" data-group="category" data-value="product">Product</button>
+                    <button type="button" class="qava-tpl-filter-pill" data-group="category" data-value="finance">Finance</button>
+                    <button type="button" class="qava-tpl-filter-pill" data-group="category" data-value="transformation">Transformation</button>
+                    <button type="button" class="qava-tpl-filter-pill" data-group="category" data-value="governance">Governance</button>
+                    <button type="button" class="qava-tpl-filter-pill" data-group="category" data-value="fundraising">Fund-raising</button>
+                </div>
             </div>
         </div>
 
@@ -1287,12 +1349,12 @@
                 { tag: "Productivity", title: "Task List",          excerpt: "Capture, prioritise and assign every action in one simple list.",        version: "1.2", likes: 358,  stage: ["startup"],               cats: ["transformation"] },
                 { tag: "Governance",   title: "Governance Deck",    excerpt: "Document decisions, roles and controls for your stakeholders.",          version: "1.5", likes: 521,  stage: ["enterprise"],            cats: ["governance"] },
                 { tag: "Strategy",     title: "Go-to-Market Plan",  excerpt: "Map your launch: audience, channels, messaging and metrics.",            version: "2.2", likes: 1690, stage: ["startup"],               cats: ["strategy"] },
-                { tag: "Goals",        title: "OKR Tracker",        excerpt: "Set objectives and track measurable key results each quarter.",          version: "1.9", likes: 1124, stage: ["startup", "enterprise"], cats: ["strategy"] },
+                { tag: "Goals",        title: "OKR Tracker",        excerpt: "Set objectives and track measurable key results each quarter.",          version: "1.9", likes: 1124, stage: ["startup", "enterprise"], cats: ["strategy", "product"] },
                 { tag: "Operations",   title: "Org Chart",          excerpt: "Visualise teams, reporting lines and ownership at a glance.",            version: "1.4", likes: 627,  stage: ["enterprise"],            cats: ["transformation"] },
                 { tag: "Marketing",    title: "Content Calendar",   excerpt: "Plan and schedule every campaign, post and channel in one view.",        version: "2.1", likes: 1380, stage: ["startup", "enterprise"], cats: ["strategy"] },
                 { tag: "Sales",        title: "Sales Pipeline",     excerpt: "Track deals, stages and forecasts to keep revenue predictable.",         version: "1.7", likes: 842,  stage: ["startup", "enterprise"], cats: ["strategy"] },
-                { tag: "Product",      title: "Product Roadmap",    excerpt: "Align your team around themes, releases and what ships next.",           version: "2.3", likes: 1975, stage: ["startup"],               cats: ["strategy"] },
-                { tag: "Research",     title: "User Research Plan",  excerpt: "Structure interviews, goals and findings into actionable insight.",      version: "1.1", likes: 396,  stage: ["startup"],               cats: ["strategy"] },
+                { tag: "Product",      title: "Product Roadmap",    excerpt: "Align your team around themes, releases and what ships next.",           version: "2.3", likes: 1975, stage: ["startup"],               cats: ["product", "strategy"] },
+                { tag: "Research",     title: "User Research Plan",  excerpt: "Structure interviews, goals and findings into actionable insight.",      version: "1.1", likes: 396,  stage: ["startup"],               cats: ["product"] },
                 { tag: "People",       title: "Hiring Plan",        excerpt: "Map roles, headcount and timing against your growth goals.",             version: "1.3", likes: 451,  stage: ["startup", "enterprise"], cats: ["transformation"] },
                 { tag: "Finance",      title: "Cap Table",          excerpt: "Model ownership, options and dilution across funding rounds.",           version: "2.5", likes: 1660, stage: ["startup"],               cats: ["finance", "fundraising"] },
                 { tag: "Design",       title: "Brand Guidelines",   excerpt: "Lock in logo, colour, type and voice so the brand stays consistent.",    version: "1.8", likes: 1043, stage: ["startup", "enterprise"], cats: ["strategy"] },
@@ -1356,6 +1418,35 @@
                 grid.innerHTML = list.map(cardHTML).join("");
             }
 
+            function updateTriggers() {
+                if (!filterBar) return;
+                filterBar.querySelectorAll(".qava-tpl-dropdown").forEach(function (dd) {
+                    var group = dd.getAttribute("data-dropdown");
+                    var count = (activeFilters[group] || []).length;
+                    var trigger = dd.querySelector(".qava-tpl-dd-trigger");
+                    var textEl = dd.querySelector(".qava-tpl-dd-text");
+                    if (!trigger || !textEl) return;
+                    var label = textEl.getAttribute("data-label") || "";
+                    if (count > 0) {
+                        trigger.classList.add("has-active");
+                        textEl.innerHTML = label + ' <span class="qava-tpl-dd-count">(' + count + ')</span>';
+                    } else {
+                        trigger.classList.remove("has-active");
+                        textEl.textContent = label;
+                    }
+                });
+            }
+
+            function closeDropdowns(except) {
+                if (!filterBar) return;
+                filterBar.querySelectorAll(".qava-tpl-dropdown.is-open").forEach(function (dd) {
+                    if (dd === except) return;
+                    dd.classList.remove("is-open");
+                    var tr = dd.querySelector(".qava-tpl-dd-trigger");
+                    if (tr) tr.setAttribute("aria-expanded", "false");
+                });
+            }
+
             function clearFilters() {
                 activeFilters.stage = [];
                 activeFilters.category = [];
@@ -1364,11 +1455,21 @@
                         p.classList.remove("is-active");
                     });
                 }
+                updateTriggers();
                 renderGrid();
             }
 
             if (filterBar) {
                 filterBar.addEventListener("click", function (e) {
+                    var trigger = e.target.closest(".qava-tpl-dd-trigger");
+                    if (trigger) {
+                        var dd = trigger.closest(".qava-tpl-dropdown");
+                        var willOpen = !dd.classList.contains("is-open");
+                        closeDropdowns(dd);
+                        dd.classList.toggle("is-open", willOpen);
+                        trigger.setAttribute("aria-expanded", willOpen ? "true" : "false");
+                        return;
+                    }
                     var pill = e.target.closest(".qava-tpl-filter-pill");
                     if (!pill) return;
                     var group = pill.getAttribute("data-group");
@@ -1383,7 +1484,12 @@
                         arr.splice(idx, 1);
                         pill.classList.remove("is-active");
                     }
+                    updateTriggers();
                     renderGrid();
+                });
+
+                document.addEventListener("click", function (e) {
+                    if (!e.target.closest(".qava-tpl-dropdown")) closeDropdowns(null);
                 });
             }
 
@@ -1449,7 +1555,10 @@
                 });
             });
             document.addEventListener("keydown", function (e) {
-                if (e.key === "Escape") closeAllModals();
+                if (e.key === "Escape") {
+                    closeAllModals();
+                    closeDropdowns(null);
+                }
             });
 
             /* Request form submit (front-end only; CRM wiring TBD) */
