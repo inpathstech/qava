@@ -247,8 +247,14 @@
         }
 
         /* Intro section */
+        .story-body {
+            background: #ffffff;
+            padding: 32px 36px;
+            margin-top: 36px;
+        }
+
         .story-intro {
-            margin: 36px 0 0;
+            margin: 0;
         }
 
         .story-intro p:first-child {
@@ -259,7 +265,7 @@
 
         /* Main content sections */
         .story-section {
-            margin: 52px 0 0 0;
+            margin: 32px 0 0 0;
         }
 
         .story-section h2 {
@@ -267,10 +273,9 @@
             font-size: 26px;
             font-weight: 400;
             margin: 0 0 22px;
-            padding-top: 30px;
+            padding-top: 0;
             letter-spacing: -0.01em;
             color: #000000;
-            border-top: 1px solid #e0e0e0;
         }
 
         /* Paragraphs */
@@ -309,8 +314,9 @@
             .story-wrapper { padding: 40px 24px 80px; }
             .story-title { font-size: 34px; line-height: 1.12; }
             .story-subtitle { font-size: 17px; line-height: 1.45; }
-            .story-section { margin: 44px 0 0 0; }
-            .story-section h2 { font-size: 23px; padding-top: 26px; margin-bottom: 18px; }
+            .story-section { margin: 28px 0 0 0; }
+            .story-section h2 { font-size: 23px; margin-bottom: 18px; }
+            .story-body { padding: 28px 24px; margin-top: 28px; }
             .story-wrapper blockquote { margin: 26px auto; font-size: 17px; }
         }
 
@@ -318,7 +324,7 @@
             .story-wrapper { padding: 32px 24px 70px; }
             .story-title { font-size: 29px; }
             .story-subtitle { font-size: 16px; }
-            .story-intro p:first-child { font-size: 17px; }
+            .story-body { padding: 24px 20px; margin-top: 24px; }
             .story-section h2 { font-size: 21px; }
             .story-wrapper p { font-size: 15px; }
             .story-wrapper blockquote { font-size: 16px; }
@@ -387,6 +393,7 @@
       <p class="story-subtitle">Why the world's most successful companies didn't start by conquering entire markets—they started by dominating one small corner first.</p>
     </header>
 
+    <div class="story-body">
     <section class="story-intro">
       <p>The biggest companies in the world didn't win by serving everyone on day one. They found a narrow beachhead, became indispensable, and used that position to expand into everything that followed.</p>
       <p>When people think about building a large company, they often assume they need to pursue a large market from the very beginning. The instinct is understandable. If your ambition is to build the next Amazon, Tesla, or Facebook, it feels natural to launch with a product that appeals to as many people as possible. The broader the market, the greater the opportunity—or so the thinking goes.</p>
@@ -489,6 +496,7 @@
       <blockquote>They became giants because they won somewhere first.</blockquote>
       <p>That's the power of the beachhead strategy.</p>
     </section>
+    </div>
   </main>
 
   <footer class="footer-section"></footer>
