@@ -533,6 +533,36 @@
             background-repeat: no-repeat;
         }
 
+        /* Frosted-glass panel behind the tag/title/description so the artwork
+           behind it stays legible and doesn't compete with the white text. */
+        .qava-template-card .qava-blog-glass {
+            left: 12px;
+            right: 12px;
+            bottom: 12px;
+            padding: 11px 13px 12px;
+            border-radius: 14px;
+            background: rgba(12, 14, 18, 0.42);
+            -webkit-backdrop-filter: blur(14px) saturate(115%);
+            backdrop-filter: blur(14px) saturate(115%);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+            transition: opacity 0.45s ease, background 0.4s ease;
+        }
+
+        .qava-template-card:hover .qava-blog-glass {
+            background: rgba(12, 14, 18, 0.58);
+        }
+
+        /* With the glass panel doing the contrast work, soften the full-bleed
+           scrim so the thumbnail art reads cleanly above the panel. */
+        .qava-template-card.has-thumb .qava-blog-scrim {
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.45) 100%);
+        }
+
+        .qava-template-card.has-thumb:hover .qava-blog-scrim {
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.55) 100%);
+        }
+
         /* Each grid cell wraps the square card + meta below it */
         .qava-template-item {
             display: flex;
