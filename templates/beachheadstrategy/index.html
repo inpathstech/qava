@@ -7,6 +7,7 @@
     <link rel="icon" type="image/svg+xml" href="/qava-logo.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/qava-template-downloads.css">
     <style>
         * {
             margin: 0;
@@ -413,6 +414,7 @@
     </header>
 
     <div class="story-body">
+    <section class="story-downloads" data-qava-template-downloads data-template="The Beachhead Strategy" data-formats="ppt,gslides,canva"></section>
     <section class="story-intro">
       <p>The biggest companies in the world didn't win by serving everyone on day one. They found a narrow beachhead, became indispensable, and used that position to expand into everything that followed.</p>
       <p>When people think about building a large company, they often assume they need to pursue a large market from the very beginning. The instinct is understandable. If your ambition is to build the next Amazon, Tesla, or Facebook, it feels natural to launch with a product that appeals to as many people as possible. The broader the market, the greater the opportunity—or so the thinking goes.</p>
@@ -521,10 +523,14 @@
   <footer class="footer-section"></footer>
 
   <script src="/qava-footer.js"></script>
+  <script src="/qava-template-downloads.js"></script>
   <script>
     (function () {
       if (typeof window.applyQavaFooter === "function") {
         window.applyQavaFooter(document);
+      }
+      if (typeof window.applyQavaTemplateDownloads === "function") {
+        window.applyQavaTemplateDownloads(document);
       }
       var inner = document.getElementById("qava-nav-logo-inner");
       if (inner) {
