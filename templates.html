@@ -1514,7 +1514,6 @@
 
             var lockSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
             var dlSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>';
-            var readSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
             var heartSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-10-9.2C.6 8.9 2 5.5 5.2 5.1 7 4.9 8.6 5.9 12 8.6c3.4-2.7 5-3.7 6.8-3.5C22 5.5 23.4 8.9 22 11.8 19.5 16.4 12 21 12 21Z"/></svg>';
 
             function esc(s) {
@@ -1528,9 +1527,7 @@
                 var hasThumb = !!t.image;
                 var thumb = hasThumb ? '<div class="qava-tpl-thumb" style="background-image:url(\'' + esc(t.image) + '\')"></div>' : '';
                 var badge = isLink ? '' : '<span class="qava-template-badge">' + lockSvg + 'Premium</span>';
-                var action = isLink
-                    ? '<a href="' + esc(t.link) + '" class="qava-template-dl-btn qava-template-read-btn">' + readSvg + 'Read article</a>'
-                    : '<button type="button" class="qava-template-dl-btn" data-template="' + esc(t.title) + '">' + dlSvg + 'Download</button>';
+                var action = '<button type="button" class="qava-template-dl-btn" data-template="' + esc(t.title) + '">' + dlSvg + 'Download</button>';
                 return '' +
                     '<div class="qava-template-item">' +
                         '<div class="qava-blog-card qava-template-card' + (hasThumb ? ' has-thumb' : '') + '" role="button" tabindex="0"' + cardAttr + '>' +
@@ -1689,6 +1686,10 @@
                 grid.addEventListener("click", function (e) {
                     if (e.target.closest("#qava-tpl-clear")) {
                         clearFilters();
+                        return;
+                    }
+                    if (e.target.closest(".qava-template-dl-btn")) {
+                        openModal("qava-gate-modal");
                         return;
                     }
                     var linkCard = e.target.closest("[data-link]");
