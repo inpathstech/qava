@@ -818,10 +818,10 @@
             z-index: 20;
             display: none;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 6px;
             width: max-content;
             max-width: 280px;
-            padding: 12px;
+            padding: 10px;
             background: #ffffff;
             border: 1px solid rgba(17, 24, 39, 0.1);
             border-radius: 12px;
@@ -834,13 +834,13 @@
         }
 
         .qava-tpl-filter-pill {
-            padding: 4px 11px;
+            padding: 2px 8px;
             border: 1px solid rgba(17, 24, 39, 0.14);
             border-radius: 999px;
             background: #ffffff;
             color: #4b5563;
             font-family: "Inter", sans-serif;
-            font-size: 12.5px;
+            font-size: 12px;
             font-weight: 500;
             cursor: pointer;
             transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
@@ -1319,6 +1319,7 @@
                     <button type="button" class="qava-tpl-filter-pill" data-group="category" data-value="transformation">Transformation</button>
                     <button type="button" class="qava-tpl-filter-pill" data-group="category" data-value="governance">Governance</button>
                     <button type="button" class="qava-tpl-filter-pill" data-group="category" data-value="fundraising">Fund-raising</button>
+                    <button type="button" class="qava-tpl-filter-pill" data-group="category" data-value="project-management">Project Management</button>
                 </div>
             </div>
         </div>
@@ -1448,14 +1449,14 @@
             var QAVA_TEMPLATES = [
                 { tag: "Strategy",     title: "The Beachhead Strategy", excerpt: "The biggest companies didn't win by serving everyone on day one. They found a narrow beachhead, became indispensable, then expanded into everything else.", version: "1.0", likes: 1290, stage: ["startup", "enterprise", "nonprofit"], cats: ["strategy"], link: "/templates/beachheadstrategy", image: "/template-beachhead.png" },
                 { tag: "Strategy",     title: "The Ideal Customer Profile", excerpt: "The most important decision an entrepreneur makes is who the business is for. Define your ICP and every other choice gets clearer.", version: "1.0", likes: 1460, stage: ["startup", "enterprise", "nonprofit"], cats: ["strategy"], link: "/templates/idealcustomerprofile", image: "/template-icp.png" },
-                { tag: "Planning",     title: "Project Plan",       excerpt: "A clear, phased plan to take any initiative from kickoff to delivery.",   version: "2.4", likes: 1840, stage: ["startup", "enterprise", "nonprofit"], cats: ["transformation"] },
+                { tag: "Planning",     title: "Project Plan",       excerpt: "A clear, phased plan to take any initiative from kickoff to delivery.",   version: "2.4", likes: 1840, stage: ["startup", "enterprise", "nonprofit"], cats: ["transformation", "project-management"] },
                 { tag: "Governance",   title: "Board Deck",         excerpt: "A polished board meeting deck covering performance, risks and asks.",    version: "1.6", likes: 612,  stage: ["startup", "enterprise", "nonprofit"], cats: ["governance"] },
                 { tag: "Fundraising",  title: "Pitch Deck",         excerpt: "Tell your story and win investors with a proven pitch structure.",       version: "3.1", likes: 2740, stage: ["startup"],                            cats: ["fundraising"] },
-                { tag: "Roadmap",      title: "Timeline Slide",     excerpt: "A clean visual timeline for milestones, phases and key dates.",          version: "1.3", likes: 489,  stage: ["startup", "enterprise", "nonprofit"], cats: ["transformation"] },
+                { tag: "Roadmap",      title: "Timeline Slide",     excerpt: "A clean visual timeline for milestones, phases and key dates.",          version: "1.3", likes: 489,  stage: ["startup", "enterprise", "nonprofit"], cats: ["transformation", "project-management"] },
                 { tag: "Finance",      title: "Budget Slide",       excerpt: "Present spend, allocations and runway in one tidy slide.",               version: "2.0", likes: 933,  stage: ["startup", "enterprise", "nonprofit"], cats: ["finance"] },
-                { tag: "Spreadsheet",  title: "Excel Tracker",      excerpt: "A ready-to-use spreadsheet to track tasks, owners and status.",          version: "1.8", likes: 1457, stage: ["startup", "enterprise", "nonprofit"], cats: ["transformation"] },
+                { tag: "Spreadsheet",  title: "Excel Tracker",      excerpt: "A ready-to-use spreadsheet to track tasks, owners and status.",          version: "1.8", likes: 1457, stage: ["startup", "enterprise", "nonprofit"], cats: ["transformation", "project-management"] },
                 { tag: "Finance",      title: "Financial Model",    excerpt: "A three-statement model with assumptions and scenarios built in.",       version: "2.6", likes: 2210, stage: ["startup", "nonprofit"],               cats: ["finance", "fundraising"] },
-                { tag: "Productivity", title: "Task List",          excerpt: "Capture, prioritise and assign every action in one simple list.",        version: "1.2", likes: 358,  stage: ["startup", "nonprofit"],               cats: ["transformation"] },
+                { tag: "Productivity", title: "Task List",          excerpt: "Capture, prioritise and assign every action in one simple list.",        version: "1.2", likes: 358,  stage: ["startup", "nonprofit"],               cats: ["transformation", "project-management"] },
                 { tag: "Governance",   title: "Governance Deck",    excerpt: "Document decisions, roles and controls for your stakeholders.",          version: "1.5", likes: 521,  stage: ["enterprise", "nonprofit"],            cats: ["governance"] },
                 { tag: "Strategy",     title: "Go-to-Market Plan",  excerpt: "Map your launch: audience, channels, messaging and metrics.",            version: "2.2", likes: 1690, stage: ["startup"],                            cats: ["strategy"] },
                 { tag: "Goals",        title: "OKR Tracker",        excerpt: "Set objectives and track measurable key results each quarter.",          version: "1.9", likes: 1124, stage: ["startup", "enterprise", "nonprofit"], cats: ["strategy", "product"] },
@@ -1469,7 +1470,7 @@
                 { tag: "Design",       title: "Brand Guidelines",   excerpt: "Lock in logo, colour, type and voice so the brand stays consistent.",    version: "1.8", likes: 1043, stage: ["startup", "enterprise", "nonprofit"], cats: ["strategy"] },
                 { tag: "Operations",   title: "Process SOP",        excerpt: "Document any repeatable process step-by-step for the whole team.",       version: "1.2", likes: 372,  stage: ["enterprise", "nonprofit"],            cats: ["transformation"] },
                 { tag: "Strategy",     title: "SWOT Analysis",      excerpt: "Weigh strengths, weaknesses, opportunities and threats at a glance.",    version: "1.5", likes: 988,  stage: ["startup", "enterprise", "nonprofit"], cats: ["strategy"] },
-                { tag: "Meetings",     title: "Meeting Notes",      excerpt: "A repeatable format for agendas, decisions and clear action items.",     version: "1.6", likes: 715,  stage: ["startup", "enterprise", "nonprofit"], cats: ["governance"] },
+                { tag: "Meetings",     title: "Meeting Notes",      excerpt: "A repeatable format for agendas, decisions and clear action items.",     version: "1.6", likes: 715,  stage: ["startup", "enterprise", "nonprofit"], cats: ["governance", "project-management"] },
                 { tag: "Risk",         title: "Risk Register",      excerpt: "Log, score and assign every risk with owners and mitigations.",          version: "1.4", likes: 564,  stage: ["enterprise", "nonprofit"],            cats: ["governance", "transformation"] },
                 { tag: "Analytics",    title: "KPI Dashboard",      excerpt: "Bring your headline metrics together in one living scorecard.",          version: "2.0", likes: 1512, stage: ["startup", "enterprise", "nonprofit"], cats: ["finance", "strategy"] }
             ];
