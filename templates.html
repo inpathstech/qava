@@ -654,7 +654,7 @@
             height: 18px;
             color: rgba(255, 255, 255, 0.78);
             filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.45));
-            transition: color 0.25s ease, opacity 0.25s ease;
+            transition: color 0.25s ease;
         }
 
         .qava-tpl-format svg,
@@ -666,7 +666,9 @@
 
         .qava-tpl-format img {
             object-fit: contain;
-            opacity: 0.92;
+            opacity: 0.9;
+            filter: grayscale(1);
+            transition: opacity 0.25s ease, filter 0.35s ease;
         }
 
         .qava-blog-card:hover .qava-tpl-format {
@@ -675,6 +677,7 @@
 
         .qava-blog-card:hover .qava-tpl-format img {
             opacity: 1;
+            filter: grayscale(0);
         }
 
         /* Version + likes meta under each card */
