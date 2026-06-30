@@ -255,11 +255,40 @@
             overflow: hidden;
         }
 
-        .story-thumb img {
+        .story-thumb img,
+        .story-beachhead-diagram {
             width: 100%;
             height: 100%;
-            object-fit: contain;
             display: block;
+        }
+
+        .story-beachhead-diagram svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .story-beachhead-diagram .bh-expand-row {
+            opacity: 0;
+            transition: opacity 0.55s ease;
+        }
+
+        .story-beachhead-diagram.show-row-3 .bh-row-3,
+        .story-beachhead-diagram.show-row-4 .bh-row-4 {
+            opacity: 1;
+        }
+
+        .story-beachhead-diagram .bh-expand-arrow {
+            opacity: 0;
+            transition: opacity 0.45s ease 0.08s;
+        }
+
+        .story-beachhead-diagram.show-row-3 .bh-arrows-3 {
+            opacity: 1;
+        }
+
+        .story-beachhead-diagram.show-row-4 .bh-arrows-4 {
+            opacity: 1;
         }
 
         /* Intro section */
@@ -408,7 +437,68 @@
       <h1 class="story-title">The Beachhead Strategy</h1>
       <p class="story-subtitle">Why the world's most successful companies didn't start by conquering entire markets—they started by dominating one small corner first.</p>
       <div class="story-thumb">
-        <img src="/template-beachhead.png" alt="The Beachhead Strategy diagram">
+        <div class="story-beachhead-diagram" id="beachhead-diagram" aria-label="Amazon beachhead expansion diagram">
+          <svg viewBox="0 0 600 520" xmlns="http://www.w3.org/2000/svg" role="img">
+            <title>The Beachhead Strategy expansion diagram</title>
+            <!-- Dashed beachhead triangle -->
+            <path d="M300 118 L130 470 M300 118 L470 470" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="5 6" opacity="0.85"/>
+            <!-- Amazon -->
+            <text x="300" y="42" text-anchor="middle" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="-0.5">amazon</text>
+            <path d="M248 48 Q300 62 352 48" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>
+            <!-- Arrow: amazon -> books circle -->
+            <line x1="300" y1="58" x2="300" y2="88" stroke="#ffffff" stroke-width="1.8"/>
+            <polygon points="300,96 295,86 305,86" fill="#ffffff"/>
+            <!-- just books label -->
+            <line x1="392" y1="112" x2="332" y2="112" stroke="#ffffff" stroke-width="1.5"/>
+            <polygon points="324,112 334,107 334,117" fill="#ffffff"/>
+            <text x="430" y="118" text-anchor="middle" fill="#ffffff" font-family="'Libre Caslon Display', 'Times New Roman', serif" font-size="22" font-style="italic">just books</text>
+            <!-- Row 1: filled beachhead circle -->
+            <circle cx="300" cy="112" r="18" fill="#ffffff"/>
+            <!-- Row 2 -->
+            <g class="bh-row-2">
+              <line x1="300" y1="130" x2="228" y2="168" stroke="#ffffff" stroke-width="1.5"/>
+              <polygon points="222,172 228,162 234,170" fill="#ffffff"/>
+              <line x1="300" y1="130" x2="372" y2="168" stroke="#ffffff" stroke-width="1.5"/>
+              <polygon points="378,172 372,162 366,170" fill="#ffffff"/>
+              <circle cx="218" cy="178" r="16" fill="none" stroke="#ffffff" stroke-width="1.8"/>
+              <circle cx="382" cy="178" r="16" fill="none" stroke="#ffffff" stroke-width="1.8"/>
+            </g>
+            <!-- Row 3 (scroll reveal) -->
+            <g class="bh-expand-row bh-row-3">
+              <g class="bh-expand-arrow bh-arrows-3">
+                <line x1="218" y1="194" x2="168" y2="232" stroke="#ffffff" stroke-width="1.3" opacity="0.9"/>
+                <line x1="218" y1="194" x2="248" y2="232" stroke="#ffffff" stroke-width="1.3" opacity="0.9"/>
+                <line x1="382" y1="194" x2="352" y2="232" stroke="#ffffff" stroke-width="1.3" opacity="0.9"/>
+                <line x1="382" y1="194" x2="432" y2="232" stroke="#ffffff" stroke-width="1.3" opacity="0.9"/>
+              </g>
+              <circle cx="158" cy="242" r="14" fill="none" stroke="#ffffff" stroke-width="1.6"/>
+              <circle cx="208" cy="242" r="14" fill="none" stroke="#ffffff" stroke-width="1.6"/>
+              <circle cx="392" cy="242" r="14" fill="none" stroke="#ffffff" stroke-width="1.6"/>
+              <circle cx="442" cy="242" r="14" fill="none" stroke="#ffffff" stroke-width="1.6"/>
+            </g>
+            <!-- Row 4 (scroll reveal) -->
+            <g class="bh-expand-row bh-row-4">
+              <g class="bh-expand-arrow bh-arrows-4">
+                <line x1="158" y1="256" x2="118" y2="292" stroke="#ffffff" stroke-width="1.1" opacity="0.75"/>
+                <line x1="158" y1="256" x2="148" y2="292" stroke="#ffffff" stroke-width="1.1" opacity="0.75"/>
+                <line x1="208" y1="256" x2="188" y2="292" stroke="#ffffff" stroke-width="1.1" opacity="0.75"/>
+                <line x1="208" y1="256" x2="228" y2="292" stroke="#ffffff" stroke-width="1.1" opacity="0.75"/>
+                <line x1="392" y1="256" x2="372" y2="292" stroke="#ffffff" stroke-width="1.1" opacity="0.75"/>
+                <line x1="392" y1="256" x2="412" y2="292" stroke="#ffffff" stroke-width="1.1" opacity="0.75"/>
+                <line x1="442" y1="256" x2="422" y2="292" stroke="#ffffff" stroke-width="1.1" opacity="0.75"/>
+                <line x1="442" y1="256" x2="482" y2="292" stroke="#ffffff" stroke-width="1.1" opacity="0.75"/>
+              </g>
+              <circle cx="108" cy="302" r="12" fill="none" stroke="#ffffff" stroke-width="1.4"/>
+              <circle cx="138" cy="302" r="12" fill="none" stroke="#ffffff" stroke-width="1.4"/>
+              <circle cx="178" cy="302" r="12" fill="none" stroke="#ffffff" stroke-width="1.4"/>
+              <circle cx="208" cy="302" r="12" fill="none" stroke="#ffffff" stroke-width="1.4"/>
+              <circle cx="392" cy="302" r="12" fill="none" stroke="#ffffff" stroke-width="1.4"/>
+              <circle cx="422" cy="302" r="12" fill="none" stroke="#ffffff" stroke-width="1.4"/>
+              <circle cx="462" cy="302" r="12" fill="none" stroke="#ffffff" stroke-width="1.4"/>
+              <circle cx="492" cy="302" r="12" fill="none" stroke="#ffffff" stroke-width="1.4"/>
+            </g>
+          </svg>
+        </div>
       </div>
     </header>
 
@@ -533,6 +623,24 @@
           flipped = !flipped;
           inner.classList.toggle("is-flipped", flipped);
         }, 5000);
+      }
+
+      var diagram = document.getElementById("beachhead-diagram");
+      if (diagram) {
+        var scrollAnchor = null;
+        function updateBeachheadDiagram() {
+          var rect = diagram.getBoundingClientRect();
+          if (scrollAnchor === null && rect.top < window.innerHeight * 0.85) {
+            scrollAnchor = window.scrollY;
+          }
+          if (scrollAnchor === null) return;
+          var delta = window.scrollY - scrollAnchor;
+          diagram.classList.toggle("show-row-3", delta > 50);
+          diagram.classList.toggle("show-row-4", delta > 140);
+        }
+        window.addEventListener("scroll", updateBeachheadDiagram, { passive: true });
+        window.addEventListener("resize", updateBeachheadDiagram);
+        updateBeachheadDiagram();
       }
     })();
   </script>

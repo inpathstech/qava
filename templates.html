@@ -1484,22 +1484,15 @@
                 t.formats = SHEET_TITLES.indexOf(t.title) !== -1 ? SHEET_FORMATS : DECK_FORMATS;
             });
 
-            function fmtLetterIcon(letter) {
-                return '<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
-                    '<rect x="1.6" y="1.6" width="16.8" height="16.8" rx="4.2" fill="none" stroke="currentColor" stroke-width="1.5"/>' +
-                    '<text x="10" y="14.1" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="currentColor">' + letter + '</text>' +
-                    '</svg>';
-            }
             function fmtLogoIcon(src) {
                 return '<img src="' + src + '" alt="" loading="lazy" decoding="async">';
             }
-            var fmtGridIcon = '<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1.6" y="1.6" width="16.8" height="16.8" rx="4.2" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="1.9" y1="8" x2="18.1" y2="8" stroke="currentColor" stroke-width="1.2"/><line x1="1.9" y1="12.4" x2="18.1" y2="12.4" stroke="currentColor" stroke-width="1.2"/><line x1="8" y1="1.9" x2="8" y2="18.1" stroke="currentColor" stroke-width="1.2"/></svg>';
             var FORMAT_META = {
                 ppt:     { label: "PowerPoint template",    markup: fmtLogoIcon("/template-logo-ppt.png") },
                 gslides: { label: "Google Slides template", markup: fmtLogoIcon("/template-logo-gslides.png") },
                 canva:   { label: "Canva template",         markup: fmtLogoIcon("/template-logo-canva.png") },
-                xlsx:    { label: "Excel template",         markup: fmtLetterIcon("X") },
-                gsheets: { label: "Google Sheets template", markup: fmtGridIcon }
+                xlsx:    { label: "Excel template",         markup: fmtLogoIcon("/template-logo-xlsx.png") },
+                gsheets: { label: "Google Sheets template", markup: fmtLogoIcon("/template-logo-gsheets.png") }
             };
 
             function formatsHTML(t) {
