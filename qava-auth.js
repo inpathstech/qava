@@ -439,19 +439,13 @@
             '<span class="join-text">Get Started</span>' + CARET +
           "</button>" +
           '<div class="qava-login-dropdown" role="menu">' +
-            '<a href="' + APP_URL + '" class="qava-login-option has-icon" role="menuitem">' +
-              HANDSHAKE +
-              '<span class="qava-login-option-text">' +
-                '<span class="qava-login-option-title">Client or talent matchmaking</span>' +
-                '<span class="qava-login-option-sub">Post work, or get matched to projects, jobs, internships</span>' +
-              "</span>" +
+            '<a href="' + APP_URL + '" class="qava-login-option" role="menuitem">' +
+              '<span class="qava-login-option-title">' + HANDSHAKE + "Client or talent matchmaking</span>" +
+              '<span class="qava-login-option-sub">Post work, or get matched to projects, jobs, internships</span>' +
             "</a>" +
-            '<a href="' + PREMIUM_URL + '" class="qava-login-option has-icon" role="menuitem">' +
-              HANDSHAKE +
-              '<span class="qava-login-option-text">' +
-                '<span class="qava-login-option-title">Premium Plus</span>' +
-                '<span class="qava-login-option-sub">Templates, perks &amp; early access</span>' +
-              "</span>" +
+            '<a href="' + PREMIUM_URL + '" class="qava-login-option" role="menuitem">' +
+              '<span class="qava-login-option-title">' + HANDSHAKE + "Premium Plus</span>" +
+              '<span class="qava-login-option-sub">Templates, perks &amp; early access</span>' +
             "</a>" +
           "</div>";
         joinBtn.parentNode.insertBefore(getStarted, joinBtn);
