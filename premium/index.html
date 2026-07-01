@@ -1453,10 +1453,8 @@
          <p class="pco-secure">Secured by Stripe · Cancel anytime</p>
        </form>
 
-       <div class="premium-checkout-success" id="premium-checkout-success">
-         <p class="pco-success-title">You're in!</p>
-         <p class="pco-success-text">Welcome to Premium Plus. A receipt is on its way to your inbox — sign in any time to access your benefits.</p>
-         <p class="pco-referral-note" style="margin-top: 16px; text-align: left;">Want <strong>3 months free</strong>? Invite friends to subscribe and have them enter your email or mobile — <span class="pco-success-code" id="pco-success-email"></span> — as their referrer. Every 3 who join earns you 3 months on us.</p>
+      <div class="premium-checkout-success" id="premium-checkout-success">
+        <p class="pco-referral-note" style="text-align: left;">Want <strong>3 months free</strong>? Invite friends to subscribe and have them enter your email or mobile — <span class="pco-success-code" id="pco-success-email"></span> — as their referrer. Every 3 who join earns you 3 months on us.</p>
        </div>
      </div>
    </section>
@@ -1925,6 +1923,8 @@
 
           form.classList.remove("is-open");
           form.style.display = "none";
+          var checkoutHead = document.querySelector(".premium-checkout-head");
+          if (checkoutHead) checkoutHead.style.display = "none";
           if (successEmailEl) successEmailEl.textContent = phone ? (email + " or " + phone) : email;
           if (successEl) successEl.style.display = "block";
 

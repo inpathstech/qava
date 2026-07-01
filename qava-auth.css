@@ -148,9 +148,11 @@
 
 /* ---- Modals (blurred backdrop) ---- */
 .qava-auth-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 2000;
+  /* !important guards against host-page rules (e.g. `body > *` resets) that
+     would otherwise force this portal out of fixed positioning. */
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 2147483000 !important;
   display: flex;
   align-items: center;
   justify-content: center;
