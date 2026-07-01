@@ -1903,6 +1903,13 @@
             });
           } catch (ignore) {}
 
+          (function () {
+            var maxAge = 365 * 24 * 60 * 60;
+            var secure = location.protocol === "https:" ? "; Secure" : "";
+            document.cookie = "qava_premium=1; path=/; domain=.qava.ai; max-age=" + maxAge + "; SameSite=Lax" + secure;
+            document.cookie = "qava_logged_in=1; path=/; domain=.qava.ai; max-age=" + maxAge + "; SameSite=Lax" + secure;
+          })();
+
           form.classList.remove("is-open");
           form.style.display = "none";
           if (successEmailEl) successEmailEl.textContent = phone ? (email + " or " + phone) : email;

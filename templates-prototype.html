@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Templates Grid — Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Libre+Caslon+Display&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Inter", sans-serif;
+      background: #f3f3f5;
+      color: #111827;
+      padding: 40px 28px 72px;
+    }
+    .prototype-note {
+      max-width: 1080px;
+      margin: 0 auto 10px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #9ca3af;
+    }
+    .page-title {
+      max-width: 1080px;
+      margin: 0 auto 6px;
+      font-family: "Libre Caslon Display", serif;
+      font-size: 34px;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+    }
+    .page-sub {
+      max-width: 1080px;
+      margin: 0 auto 28px;
+      font-size: 14px;
+      color: #6b7280;
+      line-height: 1.5;
+    }
+    .qava-blog-row {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+    .qava-template-item {
+      display: flex;
+      flex-direction: column;
+    }
+    .qava-blog-card {
+      position: relative;
+      display: block;
+      aspect-ratio: 1 / 1;
+      background: #0e0e0e;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.12);
+      transition: box-shadow 0.25s ease, transform 0.25s ease;
+    }
+    .qava-blog-card:hover {
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.18);
+      transform: translateY(-2px);
+    }
+    .qava-tpl-thumb {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-color: #0e0e0e;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .qava-blog-scrim {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(8, 10, 13, 0) 52%, rgba(8, 10, 13, 0.5) 100%);
+      -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 46%, rgba(0, 0, 0, 1) 74%);
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 46%, rgba(0, 0, 0, 1) 74%);
+      transition: background 0.45s ease, -webkit-backdrop-filter 0.45s ease, backdrop-filter 0.45s ease, -webkit-mask-image 0.45s ease, mask-image 0.45s ease;
+    }
+    .qava-blog-card:hover .qava-blog-scrim {
+      background: linear-gradient(180deg, rgba(8, 10, 13, 0) 24%, rgba(8, 10, 13, 0.62) 100%);
+      -webkit-backdrop-filter: blur(9px);
+      backdrop-filter: blur(9px);
+      -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 12%, rgba(0, 0, 0, 1) 38%);
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 12%, rgba(0, 0, 0, 1) 38%);
+    }
+    .qava-blog-glass {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      bottom: 14px;
+      z-index: 2;
+    }
+    .qava-blog-tag {
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.82);
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.30);
+    }
+    .qava-blog-title {
+      margin-top: 4px;
+      font-family: "Libre Caslon Display", serif;
+      font-size: 18px;
+      color: #fff;
+      line-height: 1.18;
+      letter-spacing: -0.01em;
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+    }
+    .qava-blog-more {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease, margin-top 0.35s ease;
+    }
+    .qava-blog-card:hover .qava-blog-more {
+      max-height: 120px;
+      opacity: 1;
+      margin-top: 8px;
+    }
+    .qava-blog-excerpt {
+      font-size: 12.5px;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.5;
+    }
+    .qava-template-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 9px;
+      padding: 0 2px;
+    }
+    .qava-template-version {
+      font-size: 11.5px;
+      font-weight: 600;
+    }
+    .qava-template-likes {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11.5px;
+    }
+    .qava-template-likes svg {
+      width: 12px;
+      height: 12px;
+      fill: #111827;
+      stroke: #111827;
+    }
+    @media (max-width: 860px) {
+      .qava-blog-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="prototype-note">Prototype · strategy row · card 3 = Brand Strategy</div>
+  <h1 class="page-title">Templates grid preview</h1>
+  <p class="page-sub">First three strategy cards — Brand Strategy circles thumbnail is the 3rd card. Hover to see the frosted overlay.</p>
+  <div class="qava-blog-row" id="grid"></div>
+
+  <script>
+    (function () {
+      var cards = [
+        { tag: "Strategy", title: "The Beachhead Strategy", excerpt: "The biggest companies didn't win by serving everyone on day one.", version: "1.0", likes: 1290, image: "./template-beachhead.png" },
+        { tag: "Strategy", title: "The Ideal Customer Profile", excerpt: "The most important decision an entrepreneur makes is who the business is for.", version: "1.0", likes: 1460, image: "./template-icp.png" },
+        { tag: "Strategy", title: "Brand Strategy", excerpt: "Build a brand that customers remember, trust, and choose.", version: "1.0", likes: 1180, image: "./template-brandstrategy.png?v=4" }
+      ];
+
+      var heartSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-10-9.2C.6 8.9 2 5.5 5.2 5.1 7 4.9 8.6 5.9 12 8.6c3.4-2.7 5-3.7 6.8-3.5C22 5.5 23.4 8.9 22 11.8 19.5 16.4 12 21 12 21Z"/></svg>';
+
+      function esc(s) {
+        return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      }
+
+      document.getElementById("grid").innerHTML = cards.map(function (t) {
+        return '' +
+          '<div class="qava-template-item">' +
+            '<div class="qava-blog-card qava-template-card">' +
+              '<div class="qava-tpl-thumb" style="background-image:url(\'' + esc(t.image) + '\')"></div>' +
+              '<div class="qava-blog-scrim"></div>' +
+              '<div class="qava-blog-glass">' +
+                '<div class="qava-blog-tag">' + esc(t.tag) + '</div>' +
+                '<div class="qava-blog-title">' + esc(t.title) + '</div>' +
+                '<div class="qava-blog-more">' +
+                  '<div class="qava-blog-excerpt">' + esc(t.excerpt) + '</div>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+            '<div class="qava-template-meta">' +
+              '<span class="qava-template-version">v' + esc(t.version) + '</span>' +
+              '<span class="qava-template-likes">' + heartSvg + t.likes.toLocaleString() + ' likes</span>' +
+            '</div>' +
+          '</div>';
+      }).join("");
+    })();
+  </script>
+</body>
+</html>

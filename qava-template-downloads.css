@@ -94,6 +94,23 @@
     box-shadow: 0 8px 20px rgba(17, 24, 39, 0.22);
 }
 
+.story-download-btn.is-locked {
+    background: #f3f4f6;
+    color: #111827;
+    border: 1px solid rgba(17, 24, 39, 0.1);
+    text-decoration: none;
+    box-shadow: none;
+}
+
+.story-download-btn.is-locked:hover {
+    background: #e5e7eb;
+    box-shadow: none;
+}
+
+.story-downloads.is-unlocked .story-downloads-note strong {
+    color: #111827;
+}
+
 .qava-modal-overlay {
     position: fixed;
     inset: 0;
