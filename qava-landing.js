@@ -406,7 +406,7 @@
             `;
 
             // Pin each card at an increasing top offset so they stack like a deck
-            // (Function Health). Desktop only; on mobile the cards just flow.
+            // (Function Health). Desktop and iPhone portrait; tablet / landscape flow.
             const STEP_STACK_GAP = 0; // tabs stack flush, each directly under the one above
             const getStickyNavOffset = () => {
               const nav = doc.querySelector(".header-container");
@@ -416,16 +416,20 @@
               return nav.offsetHeight || 0;
             };
 
-            const isStackDesktop = () =>
-              win.innerWidth > 860 &&
-              !win.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            const isMobilePortrait = () =>
+              win.innerWidth <= 600 &&
+              win.matchMedia("(orientation: portrait)").matches;
+
+            const shouldStackSteps = () =>
+              !win.matchMedia("(prefers-reduced-motion: reduce)").matches &&
+              (win.innerWidth > 860 || isMobilePortrait());
 
             const setStackOffsets = () => {
               const cards = Array.prototype.slice.call(
                 dynamicContent.querySelectorAll(".qava-hiw-step")
               );
               if (!cards.length) return;
-              const desktop = isStackDesktop();
+              const stackEnabled = shouldStackSteps();
               const headerEl = cards[0].querySelector(".qava-hiw-step-header");
               const headerH = headerEl ? headerEl.offsetHeight : 52;
               const navOffset = getStickyNavOffset();
@@ -435,7 +439,7 @@
                 ? showcaseBox.querySelector(".qava-showcase-toggle-sticky")
                 : null;
               let base = navOffset + 16;
-              if (toggleBar && desktop) {
+              if (toggleBar && stackEnabled && win.innerWidth > 860) {
                 // Sit the toggle a comfortable gap below the nav for breathing room.
                 const toggleTop = navOffset + 28;
                 toggleBar.style.top = toggleTop + "px";
@@ -462,7 +466,7 @@
               const ih = win.innerHeight;
               cards.forEach((card, i) => {
                 card.style.zIndex = String(i + 1);
-                if (desktop) {
+                if (stackEnabled) {
                   const top = base + i * step;
                   card.style.position = "sticky";
                   card.style.top = top + "px";
@@ -495,7 +499,7 @@
               // smallest (3-slide) deck — plus a small, constant hold.
               if (stepsEl) {
                 let spacer = stepsEl.querySelector(":scope > .qava-hiw-stack-spacer");
-                if (desktop) {
+                if (stackEnabled) {
                   if (!spacer) {
                     spacer = doc.createElement("div");
                     spacer.className = "qava-hiw-stack-spacer";
@@ -521,7 +525,7 @@
             // Click a (stacked) step tab to bring that card into view: the cards
             // above stay pinned while the ones below slide away as we scroll to it.
             const scrollStepIntoView = (card) => {
-              if (!isStackDesktop()) {
+              if (!shouldStackSteps()) {
                 card.scrollIntoView({ behavior: "smooth", block: "start" });
                 return;
               }

@@ -2212,7 +2212,7 @@
           }
 
           .qava-blog-card {
-            aspect-ratio: 4 / 5;
+            aspect-ratio: 1 / 1;
             border-radius: 8px;
           }
 
@@ -2283,6 +2283,10 @@
             grid-row: 3;
           }
 
+          .qava-showcase-toggle-sticky .qava-showcase-toggle {
+            border-radius: 10px;
+          }
+
           .qava-hero-showcase-box {
             width: calc(100vw - 32px);
             max-width: calc(100vw - 32px);
@@ -2296,10 +2300,7 @@
           }
 
           .qava-hiw-step {
-            position: static !important;
-            top: auto !important;
             min-height: 0 !important;
-            margin-bottom: 18px;
           }
 
           .qava-hiw-step-row {
@@ -3034,6 +3035,15 @@
             width: 100%;
                 height: auto;
             aspect-ratio: 16 / 10;
+          }
+        }
+
+        @media (max-width: 600px) {
+          #qava-edu-section.qava-edu-section,
+          .qava-edu-section {
+            width: calc(100vw - 32px);
+            max-width: calc(100vw - 32px);
+            padding: 18px;
           }
         }
 
@@ -4542,6 +4552,22 @@
           font-size: 8.5px;
           font-weight: 400;
           color: #9ca3af;
+        }
+
+        @media (max-width: 600px) and (orientation: portrait) {
+          .qava-gp-table col.c-status {
+            width: 0;
+          }
+
+          .qava-gp-table col.c-proj { width: 38%; }
+          .qava-gp-table col.c-fb { width: 42%; }
+          .qava-gp-table col.c-earn { width: 20%; }
+
+          .qava-gp-table th:nth-child(4),
+          .qava-gp-table tbody td:nth-child(4),
+          .qava-gp-table tfoot td:nth-child(4) {
+            display: none;
+          }
         }
 
         .qava-getpaid-header {
