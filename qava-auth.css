@@ -108,6 +108,30 @@
 
 .qava-login-option:hover { background: rgba(17, 24, 39, 0.06); }
 
+/* Options with a leading icon lay the icon beside a stacked text column. */
+.qava-login-option.has-icon {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 12px;
+}
+.qava-login-option-icon {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: #111827;
+}
+.qava-login-option-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Get Started dropdown: wide enough to keep both lines on one line each. */
+.qava-getstarted .qava-login-dropdown { min-width: max-content; }
+.qava-getstarted .qava-login-option-title,
+.qava-getstarted .qava-login-option-sub { white-space: nowrap; }
+
 .qava-login-option-title {
   font-size: 14px;
   font-weight: 600;
