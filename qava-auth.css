@@ -1,0 +1,365 @@
+/* Qava Premium auth shell: nav profile button, dropdown, and modals.
+   Scoped under .qava-auth-* so it never collides with page styles. */
+
+.qava-auth-hidden { display: none !important; }
+
+/* Premium Login trigger reuses the nav's auth-item look but is a button. */
+.qava-auth-login-btn {
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Profile button (initials avatar) shown when a premium session is active. */
+.qava-profile {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.qava-profile-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+}
+
+.qava-profile-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #111827;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  border: 1px solid rgba(17, 24, 39, 0.08);
+}
+
+.qava-profile-caret {
+  width: 14px;
+  height: 14px;
+  color: #6b7280;
+  transition: transform 0.2s ease;
+}
+
+.qava-profile.is-open .qava-profile-caret { transform: rotate(180deg); }
+
+.qava-profile-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 240px;
+  background: #ffffff;
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.14);
+  padding: 8px;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: opacity 0.16s ease, transform 0.16s ease;
+}
+
+.qava-profile.is-open .qava-profile-menu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.qava-profile-head {
+  padding: 10px 12px 12px;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 6px;
+}
+
+.qava-profile-name {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.qava-profile-email {
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #6b7280;
+  margin: 2px 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.qava-profile-badge {
+  display: inline-block;
+  margin-top: 8px;
+  font-family: "Inter", sans-serif;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #047857;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+.qava-profile-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  background: none;
+  border: 0;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #111827;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.qava-profile-item:hover { background: #f6f7f9; }
+.qava-profile-item svg { width: 16px; height: 16px; color: #6b7280; }
+
+/* ---- Modals (blurred backdrop) ---- */
+.qava-auth-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(17, 24, 39, 0.45);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.qava-auth-overlay.is-open { opacity: 1; pointer-events: auto; }
+
+.qava-auth-modal {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.28);
+  padding: 28px;
+  position: relative;
+  transform: translateY(8px) scale(0.98);
+  transition: transform 0.2s ease;
+  box-sizing: border-box;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+}
+
+.qava-auth-overlay.is-open .qava-auth-modal { transform: translateY(0) scale(1); }
+
+.qava-auth-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  background: #f3f4f6;
+  border-radius: 8px;
+  color: #6b7280;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qava-auth-close:hover { background: #e5e7eb; color: #111827; }
+
+.qava-auth-title {
+  font-family: "Libre Caslon Display", "Canela", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.15;
+  letter-spacing: -0.012em;
+  color: #111827;
+  margin: 0 8px 6px 0;
+}
+
+.qava-auth-sub {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: #6b6b6b;
+  margin: 0 0 20px;
+}
+
+.qava-auth-field { margin-bottom: 14px; }
+
+.qava-auth-label {
+  display: block;
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 6px;
+}
+
+.qava-auth-input {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  color: #111827;
+  padding: 11px 13px;
+  border: 1px solid #d8dade;
+  border-radius: 10px;
+  background: #fff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.qava-auth-input:focus {
+  outline: none;
+  border-color: #111827;
+  box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.08);
+}
+
+.qava-auth-input.is-otp {
+  letter-spacing: 0.4em;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.qava-auth-btn-primary {
+  width: 100%;
+  border: 0;
+  border-radius: 10px;
+  background: #111827;
+  color: #fff;
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 13px 16px;
+  cursor: pointer;
+  transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+.qava-auth-btn-primary:hover { background: #000; }
+.qava-auth-btn-primary:disabled { opacity: 0.55; cursor: default; }
+
+.qava-auth-btn-ghost {
+  width: 100%;
+  margin-top: 10px;
+  border: 1px solid #d8dade;
+  border-radius: 10px;
+  background: #fff;
+  color: #111827;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 11px 16px;
+  cursor: pointer;
+}
+
+.qava-auth-btn-ghost:hover { background: #f6f7f9; }
+
+.qava-auth-msg {
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  margin: 0 0 14px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  display: none;
+}
+
+.qava-auth-msg.is-error { display: block; background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c; }
+.qava-auth-msg.is-info { display: block; background: #eff6ff; border: 1px solid #bfdbfe; color: #1d4ed8; }
+.qava-auth-msg.is-success { display: block; background: #ecfdf5; border: 1px solid #a7f3d0; color: #047857; }
+
+.qava-auth-foot {
+  font-family: "Inter", sans-serif;
+  font-size: 12.5px;
+  color: #6b7280;
+  text-align: center;
+  margin: 16px 0 0;
+}
+
+.qava-auth-foot a { color: #111827; font-weight: 600; text-decoration: none; }
+.qava-auth-foot a:hover { text-decoration: underline; }
+
+.qava-auth-linkbtn {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: #111827;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* Subscription modal detail rows */
+.qava-sub-rows { margin: 4px 0 20px; }
+
+.qava-sub-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 11px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.qava-sub-row:last-child { border-bottom: 0; }
+
+.qava-sub-key {
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.qava-sub-val {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+  text-align: right;
+}
+
+.qava-sub-val.is-status-active { color: #047857; }
+.qava-sub-val.is-status-warn { color: #b45309; }
+
+@media (max-width: 600px) {
+  .qava-auth-modal { padding: 22px 18px; border-radius: 14px; }
+  .qava-profile-menu { min-width: 220px; }
+}

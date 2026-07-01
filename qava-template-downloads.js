@@ -96,9 +96,9 @@
         '<p class="qava-modal-sub">Downloads are unlocked for <strong>Premium</strong> members. Log in if you\'re already a member, or go Premium to get every template — plus future updates.</p>' +
         '<div class="qava-modal-actions">' +
           '<a href="' + PREMIUM_URL + '" class="qava-modal-btn qava-modal-btn-primary">Go Premium</a>' +
-          '<a href="https://app.qava.ai/" class="qava-modal-btn qava-modal-btn-ghost">Log in</a>' +
+          '<button type="button" class="qava-modal-btn qava-modal-btn-ghost" onclick="if(window.qavaAuth){window.qavaAuth.openLogin();}">Premium Login</button>' +
         '</div>' +
-        '<p class="qava-modal-foot">Already Premium? Downloads start automatically once you\'re logged in.</p>' +
+        '<p class="qava-modal-foot">Already Premium? Log in and downloads unlock automatically.</p>' +
       '</div>';
     document.body.appendChild(overlay);
 

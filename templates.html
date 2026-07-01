@@ -488,6 +488,7 @@
         }
     </style>
     <link rel="stylesheet" href="qava-landing.css" />
+    <link rel="stylesheet" href="qava-auth.css" />
     <style>
         /* Template cards: reuse the landing-page blog card styling, but render
            a flat gray placeholder image (no photo, no shimmer) and keep the
@@ -1519,9 +1520,9 @@
             <p class="qava-modal-sub">Downloads are unlocked for <strong>Premium</strong> members. Log in if you're already a member, or go Premium to get every template — plus future updates.</p>
             <div class="qava-modal-actions">
                 <a href="https://qava.ai/premium" class="qava-modal-btn qava-modal-btn-primary">Go Premium</a>
-                <a href="https://app.qava.ai/" class="qava-modal-btn qava-modal-btn-ghost">Log in</a>
+                <button type="button" class="qava-modal-btn qava-modal-btn-ghost" onclick="if(window.qavaAuth){window.qavaAuth.openLogin();}">Premium Login</button>
             </div>
-            <p class="qava-modal-foot">Already Premium? Downloads start automatically once you're logged in.</p>
+            <p class="qava-modal-foot">Already Premium? Log in and downloads unlock automatically.</p>
         </div>
     </div>
 
@@ -1689,6 +1690,11 @@
                 return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
             }
 
+            function currentAccess() {
+                var a = window.QAVA_ACCESS || {};
+                return { loggedIn: !!a.loggedIn, premium: !!a.premium };
+            }
+
             function cardHTML(t) {
                 var likeText = t.likes.toLocaleString() + " likes";
                 var isLink = !!t.link;
@@ -1696,7 +1702,16 @@
                 var hasThumb = !!t.image;
                 var thumb = hasThumb ? '<div class="qava-tpl-thumb" style="background-image:url(\'' + esc(t.image) + '\')"></div>' : '';
                 var badge = isLink ? '' : '<span class="qava-template-badge">' + lockSvg + 'Premium</span>';
-                var action = '<button type="button" class="qava-template-dl-btn" data-template="' + esc(t.title) + '">' + dlSvg + 'Download</button>';
+                // Members get a real Download (opening the template's page to pick a
+                // format); everyone else gets a lock + Join Premium that opens the gate.
+                var action;
+                if (currentAccess().premium) {
+                    action = isLink
+                        ? '<a class="qava-template-dl-btn" href="' + esc(t.link) + '">' + dlSvg + 'Download</a>'
+                        : '<button type="button" class="qava-template-dl-btn" data-template="' + esc(t.title) + '">' + dlSvg + 'Download</button>';
+                } else {
+                    action = '<a class="qava-template-dl-btn is-locked" href="https://qava.ai/premium" data-gate="1">' + lockSvg + 'Join Premium</a>';
+                }
                 return '' +
                     '<div class="qava-template-item">' +
                         '<div class="qava-blog-card qava-template-card' + (hasThumb ? ' has-thumb' : '') + '" role="button" tabindex="0"' + cardAttr + '>' +
@@ -1850,15 +1865,27 @@
                 document.querySelectorAll(".qava-modal-overlay.is-open").forEach(closeModal);
             }
 
-            /* Any download / card click opens the premium gate */
+            // Re-render the grid whenever the premium session resolves, so the
+            // Download / Join Premium buttons reflect the member's real access.
+            window.refreshQavaTemplateDownloads = function () {
+                renderGrid();
+            };
+
+            /* Locked cards open the premium gate; members follow real links. */
             if (grid) {
                 grid.addEventListener("click", function (e) {
                     if (e.target.closest("#qava-tpl-clear")) {
                         clearFilters();
                         return;
                     }
-                    if (e.target.closest(".qava-template-dl-btn")) {
+                    // Non-member "Join Premium" -> open the gate modal.
+                    if (e.target.closest(".qava-template-dl-btn.is-locked, [data-gate]")) {
+                        e.preventDefault();
                         openModal("qava-gate-modal");
+                        return;
+                    }
+                    // Member Download that is a real link (detail page) -> let it navigate.
+                    if (e.target.closest("a.qava-template-dl-btn")) {
                         return;
                     }
                     var linkCard = e.target.closest("[data-link]");
@@ -1951,5 +1978,6 @@
             }
         })();
     </script>
+    <script src="qava-auth.js"></script>
 </body>
 </html>

@@ -1250,6 +1250,7 @@
       .footer-section { padding: 60px 24px 40px 24px; }
     }
   </style>
+  <link rel="stylesheet" href="/qava-auth.css">
 </head>
 <body>
 <div id="qava-dot-base-fixed" aria-hidden="true"></div>
@@ -1899,6 +1900,7 @@
             await fetch(API + "/subscription/confirm", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
+              credentials: "include",
               body: JSON.stringify({ subscriptionId: data.subscriptionId })
             });
           } catch (ignore) {}
@@ -1914,6 +1916,11 @@
           form.style.display = "none";
           if (successEmailEl) successEmailEl.textContent = phone ? (email + " or " + phone) : email;
           if (successEl) successEl.style.display = "block";
+
+          // Repaint the nav (profile button) now that a premium session exists.
+          if (window.qavaAuth && typeof window.qavaAuth.refresh === "function") {
+            try { window.qavaAuth.refresh(); } catch (e) {}
+          }
         } catch (err) {
           showError(err && err.message ? err.message : "Payment could not be completed. Please try again.");
           submitBtn.disabled = false;
@@ -2058,5 +2065,6 @@
       });
     })();
   </script>
+  <script src="/qava-auth.js"></script>
 </body>
 </html>
