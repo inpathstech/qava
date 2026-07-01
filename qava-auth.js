@@ -385,12 +385,16 @@
       if (section.getAttribute("data-qava-auth-wired") === "1") return;
       section.setAttribute("data-qava-auth-wired", "1");
 
-      // "How it works" now lives only in the footer.
-      var hiw = findByText(section.querySelectorAll(".auth-item"), "How it works");
-      if (hiw && hiw.parentNode) hiw.parentNode.removeChild(hiw);
+      // "How it works" (any wording, e.g. "How Qava Works") lives only in the footer.
+      Array.prototype.forEach.call(
+        section.querySelectorAll(".auth-item"),
+        function (el) {
+          if (isHowItWorks(navText(el)) && el.parentNode) el.parentNode.removeChild(el);
+        }
+      );
 
       // Merge the existing "Log in" link and Premium Login into one dropdown.
-      var loginLink = findByText(section.querySelectorAll(".auth-item"), "Log in");
+      var loginLink = findLogin(section.querySelectorAll(".auth-item"));
       var appHref = APP_URL;
       var insertRef = null;
       if (loginLink) {
@@ -588,12 +592,32 @@
     Array.prototype.forEach.call(
       document.querySelectorAll(".header-center .navigation .nav-item"),
       function (el) {
-        var txt = ((el.querySelector(".nav-text") || el).textContent || "")
-          .trim()
-          .toLowerCase();
-        if (txt === "premium" && el.parentNode) el.parentNode.removeChild(el);
+        var txt = navText(el);
+        if ((txt === "premium" || isHowItWorks(txt)) && el.parentNode) {
+          el.parentNode.removeChild(el);
+        }
       }
     );
+  }
+
+  function navText(el) {
+    return ((el.querySelector(".nav-text") || el).textContent || "")
+      .trim()
+      .toLowerCase();
+  }
+
+  function isHowItWorks(txt) {
+    return /^how\b.*\bworks?$/.test(txt);
+  }
+
+  function findLogin(nodeList) {
+    var candidates = ["log in", "login", "app login", "sign in"];
+    var found = null;
+    Array.prototype.forEach.call(nodeList, function (el) {
+      if (found) return;
+      if (candidates.indexOf(navText(el)) !== -1) found = el;
+    });
+    return found;
   }
 
   function findByText(nodeList, text) {
