@@ -490,9 +490,10 @@
     <link rel="stylesheet" href="qava-landing.css" />
     <link rel="stylesheet" href="qava-auth.css" />
     <style>
-        /* Template cards: reuse the landing-page blog card styling, but render
-           a flat gray placeholder image (no photo, no shimmer) and keep the
-           tag/title overlay always visible. */
+        /* Template cards: reuse the landing-page blog card styling. Cards
+           without artwork keep the animated skeleton shimmer (inherited from
+           .qava-blog-card::before) so they read as "loading / coming soon",
+           while real thumbnails render on a black card. */
         .qava-tpl-grid {
             margin-top: 20px;
             background: transparent;
@@ -574,10 +575,8 @@
             cursor: pointer;
         }
 
-        .qava-template-card::before {
-            background-image: none;
-            background-color: #e9e9ec;
-            animation: none;
+        /* Keep the inherited skeleton shimmer on artwork-less cards. */
+        .qava-template-card:not(.has-thumb)::before {
             opacity: 1;
         }
 
