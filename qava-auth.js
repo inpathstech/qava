@@ -446,7 +446,7 @@
           '<div class="qava-login-dropdown" role="menu">' +
             '<a href="' + APP_URL + '" class="qava-login-option" role="menuitem">' +
               '<span class="qava-login-option-title">' + HANDSHAKE + "Client or talent matchmaking</span>" +
-              '<span class="qava-login-option-sub">Post work, or get matched to projects, jobs, internships</span>' +
+              '<span class="qava-login-option-sub">Projects, jobs, internships</span>' +
             "</a>" +
             '<a href="' + PREMIUM_URL + '" class="qava-login-option" role="menuitem">' +
               '<span class="qava-login-option-title">' + STAR_PLUS + "Premium Plus</span>" +
