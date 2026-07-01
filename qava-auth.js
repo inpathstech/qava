@@ -169,9 +169,33 @@
         '<h2 class="qava-auth-title" id="qava-sub-title">Your subscription</h2>' +
         '<p class="qava-auth-sub">Manage your Premium Plus membership.</p>' +
         '<div class="qava-auth-msg" data-qava-msg></div>' +
-        '<div class="qava-sub-rows" data-qava-sub-rows></div>' +
-        '<button type="button" class="qava-auth-btn-primary" data-qava-portal>Manage billing &amp; payment method</button>' +
-        '<button type="button" class="qava-auth-btn-ghost" data-qava-logout>Log out</button>' +
+        '<div class="qava-sub-status" data-qava-status></div>' +
+        '<div class="qava-auth-field-row">' +
+          '<div class="qava-auth-field">' +
+            '<label class="qava-auth-label" for="qava-sub-first">First name</label>' +
+            '<input class="qava-auth-input" id="qava-sub-first" type="text" autocomplete="given-name" placeholder="First name">' +
+          '</div>' +
+          '<div class="qava-auth-field">' +
+            '<label class="qava-auth-label" for="qava-sub-last">Last name</label>' +
+            '<input class="qava-auth-input" id="qava-sub-last" type="text" autocomplete="family-name" placeholder="Last name">' +
+          '</div>' +
+        '</div>' +
+        '<div class="qava-auth-field">' +
+          '<label class="qava-auth-label" for="qava-sub-email">Email</label>' +
+          '<input class="qava-auth-input" id="qava-sub-email" type="email" disabled>' +
+          '<p class="qava-auth-hint">Need to change your email? <a href="mailto:hello@qava.ai">Contact support</a>.</p>' +
+        '</div>' +
+        '<button type="button" class="qava-auth-btn-primary" data-qava-save>Save changes</button>' +
+        '<button type="button" class="qava-auth-btn-ghost" data-qava-portal>Update payment method</button>' +
+        '<div class="qava-sub-danger">' +
+          '<button type="button" class="qava-sub-cancel-link" data-qava-cancel-start>Cancel membership</button>' +
+          '<div class="qava-sub-cancel-confirm" data-qava-cancel-confirm hidden>' +
+            '<p class="qava-sub-cancel-note" data-qava-cancel-note>You\'ll keep full Premium Plus access until the end of your billing period — you won\'t be charged again.</p>' +
+            '<button type="button" class="qava-auth-btn-danger" data-qava-cancel-confirm-btn>Yes, cancel membership</button>' +
+            '<button type="button" class="qava-auth-btn-ghost" data-qava-cancel-keep>Keep my membership</button>' +
+          '</div>' +
+        '</div>' +
+        '<button type="button" class="qava-auth-btn-ghost qava-sub-logout" data-qava-logout>Log out</button>' +
       '</div>';
     document.body.appendChild(subOverlay);
     wireSubModal(subOverlay);
@@ -198,29 +222,87 @@
 
   function wireSubModal(overlay) {
     var msg = overlay.querySelector("[data-qava-msg]");
+    var firstInput = overlay.querySelector("#qava-sub-first");
+    var lastInput = overlay.querySelector("#qava-sub-last");
+    var saveBtn = overlay.querySelector("[data-qava-save]");
     var portalBtn = overlay.querySelector("[data-qava-portal]");
     var logoutBtn = overlay.querySelector("[data-qava-logout]");
+    var cancelStart = overlay.querySelector("[data-qava-cancel-start]");
+    var cancelConfirm = overlay.querySelector("[data-qava-cancel-confirm]");
+    var cancelKeep = overlay.querySelector("[data-qava-cancel-keep]");
+    var cancelBtn = overlay.querySelector("[data-qava-cancel-confirm-btn]");
 
     function setMsg(text, kind) {
       msg.className = "qava-auth-msg" + (text ? " is-" + kind : "");
       msg.textContent = text || "";
     }
+    function busy(btn, on, label) {
+      btn.disabled = on;
+      if (on) { btn.dataset.label = btn.textContent; btn.textContent = label || "Please wait…"; }
+      else if (btn.dataset.label) { btn.textContent = btn.dataset.label; }
+    }
+
+    saveBtn.addEventListener("click", function () {
+      setMsg("", "");
+      busy(saveBtn, true, "Saving…");
+      apiFetch("/premium/me", {
+        method: "PATCH",
+        body: {
+          firstName: (firstInput.value || "").trim(),
+          lastName: (lastInput.value || "").trim(),
+        },
+      })
+        .then(function (data) {
+          if (data && data.profile) { state.profile = data.profile; renderNavState(); }
+          setMsg("Your details have been saved.", "success");
+        })
+        .catch(function (err) { setMsg(err.message, "error"); })
+        .then(function () { busy(saveBtn, false); });
+    });
 
     portalBtn.addEventListener("click", function () {
       setMsg("", "");
-      portalBtn.disabled = true;
-      var label = portalBtn.textContent;
-      portalBtn.textContent = "Opening…";
+      busy(portalBtn, true, "Opening…");
       apiFetch("/subscription/portal", { method: "POST", body: {} })
         .then(function (data) {
           if (data && data.url) { window.location.href = data.url; }
-          else { throw new Error("Couldn't open billing portal."); }
+          else { throw new Error("Couldn't open the payment settings."); }
         })
-        .catch(function (err) {
-          setMsg(err.message, "error");
-          portalBtn.disabled = false;
-          portalBtn.textContent = label;
-        });
+        .catch(function (err) { setMsg(err.message, "error"); busy(portalBtn, false); });
+    });
+
+    cancelStart.addEventListener("click", function () {
+      cancelStart.setAttribute("hidden", "");
+      cancelConfirm.removeAttribute("hidden");
+    });
+    cancelKeep.addEventListener("click", function () {
+      cancelConfirm.setAttribute("hidden", "");
+      cancelStart.removeAttribute("hidden");
+    });
+
+    cancelBtn.addEventListener("click", function () {
+      setMsg("", "");
+      busy(cancelBtn, true, "Cancelling…");
+      // email in the body keeps this working against older API builds; the
+      // current API ignores it and keys off the authenticated session.
+      apiFetch("/subscription/cancel", {
+        method: "POST",
+        body: { email: (state.profile && state.profile.email) || "" },
+      })
+        .then(function (data) {
+          var ends = fmtDate(data && data.currentPeriodEnd);
+          setMsg(
+            ends
+              ? "Your membership is set to cancel. You'll keep access until " + ends + "."
+              : "Your membership is set to cancel at the end of your billing period.",
+            "success"
+          );
+          cancelConfirm.setAttribute("hidden", "");
+          overlay.querySelector("[data-qava-cancel-start]").setAttribute("hidden", "");
+          if (state.profile) state.profile.status = "canceled";
+          renderSubStatus(overlay);
+        })
+        .catch(function (err) { setMsg(err.message, "error"); busy(cancelBtn, false); });
     });
 
     logoutBtn.addEventListener("click", function () {
@@ -231,27 +313,42 @@
     });
   }
 
-  function populateSubModal() {
-    var overlay = buildSubModal();
-    var rows = overlay.querySelector("[data-qava-sub-rows]");
+  function renderSubStatus(overlay) {
+    var box = overlay.querySelector("[data-qava-status]");
+    if (!box) return;
     var p = state.profile || {};
     var st = statusLabel(p.status);
     var renew = fmtDate(p.currentPeriodEnd);
-    var renewLabel = p.status === "canceled" || p.status === "active" ? "Renews / ends" : "Current period ends";
-    var html = "";
-    html += row("Name", esc(p.name || "—"));
-    html += row("Email", esc(p.email || "—"));
-    html += '<div class="qava-sub-row"><span class="qava-sub-key">Status</span>' +
-            '<span class="qava-sub-val ' + st.cls + '">' + esc(st.text) + "</span></div>";
-    if (renew) html += row(renewLabel, esc(renew));
-    if (p.linkedAppAccount) html += row("App account", "Linked");
-    rows.innerHTML = html;
-    return overlay;
-
-    function row(k, v) {
-      return '<div class="qava-sub-row"><span class="qava-sub-key">' + k +
-             '</span><span class="qava-sub-val">' + v + "</span></div>";
+    var dateLabel = p.status === "canceled" ? "Access until" : "Renews";
+    var html =
+      '<span class="qava-sub-pill ' + st.cls + '">' + esc(st.text) + "</span>";
+    if (renew) {
+      html += '<span class="qava-sub-meta">' + dateLabel + " " + esc(renew) + "</span>";
     }
+    box.innerHTML = html;
+  }
+
+  function populateSubModal() {
+    var overlay = buildSubModal();
+    var p = state.profile || {};
+    var firstInput = overlay.querySelector("#qava-sub-first");
+    var lastInput = overlay.querySelector("#qava-sub-last");
+    var emailInput = overlay.querySelector("#qava-sub-email");
+    if (firstInput) firstInput.value = p.firstName || "";
+    if (lastInput) lastInput.value = p.lastName || "";
+    if (emailInput) emailInput.value = p.email || "";
+    // Reset any transient cancel UI each time the modal opens.
+    var cancelConfirm = overlay.querySelector("[data-qava-cancel-confirm]");
+    var cancelStart = overlay.querySelector("[data-qava-cancel-start]");
+    var msg = overlay.querySelector("[data-qava-msg]");
+    if (msg) { msg.className = "qava-auth-msg"; msg.textContent = ""; }
+    if (cancelConfirm) cancelConfirm.setAttribute("hidden", "");
+    if (cancelStart) {
+      if (p.status === "canceled") cancelStart.setAttribute("hidden", "");
+      else cancelStart.removeAttribute("hidden");
+    }
+    renderSubStatus(overlay);
+    return overlay;
   }
 
   function openOverlay(overlay) {
@@ -287,28 +384,45 @@
       if (section.getAttribute("data-qava-auth-wired") === "1") return;
       section.setAttribute("data-qava-auth-wired", "1");
 
+      // Merge the existing "Log in" link and Premium Login into one dropdown.
       var loginLink = findByText(section.querySelectorAll(".auth-item"), "Log in");
+      var appHref = APP_URL;
+      var insertRef = null;
       if (loginLink) {
-        var t = loginLink.querySelector(".nav-text") || loginLink;
-        t.textContent = "App Login";
-        loginLink.setAttribute("data-qava-app-login", "1");
+        if (loginLink.tagName === "A" && loginLink.getAttribute("href")) {
+          appHref = loginLink.getAttribute("href");
+        }
+        insertRef = loginLink.nextSibling;
+        if (loginLink.parentNode) loginLink.parentNode.removeChild(loginLink);
       }
 
-      // Premium Login trigger
-      var premiumBtn = document.createElement("button");
-      premiumBtn.type = "button";
-      premiumBtn.className = "auth-item qava-auth-login-btn";
-      premiumBtn.setAttribute("data-qava-premium-login", "1");
-      premiumBtn.innerHTML = '<div class="nav-text">Premium Login</div>';
-      premiumBtn.addEventListener("click", openLogin);
+      var loginMenu = document.createElement("div");
+      loginMenu.className = "qava-login";
+      loginMenu.setAttribute("data-qava-login-menu", "1");
+      loginMenu.innerHTML =
+        '<button type="button" class="auth-item qava-login-trigger" aria-haspopup="true" aria-expanded="false">' +
+          '<span class="nav-text">Login</span>' + CARET +
+        "</button>" +
+        '<div class="qava-login-dropdown" role="menu">' +
+          '<a href="' + esc(appHref) + '" class="qava-login-option" data-qava-app-login role="menuitem">' +
+            '<span class="qava-login-option-title">App Login</span>' +
+            '<span class="qava-login-option-sub">For clients &amp; talent</span>' +
+          "</a>" +
+          '<button type="button" class="qava-login-option" data-qava-premium-login role="menuitem">' +
+            '<span class="qava-login-option-title">Premium Login</span>' +
+            '<span class="qava-login-option-sub">Members — get a login code</span>' +
+          "</button>" +
+        "</div>";
+
       var joinBtn = section.querySelector(".join-button");
-      if (loginLink && loginLink.parentNode) {
-        loginLink.parentNode.insertBefore(premiumBtn, loginLink.nextSibling);
+      if (insertRef && insertRef.parentNode === section) {
+        section.insertBefore(loginMenu, insertRef);
       } else if (joinBtn) {
-        section.insertBefore(premiumBtn, joinBtn);
+        section.insertBefore(loginMenu, joinBtn);
       } else {
-        section.appendChild(premiumBtn);
+        section.appendChild(loginMenu);
       }
+      wireLoginMenu(loginMenu);
 
       // Profile menu (hidden until signed in)
       var profile = document.createElement("div");
@@ -329,6 +443,28 @@
         "</div>";
       section.appendChild(profile);
       wireProfile(profile);
+    });
+  }
+
+  function wireLoginMenu(menu) {
+    var trigger = menu.querySelector(".qava-login-trigger");
+    var premiumOpt = menu.querySelector("[data-qava-premium-login]");
+    trigger.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var open = menu.classList.toggle("is-open");
+      trigger.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    document.addEventListener("click", function (e) {
+      if (!menu.contains(e.target)) {
+        menu.classList.remove("is-open");
+        trigger.setAttribute("aria-expanded", "false");
+      }
+    });
+    premiumOpt.addEventListener("click", function (e) {
+      e.preventDefault();
+      menu.classList.remove("is-open");
+      trigger.setAttribute("aria-expanded", "false");
+      openLogin();
     });
   }
 
@@ -420,12 +556,10 @@
     var signedIn = !!state.profile;
     // Desktop
     Array.prototype.forEach.call(document.querySelectorAll(".auth-section"), function (section) {
-      var appLogin = section.querySelector("[data-qava-app-login]");
-      var premLogin = section.querySelector("[data-qava-premium-login]");
+      var loginMenu = section.querySelector("[data-qava-login-menu]");
       var join = section.querySelector(".join-button");
       var profile = section.querySelector("[data-qava-profile]");
-      toggle(appLogin, !signedIn);
-      toggle(premLogin, !signedIn);
+      toggle(loginMenu, !signedIn);
       toggle(join, !signedIn);
       toggle(profile, signedIn);
       if (signedIn && profile) {
