@@ -1889,12 +1889,23 @@
             })
           });
           var data = await res.json();
-          if (!res.ok || data.status === false || !data.clientSecret) {
+          if (!res.ok || data.status === false) {
             throw new Error((data && (data.message || data.error)) || "We couldn't start your subscription. Please try again.");
           }
 
-          var confirmResult = await stripe.confirmCardPayment(data.clientSecret);
-          if (confirmResult.error) { throw new Error(confirmResult.error.message); }
+          // A fully-discounted (100% off) subscription has a $0 first invoice,
+          // so Stripe returns no clientSecret and activates it immediately —
+          // there's nothing to confirm. Only confirm the card when payment is due.
+          var noPaymentDue = !data.clientSecret &&
+            (data.subscriptionStatus === "active" || data.subscriptionStatus === "trialing");
+          if (!data.clientSecret && !noPaymentDue) {
+            throw new Error((data && (data.message || data.error)) || "We couldn't start your subscription. Please try again.");
+          }
+
+          if (data.clientSecret) {
+            var confirmResult = await stripe.confirmCardPayment(data.clientSecret);
+            if (confirmResult.error) { throw new Error(confirmResult.error.message); }
+          }
 
           try {
             await fetch(API + "/subscription/confirm", {
