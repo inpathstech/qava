@@ -507,6 +507,59 @@
             .qava-blog-row.qava-tpl-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+
+            .feature-cards-section {
+                padding: 72px 0 56px;
+            }
+
+            .feature-cards-container {
+                padding: 0 20px;
+            }
+
+            .hero-layout {
+                margin-bottom: 28px;
+            }
+
+            .hero-content {
+                max-width: 100% !important;
+                width: 100%;
+            }
+
+            .feature-cards-header.qava-hero-heading {
+                white-space: normal !important;
+                max-width: 100% !important;
+                font-size: clamp(30px, 5.2vw, 44px) !important;
+                line-height: 1.06 !important;
+            }
+
+            .feature-cards-subheader.qava-hero-subheader {
+                max-width: 34ch;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .qava-hero-icon {
+                width: 96px;
+                height: 96px;
+                border-radius: 22px;
+                margin: 0 auto 20px auto !important;
+            }
+
+            .qava-template-note,
+            .qava-tpl-filters,
+            .qava-template-request,
+            .qava-blog-row.qava-tpl-grid {
+                width: calc(100vw - 40px);
+                max-width: calc(100vw - 40px);
+            }
+
+            .qava-blog-row.qava-tpl-grid {
+                position: relative;
+                left: 50%;
+                transform: translateX(-50%);
+                margin-top: 36px;
+                gap: 20px;
+            }
         }
 
         @media (max-width: 600px) {
@@ -1150,21 +1203,142 @@
         }
 
         @media (max-width: 600px) {
+            .feature-cards-section {
+                padding: 48px 0 36px;
+            }
+
+            .feature-cards-container {
+                padding: 0 16px;
+            }
+
+            .hero-layout {
+                margin-bottom: 20px;
+            }
+
+            .feature-cards-header.qava-hero-heading {
+                font-size: clamp(28px, 8.2vw, 36px) !important;
+            }
+
+            .feature-cards-subheader.qava-hero-subheader {
+                font-size: 13px;
+                line-height: 1.45;
+                max-width: none;
+            }
+
+            .qava-hero-subheader .qava-sub-line {
+                display: block !important;
+            }
+
+            .qava-hero-icon {
+                width: 84px;
+                height: 84px;
+                border-radius: 20px;
+                margin-bottom: 16px !important;
+                animation: none;
+                transform: none;
+            }
+
             .qava-tpl-grid {
                 margin-top: 24px;
             }
+
             .qava-template-note,
             .qava-template-request,
-            .qava-tpl-filters {
-                width: calc(100vw - 40px);
+            .qava-tpl-filters,
+            .qava-blog-row.qava-tpl-grid {
+                width: calc(100vw - 32px);
+                max-width: calc(100vw - 32px);
             }
-            .qava-tpl-filters {
-                margin-top: 34px;
-                gap: 8px 20px;
+
+            .qava-template-note {
+                font-size: 12px;
+                line-height: 1.45;
+                padding: 0 2px;
             }
+
+            .qava-tpl-filters {
+                margin-top: 28px;
+                gap: 8px 16px;
+                padding-bottom: 12px;
+            }
+
+            .qava-tpl-dd-panel {
+                max-width: min(280px, calc(100vw - 48px));
+            }
+
+            .qava-blog-row.qava-tpl-grid {
+                margin-top: 28px;
+                gap: 24px;
+            }
+
+            .qava-template-card,
+            .qava-blog-card.qava-template-card {
+                aspect-ratio: 1 / 1;
+                border-radius: 10px;
+            }
+
+            .qava-template-card.has-thumb .qava-blog-glass {
+                left: 14px;
+                right: 14px;
+                bottom: 12px;
+            }
+
+            .qava-template-card .qava-blog-title {
+                font-size: 17px;
+                line-height: 1.2;
+            }
+
+            .qava-template-card .qava-blog-excerpt {
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                font-size: 12px;
+                line-height: 1.45;
+                margin-bottom: 10px;
+            }
+
+            .qava-template-dl-btn {
+                padding: 8px 14px;
+                font-size: 11.5px;
+            }
+
+            .qava-template-badge {
+                top: 8px;
+                right: 8px;
+                font-size: 9px;
+                padding: 3px 7px 3px 5px;
+            }
+
+            .qava-tpl-formats {
+                margin-top: 7px;
+                gap: 5px;
+            }
+
+            .qava-tpl-format {
+                width: 16px;
+                height: 16px;
+            }
+
+            .qava-template-meta {
+                margin-top: 8px;
+            }
+
+            .qava-template-request {
+                margin-top: 36px;
+                padding: 28px 18px;
+                border-radius: 14px;
+            }
+
+            .qava-template-request-text {
+                font-size: 20px;
+                line-height: 1.2;
+            }
+
             .qava-modal-actions {
                 flex-direction: column;
             }
+
             .qava-field-row {
                 flex-direction: column;
                 gap: 0;
