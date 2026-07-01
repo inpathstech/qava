@@ -384,6 +384,10 @@
       if (section.getAttribute("data-qava-auth-wired") === "1") return;
       section.setAttribute("data-qava-auth-wired", "1");
 
+      // "How it works" now lives only in the footer.
+      var hiw = findByText(section.querySelectorAll(".auth-item"), "How it works");
+      if (hiw && hiw.parentNode) hiw.parentNode.removeChild(hiw);
+
       // Merge the existing "Log in" link and Premium Login into one dropdown.
       var loginLink = findByText(section.querySelectorAll(".auth-item"), "Log in");
       var appHref = APP_URL;
@@ -424,6 +428,30 @@
       }
       wireLoginMenu(loginMenu);
 
+      // Turn "Get Started" into a dropdown: matchmaking signup or Premium.
+      if (joinBtn && joinBtn.parentNode) {
+        var getStarted = document.createElement("div");
+        getStarted.className = "qava-login qava-getstarted";
+        getStarted.setAttribute("data-qava-getstarted", "1");
+        getStarted.innerHTML =
+          '<button type="button" class="join-button qava-getstarted-trigger" aria-haspopup="true" aria-expanded="false">' +
+            '<span class="join-text">Get Started</span>' + CARET +
+          "</button>" +
+          '<div class="qava-login-dropdown" role="menu">' +
+            '<a href="' + APP_URL + '" class="qava-login-option" role="menuitem">' +
+              '<span class="qava-login-option-title">Client or talent matchmaking</span>' +
+              '<span class="qava-login-option-sub">Post work, or get matched to projects</span>' +
+            "</a>" +
+            '<a href="' + PREMIUM_URL + '" class="qava-login-option" role="menuitem">' +
+              '<span class="qava-login-option-title">Premium Plus</span>' +
+              '<span class="qava-login-option-sub">Templates, perks &amp; early access</span>' +
+            "</a>" +
+          "</div>";
+        joinBtn.parentNode.insertBefore(getStarted, joinBtn);
+        joinBtn.parentNode.removeChild(joinBtn);
+        wireDropdownToggle(getStarted, getStarted.querySelector(".qava-getstarted-trigger"));
+      }
+
       // Profile menu (hidden until signed in)
       var profile = document.createElement("div");
       profile.className = "qava-profile qava-auth-hidden";
@@ -446,9 +474,8 @@
     });
   }
 
-  function wireLoginMenu(menu) {
-    var trigger = menu.querySelector(".qava-login-trigger");
-    var premiumOpt = menu.querySelector("[data-qava-premium-login]");
+  function wireDropdownToggle(menu, trigger) {
+    if (!trigger) return;
     trigger.addEventListener("click", function (e) {
       e.stopPropagation();
       var open = menu.classList.toggle("is-open");
@@ -460,6 +487,12 @@
         trigger.setAttribute("aria-expanded", "false");
       }
     });
+  }
+
+  function wireLoginMenu(menu) {
+    var trigger = menu.querySelector(".qava-login-trigger");
+    var premiumOpt = menu.querySelector("[data-qava-premium-login]");
+    wireDropdownToggle(menu, trigger);
     premiumOpt.addEventListener("click", function (e) {
       e.preventDefault();
       menu.classList.remove("is-open");
@@ -496,6 +529,12 @@
     var menu = document.getElementById("mobileMenu");
     if (!menu || menu.getAttribute("data-qava-auth-wired") === "1") return;
     menu.setAttribute("data-qava-auth-wired", "1");
+
+    // "How it works" lives only in the footer now — drop the mobile accordion.
+    var mHiwToggle = menu.querySelector(".mobile-dropdown-toggle");
+    if (mHiwToggle && mHiwToggle.parentNode) mHiwToggle.parentNode.removeChild(mHiwToggle);
+    var mHiwContent = menu.querySelector("#mobileDropdown, .mobile-dropdown-content");
+    if (mHiwContent && mHiwContent.parentNode) mHiwContent.parentNode.removeChild(mHiwContent);
 
     var loginItem = findByText(menu.querySelectorAll(".mobile-nav-item"), "Log in");
     if (loginItem) {
@@ -543,6 +582,19 @@
     menu.appendChild(out);
   }
 
+  // The standalone "Premium" link is folded into the Get Started dropdown.
+  function normalizeCenterNav() {
+    Array.prototype.forEach.call(
+      document.querySelectorAll(".header-center .navigation .nav-item"),
+      function (el) {
+        var txt = ((el.querySelector(".nav-text") || el).textContent || "")
+          .trim()
+          .toLowerCase();
+        if (txt === "premium" && el.parentNode) el.parentNode.removeChild(el);
+      }
+    );
+  }
+
   function findByText(nodeList, text) {
     var found = null;
     Array.prototype.forEach.call(nodeList, function (el) {
@@ -557,10 +609,10 @@
     // Desktop
     Array.prototype.forEach.call(document.querySelectorAll(".auth-section"), function (section) {
       var loginMenu = section.querySelector("[data-qava-login-menu]");
-      var join = section.querySelector(".join-button");
+      var getStarted = section.querySelector("[data-qava-getstarted]");
       var profile = section.querySelector("[data-qava-profile]");
       toggle(loginMenu, !signedIn);
-      toggle(join, !signedIn);
+      toggle(getStarted, !signedIn);
       toggle(profile, signedIn);
       if (signedIn && profile) {
         var p = state.profile;
@@ -600,6 +652,7 @@
   }
 
   function boot() {
+    normalizeCenterNav();
     augmentDesktopNav();
     augmentMobileNav();
 

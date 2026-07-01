@@ -34,14 +34,24 @@
   cursor: pointer;
 }
 
-.qava-login-trigger .qava-profile-caret {
+.qava-login-trigger .qava-profile-caret,
+.qava-getstarted-trigger .qava-profile-caret {
   width: 13px;
   height: 13px;
 }
 
-.qava-login.is-open .qava-login-trigger .qava-profile-caret,
-.qava-login:hover .qava-login-trigger .qava-profile-caret {
+.qava-login.is-open .qava-profile-caret,
+.qava-login:hover .qava-profile-caret {
   transform: rotate(180deg);
+}
+
+/* "Get Started" dropdown trigger keeps the page's .join-button styling. */
+.qava-getstarted-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  font: inherit;
 }
 
 .qava-login-dropdown {
