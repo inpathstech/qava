@@ -321,19 +321,14 @@
               const moreBtn = doc.createElement("button");
               moreBtn.type = "button";
               moreBtn.className = "qava-blog-actbtn qava-blog-morebtn";
-              moreBtn.textContent = "More";
+              moreBtn.textContent = "Show more";
               moreBtn.addEventListener("click", () => {
                 const expanded = blogRow.classList.toggle("qava-blog-expanded");
-                moreBtn.textContent = expanded ? "Show less" : "More";
+                moreBtn.textContent = expanded ? "Less" : "Show more";
               });
               blogActions.appendChild(moreBtn);
             }
 
-            const viewAllLink = doc.createElement("a");
-            viewAllLink.className = "qava-blog-actbtn";
-            viewAllLink.href = "https://qava.ai/newsletter";
-            viewAllLink.textContent = "Newsletter";
-            blogActions.appendChild(viewAllLink);
             blogRow.insertAdjacentElement("afterend", blogActions);
 
             blogRow.querySelectorAll(".qava-blog-card").forEach((card) => {
