@@ -324,7 +324,7 @@
               moreBtn.textContent = "Show more";
               moreBtn.addEventListener("click", () => {
                 const expanded = blogRow.classList.toggle("qava-blog-expanded");
-                moreBtn.textContent = expanded ? "Less" : "Show more";
+                moreBtn.textContent = expanded ? "Show less" : "Show more";
               });
               blogActions.appendChild(moreBtn);
             }
