@@ -142,7 +142,7 @@
   function actionMarkup(templateName, formatKey, access, slug) {
     if (canDownload(access)) {
       return (
-        '<a class="story-download-btn" href="' + esc(downloadUrl(templateName, formatKey, slug)) + '" rel="noopener">' +
+        '<a class="story-download-btn" href="' + esc(downloadUrl(templateName, formatKey, slug)) + '" target="_blank" rel="noopener">' +
           DL_SVG + 'Download' +
         '</a>'
       );
