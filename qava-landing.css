@@ -5127,7 +5127,9 @@
         }
 
         .header-container .nav-item:hover .nav-text,
-        .header-container .auth-item:hover .nav-text {
+        .header-container .nav-item.active .nav-text,
+        .header-container .auth-item:hover .nav-text,
+        .header-container .auth-item.active .nav-text {
           color: #000000 !important;
         }
 
