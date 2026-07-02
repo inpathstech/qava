@@ -24,8 +24,8 @@ jobs:
         
     - name: Deploy to S3
       run: |
-        # Copy main page as index.html
-        aws s3 cp complete-page.html s3://qava-ai-bucket/index.html --cache-control "max-age=0,no-cache,no-store,must-revalidate"
+        # Copy main landing page as index.html
+        aws s3 cp index.html s3://qava-ai-bucket/index.html --cache-control "max-age=0,no-cache,no-store,must-revalidate"
         
         # Sync all other files
         aws s3 sync . s3://qava-ai-bucket/ --exclude ".git/*" --exclude ".github/*" --exclude "*.md" --exclude "*.sh" --exclude "*.json" --cache-control "max-age=31536000"
