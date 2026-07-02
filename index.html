@@ -262,27 +262,41 @@
             white-space: nowrap;
         }
 
-        /* Premium nav button (landing) */
+        /* Premium nav button (landing) — styled to match the plain nav links
+           (Templates / Find Work / Find Talent): no background pill, grey text
+           that turns black on hover/active. Same in logged-in (unlocked) state. */
         .qava-premium-nav-btn {
-            padding: 6px 12px;
-            border-radius: 6px;
+            padding: 0;
             border: none;
             background: transparent;
             cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 13px;
-            font-weight: 400;
-            color: #000000;
+            transition: color 0.2s ease;
+            font-family: "Inter", sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            color: #6b6b6b;
             white-space: nowrap;
             display: inline-flex;
             align-items: center;
-            gap: 5px;
-            font-family: inherit;
+            gap: 6px;
             text-decoration: none;
+            line-height: 1.4;
         }
 
-        .qava-premium-nav-btn:hover {
-            background-color: rgba(0, 0, 0, 0.06);
+        .qava-premium-nav-btn .nav-text {
+            color: inherit;
+            font-family: "Inter", sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 1.4;
+        }
+
+        .qava-premium-nav-btn:hover,
+        .qava-premium-nav-btn:hover .nav-text,
+        .qava-premium-nav-btn:focus-visible,
+        .qava-premium-nav-btn:focus-visible .nav-text {
+            color: #000000;
+            background: transparent;
         }
 
         .qava-premium-nav-icon {
@@ -292,6 +306,8 @@
             width: 15px;
             height: 15px;
             flex-shrink: 0;
+            /* Nudge the lock up ~1px so it optically centers with the text */
+            margin-top: -1px;
         }
 
         .qava-premium-nav-icon svg {

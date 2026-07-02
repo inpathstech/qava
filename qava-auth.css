@@ -360,16 +360,29 @@
   font-size: 15px;
   color: #111827;
   padding: 11px 13px;
-  border: 1px solid #d8dade;
+  /* No grey border; keep a transparent 1px border to avoid layout shift on focus.
+     A subtle fill keeps editable fields perceptible without an outline. */
+  border: 1px solid transparent;
   border-radius: 10px;
-  background: #fff;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  background: #f5f6f7;
+  transition: border-color 0.15s ease, background 0.15s ease;
 }
 
 .qava-auth-input:focus {
   outline: none;
+  /* Active state: thin black line only, no glow. */
   border-color: #111827;
-  box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.08);
+  background: #fff;
+  box-shadow: none;
+}
+
+/* Read-only email (subscription modal): plain text, no box or fill. */
+.qava-auth-input:disabled {
+  background: transparent;
+  border-color: transparent;
+  color: #6b7280;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .qava-auth-input.is-otp {
