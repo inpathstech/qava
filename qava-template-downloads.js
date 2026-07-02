@@ -75,10 +75,14 @@
     return String(name).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   }
 
-  function downloadUrl(templateName, formatKey) {
-    var meta = FORMATS[formatKey];
-    if (!meta) return "#";
-    return "/template-files/" + templateSlug(templateName) + "/" + formatKey + "." + meta.ext;
+  // Always route downloads through the gated backend endpoint. It checks the
+  // premium session (cookie sent automatically to api.qava.ai) and 302-redirects
+  // to a short-lived presigned URL — the file location is never exposed here.
+  function downloadUrl(templateName, formatKey, slugOverride) {
+    if (!FORMATS[formatKey]) return "#";
+    var slug = slugOverride || templateSlug(templateName);
+    return API + "/templates/download?slug=" + encodeURIComponent(slug) +
+      "&format=" + encodeURIComponent(formatKey);
   }
 
   function ensurePremiumModal() {
@@ -135,12 +139,12 @@
     return value.split(",").map(function (f) { return f.trim(); }).filter(Boolean);
   }
 
-  function actionMarkup(templateName, formatKey, access) {
+  function actionMarkup(templateName, formatKey, access, slug) {
     if (canDownload(access)) {
       return (
-        '<button type="button" class="story-download-btn" data-template="' + esc(templateName) + '" data-format="' + esc(formatKey) + '" data-download-url="' + esc(downloadUrl(templateName, formatKey)) + '">' +
+        '<a class="story-download-btn" href="' + esc(downloadUrl(templateName, formatKey, slug)) + '" rel="noopener">' +
           DL_SVG + 'Download' +
-        '</button>'
+        '</a>'
       );
     }
 
@@ -151,25 +155,7 @@
     );
   }
 
-  function bindDownloadActions(container, access) {
-    if (!canDownload(access)) return;
-
-    container.querySelectorAll(".story-download-btn[data-download-url]").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        var url = btn.getAttribute("data-download-url");
-        if (!url || url === "#") return;
-        var link = document.createElement("a");
-        link.href = url;
-        link.download = "";
-        link.rel = "noopener";
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-      });
-    });
-  }
-
-  function renderDownloads(container, templateName, formatKeys, access) {
+  function renderDownloads(container, templateName, formatKeys, access, slug) {
     var rows = formatKeys.map(function (key) {
       var meta = FORMATS[key];
       if (!meta) return "";
@@ -179,7 +165,7 @@
             '<img class="story-download-logo" src="' + esc(meta.logo) + '" alt="" loading="lazy" decoding="async">' +
             '<span class="story-download-label">' + esc(meta.label) + '</span>' +
           '</div>' +
-          actionMarkup(templateName, key, access) +
+          actionMarkup(templateName, key, access, slug) +
         '</div>'
       );
     }).join("");
@@ -188,8 +174,6 @@
       '<h2 class="story-downloads-heading">Download this template</h2>' +
       '<p class="story-downloads-note">Available in multiple formats. Downloads are included with a <strong>Premium</strong> membership.</p>' +
       '<div class="story-download-list">' + rows + '</div>';
-
-    bindDownloadActions(container, access);
   }
 
   function init(root) {
@@ -202,8 +186,9 @@
     return resolveAccess().then(function (access) {
       sections.forEach(function (el) {
         var templateName = el.getAttribute("data-template") || "Template";
+        var slug = el.getAttribute("data-slug") || templateSlug(templateName);
         var formats = parseFormats(el.getAttribute("data-formats"), DECK_FORMATS);
-        renderDownloads(el, templateName, formats, access);
+        renderDownloads(el, templateName, formats, access, slug);
         el.classList.toggle("is-unlocked", canDownload(access));
       });
     });
