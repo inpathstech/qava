@@ -61,6 +61,8 @@
   var LOGOUT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>';
   var HANDSHAKE = '<svg class="qava-login-option-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></svg>';
   var STAR_PLUS = '<svg class="qava-login-option-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.013 18.582 6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.12 2.12 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.12 2.12 0 0 0 1.597-1.16l2.309-4.679a.53.53 0 0 1 .95 0l2.31 4.679a2.12 2.12 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904L20 11.5"/><path d="M15 18h6"/><path d="M18 15v6"/></svg>';
+  var LOCK = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
+  var LOCK_OPEN = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>';
 
   /* ---------------- Modals ---------------- */
   var loginOverlay, subOverlay;
@@ -379,6 +381,42 @@
   function openLogin() { openOverlay(buildLoginModal()); }
   function openSubscription() { openOverlay(populateSubModal()); }
 
+  function isLandingNav() {
+    return !!document.querySelector("[data-qava-nav=\"landing\"]");
+  }
+
+  function wirePremiumNavBtn(btn) {
+    if (!btn || btn.getAttribute("data-qava-premium-wired") === "1") return;
+    btn.setAttribute("data-qava-premium-wired", "1");
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      if (state.profile) openSubscription();
+      else openLogin();
+    });
+  }
+
+  function augmentLandingNav() {
+    Array.prototype.forEach.call(
+      document.querySelectorAll("[data-qava-premium-nav]"),
+      wirePremiumNavBtn
+    );
+  }
+
+  function renderLandingNavState(signedIn) {
+    Array.prototype.forEach.call(
+      document.querySelectorAll("[data-qava-premium-nav]"),
+      function (btn) {
+        var iconWrap = btn.querySelector("[data-qava-premium-lock-icon]");
+        if (iconWrap) iconWrap.innerHTML = signedIn ? LOCK_OPEN : LOCK;
+        btn.classList.toggle("is-unlocked", signedIn);
+        btn.setAttribute(
+          "aria-label",
+          signedIn ? "Premium membership" : "Premium"
+        );
+      }
+    );
+  }
+
   /* ---------------- Nav augmentation ---------------- */
   function augmentDesktopNav() {
     var sections = document.querySelectorAll(".auth-section");
@@ -632,6 +670,10 @@
 
   function renderNavState() {
     var signedIn = !!state.profile;
+    if (isLandingNav()) {
+      renderLandingNavState(signedIn);
+      return;
+    }
     // Desktop
     Array.prototype.forEach.call(document.querySelectorAll(".auth-section"), function (section) {
       var loginMenu = section.querySelector("[data-qava-login-menu]");
@@ -678,9 +720,13 @@
   }
 
   function boot() {
-    normalizeCenterNav();
-    augmentDesktopNav();
-    augmentMobileNav();
+    if (!isLandingNav()) normalizeCenterNav();
+    if (isLandingNav()) {
+      augmentLandingNav();
+    } else {
+      augmentDesktopNav();
+      augmentMobileNav();
+    }
 
     // Resolve access (for downloads) and profile (for the nav) together.
     var accessP = apiFetch("/templates/access").catch(function () {
