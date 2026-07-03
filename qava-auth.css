@@ -310,7 +310,7 @@
   width: 30px;
   height: 30px;
   border: 0;
-  background: #f3f4f6;
+  background: transparent;
   border-radius: 8px;
   color: #6b7280;
   font-size: 15px;
@@ -321,7 +321,7 @@
   justify-content: center;
 }
 
-.qava-auth-close:hover { background: #e5e7eb; color: #111827; }
+.qava-auth-close:hover { background: transparent; color: #111827; }
 
 .qava-auth-title {
   font-family: "Libre Caslon Display", "Canela", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
