@@ -93,7 +93,7 @@
             '<input class="qava-auth-input is-otp" type="text" inputmode="numeric" maxlength="6" id="qava-login-otp" autocomplete="one-time-code" placeholder="••••••">' +
           '</div>' +
           '<button type="button" class="qava-auth-btn-primary" data-qava-verify>Verify &amp; sign in</button>' +
-          '<button type="button" class="qava-auth-btn-ghost" data-qava-back>Use a different email</button>' +
+          '<button type="button" class="qava-auth-btn-text" data-qava-back>Use a different email</button>' +
         '</div>' +
       '</div>';
     document.body.appendChild(loginOverlay);
@@ -186,21 +186,30 @@
         '</div>' +
         '<div class="qava-auth-field">' +
           '<label class="qava-auth-label" for="qava-sub-email">Email</label>' +
-          '<input class="qava-auth-input" id="qava-sub-email" type="email" disabled>' +
-          '<p class="qava-auth-hint">Need to change your email? <a href="mailto:hello@qava.ai">Contact support</a>.</p>' +
+          '<input class="qava-auth-input" id="qava-sub-email" type="email" autocomplete="email">' +
+          '<div class="qava-sub-email-actions" data-qava-email-actions hidden>' +
+            '<button type="button" class="qava-auth-btn-text qava-sub-email-send" data-qava-email-send>Send verification code</button>' +
+          '</div>' +
+          '<div class="qava-sub-email-verify" data-qava-email-verify hidden>' +
+            '<label class="qava-auth-label" for="qava-sub-email-otp">Enter the code sent to your new email</label>' +
+            '<input class="qava-auth-input" id="qava-sub-email-otp" type="text" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="6-digit code">' +
+            '<button type="button" class="qava-auth-btn-primary" data-qava-email-confirm>Confirm new email</button>' +
+            '<button type="button" class="qava-auth-btn-text" data-qava-email-cancel>Cancel</button>' +
+          '</div>' +
         '</div>' +
         '<button type="button" class="qava-auth-btn-primary" data-qava-save>Save changes</button>' +
         '<button type="button" class="qava-auth-btn-ghost" data-qava-portal>Update payment method</button>' +
         '<div class="qava-sub-danger">' +
-          '<button type="button" class="qava-sub-cancel-link" data-qava-cancel-start>Cancel membership</button>' +
+          '<div class="qava-sub-actions-row">' +
+            '<button type="button" class="qava-sub-cancel-link" data-qava-cancel-start>Cancel membership</button>' +
+            '<button type="button" class="qava-auth-btn-text qava-sub-logout" data-qava-logout>Log out</button>' +
+          '</div>' +
           '<div class="qava-sub-cancel-confirm" data-qava-cancel-confirm hidden>' +
             '<p class="qava-sub-cancel-note" data-qava-cancel-note>You\'ll keep full Premium Plus access until the end of your billing period — you won\'t be charged again.</p>' +
             '<button type="button" class="qava-auth-btn-danger" data-qava-cancel-confirm-btn>Yes, cancel membership</button>' +
             '<button type="button" class="qava-auth-btn-ghost" data-qava-cancel-keep>Keep my membership</button>' +
           '</div>' +
-        '</div>' +
-        '<button type="button" class="qava-auth-btn-ghost qava-sub-logout" data-qava-logout>Log out</button>' +
-      '</div>';
+        '</div>';
     document.body.appendChild(subOverlay);
     wireSubModal(subOverlay);
     return subOverlay;
@@ -228,6 +237,13 @@
     var msg = overlay.querySelector("[data-qava-msg]");
     var firstInput = overlay.querySelector("#qava-sub-first");
     var lastInput = overlay.querySelector("#qava-sub-last");
+    var emailInput = overlay.querySelector("#qava-sub-email");
+    var emailActions = overlay.querySelector("[data-qava-email-actions]");
+    var emailSendBtn = overlay.querySelector("[data-qava-email-send]");
+    var emailVerify = overlay.querySelector("[data-qava-email-verify]");
+    var emailOtpInput = overlay.querySelector("#qava-sub-email-otp");
+    var emailConfirmBtn = overlay.querySelector("[data-qava-email-confirm]");
+    var emailCancelBtn = overlay.querySelector("[data-qava-email-cancel]");
     var saveBtn = overlay.querySelector("[data-qava-save]");
     var portalBtn = overlay.querySelector("[data-qava-portal]");
     var logoutBtn = overlay.querySelector("[data-qava-logout]");
@@ -244,6 +260,78 @@
       btn.disabled = on;
       if (on) { btn.dataset.label = btn.textContent; btn.textContent = label || "Please wait…"; }
       else if (btn.dataset.label) { btn.textContent = btn.dataset.label; }
+    }
+
+    function currentEmail() {
+      return ((state.profile && state.profile.email) || "").trim().toLowerCase();
+    }
+    function looksLikeEmail(v) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    }
+    function resetEmailUi() {
+      if (emailInput) emailInput.value = (state.profile && state.profile.email) || "";
+      if (emailActions) emailActions.setAttribute("hidden", "");
+      if (emailVerify) emailVerify.setAttribute("hidden", "");
+      if (emailOtpInput) emailOtpInput.value = "";
+    }
+
+    if (emailInput) {
+      emailInput.addEventListener("input", function () {
+        var next = emailInput.value.trim().toLowerCase();
+        var changed = next && next !== currentEmail() && looksLikeEmail(next);
+        // Editing the address again cancels any in-progress verification.
+        if (emailVerify) emailVerify.setAttribute("hidden", "");
+        if (emailActions) {
+          if (changed) emailActions.removeAttribute("hidden");
+          else emailActions.setAttribute("hidden", "");
+        }
+      });
+    }
+
+    if (emailSendBtn) {
+      emailSendBtn.addEventListener("click", function () {
+        setMsg("", "");
+        var newEmail = emailInput.value.trim();
+        busy(emailSendBtn, true, "Sending…");
+        apiFetch("/premium/email/change-request", {
+          method: "POST",
+          body: { newEmail: newEmail },
+        })
+          .then(function () {
+            if (emailActions) emailActions.setAttribute("hidden", "");
+            if (emailVerify) emailVerify.removeAttribute("hidden");
+            if (emailOtpInput) emailOtpInput.focus();
+            setMsg("We sent a code to " + newEmail + ". It expires in 10 minutes.", "info");
+          })
+          .catch(function (err) { setMsg(err.message, "error"); })
+          .then(function () { busy(emailSendBtn, false); });
+      });
+    }
+
+    if (emailConfirmBtn) {
+      emailConfirmBtn.addEventListener("click", function () {
+        setMsg("", "");
+        var code = (emailOtpInput.value || "").trim();
+        busy(emailConfirmBtn, true, "Confirming…");
+        apiFetch("/premium/email/change-verify", {
+          method: "POST",
+          body: { otp: code },
+        })
+          .then(function (data) {
+            if (data && data.profile) { state.profile = data.profile; renderNavState(); }
+            resetEmailUi();
+            setMsg("Your email has been updated.", "success");
+          })
+          .catch(function (err) { setMsg(err.message, "error"); })
+          .then(function () { busy(emailConfirmBtn, false); });
+      });
+    }
+
+    if (emailCancelBtn) {
+      emailCancelBtn.addEventListener("click", function () {
+        setMsg("", "");
+        resetEmailUi();
+      });
     }
 
     saveBtn.addEventListener("click", function () {
@@ -341,6 +429,13 @@
     if (firstInput) firstInput.value = p.firstName || "";
     if (lastInput) lastInput.value = p.lastName || "";
     if (emailInput) emailInput.value = p.email || "";
+    // Reset any transient email-change UI each time the modal opens.
+    var emailActions = overlay.querySelector("[data-qava-email-actions]");
+    var emailVerify = overlay.querySelector("[data-qava-email-verify]");
+    var emailOtpInput = overlay.querySelector("#qava-sub-email-otp");
+    if (emailActions) emailActions.setAttribute("hidden", "");
+    if (emailVerify) emailVerify.setAttribute("hidden", "");
+    if (emailOtpInput) emailOtpInput.value = "";
     // Reset any transient cancel UI each time the modal opens.
     var cancelConfirm = overlay.querySelector("[data-qava-cancel-confirm]");
     var cancelStart = overlay.querySelector("[data-qava-cancel-start]");

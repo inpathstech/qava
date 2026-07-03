@@ -425,6 +425,38 @@
 
 .qava-auth-btn-ghost:hover { background: #f6f7f9; }
 
+/* Borderless text button (e.g. "Use a different email", "Log out") */
+.qava-auth-btn-text {
+  width: 100%;
+  margin-top: 10px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: #6b7280;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 11px 16px;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.qava-auth-btn-text:hover { color: #111827; }
+
+/* Inline email-change flow inside the subscription modal */
+.qava-sub-email-actions { margin-top: 6px; }
+.qava-sub-email-actions .qava-auth-btn-text {
+  width: auto;
+  margin-top: 0;
+  padding: 2px 0;
+  font-size: 13px;
+  text-align: left;
+}
+.qava-sub-email-verify { margin-top: 12px; }
+.qava-sub-email-verify .qava-auth-input { margin-top: 4px; }
+.qava-sub-email-verify .qava-auth-btn-primary { margin-top: 10px; }
+.qava-sub-email-verify .qava-auth-btn-text { margin-top: 6px; }
+
 .qava-auth-msg {
   font-family: "Inter", sans-serif;
   font-size: 13px;
@@ -524,12 +556,27 @@
   padding: 6px 0;
   font-family: "Inter", sans-serif;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 300;
   color: #9096a0;
   cursor: pointer;
   text-align: center;
 }
 .qava-sub-cancel-link:hover { color: #b91c1c; text-decoration: underline; }
+
+/* Cancel membership + Log out share one row, both borderless */
+.qava-sub-actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.qava-sub-actions-row .qava-sub-cancel-link,
+.qava-sub-actions-row .qava-auth-btn-text {
+  width: auto;
+  margin-top: 0;
+  padding: 6px 2px;
+  font-size: 13px;
+}
 
 .qava-sub-cancel-note {
   font-family: "Inter", sans-serif;
