@@ -393,9 +393,10 @@
       display: inline-flex; align-items: center; gap: 6px;
       background: #111827; color: #fff;
       font-family: "Inter", sans-serif;
-      font-size: 11.5px; font-weight: 500; letter-spacing: 0.02em;
-      padding: 5px 11px; border-radius: 999px; margin-bottom: 20px;
+      font-size: 11.5px; font-weight: 500; letter-spacing: 0.02em; line-height: 1;
+      padding: 6px 12px; border-radius: 999px; margin-bottom: 20px;
     }
+    .pm2-badge svg { display: block; flex-shrink: 0; position: relative; top: -0.5px; }
     .pm2-title {
       font-family: var(--display); font-weight: 400;
       font-size: clamp(38px, 4.6vw, 56px); line-height: 1.02;
@@ -414,6 +415,8 @@
       border: 2px solid #fff; margin-left: -8px;
     }
     .pm2-avatars span:first-child { margin-left: 0; }
+    .pm2-avatars span { overflow: hidden; }
+    .pm2-avatars span img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 999px; }
     .pm2-proof-text { font-family: "Inter", sans-serif; font-size: 13.5px; font-weight: 300; color: var(--muted); }
     .pm2-price-block { display: flex; flex-direction: column; gap: 4px; margin-bottom: 16px; }
     .pm2-price { display: flex; align-items: baseline; gap: 6px; }
@@ -1169,7 +1172,9 @@
       font-size: 14px;
       font-weight: 600;
       color: var(--ink);
+      overflow: hidden;
     }
+    .premium-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 50%; }
 
     .premium-tname {
       font-family: "Inter", sans-serif;
@@ -1554,13 +1559,20 @@
    <div class="pm2-top">
     <div class="pm2-left">
       <span class="pm2-badge">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
         Premium Plus
       </span>
       <h1 class="pm2-title">Go further, faster.</h1>
       <p class="pm2-sub">Exclusive opportunities, tools and resources.</p>
       <div class="pm2-proof" id="premium-proof">
-        <div class="pm2-avatars"><span>MC</span><span>DO</span><span>PS</span><span>+</span></div>
+        <div class="pm2-avatars">
+          <span><img src="../member-photos/3.png" alt=""></span>
+          <span><img src="../member-photos/2.png" alt=""></span>
+          <span><img src="../member-photos/6.png" alt=""></span>
+          <span><img src="../member-photos/5.png" alt=""></span>
+          <span><img src="../member-photos/7.png" alt=""></span>
+          <span><img src="../member-photos/8.png" alt=""></span>
+        </div>
         <span class="pm2-proof-text">Join 6,000+ members</span>
       </div>
       <div class="pm2-price-block" style="display:none;">
@@ -1701,7 +1713,7 @@
      <div class="premium-featured-quote">
        <p class="premium-featured-text">It's like Reddit, Notion and Wharton merged.</p>
        <div class="premium-featured-person">
-         <span class="premium-avatar">MC</span>
+         <span class="premium-avatar"><img src="../member-photos/4.png" alt="Maya Chen"></span>
          <div style="text-align: left;">
            <div class="premium-tname">Maya Chen</div>
            <div class="premium-trole">Founder · Premium Plus</div>
