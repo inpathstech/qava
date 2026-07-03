@@ -5111,6 +5111,13 @@
           line-height: 1.4 !important;
         }
 
+        /* Keep nav-link spacing consistent at every desktop width
+           (overrides per-page inline media-query gaps). Mobile menu
+           takes over below the navbar's collapse breakpoint. */
+        .header-container .navigation {
+          gap: 8px !important;
+        }
+
         .header-container .auth-item .nav-text {
           font-family: "Inter", sans-serif !important;
           font-size: 14px !important;
