@@ -1734,7 +1734,7 @@
                 var cardAttr = isLink ? ' data-link="' + esc(t.link) + '"' : ' data-template="' + esc(t.title) + '"';
                 var hasThumb = !!t.image;
                 var thumb = hasThumb ? '<div class="qava-tpl-thumb" style="background-image:url(\'' + esc(t.image) + '\')"></div>' : '';
-                var badge = isLink ? '' : '<span class="qava-template-badge">' + lockSvg + 'Premium</span>';
+                var badge = '<span class="qava-template-badge">' + lockSvg + 'Premium</span>';
                 // Members get a real Download (opening the template's page to pick a
                 // format); everyone else gets a lock + Join Premium that opens the gate.
                 var action;
