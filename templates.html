@@ -1222,12 +1222,20 @@
         .qava-field textarea:focus {
             outline: none;
             border-color: #111827;
-            box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.1);
+            box-shadow: none;
         }
 
         .qava-modal-submit {
             width: 100%;
             margin-top: 4px;
+        }
+
+        .qava-modal.is-success-wide {
+            max-width: 560px;
+        }
+
+        .qava-modal.is-success-wide .qava-modal-success .qava-modal-sub {
+            white-space: nowrap;
         }
 
         .qava-modal-success {
@@ -1564,7 +1572,7 @@
         <div class="qava-modal" role="dialog" aria-modal="true" aria-labelledby="qava-request-title">
             <button type="button" class="qava-modal-close" data-qava-close aria-label="Close">✕</button>
             <h3 class="qava-modal-title" id="qava-request-title">Request a template</h3>
-            <p class="qava-modal-sub">Tell us what you need and we'll build it. We'll email you when it lands in the library.</p>
+            <p class="qava-modal-sub" id="qava-request-sub">Tell us what you need, and we'll build it.<br>We'll email you when it lands in the library.</p>
             <form class="qava-modal-form" id="qava-request-form" novalidate>
                 <div class="qava-field-row">
                     <label class="qava-field">
@@ -1976,10 +1984,59 @@
                         form.reportValidity();
                         return;
                     }
-                    var success = document.getElementById("qava-request-success");
-                    form.hidden = true;
-                    if (success) success.hidden = false;
-                    form.reset();
+
+                    var submitBtn = form.querySelector(".qava-modal-submit");
+                    var payload = {
+                        firstName: (form.elements.firstName.value || "").trim(),
+                        lastName: (form.elements.lastName.value || "").trim(),
+                        email: (form.elements.email.value || "").trim(),
+                        request: (form.elements.request.value || "").trim(),
+                        source: "templates-page"
+                    };
+
+                    function showSuccess() {
+                        var success = document.getElementById("qava-request-success");
+                        var title = document.getElementById("qava-request-title");
+                        var sub = document.getElementById("qava-request-sub");
+                        var modalBox = form.closest(".qava-modal");
+                        form.hidden = true;
+                        if (title) title.hidden = true;
+                        if (sub) sub.hidden = true;
+                        if (modalBox) modalBox.classList.add("is-success-wide");
+                        if (success) success.hidden = false;
+                        form.reset();
+                    }
+
+                    if (submitBtn) {
+                        submitBtn.disabled = true;
+                        submitBtn.textContent = "Sending…";
+                    }
+
+                    fetch("https://api.qava.ai/api/template-requests", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(payload)
+                    })
+                        .then(function (res) {
+                            if (!res.ok) throw new Error("Request failed");
+                            return res.json();
+                        })
+                        .then(function () {
+                            showSuccess();
+                        })
+                        .catch(function () {
+                            if (submitBtn) {
+                                submitBtn.disabled = false;
+                                submitBtn.textContent = "Send request";
+                            }
+                            alert("Sorry, something went wrong sending your request. Please try again.");
+                        })
+                        .finally(function () {
+                            if (submitBtn) {
+                                submitBtn.disabled = false;
+                                submitBtn.textContent = "Send request";
+                            }
+                        });
                 });
             }
 
@@ -1988,7 +2045,13 @@
             if (reqModal && reqOpen) {
                 reqOpen.addEventListener("click", function () {
                     var success = document.getElementById("qava-request-success");
+                    var title = document.getElementById("qava-request-title");
+                    var sub = document.getElementById("qava-request-sub");
+                    var modalBox = reqModal.querySelector(".qava-modal");
                     if (form) form.hidden = false;
+                    if (title) title.hidden = false;
+                    if (sub) sub.hidden = false;
+                    if (modalBox) modalBox.classList.remove("is-success-wide");
                     if (success) success.hidden = true;
                 });
             }
