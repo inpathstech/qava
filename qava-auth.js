@@ -170,45 +170,73 @@
     subOverlay.innerHTML =
       '<div class="qava-auth-modal" role="dialog" aria-modal="true" aria-labelledby="qava-sub-title">' +
         '<button type="button" class="qava-auth-close" data-qava-close aria-label="Close">✕</button>' +
-        '<h2 class="qava-auth-title" id="qava-sub-title">Your subscription</h2>' +
-        '<p class="qava-auth-sub">Manage your Premium Plus membership.</p>' +
         '<div class="qava-auth-msg" data-qava-msg></div>' +
-        '<div class="qava-sub-status" data-qava-status></div>' +
-        '<div class="qava-auth-field-row">' +
-          '<div class="qava-auth-field">' +
-            '<label class="qava-auth-label" for="qava-sub-first">First name</label>' +
-            '<input class="qava-auth-input" id="qava-sub-first" type="text" autocomplete="given-name" placeholder="First name">' +
+
+        // ---------- Manage view ----------
+        '<div data-qava-view-manage>' +
+          '<h2 class="qava-auth-title" id="qava-sub-title">Your subscription</h2>' +
+          '<p class="qava-auth-sub">Manage your Premium Plus membership.</p>' +
+          '<div class="qava-auth-field-row">' +
+            '<div class="qava-auth-field">' +
+              '<label class="qava-auth-label" for="qava-sub-first">First name</label>' +
+              '<input class="qava-auth-input" id="qava-sub-first" type="text" autocomplete="given-name" placeholder="First name">' +
+            '</div>' +
+            '<div class="qava-auth-field">' +
+              '<label class="qava-auth-label" for="qava-sub-last">Last name</label>' +
+              '<input class="qava-auth-input" id="qava-sub-last" type="text" autocomplete="family-name" placeholder="Last name">' +
+            '</div>' +
           '</div>' +
-          '<div class="qava-auth-field">' +
-            '<label class="qava-auth-label" for="qava-sub-last">Last name</label>' +
-            '<input class="qava-auth-input" id="qava-sub-last" type="text" autocomplete="family-name" placeholder="Last name">' +
+          // Email — read-only verified state
+          '<div class="qava-auth-field" data-qava-email-static>' +
+            '<div class="qava-sub-label-row">' +
+              '<label class="qava-auth-label">Email</label>' +
+              '<button type="button" class="qava-sub-change" data-qava-email-change>Change</button>' +
+            '</div>' +
+            '<div class="qava-sub-email-static">' +
+              '<span data-qava-email-value></span>' +
+              '<span class="qava-sub-verified"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Verified</span>' +
+            '</div>' +
+          '</div>' +
+          // Email — editing state
+          '<div class="qava-auth-field" data-qava-email-edit hidden>' +
+            '<div class="qava-sub-label-row">' +
+              '<label class="qava-auth-label" for="qava-sub-email">New email</label>' +
+              '<button type="button" class="qava-sub-change" data-qava-email-cancel-edit>Cancel</button>' +
+            '</div>' +
+            '<input class="qava-auth-input" id="qava-sub-email" type="email" autocomplete="email" placeholder="you@email.com">' +
+            '<p class="qava-sub-hint">For your security, we\'ll email a 6-digit code to confirm this address before it\'s saved.</p>' +
+          '</div>' +
+          '<button type="button" class="qava-auth-btn-primary" data-qava-save>Save changes</button>' +
+          '<button type="button" class="qava-auth-btn-primary" data-qava-email-verify-start style="display:none;">Verify &amp; save new email</button>' +
+          '<button type="button" class="qava-auth-btn-ghost" data-qava-portal>Update payment method</button>' +
+          '<div class="qava-sub-danger">' +
+            '<div class="qava-sub-actions-row">' +
+              '<button type="button" class="qava-auth-btn-text qava-sub-logout" data-qava-logout>Log out</button>' +
+              '<button type="button" class="qava-sub-cancel-link" data-qava-cancel-start>Cancel membership</button>' +
+            '</div>' +
+            '<div class="qava-sub-cancel-confirm" data-qava-cancel-confirm hidden>' +
+              '<p class="qava-sub-cancel-note" data-qava-cancel-note>You\'ll keep full Premium Plus access until the end of your billing period — you won\'t be charged again.</p>' +
+              '<button type="button" class="qava-auth-btn-danger" data-qava-cancel-confirm-btn>Yes, cancel membership</button>' +
+              '<button type="button" class="qava-auth-btn-ghost" data-qava-cancel-keep>Keep my membership</button>' +
+            '</div>' +
           '</div>' +
         '</div>' +
-        '<div class="qava-auth-field">' +
-          '<label class="qava-auth-label" for="qava-sub-email">Email</label>' +
-          '<input class="qava-auth-input" id="qava-sub-email" type="email" autocomplete="email">' +
-          '<div class="qava-sub-email-actions" data-qava-email-actions hidden>' +
-            '<button type="button" class="qava-auth-btn-text qava-sub-email-send" data-qava-email-send>Send verification code</button>' +
+
+        // ---------- Verify (OTP) view ----------
+        '<div data-qava-view-verify hidden>' +
+          '<button type="button" class="qava-sub-back" data-qava-verify-back><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>Back</button>' +
+          '<h2 class="qava-auth-title">Verify your new email</h2>' +
+          '<p class="qava-auth-sub">Enter the 6-digit code we sent to <strong data-qava-verify-target style="color:#111827;font-weight:500;"></strong>.</p>' +
+          '<div class="qava-sub-otp-wrap" data-qava-otp-wrap>' +
+            '<input class="qava-sub-otp-box" maxlength="1" inputmode="numeric" autocomplete="one-time-code">' +
+            '<input class="qava-sub-otp-box" maxlength="1" inputmode="numeric">' +
+            '<input class="qava-sub-otp-box" maxlength="1" inputmode="numeric">' +
+            '<input class="qava-sub-otp-box" maxlength="1" inputmode="numeric">' +
+            '<input class="qava-sub-otp-box" maxlength="1" inputmode="numeric">' +
+            '<input class="qava-sub-otp-box" maxlength="1" inputmode="numeric">' +
           '</div>' +
-          '<div class="qava-sub-email-verify" data-qava-email-verify hidden>' +
-            '<label class="qava-auth-label" for="qava-sub-email-otp">Enter the code sent to your new email</label>' +
-            '<input class="qava-auth-input" id="qava-sub-email-otp" type="text" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="6-digit code">' +
-            '<button type="button" class="qava-auth-btn-primary" data-qava-email-confirm>Confirm new email</button>' +
-            '<button type="button" class="qava-auth-btn-text" data-qava-email-cancel>Cancel</button>' +
-          '</div>' +
-        '</div>' +
-        '<button type="button" class="qava-auth-btn-primary" data-qava-save>Save changes</button>' +
-        '<button type="button" class="qava-auth-btn-ghost" data-qava-portal>Update payment method</button>' +
-        '<div class="qava-sub-danger">' +
-          '<div class="qava-sub-actions-row">' +
-            '<button type="button" class="qava-sub-cancel-link" data-qava-cancel-start>Cancel membership</button>' +
-            '<button type="button" class="qava-auth-btn-text qava-sub-logout" data-qava-logout>Log out</button>' +
-          '</div>' +
-          '<div class="qava-sub-cancel-confirm" data-qava-cancel-confirm hidden>' +
-            '<p class="qava-sub-cancel-note" data-qava-cancel-note>You\'ll keep full Premium Plus access until the end of your billing period — you won\'t be charged again.</p>' +
-            '<button type="button" class="qava-auth-btn-danger" data-qava-cancel-confirm-btn>Yes, cancel membership</button>' +
-            '<button type="button" class="qava-auth-btn-ghost" data-qava-cancel-keep>Keep my membership</button>' +
-          '</div>' +
+          '<button type="button" class="qava-auth-btn-primary" data-qava-otp-confirm disabled>Confirm email</button>' +
+          '<div class="qava-sub-resend">Didn\'t get it? <button type="button" class="qava-auth-btn-text" data-qava-otp-resend>Resend code</button></div>' +
         '</div>';
     document.body.appendChild(subOverlay);
     wireSubModal(subOverlay);
@@ -238,12 +266,12 @@
     var firstInput = overlay.querySelector("#qava-sub-first");
     var lastInput = overlay.querySelector("#qava-sub-last");
     var emailInput = overlay.querySelector("#qava-sub-email");
-    var emailActions = overlay.querySelector("[data-qava-email-actions]");
-    var emailSendBtn = overlay.querySelector("[data-qava-email-send]");
-    var emailVerify = overlay.querySelector("[data-qava-email-verify]");
-    var emailOtpInput = overlay.querySelector("#qava-sub-email-otp");
-    var emailConfirmBtn = overlay.querySelector("[data-qava-email-confirm]");
-    var emailCancelBtn = overlay.querySelector("[data-qava-email-cancel]");
+    var emailStatic = overlay.querySelector("[data-qava-email-static]");
+    var emailEdit = overlay.querySelector("[data-qava-email-edit]");
+    var emailValue = overlay.querySelector("[data-qava-email-value]");
+    var changeBtn = overlay.querySelector("[data-qava-email-change]");
+    var cancelEditBtn = overlay.querySelector("[data-qava-email-cancel-edit]");
+    var verifyStartBtn = overlay.querySelector("[data-qava-email-verify-start]");
     var saveBtn = overlay.querySelector("[data-qava-save]");
     var portalBtn = overlay.querySelector("[data-qava-portal]");
     var logoutBtn = overlay.querySelector("[data-qava-logout]");
@@ -251,6 +279,14 @@
     var cancelConfirm = overlay.querySelector("[data-qava-cancel-confirm]");
     var cancelKeep = overlay.querySelector("[data-qava-cancel-keep]");
     var cancelBtn = overlay.querySelector("[data-qava-cancel-confirm-btn]");
+    var viewManage = overlay.querySelector("[data-qava-view-manage]");
+    var viewVerify = overlay.querySelector("[data-qava-view-verify]");
+    var verifyBack = overlay.querySelector("[data-qava-verify-back]");
+    var verifyTarget = overlay.querySelector("[data-qava-verify-target]");
+    var otpBoxes = overlay.querySelectorAll("[data-qava-otp-wrap] .qava-sub-otp-box");
+    var otpConfirm = overlay.querySelector("[data-qava-otp-confirm]");
+    var otpResend = overlay.querySelector("[data-qava-otp-resend]");
+    var pendingNewEmail = "";
 
     function setMsg(text, kind) {
       msg.className = "qava-auth-msg" + (text ? " is-" + kind : "");
@@ -268,69 +304,138 @@
     function looksLikeEmail(v) {
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
     }
-    function resetEmailUi() {
-      if (emailInput) emailInput.value = (state.profile && state.profile.email) || "";
-      if (emailActions) emailActions.setAttribute("hidden", "");
-      if (emailVerify) emailVerify.setAttribute("hidden", "");
-      if (emailOtpInput) emailOtpInput.value = "";
+
+    // ---- View switching ----
+    function showManageView() {
+      if (viewVerify) viewVerify.setAttribute("hidden", "");
+      if (viewManage) viewManage.removeAttribute("hidden");
     }
+    function showVerifyView() {
+      if (viewManage) viewManage.setAttribute("hidden", "");
+      if (viewVerify) viewVerify.removeAttribute("hidden");
+      resetOtp();
+      if (otpBoxes[0]) otpBoxes[0].focus();
+    }
+
+    // ---- Email edit mode (manage view) ----
+    function enterEmailEdit() {
+      if (emailStatic) emailStatic.setAttribute("hidden", "");
+      if (emailEdit) emailEdit.removeAttribute("hidden");
+      if (saveBtn) saveBtn.style.display = "none";
+      if (verifyStartBtn) { verifyStartBtn.style.display = "block"; verifyStartBtn.disabled = true; }
+      if (emailInput) { emailInput.value = ""; emailInput.focus(); }
+      setMsg("", "");
+    }
+    function exitEmailEdit() {
+      if (emailEdit) emailEdit.setAttribute("hidden", "");
+      if (emailStatic) emailStatic.removeAttribute("hidden");
+      if (saveBtn) saveBtn.style.display = "block";
+      if (verifyStartBtn) verifyStartBtn.style.display = "none";
+      if (emailInput) emailInput.value = "";
+    }
+    // Expose for populateSubModal reset.
+    overlay.__qavaResetEmail = function () { exitEmailEdit(); showManageView(); };
+
+    // ---- OTP helpers ----
+    function otpValue() {
+      var s = "";
+      otpBoxes.forEach(function (b) { s += b.value; });
+      return s;
+    }
+    function resetOtp() {
+      otpBoxes.forEach(function (b) { b.value = ""; });
+      if (otpConfirm) otpConfirm.disabled = true;
+    }
+
+    if (changeBtn) changeBtn.addEventListener("click", enterEmailEdit);
+    if (cancelEditBtn) cancelEditBtn.addEventListener("click", function () { exitEmailEdit(); setMsg("", ""); });
 
     if (emailInput) {
       emailInput.addEventListener("input", function () {
         var next = emailInput.value.trim().toLowerCase();
-        var changed = next && next !== currentEmail() && looksLikeEmail(next);
-        // Editing the address again cancels any in-progress verification.
-        if (emailVerify) emailVerify.setAttribute("hidden", "");
-        if (emailActions) {
-          if (changed) emailActions.removeAttribute("hidden");
-          else emailActions.setAttribute("hidden", "");
-        }
+        var ok = next && next !== currentEmail() && looksLikeEmail(next);
+        if (verifyStartBtn) verifyStartBtn.disabled = !ok;
+      });
+      emailInput.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" && verifyStartBtn && !verifyStartBtn.disabled) verifyStartBtn.click();
       });
     }
 
-    if (emailSendBtn) {
-      emailSendBtn.addEventListener("click", function () {
-        setMsg("", "");
-        var newEmail = emailInput.value.trim();
-        busy(emailSendBtn, true, "Sending…");
-        apiFetch("/premium/email/change-request", {
-          method: "POST",
-          body: { newEmail: newEmail },
+    function requestCode(newEmail, btn, doneLabel) {
+      setMsg("", "");
+      busy(btn, true, "Sending…");
+      return apiFetch("/premium/email/change-request", {
+        method: "POST",
+        body: { newEmail: newEmail },
+      })
+        .then(function () {
+          pendingNewEmail = newEmail;
+          setMsg(doneLabel || ("We sent a code to " + newEmail + ". It expires in 10 minutes."), "info");
         })
-          .then(function () {
-            if (emailActions) emailActions.setAttribute("hidden", "");
-            if (emailVerify) emailVerify.removeAttribute("hidden");
-            if (emailOtpInput) emailOtpInput.focus();
-            setMsg("We sent a code to " + newEmail + ". It expires in 10 minutes.", "info");
-          })
-          .catch(function (err) { setMsg(err.message, "error"); })
-          .then(function () { busy(emailSendBtn, false); });
+        .catch(function (err) { setMsg(err.message, "error"); throw err; })
+        .then(function () { busy(btn, false); });
+    }
+
+    if (verifyStartBtn) {
+      verifyStartBtn.addEventListener("click", function () {
+        var newEmail = emailInput.value.trim();
+        requestCode(newEmail, verifyStartBtn).then(function () {
+          if (verifyTarget) verifyTarget.textContent = newEmail;
+          showVerifyView();
+        }).catch(function () {});
       });
     }
 
-    if (emailConfirmBtn) {
-      emailConfirmBtn.addEventListener("click", function () {
+    if (verifyBack) {
+      verifyBack.addEventListener("click", function () { setMsg("", ""); showManageView(); });
+    }
+
+    otpBoxes.forEach(function (box, i) {
+      box.addEventListener("input", function () {
+        box.value = box.value.replace(/\D/g, "");
+        if (box.value && i < otpBoxes.length - 1) otpBoxes[i + 1].focus();
+        if (otpConfirm) otpConfirm.disabled = otpValue().length !== otpBoxes.length;
+      });
+      box.addEventListener("keydown", function (e) {
+        if (e.key === "Backspace" && !box.value && i > 0) otpBoxes[i - 1].focus();
+        if (e.key === "Enter" && otpConfirm && !otpConfirm.disabled) otpConfirm.click();
+      });
+      box.addEventListener("paste", function (e) {
+        var text = (e.clipboardData || window.clipboardData).getData("text").replace(/\D/g, "");
+        if (!text) return;
+        e.preventDefault();
+        otpBoxes.forEach(function (b, idx) { b.value = text[idx] || ""; });
+        var last = Math.min(text.length, otpBoxes.length) - 1;
+        if (last >= 0 && otpBoxes[last]) otpBoxes[last].focus();
+        if (otpConfirm) otpConfirm.disabled = otpValue().length !== otpBoxes.length;
+      });
+    });
+
+    if (otpConfirm) {
+      otpConfirm.addEventListener("click", function () {
         setMsg("", "");
-        var code = (emailOtpInput.value || "").trim();
-        busy(emailConfirmBtn, true, "Confirming…");
+        var code = otpValue();
+        busy(otpConfirm, true, "Confirming…");
         apiFetch("/premium/email/change-verify", {
           method: "POST",
           body: { otp: code },
         })
           .then(function (data) {
             if (data && data.profile) { state.profile = data.profile; renderNavState(); }
-            resetEmailUi();
-            setMsg("Your email has been updated.", "success");
+            if (emailValue) emailValue.textContent = (state.profile && state.profile.email) || pendingNewEmail;
+            exitEmailEdit();
+            showManageView();
+            setMsg("Your email was verified and updated.", "success");
           })
           .catch(function (err) { setMsg(err.message, "error"); })
-          .then(function () { busy(emailConfirmBtn, false); });
+          .then(function () { busy(otpConfirm, false); });
       });
     }
 
-    if (emailCancelBtn) {
-      emailCancelBtn.addEventListener("click", function () {
-        setMsg("", "");
-        resetEmailUi();
+    if (otpResend) {
+      otpResend.addEventListener("click", function () {
+        if (!pendingNewEmail) return;
+        requestCode(pendingNewEmail, otpResend, "We sent a new code to " + pendingNewEmail + ".").catch(function () {});
       });
     }
 
@@ -425,17 +530,12 @@
     var p = state.profile || {};
     var firstInput = overlay.querySelector("#qava-sub-first");
     var lastInput = overlay.querySelector("#qava-sub-last");
-    var emailInput = overlay.querySelector("#qava-sub-email");
+    var emailValue = overlay.querySelector("[data-qava-email-value]");
     if (firstInput) firstInput.value = p.firstName || "";
     if (lastInput) lastInput.value = p.lastName || "";
-    if (emailInput) emailInput.value = p.email || "";
-    // Reset any transient email-change UI each time the modal opens.
-    var emailActions = overlay.querySelector("[data-qava-email-actions]");
-    var emailVerify = overlay.querySelector("[data-qava-email-verify]");
-    var emailOtpInput = overlay.querySelector("#qava-sub-email-otp");
-    if (emailActions) emailActions.setAttribute("hidden", "");
-    if (emailVerify) emailVerify.setAttribute("hidden", "");
-    if (emailOtpInput) emailOtpInput.value = "";
+    if (emailValue) emailValue.textContent = p.email || "";
+    // Reset the email-change UI (edit mode + OTP view) each time the modal opens.
+    if (typeof overlay.__qavaResetEmail === "function") overlay.__qavaResetEmail();
     // Reset any transient cancel UI each time the modal opens.
     var cancelConfirm = overlay.querySelector("[data-qava-cancel-confirm]");
     var cancelStart = overlay.querySelector("[data-qava-cancel-start]");
@@ -446,7 +546,6 @@
       if (p.status === "canceled") cancelStart.setAttribute("hidden", "");
       else cancelStart.removeAttribute("hidden");
     }
-    renderSubStatus(overlay);
     return overlay;
   }
 

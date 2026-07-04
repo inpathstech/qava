@@ -609,3 +609,132 @@
   .qava-profile-menu { min-width: 220px; }
   .qava-auth-field-row { flex-direction: column; gap: 0; }
 }
+
+/* ============================================================
+   Redesigned subscription modal (scoped to #qava-subscription)
+   Matches the qava.ai/premium signup form: white fields, thin
+   14px text, visible light border, 7px radii, tighter corners.
+   ============================================================ */
+#qava-subscription .qava-auth-modal { border-radius: 10px; }
+#qava-subscription .qava-auth-input {
+  height: 44px;
+  padding: 0 12px;
+  font-size: 14px;
+  font-weight: 300;
+  background: #fff;
+  border: 1px solid rgba(17, 24, 39, 0.16);
+  border-radius: 7px;
+}
+#qava-subscription .qava-auth-input:focus { border-color: #111827; background: #fff; }
+#qava-subscription .qava-auth-btn-primary,
+#qava-subscription .qava-auth-btn-ghost,
+#qava-subscription .qava-auth-btn-danger { border-radius: 7px; }
+
+/* Email label row: label on the left, Change/Cancel link on the right */
+.qava-sub-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 6px;
+}
+.qava-sub-change {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: #6b7280;
+  transition: color 0.15s ease;
+}
+.qava-sub-change:hover { color: #111827; }
+
+/* Read-only verified email presentation */
+.qava-sub-email-static {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 12px;
+  background: #fff;
+  border: 1px solid rgba(17, 24, 39, 0.16);
+  border-radius: 7px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: #111827;
+}
+.qava-sub-verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 500;
+  color: #047857;
+  white-space: nowrap;
+}
+.qava-sub-hint {
+  font-family: "Inter", sans-serif;
+  font-size: 12.5px;
+  font-weight: 300;
+  line-height: 1.45;
+  color: #6b7280;
+  margin: 6px 2px 0;
+}
+
+/* OTP verify view */
+.qava-sub-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  color: #6b7280;
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 14px;
+  transition: color 0.15s ease;
+}
+.qava-sub-back:hover { color: #111827; }
+.qava-sub-otp-wrap {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  margin: 6px 0 4px;
+}
+.qava-sub-otp-box {
+  width: 100%;
+  aspect-ratio: 1 / 1.1;
+  box-sizing: border-box;
+  padding: 0;
+  text-align: center;
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #111827;
+  border: 1px solid #e3e5e9;
+  border-radius: 8px;
+  background: #fff;
+}
+.qava-sub-otp-box:focus { outline: none; border-color: #111827; }
+#qava-subscription .qava-auth-btn-primary[data-qava-otp-confirm] { margin-top: 4px; }
+.qava-sub-resend {
+  text-align: center;
+  margin-top: 14px;
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: #6b7280;
+}
+.qava-sub-resend .qava-auth-btn-text {
+  display: inline;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  font-weight: 500;
+}
