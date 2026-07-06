@@ -169,6 +169,56 @@
       white-space: nowrap;
     }
 
+    .qava-premium-nav-btn {
+      padding: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transition: color 0.2s ease;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: #6b6b6b;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      line-height: 1.4;
+    }
+
+    .qava-premium-nav-btn .nav-text {
+      color: inherit;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.4;
+    }
+
+    .qava-premium-nav-btn:hover,
+    .qava-premium-nav-btn:hover .nav-text,
+    .qava-premium-nav-btn:focus-visible,
+    .qava-premium-nav-btn:focus-visible .nav-text {
+      color: #000000;
+      background: transparent;
+    }
+
+    .qava-premium-nav-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      margin-top: -1px;
+    }
+
+    .qava-premium-nav-icon svg {
+      width: 15px;
+      height: 15px;
+      display: block;
+    }
+
     .header-container .logo img,
     .qava-nav-logo-face {
       width: 40px;
@@ -980,28 +1030,23 @@
     </div>
     <div class="header-center">
       <nav class="navigation">
-        <a href="https://app.qava.ai/guest" class="nav-item create-listing">
-          <div class="nav-text">Create listing</div>
+        <a href="https://qava.ai/templates" class="nav-item templates">
+          <div class="nav-text">Templates</div>
         </a>
         <a href="https://app.qava.ai/projects" class="nav-item search-listings">
-          <div class="nav-text">Find work</div>
+          <div class="nav-text">Find Work</div>
         </a>
-        <a href="https://qava.ai/newsletter" class="nav-item newsletter">
-          <div class="nav-text">Newsletter</div>
-        </a>
-        <a href="https://qava.ai/premium" class="nav-item premium">
-          <div class="nav-text">Premium</div>
+        <a href="https://app.qava.ai/guest" class="nav-item create-listing">
+          <div class="nav-text">Find Talent</div>
         </a>
       </nav>
     </div>
     <div class="header-right">
       <div class="auth-section">
-        <a href="https://qava.ai/howitworks" class="auth-item">
-          <div class="nav-text">How it works</div>
-        </a>
-        <a href="https://app.qava.ai/" class="auth-item">
-          <div class="nav-text">Log in</div>
-        </a>
+        <button type="button" class="qava-premium-nav-btn" data-qava-premium-nav aria-label="Premium">
+          <span class="qava-premium-nav-icon" data-qava-premium-lock-icon aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+          <span class="nav-text">Premium</span>
+        </button>
         <a href="https://app.qava.ai/" class="join-button">
           <div class="join-text">Get Started</div>
         </a>
