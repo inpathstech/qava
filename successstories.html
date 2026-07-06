@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Qava</title>
     <link rel="icon" type="image/svg+xml" href="qava-logo.svg">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         * {
@@ -4872,10 +4873,192 @@
             color: #3a3a3a;
         }
 
+        /* ===== Latest site chrome: dotted background, glass navbar, footer ===== */
+        :root {
+            --display: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+            --ink: #111827;
+            --muted: #6B6B6B;
+        }
+
+        html, body { background: #ffffff; }
+        body { position: relative; min-height: 100vh; }
+
+        #qava-dot-base-fixed {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background-image: radial-gradient(circle, rgba(17, 24, 39, 0.16) 1px, transparent 1.35px);
+            background-size: 20px 20px;
+            background-repeat: repeat;
+        }
+
+        body > *:not(#qava-dot-base-fixed):not(.header-container):not(.mobile-menu) {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Make page sections transparent so the dotted base shows through */
+        .hero-section { background: transparent !important; }
+        .in-focus-wrapper { background: transparent !important; }
+
+        /* Glass sticky navbar (latest) */
+        .header-container {
+            width: calc(100% - 22px) !important;
+            margin: 0 auto !important;
+            padding: 8px 20px !important;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 64px;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+            z-index: 1200;
+            background: rgba(255, 255, 255, 0.24);
+            -webkit-backdrop-filter: blur(18px) saturate(150%);
+            backdrop-filter: blur(18px) saturate(150%);
+            border: 0;
+            box-shadow: none;
+            isolation: isolate;
+            overflow: visible;
+        }
+
+        .header-container::before {
+            content: "";
+            position: absolute;
+            left: 6px;
+            right: 6px;
+            top: 3px;
+            bottom: 3px;
+            border-radius: 12px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.44) 100%);
+            -webkit-backdrop-filter: blur(26px) saturate(165%);
+            backdrop-filter: blur(26px) saturate(165%);
+            box-shadow: 0 10px 24px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .header-container > * { position: relative; z-index: 1; }
+        .header-container .logo { background: transparent; padding: 0; border: none; box-shadow: none; }
+
+        .header-container .nav-item,
+        .header-container .auth-item {
+            background: transparent;
+            border: 0;
+            box-shadow: none;
+            border-radius: 0;
+            padding: 0;
+            height: auto;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .header-container .nav-item .nav-text,
+        .header-container .auth-item .nav-text {
+            font-family: "Inter", sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            color: #6b6b6b;
+            line-height: 1.4;
+            transition: color 0.2s ease;
+            padding: 0 4px;
+            white-space: nowrap;
+            background: none;
+        }
+
+        .header-container .nav-item:hover .nav-text,
+        .header-container .auth-item:hover .nav-text,
+        .header-container .nav-item.active .nav-text {
+            color: #000000;
+            background: none;
+        }
+
+        .header-container .auth-section { display: flex; align-items: center; gap: 28px; }
+
+        .header-container .join-button {
+            padding: 6px 12px;
+            background: #2b2b2b;
+            border: 1px solid #2b2b2b;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background-color 0.18s ease, border-color 0.18s ease;
+            box-shadow: none;
+        }
+
+        .header-container .join-button:hover {
+            background: #000000;
+            border-color: #000000;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .header-container .join-text {
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .header-container .logo img,
+        .qava-nav-logo-face {
+            width: 40px;
+            height: 40px;
+            display: block;
+            border-radius: 11px;
+            box-shadow: none;
+            border: none;
+        }
+
+        .qava-nav-logo-flip { width: 40px; height: 40px; perspective: 700px; }
+
+        .qava-nav-logo-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
+        }
+
+        .qava-nav-logo-inner.is-flipped { transform: rotateY(180deg); }
+
+        .qava-nav-logo-face {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        .qava-nav-logo-front { object-fit: contain; background: transparent; }
+        .qava-nav-logo-back { object-fit: cover; transform: rotateY(180deg); }
+
+        /* Story titles in the hero display font */
+        .in-focus-blog-title,
+        .in-focus-blog-title a {
+            font-family: var(--display) !important;
+            font-weight: 400 !important;
+            letter-spacing: -0.012em;
+        }
+
+        @media (max-width: 860px) {
+            .header-center,
+            .header-container .auth-section .auth-item { display: none; }
+        }
+
     </style>
   <link rel="stylesheet" href="/qava-auth.css" />
 </head>
 <body>
+    <div id="qava-dot-base-fixed" aria-hidden="true"></div>
+
     <!-- Navigation Bar -->
     <div class="header-container">
         <!-- Logo on the left -->
@@ -4883,7 +5066,12 @@
             <div class="logo-container">
                 <div class="logo">
                     <a href="https://qava.ai/">
-                        <img src="qava-logo.svg" alt="Qava Logo">
+                        <div class="qava-nav-logo-flip" id="qava-nav-logo-flip">
+                            <div class="qava-nav-logo-inner" id="qava-nav-logo-inner">
+                                <img class="qava-nav-logo-face qava-nav-logo-front" src="qava-logo.svg" alt="Qava">
+                                <img class="qava-nav-logo-face qava-nav-logo-back" src="./qava-hero-arrow-2.png" alt="">
+                            </div>
+                        </div>
                     </a>
                 </div>
             </div>
@@ -4892,17 +5080,17 @@
         <!-- Navigation in the center -->
         <div class="header-center">
             <div class="navigation">
-                <a href="https://app.qava.ai/" class="nav-item create-listing">
-                    <div class="nav-text">Create Listing</div>
+                <a href="https://app.qava.ai/guest" class="nav-item create-listing">
+                    <div class="nav-text">Create listing</div>
                 </a>
                 <a href="https://app.qava.ai/projects" class="nav-item search-listings">
-                    <div class="nav-text">Search Listings</div>
+                    <div class="nav-text">Find work</div>
                 </a>
-                <a href="https://qava.ai/pricing" class="nav-item pricing">
-                    <div class="nav-text">Pricing</div>
+                <a href="https://qava.ai/newsletter" class="nav-item newsletter">
+                    <div class="nav-text">Newsletter</div>
                 </a>
-                <a href="https://qava.ai/about" class="nav-item about">
-                    <div class="nav-text">About</div>
+                <a href="https://qava.ai/premium" class="nav-item premium">
+                    <div class="nav-text">Premium</div>
                 </a>
             </div>
         </div>
@@ -4910,8 +5098,8 @@
         <!-- Auth section on the right -->
         <div class="header-right">
             <div class="auth-section">
-                <a href="https://qava.ai/howqavaworks" class="auth-item">
-                    <div class="nav-text">How Qava Works</div>
+                <a href="https://qava.ai/howitworks" class="auth-item">
+                    <div class="nav-text">How it works</div>
                 </a>
                 <a href="https://app.qava.ai/" class="auth-item">
                     <div class="nav-text">Log in</div>
@@ -5104,71 +5292,7 @@
     </div>
 
     <!-- Footer Section -->
-    <footer class="footer-section">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <a href="https://qava.ai/">
-                        <img src="qava-logo.svg" alt="Qava" class="footer-logo-img" />
-                    </a>
-                </div>
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4 class="footer-heading">Welcome</h4>
-                        <ul class="footer-link-list">
-                            <li><a href="https://app.qava.ai/" class="footer-link">Create Listing</a></li>
-                            <li><a href="https://app.qava.ai/projects" class="footer-link">Search Listings</a></li>
-                            <li><a href="https://qava.ai/howqavaworks" class="footer-link">How Qava Works</a></li>
-                            <li><span class="footer-link disabled-link">What's New</span></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4 class="footer-heading">Get Started</h4>
-                        <ul class="footer-link-list">
-                            <li><a href="https://app.qava.ai/" class="footer-link">Sign Up</a></li>
-                            <li><a href="https://app.qava.ai/" class="footer-link">Log In</a></li>
-                            <li><span class="footer-link disabled-link">AI Prompts</span></li>
-                            <li><span class="footer-link disabled-link">Project Templates</span></li>
-                            <li><span class="footer-link disabled-link">Application Tips</span></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4 class="footer-heading">Resources</h4>
-                        <ul class="footer-link-list">
-                            <li><a href="https://qava.ai/request-demo" class="footer-link">Request a Demo</a></li>
-                            <li><a href="https://qava.ai/pricing" class="footer-link">Pricing</a></li>
-                            <li><a href="https://qava.ai/about" class="footer-link">About Us</a></li>
-                            <li><a href="https://qava.ai/aialoneisnotenough" class="footer-link">AI Not Enough</a></li>
-                            <li><a href="https://qava.ai/partners" class="footer-link">Partner Network</a></li>
-                            <li><span class="footer-link disabled-link">Careers</span></li>
-                            <li><span class="footer-link disabled-link">Media Kit</span></li>
-                            <li><span class="footer-link disabled-link">Contact Us</span></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4 class="footer-heading">Learn</h4>
-                        <ul class="footer-link-list">
-                            <li><a href="https://qava.ai/successstories" class="footer-link">Success Stories</a></li>
-                            <li><span class="footer-link disabled-link">Help Center</span></li>
-                            <li><span class="footer-link disabled-link">Webinars</span></li>
-                            <li><a href="https://qava.ai/blog" class="footer-link">Blog</a></li>
-                            <li><span class="footer-link disabled-link">Community</span></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4 class="footer-heading">Legal</h4>
-                        <ul class="footer-link-list">
-                            <li><a href="terms" class="footer-link">Terms & Privacy</a></li>
-                            <li><a href="terms" class="footer-link">California Privacy Notice</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-copyright">
-                        © 2025 qava
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <footer class="footer-section"></footer>
 
     <script>
         function toggleMobileMenu() {
@@ -7755,7 +7879,23 @@
         }
     });
     </script>
+  <script src="/qava-footer.js"></script>
   <script src="/qava-auth.js"></script>
+  <script>
+    (function () {
+      if (typeof window.applyQavaFooter === "function") {
+        window.applyQavaFooter(document);
+      }
+      var inner = document.getElementById("qava-nav-logo-inner");
+      if (inner) {
+        var flipped = false;
+        setInterval(function () {
+          flipped = !flipped;
+          inner.classList.toggle("is-flipped", flipped);
+        }, 5000);
+      }
+    })();
+  </script>
 </body>
 </html>
 
