@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Qava</title>
     <link rel="icon" type="image/svg+xml" href="qava-logo.svg">
+    <!-- Anti-FOUC guard: keep the page hidden until the design stylesheet (qava-landing.css)
+         is applied, so the pre-CSS inline (old) styles can never flash on first paint. -->
+    <style id="qava-fouc-guard">html.qava-pending body { visibility: hidden !important; }</style>
+    <script>document.documentElement.classList.add('qava-pending');</script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -5376,8 +5380,19 @@
         .feature-cards-header br { display: none !important; }
 
     </style>
-    <link rel="stylesheet" href="qava-landing.css" />
+    <link rel="stylesheet" href="qava-landing.css" onload="document.documentElement.classList.remove('qava-pending')" />
     <link rel="stylesheet" href="qava-auth.css" />
+    <script>
+      (function () {
+        function reveal() { document.documentElement.classList.remove('qava-pending'); }
+        // Reveal once the design stylesheet applies; belt-and-suspenders fallbacks
+        // guarantee the page can never stay hidden.
+        if (document.readyState === 'complete') reveal();
+        window.addEventListener('load', reveal);
+        document.addEventListener('DOMContentLoaded', reveal);
+        setTimeout(reveal, 3000);
+      })();
+    </script>
 </head>
 <body>
     <div id="qava-dot-base-fixed" aria-hidden="true"></div>
