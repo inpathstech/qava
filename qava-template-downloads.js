@@ -173,7 +173,7 @@
 
     container.innerHTML =
       '<h2 class="story-downloads-heading">Download this template</h2>' +
-      '<p class="story-downloads-note">Available in multiple formats. Downloads are included with a <strong>Premium</strong> membership.</p>' +
+      '<p class="story-downloads-note">Available in multiple formats.</p>' +
       '<div class="story-download-list">' + rows + '</div>';
   }
 

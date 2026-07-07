@@ -62,9 +62,10 @@
 
 .story-download-label {
     font-family: "Inter", sans-serif;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 500;
     color: #111827;
+    white-space: nowrap;
 }
 
 .story-download-btn {
