@@ -1695,7 +1695,7 @@
             // Mark which formats each template ships in. Slide decks (and the
             // strategy articles) come as PowerPoint / Google Slides / Canva;
             // data templates come as Excel / Google Sheets.
-            var DECK_FORMATS = ["ppt", "gslides", "canva"];
+            var DECK_FORMATS = ["pdf", "ppt", "gslides", "canva"];
             var SHEET_FORMATS = ["xlsx", "gsheets"];
             var SHEET_TITLES = ["Excel Tracker", "Financial Model", "Task List", "OKR Tracker", "Content Calendar", "Sales Pipeline", "Hiring Plan", "Cap Table", "Risk Register", "KPI Dashboard"];
             QAVA_TEMPLATES.forEach(function (t) {
@@ -1706,6 +1706,7 @@
                 return '<img src="' + src + '" alt="" loading="lazy" decoding="async">';
             }
             var FORMAT_META = {
+                pdf:     { label: "PDF template",           markup: fmtLogoIcon("/template-logo-pdf.png") },
                 ppt:     { label: "PowerPoint template",    markup: fmtLogoIcon("/template-logo-ppt.png") },
                 gslides: { label: "Google Slides template", markup: fmtLogoIcon("/template-logo-gslides.png") },
                 canva:   { label: "Canva template",         markup: fmtLogoIcon("/template-logo-canva.png") },

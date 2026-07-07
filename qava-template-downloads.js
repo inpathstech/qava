@@ -5,6 +5,7 @@
   var LOCK_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
 
   var FORMATS = {
+    pdf: { label: "PDF", logo: "/template-logo-pdf.png", ext: "pdf" },
     ppt: { label: "PowerPoint", logo: "/template-logo-ppt.png", ext: "pptx" },
     gslides: { label: "Google Slides", logo: "/template-logo-gslides.png", ext: "gslides" },
     canva: { label: "Canva", logo: "/template-logo-canva.png", ext: "canva" },
@@ -12,7 +13,7 @@
     gsheets: { label: "Google Sheets", logo: "/template-logo-gsheets.png", ext: "gsheets" }
   };
 
-  var DECK_FORMATS = ["ppt", "gslides", "canva"];
+  var DECK_FORMATS = ["pdf", "ppt", "gslides", "canva"];
   var lastFocus = null;
 
   function esc(s) {
@@ -190,6 +191,9 @@
         var formats = parseFormats(el.getAttribute("data-formats"), DECK_FORMATS);
         renderDownloads(el, templateName, formats, access, slug);
         el.classList.toggle("is-unlocked", canDownload(access));
+        if (typeof window.mountQavaTemplatePreview === "function") {
+          window.mountQavaTemplatePreview(el, access);
+        }
       });
     });
   }

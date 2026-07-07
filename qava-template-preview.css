@@ -1,0 +1,124 @@
+/* Template slide preview (embedded deck viewer) */
+.qava-template-preview {
+    margin: 22px 0 6px;
+}
+
+.qava-preview-stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #fff;
+    border: 1px solid #E7E7E7;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 12px 32px rgba(0, 0, 0, 0.06);
+}
+
+.qava-preview-stage img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.qava-preview-stage img.active {
+    opacity: 1;
+}
+
+.qava-preview-lock {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    background: rgba(255, 255, 255, 0.35);
+    -webkit-backdrop-filter: blur(9px) saturate(120%);
+    backdrop-filter: blur(9px) saturate(120%);
+}
+
+.qava-preview-lock.show {
+    display: flex;
+}
+
+.qava-preview-lock .story-download-btn {
+    box-shadow: none;
+}
+
+.qava-preview-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    margin-top: 12px;
+}
+
+.qava-preview-arrow {
+    width: 26px;
+    height: 26px;
+    border-radius: 999px;
+    border: none;
+    background: transparent;
+    color: #6b6b6b;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: color 0.15s ease, opacity 0.15s ease;
+    padding: 0;
+}
+
+.qava-preview-arrow:hover {
+    color: #111;
+}
+
+.qava-preview-arrow:disabled {
+    opacity: 0.25;
+    cursor: default;
+}
+
+.qava-preview-arrow svg {
+    width: 15px;
+    height: 15px;
+}
+
+.qava-preview-thumbs {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+}
+
+.qava-preview-thumb {
+    flex: 0 0 auto;
+    width: 88px;
+    aspect-ratio: 16 / 9;
+    border-radius: 5px;
+    border: 1.5px solid #E7E7E7;
+    overflow: hidden;
+    cursor: pointer;
+    background: #fff;
+    padding: 0;
+    transition: border-color 0.15s ease;
+}
+
+.qava-preview-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.qava-preview-thumb.is-locked img {
+    filter: blur(4px);
+}
+
+.qava-preview-thumb.active {
+    border-color: #111;
+}
