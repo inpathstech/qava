@@ -96,16 +96,23 @@
 }
 
 .story-download-btn.is-locked {
-    background: #f3f4f6;
-    color: #111827;
-    border: 1px solid rgba(17, 24, 39, 0.1);
+    background: transparent;
+    color: #6b6b6b;
+    border: 0;
+    padding: 8px 4px;
+    font-weight: 300;
     text-decoration: none;
     box-shadow: none;
 }
 
 .story-download-btn.is-locked:hover {
-    background: #e5e7eb;
+    background: transparent;
+    color: #000000;
+    font-weight: 300;
+    text-decoration: underline;
+    text-underline-offset: 3px;
     box-shadow: none;
+    transform: none;
 }
 
 .story-downloads.is-unlocked .story-downloads-note strong {

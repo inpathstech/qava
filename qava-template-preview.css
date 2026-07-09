@@ -46,8 +46,19 @@
     display: flex;
 }
 
-.qava-preview-lock .story-download-btn {
+.qava-preview-lock .story-download-btn.is-locked {
+    background: #111827;
+    color: #ffffff;
+    border: 0;
+    padding: 10px 20px;
     box-shadow: none;
+}
+
+.qava-preview-lock .story-download-btn.is-locked:hover {
+    background: #000000;
+    color: #ffffff;
+    text-decoration: none;
+    transform: translateY(-1px);
 }
 
 .qava-preview-nav {
