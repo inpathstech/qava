@@ -9,6 +9,9 @@
          is applied, so the pre-CSS inline (old) styles can never flash on first paint. -->
     <style id="qava-fouc-guard">html.qava-pending body { visibility: hidden !important; }</style>
     <script>document.documentElement.classList.add('qava-pending');</script>
+    <!-- Fetch the design stylesheet as early and high-priority as possible so the
+         page spends the least possible time hidden behind the anti-FOUC guard. -->
+    <link rel="preload" as="style" href="qava-landing.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -5380,17 +5383,32 @@
         .feature-cards-header br { display: none !important; }
 
     </style>
-    <link rel="stylesheet" href="qava-landing.css" onload="document.documentElement.classList.remove('qava-pending')" />
+    <link rel="stylesheet" href="qava-landing.css" onload="window.__qavaReveal && window.__qavaReveal()" onerror="window.__qavaReveal && window.__qavaReveal()" />
     <link rel="stylesheet" href="qava-auth.css" />
     <script>
       (function () {
         function reveal() { document.documentElement.classList.remove('qava-pending'); }
-        // Reveal once the design stylesheet applies; belt-and-suspenders fallbacks
-        // guarantee the page can never stay hidden.
-        if (document.readyState === 'complete') reveal();
-        window.addEventListener('load', reveal);
-        document.addEventListener('DOMContentLoaded', reveal);
-        setTimeout(reveal, 3000);
+        window.__qavaReveal = reveal;
+        function landingApplied() {
+          var links = document.getElementsByTagName('link');
+          for (var i = 0; i < links.length; i++) {
+            var l = links[i];
+            if (l.rel === 'stylesheet' && l.href && l.href.indexOf('qava-landing.css') !== -1) {
+              try { return !!(l.sheet && l.sheet.cssRules); }
+              catch (e) { return !!l.sheet; }
+            }
+          }
+          return false;
+        }
+        // qava-landing.css is a render-blocking stylesheet declared *above* this script,
+        // so this script only runs once that stylesheet has loaded and the new design is
+        // already applied — we can reveal immediately with no old-design flash. We do NOT
+        // reveal on DOMContentLoaded/load, because those can fire before the stylesheet is
+        // applied (e.g. slow network or an edge/CDN hiccup) and briefly expose the old
+        // inline design.
+        if (landingApplied()) { reveal(); return; }
+        // Safety net: never leave the page hidden if the stylesheet somehow never applies.
+        setTimeout(reveal, 5000);
       })();
     </script>
 </head>
