@@ -1,0 +1,1162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Portfolio Career | Qava</title>
+  <link rel="icon" type="image/svg+xml" href="qava-logo.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet" />
+  <style>
+
+
+    :root {
+      --display: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+      --ink: #111827;
+      --muted: #6B6B6B;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      font-family: "Inter", sans-serif;
+      background: #ffffff;
+      color: var(--ink);
+    }
+
+    body {
+      position: relative;
+      min-height: 100vh;
+    }
+
+    #qava-dot-base-fixed {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image: radial-gradient(circle, rgba(17, 24, 39, 0.16) 1px, transparent 1.35px);
+      background-size: 20px 20px;
+      background-repeat: repeat;
+    }
+
+    body > *:not(#qava-dot-base-fixed):not(.header-container) {
+      position: relative;
+      z-index: 1;
+    }
+
+    a { color: inherit; }
+
+    .header-container {
+      width: calc(100% - 22px);
+      margin: 0 auto;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 56px;
+      position: sticky;
+      top: 0;
+      z-index: 1200;
+      background: rgba(255, 255, 255, 0.24);
+      -webkit-backdrop-filter: blur(18px) saturate(150%);
+      backdrop-filter: blur(18px) saturate(150%);
+      border: 0;
+      box-shadow: none;
+      isolation: isolate;
+    }
+
+    .header-container::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      right: 6px;
+      top: 3px;
+      bottom: 3px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.44) 100%);
+      -webkit-backdrop-filter: blur(26px) saturate(165%);
+      backdrop-filter: blur(26px) saturate(165%);
+      box-shadow: 0 10px 24px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .header-container > * { position: relative; z-index: 1; }
+
+    .header-logo, .logo-container, .logo { display: flex; align-items: center; }
+
+    .header-container .logo {
+      background: transparent;
+      padding: 0;
+      border: none;
+      box-shadow: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header-center {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex: 1;
+      margin-left: 40px;
+    }
+
+    .header-right { display: flex; align-items: center; gap: 8px; }
+
+    .navigation { display: flex; align-items: center; gap: 8px; }
+
+    .header-container .nav-item,
+    .header-container .auth-item {
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      border-radius: 0;
+      padding: 0;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      transition: color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .header-container .nav-item .nav-text,
+    .header-container .auth-item .nav-text {
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: #6b6b6b;
+      line-height: 1.4;
+      transition: color 0.2s ease;
+      padding: 0 4px;
+      white-space: nowrap;
+    }
+
+    .header-container .nav-item.newsletter .nav-text {
+      color: #000000;
+    }
+
+    .header-container .nav-item:hover .nav-text,
+    .header-container .auth-item:hover .nav-text {
+      color: #000000;
+    }
+
+    .auth-section { display: flex; align-items: center; gap: 28px; }
+
+    .join-button {
+      padding: 6px 12px;
+      background: #2b2b2b;
+      border: 1px solid #2b2b2b;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: background-color 0.18s ease, border-color 0.18s ease;
+    }
+
+    .join-button:hover {
+      background: #000000;
+      border-color: #000000;
+    }
+
+    .join-text {
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .qava-premium-nav-btn {
+      padding: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transition: color 0.2s ease;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: #6b6b6b;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      line-height: 1.4;
+    }
+
+    .qava-premium-nav-btn .nav-text {
+      color: inherit;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.4;
+    }
+
+    .qava-premium-nav-btn:hover,
+    .qava-premium-nav-btn:hover .nav-text,
+    .qava-premium-nav-btn:focus-visible,
+    .qava-premium-nav-btn:focus-visible .nav-text {
+      color: #000000;
+      background: transparent;
+    }
+
+    .qava-premium-nav-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      margin-top: -1px;
+    }
+
+    .qava-premium-nav-icon svg {
+      width: 15px;
+      height: 15px;
+      display: block;
+    }
+
+    .header-container .logo img,
+    .qava-nav-logo-face {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      display: block;
+      border-radius: 11px;
+    }
+
+    .qava-nav-logo-back { object-fit: cover; }
+
+    .qava-nav-logo-flip {
+      width: 40px;
+      height: 40px;
+      perspective: 600px;
+    }
+
+    .qava-nav-logo-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease;
+    }
+
+    .qava-nav-logo-inner.is-flipped { transform: rotateY(180deg); }
+
+    .qava-nav-logo-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+    }
+
+    .qava-nav-logo-back { transform: rotateY(180deg); }
+
+    .hamburger-menu {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .hamburger-line {
+      width: 20px;
+      height: 2px;
+      background: #111827;
+      border-radius: 1px;
+    }
+
+    
+.footer-section {
+      background: transparent;
+      width: 100%;
+      margin: 0;
+      padding: 48px 0 46px;
+      border-top: 1px solid #EBEBEB;
+    }
+
+    .footer-container {
+      width: min(1040px, calc(100vw - 120px));
+      margin: 0 auto;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+
+    .footer-content { display: flex; flex-wrap: wrap; }
+    .footer-logo { width: 39%; padding: 2px 15px 0 0; margin-bottom: 30px; }
+    .footer-logo-img { width: 40px; height: auto; }
+
+    .footer-links {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      width: 60%;
+      gap: 16px 25px;
+      padding: 0 15px 0 10px;
+    }
+
+    .footer-heading {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: 17px;
+      letter-spacing: -0.012em;
+      color: #000000;
+      margin: 0 0 8px;
+    }
+
+    .footer-link-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .footer-link {
+      font-size: 13px;
+      font-weight: 300;
+      color: #797979;
+      text-decoration: none;
+      line-height: 1.2;
+    }
+
+    .footer-link:hover { text-decoration: underline; }
+
+    .footer-copyright {
+      grid-column: 1 / -1;
+      margin-top: 14px;
+      font-size: 13px;
+      font-weight: 300;
+      color: #797979;
+    }
+
+    
+    html { scroll-behavior: smooth; }
+
+    .story-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 24px;
+      margin: 24px 0 48px;
+    }
+
+    .story-meta-col { flex: 1; min-width: 240px; }
+
+    .story-meta-divider {
+      width: 1px;
+      background: #e5e7eb;
+      align-self: stretch;
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .story-meta-divider { display: block; margin: 0 8px; }
+    }
+
+    .story-meta h3 {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #6b7280;
+      margin-bottom: 16px;
+    }
+
+    .story-people {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+
+    .story-person {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .story-person-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #e5e7eb;
+      flex-shrink: 0;
+    }
+
+    .story-person-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .story-person-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: #111827;
+      white-space: nowrap;
+    }
+
+    .story-person-role {
+      font-size: 12px;
+      font-weight: 300;
+      color: #6b7280;
+      white-space: nowrap;
+    }
+
+    .story-focus-items {
+      font-size: 12px;
+      line-height: 1.6;
+      font-weight: 300;
+      color: #1f2937;
+    }
+
+    /* BLOG POST STYLES */
+
+        .story-wrapper {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 56px 24px 90px;
+        }
+
+        .story-header {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 0;
+        }
+
+        .story-title {
+            font-family: var(--display);
+            font-size: clamp(32px, 4vw, 42px);
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .story-subtitle {
+            font-size: 20px;
+            font-weight: 300;
+            color: #4a4a4a;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        .story-categories {
+            display: flex;
+            gap: 8px;
+            margin: 0 0 20px 0;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .story-category-pill {
+            display: inline-flex;
+            align-items: center;
+            background: transparent;
+            color: #000000;
+            font-size: 11px;
+            font-weight: 400;
+            padding: 2px 4px;
+            border-radius: 0;
+            border: none;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .story-project-badges {
+            display: flex;
+            gap: 8px;
+            margin: 2px 0 3px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .story-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            background: #fafafa;
+            color: #000000;
+            font-size: 11px;
+            font-weight: 400;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-decoration: none;
+        }
+
+        .story-badge-pill span {
+            color: #000000;
+        }
+
+        .story-badge-separator {
+            font-size: 11px;
+            font-weight: 400;
+            color: #000000;
+        }
+
+        .story-hero {
+            width: 100%;
+            margin: 32px 0 40px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .story-hero img {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        /* ===== SPACING SYSTEM - Professional & Consistent ===== */
+        
+        /* Intro section - appears after hero image */
+        .story-intro {
+            padding: 0 !important;
+            margin: 0 0 32px !important;
+        }
+
+        .story-intro p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 16px;
+        }
+
+        .story-intro p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Table of Contents - compact spacing */
+        .story-toc {
+            padding: 0 !important;
+            margin: 32px 0 48px !important;
+        }
+
+        .story-toc ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 0;
+        }
+
+        .story-toc li a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 300;
+            color: #2e2e2e;
+            line-height: 1.65;
+            text-decoration: none;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .story-toc li a:hover {
+            color: #111111;
+            transform: translateX(4px);
+        }
+
+        .story-toc li .index {
+            font-size: 13px;
+            font-weight: 500;
+            color: #6b6b6b;
+            letter-spacing: 0.08em;
+        }
+
+        /* Main content sections */
+        .story-section {
+            padding: 0 !important;
+            margin: 56px 0 0 0 !important;
+        }
+
+        .story-section:first-of-type {
+            margin-top: 0 !important;
+        }
+ 
+        .story-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 0 24px !important;
+            padding-top: 28px !important;
+            letter-spacing: -0.01em;
+            color: #000000;
+            border-top: 1px solid #e0e0e0 !important;
+        }
+
+        .story-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #111;
+        }
+
+        /* All paragraphs - consistent spacing */
+        .story-wrapper p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 14px;
+        }
+
+        .story-section p,
+        .story-intro p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+        }
+
+        /* Q&A blocks - consistent spacing */
+        .qa-block {
+            margin-bottom: 36px !important;
+        }
+
+        .qa-block:last-child {
+            margin-bottom: 0 !important;
+        }
+
+        .qa-question {
+            font-size: 16px !important;
+            font-weight: 500 !important;
+            margin-bottom: 14px !important;
+            color: #000000 !important;
+        }
+
+        .qa-question .highlight {
+            background: linear-gradient(180deg, transparent 60%, rgba(15, 98, 254, 0.1) 60%);
+            padding: 0 4px;
+            display: inline;
+        }
+
+        .qa-answer {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 14px;
+        }
+
+        .qa-answer:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Pull quotes - centered with breathing room */
+        blockquote {
+            margin: 36px auto !important;
+            padding: 0 !important;
+            width: 100%;
+            max-width: 680px;
+            font-size: 16px !important;
+            line-height: 1.65 !important;
+            color: #111111 !important;
+            font-weight: 500 !important;
+            font-style: italic !important;
+            text-align: center;
+            background: transparent;
+            border-radius: 0;
+            white-space: normal;
+            display: block;
+            font-family: 'Inter', sans-serif;
+        }
+
+        blockquote::before {
+            content: "";
+        }
+
+        /* Images with captions */
+        .story-media {
+            margin: 24px 0 28px;
+            text-align: center;
+        }
+
+        .story-media img {
+            width: 100%;
+            border-radius: 16px;
+            display: block;
+        }
+
+        .story-media-caption {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #585858;
+        }
+
+        .story-media-caption a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .story-media-caption a:hover {
+            text-decoration: underline;
+        }
+
+        /* Links within story content */
+        .qa-answer a {
+            color: inherit;
+            text-decoration: none;
+            transition: text-decoration 0.2s ease;
+        }
+
+        .qa-answer a:hover {
+            text-decoration: underline;
+        }
+
+        .story-cta {
+            margin-top: 48px;
+            text-align: center;
+            padding: 32px 48px;
+            border-radius: 14px;
+            background: #fafafa;
+        }
+
+        .story-cta h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .story-cta p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #3b3b3b;
+            margin-bottom: 0;
+            font-weight: 300;
+        }
+
+        .story-cta p:first-of-type {
+            margin-bottom: 4px;
+        }
+
+        .story-cta p:last-of-type {
+            margin-bottom: 28px;
+        }
+
+        .story-cta-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .story-cta .cta-button.primary {
+            padding: 6px 12px;
+            background: #2b2b2b;
+            color: #ffffff;
+            border: 1px solid #2b2b2b;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: background-color 0.18s ease, border-color 0.18s ease;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+            height: auto;
+        }
+
+        .story-cta .cta-button.primary:hover {
+            background: #000000;
+            border-color: #000000;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Secondary button - How Qava Works (matches hero) */
+        .story-cta .cta-button.secondary {
+            padding: 6px 12px;
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            height: 27.6px;
+            text-decoration: none;
+            color: #000000;
+            font-size: 13px;
+            font-weight: 300;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .story-cta .cta-button.secondary::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 12px;
+            right: 12px;
+            height: 1px;
+            background-color: #000000;
+            transform: scaleX(0);
+            transition: transform 0.2s ease;
+        }
+
+        .story-cta .cta-button.secondary:hover::after {
+            transform: scaleX(1);
+        }
+
+        .story-cta .cta-button.secondary:visited {
+            color: #000000;
+        }
+
+        .story-cta .cta-button.secondary:active {
+            color: #000000;
+        }
+
+        
+    /* RESPONSIVE */
+
+        @media (max-width: 768px) {
+            .story-wrapper {
+                padding: 40px 24px 80px;
+            }
+
+            .story-categories {
+                margin: 0 0 16px;
+                gap: 6px;
+            }
+
+            .story-category-pill {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .story-project-badges {
+                margin: 8px 0 8px;
+                gap: 6px;
+            }
+
+            .story-badge-pill {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .story-title {
+                font-size: 32px;
+                line-height: 1.15;
+            }
+
+            .story-subtitle {
+                font-size: 17px;
+                line-height: 1.45;
+            }
+
+            .story-hero {
+                margin: 24px 0 32px;
+                border-radius: 8px;
+            }
+
+            .story-intro,
+            .story-section {
+                padding: 0;
+            }
+
+            .story-section {
+                margin: 48px 0 0 0 !important;
+            }
+
+            .story-section h2 {
+                font-size: 22px;
+                padding-top: 24px !important;
+                margin-bottom: 20px !important;
+            }
+
+            .story-toc {
+                padding: 0;
+                margin: 28px 0 40px;
+            }
+
+            .story-toc ul {
+                gap: 8px;
+            }
+
+            .story-toc li a {
+                font-size: 15px;
+            }
+
+            .qa-block {
+                margin-bottom: 32px !important;
+            }
+
+            blockquote {
+                margin: 28px auto !important;
+                padding: 0 !important;
+                font-size: 15px !important;
+                line-height: 1.65 !important;
+            }
+
+            .story-media {
+                margin: 20px 0 24px;
+            }
+
+            .story-media img {
+                border-radius: 12px;
+            }
+
+            .story-cta {
+                padding: 32px 24px;
+                margin-top: 40px;
+            }
+
+            .story-cta h3 {
+                font-size: 20px;
+                margin-bottom: 14px;
+            }
+
+            .story-cta p {
+                font-size: 15px;
+                margin-bottom: 24px;
+            }
+
+            .story-cta-actions {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+                align-items: center;
+            }
+
+            .story-cta .cta-button {
+                width: auto;
+                max-width: 280px;
+                min-width: fit-content;
+                padding: 8px 16px;
+            }
+
+            .footer-section {
+                padding: 60px 24px 40px 24px;
+            }
+
+            .footer-logo {
+                width: 100%;
+                padding: 0;
+                margin-bottom: 32px;
+            }
+
+            .footer-links {
+                width: 100%;
+                grid-template-columns: 1fr;
+                padding: 0;
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .story-wrapper {
+                padding: 32px 24px 70px;
+            }
+
+            .story-title {
+                font-size: 28px;
+            }
+
+            .story-subtitle {
+                font-size: 16px;
+            }
+
+            .story-hero {
+                margin: 20px 0 28px;
+            }
+
+            .story-section h2 {
+                font-size: 20px;
+            }
+
+            .story-toc li a {
+                font-size: 14px;
+            }
+
+            .story-wrapper p,
+            .qa-question,
+            .qa-answer {
+                font-size: 15px !important;
+            }
+
+            blockquote {
+                font-size: 15px !important;
+                line-height: 1.65 !important;
+                padding: 0 !important;
+            }
+
+            .story-cta {
+                padding: 28px 20px;
+            }
+
+            .story-cta h3 {
+                font-size: 18px;
+            }
+
+            .story-cta p {
+                font-size: 14px;
+            }
+        }
+    
+
+    @media (max-width: 860px) {
+      .header-center, .auth-section .auth-item { display: none; }
+      .hamburger-menu { display: flex; }
+    }
+
+  
+  </style>
+  <link rel="stylesheet" href="/qava-auth.css" />
+</head>
+<body>
+<div id="qava-dot-base-fixed" aria-hidden="true"></div>
+
+  <header class="header-container" data-qava-nav="landing">
+    <div class="header-logo">
+      <div class="logo-container">
+        <div class="logo">
+          <a href="https://qava.ai/">
+            <div class="qava-nav-logo-flip" id="qava-nav-logo-flip">
+              <div class="qava-nav-logo-inner" id="qava-nav-logo-inner">
+                <img class="qava-nav-logo-face qava-nav-logo-front" src="qava-logo.svg" alt="Qava">
+                <img class="qava-nav-logo-face qava-nav-logo-back" src="./qava-hero-arrow-2.png" alt="">
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="header-center">
+      <nav class="navigation">
+        <a href="https://qava.ai/templates" class="nav-item templates">
+          <div class="nav-text">Templates</div>
+        </a>
+        <a href="https://app.qava.ai/projects" class="nav-item search-listings">
+          <div class="nav-text">Find Work</div>
+        </a>
+        <a href="https://app.qava.ai/guest" class="nav-item create-listing">
+          <div class="nav-text">Find Talent</div>
+        </a>
+      </nav>
+    </div>
+    <div class="header-right">
+      <div class="auth-section">
+        <button type="button" class="qava-premium-nav-btn" data-qava-premium-nav aria-label="Premium">
+          <span class="qava-premium-nav-icon" data-qava-premium-lock-icon aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+          <span class="nav-text">Premium</span>
+        </button>
+        <a href="https://app.qava.ai/" class="join-button">
+          <div class="join-text">Get Started</div>
+        </a>
+      </div>
+      <div class="hamburger-menu" aria-hidden="true">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </div>
+    </div>
+  </header>
+
+<main class="story-wrapper">
+        <header class="story-header">
+            <div class="story-categories">
+                <span class="story-category-pill">Careers</span>
+            </div>
+            <h1 class="story-title">The Portfolio Career</h1>
+            <p class="story-subtitle" style="color: #666666;">Do your mix of interesting things. What a portfolio career is for, what it actually looks like week to week, and where it can go wrong — or unexpectedly right.</p>
+            <p style="margin-top: 6px; font-size: 14px; font-weight: 400; color: #6b7280;">By Qava Team</p>
+        </header>
+
+        <figure class="story-hero">
+            <img src="portfolio-career-card.png" alt="A grid of many different faces" loading="lazy">
+        </figure>
+
+        <section class="story-section" id="intro">
+            <h2>Do Your Mix of Interesting Things</h2>
+            <p>The easiest way into this idea is to pin down what we actually mean by a portfolio career, and I find it helps to hold three things in view at once: what a portfolio career is for — its objectives; what it actually looks like week to week — the routine; and where it can go wrong or unexpectedly right — the risks and opportunities. Get those three straight and the rest of the conversation has somewhere solid to stand.</p>
+        </section>
+
+        <section class="story-section" id="objective-interesting">
+            <h2>The First Objective: Do Interesting Things</h2>
+            <p>The first objective is the simplest to state and the most seductive: to do a mix of interesting things. For some people, the interesting thing is singular — one company, one market, one product, and the deep satisfaction of being the very best at it. That's a legitimate path and I won't pretend otherwise. But for a growing number of professionals, "interesting" means variety, and it means a lot of it.</p>
+            <p>Until recently, doing many things at once was a privilege reserved for people with decades behind them. Picture the seasoned C-suite executive who, on top of being CFO, sits on four boards and advises a non-profit on the side. What an enviable work-week that is — constant exposure to different ideas, people, products, technologies, and markets, the whole brain firing at once, the freedom to lean into the areas that need attention and ease off the ones that don't. The first objective of a portfolio career is to reach that vantage point much sooner than the traditional timeline allows. Instead of waiting to become a grizzled executive before you're allowed to work on a variety of things, you go find the niches where you can add value now, and you provide those services in parallel.</p>
+            <p>And from the professionals I've spoken to, the benefits don't only accrue to the individual — each company in the portfolio gains something too. There's a network effect, where people and opportunities get connected more seamlessly because you're standing at the intersection of several worlds. There's the cross-pollination of ideas and experiences that produces better outcomes faster. And there's a genuine, hard-to-fake excitement that comes from carrying a healthy mix of projects rather than one monolithic job. That combination is something a portfolio career is almost uniquely positioned to create.</p>
+        </section>
+
+        <section class="story-section" id="objective-swings">
+            <h2>The Second Objective: Take Big Swings</h2>
+            <p>The second objective is more strategic, and it's really about risk. It's about exposing yourself to big swings while defusing the danger that normally comes with them. Plenty of us have done the classic version — joined a startup, taken a pay cut for equity, and watched that equity quietly resolve to zero. It isn't fun. A minority have gone the other way and seen enormous gains from the same move, but that's the point: it's a minority, because it takes something close to a miracle for a startup to succeed and for you to have joined at the right moment to benefit in a meaningful way. Everything from product to management to funding to demand to competitors has to line up almost perfectly for your slice of ownership to be worth anything at all.</p>
+            <p>A portfolio career reshapes that bet. Instead of pouring yourself into a single company and praying, you hold advisory relationships across a range of high-growth companies, trading your skills and experience for a small amount of ownership or a right of first refusal when a role opens up. That structure gives you real access to the upside if one of them succeeds — and, just as importantly, a front-row seat from which to assess how likely that success actually is while you're advising them.</p>
+            <blockquote>You're not guessing from the outside. You're reading the odds from within.</blockquote>
+        </section>
+
+        <section class="story-section" id="objective-insecurity">
+            <h2>The Third Objective: Mitigate Job Insecurity</h2>
+            <p>The third objective is defensive, and recent history makes the case better than I can. Layoffs have spiked, and not gently — in March and April of 2020 there were more than 22 million layoffs in the US alone. Those stories move through the news like wildfire and stir up real anxiety about the health of the economy and the country. I'd love to believe they're rare aberrations, but the numbers say otherwise: roughly 1.5 million layoffs happen every month in the US, and over 200,000 people file unemployment claims every week.</p>
+            <p>If you've been through one, you know it's brutal for most people. Finding work again can be slow and humbling, and you may be forced into a pay cut, hit with significant insurance costs, and more, all at once. A portfolio career is designed to soften that blow by giving you other income streams — so that when a layoff lands, you aren't stranded and burning through savings just to keep the lights on.</p>
+            <p>It's hard to argue with any of these three objectives, honestly. Most people are drawn to the same trio: working on a variety of interesting things, taking big swings, and cushioning themselves against the shock of losing a job.</p>
+        </section>
+
+        <section class="story-section" id="definition">
+            <h2>So What Is a Portfolio Career, Exactly?</h2>
+            <p>Here's the definition I use. A portfolio career is a series of different but interrelated marketable products or services that generate income independently, create synergies where the total is greater than the sum of its parts, and can be balanced in a way that does not compromise the success of any of your clients. That last clause matters enormously, so I want to underline it: a portfolio career is not a licence to neglect people. It's the opposite.</p>
+            <blockquote>The whole thing collapses the moment your clients start getting shortchanged.</blockquote>
+            <p>When people hear "multiple income streams," their minds jump straight to real estate — and sure, rent is an income stream, but for most of us it isn't a career. What I'm describing is career variety. Think of someone who provides hands-on consulting, advises companies on strategy, sells online digital courses, and runs a profitable podcast. Or someone who runs a boutique agency, hosts events and conferences, and publishes a profitable newsletter. Any one of those could stand alone as a career. Stitched together, they become a portfolio whose parts feed one another, generating opportunities and synergies that none of them would have produced in isolation.</p>
+        </section>
+
+        <section class="story-section" id="the-week">
+            <h2>What the Week Actually Looks Like</h2>
+            <p>If you're starting to suspect this life might suit you, it's worth being honest about the routine before you leap, because it's more disciplined than the freedom of it suggests. Most of what builds a portfolio career comes down to learning skills, gathering experiences, and productising them — which means skill-building and product-building have to sit at the centre of your capabilities, not the edges.</p>
+            <p>A typical week gets organised around the needs of your most significant project or largest client, then the next most significant, and so on down the line. Continuous, honest prioritisation is non-negotiable. On Monday morning, before anything else begins, you plan every hour of the week — and with a portfolio, that planning genuinely takes time. You name the specific outcomes you're chasing and when you intend to hit them. You think hard about each client's priorities and what you can do to move them forward: helping them see around corners, handing them ideas and breadcrumbs, aiming to finish each week having exceeded their expectations in both the quality and the quantity of your work. The whole posture is to plan how you'll add outsized value, every single week.</p>
+            <p>From there you set your meeting cadence, locking in regular check-ins and making sure they don't collide with each other — which is harder than it sounds once you've got several going. Setting expectations early around timeliness and ways of working is what builds momentum fast and keeps it. Then you run the week itself, concentrating on high-value tasks and outcomes, timeboxing your focus and energy, and updating stakeholders on progress and escalations as you go. And you invest in your support team — making sure they feel heard and encouraging them to find and implement their own efficiencies. That team might include someone who builds slides, financial models, or pitch decks, plus an attorney and a business advisor. Ideally they're spread across time zones, so that while you sleep, someone somewhere is already moving something forward that you'll need when you wake.</p>
+        </section>
+
+        <section class="story-section" id="risks">
+            <h2>The Risks Worth Naming</h2>
+            <p>For all its appeal, this path isn't for everyone, and I'd rather be straight about why. The work can get genuinely relentless. Your mindset has to be that you simply won't let anyone down, and while you try to spread deliverables sensibly over time, sometimes that isn't possible and you just have to dig deep and get it done. That's true of most careers, but it's guaranteed in this one — so if you don't handle pressure well, this isn't the path for you.</p>
+            <p>There's also the perception problem. Existing employers may read your portfolio career as disloyal or distracting. Sometimes there's truth in that, and it's a cue to reassess your choices honestly, especially if multi-tasking isn't yet a strength. Other times it's simply an employer with a traditional view of work, where face time and die-hard loyalty are the only acceptable signals. The move there is to choose clients who support how you work, and to be transparent with them from the start.</p>
+            <p>Two more worth naming plainly. You may spread yourself thin and erode skills you once held deeply, drifting toward being a generalist — so ask yourself honestly whether that's a real risk for you. And you may pour time and energy into opportunities that ultimately collapse into nothing. Each of these risks is real. Each also has mitigation strategies that genuinely work — but those are a conversation for another time.</p>
+        </section>
+
+        <div class="story-cta">
+            <h3>Build your mix of interesting things.</h3>
+            <p style="font-weight: 300;">Find the projects, clients, and people who make a portfolio career possible.</p>
+            <p style="font-weight: 300;">Start with Qava.</p>
+            <div class="story-cta-actions">
+                <a href="https://app.qava.ai/" class="cta-button primary">Join for free</a>
+                <a href="https://qava.ai/howitworks" class="cta-button secondary">How Qava Works</a>
+            </div>
+        </div>
+    </main>
+
+  <footer class="footer-section"></footer>
+
+  <script src="./qava-footer.js"></script>
+  <script>
+    (function () {
+      if (typeof window.applyQavaFooter === "function") {
+        window.applyQavaFooter(document);
+      }
+
+      const inner = document.getElementById("qava-nav-logo-inner");
+      if (inner) {
+        let flipped = false;
+        setInterval(() => {
+          flipped = !flipped;
+          inner.classList.toggle("is-flipped", flipped);
+        }, 5000);
+      }
+
+      document.querySelectorAll('.qa-question').forEach((questionEl) => {
+        if (!questionEl.querySelector('.highlight')) {
+          questionEl.innerHTML = `<span class="highlight">${questionEl.innerHTML}</span>`;
+        }
+      });
+    })();
+  </script>
+  <script src="/qava-auth.js"></script>
+</body>
+</html>

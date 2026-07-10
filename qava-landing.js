@@ -347,6 +347,18 @@
                   </div>
                 </div>
               </a>
+              <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/the-portfolio-career">
+                <img class="qava-blog-thumb" src="./portfolio-career-card.png" alt="The Portfolio Career" />
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
+                  <div class="qava-blog-tag">Careers</div>
+                  <div class="qava-blog-title">The Portfolio Career</div>
+                  <div class="qava-blog-more">
+                    <div class="qava-blog-excerpt">Do your mix of interesting things — the objectives, the routine, the risks.</div>
+                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
+                  </div>
+                </div>
+              </a>
             `;
             ctaButtonsRow.insertAdjacentElement("afterend", blogRow);
 
