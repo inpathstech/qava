@@ -263,54 +263,6 @@
                   </div>
                 </div>
               </a>
-              <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/noonesark">
-                <img class="qava-blog-thumb" src="./qava-blog-3.png" alt="" />
-                <div class="qava-blog-scrim"></div>
-                <div class="qava-blog-glass">
-                  <div class="qava-blog-tag">Non-profit</div>
-                  <div class="qava-blog-title">Pirates on a Mission to Save the Planet</div>
-                  <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">A bold mission to protect the planet's future.</div>
-                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
-                  </div>
-                </div>
-              </a>
-              <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/mmento">
-                <img class="qava-blog-thumb" src="./Kristina%20Boxer%20Profile%20Photo.png" alt="Kristina Boxer" />
-                <div class="qava-blog-scrim"></div>
-                <div class="qava-blog-glass">
-                  <div class="qava-blog-tag">Consumer tech</div>
-                  <div class="qava-blog-title">Showing up when it matters</div>
-                  <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">How one founder built a smarter system for remembering what matters.</div>
-                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
-                  </div>
-                </div>
-              </a>
-              <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/lumi">
-                <img class="qava-blog-thumb" src="./Lumi/Family.jpg" alt="Lumi" />
-                <div class="qava-blog-scrim"></div>
-                <div class="qava-blog-glass">
-                  <div class="qava-blog-tag">Health tech</div>
-                  <div class="qava-blog-title">The AI Startup Bringing Real-Time Support to Neurodiverse Families</div>
-                  <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">Real-time, science-backed support for neurodiverse households.</div>
-                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
-                  </div>
-                </div>
-              </a>
-              <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/roam">
-                <img class="qava-blog-thumb" src="./Roam/Hand%20Holding%20Bottle.jpg" alt="Roam" />
-                <div class="qava-blog-scrim"></div>
-                <div class="qava-blog-glass">
-                  <div class="qava-blog-tag">Sustainability</div>
-                  <div class="qava-blog-title">Reimagining Hydration &amp; Sustainability for a World on the Move</div>
-                  <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">Rethinking hydration and sustainability for a world on the move.</div>
-                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
-                  </div>
-                </div>
-              </a>
               <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/the-alignment-trap">
                 <img class="qava-blog-thumb" src="./alignment-trap-card.png" alt="The False Alignment Trap" />
                 <div class="qava-blog-scrim"></div>
@@ -319,6 +271,18 @@
                   <div class="qava-blog-title">The False Alignment Trap</div>
                   <div class="qava-blog-more">
                     <div class="qava-blog-excerpt">Why most change efforts fail long before execution — and how to fix it.</div>
+                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
+                  </div>
+                </div>
+              </a>
+              <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/noonesark">
+                <img class="qava-blog-thumb" src="./qava-blog-3.png" alt="" />
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
+                  <div class="qava-blog-tag">Non-profit</div>
+                  <div class="qava-blog-title">Pirates on a Mission to Save the Planet</div>
+                  <div class="qava-blog-more">
+                    <div class="qava-blog-excerpt">A bold mission to protect the planet's future.</div>
                     <span class="qava-blog-read">Read ${blogReadArrow}</span>
                   </div>
                 </div>
@@ -335,6 +299,18 @@
                   </div>
                 </div>
               </a>
+              <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/mmento">
+                <img class="qava-blog-thumb" src="./Kristina%20Boxer%20Profile%20Photo.png" alt="Kristina Boxer" />
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
+                  <div class="qava-blog-tag">Consumer tech</div>
+                  <div class="qava-blog-title">Showing up when it matters</div>
+                  <div class="qava-blog-more">
+                    <div class="qava-blog-excerpt">How one founder built a smarter system for remembering what matters.</div>
+                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
+                  </div>
+                </div>
+              </a>
               <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/cab-driver-vs-changemaker">
                 <img class="qava-blog-thumb" src="./cab-driver-changemaker-card.png" alt="Cab Driver vs. Changemaker" />
                 <div class="qava-blog-scrim"></div>
@@ -347,6 +323,18 @@
                   </div>
                 </div>
               </a>
+              <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/lumi">
+                <img class="qava-blog-thumb" src="./Lumi/Family.jpg" alt="Lumi" />
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
+                  <div class="qava-blog-tag">Health tech</div>
+                  <div class="qava-blog-title">The AI Startup Bringing Real-Time Support to Neurodiverse Families</div>
+                  <div class="qava-blog-more">
+                    <div class="qava-blog-excerpt">Real-time, science-backed support for neurodiverse households.</div>
+                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
+                  </div>
+                </div>
+              </a>
               <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/the-portfolio-career">
                 <img class="qava-blog-thumb" src="./portfolio-career-card.png" alt="The Portfolio Career" />
                 <div class="qava-blog-scrim"></div>
@@ -355,6 +343,18 @@
                   <div class="qava-blog-title">The Portfolio Career</div>
                   <div class="qava-blog-more">
                     <div class="qava-blog-excerpt">Do your mix of interesting things — the objectives, the routine, the risks.</div>
+                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
+                  </div>
+                </div>
+              </a>
+              <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/roam">
+                <img class="qava-blog-thumb" src="./Roam/Hand%20Holding%20Bottle.jpg" alt="Roam" />
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
+                  <div class="qava-blog-tag">Sustainability</div>
+                  <div class="qava-blog-title">Reimagining Hydration &amp; Sustainability for a World on the Move</div>
+                  <div class="qava-blog-more">
+                    <div class="qava-blog-excerpt">Rethinking hydration and sustainability for a world on the move.</div>
                     <span class="qava-blog-read">Read ${blogReadArrow}</span>
                   </div>
                 </div>
