@@ -311,6 +311,18 @@
                   </div>
                 </div>
               </a>
+              <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/the-alignment-trap">
+                <img class="qava-blog-thumb" src="./alignment-trap-card.png" alt="The False Alignment Trap" />
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
+                  <div class="qava-blog-tag">Leadership</div>
+                  <div class="qava-blog-title">The False Alignment Trap</div>
+                  <div class="qava-blog-more">
+                    <div class="qava-blog-excerpt">Why most change efforts fail long before execution — and how to fix it.</div>
+                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
+                  </div>
+                </div>
+              </a>
             `;
             ctaButtonsRow.insertAdjacentElement("afterend", blogRow);
 
