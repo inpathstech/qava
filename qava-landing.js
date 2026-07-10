@@ -335,6 +335,18 @@
                   </div>
                 </div>
               </a>
+              <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/cab-driver-vs-changemaker">
+                <img class="qava-blog-thumb" src="./cab-driver-changemaker-card.png" alt="Cab Driver vs. Changemaker" />
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
+                  <div class="qava-blog-tag">Leadership</div>
+                  <div class="qava-blog-title">Cab Driver vs. Changemaker</div>
+                  <div class="qava-blog-more">
+                    <div class="qava-blog-excerpt">The posture that separates the reliable from the indispensable.</div>
+                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
+                  </div>
+                </div>
+              </a>
             `;
             ctaButtonsRow.insertAdjacentElement("afterend", blogRow);
 
