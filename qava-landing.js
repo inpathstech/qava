@@ -323,6 +323,18 @@
                   </div>
                 </div>
               </a>
+              <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/five-minutes-and-a-manual">
+                <img class="qava-blog-thumb" src="./five-minutes-manual-card.png" alt="Five Minutes and a Manual" />
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
+                  <div class="qava-blog-tag">Leadership</div>
+                  <div class="qava-blog-title">Five Minutes and a Manual</div>
+                  <div class="qava-blog-more">
+                    <div class="qava-blog-excerpt">A cockpit, a clock, and what pressure does to how we decide and communicate.</div>
+                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
+                  </div>
+                </div>
+              </a>
             `;
             ctaButtonsRow.insertAdjacentElement("afterend", blogRow);
 

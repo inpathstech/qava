@@ -1,0 +1,1171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Five Minutes and a Manual | Qava</title>
+  <link rel="icon" type="image/svg+xml" href="qava-logo.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet" />
+  <style>
+
+
+    :root {
+      --display: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+      --ink: #111827;
+      --muted: #6B6B6B;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      font-family: "Inter", sans-serif;
+      background: #ffffff;
+      color: var(--ink);
+    }
+
+    body {
+      position: relative;
+      min-height: 100vh;
+    }
+
+    #qava-dot-base-fixed {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image: radial-gradient(circle, rgba(17, 24, 39, 0.16) 1px, transparent 1.35px);
+      background-size: 20px 20px;
+      background-repeat: repeat;
+    }
+
+    body > *:not(#qava-dot-base-fixed):not(.header-container) {
+      position: relative;
+      z-index: 1;
+    }
+
+    a { color: inherit; }
+
+    .header-container {
+      width: calc(100% - 22px);
+      margin: 0 auto;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 56px;
+      position: sticky;
+      top: 0;
+      z-index: 1200;
+      background: rgba(255, 255, 255, 0.24);
+      -webkit-backdrop-filter: blur(18px) saturate(150%);
+      backdrop-filter: blur(18px) saturate(150%);
+      border: 0;
+      box-shadow: none;
+      isolation: isolate;
+    }
+
+    .header-container::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      right: 6px;
+      top: 3px;
+      bottom: 3px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.44) 100%);
+      -webkit-backdrop-filter: blur(26px) saturate(165%);
+      backdrop-filter: blur(26px) saturate(165%);
+      box-shadow: 0 10px 24px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .header-container > * { position: relative; z-index: 1; }
+
+    .header-logo, .logo-container, .logo { display: flex; align-items: center; }
+
+    .header-container .logo {
+      background: transparent;
+      padding: 0;
+      border: none;
+      box-shadow: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header-center {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex: 1;
+      margin-left: 40px;
+    }
+
+    .header-right { display: flex; align-items: center; gap: 8px; }
+
+    .navigation { display: flex; align-items: center; gap: 8px; }
+
+    .header-container .nav-item,
+    .header-container .auth-item {
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      border-radius: 0;
+      padding: 0;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      transition: color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .header-container .nav-item .nav-text,
+    .header-container .auth-item .nav-text {
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: #6b6b6b;
+      line-height: 1.4;
+      transition: color 0.2s ease;
+      padding: 0 4px;
+      white-space: nowrap;
+    }
+
+    .header-container .nav-item.newsletter .nav-text {
+      color: #000000;
+    }
+
+    .header-container .nav-item:hover .nav-text,
+    .header-container .auth-item:hover .nav-text {
+      color: #000000;
+    }
+
+    .auth-section { display: flex; align-items: center; gap: 28px; }
+
+    .join-button {
+      padding: 6px 12px;
+      background: #2b2b2b;
+      border: 1px solid #2b2b2b;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: background-color 0.18s ease, border-color 0.18s ease;
+    }
+
+    .join-button:hover {
+      background: #000000;
+      border-color: #000000;
+    }
+
+    .join-text {
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .qava-premium-nav-btn {
+      padding: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transition: color 0.2s ease;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: #6b6b6b;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      line-height: 1.4;
+    }
+
+    .qava-premium-nav-btn .nav-text {
+      color: inherit;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.4;
+    }
+
+    .qava-premium-nav-btn:hover,
+    .qava-premium-nav-btn:hover .nav-text,
+    .qava-premium-nav-btn:focus-visible,
+    .qava-premium-nav-btn:focus-visible .nav-text {
+      color: #000000;
+      background: transparent;
+    }
+
+    .qava-premium-nav-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      margin-top: -1px;
+    }
+
+    .qava-premium-nav-icon svg {
+      width: 15px;
+      height: 15px;
+      display: block;
+    }
+
+    .header-container .logo img,
+    .qava-nav-logo-face {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      display: block;
+      border-radius: 11px;
+    }
+
+    .qava-nav-logo-back { object-fit: cover; }
+
+    .qava-nav-logo-flip {
+      width: 40px;
+      height: 40px;
+      perspective: 600px;
+    }
+
+    .qava-nav-logo-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease;
+    }
+
+    .qava-nav-logo-inner.is-flipped { transform: rotateY(180deg); }
+
+    .qava-nav-logo-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+    }
+
+    .qava-nav-logo-back { transform: rotateY(180deg); }
+
+    .hamburger-menu {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .hamburger-line {
+      width: 20px;
+      height: 2px;
+      background: #111827;
+      border-radius: 1px;
+    }
+
+    
+.footer-section {
+      background: transparent;
+      width: 100%;
+      margin: 0;
+      padding: 48px 0 46px;
+      border-top: 1px solid #EBEBEB;
+    }
+
+    .footer-container {
+      width: min(1040px, calc(100vw - 120px));
+      margin: 0 auto;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+
+    .footer-content { display: flex; flex-wrap: wrap; }
+    .footer-logo { width: 39%; padding: 2px 15px 0 0; margin-bottom: 30px; }
+    .footer-logo-img { width: 40px; height: auto; }
+
+    .footer-links {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      width: 60%;
+      gap: 16px 25px;
+      padding: 0 15px 0 10px;
+    }
+
+    .footer-heading {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: 17px;
+      letter-spacing: -0.012em;
+      color: #000000;
+      margin: 0 0 8px;
+    }
+
+    .footer-link-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .footer-link {
+      font-size: 13px;
+      font-weight: 300;
+      color: #797979;
+      text-decoration: none;
+      line-height: 1.2;
+    }
+
+    .footer-link:hover { text-decoration: underline; }
+
+    .footer-copyright {
+      grid-column: 1 / -1;
+      margin-top: 14px;
+      font-size: 13px;
+      font-weight: 300;
+      color: #797979;
+    }
+
+    
+    html { scroll-behavior: smooth; }
+
+    .story-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 24px;
+      margin: 24px 0 48px;
+    }
+
+    .story-meta-col { flex: 1; min-width: 240px; }
+
+    .story-meta-divider {
+      width: 1px;
+      background: #e5e7eb;
+      align-self: stretch;
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .story-meta-divider { display: block; margin: 0 8px; }
+    }
+
+    .story-meta h3 {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #6b7280;
+      margin-bottom: 16px;
+    }
+
+    .story-people {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+
+    .story-person {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .story-person-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #e5e7eb;
+      flex-shrink: 0;
+    }
+
+    .story-person-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .story-person-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: #111827;
+      white-space: nowrap;
+    }
+
+    .story-person-role {
+      font-size: 12px;
+      font-weight: 300;
+      color: #6b7280;
+      white-space: nowrap;
+    }
+
+    .story-focus-items {
+      font-size: 12px;
+      line-height: 1.6;
+      font-weight: 300;
+      color: #1f2937;
+    }
+
+    /* BLOG POST STYLES */
+
+        .story-wrapper {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 56px 24px 90px;
+        }
+
+        .story-header {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 0;
+        }
+
+        .story-title {
+            font-family: var(--display);
+            font-size: clamp(32px, 4vw, 42px);
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .story-subtitle {
+            font-size: 20px;
+            font-weight: 300;
+            color: #4a4a4a;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        .story-categories {
+            display: flex;
+            gap: 8px;
+            margin: 0 0 20px 0;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .story-category-pill {
+            display: inline-flex;
+            align-items: center;
+            background: transparent;
+            color: #000000;
+            font-size: 11px;
+            font-weight: 400;
+            padding: 2px 4px;
+            border-radius: 0;
+            border: none;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .story-project-badges {
+            display: flex;
+            gap: 8px;
+            margin: 2px 0 3px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .story-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            background: #fafafa;
+            color: #000000;
+            font-size: 11px;
+            font-weight: 400;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-decoration: none;
+        }
+
+        .story-badge-pill span {
+            color: #000000;
+        }
+
+        .story-badge-separator {
+            font-size: 11px;
+            font-weight: 400;
+            color: #000000;
+        }
+
+        .story-hero {
+            width: 100%;
+            margin: 32px 0 40px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .story-hero img {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        /* ===== SPACING SYSTEM - Professional & Consistent ===== */
+        
+        /* Intro section - appears after hero image */
+        .story-intro {
+            padding: 0 !important;
+            margin: 0 0 32px !important;
+        }
+
+        .story-intro p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 16px;
+        }
+
+        .story-intro p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Table of Contents - compact spacing */
+        .story-toc {
+            padding: 0 !important;
+            margin: 32px 0 48px !important;
+        }
+
+        .story-toc ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 0;
+        }
+
+        .story-toc li a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 300;
+            color: #2e2e2e;
+            line-height: 1.65;
+            text-decoration: none;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .story-toc li a:hover {
+            color: #111111;
+            transform: translateX(4px);
+        }
+
+        .story-toc li .index {
+            font-size: 13px;
+            font-weight: 500;
+            color: #6b6b6b;
+            letter-spacing: 0.08em;
+        }
+
+        /* Main content sections */
+        .story-section {
+            padding: 0 !important;
+            margin: 56px 0 0 0 !important;
+        }
+
+        .story-section:first-of-type {
+            margin-top: 0 !important;
+        }
+ 
+        .story-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 0 24px !important;
+            padding-top: 28px !important;
+            letter-spacing: -0.01em;
+            color: #000000;
+            border-top: 1px solid #e0e0e0 !important;
+        }
+
+        .story-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #111;
+        }
+
+        /* All paragraphs - consistent spacing */
+        .story-wrapper p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 14px;
+        }
+
+        .story-section p,
+        .story-intro p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+        }
+
+        /* Q&A blocks - consistent spacing */
+        .qa-block {
+            margin-bottom: 36px !important;
+        }
+
+        .qa-block:last-child {
+            margin-bottom: 0 !important;
+        }
+
+        .qa-question {
+            font-size: 16px !important;
+            font-weight: 500 !important;
+            margin-bottom: 14px !important;
+            color: #000000 !important;
+        }
+
+        .qa-question .highlight {
+            background: linear-gradient(180deg, transparent 60%, rgba(15, 98, 254, 0.1) 60%);
+            padding: 0 4px;
+            display: inline;
+        }
+
+        .qa-answer {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 14px;
+        }
+
+        .qa-answer:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Pull quotes - centered with breathing room */
+        blockquote {
+            margin: 36px auto !important;
+            padding: 0 !important;
+            width: 100%;
+            max-width: 680px;
+            font-size: 16px !important;
+            line-height: 1.65 !important;
+            color: #111111 !important;
+            font-weight: 500 !important;
+            font-style: italic !important;
+            text-align: center;
+            background: transparent;
+            border-radius: 0;
+            white-space: normal;
+            display: block;
+            font-family: 'Inter', sans-serif;
+        }
+
+        blockquote::before {
+            content: "";
+        }
+
+        /* Images with captions */
+        .story-media {
+            margin: 24px 0 28px;
+            text-align: center;
+        }
+
+        .story-media img {
+            width: 100%;
+            border-radius: 16px;
+            display: block;
+        }
+
+        .story-media-caption {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #585858;
+        }
+
+        .story-media-caption a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .story-media-caption a:hover {
+            text-decoration: underline;
+        }
+
+        /* Links within story content */
+        .qa-answer a {
+            color: inherit;
+            text-decoration: none;
+            transition: text-decoration 0.2s ease;
+        }
+
+        .qa-answer a:hover {
+            text-decoration: underline;
+        }
+
+        .story-cta {
+            margin-top: 48px;
+            text-align: center;
+            padding: 32px 48px;
+            border-radius: 14px;
+            background: #fafafa;
+        }
+
+        .story-cta h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .story-cta p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #3b3b3b;
+            margin-bottom: 0;
+            font-weight: 300;
+        }
+
+        .story-cta p:first-of-type {
+            margin-bottom: 4px;
+        }
+
+        .story-cta p:last-of-type {
+            margin-bottom: 28px;
+        }
+
+        .story-cta-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .story-cta .cta-button.primary {
+            padding: 6px 12px;
+            background: #2b2b2b;
+            color: #ffffff;
+            border: 1px solid #2b2b2b;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: background-color 0.18s ease, border-color 0.18s ease;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+            height: auto;
+        }
+
+        .story-cta .cta-button.primary:hover {
+            background: #000000;
+            border-color: #000000;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Secondary button - How Qava Works (matches hero) */
+        .story-cta .cta-button.secondary {
+            padding: 6px 12px;
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            height: 27.6px;
+            text-decoration: none;
+            color: #000000;
+            font-size: 13px;
+            font-weight: 300;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .story-cta .cta-button.secondary::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 12px;
+            right: 12px;
+            height: 1px;
+            background-color: #000000;
+            transform: scaleX(0);
+            transition: transform 0.2s ease;
+        }
+
+        .story-cta .cta-button.secondary:hover::after {
+            transform: scaleX(1);
+        }
+
+        .story-cta .cta-button.secondary:visited {
+            color: #000000;
+        }
+
+        .story-cta .cta-button.secondary:active {
+            color: #000000;
+        }
+
+        
+    /* RESPONSIVE */
+
+        @media (max-width: 768px) {
+            .story-wrapper {
+                padding: 40px 24px 80px;
+            }
+
+            .story-categories {
+                margin: 0 0 16px;
+                gap: 6px;
+            }
+
+            .story-category-pill {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .story-project-badges {
+                margin: 8px 0 8px;
+                gap: 6px;
+            }
+
+            .story-badge-pill {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .story-title {
+                font-size: 32px;
+                line-height: 1.15;
+            }
+
+            .story-subtitle {
+                font-size: 17px;
+                line-height: 1.45;
+            }
+
+            .story-hero {
+                margin: 24px 0 32px;
+                border-radius: 8px;
+            }
+
+            .story-intro,
+            .story-section {
+                padding: 0;
+            }
+
+            .story-section {
+                margin: 48px 0 0 0 !important;
+            }
+
+            .story-section h2 {
+                font-size: 22px;
+                padding-top: 24px !important;
+                margin-bottom: 20px !important;
+            }
+
+            .story-toc {
+                padding: 0;
+                margin: 28px 0 40px;
+            }
+
+            .story-toc ul {
+                gap: 8px;
+            }
+
+            .story-toc li a {
+                font-size: 15px;
+            }
+
+            .qa-block {
+                margin-bottom: 32px !important;
+            }
+
+            blockquote {
+                margin: 28px auto !important;
+                padding: 0 !important;
+                font-size: 15px !important;
+                line-height: 1.65 !important;
+            }
+
+            .story-media {
+                margin: 20px 0 24px;
+            }
+
+            .story-media img {
+                border-radius: 12px;
+            }
+
+            .story-cta {
+                padding: 32px 24px;
+                margin-top: 40px;
+            }
+
+            .story-cta h3 {
+                font-size: 20px;
+                margin-bottom: 14px;
+            }
+
+            .story-cta p {
+                font-size: 15px;
+                margin-bottom: 24px;
+            }
+
+            .story-cta-actions {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+                align-items: center;
+            }
+
+            .story-cta .cta-button {
+                width: auto;
+                max-width: 280px;
+                min-width: fit-content;
+                padding: 8px 16px;
+            }
+
+            .footer-section {
+                padding: 60px 24px 40px 24px;
+            }
+
+            .footer-logo {
+                width: 100%;
+                padding: 0;
+                margin-bottom: 32px;
+            }
+
+            .footer-links {
+                width: 100%;
+                grid-template-columns: 1fr;
+                padding: 0;
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .story-wrapper {
+                padding: 32px 24px 70px;
+            }
+
+            .story-title {
+                font-size: 28px;
+            }
+
+            .story-subtitle {
+                font-size: 16px;
+            }
+
+            .story-hero {
+                margin: 20px 0 28px;
+            }
+
+            .story-section h2 {
+                font-size: 20px;
+            }
+
+            .story-toc li a {
+                font-size: 14px;
+            }
+
+            .story-wrapper p,
+            .qa-question,
+            .qa-answer {
+                font-size: 15px !important;
+            }
+
+            blockquote {
+                font-size: 15px !important;
+                line-height: 1.65 !important;
+                padding: 0 !important;
+            }
+
+            .story-cta {
+                padding: 28px 20px;
+            }
+
+            .story-cta h3 {
+                font-size: 18px;
+            }
+
+            .story-cta p {
+                font-size: 14px;
+            }
+        }
+    
+
+    @media (max-width: 860px) {
+      .header-center, .auth-section .auth-item { display: none; }
+      .hamburger-menu { display: flex; }
+    }
+
+  
+  </style>
+  <link rel="stylesheet" href="/qava-auth.css" />
+</head>
+<body>
+<div id="qava-dot-base-fixed" aria-hidden="true"></div>
+
+  <header class="header-container" data-qava-nav="landing">
+    <div class="header-logo">
+      <div class="logo-container">
+        <div class="logo">
+          <a href="https://qava.ai/">
+            <div class="qava-nav-logo-flip" id="qava-nav-logo-flip">
+              <div class="qava-nav-logo-inner" id="qava-nav-logo-inner">
+                <img class="qava-nav-logo-face qava-nav-logo-front" src="qava-logo.svg" alt="Qava">
+                <img class="qava-nav-logo-face qava-nav-logo-back" src="./qava-hero-arrow-2.png" alt="">
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="header-center">
+      <nav class="navigation">
+        <a href="https://qava.ai/templates" class="nav-item templates">
+          <div class="nav-text">Templates</div>
+        </a>
+        <a href="https://app.qava.ai/projects" class="nav-item search-listings">
+          <div class="nav-text">Find Work</div>
+        </a>
+        <a href="https://app.qava.ai/guest" class="nav-item create-listing">
+          <div class="nav-text">Find Talent</div>
+        </a>
+      </nav>
+    </div>
+    <div class="header-right">
+      <div class="auth-section">
+        <button type="button" class="qava-premium-nav-btn" data-qava-premium-nav aria-label="Premium">
+          <span class="qava-premium-nav-icon" data-qava-premium-lock-icon aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+          <span class="nav-text">Premium</span>
+        </button>
+        <a href="https://app.qava.ai/" class="join-button">
+          <div class="join-text">Get Started</div>
+        </a>
+      </div>
+      <div class="hamburger-menu" aria-hidden="true">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </div>
+    </div>
+  </header>
+
+<main class="story-wrapper">
+        <header class="story-header">
+            <div class="story-categories">
+                <span class="story-category-pill">Leadership</span>
+            </div>
+            <h1 class="story-title">Five Minutes and a Manual</h1>
+            <p class="story-subtitle" style="color: #666666;">During my MBA they put us in a cockpit simulator with a manual we couldn't finish and a plane we couldn't fly. It wasn't really about the plane. It was about what happens to your judgement — and your communication — the moment the stakes climb and the clock runs.</p>
+            <p style="margin-top: 6px; font-size: 14px; font-weight: 400; color: #6b7280;">By Qava Team</p>
+        </header>
+
+        <figure class="story-hero">
+            <img src="five-minutes-manual-card.png" alt="The view from an aircraft cockpit at dusk, instrument panels lit, clouds below" loading="lazy">
+        </figure>
+
+        <section class="story-section" id="the-booth">
+            <h2>The Booth</h2>
+            <p>During my MBA, they shuttled us out to an airport one day without telling us why. No agenda, no briefing, just a bus and a vague instruction to hold our questions. We were led into a room, handed off in pairs, and put into private booths. Then, with about five minutes' notice, the scenario dropped: we were on a flight from Melbourne to Sydney. Both pilots had fallen ill. We had been selected — my partner and I, and every other pair in their own sealed booth — to bring the aircraft back and land it safely.</p>
+            <p>In front of us was an instruction manual. It was enormous. We had five minutes to look at it. And critically, we could not talk to each other across booths, or to an instructor, or to anyone in the room. Our only line to the outside world was the ground. A voice on a radio. That was it.</p>
+            <p>I remember the specific texture of those five minutes. The instinct is to read — to consume as much of that manual as humanly possible, to become, in three hundred seconds, someone who understands an aircraft. Which is, of course, absurd. There is no version of five minutes that turns you into a pilot. The manual isn't there to be mastered. It's there to overwhelm you, so that the exercise can teach you what it's actually about: communication under pressure, and how astonishingly fast it breaks down when the stakes climb and the clock runs.</p>
+        </section>
+
+        <section class="story-section" id="how-communication-frays">
+            <h2>How Communication Frays</h2>
+            <p>Because here's what happened, and what happens to almost everyone. Under pressure, the quality of your communication is the first thing to degrade, and you barely notice it going. You start clipping words. You assume the person on the other end has context they don't have. You ask a question and hear the answer you expected instead of the answer you were given.</p>
+            <p>You say "descend" without a number, "turn" without a heading, "okay" when you mean "I think so." The ground can only help you with the information you actually transmit, and pressure quietly narrows that channel to a trickle right when you need it wide open.</p>
+            <p>The whole exercise was engineered to expose that gap — the distance between what you meant, what you said, and what got received. In a calm room, those three things line up. In a cockpit you don't understand, with a manual you can't finish, talking to a voice you can't see, they come apart.</p>
+        </section>
+
+        <section class="story-section" id="the-room-was-everywhere">
+            <h2>The Room Was Everywhere</h2>
+            <p>The lesson stuck with me far past business school, because it turns out that room was just a compressed version of how most high-stakes decisions actually get made. You rarely have complete information. You rarely have enough time. And you are almost never operating alone — there's a counterpart, a team, a ground crew — which means the decision is only as good as what you manage to communicate about it.</p>
+            <p>We like to imagine that good decisions come from good analysis. But in the booth, analysis was never the bottleneck.</p>
+            <blockquote>The bottleneck was clarity: could I say the one thing that mattered, plainly enough that the person who could actually help me would understand it in time?</blockquote>
+        </section>
+
+        <section class="story-section" id="maximizers-and-satisficers">
+            <h2>Maximisers and Satisficers</h2>
+            <p>That reframes something about how I think about decision-making generally. There's a temptation — especially for ambitious, high-performing people — to treat every decision as a problem of optimisation. To believe that if you just read enough of the manual, you'll find the perfect answer waiting on some page you haven't reached yet.</p>
+            <p>Business school gave me a name for this instinct. Herbert Simon drew a line between maximisers and satisficers. A satisficer looks for an option that's good enough, commits to it, and moves on. A maximiser holds out for the absolute best — fully optimised, no better alternative left unexamined.</p>
+            <p>In the abstract, maximising sounds obviously superior. But the research runs the other way. Maximisers tend to end up less happy, because the moment after they choose, they start grieving everything they didn't choose. They pick the job, the city, the strategy, and then they don't get to simply live inside that choice. They live inside it and alongside the ghost of every alternative, running in parallel, forever.</p>
+        </section>
+
+        <section class="story-section" id="why-the-booth-wouldnt-let-you-optimize">
+            <h2>Why the Booth Wouldn't Let You Optimise</h2>
+            <p>The booth wouldn't let you be a maximiser. There was no time to optimise. You had five minutes and a manual you couldn't finish, and the only viable move was to find the good-enough action, communicate it cleanly, and adjust as the ground fed you more.</p>
+            <p>That's not a lowering of standards. It's a recognition of reality. Waiting for perfect information is unproductive when perfect information is never coming — and in a cockpit, or a market, or a career, it never is. Conditions shift. The plan you made at minute one stops matching the terrain at minute four. So you decide with what you have, and then you change only when the situation genuinely changes, not every time your anxiety flares.</p>
+        </section>
+
+        <section class="story-section" id="commitment">
+            <h2>Commitment Is a Communication Tool</h2>
+            <p>And this is where the third thread lives, the one that ties the other two together: commitment. Because clear communication and good-enough decision-making both collapse without it.</p>
+            <p>If you decide to descend but keep half-wondering whether you should have held altitude, that hesitation leaks into everything you say next. Your transmissions get hedged. The ground can't tell whether you're executing a plan or floating between two of them, and now they can't help you either.</p>
+            <p>The people who navigate a crisis well aren't the ones who agonise longest or read the most pages. They're the ones who, once they've decided, stop relitigating the decision and pour everything into executing it. Commitment isn't just a private feeling; it's what makes your communication legible to everyone else.</p>
+            <blockquote>A committed decision is one other people can actually coordinate around.</blockquote>
+        </section>
+
+        <section class="story-section" id="which-mode">
+            <h2>Knowing Which Mode You're In</h2>
+            <p>None of this is an argument for recklessness, or for abandoning rigour. There's a time to be meticulous — when the stakes are high and the choice is hard to reverse, precision genuinely matters, and you should slow down and get it right.</p>
+            <p>But most decisions are lower-stakes than our nervous systems insist, and "good enough" carries you remarkably far when it doesn't much matter. The real skill is flexibility: being exacting when it counts, loose when it doesn't, and honest enough with yourself to tell the difference in the moment.</p>
+            <p>That's what the booth was quietly training. Not how to fly a plane. How to stay clear, decisive, and communicative when everything in you wants to freeze, over-read, and hedge.</p>
+        </section>
+
+        <section class="story-section" id="what-gets-you-home">
+            <h2>What Gets You Home</h2>
+            <p>We landed, by the way — or the scenario resolved in whatever way scenarios do. I don't remember the outcome nearly as well as I remember those five minutes with the manual, and the specific feeling of watching my own communication start to fray under pressure. That's the part that lasted.</p>
+            <p>Because the truth is that most of life isn't the calm room where meaning lines up neatly. Most of the decisions that matter get made closer to the booth — not enough time, not enough information, a counterpart on the other end of a thin line, and a manual far too big to finish.</p>
+            <blockquote>What gets you home isn't reading faster. It's saying the thing that matters clearly, choosing something good enough, and committing to it fully enough that the people who can help you know exactly where you stand.</blockquote>
+        </section>
+
+        <div class="story-cta">
+            <h3>Great work happens with the right people on the line.</h3>
+            <p style="font-weight: 300;">Clear communication, good-enough decisions, real commitment — that's how things get built.</p>
+            <p style="font-weight: 300;">Find the people who help you land it with Qava.</p>
+            <div class="story-cta-actions">
+                <a href="https://app.qava.ai/" class="cta-button primary">Join for free</a>
+                <a href="https://qava.ai/howitworks" class="cta-button secondary">How Qava Works</a>
+            </div>
+        </div>
+    </main>
+
+  <footer class="footer-section"></footer>
+
+  <script src="./qava-footer.js"></script>
+  <script>
+    (function () {
+      if (typeof window.applyQavaFooter === "function") {
+        window.applyQavaFooter(document);
+      }
+
+      const inner = document.getElementById("qava-nav-logo-inner");
+      if (inner) {
+        let flipped = false;
+        setInterval(() => {
+          flipped = !flipped;
+          inner.classList.toggle("is-flipped", flipped);
+        }, 5000);
+      }
+
+      document.querySelectorAll('.qa-question').forEach((questionEl) => {
+        if (!questionEl.querySelector('.highlight')) {
+          questionEl.innerHTML = `<span class="highlight">${questionEl.innerHTML}</span>`;
+        }
+      });
+    })();
+  </script>
+  <script src="/qava-auth.js"></script>
+</body>
+</html>
