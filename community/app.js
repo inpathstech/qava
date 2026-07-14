@@ -853,6 +853,24 @@
     premiumToggle.addEventListener('change', () => setPremiumMode(premiumToggle.checked));
     setPremiumMode(false);
 
+    // Allow the auth layer (auth.js) to unlock/lock the composer + reply UI once
+    // it knows whether the visitor is a signed-in Premium member.
+    window.communitySetPremium = function (enabled) {
+      premiumToggle.checked = !!enabled;
+      setPremiumMode(!!enabled);
+    };
+    window.communityIsPremium = function () { return !!premiumToggle.checked; };
+
+    // When a locked visitor tries to post/reply, prefer the inline sign-in modal
+    // (auth.js). Fall back to the Premium page if the auth layer isn't loaded.
+    function requireSignIn() {
+      if (typeof window.communityRequireSignIn === 'function') {
+        window.communityRequireSignIn();
+      } else {
+        window.location.href = PREMIUM_URL;
+      }
+    }
+
     composerTitle.addEventListener('input', () => syncComposerState());
     composerInput.addEventListener('input', () => syncComposerState());
     composerInput.addEventListener('focus', () => {
@@ -911,7 +929,7 @@
         || composerAttachmentFiles.length
       );
       if (!premiumToggle.checked) {
-        if (hasDraft) window.location.href = PREMIUM_URL;
+        if (hasDraft) requireSignIn();
         return;
       }
       const words = updateWordCount(composerInput, wordCount);
@@ -922,7 +940,7 @@
 
     replyBtn.addEventListener('click', () => {
       if (!premiumToggle.checked) {
-        if (getInputText(replyInput).trim() || replyAttachmentFiles.length) window.location.href = PREMIUM_URL;
+        if (getInputText(replyInput).trim() || replyAttachmentFiles.length) requireSignIn();
         return;
       }
       const words = updateWordCount(replyInput, replyWordCount);

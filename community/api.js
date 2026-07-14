@@ -79,8 +79,43 @@
     saveReply: function (id) { return send('POST', '/community/replies/' + encodeURIComponent(id) + '/save'); },
     reportThread: function (id, b) { return send('POST', '/community/threads/' + encodeURIComponent(id) + '/report', b); },
     reportReply: function (id, b) { return send('POST', '/community/replies/' + encodeURIComponent(id) + '/report', b); },
+
+    // ---- Premium auth (shared with the marketing site) ---------------------
+    access: function () { return get('/templates/access'); },
+    me: function () { return get('/premium/me'); },
+    login: function (email) { return send('POST', '/premium/login', { email: email }); },
+    verify: function (email, otp) { return send('POST', '/premium/verify', { email: email, otp: otp }); },
+    logout: function () { return send('POST', '/premium/logout'); },
   };
   window.CommunityAPI = API;
+
+  // ---- Lightweight toast (write feedback) -----------------------------------
+  function toast(message, kind) {
+    try {
+      var el = document.createElement('div');
+      el.className = 'community-toast' + (kind ? ' is-' + kind : '');
+      el.textContent = message;
+      document.body.appendChild(el);
+      requestAnimationFrame(function () { el.classList.add('is-visible'); });
+      setTimeout(function () {
+        el.classList.remove('is-visible');
+        setTimeout(function () { el.remove(); }, 300);
+      }, 3200);
+    } catch (e) { /* no-op */ }
+  }
+  window.communityToast = toast;
+
+  function handleWriteError(e) {
+    var status = e && e.status;
+    if (status === 401) {
+      toast('Please sign in to your Premium account to post.', 'error');
+      if (window.communityRequireSignIn) window.communityRequireSignIn();
+    } else if (status === 403) {
+      toast((e && e.message) || 'Posting is available to Premium members.', 'error');
+    } else {
+      toast('Could not save that just now. Please try again.', 'error');
+    }
+  }
 
   // ---- Mapping: API payload -> the shape enhancements.js renders from --------
 
@@ -168,10 +203,40 @@
     });
   }
 
+  // Render a genuine empty state into the feed once we know the API is reachable
+  // but there are no live threads yet (replaces the bundled demo content).
+  function renderEmptyFeed() {
+    if (window.THREAD_DATA) {
+      Object.keys(window.THREAD_DATA).forEach(function (k) { delete window.THREAD_DATA[k]; });
+    }
+    var feedList = document.getElementById('feedList');
+    if (!feedList) return;
+    feedList.innerHTML =
+      '<div class="feed-empty" role="status">' +
+        '<div class="feed-empty-icon" aria-hidden="true">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>' +
+        '</div>' +
+        '<h3>No discussions yet</h3>' +
+        '<p>Be the first to start a conversation with the community.</p>' +
+      '</div>';
+  }
+  window.communityRenderEmptyFeed = renderEmptyFeed;
+
+  // Returns { reachable, empty }. reachable=false means the API could not be
+  // reached (network/CORS/down) — callers should keep the bundled mock content.
   async function hydrateFeed() {
-    var list = await API.listThreads({ sort: 'active' });
-    var items = list && list.items;
-    if (!items || !items.length) return false;
+    var list;
+    try {
+      list = await API.listThreads({ sort: 'active' });
+    } catch (e) {
+      return { reachable: false, empty: false };
+    }
+
+    var items = (list && list.items) || [];
+    if (!items.length) {
+      renderEmptyFeed();
+      return { reachable: true, empty: true };
+    }
 
     // Pull full detail for each listed thread so the feed keeps its excerpt +
     // reply previews. Threads that fail to load are simply skipped.
@@ -180,12 +245,16 @@
     details.forEach(function (d) {
       if (d.status === 'fulfilled' && d.value && d.value.id) built[d.value.id] = mapThread(d.value);
     });
-    if (!Object.keys(built).length) return false;
+    if (!Object.keys(built).length) {
+      renderEmptyFeed();
+      return { reachable: true, empty: true };
+    }
 
     replaceThreadData(built);
     if (window.initFeedFromData) window.initFeedFromData();
-    return true;
+    return { reachable: true, empty: false };
   }
+  window.communityHydrateFeed = hydrateFeed;
 
   // Wrap a window function so we fetch live data first, merge it into
   // THREAD_DATA / MEMBER_PROFILES, then defer to the original renderer.
@@ -232,7 +301,13 @@
         var rawBody = window.getInputRaw && bodyEl ? window.getInputRaw(bodyEl) : (bodyEl ? bodyEl.innerHTML : '');
         var result = origPost.apply(this, arguments);
         if (title && title.trim()) {
-          API.createThread({ title: title.trim(), body: rawBody || '' }).catch(function () {});
+          API.createThread({ title: title.trim(), body: rawBody || '' })
+            .then(function () {
+              toast('Posted to the community.', 'success');
+              // Refresh the feed from the server so the persisted thread shows.
+              hydrateFeed().catch(function () {});
+            })
+            .catch(handleWriteError);
         }
         return result;
       };
@@ -247,7 +322,19 @@
         var tid = window.currentThreadId ? window.currentThreadId() : null;
         var result = origReply.apply(this, arguments);
         if (isLiveId(tid) && raw && raw.trim()) {
-          API.createReply(tid, { body: raw }).catch(function () {});
+          API.createReply(tid, { body: raw })
+            .then(function () {
+              toast('Reply posted.', 'success');
+              // Re-fetch the open thread so the persisted reply is shown.
+              return API.getThread(tid);
+            })
+            .then(function (t) {
+              if (t && t.id && window.THREAD_DATA) {
+                window.THREAD_DATA[t.id] = mapThread(t);
+                if (window.renderThreadDetail) window.renderThreadDetail(t.id);
+              }
+            })
+            .catch(handleWriteError);
         }
         return result;
       };
@@ -278,8 +365,8 @@
     wrapProfileOpener();
     wrapWrites();
     hydrateFeed()
-      .then(function (hydrated) {
-        if (!hydrated) return;
+      .then(function (res) {
+        if (!res || !res.reachable || res.empty) return;
         // Re-open whatever the current page is pointed at, now with live data.
         var params = new URLSearchParams(window.location.search);
         var t = params.get('t');

@@ -29,7 +29,7 @@
       background-repeat: repeat;
     }
 
-    body > *:not(#qava-dot-base-fixed):not(#mentionDropdown):not(#mentionInviteToast):not(#reportModal) { position: relative; z-index: 1; }
+    body > *:not(#qava-dot-base-fixed):not(#mentionDropdown):not(#mentionInviteToast):not(#reportModal):not(#communityAuthModal):not(.community-toast) { position: relative; z-index: 1; }
 
     a { color: inherit; text-decoration: none; }
 
@@ -3123,3 +3123,196 @@
       color: #9ca3af;
       font-weight: 300;
     }
+
+    /* ===== Community auth + live-state UI ===== */
+
+    /* Empty feed state (API reachable, no live threads yet) */
+    .feed-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 10px;
+      padding: 56px 24px;
+      color: var(--muted);
+    }
+    .feed-empty-icon {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: var(--panel-soft);
+      border: 1px solid var(--hairline);
+      color: var(--ink);
+    }
+    .feed-empty-icon svg { width: 22px; height: 22px; }
+    .feed-empty h3 { font-size: 17px; font-weight: 600; color: var(--ink); }
+    .feed-empty p { font-size: 14px; font-weight: 300; max-width: 340px; }
+
+    /* Header auth control */
+    .community-auth-control { display: inline-flex; align-items: center; }
+    .community-auth-signin {
+      appearance: none;
+      border: 1px solid var(--hairline);
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background .15s ease, border-color .15s ease;
+    }
+    .community-auth-signin:hover { background: var(--panel-soft); border-color: rgba(17,24,39,0.18); }
+
+    .community-auth-control { position: relative; }
+    .community-auth-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--hairline);
+      background: #fff;
+      border-radius: 999px;
+      padding: 5px 12px 5px 5px;
+      cursor: pointer;
+      font: inherit;
+    }
+    .community-auth-chip:hover { background: var(--panel-soft); }
+    .community-auth-avatar {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: #fff;
+      display: grid; place-items: center;
+      font-size: 11px; font-weight: 600; letter-spacing: .3px;
+    }
+    .community-auth-name {
+      font-size: 14px; font-weight: 500; color: var(--ink);
+      max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .community-auth-badge {
+      font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .4px;
+      color: #92400e; background: #fef3c7; padding: 2px 6px; border-radius: 6px;
+    }
+    .community-auth-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      min-width: 180px;
+      background: #fff;
+      border: 1px solid var(--hairline);
+      border-radius: 12px;
+      box-shadow: 0 12px 32px rgba(17,24,39,0.12);
+      padding: 6px;
+      display: flex;
+      flex-direction: column;
+      z-index: 50;
+    }
+    .community-auth-menu-item {
+      appearance: none;
+      border: none;
+      background: none;
+      text-align: left;
+      font: inherit;
+      font-size: 14px;
+      color: var(--ink);
+      padding: 9px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .community-auth-menu-item:hover { background: var(--panel-soft); }
+
+    /* Sign-in modal */
+    body.community-auth-open { overflow: hidden; }
+    /* !important defeats the site-wide `body > *` z-index/position rule in
+       qava-landing.css, which would otherwise drop the modal to z-index:1. */
+    .community-auth-modal {
+      position: fixed !important;
+      inset: 0;
+      z-index: 4000 !important;
+    }
+    .community-auth-modal[hidden] { display: none !important; }
+    .community-auth-overlay {
+      position: fixed; inset: 0;
+      background: rgba(17,24,39,0.45);
+      backdrop-filter: blur(3px);
+    }
+    /* Centre against the viewport via left:50% (robust even when the page has
+       horizontal overflow, unlike margin:auto / flex centering). */
+    .community-auth-dialog {
+      position: fixed;
+      top: 12vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(420px, calc(100vw - 32px));
+      background: #fff;
+      border-radius: 18px;
+      padding: 28px 26px 22px;
+      box-shadow: 0 24px 60px rgba(17,24,39,0.28);
+      animation: communityAuthPop .18s ease-out;
+    }
+    @keyframes communityAuthPop {
+      from { transform: translateX(-50%) translateY(8px); opacity: 0; }
+      to { transform: translateX(-50%) translateY(0); opacity: 1; }
+    }
+    .community-auth-close {
+      position: absolute; top: 12px; right: 14px;
+      appearance: none; border: none; background: none;
+      font-size: 24px; line-height: 1; color: var(--muted); cursor: pointer;
+    }
+    .community-auth-dialog h2 { font-family: var(--display); font-size: 26px; font-weight: 400; color: var(--ink); }
+    .community-auth-sub { margin-top: 8px; font-size: 14px; font-weight: 300; color: var(--muted); }
+    .community-auth-form { margin-top: 18px; display: flex; flex-direction: column; gap: 8px; }
+    .community-auth-form[hidden] { display: none !important; }
+    .community-auth-form label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .4px; color: var(--muted); }
+    .community-auth-form input {
+      font: inherit; font-size: 15px;
+      padding: 11px 13px;
+      border: 1px solid rgba(17,24,39,0.16);
+      border-radius: 10px;
+      outline: none;
+    }
+    .community-auth-form input:focus { border-color: var(--ink); }
+    .community-auth-submit {
+      margin-top: 6px;
+      appearance: none; border: none;
+      background: var(--ink); color: #fff;
+      font: inherit; font-size: 15px; font-weight: 500;
+      padding: 12px 16px; border-radius: 10px; cursor: pointer;
+    }
+    .community-auth-submit:disabled { opacity: .6; cursor: default; }
+    .community-auth-link {
+      appearance: none; border: none; background: none;
+      font: inherit; font-size: 13px; color: var(--muted);
+      cursor: pointer; text-decoration: underline; padding: 4px 0;
+    }
+    .community-auth-msg { margin-top: 12px; font-size: 13px; border-radius: 8px; padding: 9px 11px; }
+    .community-auth-msg.is-info { background: #eff6ff; color: #1e40af; }
+    .community-auth-msg.is-success { background: #ecfdf5; color: #065f46; }
+    .community-auth-msg.is-error { background: #fef2f2; color: #991b1b; }
+    .community-auth-foot { margin-top: 16px; font-size: 13px; font-weight: 300; color: var(--muted); }
+    .community-auth-foot a { text-decoration: underline; }
+
+    /* Toast (write feedback) */
+    .community-toast {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      transform: translateX(-50%) translateY(12px);
+      background: var(--ink);
+      color: #fff;
+      font-size: 14px;
+      padding: 11px 18px;
+      border-radius: 999px;
+      box-shadow: 0 12px 32px rgba(17,24,39,0.28);
+      opacity: 0;
+      transition: opacity .25s ease, transform .25s ease;
+      position: fixed !important;
+      z-index: 4100 !important;
+      max-width: 90vw;
+    }
+    .community-toast.is-visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .community-toast.is-error { background: #991b1b; }
+    .community-toast.is-success { background: #065f46; }
