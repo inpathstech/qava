@@ -1098,6 +1098,20 @@
       width: min(1200px, calc(100vw - 48px));
     }
 
+    /* When relocated into the centred hero column (max-width 980px), the
+       full-width frame is wider than its parent, so plain `margin: auto` can't
+       centre it and it overflows to the right. Break it out and centre it on
+       the viewport instead. The hero column is itself viewport-centred, so its
+       horizontal midpoint matches the viewport's. */
+    body.pref-thread-full-width .hero-content > .landing-section {
+      width: min(1200px, calc(100vw - 48px));
+      max-width: none;
+      margin-top: 44px;
+      margin-bottom: 8px;
+      margin-left: 50%;
+      transform: translateX(-50%);
+    }
+
     body.pref-thread-full-width .landing-thread-wrap {
       width: min(960px, 100%);
     }
