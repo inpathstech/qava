@@ -159,7 +159,9 @@
 
       const lastReply = visibleReplies[visibleReplies.length - 1];
       const lastRect = lastReply.getBoundingClientRect();
-      const clipped = lastRect.top < scrollRect.bottom && lastRect.bottom > scrollRect.bottom;
+      // Show the fade whenever content continues past the bottom of the box —
+      // whether the last reply straddles the edge or sits fully below it.
+      const clipped = lastRect.bottom > scrollRect.bottom + 1;
       scroll.classList.toggle('is-bottom-faded', clipped);
     }
 
