@@ -1353,7 +1353,7 @@
       });
     }
 
-    // Deep-link support: thread.html?t=<threadId> and profile.html?m=<Member>.
+    // Deep-link support: thread?t=<threadId> and profile?m=<Member>.
     // Runs after enhancements.js has patched showThread and populated THREAD_DATA.
     window.addEventListener('load', () => {
       const params = new URLSearchParams(window.location.search);

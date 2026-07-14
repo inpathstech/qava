@@ -35,15 +35,15 @@
 
   function showThread(threadId) {
     var q = (threadId && threadId !== 'nathan') ? ('?t=' + encodeURIComponent(threadId)) : '';
-    window.location.href = COMMUNITY_BASE + 'thread.html' + q;
+    window.location.href = COMMUNITY_BASE + 'thread' + q;
   }
 
   function showView(name) {
     if (name === 'profile') {
-      window.location.href = COMMUNITY_BASE + 'profile.html';
+      window.location.href = COMMUNITY_BASE + 'profile';
       return;
     }
-    window.location.href = COMMUNITY_BASE + 'chat.html';
+    window.location.href = COMMUNITY_BASE + 'chat';
   }
 
     const THREAD_DISPLAY_PREFS = {
