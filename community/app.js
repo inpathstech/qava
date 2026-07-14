@@ -347,12 +347,13 @@
 
       lines.forEach((line) => {
         const trimmed = line.trim();
-        if (trimmed.startsWith('- ')) {
+        const bullet = trimmed.match(/^[-*]\s+(.*)$/);
+        if (bullet) {
           if (!inList) {
             html += '<ul>';
             inList = true;
           }
-          html += `<li>${formatInlineMarkup(trimmed.slice(2))}</li>`;
+          html += `<li>${formatInlineMarkup(bullet[1])}</li>`;
           return;
         }
 
@@ -374,7 +375,7 @@
       return raw
         .replace(/\*\*(.+?)\*\*/g, '$1')
         .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-        .replace(/^\s*-\s+/gm, '')
+        .replace(/^\s*[-*]\s+/gm, '')
         .replace(/\s+/g, ' ')
         .trim();
     }
@@ -502,10 +503,21 @@
 
     function markdownToEditableHtml(raw) {
       const lines = raw.split('\n');
-      return lines.map((line) => {
-        const html = inlineMarkdownToEditableHtml(line);
-        return html ? `<div>${html}</div>` : '<div><br></div>';
-      }).join('');
+      let html = '';
+      let inList = false;
+      lines.forEach((line) => {
+        const trimmed = line.trim();
+        if (/^[-*]\s+/.test(trimmed)) {
+          if (!inList) { html += '<ul>'; inList = true; }
+          html += `<li>${inlineMarkdownToEditableHtml(trimmed.replace(/^[-*]\s+/, ''))}</li>`;
+          return;
+        }
+        if (inList) { html += '</ul>'; inList = false; }
+        const inner = inlineMarkdownToEditableHtml(line);
+        html += inner ? `<div>${inner}</div>` : '<div><br></div>';
+      });
+      if (inList) html += '</ul>';
+      return html;
     }
 
     function inlineEditableToMarkdown(node) {
@@ -530,9 +542,8 @@
       return out;
     }
 
-    function editableToMarkdown(el) {
-      const lines = [];
-      el.childNodes.forEach((node) => {
+    function blockToMarkdownLines(root, lines) {
+      root.childNodes.forEach((node) => {
         if (node.nodeType === Node.TEXT_NODE) {
           const text = node.textContent.replace(/\u00a0/g, ' ');
           if (text.trim()) lines.push(text);
@@ -540,16 +551,37 @@
         }
         if (node.nodeType !== Node.ELEMENT_NODE) return;
         const tag = node.tagName.toLowerCase();
-        if (tag === 'div' || tag === 'p') {
-          lines.push(inlineEditableToMarkdown(node).replace(/\u00a0/g, ' '));
+        if (tag === 'ul' || tag === 'ol') {
+          node.querySelectorAll(':scope > li').forEach((li) => {
+            lines.push('- ' + inlineEditableToMarkdown(li).replace(/\u00a0/g, ' ').trim());
+          });
+          return;
+        }
+        if (tag === 'li') {
+          lines.push('- ' + inlineEditableToMarkdown(node).replace(/\u00a0/g, ' ').trim());
           return;
         }
         if (tag === 'br') {
           lines.push('');
           return;
         }
+        if (tag === 'div' || tag === 'p') {
+          // A wrapper that itself contains blocks (lists, nested divs, breaks)
+          // must be recursed into so lists/newlines survive the round-trip.
+          if (node.querySelector('ul, ol, div, p, br')) {
+            blockToMarkdownLines(node, lines);
+          } else {
+            lines.push(inlineEditableToMarkdown(node).replace(/\u00a0/g, ' '));
+          }
+          return;
+        }
         lines.push(inlineEditableToMarkdown(node).replace(/\u00a0/g, ' '));
       });
+    }
+
+    function editableToMarkdown(el) {
+      const lines = [];
+      blockToMarkdownLines(el, lines);
       return lines.join('\n').replace(/\n{3,}/g, '\n\n').trim();
     }
 
@@ -590,7 +622,9 @@
     function insertInputBullet(input, onChange = () => {}) {
       if (isRichInput(input)) {
         input.focus();
-        document.execCommand('insertText', false, '- ');
+        // Create a real bullet list so it indents correctly and round-trips to
+        // "- " markdown via editableToMarkdown. Toggles off if already a list.
+        document.execCommand('insertUnorderedList', false, null);
         onChange();
         return;
       }

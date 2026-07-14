@@ -1527,6 +1527,22 @@
       cursor: pointer;
     }
 
+    .composer-input[contenteditable] ul {
+      margin: 4px 0;
+      padding-left: 20px;
+      list-style: disc;
+    }
+
+    .composer-input[contenteditable] ol {
+      margin: 4px 0;
+      padding-left: 20px;
+      list-style: decimal;
+    }
+
+    .composer-input[contenteditable] li {
+      margin: 2px 0;
+    }
+
     .input-with-gate:not(.is-enabled):not(.has-draft):not(.is-editing) .composer-input[contenteditable]:empty::before {
       opacity: 0;
     }

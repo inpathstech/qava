@@ -154,6 +154,19 @@
     return new Date(t).toLocaleDateString();
   }
 
+  // Live bodies are stored as line-based markdown ("- " bullets, blank lines,
+  // **bold**, [links]). Render them to safe HTML with the same formatter the
+  // composer uses, so newlines, spacing and bullet lists survive. Mock bodies
+  // are already HTML and never pass through here.
+  function formatBody(raw) {
+    var text = raw == null ? '' : String(raw);
+    if (typeof window.formatPostBody === 'function') return window.formatPostBody(text);
+    // Fallback: escape + preserve line breaks.
+    var esc = text
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return esc ? '<p>' + esc.replace(/\n/g, '<br>') + '</p>' : '';
+  }
+
   function mapOp(op) {
     op = op || {};
     return {
@@ -179,7 +192,7 @@
       time: relTime(r.createdAt),
       parentId: r.parentId || null,
       attachment: r.attachment ? (r.attachment.label || r.attachment) : undefined,
-      body: r.body,
+      body: formatBody(r.body),
     };
   }
 
@@ -194,7 +207,7 @@
       tags: t.tags || [],
       op: mapOp(t.op),
       title: t.title || '',
-      body: t.body || '',
+      body: formatBody(t.body),
       attachments: (t.attachments || []).map(function (a) { return a && a.label ? a.label : a; }),
       bestAnswerId: t.bestAnswerId || null,
       replies: (t.replies || []).map(mapReply),
