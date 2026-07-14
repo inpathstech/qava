@@ -7,6 +7,32 @@
 (function () {
   var COMMUNITY_BASE = 'community/';
 
+  // The landing preview markup lives at body level in index.html (deliberately
+  // outside the legacy `.feature-cards-section.fuel-section`, which qava-landing.js
+  // deletes on boot). Relocate it into the rebuilt hero so it sits between the blog
+  // thumbnails and the "How match-making works" showcase, then reveal it.
+  function placeLandingPreview(attempt) {
+    var el = document.querySelector('.landing-section[data-landing-preview]');
+    if (!el) return;
+    var anchor = document.getElementById('qava-showcase-toggle-wrap')
+      || document.getElementById('qava-hero-showcase-box');
+    if (anchor && anchor.parentElement) {
+      anchor.parentElement.insertBefore(el, anchor);
+      el.style.display = '';
+      el.removeAttribute('data-landing-preview');
+      return;
+    }
+    if ((attempt || 0) < 90) {
+      window.requestAnimationFrame(function () { placeLandingPreview((attempt || 0) + 1); });
+    } else {
+      // Fallback: reveal in place so the section is never lost even if the hero
+      // layout changes and the anchor can't be found.
+      el.style.display = '';
+      el.removeAttribute('data-landing-preview');
+    }
+  }
+  placeLandingPreview(0);
+
   function showThread(threadId) {
     var q = (threadId && threadId !== 'nathan') ? ('?t=' + encodeURIComponent(threadId)) : '';
     window.location.href = COMMUNITY_BASE + 'thread.html' + q;

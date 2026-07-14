@@ -17,6 +17,14 @@
       position: relative;
     }
 
+    /* When relocated into the marketing hero column (by landing-community.js),
+       fit the column width instead of the standalone 1040px so it centres with
+       the rest of the hero content rather than overflowing to the right. */
+    .hero-content > .landing-section {
+      width: 100%;
+      margin: 44px auto 8px;
+    }
+
     .landing-section-head {
       margin-bottom: 0;
       text-align: center;
