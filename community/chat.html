@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chat — Qava Premium Community</title>
+  <link rel="icon" type="image/svg+xml" href="../qava-logo.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../qava-landing.css" />
+  <link rel="stylesheet" href="community.css" />
+</head>
+<body>
+  <div id="qava-dot-base-fixed" aria-hidden="true"></div>
+
+  <header class="header-container">
+    <div class="header-logo">
+      <a href="https://qava.ai/"><img src="../qava-logo.svg" alt="Qava" /></a>
+    </div>
+    <div class="header-center">
+      <nav class="navigation">
+        <a href="chat.html" class="nav-item is-active"><span class="nav-text">Chat</span></a>
+        <a href="https://qava.ai/templates" class="nav-item"><span class="nav-text">Templates</span></a>
+        <a href="https://app.qava.ai/projects" class="nav-item"><span class="nav-text">Find Work</span></a>
+        <a href="https://app.qava.ai/guest" class="nav-item"><span class="nav-text">Find Talent</span></a>
+      </nav>
+    </div>
+    <div class="header-right">
+      <a href="../premium/" class="qava-premium-nav-btn">Premium</a>
+      <a href="https://app.qava.ai/" class="join-button">Get Started</a>
+    </div>
+  </header>
+
+  <template id="threadDisplayMenuTemplate">
+    <div class="thread-display-menu">
+      <button type="button" class="thread-display-trigger" aria-label="Thread display options" aria-expanded="false" aria-haspopup="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16"/><path d="M7 12h10"/><path d="M10 18h4"/></svg>
+      </button>
+      <div class="thread-display-panel" hidden>
+        <label class="thread-display-option">
+          <span class="thread-display-option-label">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m14 12 4 4 4-4"/><path d="M18 16V7"/><path d="m2 16 4.039-9.69a.5.5 0 0 1 .923 0L11 16"/><path d="M3.304 13h6.392"/></svg>
+            Small text
+          </span>
+          <input type="checkbox" data-thread-pref="small-text" />
+          <span class="toggle-switch" aria-hidden="true"></span>
+        </label>
+        <label class="thread-display-option">
+          <span class="thread-display-option-label">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="m21 3-7 7"/><path d="m3 21 7-7"/><path d="M9 21H3v-6"/></svg>
+            Full width
+          </span>
+          <input type="checkbox" data-thread-pref="full-width" />
+          <span class="toggle-switch" aria-hidden="true"></span>
+        </label>
+        <label class="thread-display-option">
+          <span class="thread-display-option-label" data-compact-label>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-compact-icon><path d="M3 5h8"/><path d="M3 12h8"/><path d="M3 19h8"/><path d="m15 8 3-3 3 3"/><path d="m15 16 3 3 3-3"/></svg>
+            <span data-compact-text>Compact view</span>
+          </span>
+          <input type="checkbox" data-thread-pref="compact" />
+          <span class="toggle-switch" aria-hidden="true"></span>
+        </label>
+      </div>
+    </div>
+  </template>
+
+  <section class="view is-active" id="view-chat">
+    <div class="chat-page">
+      <div class="chat-head">
+        <h1>Chat</h1>
+        <p>Ask for feedback, share what you're working on, and learn from other members.</p>
+      </div>
+
+      <div class="composer-card">
+        <div class="composer-top">
+          <div class="avatar">You</div>
+          <div class="composer-top-actions">
+            <div class="composer-try-asking-wrap" id="composerTryAskingWrap">
+              <button type="button" class="composer-try-asking-trigger" id="composerTryAskingTrigger" aria-expanded="false" aria-haspopup="menu">Try asking about</button>
+              <div class="composer-try-asking-menu" id="composerTryAskingMenu" hidden>
+                <div class="composer-try-asking-menu-label">Try asking about</div>
+              </div>
+            </div>
+            <div class="composer-lock" id="composerLockLabel">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Premium required
+            </div>
+          </div>
+        </div>
+        <div class="composer-fields" id="composerFields">
+          <div class="composer-field">
+            <label class="composer-field-label" for="composerTitle">Title</label>
+            <div class="composer-field-input">
+              <input class="composer-title" id="composerTitle" type="text" maxlength="120" placeholder="Post title" aria-label="Post title" />
+            </div>
+          </div>
+          <div class="composer-field">
+            <label class="composer-field-label" for="composerInput">Body</label>
+            <div class="composer-field-input input-with-gate" id="composerBodyField">
+              <div class="composer-input" id="composerInput" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Post body" data-placeholder="Add context, links, or details…"></div>
+              <div class="input-gate-prompt" id="composerGatePrompt">
+                <a href="../premium/">Sign in as a Premium member</a> to post…
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="composer-attachments" id="composerAttachments" aria-label="Attached files"></div>
+        <input type="file" id="composerFileInput" hidden multiple />
+        <div class="composer-agenda" id="composerAgenda">
+          <div class="composer-agenda-header">
+            <div class="composer-agenda-header-left">
+              <span class="composer-agenda-label">Agenda or topic</span>
+              <span class="composer-agenda-hint">· Select up to two</span>
+            </div>
+            <div class="word-count" id="wordCount">0 / 250 words</div>
+          </div>
+          <div class="composer-tags-row">
+            <div class="composer-tags" id="composerTags" aria-label="Agenda or topic"></div>
+            <button type="button" class="composer-topics-more" id="composerTopicsMore">Show more</button>
+          </div>
+        </div>
+        <div class="composer-draft-row">
+          <button type="button" class="save-draft-btn" id="saveDraftBtn">Save draft</button>
+        </div>
+        <div class="composer-actions">
+          <div class="toolbar" aria-label="Formatting">
+            <button class="tool-btn" type="button" data-tool="bold" aria-label="Bold" title="Bold">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a4 4 0 0 1 0 8H6z"/><path d="M6 12h9a4 4 0 0 1 0 8H6z"/></svg>
+            </button>
+            <button class="tool-btn" type="button" data-tool="bullet" aria-label="Bullet list" title="Bullet list">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11"/><path d="M9 12h11"/><path d="M9 18h11"/><circle cx="4" cy="6" r="1" fill="currentColor" stroke="none"/><circle cx="4" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="4" cy="18" r="1" fill="currentColor" stroke="none"/></svg>
+            </button>
+            <button class="tool-btn" type="button" data-tool="link" aria-label="Add link" title="Add link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            </button>
+            <button class="tool-btn" type="button" data-tool="mention" aria-label="Mention member" title="Mention member">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"/></svg>
+            </button>
+            <button class="tool-btn" type="button" data-tool="attach" aria-label="Attach file" title="Attach file or image">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+            </button>
+          </div>
+          <div class="composer-footer">
+            <button class="btn btn-primary btn-post" type="button" id="postBtn">Post</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="composer-collab-box">
+        <div class="composer-collab-left">
+          <p class="composer-collab-heading">Looking for hands-on support?</p>
+          <a class="composer-collab-cta" href="https://app.qava.ai/" target="_blank" rel="noopener noreferrer">Join match-maker for free</a>
+        </div>
+        <div class="composer-collab-right">
+          <p class="composer-collab-right-heading">Share a listing in minutes</p>
+          <div class="composer-collab-actions">
+            <a class="composer-collab-btn" href="https://qava.app" target="_blank" rel="noopener noreferrer">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 5h12"/><path d="M4 12h10"/><path d="M12 19h8"/></svg>
+              <span>Project</span>
+            </a>
+            <a class="composer-collab-btn" href="https://qava.app" target="_blank" rel="noopener noreferrer">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>
+              <span>Job</span>
+            </a>
+            <a class="composer-collab-btn" href="https://qava.app" target="_blank" rel="noopener noreferrer">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 13v8"/><path d="M12 3v3"/><path d="M2.354 10.354a1.207 1.207 0 0 1 0-1.708l2.06-2.06A2 2 0 0 1 5.828 6h12.344a2 2 0 0 1 1.414.586l2.06 2.06a1.207 1.207 0 0 1 0 1.708l-2.06 2.06a2 2 0 0 1-1.414.586H5.828a2 2 0 0 1-1.414-.586z"/></svg>
+              <span>Internship</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="feed-section-wrap">
+        <div class="feed-display-menu-row">
+          <div class="thread-display-menu-slot" data-display-menu-slot></div>
+        </div>
+        <div class="feed-card">
+        <div class="feed-header">
+          <span class="feed-section-label">Discussions</span>
+          <h2 class="feed-section-title">What members are discussing</h2>
+          <p class="feed-section-body">Browse freely — tap a thread to read. Reply with Premium.</p>
+        </div>
+        <div class="feed-toolbar">
+          <label>Sort by
+            <div class="feed-sort-wrap" id="feedSortWrap">
+              <button type="button" class="feed-sort-trigger" id="feedSortTrigger" aria-expanded="false" aria-haspopup="listbox">
+                <span id="feedSortLabel">Most active</span>
+                <span class="feed-sort-icon" id="feedSortIcon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                </span>
+              </button>
+              <div class="feed-sort-menu" id="feedSortMenu" role="listbox" hidden>
+                <button type="button" class="feed-sort-option is-selected" data-sort="active">Most active</button>
+                <button type="button" class="feed-sort-option" data-sort="new">New first</button>
+                <button type="button" class="feed-sort-option" data-sort="replies">Most replies</button>
+                <button type="button" class="feed-sort-option" data-sort="likes">Most likes</button>
+              </div>
+            </div>
+          </label>
+        </div>
+        <div class="feed-list" id="feedList"></div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="view-thread">
+    <div class="chat-page">
+      <div class="thread-page-bar">
+        <button class="back-chat-link" type="button" data-back-chat>← Back to Chat</button>
+        <div class="thread-display-menu-slot" data-display-menu-slot></div>
+      </div>
+
+      <div class="feed-card">
+        <div class="thread-detail">
+          <article class="thread-post is-op" id="defaultThreadPost"></article>
+
+          <article class="thread-post is-op" id="userThreadPost" hidden>
+            <div class="thread-meta">
+              <div class="avatar">You</div>
+              <div class="meta-lines">
+                <div class="meta-top"><strong>You</strong></div>
+                <div class="meta-sub">Just now · 0 replies</div>
+              </div>
+            </div>
+            <h3 class="thread-title" id="userThreadTitle"></h3>
+            <div class="thread-body" id="userThreadBody"></div>
+          </article>
+
+          <button type="button" class="thread-replies-toggle" data-replies-toggle data-reply-count="7" hidden>Show 7 replies</button>
+          <div class="thread-empty-state" id="threadEmptyState" hidden>
+            <p>Be the first to help — share what you've seen work.</p>
+          </div>
+          <div class="thread-replies-wrap" data-replies-wrap id="threadRepliesWrap"></div>
+          <div class="thread-bridge-actions" id="threadBridgeActions" hidden></div>
+        </div>
+
+        <div class="reply-box-sticky-wrap">
+        <div class="reply-box">
+
+          <div class="composer-top">
+            <div class="avatar">You</div>
+            <div class="composer-lock" id="replyLockLabel">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Premium required
+            </div>
+          </div>
+          <div class="input-with-gate" id="replyInputField">
+            <div class="composer-input" id="replyInput" contenteditable="false" role="textbox" aria-multiline="true" aria-label="Reply" data-placeholder="Write a reply…"></div>
+            <div class="input-gate-prompt" id="replyGatePrompt">
+              <a href="../premium/">Sign in as a Premium member</a> to reply…
+            </div>
+          </div>
+          <div class="composer-attachments" id="replyAttachments" aria-label="Attached files"></div>
+          <input type="file" id="replyFileInput" hidden multiple />
+          <div class="composer-actions">
+            <div class="toolbar" aria-label="Formatting">
+              <button class="tool-btn" type="button" data-tool="bold" disabled aria-label="Bold" title="Bold">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a4 4 0 0 1 0 8H6z"/><path d="M6 12h9a4 4 0 0 1 0 8H6z"/></svg>
+              </button>
+              <button class="tool-btn" type="button" data-tool="bullet" disabled aria-label="Bullet list" title="Bullet list">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11"/><path d="M9 12h11"/><path d="M9 18h11"/><circle cx="4" cy="6" r="1" fill="currentColor" stroke="none"/><circle cx="4" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="4" cy="18" r="1" fill="currentColor" stroke="none"/></svg>
+              </button>
+              <button class="tool-btn" type="button" data-tool="link" disabled aria-label="Add link" title="Add link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              </button>
+              <button class="tool-btn" type="button" data-tool="mention" disabled aria-label="Mention member" title="Mention member">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"/></svg>
+              </button>
+              <button class="tool-btn" type="button" data-tool="attach" disabled aria-label="Attach file" title="Attach file or image">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+              </button>
+            </div>
+            <div class="composer-footer">
+              <div class="word-count" id="replyWordCount">0 / 250 words</div>
+              <button class="btn btn-primary btn-post" type="button" id="replyBtn">Reply</button>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="view-profile">
+    <div class="chat-page">
+      <div class="thread-page-bar">
+        <button class="back-chat-link" type="button" data-back-chat>← Back to Chat</button>
+      </div>
+      <div class="feed-card profile-card" id="profilePageRoot" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <div class="mention-dropdown" id="mentionDropdown" hidden></div>
+
+  <div class="proto-modal qava-modal-overlay" id="reportModal" data-modal-backdrop hidden>
+    <div class="proto-modal-card">
+      <button type="button" class="proto-modal-close" id="reportModalClose" aria-label="Close">×</button>
+      <h3>Report content</h3>
+      <p class="report-modal-sub">Help us keep discussions constructive.</p>
+      <div class="report-field">
+        <label class="composer-field-label" for="reportCategoryTrigger">Category</label>
+        <div class="report-category-wrap" id="reportCategoryWrap">
+          <button type="button" class="report-category-trigger" id="reportCategoryTrigger" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="reportCategoryLabel">
+            <span id="reportCategoryLabel">Spam or self-promotion</span>
+            <span class="report-category-icon" id="reportCategoryIcon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+            </span>
+          </button>
+          <input type="hidden" id="reportCategory" value="spam" />
+          <div class="report-category-menu" id="reportCategoryMenu" role="listbox" hidden>
+            <button type="button" class="report-category-option is-selected" data-value="spam">Spam or self-promotion</button>
+            <button type="button" class="report-category-option" data-value="harassment">Harassment or abuse</button>
+            <button type="button" class="report-category-option" data-value="misinfo">Misleading or harmful advice</button>
+            <button type="button" class="report-category-option" data-value="offtopic">Off-topic or low quality</button>
+            <button type="button" class="report-category-option" data-value="other">Other</button>
+          </div>
+        </div>
+      </div>
+      <div class="report-field">
+        <label class="composer-field-label" for="reportDescription">Description</label>
+        <textarea id="reportDescription" placeholder="Tell us what happened and why you're reporting this…" aria-label="Report description"></textarea>
+      </div>
+      <div class="report-submit-row">
+        <button type="button" class="report-cancel-btn" id="reportCancelBtn">Cancel</button>
+        <button type="button" class="btn btn-primary btn-post" id="reportSubmitBtn">Submit report</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script src="enhancements.js"></script>
+</body>
+</html>
