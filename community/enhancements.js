@@ -597,16 +597,37 @@
         }).join('')
       : '<p class="profile-empty-note">Nothing saved yet. Save threads or replies from Chat to find them here.</p>';
 
+    const avatarInner = p.photo
+      ? `<img src="${escapeHtml(p.photo)}" alt="${escapeHtml(name)}" />`
+      : escapeHtml(p.initials);
+    const roleSchool = [p.role, p.school].filter(Boolean).map(escapeHtml).join(' · ');
+    const chipSection = (label, values) => {
+      const list = Array.isArray(values) ? values.filter(Boolean) : [];
+      if (!list.length) return '';
+      const chips = list.map((v) => {
+        const disp = window.communityLabelFor ? window.communityLabelFor(v) : v;
+        return `<span class="profile-tag">${escapeHtml(disp)}</span>`;
+      }).join('');
+      return `
+        <section class="profile-section">
+          <span class="profile-section-label">${escapeHtml(label)}</span>
+          <div class="profile-tag-list">${chips}</div>
+        </section>`;
+    };
+
     root.innerHTML = `
       <div class="profile-page">
         <div class="profile-hero">
-          <div class="avatar profile-avatar">${escapeHtml(p.initials)}</div>
+          <div class="avatar profile-avatar">${avatarInner}</div>
           <div class="profile-identity">
             <h1>${escapeHtml(name)}</h1>
-            <p class="profile-role">${escapeHtml(p.role)} · ${escapeHtml(p.school)}</p>
+            ${roleSchool ? `<p class="profile-role">${roleSchool}</p>` : ''}
           </div>
         </div>
-        <p class="profile-bio">${escapeHtml(p.bio)}</p>
+        ${p.bio ? `<p class="profile-bio">${escapeHtml(p.bio)}</p>` : ''}
+        ${chipSection('What brings them here', p.whatBringsYouHere)}
+        ${chipSection('Interested in', p.interests)}
+        ${chipSection('Organizations', p.orgTypes)}
         <div class="profile-stats">
           <div class="profile-stat"><strong>${allReplies.length}</strong><span>Replies</span></div>
           <div class="profile-stat"><strong>${threads.length}</strong><span>Threads</span></div>

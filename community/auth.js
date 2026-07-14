@@ -13,7 +13,7 @@
   var API = window.CommunityAPI;
   if (!API || typeof API.access !== 'function') return;
 
-  var state = { loggedIn: false, premium: false, email: null, name: null };
+  var state = { loggedIn: false, premium: false, email: null, name: null, handle: null, profile: null };
   var pendingEmail = null;
   var modal = null;
 
@@ -50,6 +50,8 @@
           (state.premium ? '' : '<span class="community-auth-badge">Free</span>') +
         '</button>' +
         '<div class="community-auth-menu" id="communityAuthMenu" hidden>' +
+          (state.premium ? '<button type="button" class="community-auth-menu-item" id="communityViewProfileBtn">View my profile</button>' : '') +
+          (state.premium ? '<button type="button" class="community-auth-menu-item" id="communityEditProfileBtn">Edit profile</button>' : '') +
           (state.premium ? '' : '<a class="community-auth-menu-item" href="../premium/">Upgrade to Premium</a>') +
           '<button type="button" class="community-auth-menu-item" id="communitySignOutBtn">Sign out</button>' +
         '</div>';
@@ -64,6 +66,13 @@
       });
       document.addEventListener('click', function (e) {
         if (!wrap.contains(e.target)) { menu.hidden = true; chip.setAttribute('aria-expanded', 'false'); }
+      });
+      var viewBtn = wrap.querySelector('#communityViewProfileBtn');
+      if (viewBtn) viewBtn.addEventListener('click', function () { menu.hidden = true; openMyProfile(); });
+      var editBtn = wrap.querySelector('#communityEditProfileBtn');
+      if (editBtn) editBtn.addEventListener('click', function () {
+        menu.hidden = true;
+        if (window.communityOpenEditProfile) window.communityOpenEditProfile();
       });
       wrap.querySelector('#communitySignOutBtn').addEventListener('click', signOut);
     } else {
@@ -223,13 +232,57 @@
               }
               renderHeader();
             })
-            .catch(function () {});
+            .catch(function () {})
+            .then(function () {
+              // Load the community profile (handle + rich fields) so "View my
+              // profile" / "Edit profile" work and mentions resolve to self.
+              if (!state.premium || typeof API.getMyProfile !== 'function') return;
+              return API.getMyProfile()
+                .then(function (r) {
+                  var p = r && r.profile;
+                  if (p && p.name) {
+                    state.handle = p.name;
+                    state.profile = p;
+                    if (window.communityMergeMember) window.communityMergeMember(p.name, p);
+                  }
+                })
+                .catch(function () {});
+            });
         }
       })
       .catch(function () { /* API unreachable: stay in locked demo state */ });
   }
 
+  function openMyProfile() {
+    if (state.handle && window.openProfilePage) {
+      window.openProfilePage(state.handle);
+    } else if (window.communityToast) {
+      window.communityToast('Your profile isn\u2019t ready yet — try again in a moment.', 'info');
+    }
+  }
+
   window.communityRequireSignIn = openModal;
+  window.communityGetAuthState = function () {
+    return {
+      loggedIn: state.loggedIn,
+      premium: state.premium,
+      email: state.email,
+      name: state.name,
+      handle: state.handle,
+      profile: state.profile,
+    };
+  };
+  window.communityOpenMyProfile = openMyProfile;
+  // Let the edit flow refresh cached state + header after a successful save.
+  window.communityApplyProfileUpdate = function (profile) {
+    if (!profile) return;
+    state.profile = profile;
+    if (profile.name) state.handle = profile.name;
+    if (window.communityMergeMember && profile.name) {
+      window.communityMergeMember(profile.name, profile);
+    }
+    renderHeader();
+  };
 
   // In-composer gate prompt links ("Sign in as a Premium member") open the modal.
   document.addEventListener('click', function (e) {

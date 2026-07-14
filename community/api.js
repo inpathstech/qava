@@ -62,6 +62,24 @@
     return data;
   }
 
+  async function sendForm(method, path, formData) {
+    var res = await fetch(API_BASE + path, {
+      method: method,
+      credentials: 'include',
+      headers: { Accept: 'application/json' },
+      body: formData,
+    });
+    var data = null;
+    try { data = await res.json(); } catch (e) { /* no body */ }
+    if (!res.ok) {
+      var err = new Error((data && data.message) || 'HTTP ' + res.status);
+      err.status = res.status;
+      err.data = data;
+      throw err;
+    }
+    return data;
+  }
+
   var API = {
     base: API_BASE,
     isLiveId: isLiveId,
@@ -71,6 +89,8 @@
     },
     getThread: function (id) { return get('/community/threads/' + encodeURIComponent(id)); },
     getMember: function (handle) { return get('/community/members/' + encodeURIComponent(handle)); },
+    getMyProfile: function () { return get('/community/me'); },
+    updateMyProfile: function (formData) { return sendForm('PATCH', '/community/me', formData); },
     createThread: function (b) { return send('POST', '/community/threads', b); },
     createReply: function (id, b) { return send('POST', '/community/threads/' + encodeURIComponent(id) + '/replies', b); },
     likeThread: function (id) { return send('POST', '/community/threads/' + encodeURIComponent(id) + '/like'); },
@@ -142,6 +162,10 @@
       role: op.role || '',
       school: op.school || '',
       bio: op.bio || '',
+      photo: op.photo || '',
+      whatBringsYouHere: op.whatBringsYouHere || [],
+      interests: op.interests || [],
+      orgTypes: op.orgTypes || [],
       helpful: op.helpful || 0,
       listings: op.listings || 0,
     };
@@ -186,10 +210,15 @@
       role: profile.role || '',
       school: profile.school || '',
       bio: profile.bio || '',
+      photo: profile.photo || '',
+      whatBringsYouHere: profile.whatBringsYouHere || [],
+      interests: profile.interests || [],
+      orgTypes: profile.orgTypes || [],
       helpful: profile.helpful || 0,
       listings: profile.listings || 0,
     };
   }
+  window.communityMergeMember = mergeMember;
 
   // ---- Progressive hydration ------------------------------------------------
 
