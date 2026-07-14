@@ -1531,6 +1531,8 @@
   }
 
   window.THREAD_DATA = THREAD_DATA;
+  window.MEMBER_PROFILES = MEMBER_PROFILES;
+  window.initFeedFromData = initFeedFromData;
   window.renderThreadDetail = renderThreadDetail;
   window.openProfilePage = openProfilePage;
   window.renderProfilePage = renderProfilePage;
