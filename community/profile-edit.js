@@ -75,6 +75,9 @@
   // editor matches the Qava.ai / Notion visual language (no native triangles).
   var ICON_PLUS = '<svg class="pe-ico pe-ico-plus" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
   var ICON_MINUS = '<svg class="pe-ico pe-ico-minus" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M5 12h14"/></svg>';
+  var ICON_TRASH = '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
+  // Matches the qava.ai homepage calculator checkmark.
+  var ICON_CHECK = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8L6.5 11.5L13 4.5" stroke="#111111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
   var modal = null;
   var photoFile = null;
@@ -82,6 +85,40 @@
   var photoPos = { x: 50, y: 50 }; // object-position % for the profile photo
   var schoolOptions = null; // cached list of school names from GET /schools
   var msDocBound = false; // outside-click handler for multi-selects bound once
+  var initialSnapshot = ''; // serialized form state at open, to detect changes
+
+  // Serialize the editable form so we can tell if anything changed (controls
+  // whether the Save button is active).
+  function snapshotForm() {
+    if (!modal) return '';
+    var eds = [];
+    modal.querySelectorAll('#peEduList .pe-edu-card').forEach(function (row) {
+      var prim = row.querySelector('.pe-primary');
+      eds.push({
+        i: row.querySelector('.pe-edu-inst').value.trim(),
+        c: row.querySelector('.pe-edu-cred').value.trim(),
+        y: row.querySelector('.pe-edu-year').value.trim(),
+        p: !!(prim && prim.getAttribute('aria-pressed') === 'true'),
+      });
+    });
+    var bioEl = modal.querySelector('#peBio');
+    return JSON.stringify({
+      eds: eds,
+      bio: bioEl ? bioEl.value.trim() : '',
+      r: collectGroup('whatBringsYouHere'),
+      w: collectGroup('interests'),
+      o: collectGroup('orgTypes'),
+      pos: Math.round(photoPos.x) + '% ' + Math.round(photoPos.y) + '%',
+    });
+  }
+
+  function refreshDirty() {
+    if (!modal) return;
+    var btn = modal.querySelector('.pe-save');
+    if (!btn) return;
+    var changed = photoFile != null || snapshotForm() !== initialSnapshot;
+    btn.disabled = !changed;
+  }
 
   function loadSchools() {
     if (schoolOptions) return;
@@ -147,6 +184,7 @@
       e.preventDefault();
       input.value = opt.getAttribute('data-value');
       close();
+      refreshDirty();
     });
     input.addEventListener('blur', function () { setTimeout(close, 120); });
   }
@@ -169,7 +207,7 @@
       var value = pair[0];
       var on = sel[value] ? ' is-selected' : '';
       return '<button type="button" class="pe-ms-option' + on + '" data-value="' + escapeHtml(value) + '" role="option" aria-selected="' + (sel[value] ? 'true' : 'false') + '">' +
-        '<span class="pe-ms-check" aria-hidden="true"></span>' +
+        '<span class="pe-ms-check" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8L6.5 11.5L13 4.5" stroke="#111111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>' +
         '<span class="pe-ms-emoji">' + pair[1] + '</span>' +
         '<span class="pe-ms-optlabel">' + escapeHtml(value) + '</span>' +
       '</button>';
@@ -230,6 +268,7 @@
         var on = opt.classList.toggle('is-selected');
         opt.setAttribute('aria-selected', String(on));
         renderMsTags(ms);
+        refreshDirty();
       });
 
       tags.addEventListener('click', function (e) {
@@ -244,6 +283,7 @@
           }
         });
         renderMsTags(ms);
+        refreshDirty();
       });
     });
 
@@ -261,22 +301,32 @@
     var cred = escapeHtml(item.credential || item.course || '');
     var yr = item.year || item.graduationYear || '';
     yr = yr === null ? '' : escapeHtml(String(yr));
+    var isPrimary = !!(item.primary || item.isPrimary);
     return '<div class="pe-edu-card">' +
-      '<button type="button" class="pe-edu-remove" aria-label="Remove">' + ICON_MINUS + '</button>' +
       '<div class="pe-edu-field">' +
         '<label class="pe-sub-label">School</label>' +
         '<div class="pe-combo">' +
           '<input class="pe-input pe-edu-inst" type="text" maxlength="160" placeholder="Search for your school\u2026" value="' + inst + '" autocomplete="off" />' +
+          '<span class="pe-combo-caret" aria-hidden="true">' + ICON_PLUS + ICON_MINUS + '</span>' +
           '<div class="pe-combo-panel" hidden></div>' +
         '</div>' +
       '</div>' +
       '<div class="pe-edu-field">' +
-        '<label class="pe-sub-label">Program / Degree</label>' +
+        '<label class="pe-sub-label">Program / Certification</label>' +
         '<input class="pe-input pe-edu-cred" type="text" maxlength="160" placeholder="e.g. MBA, JD, Economics" value="' + cred + '" />' +
       '</div>' +
-      '<div class="pe-edu-field pe-year-field">' +
-        '<label class="pe-sub-label">Year</label>' +
-        '<input class="pe-input pe-edu-year" type="text" maxlength="8" inputmode="numeric" placeholder="2024" value="' + yr + '" />' +
+      '<div class="pe-edu-bottom">' +
+        '<div class="pe-edu-field pe-year-field">' +
+          '<label class="pe-sub-label">Year</label>' +
+          '<input class="pe-input pe-edu-year" type="text" maxlength="8" inputmode="numeric" placeholder="2024" value="' + yr + '" />' +
+        '</div>' +
+        '<div class="pe-edu-actions">' +
+          '<button type="button" class="pe-primary" data-primary aria-pressed="' + (isPrimary ? 'true' : 'false') + '">' +
+            '<span class="pe-primary-box' + (isPrimary ? ' checked' : '') + '">' + ICON_CHECK + '</span>' +
+            '<span class="pe-primary-label">Primary</span>' +
+          '</button>' +
+          '<button type="button" class="pe-edu-remove" aria-label="Remove">' + ICON_TRASH + '</button>' +
+        '</div>' +
       '</div>' +
     '</div>';
   }
@@ -328,7 +378,7 @@
           '</div>' +
 
           '<div class="pe-group-label">Education &amp; certifications</div>' +
-          '<p class="pe-group-sub">Add your degrees and certifications \u2014 you can add more than one.</p>' +
+          '<p class="pe-group-sub">Add your degrees and certifications.</p>' +
           '<div id="peEduList"></div>' +
           '<button type="button" class="pe-edu-add" id="peEduAdd">' + ICON_PLUS + '<span>Add education / certification</span></button>' +
 
@@ -347,7 +397,7 @@
           '<div class="community-auth-msg" id="peMsg" hidden></div>' +
           '<div class="pe-actions">' +
             '<button type="button" class="pe-cancel" data-pe-close>Cancel</button>' +
-            '<button type="submit" class="community-auth-submit pe-save">Save changes</button>' +
+            '<button type="submit" class="community-auth-submit pe-save" disabled>Save</button>' +
           '</div>' +
         '</form>' +
       '</div>';
@@ -361,10 +411,22 @@
     modal.querySelector('#peEduAdd').addEventListener('click', function () {
       eduList.insertAdjacentHTML('beforeend', eduRowHtml({}));
       wireSchoolCombo(eduList.lastElementChild);
+      refreshDirty();
     });
     eduList.addEventListener('click', function (e) {
       var rm = e.target.closest && e.target.closest('.pe-edu-remove');
-      if (rm) rm.closest('.pe-edu-card').remove();
+      if (rm) { rm.closest('.pe-edu-card').remove(); refreshDirty(); return; }
+      // Primary is a single-select toggle across all education cards.
+      var prim = e.target.closest && e.target.closest('.pe-primary');
+      if (prim) {
+        var turnOn = prim.getAttribute('aria-pressed') !== 'true';
+        eduList.querySelectorAll('.pe-primary').forEach(function (btn) {
+          var on = turnOn && btn === prim;
+          btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+          btn.querySelector('.pe-primary-box').classList.toggle('checked', on);
+        });
+        refreshDirty();
+      }
     });
     loadSchools();
 
@@ -388,10 +450,19 @@
         enableReposition();
       };
       reader.readAsDataURL(f);
+      refreshDirty();
     });
 
     enableReposition();
-    modal.querySelector('#peForm').addEventListener('submit', onSubmit);
+    var form = modal.querySelector('#peForm');
+    form.addEventListener('submit', onSubmit);
+    // Any typing/selection re-evaluates whether there's something to save.
+    form.addEventListener('input', refreshDirty);
+    form.addEventListener('change', refreshDirty);
+
+    // Baseline snapshot AFTER everything is wired, so Save starts inactive.
+    initialSnapshot = snapshotForm();
+    refreshDirty();
   }
 
   // Drag within the circular avatar to set the photo's object-position.
@@ -426,6 +497,7 @@
       apply();
     }
     function onUp() {
+      if (dragging) refreshDirty();
       dragging = false;
       box.classList.remove('is-dragging');
     }
@@ -466,7 +538,9 @@
       var institution = row.querySelector('.pe-edu-inst').value.trim();
       var credential = row.querySelector('.pe-edu-cred').value.trim();
       var year = row.querySelector('.pe-edu-year').value.trim();
-      if (institution || credential) educations.push({ institution: institution, credential: credential, year: year });
+      var primaryBtn = row.querySelector('.pe-primary');
+      var primary = !!(primaryBtn && primaryBtn.getAttribute('aria-pressed') === 'true');
+      if (institution || credential) educations.push({ institution: institution, credential: credential, year: year, primary: primary });
     });
 
     var fd = new FormData();

@@ -3227,9 +3227,9 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
-      padding: 14px 40px 14px 14px;
+      padding: 14px 14px 14px 14px;
       border: 1px solid rgba(17, 24, 39, 0.1);
-      border-radius: 12px;
+      border-radius: 6px;
       background: #fafafa;
       margin-bottom: 10px;
     }
@@ -3244,15 +3244,56 @@
       margin: 0 0 5px;
     }
     .pe-year-field { max-width: 130px; }
+    .pe-edu-bottom {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .pe-edu-bottom .pe-year-field { flex: 0 0 auto; }
+    .pe-edu-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 8px; /* align with the Year input, not its label */
+    }
+    .pe-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      padding: 0;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 300;
+      color: #374151;
+      user-select: none;
+    }
+    .pe-primary-box {
+      flex: 0 0 auto;
+      width: 18px; height: 18px;
+      border: 1px solid #d0d0d0;
+      border-radius: 4px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s ease;
+    }
+    .pe-primary-box svg { opacity: 0; transform: scale(0); transition: opacity 0.2s ease, transform 0.2s ease; }
+    .pe-primary-box.checked { border-color: #000; }
+    .pe-primary-box.checked svg { opacity: 1; transform: scale(1); }
+    .pe-primary-label { color: #9ca3af; transition: color 0.2s ease; }
+    .pe-primary[aria-pressed="true"] .pe-primary-label { color: #111827; }
     .pe-edu-remove {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      width: 26px; height: 26px;
+      flex: 0 0 auto;
+      width: 22px; height: 22px;
       display: grid;
       place-items: center;
       border: 1px solid rgba(17, 24, 39, 0.14);
-      border-radius: 8px;
+      border-radius: 6px;
       background: #fff;
       color: #9ca3af;
       cursor: pointer;
@@ -3264,8 +3305,8 @@
       margin-top: 2px;
       display: inline-flex;
       align-items: center;
-      gap: 7px;
-      padding: 8px 14px;
+      gap: 5px;
+      padding: 5px 11px;
       border: 1px dashed rgba(17, 24, 39, 0.24);
       border-radius: 999px;
       background: #fff;
@@ -3285,6 +3326,21 @@
 
     /* Predictive school combobox (light dropdown under the field) */
     .pe-combo { position: relative; }
+    .pe-combo .pe-edu-inst { padding-right: 34px; }
+    .pe-combo-caret {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      display: grid;
+      place-items: center;
+      color: #6b7280;
+      pointer-events: none;
+    }
+    .pe-combo-caret .pe-ico { display: block; }
+    .pe-combo-caret .pe-ico-minus { display: none; }
+    .pe-combo.is-open .pe-combo-caret .pe-ico-plus { display: none; }
+    .pe-combo.is-open .pe-combo-caret .pe-ico-minus { display: block; }
     .pe-combo-panel {
       position: absolute;
       z-index: 6;
@@ -3296,7 +3352,7 @@
       padding: 6px;
       background: #fff;
       border: 1px solid rgba(17, 24, 39, 0.14);
-      border-radius: 12px;
+      border-radius: 8px;
       box-shadow: 0 16px 40px rgba(17, 24, 39, 0.16);
     }
     .pe-combo-panel[hidden] { display: none; }
@@ -3305,7 +3361,7 @@
       width: 100%;
       padding: 8px 10px;
       border: none;
-      border-radius: 8px;
+      border-radius: 5px;
       background: none;
       font: inherit;
       font-size: 13.5px;
@@ -3323,12 +3379,15 @@
     }
 
     /* ===== Profile editor modal ===== */
-    .pe-dialog {
-      width: min(680px, calc(100vw - 32px));
+    /* Both classes are on the dialog element; the base `.community-auth-dialog`
+       rule appears later in this file, so we raise specificity here to win. */
+    .community-auth-dialog.pe-dialog {
+      width: min(820px, calc(100vw - 32px));
       /* top is 12vh; leave ~6vh below so the form clears the screen bottom */
       max-height: 82vh;
       overflow-y: auto;
       padding-bottom: 32px;
+      border-radius: 8px;
     }
     .pe-dialog .community-auth-close svg { display: block; }
     .pe-dialog .community-auth-close { top: 16px; right: 16px; color: #9ca3af; }
@@ -3376,7 +3435,7 @@
       width: 100%;
       padding: 10px 12px;
       border: 1px solid rgba(17, 24, 39, 0.16);
-      border-radius: 10px;
+      border-radius: 6px;
       font-size: 14px;
       font-weight: 300;
       font-family: inherit;
@@ -3387,7 +3446,7 @@
     .pe-textarea { resize: vertical; line-height: 1.5; }
     .pe-group-label {
       font-family: var(--display);
-      font-size: 16px;
+      font-size: 20px;
       font-weight: 400;
       color: #111827;
       margin: 22px 0 8px;
@@ -3425,7 +3484,7 @@
       min-height: 44px;
       padding: 7px 10px 7px 12px;
       border: 1px solid rgba(17, 24, 39, 0.16);
-      border-radius: 10px;
+      border-radius: 6px;
       background: #fff;
       font: inherit;
       cursor: pointer;
@@ -3440,15 +3499,17 @@
       min-width: 0;
     }
     .pe-ms-placeholder { font-size: 14px; font-weight: 300; color: #9ca3af; }
+    /* Matches the app.qava.ai signup chips: small, light-gray, no border. */
     .pe-ms-tag {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      padding: 4px 6px 4px 9px;
+      gap: 6px;
+      padding: 5px 8px 5px 10px;
       border-radius: 999px;
-      background: var(--ink);
-      color: #fff;
-      font-size: 12.5px;
+      background: #f3f4f6;
+      color: #1f2937;
+      border: none;
+      font-size: 13px;
       font-weight: 300;
       line-height: 1.2;
     }
@@ -3456,15 +3517,15 @@
     .pe-ms-tag-x {
       display: inline-grid;
       place-items: center;
-      width: 16px; height: 16px;
+      width: 15px; height: 15px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.18);
-      color: #fff;
+      background: transparent;
+      color: #9ca3af;
       font-size: 12px;
       line-height: 1;
       cursor: pointer;
     }
-    .pe-ms-tag-x:hover { background: rgba(255, 255, 255, 0.32); }
+    .pe-ms-tag-x:hover { background: rgba(17, 24, 39, 0.1); color: #374151; }
     .pe-ms-caret { flex: 0 0 auto; color: #6b7280; display: grid; place-items: center; }
     .pe-ms-caret .pe-ico { display: block; }
     .pe-ms-caret .pe-ico-minus { display: none; }
@@ -3481,7 +3542,7 @@
       padding: 6px;
       background: #fff;
       border: 1px solid rgba(17, 24, 39, 0.14);
-      border-radius: 12px;
+      border-radius: 8px;
       box-shadow: 0 16px 40px rgba(17, 24, 39, 0.16);
     }
     .pe-ms-panel[hidden] { display: none; }
@@ -3492,7 +3553,7 @@
       gap: 8px;
       padding: 8px 10px;
       border: none;
-      border-radius: 8px;
+      border-radius: 5px;
       background: none;
       font: inherit;
       font-size: 13.5px;
@@ -3504,23 +3565,24 @@
     .pe-ms-option:hover { background: rgba(17, 24, 39, 0.04); }
     .pe-ms-check {
       flex: 0 0 auto;
-      width: 16px; height: 16px;
-      border: 1px solid rgba(17, 24, 39, 0.28);
-      border-radius: 5px;
-      position: relative;
+      width: 18px; height: 18px;
+      border: 1px solid #d0d0d0;
+      border-radius: 4px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s ease;
     }
-    .pe-ms-option.is-selected .pe-ms-check {
-      background: var(--ink);
-      border-color: var(--ink);
+    .pe-ms-check svg {
+      opacity: 0;
+      transform: scale(0);
+      transition: opacity 0.2s ease, transform 0.2s ease;
     }
-    .pe-ms-option.is-selected .pe-ms-check::after {
-      content: "";
-      position: absolute;
-      left: 5px; top: 2px;
-      width: 4px; height: 8px;
-      border: solid #fff;
-      border-width: 0 2px 2px 0;
-      transform: rotate(45deg);
+    .pe-ms-option.is-selected .pe-ms-check { border-color: #000; }
+    .pe-ms-option.is-selected .pe-ms-check svg {
+      opacity: 1;
+      transform: scale(1);
     }
     .pe-ms-emoji { flex: 0 0 auto; font-size: 14px; line-height: 1; }
     .pe-ms-optlabel { flex: 1 1 auto; }
@@ -3532,22 +3594,41 @@
       gap: 10px;
       margin-top: 24px;
     }
+    /* Cancel: plain gray text, turns black on hover. */
     .pe-cancel {
-      padding: 10px 16px;
+      margin: 0;
+      padding: 6px 14px;
+      font-size: 12px;
+      line-height: 1.2;
       border: none;
+      border-radius: 6px;
       background: none;
-      font-size: 14px;
-      color: #6b7280;
+      color: #9ca3af;
+      font-weight: 200;
       cursor: pointer;
     }
-    .pe-cancel:hover { color: #111827; }
-    .pe-save {
+    .pe-cancel:hover { background: none; color: #111827; }
+    /* Save: grey filled pill (same dimensions as Cancel), smaller font.
+       Combined selector beats the later `.community-auth-submit` base rule. */
+    .community-auth-submit.pe-save {
       width: auto;
-      margin-top: 0;
-      padding: 7px 16px;
-      font-size: 13px;
+      margin: 0;
+      padding: 6px 14px;
+      font-size: 11px;
       font-weight: 400;
-      border-radius: 7px;
+      line-height: 1.2;
+      border: none;
+      border-radius: 6px;
+      background: #111827;
+      color: #fff;
+      cursor: pointer;
+    }
+    .community-auth-submit.pe-save:hover:not(:disabled) { background: #000; }
+    .community-auth-submit.pe-save:disabled {
+      background: #e5e7eb;
+      color: #9ca3af;
+      opacity: 1;
+      cursor: default;
     }
 
     /* ===== Community auth + live-state UI ===== */
