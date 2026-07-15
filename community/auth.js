@@ -75,11 +75,10 @@
         if (window.communityOpenEditProfile) window.communityOpenEditProfile();
       });
       wrap.querySelector('#communitySignOutBtn').addEventListener('click', signOut);
-    } else {
-      wrap.innerHTML = '<button type="button" class="community-auth-signin" id="communitySignInBtn">Sign in</button>';
-      hr.insertBefore(wrap, hr.firstChild);
-      wrap.querySelector('#communitySignInBtn').addEventListener('click', openModal);
     }
+    // When signed out we intentionally render nothing here so the nav matches
+    // the qava.ai homepage (just "Premium" + "Get Started"). Signing in is
+    // still reachable via the in-composer "Sign in as a Premium member" link.
   }
 
   // ---- Sign-in modal --------------------------------------------------------

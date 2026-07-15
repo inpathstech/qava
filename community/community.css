@@ -152,7 +152,18 @@
       background: transparent;
       border: 0;
       cursor: pointer;
+      text-decoration: none;
     }
+    .qava-premium-nav-btn:hover { color: #000; }
+    .qava-premium-nav-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+    }
+    .qava-premium-nav-icon svg { width: 15px; height: 15px; display: block; }
 
     /* Views */
     .view { display: none; }
