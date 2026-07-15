@@ -76,6 +76,7 @@
   var current = null; // last-loaded profile
   var photoPos = { x: 50, y: 50 }; // object-position % for the profile photo
   var schoolOptions = null; // cached list of school names from GET /schools
+  var msDocBound = false; // outside-click handler for multi-selects bound once
 
   function loadSchools() {
     if (schoolOptions) { populateSchoolDatalist(); return; }
@@ -115,16 +116,99 @@
     };
   }
 
-  function chipGroupHtml(name, options, selected) {
+  // Dropdown multi-select (replaces the old chip grid). Renders a control that
+  // shows the chosen values as removable tags plus a panel of toggle options.
+  function multiSelectHtml(name, options, selected) {
     var sel = {};
     (selected || []).forEach(function (v) { sel[v] = true; });
-    return options.map(function (pair) {
+    var opts = options.map(function (pair) {
       var value = pair[0];
       var on = sel[value] ? ' is-selected' : '';
-      return '<button type="button" class="pe-chip' + on + '" data-group="' + name + '" data-value="' +
-        escapeHtml(value) + '" aria-pressed="' + (sel[value] ? 'true' : 'false') + '">' +
-        '<span class="pe-chip-emoji">' + pair[1] + '</span>' + escapeHtml(value) + '</button>';
+      return '<button type="button" class="pe-ms-option' + on + '" data-value="' + escapeHtml(value) + '" role="option" aria-selected="' + (sel[value] ? 'true' : 'false') + '">' +
+        '<span class="pe-ms-check" aria-hidden="true"></span>' +
+        '<span class="pe-ms-emoji">' + pair[1] + '</span>' +
+        '<span class="pe-ms-optlabel">' + escapeHtml(value) + '</span>' +
+      '</button>';
     }).join('');
+    return '<div class="pe-ms" data-group="' + name + '">' +
+      '<button type="button" class="pe-ms-control" aria-haspopup="listbox" aria-expanded="false">' +
+        '<span class="pe-ms-tags"></span>' +
+        '<span class="pe-ms-caret" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>' +
+      '</button>' +
+      '<div class="pe-ms-panel" role="listbox" aria-multiselectable="true" hidden>' + opts + '</div>' +
+    '</div>';
+  }
+
+  function renderMsTags(ms) {
+    var tagsEl = ms.querySelector('.pe-ms-tags');
+    var selected = ms.querySelectorAll('.pe-ms-option.is-selected');
+    if (!selected.length) {
+      tagsEl.classList.add('is-empty');
+      tagsEl.innerHTML = '<span class="pe-ms-placeholder">Select all that apply</span>';
+      return;
+    }
+    tagsEl.classList.remove('is-empty');
+    tagsEl.innerHTML = Array.prototype.map.call(selected, function (o) {
+      var emoji = o.querySelector('.pe-ms-emoji').textContent;
+      var label = o.dataset.value;
+      return '<span class="pe-ms-tag"><span class="pe-ms-tag-emoji">' + emoji + '</span>' +
+        escapeHtml(label) + '<span class="pe-ms-tag-x" data-remove="' + escapeHtml(label) + '" role="button" aria-label="Remove ' + escapeHtml(label) + '">\u00d7</span></span>';
+    }).join('');
+  }
+
+  function closeAllMs() {
+    if (!modal) return;
+    modal.querySelectorAll('.pe-ms-panel').forEach(function (p) { p.hidden = true; });
+    modal.querySelectorAll('.pe-ms-control').forEach(function (c) { c.setAttribute('aria-expanded', 'false'); });
+    modal.querySelectorAll('.pe-ms').forEach(function (m) { m.classList.remove('is-open'); });
+  }
+
+  function wireMultiSelects() {
+    modal.querySelectorAll('.pe-ms').forEach(function (ms) {
+      var control = ms.querySelector('.pe-ms-control');
+      var panel = ms.querySelector('.pe-ms-panel');
+      var tags = ms.querySelector('.pe-ms-tags');
+      renderMsTags(ms);
+
+      control.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var willOpen = panel.hidden;
+        closeAllMs();
+        panel.hidden = !willOpen;
+        control.setAttribute('aria-expanded', String(willOpen));
+        ms.classList.toggle('is-open', willOpen);
+      });
+
+      panel.addEventListener('click', function (e) {
+        var opt = e.target.closest('.pe-ms-option');
+        if (!opt) return;
+        e.stopPropagation();
+        var on = opt.classList.toggle('is-selected');
+        opt.setAttribute('aria-selected', String(on));
+        renderMsTags(ms);
+      });
+
+      tags.addEventListener('click', function (e) {
+        var x = e.target.closest('.pe-ms-tag-x');
+        if (!x) return;
+        e.stopPropagation();
+        var val = x.getAttribute('data-remove');
+        Array.prototype.forEach.call(panel.querySelectorAll('.pe-ms-option'), function (o) {
+          if (o.dataset.value === val) {
+            o.classList.remove('is-selected');
+            o.setAttribute('aria-selected', 'false');
+          }
+        });
+        renderMsTags(ms);
+      });
+    });
+
+    if (!msDocBound) {
+      document.addEventListener('click', function () {
+        if (modal && !modal.hidden) closeAllMs();
+      });
+      msDocBound = true;
+    }
   }
 
   function eduRowHtml(item) {
@@ -208,13 +292,13 @@
           '<textarea id="peBio" class="pe-input pe-textarea" maxlength="600" rows="4" placeholder="A short bio">' + escapeHtml(current.bio || '') + '</textarea>' +
 
           '<div class="pe-group-label">What brings you here?</div>' +
-          '<div class="pe-chips" data-group-wrap="whatBringsYouHere">' + chipGroupHtml('whatBringsYouHere', REASONS, current.whatBringsYouHere) + '</div>' +
+          multiSelectHtml('whatBringsYouHere', REASONS, current.whatBringsYouHere) +
 
           '<div class="pe-group-label">What kind of work are you interested in?</div>' +
-          '<div class="pe-chips" data-group-wrap="interests">' + chipGroupHtml('interests', INTERESTS, current.interests) + '</div>' +
+          multiSelectHtml('interests', INTERESTS, current.interests) +
 
           '<div class="pe-group-label">What kind of organizations are you interested in?</div>' +
-          '<div class="pe-chips" data-group-wrap="orgTypes">' + chipGroupHtml('orgTypes', ORG_TYPES, current.orgTypes) + '</div>' +
+          multiSelectHtml('orgTypes', ORG_TYPES, current.orgTypes) +
 
           '<div class="community-auth-msg" id="peMsg" hidden></div>' +
           '<div class="pe-actions">' +
@@ -238,13 +322,8 @@
     });
     loadSchools();
 
-    // Chip toggles.
-    modal.querySelectorAll('.pe-chip').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var on = btn.classList.toggle('is-selected');
-        btn.setAttribute('aria-pressed', String(on));
-      });
-    });
+    // Dropdown multi-selects.
+    wireMultiSelects();
 
     // Photo picker + live preview.
     var fileInput = modal.querySelector('#pePhoto');
@@ -324,7 +403,7 @@
 
   function collectGroup(name) {
     var out = [];
-    modal.querySelectorAll('.pe-chip.is-selected[data-group="' + name + '"]').forEach(function (b) {
+    modal.querySelectorAll('.pe-ms[data-group="' + name + '"] .pe-ms-option.is-selected').forEach(function (b) {
       out.push(b.dataset.value);
     });
     return out;
