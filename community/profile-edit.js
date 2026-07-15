@@ -56,6 +56,12 @@
     ['Transformation', '\uD83E\uDD8B'], ['Woman led or owned', '\uD83D\uDC69\u200D\u2708\uFE0F'],
   ];
 
+  // Optional single-select role/headline shown in the community byline.
+  var ROLES = [
+    'Founder', 'Executive', 'Advisor', 'Board member', 'Academic',
+    'Nonprofit leader', 'Technologist', 'Strategist',
+  ];
+
   // value -> "emoji label" for display on the profile page.
   var LABELS = {};
   [REASONS, INTERESTS, ORG_TYPES].forEach(function (group) {
@@ -104,6 +110,7 @@
     var bioEl = modal.querySelector('#peBio');
     return JSON.stringify({
       eds: eds,
+      role: getRoleValue(),
       bio: bioEl ? bioEl.value.trim() : '',
       r: collectGroup('whatBringsYouHere'),
       w: collectGroup('interests'),
@@ -198,6 +205,97 @@
     };
   }
 
+  // Optional single-select role dropdown. Presets + an "Other" option that
+  // reveals a free-text input so members can name their own role.
+  function roleSelectHtml(value) {
+    value = value || '';
+    var isPreset = ROLES.indexOf(value) !== -1;
+    var isOther = !!value && !isPreset;
+    var opts = ROLES.map(function (r) {
+      var on = (r === value) ? ' is-selected' : '';
+      return '<button type="button" class="pe-role-option' + on + '" data-value="' + escapeHtml(r) + '" role="option" aria-selected="' + (r === value ? 'true' : 'false') + '">' +
+        '<span class="pe-role-optlabel">' + escapeHtml(r) + '</span>' +
+        '<span class="pe-role-tick" aria-hidden="true">' + ICON_CHECK + '</span>' +
+      '</button>';
+    }).join('');
+    opts += '<button type="button" class="pe-role-option' + (isOther ? ' is-selected' : '') + '" data-value="__other__" role="option" aria-selected="' + (isOther ? 'true' : 'false') + '">' +
+      '<span class="pe-role-optlabel">Other\u2026</span>' +
+      '<span class="pe-role-tick" aria-hidden="true">' + ICON_CHECK + '</span>' +
+    '</button>';
+    var displayText = value ? escapeHtml(value) : 'Select a role';
+    return '<div class="pe-role" data-role>' +
+      '<button type="button" class="pe-role-control' + (value ? '' : ' is-placeholder') + '" aria-haspopup="listbox" aria-expanded="false">' +
+        '<span class="pe-role-value">' + displayText + '</span>' +
+        '<span class="pe-ms-caret" aria-hidden="true">' + ICON_PLUS + ICON_MINUS + '</span>' +
+      '</button>' +
+      '<div class="pe-role-panel" role="listbox" hidden>' + opts + '</div>' +
+      '<input class="pe-input pe-role-other" type="text" maxlength="120" placeholder="Enter your role"' +
+        (isOther ? ' value="' + escapeHtml(value) + '"' : '') + (isOther ? '' : ' hidden') + ' />' +
+    '</div>';
+  }
+
+  // Read the currently chosen role ('' when nothing is set — it's optional).
+  function getRoleValue() {
+    if (!modal) return '';
+    var root = modal.querySelector('.pe-role');
+    if (!root) return '';
+    var other = root.querySelector('.pe-role-option[data-value="__other__"]');
+    if (other && other.classList.contains('is-selected')) {
+      var inp = root.querySelector('.pe-role-other');
+      return inp ? inp.value.trim() : '';
+    }
+    var sel = root.querySelector('.pe-role-option.is-selected');
+    return sel && sel.dataset.value !== '__other__' ? sel.dataset.value : '';
+  }
+
+  function wireRoleSelect() {
+    var root = modal.querySelector('.pe-role');
+    if (!root) return;
+    var control = root.querySelector('.pe-role-control');
+    var panel = root.querySelector('.pe-role-panel');
+    var valueEl = root.querySelector('.pe-role-value');
+    var otherInput = root.querySelector('.pe-role-other');
+
+    control.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var willOpen = panel.hidden;
+      closeAllMs();
+      panel.hidden = !willOpen;
+      control.setAttribute('aria-expanded', String(willOpen));
+      root.classList.toggle('is-open', willOpen);
+    });
+
+    panel.addEventListener('click', function (e) {
+      var opt = e.target.closest('.pe-role-option');
+      if (!opt) return;
+      e.stopPropagation();
+      panel.querySelectorAll('.pe-role-option').forEach(function (o) {
+        var on = o === opt;
+        o.classList.toggle('is-selected', on);
+        o.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      var val = opt.dataset.value;
+      control.classList.remove('is-placeholder');
+      if (val === '__other__') {
+        otherInput.hidden = false;
+        valueEl.textContent = otherInput.value.trim() || 'Other';
+      } else {
+        otherInput.hidden = true;
+        otherInput.value = '';
+        valueEl.textContent = val;
+      }
+      panel.hidden = true;
+      control.setAttribute('aria-expanded', 'false');
+      root.classList.remove('is-open');
+      if (val === '__other__') otherInput.focus();
+      refreshDirty();
+    });
+
+    otherInput.addEventListener('input', function () {
+      valueEl.textContent = otherInput.value.trim() || 'Other';
+    });
+  }
+
   // Dropdown multi-select (replaces the old chip grid). Renders a control that
   // shows the chosen values as removable tags plus a panel of toggle options.
   function multiSelectHtml(name, options, selected) {
@@ -243,6 +341,13 @@
     modal.querySelectorAll('.pe-ms-panel').forEach(function (p) { p.hidden = true; });
     modal.querySelectorAll('.pe-ms-control').forEach(function (c) { c.setAttribute('aria-expanded', 'false'); });
     modal.querySelectorAll('.pe-ms').forEach(function (m) { m.classList.remove('is-open'); });
+    // The optional role dropdown shares the same outside-click behavior.
+    modal.querySelectorAll('.pe-role-panel').forEach(function (p) { p.hidden = true; });
+    modal.querySelectorAll('.pe-role').forEach(function (r) {
+      r.classList.remove('is-open');
+      var c = r.querySelector('.pe-role-control');
+      if (c) c.setAttribute('aria-expanded', 'false');
+    });
   }
 
   function wireMultiSelects() {
@@ -382,8 +487,9 @@
           '<div id="peEduList"></div>' +
           '<button type="button" class="pe-edu-add" id="peEduAdd">' + ICON_PLUS + '<span>Add education / certification</span></button>' +
 
-          '<label class="pe-label" for="peBio">About me</label>' +
-          '<textarea id="peBio" class="pe-input pe-textarea" maxlength="600" rows="4" placeholder="A short bio">' + escapeHtml(current.bio || '') + '</textarea>' +
+          '<label class="pe-label" for="peBio">Role and about me <span class="pe-optional">optional</span></label>' +
+          roleSelectHtml(current.role) +
+          '<textarea id="peBio" class="pe-input pe-textarea pe-bio-after-role" maxlength="600" rows="4" placeholder="A short bio">' + escapeHtml(current.bio || '') + '</textarea>' +
 
           '<div class="pe-group-label">What brings you here?</div>' +
           multiSelectHtml('whatBringsYouHere', REASONS, current.whatBringsYouHere) +
@@ -429,6 +535,9 @@
       }
     });
     loadSchools();
+
+    // Optional single-select role dropdown.
+    wireRoleSelect();
 
     // Dropdown multi-selects.
     wireMultiSelects();
@@ -545,6 +654,7 @@
 
     var fd = new FormData();
     fd.append('educations', JSON.stringify(educations));
+    fd.append('role', getRoleValue());
     fd.append('bio', modal.querySelector('#peBio').value.trim());
     fd.append('whatBringsYouHere', JSON.stringify(collectGroup('whatBringsYouHere')));
     fd.append('interests', JSON.stringify(collectGroup('interests')));

@@ -3587,6 +3587,80 @@
     .pe-ms-emoji { flex: 0 0 auto; font-size: 14px; line-height: 1; }
     .pe-ms-optlabel { flex: 1 1 auto; }
 
+    /* Optional single-select role dropdown (mirrors the multi-select styling) */
+    .pe-optional {
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 300;
+      color: #b0b4bd;
+      margin-left: 6px;
+    }
+    .pe-role { position: relative; margin-bottom: 4px; }
+    .pe-role-control {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 7px 10px 7px 12px;
+      border: 1px solid rgba(17, 24, 39, 0.16);
+      border-radius: 6px;
+      background: #fff;
+      font: inherit;
+      cursor: pointer;
+      text-align: left;
+    }
+    .pe-role.is-open .pe-role-control { border-color: var(--ink); }
+    .pe-role-value {
+      flex: 1 1 auto;
+      min-width: 0;
+      font-size: 14px;
+      font-weight: 300;
+      color: #111827;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .pe-role-control.is-placeholder .pe-role-value { color: #9ca3af; }
+    .pe-role-panel {
+      position: absolute;
+      z-index: 5;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 0;
+      max-height: 260px;
+      overflow-y: auto;
+      padding: 6px;
+      background: #fff;
+      border: 1px solid rgba(17, 24, 39, 0.14);
+      border-radius: 8px;
+      box-shadow: 0 16px 40px rgba(17, 24, 39, 0.16);
+    }
+    .pe-role-panel[hidden] { display: none; }
+    .pe-role-option {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border: none;
+      border-radius: 5px;
+      background: none;
+      font: inherit;
+      font-size: 13.5px;
+      font-weight: 300;
+      color: #374151;
+      cursor: pointer;
+      text-align: left;
+    }
+    .pe-role-option:hover { background: rgba(17, 24, 39, 0.04); }
+    .pe-role-optlabel { flex: 1 1 auto; }
+    .pe-role-tick { flex: 0 0 auto; display: inline-grid; place-items: center; opacity: 0; transform: scale(0); transition: opacity 0.15s ease, transform 0.15s ease; }
+    .pe-role-option.is-selected .pe-role-tick { opacity: 1; transform: scale(1); }
+    .pe-role-other { margin-top: 8px; }
+    .pe-role-other[hidden] { display: none; }
+    .pe-bio-after-role { margin-top: 8px; }
+
     .pe-actions {
       display: flex;
       justify-content: flex-end;

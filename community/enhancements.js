@@ -180,6 +180,13 @@
     return `<button type="button" class="member-link" data-member="${escapeHtml(name)}">${escapeHtml(name)}</button>`;
   }
 
+  // Byline suffix that skips empty parts so we never render an empty " ·  · "
+  // segment (e.g. when a member has no role, just show "Name · School").
+  function metaExtra() {
+    const parts = Array.prototype.slice.call(arguments).filter(Boolean);
+    return parts.map((p) => ` · ${escapeHtml(p)}`).join('');
+  }
+
   function renderAttachChip(label) {
     return `<span class="attach-chip">${DOC_SVG} ${escapeHtml(label)}</span>`;
   }
@@ -206,7 +213,7 @@
       return `<div class="reply">
         <div class="avatar">${p.initials}</div>
         <div>
-          <div class="reply-meta"><strong>${memberLink(r.author)}</strong> · ${escapeHtml(p.role)} · ${escapeHtml(p.school)}</div>
+          <div class="reply-meta"><strong>${memberLink(r.author)}</strong>${metaExtra(p.role, p.school)}</div>
           <div class="reply-body">${r.body} <span class="reply-time">${escapeHtml(r.time)}</span></div>
           <button type="button" class="reply-heart${r.hearts >= 3 ? ' is-active' : ''}" data-heart-count="${r.hearts}" aria-label="${r.hearts} helpful">${HEART_SVG}<span>${r.hearts}</span></button>
         </div>
@@ -227,7 +234,7 @@
         <div class="feed-opener-meta-row">
           <div class="avatar">${op.initials}</div>
           <div class="meta-lines">
-            <div class="meta-top"><strong>${memberLink(op.name)}</strong> · ${escapeHtml(op.role)} · ${escapeHtml(op.school)}</div>
+            <div class="meta-top"><strong>${memberLink(op.name)}</strong>${metaExtra(op.role, op.school)}</div>
             <div class="meta-sub">${thread.status === 'new' ? 'New' : 'Active'}${unread ? ` · <span class="feed-unread">${thread.newReplies} new</span>` : ''}</div>
           </div>
           ${thread.tags.map((t) => `<span class="feed-tag-pill">${escapeHtml(t)}</span>`).join('')}
@@ -316,7 +323,7 @@
     return `<div class="reply${nested}${best}" data-reply-id="${reply.id}" data-parent-id="${reply.parentId || ''}">
       <div class="avatar">${p.initials}</div>
       <div>
-        <div class="reply-meta"><strong>${memberLink(reply.author)}</strong> · ${escapeHtml(p.role)} · ${escapeHtml(p.school)}${isBest ? ' · <span class="best-answer-badge">Best answer</span>' : ''}</div>
+        <div class="reply-meta"><strong>${memberLink(reply.author)}</strong>${metaExtra(p.role, p.school)}${isBest ? ' · <span class="best-answer-badge">Best answer</span>' : ''}</div>
         <div class="reply-body">${reply.body} <span class="reply-time">${escapeHtml(reply.time)}</span></div>
         ${attach}
         <div class="reply-actions-row">
@@ -401,7 +408,7 @@
       <div class="thread-meta">
         <div class="avatar">${op.initials}</div>
         <div class="meta-lines">
-          <div class="meta-top"><strong>${memberLink(op.name)}</strong> · ${escapeHtml(op.role)} · ${escapeHtml(op.school)}</div>
+          <div class="meta-top"><strong>${memberLink(op.name)}</strong>${metaExtra(op.role, op.school)}</div>
           <div class="meta-sub">${escapeHtml(thread.time)} · ${replyCount} ${replyCount === 1 ? 'reply' : 'replies'}</div>
         </div>
         <div class="thread-tags">${thread.tags.map((t) => `<span class="thread-tag${t === thread.tags[0] ? ' is-primary' : ''}">${escapeHtml(t)}</span>`).join('')}</div>
