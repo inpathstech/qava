@@ -182,7 +182,9 @@
     modal.innerHTML =
       '<div class="community-auth-overlay" data-pe-close></div>' +
       '<div class="community-auth-dialog pe-dialog" role="dialog" aria-modal="true" aria-labelledby="peTitle">' +
-        '<button type="button" class="community-auth-close" data-pe-close aria-label="Close">\u00d7</button>' +
+        '<button type="button" class="community-auth-close" data-pe-close aria-label="Close">' +
+          '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>' +
+        '</button>' +
         '<h2 id="peTitle">Edit your profile</h2>' +
         '<p class="community-auth-sub">This is shared with your Qava profile — changes appear across the platform.</p>' +
         '<form id="peForm" class="pe-form">' +

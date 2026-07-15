@@ -3245,10 +3245,13 @@
 
     /* ===== Profile editor modal ===== */
     .pe-dialog {
-      width: min(720px, calc(100vw - 32px));
+      width: min(680px, calc(100vw - 32px));
       max-height: 90vh;
       overflow-y: auto;
     }
+    .pe-dialog .community-auth-close svg { display: block; }
+    .pe-dialog .community-auth-close { top: 16px; right: 16px; color: #9ca3af; }
+    .pe-dialog .community-auth-close:hover { color: #111827; }
     .pe-form { display: flex; flex-direction: column; gap: 4px; }
     .pe-photo-row {
       display: flex;
