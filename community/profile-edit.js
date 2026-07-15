@@ -75,6 +75,36 @@
   var photoFile = null;
   var current = null; // last-loaded profile
   var photoPos = { x: 50, y: 50 }; // object-position % for the profile photo
+  var schoolOptions = null; // cached list of school names from GET /schools
+
+  function loadSchools() {
+    if (schoolOptions) { populateSchoolDatalist(); return; }
+    if (!API || typeof API.getSchools !== 'function') return;
+    API.getSchools()
+      .then(function (r) {
+        var list = (r && r.schools) || [];
+        schoolOptions = list.map(function (s) {
+          var name = s && (s.name || s.value || s.label) || '';
+          var acr = s && s.acronym ? ' (' + s.acronym + ')' : '';
+          return name ? (name + acr) : '';
+        }).filter(Boolean);
+        // De-dupe + sort for a clean dropdown.
+        schoolOptions = Array.from(new Set(schoolOptions)).sort(function (a, b) {
+          return a.localeCompare(b);
+        });
+        populateSchoolDatalist();
+      })
+      .catch(function () { schoolOptions = schoolOptions || []; });
+  }
+
+  function populateSchoolDatalist() {
+    if (!modal) return;
+    var dl = modal.querySelector('#peSchoolOptions');
+    if (!dl || !schoolOptions) return;
+    dl.innerHTML = schoolOptions.map(function (name) {
+      return '<option value="' + escapeHtml(name) + '"></option>';
+    }).join('');
+  }
 
   function parsePos(str) {
     var m = /^(\d{1,3})%\s+(\d{1,3})%$/.exec(String(str || '').trim());
@@ -103,12 +133,23 @@
     var cred = escapeHtml(item.credential || item.course || '');
     var yr = item.year || item.graduationYear || '';
     yr = yr === null ? '' : escapeHtml(String(yr));
-    return '<div class="pe-edu-row">' +
-      '<input class="pe-input pe-edu-inst" type="text" maxlength="160" placeholder="School / Institution" value="' + inst + '" />' +
-      '<input class="pe-input pe-edu-cred" type="text" maxlength="160" placeholder="Degree / Certification" value="' + cred + '" />' +
-      '<input class="pe-input pe-edu-year" type="text" maxlength="8" placeholder="Year" value="' + yr + '" />' +
+    return '<div class="pe-edu-card">' +
       '<button type="button" class="pe-edu-remove" aria-label="Remove">\u00d7</button>' +
-      '</div>';
+      '<div class="pe-edu-field">' +
+        '<label class="pe-sub-label">School</label>' +
+        '<input class="pe-input pe-edu-inst" type="text" list="peSchoolOptions" maxlength="160" placeholder="Search for your school\u2026" value="' + inst + '" autocomplete="off" />' +
+      '</div>' +
+      '<div class="pe-edu-grid">' +
+        '<div class="pe-edu-field pe-edu-col">' +
+          '<label class="pe-sub-label">Program / Degree</label>' +
+          '<input class="pe-input pe-edu-cred" type="text" maxlength="160" placeholder="e.g. MBA, JD, Economics" value="' + cred + '" />' +
+        '</div>' +
+        '<div class="pe-edu-field pe-edu-yearcol">' +
+          '<label class="pe-sub-label">Year</label>' +
+          '<input class="pe-input pe-edu-year" type="text" maxlength="8" inputmode="numeric" placeholder="2024" value="' + yr + '" />' +
+        '</div>' +
+      '</div>' +
+    '</div>';
   }
 
   function ensureModal() {
@@ -155,9 +196,11 @@
             '</div>' +
           '</div>' +
 
-          '<label class="pe-label">Education &amp; certifications</label>' +
+          '<div class="pe-group-label">Education &amp; certifications</div>' +
+          '<p class="pe-group-sub">Add your degrees and certifications \u2014 you can add more than one.</p>' +
           '<div id="peEduList"></div>' +
           '<button type="button" class="pe-edu-add" id="peEduAdd">+ Add education / certification</button>' +
+          '<datalist id="peSchoolOptions"></datalist>' +
 
           '<label class="pe-label" for="peBio">About me</label>' +
           '<textarea id="peBio" class="pe-input pe-textarea" maxlength="600" rows="4" placeholder="A short bio">' + escapeHtml(current.bio || '') + '</textarea>' +
@@ -189,8 +232,9 @@
     });
     eduList.addEventListener('click', function (e) {
       var rm = e.target.closest && e.target.closest('.pe-edu-remove');
-      if (rm) rm.closest('.pe-edu-row').remove();
+      if (rm) rm.closest('.pe-edu-card').remove();
     });
+    loadSchools();
 
     // Chip toggles.
     modal.querySelectorAll('.pe-chip').forEach(function (btn) {

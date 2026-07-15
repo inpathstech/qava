@@ -91,6 +91,7 @@
     getMember: function (handle) { return get('/community/members/' + encodeURIComponent(handle)); },
     getMyProfile: function () { return get('/community/me'); },
     updateMyProfile: function (formData) { return sendForm('PATCH', '/community/me', formData); },
+    getSchools: function () { return get('/schools'); },
     createThread: function (b) { return send('POST', '/community/threads', b); },
     createReply: function (id, b) { return send('POST', '/community/threads/' + encodeURIComponent(id) + '/replies', b); },
     likeThread: function (id) { return send('POST', '/community/threads/' + encodeURIComponent(id) + '/like'); },

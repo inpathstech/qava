@@ -3183,52 +3183,80 @@
     }
     .profile-edu-year { color: #9ca3af; font-size: 12px; }
 
-    /* Education editor rows (edit-profile modal) */
-    .pe-edu-row {
+    /* Education editor cards (edit-profile modal) */
+    .pe-edu-card {
+      position: relative;
       display: flex;
-      gap: 6px;
-      margin-bottom: 6px;
-      align-items: center;
+      flex-direction: column;
+      gap: 10px;
+      padding: 14px 14px 14px;
+      border: 1px solid rgba(17, 24, 39, 0.1);
+      border-radius: 12px;
+      background: #fafafa;
+      margin-bottom: 10px;
     }
-    .pe-edu-row .pe-input { margin: 0; }
-    .pe-edu-inst { flex: 1 1 45%; }
-    .pe-edu-cred { flex: 1 1 40%; }
-    .pe-edu-year { flex: 0 0 68px; }
+    .pe-edu-card .pe-input { margin: 0; background: #fff; }
+    .pe-edu-field { display: flex; flex-direction: column; }
+    .pe-sub-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin: 0 0 5px;
+    }
+    .pe-edu-grid { display: flex; gap: 10px; }
+    .pe-edu-col { flex: 1 1 auto; min-width: 0; }
+    .pe-edu-yearcol { flex: 0 0 96px; }
     .pe-edu-remove {
-      flex: 0 0 auto;
-      width: 30px; height: 30px;
-      border: 1px solid rgba(17, 24, 39, 0.16);
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 26px; height: 26px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(17, 24, 39, 0.14);
       border-radius: 8px;
       background: #fff;
-      color: #6b7280;
+      color: #9ca3af;
       cursor: pointer;
+      font-size: 16px;
       line-height: 1;
     }
     .pe-edu-remove:hover { background: rgba(17, 24, 39, 0.04); color: #111827; }
     .pe-edu-add {
+      align-self: flex-start;
       margin-top: 2px;
-      padding: 6px 12px;
+      padding: 8px 14px;
       border: 1px dashed rgba(17, 24, 39, 0.24);
-      border-radius: 8px;
+      border-radius: 999px;
       background: #fff;
       font-size: 12.5px;
       color: #374151;
       cursor: pointer;
     }
     .pe-edu-add:hover { background: rgba(17, 24, 39, 0.03); }
+    .pe-group-sub {
+      font-size: 12.5px;
+      font-weight: 300;
+      color: #6b7280;
+      margin: -2px 0 10px;
+    }
 
     /* ===== Profile editor modal ===== */
     .pe-dialog {
-      width: min(560px, calc(100vw - 32px));
-      max-height: 88vh;
+      width: min(720px, calc(100vw - 32px));
+      max-height: 90vh;
       overflow-y: auto;
     }
-    .pe-form { display: flex; flex-direction: column; gap: 6px; }
+    .pe-form { display: flex; flex-direction: column; gap: 4px; }
     .pe-photo-row {
       display: flex;
       align-items: center;
       gap: 14px;
-      margin-bottom: 8px;
+      padding-bottom: 18px;
+      margin-bottom: 6px;
+      border-bottom: 1px solid rgba(17, 24, 39, 0.08);
     }
     .pe-avatar { width: 88px; height: 88px; font-size: 26px; flex: 0 0 auto; overflow: hidden; }
     .pe-avatar.is-draggable { cursor: grab; }
@@ -3253,7 +3281,8 @@
       letter-spacing: 0.04em;
       text-transform: uppercase;
       color: #9ca3af;
-      margin-top: 10px;
+      margin-top: 20px;
+      margin-bottom: 6px;
     }
     .pe-input {
       width: 100%;
@@ -3268,10 +3297,10 @@
     .pe-textarea { resize: vertical; line-height: 1.5; }
     .pe-group-label {
       font-family: var(--display);
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 400;
       color: #111827;
-      margin: 16px 0 8px;
+      margin: 22px 0 8px;
     }
     .pe-chips { display: flex; flex-wrap: wrap; gap: 6px; }
     .pe-chip {
