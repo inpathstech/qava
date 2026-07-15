@@ -12,6 +12,21 @@
     'Fundraising', 'Go-to-market', 'Product', 'Hiring', 'Pricing', 'Operations',
     'Career', 'Mindset', 'Leadership', 'Innovation', 'Technology', 'Catch-all',
   ];
+  // Emoji per agenda topic, matching the sign-up form's emoji-prefixed pill style.
+  const AGENDA_TOPIC_EMOJI = {
+    'Fundraising': '\uD83D\uDCB0',
+    'Go-to-market': '\uD83D\uDCCD',
+    'Product': '\uD83E\uDDF8',
+    'Hiring': '\uD83E\uDDD1\u200D\uD83D\uDCBC',
+    'Pricing': '\uD83E\uDDC3',
+    'Operations': '\u2699\uFE0F',
+    'Career': '\uD83D\uDCBC',
+    'Mindset': '\uD83E\uDDE0',
+    'Leadership': '\uD83E\uDDED',
+    'Innovation': '\uD83D\uDCA1',
+    'Technology': '\uD83D\uDCBB',
+    'Catch-all': '\uD83D\uDDC2\uFE0F',
+  };
   const AGENDA_TOPICS_VISIBLE = 6;
 
   const TRY_ASKING_SUGGESTIONS = [
@@ -1157,9 +1172,11 @@
     const moreBtn = document.getElementById('composerTopicsMore');
     if (!picker) return;
 
-    picker.innerHTML = AGENDA_TOPICS.map((tag, i) =>
-      `<button type="button" class="tag-pill${i >= AGENDA_TOPICS_VISIBLE ? ' is-extra' : ''}" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`
-    ).join('');
+    picker.innerHTML = AGENDA_TOPICS.map((tag, i) => {
+      const emoji = AGENDA_TOPIC_EMOJI[tag] || '';
+      const emojiSpan = emoji ? `<span class="tag-pill-emoji" aria-hidden="true">${emoji}</span>` : '';
+      return `<button type="button" class="tag-pill${i >= AGENDA_TOPICS_VISIBLE ? ' is-extra' : ''}" data-tag="${escapeHtml(tag)}">${emojiSpan}${escapeHtml(tag)}</button>`;
+    }).join('');
 
     picker.querySelectorAll('.tag-pill').forEach((btn) => {
       btn.addEventListener('click', () => {
