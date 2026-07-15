@@ -71,6 +71,11 @@
     });
   }
 
+  // Thin-line plus / minus icons — used for all expandable controls so the
+  // editor matches the Qava.ai / Notion visual language (no native triangles).
+  var ICON_PLUS = '<svg class="pe-ico pe-ico-plus" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
+  var ICON_MINUS = '<svg class="pe-ico pe-ico-minus" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M5 12h14"/></svg>';
+
   var modal = null;
   var photoFile = null;
   var current = null; // last-loaded profile
@@ -79,8 +84,8 @@
   var msDocBound = false; // outside-click handler for multi-selects bound once
 
   function loadSchools() {
-    if (schoolOptions) { populateSchoolDatalist(); return; }
-    if (!API || typeof API.getSchools !== 'function') return;
+    if (schoolOptions) return;
+    if (!API || typeof API.getSchools !== 'function') { schoolOptions = []; return; }
     API.getSchools()
       .then(function (r) {
         var list = (r && r.schools) || [];
@@ -93,18 +98,57 @@
         schoolOptions = Array.from(new Set(schoolOptions)).sort(function (a, b) {
           return a.localeCompare(b);
         });
-        populateSchoolDatalist();
       })
       .catch(function () { schoolOptions = schoolOptions || []; });
   }
 
-  function populateSchoolDatalist() {
-    if (!modal) return;
-    var dl = modal.querySelector('#peSchoolOptions');
-    if (!dl || !schoolOptions) return;
-    dl.innerHTML = schoolOptions.map(function (name) {
-      return '<option value="' + escapeHtml(name) + '"></option>';
+  // Predictive filter of the cached school list (case-insensitive contains).
+  function filterSchools(q) {
+    var list = schoolOptions || [];
+    q = String(q || '').trim().toLowerCase();
+    if (!q) return list.slice(0, 60);
+    return list.filter(function (n) { return n.toLowerCase().indexOf(q) !== -1; }).slice(0, 60);
+  }
+
+  function renderComboPanel(panel, q) {
+    var items = filterSchools(q);
+    if (!items.length) {
+      panel.innerHTML = '<div class="pe-combo-empty">No matches \u2014 you can type your own</div>';
+      return;
+    }
+    panel.innerHTML = items.map(function (n) {
+      return '<button type="button" class="pe-combo-option" data-value="' + escapeHtml(n) + '">' + escapeHtml(n) + '</button>';
     }).join('');
+  }
+
+  // Wire the searchable school combobox inside a single education card. The
+  // panel is a light dropdown rendered under the field (not the native list).
+  function wireSchoolCombo(card) {
+    var input = card.querySelector('.pe-edu-inst');
+    var combo = card.querySelector('.pe-combo');
+    var panel = card.querySelector('.pe-combo-panel');
+    if (!input || !combo || !panel) return;
+
+    function open() {
+      renderComboPanel(panel, input.value);
+      panel.hidden = false;
+      combo.classList.add('is-open');
+    }
+    function close() {
+      panel.hidden = true;
+      combo.classList.remove('is-open');
+    }
+    input.addEventListener('focus', open);
+    input.addEventListener('input', open);
+    // mousedown (not click) so the selection lands before the input's blur.
+    panel.addEventListener('mousedown', function (e) {
+      var opt = e.target.closest && e.target.closest('.pe-combo-option');
+      if (!opt) return;
+      e.preventDefault();
+      input.value = opt.getAttribute('data-value');
+      close();
+    });
+    input.addEventListener('blur', function () { setTimeout(close, 120); });
   }
 
   function parsePos(str) {
@@ -133,7 +177,7 @@
     return '<div class="pe-ms" data-group="' + name + '">' +
       '<button type="button" class="pe-ms-control" aria-haspopup="listbox" aria-expanded="false">' +
         '<span class="pe-ms-tags"></span>' +
-        '<span class="pe-ms-caret" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>' +
+        '<span class="pe-ms-caret" aria-hidden="true">' + ICON_PLUS + ICON_MINUS + '</span>' +
       '</button>' +
       '<div class="pe-ms-panel" role="listbox" aria-multiselectable="true" hidden>' + opts + '</div>' +
     '</div>';
@@ -218,20 +262,21 @@
     var yr = item.year || item.graduationYear || '';
     yr = yr === null ? '' : escapeHtml(String(yr));
     return '<div class="pe-edu-card">' +
-      '<button type="button" class="pe-edu-remove" aria-label="Remove">\u00d7</button>' +
+      '<button type="button" class="pe-edu-remove" aria-label="Remove">' + ICON_MINUS + '</button>' +
       '<div class="pe-edu-field">' +
         '<label class="pe-sub-label">School</label>' +
-        '<input class="pe-input pe-edu-inst" type="text" list="peSchoolOptions" maxlength="160" placeholder="Search for your school\u2026" value="' + inst + '" autocomplete="off" />' +
+        '<div class="pe-combo">' +
+          '<input class="pe-input pe-edu-inst" type="text" maxlength="160" placeholder="Search for your school\u2026" value="' + inst + '" autocomplete="off" />' +
+          '<div class="pe-combo-panel" hidden></div>' +
+        '</div>' +
       '</div>' +
-      '<div class="pe-edu-grid">' +
-        '<div class="pe-edu-field pe-edu-col">' +
-          '<label class="pe-sub-label">Program / Degree</label>' +
-          '<input class="pe-input pe-edu-cred" type="text" maxlength="160" placeholder="e.g. MBA, JD, Economics" value="' + cred + '" />' +
-        '</div>' +
-        '<div class="pe-edu-field pe-edu-yearcol">' +
-          '<label class="pe-sub-label">Year</label>' +
-          '<input class="pe-input pe-edu-year" type="text" maxlength="8" inputmode="numeric" placeholder="2024" value="' + yr + '" />' +
-        '</div>' +
+      '<div class="pe-edu-field">' +
+        '<label class="pe-sub-label">Program / Degree</label>' +
+        '<input class="pe-input pe-edu-cred" type="text" maxlength="160" placeholder="e.g. MBA, JD, Economics" value="' + cred + '" />' +
+      '</div>' +
+      '<div class="pe-edu-field pe-year-field">' +
+        '<label class="pe-sub-label">Year</label>' +
+        '<input class="pe-input pe-edu-year" type="text" maxlength="8" inputmode="numeric" placeholder="2024" value="' + yr + '" />' +
       '</div>' +
     '</div>';
   }
@@ -270,7 +315,7 @@
           '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>' +
         '</button>' +
         '<h2 id="peTitle">Edit your profile</h2>' +
-        '<p class="community-auth-sub">This is shared with your Qava profile — changes appear across the platform.</p>' +
+        '<p class="community-auth-sub">Your shared profile.</p>' +
         '<form id="peForm" class="pe-form">' +
           '<div class="pe-photo-row">' +
             '<div class="avatar pe-avatar' + (photo ? ' is-draggable' : '') + '" id="peAvatar">' + avatarInner + '</div>' +
@@ -285,8 +330,7 @@
           '<div class="pe-group-label">Education &amp; certifications</div>' +
           '<p class="pe-group-sub">Add your degrees and certifications \u2014 you can add more than one.</p>' +
           '<div id="peEduList"></div>' +
-          '<button type="button" class="pe-edu-add" id="peEduAdd">+ Add education / certification</button>' +
-          '<datalist id="peSchoolOptions"></datalist>' +
+          '<button type="button" class="pe-edu-add" id="peEduAdd">' + ICON_PLUS + '<span>Add education / certification</span></button>' +
 
           '<label class="pe-label" for="peBio">About me</label>' +
           '<textarea id="peBio" class="pe-input pe-textarea" maxlength="600" rows="4" placeholder="A short bio">' + escapeHtml(current.bio || '') + '</textarea>' +
@@ -313,8 +357,10 @@
     var eds = Array.isArray(current.educations) ? current.educations : [];
     if (!eds.length) eds = [{}];
     eduList.innerHTML = eds.map(eduRowHtml).join('');
+    eduList.querySelectorAll('.pe-edu-card').forEach(wireSchoolCombo);
     modal.querySelector('#peEduAdd').addEventListener('click', function () {
       eduList.insertAdjacentHTML('beforeend', eduRowHtml({}));
+      wireSchoolCombo(eduList.lastElementChild);
     });
     eduList.addEventListener('click', function (e) {
       var rm = e.target.closest && e.target.closest('.pe-edu-remove');
@@ -416,7 +462,7 @@
     setMsg('Saving\u2026', 'info');
 
     var educations = [];
-    modal.querySelectorAll('#peEduList .pe-edu-row').forEach(function (row) {
+    modal.querySelectorAll('#peEduList .pe-edu-card').forEach(function (row) {
       var institution = row.querySelector('.pe-edu-inst').value.trim();
       var credential = row.querySelector('.pe-edu-cred').value.trim();
       var year = row.querySelector('.pe-edu-year').value.trim();

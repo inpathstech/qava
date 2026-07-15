@@ -1199,6 +1199,29 @@
       z-index: 3000;
     }
 
+    /* In the composer toolbar: match the formatting buttons and open rightward,
+       overlaying content (the composer-card doesn't clip like the feed-card). */
+    .toolbar .thread-display-menu { display: inline-flex; }
+    .toolbar .thread-display-trigger {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid rgba(17, 24, 39, 0.08);
+      background: #fff;
+      color: #6b7280;
+    }
+    .toolbar .thread-display-trigger svg { width: 14px; height: 14px; }
+    .toolbar .thread-display-trigger:hover,
+    .toolbar .thread-display-trigger[aria-expanded="true"] {
+      color: #111827;
+      border-color: rgba(17, 24, 39, 0.16);
+      background: #fafafa;
+    }
+    .toolbar .thread-display-panel {
+      left: 0;
+      right: auto;
+    }
+
     .thread-display-option {
       display: flex;
       align-items: center;
@@ -3203,8 +3226,8 @@
       position: relative;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      padding: 14px 14px 14px;
+      gap: 12px;
+      padding: 14px 40px 14px 14px;
       border: 1px solid rgba(17, 24, 39, 0.1);
       border-radius: 12px;
       background: #fafafa;
@@ -3220,13 +3243,11 @@
       color: #9ca3af;
       margin: 0 0 5px;
     }
-    .pe-edu-grid { display: flex; gap: 10px; }
-    .pe-edu-col { flex: 1 1 auto; min-width: 0; }
-    .pe-edu-yearcol { flex: 0 0 96px; }
+    .pe-year-field { max-width: 130px; }
     .pe-edu-remove {
       position: absolute;
-      top: 10px;
-      right: 10px;
+      top: 12px;
+      right: 12px;
       width: 26px; height: 26px;
       display: grid;
       place-items: center;
@@ -3235,27 +3256,70 @@
       background: #fff;
       color: #9ca3af;
       cursor: pointer;
-      font-size: 16px;
-      line-height: 1;
+      line-height: 0;
     }
     .pe-edu-remove:hover { background: rgba(17, 24, 39, 0.04); color: #111827; }
     .pe-edu-add {
       align-self: flex-start;
       margin-top: 2px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
       padding: 8px 14px;
       border: 1px dashed rgba(17, 24, 39, 0.24);
       border-radius: 999px;
       background: #fff;
       font-size: 12.5px;
+      font-weight: 300;
       color: #374151;
       cursor: pointer;
     }
+    .pe-edu-add .pe-ico { color: #6b7280; }
     .pe-edu-add:hover { background: rgba(17, 24, 39, 0.03); }
     .pe-group-sub {
       font-size: 12.5px;
       font-weight: 300;
       color: #6b7280;
       margin: -2px 0 10px;
+    }
+
+    /* Predictive school combobox (light dropdown under the field) */
+    .pe-combo { position: relative; }
+    .pe-combo-panel {
+      position: absolute;
+      z-index: 6;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 0;
+      max-height: 240px;
+      overflow-y: auto;
+      padding: 6px;
+      background: #fff;
+      border: 1px solid rgba(17, 24, 39, 0.14);
+      border-radius: 12px;
+      box-shadow: 0 16px 40px rgba(17, 24, 39, 0.16);
+    }
+    .pe-combo-panel[hidden] { display: none; }
+    .pe-combo-option {
+      display: block;
+      width: 100%;
+      padding: 8px 10px;
+      border: none;
+      border-radius: 8px;
+      background: none;
+      font: inherit;
+      font-size: 13.5px;
+      font-weight: 300;
+      color: #374151;
+      text-align: left;
+      cursor: pointer;
+    }
+    .pe-combo-option:hover { background: rgba(17, 24, 39, 0.04); }
+    .pe-combo-empty {
+      padding: 10px;
+      font-size: 12.5px;
+      font-weight: 300;
+      color: #9ca3af;
     }
 
     /* ===== Profile editor modal ===== */
@@ -3269,32 +3333,36 @@
     .pe-dialog .community-auth-close svg { display: block; }
     .pe-dialog .community-auth-close { top: 16px; right: 16px; color: #9ca3af; }
     .pe-dialog .community-auth-close:hover { color: #111827; }
+    .pe-dialog .community-auth-sub { margin-bottom: 24px; }
     .pe-form { display: flex; flex-direction: column; gap: 4px; }
     .pe-photo-row {
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding-bottom: 18px;
-      margin-bottom: 6px;
+      gap: 16px;
+      padding-bottom: 20px;
+      margin-bottom: 8px;
       border-bottom: 1px solid rgba(17, 24, 39, 0.08);
     }
     .pe-avatar { width: 88px; height: 88px; font-size: 26px; flex: 0 0 auto; overflow: hidden; }
     .pe-avatar.is-draggable { cursor: grab; }
     .pe-avatar.is-draggable.is-dragging { cursor: grabbing; }
     .pe-avatar.is-draggable img { user-select: none; -webkit-user-drag: none; }
-    .pe-photo-actions { display: flex; flex-direction: column; gap: 4px; }
+    .pe-photo-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
     .pe-photo-btn {
       display: inline-block;
-      padding: 8px 14px;
-      border: 1px solid rgba(17, 24, 39, 0.16);
-      border-radius: 999px;
-      font-size: 13px;
+      padding: 0;
+      border: none;
+      background: none;
+      font-size: 14px;
       font-weight: 400;
+      color: #111827;
       cursor: pointer;
-      background: #fff;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: rgba(17, 24, 39, 0.28);
     }
-    .pe-photo-btn:hover { background: rgba(17, 24, 39, 0.03); }
-    .pe-photo-hint { font-size: 11px; color: #9ca3af; }
+    .pe-photo-btn:hover { text-decoration-color: #111827; }
+    .pe-photo-hint { font-size: 11.5px; font-weight: 300; color: #9ca3af; }
     .pe-label {
       font-size: 11px;
       font-weight: 500;
@@ -3310,9 +3378,11 @@
       border: 1px solid rgba(17, 24, 39, 0.16);
       border-radius: 10px;
       font-size: 14px;
+      font-weight: 300;
       font-family: inherit;
       color: #111827;
     }
+    .pe-input::placeholder { font-weight: 300; color: #9ca3af; }
     .pe-input:focus { outline: none; border-color: var(--ink); }
     .pe-textarea { resize: vertical; line-height: 1.5; }
     .pe-group-label {
@@ -3395,8 +3465,11 @@
       cursor: pointer;
     }
     .pe-ms-tag-x:hover { background: rgba(255, 255, 255, 0.32); }
-    .pe-ms-caret { flex: 0 0 auto; color: #9ca3af; display: grid; place-items: center; transition: transform 0.15s ease; }
-    .pe-ms.is-open .pe-ms-caret { transform: rotate(180deg); }
+    .pe-ms-caret { flex: 0 0 auto; color: #6b7280; display: grid; place-items: center; }
+    .pe-ms-caret .pe-ico { display: block; }
+    .pe-ms-caret .pe-ico-minus { display: none; }
+    .pe-ms.is-open .pe-ms-caret .pe-ico-plus { display: none; }
+    .pe-ms.is-open .pe-ms-caret .pe-ico-minus { display: block; }
     .pe-ms-panel {
       position: absolute;
       z-index: 5;
@@ -3468,7 +3541,14 @@
       cursor: pointer;
     }
     .pe-cancel:hover { color: #111827; }
-    .pe-save { width: auto; padding-left: 20px; padding-right: 20px; }
+    .pe-save {
+      width: auto;
+      margin-top: 0;
+      padding: 7px 16px;
+      font-size: 13px;
+      font-weight: 400;
+      border-radius: 7px;
+    }
 
     /* ===== Community auth + live-state UI ===== */
 
@@ -3518,14 +3598,16 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      border: 1px solid var(--hairline);
-      background: #fff;
-      border-radius: 999px;
-      padding: 5px 12px 5px 5px;
+      border: none;
+      background: none;
+      border-radius: 8px;
+      padding: 4px 8px 4px 4px;
       cursor: pointer;
       font: inherit;
+      transition: background 0.15s ease;
     }
-    .community-auth-chip:hover { background: var(--panel-soft); }
+    .community-auth-chip:hover,
+    .community-auth-chip[aria-expanded="true"] { background: var(--panel-soft); }
     .community-auth-avatar {
       width: 26px; height: 26px;
       border-radius: 50%;
@@ -3535,7 +3617,7 @@
       font-size: 11px; font-weight: 600; letter-spacing: .3px;
     }
     .community-auth-name {
-      font-size: 14px; font-weight: 500; color: var(--ink);
+      font-size: 15px; font-weight: 300; color: var(--ink);
       max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     }
     .community-auth-badge {
@@ -3606,15 +3688,19 @@
     .community-auth-close {
       position: absolute; top: 12px; right: 14px;
       appearance: none; border: none; background: none;
-      font-size: 24px; line-height: 1; color: var(--muted); cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 4px; line-height: 0; color: #9ca3af; cursor: pointer;
+      transition: color 0.15s ease;
     }
+    .community-auth-close svg { display: block; width: 20px; height: 20px; }
+    .community-auth-close:hover { color: #111827; background: none; }
     .community-auth-dialog h2 { font-family: var(--display); font-size: 26px; font-weight: 400; color: var(--ink); }
     .community-auth-sub { margin-top: 8px; font-size: 14px; font-weight: 300; color: var(--muted); }
     .community-auth-form { margin-top: 18px; display: flex; flex-direction: column; gap: 8px; }
     .community-auth-form[hidden] { display: none !important; }
     .community-auth-form label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .4px; color: var(--muted); }
     .community-auth-form input {
-      font: inherit; font-size: 15px;
+      font: inherit; font-size: 15px; font-weight: 300;
       padding: 11px 13px;
       border: 1px solid rgba(17,24,39,0.16);
       border-radius: 10px;
