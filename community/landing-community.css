@@ -2767,6 +2767,20 @@
       width: 56px;
       height: 56px;
       font-size: 18px;
+      flex: 0 0 auto;
+      overflow: hidden;
+    }
+
+    /* Photo avatar (falls back to initials when no photo) */
+    .avatar { overflow: hidden; }
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: var(--avatar-pos, 50% 50%);
+      display: block;
+      aspect-ratio: 1 / 1;
     }
 
     .profile-identity h1 {

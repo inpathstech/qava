@@ -176,9 +176,11 @@
       school: op.school || '',
       bio: op.bio || '',
       photo: op.photo || '',
+      photoPosition: op.photoPosition || '',
       whatBringsYouHere: op.whatBringsYouHere || [],
       interests: op.interests || [],
       orgTypes: op.orgTypes || [],
+      educations: op.educations || [],
       helpful: op.helpful || 0,
       listings: op.listings || 0,
     };
@@ -224,9 +226,11 @@
       school: profile.school || '',
       bio: profile.bio || '',
       photo: profile.photo || '',
+      photoPosition: profile.photoPosition || '',
       whatBringsYouHere: profile.whatBringsYouHere || [],
       interests: profile.interests || [],
       orgTypes: profile.orgTypes || [],
+      educations: profile.educations || [],
       helpful: profile.helpful || 0,
       listings: profile.listings || 0,
     };

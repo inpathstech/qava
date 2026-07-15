@@ -597,8 +597,9 @@
         }).join('')
       : '<p class="profile-empty-note">Nothing saved yet. Save threads or replies from Chat to find them here.</p>';
 
+    const posStyle = p.photoPosition ? ` style="object-position:${escapeHtml(p.photoPosition)}"` : '';
     const avatarInner = p.photo
-      ? `<img src="${escapeHtml(p.photo)}" alt="${escapeHtml(name)}" />`
+      ? `<img src="${escapeHtml(p.photo)}" alt="${escapeHtml(name)}"${posStyle} />`
       : escapeHtml(p.initials);
     const roleSchool = [p.role, p.school].filter(Boolean).map(escapeHtml).join(' · ');
     const chipSection = (label, values) => {
@@ -615,16 +616,35 @@
         </section>`;
     };
 
+    const educations = Array.isArray(p.educations) ? p.educations.filter((e) => e && (e.institution || e.credential)) : [];
+    const eduSection = educations.length
+      ? `
+        <section class="profile-section">
+          <span class="profile-section-label">Education &amp; certifications</span>
+          <div class="profile-edu-list">
+            ${educations.map((e) => {
+              const line = [e.credential, e.institution].filter(Boolean).map(escapeHtml).join(' · ');
+              const yr = e.year ? ` <span class="profile-edu-year">${escapeHtml(String(e.year))}</span>` : '';
+              return `<div class="profile-edu-item">${line}${yr}</div>`;
+            }).join('')}
+          </div>
+        </section>`
+      : '';
+    // When we have structured educations, drop the single-school text from the
+    // subtitle to avoid duplication (show role only).
+    const subtitle = educations.length ? [p.role].filter(Boolean).map(escapeHtml).join('') : roleSchool;
+
     root.innerHTML = `
       <div class="profile-page">
         <div class="profile-hero">
           <div class="avatar profile-avatar">${avatarInner}</div>
           <div class="profile-identity">
             <h1>${escapeHtml(name)}</h1>
-            ${roleSchool ? `<p class="profile-role">${roleSchool}</p>` : ''}
+            ${subtitle ? `<p class="profile-role">${subtitle}</p>` : ''}
           </div>
         </div>
         ${p.bio ? `<p class="profile-bio">${escapeHtml(p.bio)}</p>` : ''}
+        ${eduSection}
         ${chipSection('What brings them here', p.whatBringsYouHere)}
         ${chipSection('Interested in', p.interests)}
         ${chipSection('Organizations', p.orgTypes)}

@@ -74,6 +74,16 @@
   var modal = null;
   var photoFile = null;
   var current = null; // last-loaded profile
+  var photoPos = { x: 50, y: 50 }; // object-position % for the profile photo
+
+  function parsePos(str) {
+    var m = /^(\d{1,3})%\s+(\d{1,3})%$/.exec(String(str || '').trim());
+    if (!m) return { x: 50, y: 50 };
+    return {
+      x: Math.max(0, Math.min(100, parseInt(m[1], 10))),
+      y: Math.max(0, Math.min(100, parseInt(m[2], 10))),
+    };
+  }
 
   function chipGroupHtml(name, options, selected) {
     var sel = {};
@@ -85,6 +95,20 @@
         escapeHtml(value) + '" aria-pressed="' + (sel[value] ? 'true' : 'false') + '">' +
         '<span class="pe-chip-emoji">' + pair[1] + '</span>' + escapeHtml(value) + '</button>';
     }).join('');
+  }
+
+  function eduRowHtml(item) {
+    item = item || {};
+    var inst = escapeHtml(item.institution || '');
+    var cred = escapeHtml(item.credential || item.course || '');
+    var yr = item.year || item.graduationYear || '';
+    yr = yr === null ? '' : escapeHtml(String(yr));
+    return '<div class="pe-edu-row">' +
+      '<input class="pe-input pe-edu-inst" type="text" maxlength="160" placeholder="School / Institution" value="' + inst + '" />' +
+      '<input class="pe-input pe-edu-cred" type="text" maxlength="160" placeholder="Degree / Certification" value="' + cred + '" />' +
+      '<input class="pe-input pe-edu-year" type="text" maxlength="8" placeholder="Year" value="' + yr + '" />' +
+      '<button type="button" class="pe-edu-remove" aria-label="Remove">\u00d7</button>' +
+      '</div>';
   }
 
   function ensureModal() {
@@ -106,10 +130,12 @@
   function render(profile) {
     current = profile || {};
     photoFile = null;
+    photoPos = parsePos(current.photoPosition);
     var photo = current.photo || '';
     var initials = current.initials || (current.name ? current.name.slice(0, 2).toUpperCase() : '?');
+    var posStyle = ' style="object-position:' + photoPos.x + '% ' + photoPos.y + '%"';
     var avatarInner = photo
-      ? '<img src="' + escapeHtml(photo) + '" alt="" />'
+      ? '<img src="' + escapeHtml(photo) + '" alt="" draggable="false"' + posStyle + ' />'
       : escapeHtml(initials);
 
     modal.innerHTML =
@@ -120,17 +146,18 @@
         '<p class="community-auth-sub">This is shared with your Qava profile — changes appear across the platform.</p>' +
         '<form id="peForm" class="pe-form">' +
           '<div class="pe-photo-row">' +
-            '<div class="avatar pe-avatar" id="peAvatar">' + avatarInner + '</div>' +
+            '<div class="avatar pe-avatar' + (photo ? ' is-draggable' : '') + '" id="peAvatar">' + avatarInner + '</div>' +
             '<div class="pe-photo-actions">' +
               '<label class="pe-photo-btn">Upload photo' +
                 '<input id="pePhoto" type="file" accept="image/*" hidden />' +
               '</label>' +
-              '<span class="pe-photo-hint">JPG, PNG or WEBP</span>' +
+              '<span class="pe-photo-hint" id="pePhotoHint">' + (photo ? 'Drag the photo to reposition' : 'JPG, PNG or WEBP') + '</span>' +
             '</div>' +
           '</div>' +
 
-          '<label class="pe-label" for="peSchool">School</label>' +
-          '<input id="peSchool" class="pe-input" type="text" maxlength="120" placeholder="e.g. MIT Sloan" value="' + escapeHtml(current.school || '') + '" />' +
+          '<label class="pe-label">Education &amp; certifications</label>' +
+          '<div id="peEduList"></div>' +
+          '<button type="button" class="pe-edu-add" id="peEduAdd">+ Add education / certification</button>' +
 
           '<label class="pe-label" for="peBio">About me</label>' +
           '<textarea id="peBio" class="pe-input pe-textarea" maxlength="600" rows="4" placeholder="A short bio">' + escapeHtml(current.bio || '') + '</textarea>' +
@@ -152,6 +179,19 @@
         '</form>' +
       '</div>';
 
+    // Education rows.
+    var eduList = modal.querySelector('#peEduList');
+    var eds = Array.isArray(current.educations) ? current.educations : [];
+    if (!eds.length) eds = [{}];
+    eduList.innerHTML = eds.map(eduRowHtml).join('');
+    modal.querySelector('#peEduAdd').addEventListener('click', function () {
+      eduList.insertAdjacentHTML('beforeend', eduRowHtml({}));
+    });
+    eduList.addEventListener('click', function (e) {
+      var rm = e.target.closest && e.target.closest('.pe-edu-remove');
+      if (rm) rm.closest('.pe-edu-row').remove();
+    });
+
     // Chip toggles.
     modal.querySelectorAll('.pe-chip').forEach(function (btn) {
       btn.addEventListener('click', function () {
@@ -166,14 +206,65 @@
       var f = fileInput.files && fileInput.files[0];
       if (!f) return;
       photoFile = f;
+      photoPos = { x: 50, y: 50 };
       var reader = new FileReader();
       reader.onload = function () {
-        modal.querySelector('#peAvatar').innerHTML = '<img src="' + reader.result + '" alt="" />';
+        modal.querySelector('#peAvatar').innerHTML =
+          '<img src="' + reader.result + '" alt="" draggable="false" style="object-position:50% 50%" />';
+        modal.querySelector('#peAvatar').classList.add('is-draggable');
+        var hint = modal.querySelector('#pePhotoHint');
+        if (hint) hint.textContent = 'Drag the photo to reposition';
+        enableReposition();
       };
       reader.readAsDataURL(f);
     });
 
+    enableReposition();
     modal.querySelector('#peForm').addEventListener('submit', onSubmit);
+  }
+
+  // Drag within the circular avatar to set the photo's object-position.
+  function enableReposition() {
+    var box = modal.querySelector('#peAvatar');
+    if (!box) return;
+    var img = box.querySelector('img');
+    if (!img) return;
+    var dragging = false;
+    var startX = 0, startY = 0, startPos = { x: 50, y: 50 };
+
+    function apply() {
+      img.style.objectPosition = photoPos.x + '% ' + photoPos.y + '%';
+    }
+    function onDown(e) {
+      dragging = true;
+      startPos = { x: photoPos.x, y: photoPos.y };
+      startX = (e.touches ? e.touches[0].clientX : e.clientX);
+      startY = (e.touches ? e.touches[0].clientY : e.clientY);
+      box.classList.add('is-dragging');
+      e.preventDefault();
+    }
+    function onMove(e) {
+      if (!dragging) return;
+      var cx = (e.touches ? e.touches[0].clientX : e.clientX);
+      var cy = (e.touches ? e.touches[0].clientY : e.clientY);
+      var rect = box.getBoundingClientRect();
+      var size = rect.width || 1;
+      // Dragging the image right reveals its left edge -> position X decreases.
+      photoPos.x = Math.max(0, Math.min(100, startPos.x - ((cx - startX) / size) * 100));
+      photoPos.y = Math.max(0, Math.min(100, startPos.y - ((cy - startY) / size) * 100));
+      apply();
+    }
+    function onUp() {
+      dragging = false;
+      box.classList.remove('is-dragging');
+    }
+
+    box.addEventListener('mousedown', onDown);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+    box.addEventListener('touchstart', onDown, { passive: false });
+    window.addEventListener('touchmove', onMove, { passive: false });
+    window.addEventListener('touchend', onUp);
   }
 
   function setMsg(text, kind) {
@@ -199,12 +290,21 @@
     btn.disabled = true;
     setMsg('Saving\u2026', 'info');
 
+    var educations = [];
+    modal.querySelectorAll('#peEduList .pe-edu-row').forEach(function (row) {
+      var institution = row.querySelector('.pe-edu-inst').value.trim();
+      var credential = row.querySelector('.pe-edu-cred').value.trim();
+      var year = row.querySelector('.pe-edu-year').value.trim();
+      if (institution || credential) educations.push({ institution: institution, credential: credential, year: year });
+    });
+
     var fd = new FormData();
-    fd.append('school', modal.querySelector('#peSchool').value.trim());
+    fd.append('educations', JSON.stringify(educations));
     fd.append('bio', modal.querySelector('#peBio').value.trim());
     fd.append('whatBringsYouHere', JSON.stringify(collectGroup('whatBringsYouHere')));
     fd.append('interests', JSON.stringify(collectGroup('interests')));
     fd.append('orgTypes', JSON.stringify(collectGroup('orgTypes')));
+    fd.append('photoPosition', Math.round(photoPos.x) + '% ' + Math.round(photoPos.y) + '%');
     if (photoFile) fd.append('photo', photoFile, photoFile.name);
 
     API.updateMyProfile(fd)

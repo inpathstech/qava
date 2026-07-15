@@ -3142,13 +3142,17 @@
     }
 
     /* Photo avatar (falls back to initials when no photo) */
+    .avatar { overflow: hidden; }
     .avatar img {
       width: 100%;
       height: 100%;
       border-radius: 50%;
       object-fit: cover;
+      object-position: var(--avatar-pos, 50% 50%);
       display: block;
+      aspect-ratio: 1 / 1;
     }
+    .profile-avatar { flex: 0 0 auto; overflow: hidden; }
 
     /* Profile tag lists (reasons / interests / org types) */
     .profile-tag-list {
@@ -3169,6 +3173,50 @@
       line-height: 1.2;
     }
 
+    /* Education & certifications list */
+    .profile-edu-list { display: flex; flex-direction: column; gap: 6px; }
+    .profile-edu-item {
+      font-size: 13px;
+      font-weight: 300;
+      color: #374151;
+      line-height: 1.4;
+    }
+    .profile-edu-year { color: #9ca3af; font-size: 12px; }
+
+    /* Education editor rows (edit-profile modal) */
+    .pe-edu-row {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 6px;
+      align-items: center;
+    }
+    .pe-edu-row .pe-input { margin: 0; }
+    .pe-edu-inst { flex: 1 1 45%; }
+    .pe-edu-cred { flex: 1 1 40%; }
+    .pe-edu-year { flex: 0 0 68px; }
+    .pe-edu-remove {
+      flex: 0 0 auto;
+      width: 30px; height: 30px;
+      border: 1px solid rgba(17, 24, 39, 0.16);
+      border-radius: 8px;
+      background: #fff;
+      color: #6b7280;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .pe-edu-remove:hover { background: rgba(17, 24, 39, 0.04); color: #111827; }
+    .pe-edu-add {
+      margin-top: 2px;
+      padding: 6px 12px;
+      border: 1px dashed rgba(17, 24, 39, 0.24);
+      border-radius: 8px;
+      background: #fff;
+      font-size: 12.5px;
+      color: #374151;
+      cursor: pointer;
+    }
+    .pe-edu-add:hover { background: rgba(17, 24, 39, 0.03); }
+
     /* ===== Profile editor modal ===== */
     .pe-dialog {
       width: min(560px, calc(100vw - 32px));
@@ -3182,7 +3230,10 @@
       gap: 14px;
       margin-bottom: 8px;
     }
-    .pe-avatar { width: 64px; height: 64px; font-size: 20px; }
+    .pe-avatar { width: 88px; height: 88px; font-size: 26px; flex: 0 0 auto; overflow: hidden; }
+    .pe-avatar.is-draggable { cursor: grab; }
+    .pe-avatar.is-draggable.is-dragging { cursor: grabbing; }
+    .pe-avatar.is-draggable img { user-select: none; -webkit-user-drag: none; }
     .pe-photo-actions { display: flex; flex-direction: column; gap: 4px; }
     .pe-photo-btn {
       display: inline-block;
