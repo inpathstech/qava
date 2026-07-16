@@ -188,6 +188,7 @@
   }
 
   function mapReply(r) {
+    if (r && r.authorProfile && r.author) mergeMember(r.author, r.authorProfile);
     return {
       id: r.id,
       author: r.author,
@@ -200,6 +201,8 @@
   }
 
   function mapThread(t) {
+    var op = mapOp(t.op);
+    if (op && op.name) mergeMember(op.name, op);
     return {
       id: t.id,
       status: t.status === 'new' ? 'new' : 'active',
@@ -208,7 +211,7 @@
       likes: t.likes || 0,
       newReplies: 0,
       tags: t.tags || [],
-      op: mapOp(t.op),
+      op: op,
       title: t.title || '',
       body: formatBody(t.body),
       attachments: (t.attachments || []).map(function (a) { return a && a.label ? a.label : a; }),
