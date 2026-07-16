@@ -85,13 +85,14 @@
   border: 1px solid #111827;
   display: grid;
   place-items: center;
-  font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.02em;
   line-height: 1;
   flex: 0 0 auto;
   box-sizing: border-box;
+}
+.qava-member-chip-avatar svg {
+  width: 14px;
+  height: 14px;
+  display: block;
 }
 .qava-member-chip-name { display: none; }
 .qava-member-chip-menu {
@@ -427,15 +428,15 @@
 
 .qava-auth-close {
   position: absolute;
-  top: 14px;
-  right: 14px;
-  width: 30px;
-  height: 30px;
+  top: 12px;
+  right: 12px;
+  width: 24px;
+  height: 24px;
   border: 0;
   background: transparent;
-  border-radius: 8px;
+  border-radius: 6px;
   color: #6b7280;
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1;
   cursor: pointer;
   display: inline-flex;

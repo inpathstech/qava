@@ -3403,8 +3403,7 @@
       padding-bottom: 32px;
       border-radius: 8px;
     }
-    .pe-dialog .community-auth-close svg { display: block; }
-    .pe-dialog .community-auth-close { top: 16px; right: 16px; color: #9ca3af; }
+    .pe-dialog .community-auth-close { top: 12px; right: 12px; color: #9ca3af; }
     .pe-dialog .community-auth-close:hover { color: #111827; }
     .pe-dialog .community-auth-sub { margin-bottom: 24px; }
     .pe-form { display: flex; flex-direction: column; gap: 4px; }
@@ -3785,10 +3784,13 @@
       color: var(--ink);
       border: 1px solid var(--ink);
       display: grid; place-items: center;
-      font-family: var(--display);
-      font-size: 12px; font-weight: 400; letter-spacing: 0.02em;
       line-height: 1;
       box-sizing: border-box;
+    }
+    .community-auth-avatar svg {
+      width: 14px;
+      height: 14px;
+      display: block;
     }
     .community-auth-name { display: none; }
     .community-auth-badge {
@@ -3858,13 +3860,14 @@
       to { transform: translateX(-50%) translateY(0); opacity: 1; }
     }
     .community-auth-close {
-      position: absolute; top: 12px; right: 14px;
+      position: absolute; top: 12px; right: 12px;
       appearance: none; border: none; background: none;
       display: inline-flex; align-items: center; justify-content: center;
-      padding: 4px; line-height: 0; color: #9ca3af; cursor: pointer;
+      width: 24px; height: 24px; padding: 0; line-height: 0;
+      color: #9ca3af; cursor: pointer;
       transition: color 0.15s ease;
     }
-    .community-auth-close svg { display: block; width: 20px; height: 20px; }
+    .community-auth-close svg { display: block; width: 14px; height: 14px; }
     .community-auth-close:hover { color: #111827; background: none; }
     .community-auth-dialog h2 { font-family: var(--display); font-size: 26px; font-weight: 400; color: var(--ink); }
     .community-auth-sub { margin-top: 8px; font-size: 14px; font-weight: 300; color: var(--muted); }

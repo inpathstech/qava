@@ -64,6 +64,7 @@
   var STAR_PLUS = '<svg class="qava-login-option-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.013 18.582 6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.12 2.12 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.12 2.12 0 0 0 1.597-1.16l2.309-4.679a.53.53 0 0 1 .95 0l2.31 4.679a2.12 2.12 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904L20 11.5"/><path d="M15 18h6"/><path d="M18 15v6"/></svg>';
   var LOCK = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
   var LOCK_OPEN = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>';
+  var KEY_ROUND = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/></svg>';
 
   /* ---------------- Modals ---------------- */
   var loginOverlay, subOverlay;
@@ -714,10 +715,9 @@
 
   function buildLandingChipHtml(profile) {
     var label = profile.name || profile.email || "Member";
-    var ini = initials(profile.name, profile.email).toUpperCase();
     return (
       '<button type="button" class="qava-member-chip" data-qava-chip-trigger aria-label="' + esc(label) + '" aria-haspopup="true" aria-expanded="false">' +
-        '<span class="qava-member-chip-avatar" aria-hidden="true">' + esc(ini) + "</span>" +
+        '<span class="qava-member-chip-avatar" aria-hidden="true">' + KEY_ROUND + "</span>" +
       "</button>" +
       '<div class="qava-member-chip-menu" data-qava-chip-menu hidden role="menu">' +
         '<button type="button" class="qava-member-chip-item" data-qava-chip-view role="menuitem">View my profile</button>' +

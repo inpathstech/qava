@@ -444,7 +444,7 @@
     modal.hidden = true;
     document.body.appendChild(modal);
     modal.addEventListener('click', function (e) {
-      if (e.target.hasAttribute && e.target.hasAttribute('data-pe-close')) closeModal();
+      if (e.target.closest && e.target.closest('[data-pe-close]')) closeModal();
     });
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && modal && !modal.hidden) closeModal();

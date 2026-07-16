@@ -53,11 +53,10 @@
 
     if (state.loggedIn) {
       var label = state.name || state.email || 'Member';
-      var seed = state.name || state.email || '?';
-      var initials = seed.trim().slice(0, 2).toUpperCase();
+      var keyIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/></svg>';
       wrap.innerHTML =
         '<button type="button" class="community-auth-chip" id="communityAuthChip" aria-label="' + escapeHtml(label) + '" aria-haspopup="true" aria-expanded="false">' +
-          '<span class="community-auth-avatar" aria-hidden="true">' + escapeHtml(initials) + '</span>' +
+          '<span class="community-auth-avatar" aria-hidden="true">' + keyIcon + '</span>' +
           (state.premium ? '' : '<span class="community-auth-badge">Free</span>') +
         '</button>' +
         '<div class="community-auth-menu" id="communityAuthMenu" hidden>' +
@@ -132,7 +131,7 @@
     document.body.appendChild(modal);
 
     modal.addEventListener('click', function (e) {
-      if (e.target.hasAttribute && e.target.hasAttribute('data-auth-close')) closeModal();
+      if (e.target.closest && e.target.closest('[data-auth-close]')) closeModal();
     });
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && modal && !modal.hidden) closeModal();
