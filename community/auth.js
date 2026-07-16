@@ -296,6 +296,8 @@
     if (!profile) return;
     state.profile = profile;
     if (profile.name) state.handle = profile.name;
+    var full = [profile.firstName, profile.lastName].filter(Boolean).join(' ');
+    if (full) state.name = full;
     if (window.communityMergeMember && profile.name) {
       window.communityMergeMember(profile.name, profile);
     }

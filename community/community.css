@@ -3608,6 +3608,7 @@
       color: #b0b4bd;
       margin-left: 6px;
     }
+    .pe-cell-field + .pe-role { margin-top: 12px; }
     .pe-role { position: relative; margin-bottom: 4px; }
     .pe-role-control {
       width: 100%;
@@ -3673,6 +3674,16 @@
     .pe-role-other { margin-top: 8px; }
     .pe-role-other[hidden] { display: none; }
     .pe-bio-after-role { margin-top: 8px; }
+    .pe-name-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 4px;
+    }
+    .pe-cell-field { margin-top: 10px; margin-bottom: 2px; }
+    @media (max-width: 480px) {
+      .pe-name-row { grid-template-columns: 1fr; }
+    }
 
     .pe-actions {
       display: flex;

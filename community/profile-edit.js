@@ -108,8 +108,14 @@
       });
     });
     var bioEl = modal.querySelector('#peBio');
+    var firstEl = modal.querySelector('#peFirstName');
+    var lastEl = modal.querySelector('#peLastName');
+    var cellEl = modal.querySelector('#peCell');
     return JSON.stringify({
       eds: eds,
+      firstName: firstEl ? firstEl.value.trim() : '',
+      lastName: lastEl ? lastEl.value.trim() : '',
+      phone: cellEl ? cellEl.value.trim() : '',
       role: getRoleValue(),
       bio: bioEl ? bioEl.value.trim() : '',
       r: collectGroup('whatBringsYouHere'),
@@ -487,7 +493,21 @@
           '<div id="peEduList"></div>' +
           '<button type="button" class="pe-edu-add" id="peEduAdd">' + ICON_PLUS + '<span>Add education / certification</span></button>' +
 
-          '<label class="pe-label" for="peBio">Role and about me <span class="pe-optional">optional</span></label>' +
+          '<label class="pe-label">Role and about me <span class="pe-optional">optional</span></label>' +
+          '<div class="pe-name-row">' +
+            '<div class="pe-edu-field">' +
+              '<label class="pe-sub-label" for="peFirstName">First name</label>' +
+              '<input id="peFirstName" class="pe-input" type="text" maxlength="255" autocomplete="given-name" placeholder="First" value="' + escapeHtml(current.firstName || '') + '" />' +
+            '</div>' +
+            '<div class="pe-edu-field">' +
+              '<label class="pe-sub-label" for="peLastName">Last name</label>' +
+              '<input id="peLastName" class="pe-input" type="text" maxlength="255" autocomplete="family-name" placeholder="Last" value="' + escapeHtml(current.lastName || '') + '" />' +
+            '</div>' +
+          '</div>' +
+          '<div class="pe-edu-field pe-cell-field">' +
+            '<label class="pe-sub-label" for="peCell">Cell</label>' +
+            '<input id="peCell" class="pe-input" type="tel" maxlength="32" autocomplete="tel" placeholder="+1 555 000 0000" value="' + escapeHtml(current.phone || '') + '" />' +
+          '</div>' +
           roleSelectHtml(current.role) +
           '<textarea id="peBio" class="pe-input pe-textarea pe-bio-after-role" maxlength="600" rows="4" placeholder="A short bio">' + escapeHtml(current.bio || '') + '</textarea>' +
 
@@ -654,6 +674,9 @@
 
     var fd = new FormData();
     fd.append('educations', JSON.stringify(educations));
+    fd.append('firstName', modal.querySelector('#peFirstName').value.trim());
+    fd.append('lastName', modal.querySelector('#peLastName').value.trim());
+    fd.append('phone', modal.querySelector('#peCell').value.trim());
     fd.append('role', getRoleValue());
     fd.append('bio', modal.querySelector('#peBio').value.trim());
     fd.append('whatBringsYouHere', JSON.stringify(collectGroup('whatBringsYouHere')));
