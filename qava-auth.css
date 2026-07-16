@@ -8,6 +8,15 @@
   position: relative;
   display: inline-flex;
   align-items: center;
+  flex-shrink: 0;
+  /* Exact chip → Get Started spacing on every surface (overrides page gaps). */
+  margin-inline-end: 12px;
+}
+/* Parent flex gaps differ by page (8px community vs 28px homepage/app). Zero them
+   when the chip is present so only the margin above controls spacing. */
+.header-right:has([data-qava-member-chip]),
+.auth-section:has([data-qava-member-chip]) {
+  gap: 0 !important;
 }
 .qava-member-chip {
   display: inline-flex;
