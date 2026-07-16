@@ -176,8 +176,14 @@
       .replace(/"/g, '&quot;');
   }
 
+  function memberDisplayName(name) {
+    const p = MEMBER_PROFILES[name];
+    return (p && p.displayName) || name;
+  }
+
   function memberLink(name) {
-    return `<button type="button" class="member-link" data-member="${escapeHtml(name)}">${escapeHtml(name)}</button>`;
+    const label = memberDisplayName(name);
+    return `<button type="button" class="member-link" data-member="${escapeHtml(name)}">${escapeHtml(label)}</button>`;
   }
 
   // Byline suffix that skips empty parts so we never render an empty " ·  · "
@@ -661,7 +667,7 @@
         <div class="profile-hero">
           <div class="avatar profile-avatar">${avatarInner}</div>
           <div class="profile-identity">
-            <h1>${escapeHtml(name)}</h1>
+            <h1>${escapeHtml(memberDisplayName(name))}</h1>
             ${subtitle ? `<p class="profile-role">${subtitle}</p>` : ''}
           </div>
         </div>

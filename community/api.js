@@ -170,8 +170,14 @@
 
   function mapOp(op) {
     op = op || {};
+    var displayName = [op.firstName, op.lastName].filter(Boolean).join(' ').trim()
+      || op.displayName
+      || op.name;
     return {
       name: op.name,
+      displayName: displayName || op.name,
+      firstName: op.firstName || '',
+      lastName: op.lastName || '',
       initials: op.initials || (op.name ? op.name.slice(0, 2).toUpperCase() : '??'),
       role: op.role || '',
       school: op.school || '',
@@ -224,8 +230,15 @@
   // profile cards + mentions resolve for live authors.
   function mergeMember(name, profile) {
     if (!name || !window.MEMBER_PROFILES) return;
+    var displayName = [profile.firstName, profile.lastName].filter(Boolean).join(' ').trim()
+      || profile.displayName
+      || profile.name
+      || name;
     window.MEMBER_PROFILES[name] = {
       initials: profile.initials || name.slice(0, 2).toUpperCase(),
+      displayName: displayName,
+      firstName: profile.firstName || '',
+      lastName: profile.lastName || '',
       role: profile.role || '',
       school: profile.school || '',
       bio: profile.bio || '',
@@ -238,6 +251,10 @@
       helpful: profile.helpful || 0,
       listings: profile.listings || 0,
     };
+    // If the API renamed the handle to include a space, alias under both keys.
+    if (displayName && displayName !== name) {
+      window.MEMBER_PROFILES[displayName] = window.MEMBER_PROFILES[name];
+    }
   }
   window.communityMergeMember = mergeMember;
 
