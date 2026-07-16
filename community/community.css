@@ -3752,29 +3752,31 @@
     .community-auth-chip {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       border: none;
       background: none;
-      border-radius: 8px;
-      padding: 4px 8px 4px 4px;
+      border-radius: 999px;
+      padding: 0;
       cursor: pointer;
       font: inherit;
-      transition: background 0.15s ease;
     }
-    .community-auth-chip:hover,
-    .community-auth-chip[aria-expanded="true"] { background: var(--panel-soft); }
+    .community-auth-chip:hover .community-auth-avatar,
+    .community-auth-chip[aria-expanded="true"] .community-auth-avatar {
+      border-color: var(--ink);
+    }
     .community-auth-avatar {
-      width: 26px; height: 26px;
+      width: 28px; height: 28px;
       border-radius: 50%;
-      background: var(--ink);
-      color: #fff;
+      background: #fff;
+      color: var(--ink);
+      border: 1px solid var(--ink);
       display: grid; place-items: center;
-      font-size: 11px; font-weight: 600; letter-spacing: .3px;
+      font-family: var(--display);
+      font-size: 12px; font-weight: 400; letter-spacing: 0.02em;
+      line-height: 1;
+      box-sizing: border-box;
     }
-    .community-auth-name {
-      font-size: 15px; font-weight: 300; color: var(--ink);
-      max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-    }
+    .community-auth-name { display: none; }
     .community-auth-badge {
       font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .4px;
       color: #92400e; background: #fef3c7; padding: 2px 6px; border-radius: 6px;

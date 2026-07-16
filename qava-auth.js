@@ -667,9 +667,8 @@
     var label = profile.name || profile.email || "Member";
     var ini = initials(profile.name, profile.email).toUpperCase();
     return (
-      '<button type="button" class="qava-member-chip" data-qava-chip-trigger aria-haspopup="true" aria-expanded="false">' +
-        '<span class="qava-member-chip-avatar">' + esc(ini) + "</span>" +
-        '<span class="qava-member-chip-name">' + esc(label) + "</span>" +
+      '<button type="button" class="qava-member-chip" data-qava-chip-trigger aria-label="' + esc(label) + '" aria-haspopup="true" aria-expanded="false">' +
+        '<span class="qava-member-chip-avatar" aria-hidden="true">' + esc(ini) + "</span>" +
       "</button>" +
       '<div class="qava-member-chip-menu" data-qava-chip-menu hidden role="menu">' +
         '<button type="button" class="qava-member-chip-item" data-qava-chip-view role="menuitem">View my profile</button>' +

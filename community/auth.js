@@ -56,9 +56,8 @@
       var seed = state.name || state.email || '?';
       var initials = seed.trim().slice(0, 2).toUpperCase();
       wrap.innerHTML =
-        '<button type="button" class="community-auth-chip" id="communityAuthChip" aria-haspopup="true" aria-expanded="false">' +
-          '<span class="community-auth-avatar">' + escapeHtml(initials) + '</span>' +
-          '<span class="community-auth-name">' + escapeHtml(label) + '</span>' +
+        '<button type="button" class="community-auth-chip" id="communityAuthChip" aria-label="' + escapeHtml(label) + '" aria-haspopup="true" aria-expanded="false">' +
+          '<span class="community-auth-avatar" aria-hidden="true">' + escapeHtml(initials) + '</span>' +
           (state.premium ? '' : '<span class="community-auth-badge">Free</span>') +
         '</button>' +
         '<div class="community-auth-menu" id="communityAuthMenu" hidden>' +
