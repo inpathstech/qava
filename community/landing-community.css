@@ -1306,6 +1306,8 @@
     .composer-input[contenteditable]:empty::before {
       content: attr(data-placeholder);
       color: #9ca3af;
+      -webkit-text-fill-color: #9ca3af;
+      font-weight: 300;
       pointer-events: none;
     }
 
@@ -1355,6 +1357,13 @@
       caret-color: auto;
     }
 
+    .input-with-gate.is-enabled .composer-input[contenteditable]:empty::before,
+    .input-with-gate.is-editing .composer-input[contenteditable]:empty::before,
+    .input-with-gate.has-draft .composer-input[contenteditable]:empty::before {
+      color: #9ca3af;
+      -webkit-text-fill-color: #9ca3af;
+    }
+
     .input-with-gate {
       position: relative;
     }
@@ -1368,17 +1377,20 @@
       line-height: 1.5;
       font-weight: 300;
       color: #9ca3af;
+      -webkit-text-fill-color: #9ca3af;
     }
 
     .input-gate-prompt a {
       pointer-events: auto;
-      color: #6b7280;
+      color: #9ca3af;
+      -webkit-text-fill-color: #9ca3af;
       text-decoration: underline;
       text-underline-offset: 2px;
     }
 
     .input-gate-prompt a:hover {
-      color: #111827;
+      color: #6b7280;
+      -webkit-text-fill-color: #6b7280;
     }
 
     .input-with-gate.is-enabled .input-gate-prompt {
