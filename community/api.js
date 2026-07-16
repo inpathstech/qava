@@ -54,7 +54,9 @@
     var data = null;
     try { data = await res.json(); } catch (e) { /* no body */ }
     if (!res.ok) {
-      var err = new Error((data && data.message) || 'HTTP ' + res.status);
+      var msg = data && data.message;
+      if (Array.isArray(msg)) msg = msg.filter(Boolean).join(' ');
+      var err = new Error(msg || 'HTTP ' + res.status);
       err.status = res.status;
       err.data = data;
       throw err;
@@ -72,7 +74,9 @@
     var data = null;
     try { data = await res.json(); } catch (e) { /* no body */ }
     if (!res.ok) {
-      var err = new Error((data && data.message) || 'HTTP ' + res.status);
+      var msg = data && data.message;
+      if (Array.isArray(msg)) msg = msg.filter(Boolean).join(' ');
+      var err = new Error(msg || 'HTTP ' + res.status);
       err.status = res.status;
       err.data = data;
       throw err;
@@ -170,9 +174,8 @@
 
   function mapOp(op) {
     op = op || {};
-    var displayName = [op.firstName, op.lastName].filter(Boolean).join(' ').trim()
-      || op.displayName
-      || op.name;
+    // Public byline identity is the unique username (handle), not legal name.
+    var displayName = op.name || op.displayName || '';
     return {
       name: op.name,
       displayName: displayName || op.name,
@@ -230,10 +233,8 @@
   // profile cards + mentions resolve for live authors.
   function mergeMember(name, profile) {
     if (!name || !window.MEMBER_PROFILES) return;
-    var displayName = [profile.firstName, profile.lastName].filter(Boolean).join(' ').trim()
-      || profile.displayName
-      || profile.name
-      || name;
+    // Username is the public label on openers + replies.
+    var displayName = profile.name || name;
     window.MEMBER_PROFILES[name] = {
       initials: profile.initials || name.slice(0, 2).toUpperCase(),
       displayName: displayName,
@@ -251,10 +252,6 @@
       helpful: profile.helpful || 0,
       listings: profile.listings || 0,
     };
-    // If the API renamed the handle to include a space, alias under both keys.
-    if (displayName && displayName !== name) {
-      window.MEMBER_PROFILES[displayName] = window.MEMBER_PROFILES[name];
-    }
   }
   window.communityMergeMember = mergeMember;
 

@@ -177,8 +177,8 @@
   }
 
   function memberDisplayName(name) {
-    const p = MEMBER_PROFILES[name];
-    return (p && p.displayName) || name;
+    // Public identity is the unique username (handle key), not legal name.
+    return name || '';
   }
 
   function memberLink(name) {

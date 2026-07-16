@@ -110,11 +110,13 @@
     var bioEl = modal.querySelector('#peBio');
     var firstEl = modal.querySelector('#peFirstName');
     var lastEl = modal.querySelector('#peLastName');
+    var userEl = modal.querySelector('#peUsername');
     var cellEl = modal.querySelector('#peCell');
     return JSON.stringify({
       eds: eds,
       firstName: firstEl ? firstEl.value.trim() : '',
       lastName: lastEl ? lastEl.value.trim() : '',
+      username: userEl ? userEl.value.trim().toLowerCase() : '',
       phone: cellEl ? cellEl.value.trim() : '',
       role: getRoleValue(),
       bio: bioEl ? bioEl.value.trim() : '',
@@ -504,6 +506,14 @@
               '<input id="peLastName" class="pe-input" type="text" maxlength="255" autocomplete="family-name" placeholder="Last" value="' + escapeHtml(current.lastName || '') + '" />' +
             '</div>' +
           '</div>' +
+          '<div class="pe-edu-field pe-username-field">' +
+            '<label class="pe-sub-label" for="peUsername">Username</label>' +
+            '<div class="pe-username-input">' +
+              '<span class="pe-username-at" aria-hidden="true">@</span>' +
+              '<input id="peUsername" class="pe-input" type="text" maxlength="32" autocomplete="username" spellcheck="false" inputmode="text" placeholder="sarat" value="' + escapeHtml((current.name || '').toLowerCase()) + '" />' +
+            '</div>' +
+            '<p class="pe-username-hint">Letters and numbers only. Shown on your posts and replies.</p>' +
+          '</div>' +
           '<div class="pe-edu-field pe-cell-field">' +
             '<label class="pe-sub-label" for="peCell">Cell</label>' +
             '<input id="peCell" class="pe-input" type="tel" maxlength="32" autocomplete="tel" placeholder="+1 555 000 0000" value="' + escapeHtml(current.phone || '') + '" />' +
@@ -558,6 +568,15 @@
 
     // Optional single-select role dropdown.
     wireRoleSelect();
+
+    // Username: force lowercase alphanumeric as the user types.
+    var usernameInput = modal.querySelector('#peUsername');
+    if (usernameInput) {
+      usernameInput.addEventListener('input', function () {
+        var cleaned = usernameInput.value.toLowerCase().replace(/[^a-z0-9]/g, '');
+        if (usernameInput.value !== cleaned) usernameInput.value = cleaned;
+      });
+    }
 
     // Dropdown multi-selects.
     wireMultiSelects();
@@ -672,10 +691,18 @@
       if (institution || credential) educations.push({ institution: institution, credential: credential, year: year, primary: primary });
     });
 
+    var username = modal.querySelector('#peUsername').value.trim().toLowerCase();
+    if (!/^[a-z0-9]{2,32}$/.test(username)) {
+      btn.disabled = false;
+      setMsg('Username must be 2–32 letters or numbers — no spaces or special characters.', 'error');
+      return;
+    }
+
     var fd = new FormData();
     fd.append('educations', JSON.stringify(educations));
     fd.append('firstName', modal.querySelector('#peFirstName').value.trim());
     fd.append('lastName', modal.querySelector('#peLastName').value.trim());
+    fd.append('username', username);
     fd.append('phone', modal.querySelector('#peCell').value.trim());
     fd.append('role', getRoleValue());
     fd.append('bio', modal.querySelector('#peBio').value.trim());
@@ -690,10 +717,13 @@
         btn.disabled = false;
         var profile = r && r.profile;
         if (window.communityApplyProfileUpdate) window.communityApplyProfileUpdate(profile);
-        // Re-render the profile page if the member is looking at their own.
-        if (profile && profile.name && window.getProfileMember && window.renderProfilePage &&
-            window.getProfileMember() === profile.name) {
-          window.renderProfilePage(profile.name);
+        // Re-render the profile page if the member is looking at their own
+        // (including after a username change — always refresh to the new handle).
+        if (profile && profile.name && window.renderProfilePage) {
+          var viewing = window.getProfileMember ? window.getProfileMember() : null;
+          if (!viewing || viewing === profile.name || viewing === (current && current.name)) {
+            window.renderProfilePage(profile.name);
+          }
         }
         closeModal();
         if (window.communityToast) window.communityToast('Profile updated.', 'success');

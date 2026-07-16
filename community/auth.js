@@ -53,18 +53,32 @@
 
     if (state.loggedIn) {
       var label = state.name || state.email || 'Member';
+      var email = state.email || '';
       var keyIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/></svg>';
+      var iconView = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';
+      var iconEdit = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.051 12.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.866l-1.156-1.153a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"/><path d="M8 15H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/></svg>';
+      var iconMember = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>';
+      var iconOut = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></svg>';
+      function menuItem(id, icon, text) {
+        return '<button type="button" class="community-auth-menu-item" id="' + id + '"><span class="community-auth-menu-item-inner">' + icon + '<span>' + escapeHtml(text) + '</span></span></button>';
+      }
       wrap.innerHTML =
         '<button type="button" class="community-auth-chip" id="communityAuthChip" aria-label="' + escapeHtml(label) + '" aria-haspopup="true" aria-expanded="false">' +
           '<span class="community-auth-avatar" aria-hidden="true">' + keyIcon + '</span>' +
           (state.premium ? '' : '<span class="community-auth-badge">Free</span>') +
         '</button>' +
         '<div class="community-auth-menu" id="communityAuthMenu" hidden>' +
-          (state.premium ? '<button type="button" class="community-auth-menu-item" id="communityViewProfileBtn">View my profile</button>' : '') +
-          (state.premium ? '<button type="button" class="community-auth-menu-item" id="communityEditProfileBtn">Edit profile</button>' : '') +
-          (state.premium ? '<button type="button" class="community-auth-menu-item" id="communityManageMembershipBtn">Manage membership</button>' : '') +
-          (state.premium ? '' : '<a class="community-auth-menu-item" href="../premium/">Upgrade to Premium</a>') +
-          '<button type="button" class="community-auth-menu-item" id="communitySignOutBtn">Sign out</button>' +
+          '<div class="community-auth-menu-header">' +
+            '<p class="community-auth-menu-title">' + escapeHtml(label) + '</p>' +
+            (email ? '<p class="community-auth-menu-email">' + escapeHtml(email) + '</p>' : '') +
+          '</div>' +
+          '<div class="community-auth-menu-divider" aria-hidden="true"></div>' +
+          (state.premium ? menuItem('communityViewProfileBtn', iconView, 'View my profile') : '') +
+          (state.premium ? menuItem('communityEditProfileBtn', iconEdit, 'Edit profile') : '') +
+          (state.premium ? menuItem('communityManageMembershipBtn', iconMember, 'Manage membership') : '') +
+          (state.premium ? '' : '<a class="community-auth-menu-item" href="../premium/"><span class="community-auth-menu-item-inner">' + iconMember + '<span>Upgrade to Premium</span></span></a>') +
+          '<div class="community-auth-menu-divider" aria-hidden="true"></div>' +
+          menuItem('communitySignOutBtn', iconOut, 'Sign out') +
         '</div>';
       hr.insertBefore(wrap, hr.firstChild);
 

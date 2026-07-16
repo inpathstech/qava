@@ -65,6 +65,11 @@
   var LOCK = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
   var LOCK_OPEN = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>';
   var KEY_ROUND = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/></svg>';
+  /* Menu icons match app.qava.ai Header profile dropdown (stroke-width 1). */
+  var ICON_VIEW_PROFILE = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';
+  var ICON_EDIT_PROFILE = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.051 12.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.866l-1.156-1.153a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"/><path d="M8 15H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/></svg>';
+  var ICON_MEMBERSHIP = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>';
+  var ICON_SIGN_OUT = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></svg>';
 
   /* ---------------- Modals ---------------- */
   var loginOverlay, subOverlay;
@@ -713,17 +718,39 @@
     if (outBtn) outBtn.addEventListener("click", function () { closeMenu(); signOutPremium(); });
   }
 
+  function chipDisplayName(profile) {
+    profile = profile || {};
+    var legal = [profile.firstName, profile.lastName].filter(Boolean).join(" ").trim();
+    return legal || profile.name || profile.email || "Member";
+  }
+
+  function menuItem(attrs, icon, label) {
+    return (
+      '<button type="button" class="qava-member-chip-item" ' + attrs + ' role="menuitem">' +
+        '<span class="qava-member-chip-item-inner">' + icon + "<span>" + esc(label) + "</span></span>" +
+      "</button>"
+    );
+  }
+
   function buildLandingChipHtml(profile) {
-    var label = profile.name || profile.email || "Member";
+    profile = profile || {};
+    var label = chipDisplayName(profile);
+    var email = profile.email || "";
     return (
       '<button type="button" class="qava-member-chip" data-qava-chip-trigger aria-label="' + esc(label) + '" aria-haspopup="true" aria-expanded="false">' +
         '<span class="qava-member-chip-avatar" aria-hidden="true">' + KEY_ROUND + "</span>" +
       "</button>" +
       '<div class="qava-member-chip-menu" data-qava-chip-menu hidden role="menu">' +
-        '<button type="button" class="qava-member-chip-item" data-qava-chip-view role="menuitem">View my profile</button>' +
-        '<button type="button" class="qava-member-chip-item" data-qava-chip-edit role="menuitem">Edit profile</button>' +
-        '<button type="button" class="qava-member-chip-item" data-qava-chip-manage role="menuitem">Manage membership</button>' +
-        '<button type="button" class="qava-member-chip-item" data-qava-chip-logout role="menuitem">Sign out</button>' +
+        '<div class="qava-member-chip-header">' +
+          '<p class="qava-member-chip-title">' + esc(label) + "</p>" +
+          (email ? '<p class="qava-member-chip-email">' + esc(email) + "</p>" : "") +
+        "</div>" +
+        '<div class="qava-member-chip-divider" aria-hidden="true"></div>' +
+        menuItem('data-qava-chip-view', ICON_VIEW_PROFILE, "View my profile") +
+        menuItem('data-qava-chip-edit', ICON_EDIT_PROFILE, "Edit profile") +
+        menuItem('data-qava-chip-manage', ICON_MEMBERSHIP, "Manage membership") +
+        '<div class="qava-member-chip-divider" aria-hidden="true"></div>' +
+        menuItem('data-qava-chip-logout', ICON_SIGN_OUT, "Sign out") +
       "</div>"
     );
   }
