@@ -10,13 +10,20 @@
   align-items: center;
   flex-shrink: 0;
   /* Exact chip → Get Started spacing on every surface (overrides page gaps). */
-  margin-inline-end: 12px;
+  margin-inline-end: 12px !important;
+  margin-right: 12px !important;
 }
 /* Parent flex gaps differ by page (8px community vs 28px homepage/app). Zero them
    when the chip is present so only the margin above controls spacing. */
 .header-right:has([data-qava-member-chip]),
-.auth-section:has([data-qava-member-chip]) {
+.auth-section:has([data-qava-member-chip]),
+.qava-landing-nav .header-right:has([data-qava-member-chip]),
+.qava-landing-nav .auth-section:has([data-qava-member-chip]),
+.header-container .header-right:has([data-qava-member-chip]),
+.header-container .auth-section:has([data-qava-member-chip]) {
   gap: 0 !important;
+  column-gap: 0 !important;
+  row-gap: 0 !important;
 }
 .qava-member-chip {
   display: inline-flex;

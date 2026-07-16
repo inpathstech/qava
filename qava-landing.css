@@ -5144,6 +5144,17 @@
           gap: 28px !important;
         }
 
+        /* Initials chip → Get Started: same 12px as community / app landing nav */
+        .header-container .auth-section:has([data-qava-member-chip]),
+        .header-container .header-right:has([data-qava-member-chip]) {
+          gap: 0 !important;
+          column-gap: 0 !important;
+        }
+        .header-container .qava-member-chip-wrap {
+          margin-inline-end: 12px !important;
+          margin-right: 12px !important;
+        }
+
         .header-container {
           width: calc(100% - 22px) !important;
           margin: 0 auto !important;
