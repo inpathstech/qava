@@ -3793,6 +3793,7 @@
       flex-direction: column;
       z-index: 50;
     }
+    .community-auth-menu[hidden] { display: none; }
     .community-auth-menu-item {
       appearance: none;
       border: none;
