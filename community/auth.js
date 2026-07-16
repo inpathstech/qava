@@ -35,10 +35,17 @@
     var old = document.getElementById('communityAuthControl');
     if (old) old.remove();
 
-    // When signed in, hide the "Premium" nav button so the header shows just
-    // the member chip (+ Get Started); restore it when signed out.
-    var premiumNavBtn = hr.querySelector('.qava-premium-nav-btn');
-    if (premiumNavBtn) premiumNavBtn.style.display = state.loggedIn ? 'none' : '';
+    // Landing nav owns the signed-in chip via qava-auth.js — don't inject a
+    // second chip here (even before qava-auth finishes loading).
+    if (document.querySelector('[data-qava-nav="landing"]')) {
+      var premiumNavBtn = hr.querySelector('.qava-premium-nav-btn');
+      if (premiumNavBtn) premiumNavBtn.style.display = state.loggedIn ? 'none' : '';
+      return;
+    }
+
+    // Fallback when qava-auth is not on the page (legacy / offline prototypes).
+    var premiumBtn = hr.querySelector('.qava-premium-nav-btn');
+    if (premiumBtn) premiumBtn.style.display = state.loggedIn ? 'none' : '';
 
     var wrap = document.createElement('div');
     wrap.id = 'communityAuthControl';
@@ -57,6 +64,7 @@
         '<div class="community-auth-menu" id="communityAuthMenu" hidden>' +
           (state.premium ? '<button type="button" class="community-auth-menu-item" id="communityViewProfileBtn">View my profile</button>' : '') +
           (state.premium ? '<button type="button" class="community-auth-menu-item" id="communityEditProfileBtn">Edit profile</button>' : '') +
+          (state.premium ? '<button type="button" class="community-auth-menu-item" id="communityManageMembershipBtn">Manage membership</button>' : '') +
           (state.premium ? '' : '<a class="community-auth-menu-item" href="../premium/">Upgrade to Premium</a>') +
           '<button type="button" class="community-auth-menu-item" id="communitySignOutBtn">Sign out</button>' +
         '</div>';
@@ -79,11 +87,17 @@
         menu.hidden = true;
         if (window.communityOpenEditProfile) window.communityOpenEditProfile();
       });
+      var manageBtn = wrap.querySelector('#communityManageMembershipBtn');
+      if (manageBtn) manageBtn.addEventListener('click', function () {
+        menu.hidden = true;
+        if (window.qavaAuth && typeof window.qavaAuth.openSubscription === 'function') {
+          window.qavaAuth.openSubscription();
+        } else {
+          window.location.href = '../premium/';
+        }
+      });
       wrap.querySelector('#communitySignOutBtn').addEventListener('click', signOut);
     }
-    // When signed out we intentionally render nothing here so the nav matches
-    // the qava.ai homepage (just "Premium" + "Get Started"). Signing in is
-    // still reachable via the in-composer "Sign in as a Premium member" link.
   }
 
   // ---- Sign-in modal --------------------------------------------------------
@@ -288,6 +302,9 @@
       window.communityMergeMember(profile.name, profile);
     }
     renderHeader();
+    if (window.qavaAuth && typeof window.qavaAuth.refresh === 'function') {
+      try { window.qavaAuth.refresh(); } catch (e) {}
+    }
   };
 
   // In-composer gate prompt links ("Sign in as a Premium member") open the modal.
@@ -299,7 +316,39 @@
     }
   });
 
-  function boot() { refreshAuth(); }
+  // Deep links from marketing/app chip: ?editProfile=1 / ?viewProfile=1
+  function consumeProfileQuery() {
+    try {
+      var params = new URLSearchParams(window.location.search || '');
+      var edit = params.get('editProfile') === '1';
+      var view = params.get('viewProfile') === '1';
+      if (!edit && !view) return true;
+      if (!state.loggedIn || !state.premium) return false;
+      params.delete('editProfile');
+      params.delete('viewProfile');
+      var next = window.location.pathname + (params.toString() ? '?' + params.toString() : '') + (window.location.hash || '');
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState({}, '', next);
+      }
+      setTimeout(function () {
+        if (edit && window.communityOpenEditProfile) window.communityOpenEditProfile();
+        else if (view) openMyProfile();
+      }, 120);
+      return true;
+    } catch (e) {
+      return true;
+    }
+  }
+
+  function boot() {
+    refreshAuth();
+    // After Premium access resolves, honor deep links once.
+    var tries = 0;
+    var timer = setInterval(function () {
+      tries += 1;
+      if (consumeProfileQuery() || tries > 40) clearInterval(timer);
+    }, 150);
+  }
   if (document.readyState === 'complete') boot();
   else window.addEventListener('load', boot);
 })();

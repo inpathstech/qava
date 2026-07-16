@@ -10,6 +10,7 @@
   var API = "https://api.qava.ai/api";
   var APP_URL = "https://app.qava.ai/";
   var PREMIUM_URL = "https://qava.ai/premium";
+  var COMMUNITY_CHAT = "https://qava.ai/community/chat.html";
 
   var state = { profile: null, access: { loggedIn: false, premium: false } };
 
@@ -584,6 +585,7 @@
     btn.setAttribute("data-qava-premium-wired", "1");
     btn.addEventListener("click", function (e) {
       e.preventDefault();
+      // Signed-in members use the chip; Premium only appears when signed out.
       if (state.profile) openSubscription();
       else openLogin();
     });
@@ -596,19 +598,138 @@
     );
   }
 
+  function removeLandingChips() {
+    Array.prototype.forEach.call(
+      document.querySelectorAll("[data-qava-member-chip]"),
+      function (el) {
+        if (el.parentNode) el.parentNode.removeChild(el);
+      }
+    );
+  }
+
+  function goViewProfile() {
+    if (typeof window.communityOpenMyProfile === "function") {
+      window.communityOpenMyProfile();
+      return;
+    }
+    window.location.href = COMMUNITY_CHAT + "?viewProfile=1";
+  }
+
+  function goEditProfile() {
+    if (typeof window.communityOpenEditProfile === "function") {
+      window.communityOpenEditProfile();
+      return;
+    }
+    window.location.href = COMMUNITY_CHAT + "?editProfile=1";
+  }
+
+  function signOutPremium() {
+    apiFetch("/premium/logout", { method: "POST", body: {} })
+      .catch(function () {})
+      .then(function () { window.location.reload(); });
+  }
+
+  function wireLandingChip(wrap) {
+    var chip = wrap.querySelector("[data-qava-chip-trigger]");
+    var menu = wrap.querySelector("[data-qava-chip-menu]");
+    if (!chip || !menu) return;
+
+    chip.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var willOpen = menu.hasAttribute("hidden");
+      if (willOpen) menu.removeAttribute("hidden");
+      else menu.setAttribute("hidden", "");
+      chip.setAttribute("aria-expanded", willOpen ? "true" : "false");
+    });
+    document.addEventListener("click", function (e) {
+      if (!wrap.contains(e.target)) {
+        menu.setAttribute("hidden", "");
+        chip.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    function closeMenu() {
+      menu.setAttribute("hidden", "");
+      chip.setAttribute("aria-expanded", "false");
+    }
+
+    var viewBtn = wrap.querySelector("[data-qava-chip-view]");
+    var editBtn = wrap.querySelector("[data-qava-chip-edit]");
+    var manageBtn = wrap.querySelector("[data-qava-chip-manage]");
+    var outBtn = wrap.querySelector("[data-qava-chip-logout]");
+    if (viewBtn) viewBtn.addEventListener("click", function () { closeMenu(); goViewProfile(); });
+    if (editBtn) editBtn.addEventListener("click", function () { closeMenu(); goEditProfile(); });
+    if (manageBtn) manageBtn.addEventListener("click", function () { closeMenu(); openSubscription(); });
+    if (outBtn) outBtn.addEventListener("click", function () { closeMenu(); signOutPremium(); });
+  }
+
+  function buildLandingChipHtml(profile) {
+    var label = profile.name || profile.email || "Member";
+    var ini = initials(profile.name, profile.email).toUpperCase();
+    return (
+      '<button type="button" class="qava-member-chip" data-qava-chip-trigger aria-haspopup="true" aria-expanded="false">' +
+        '<span class="qava-member-chip-avatar">' + esc(ini) + "</span>" +
+        '<span class="qava-member-chip-name">' + esc(label) + "</span>" +
+      "</button>" +
+      '<div class="qava-member-chip-menu" data-qava-chip-menu hidden role="menu">' +
+        '<button type="button" class="qava-member-chip-item" data-qava-chip-view role="menuitem">View my profile</button>' +
+        '<button type="button" class="qava-member-chip-item" data-qava-chip-edit role="menuitem">Edit profile</button>' +
+        '<button type="button" class="qava-member-chip-item" data-qava-chip-manage role="menuitem">Manage membership</button>' +
+        '<button type="button" class="qava-member-chip-item" data-qava-chip-logout role="menuitem">Sign out</button>' +
+      "</div>"
+    );
+  }
+
+  function chipHostForPremiumBtn(btn) {
+    // Prefer .auth-section, then .header-right, else the button's parent.
+    var auth = btn.closest && btn.closest(".auth-section");
+    if (auth) return auth;
+    var hr = btn.closest && btn.closest(".header-right");
+    if (hr) return hr;
+    return btn.parentNode;
+  }
+
+  function injectLandingChip(host) {
+    if (!host || host.querySelector("[data-qava-member-chip]")) return;
+    var wrap = document.createElement("div");
+    wrap.className = "qava-member-chip-wrap";
+    wrap.setAttribute("data-qava-member-chip", "1");
+    wrap.innerHTML = buildLandingChipHtml(state.profile);
+    var join = host.querySelector(".join-button");
+    if (join && join.parentNode === host) host.insertBefore(wrap, join);
+    else host.insertBefore(wrap, host.firstChild);
+    wireLandingChip(wrap);
+  }
+
   function renderLandingNavState(signedIn) {
+    // Chip-first: hide Premium when signed in; restore locked Premium when out.
     Array.prototype.forEach.call(
       document.querySelectorAll("[data-qava-premium-nav]"),
       function (btn) {
         var iconWrap = btn.querySelector("[data-qava-premium-lock-icon]");
-        if (iconWrap) iconWrap.innerHTML = signedIn ? LOCK_OPEN : LOCK;
-        btn.classList.toggle("is-unlocked", signedIn);
-        btn.setAttribute(
-          "aria-label",
-          signedIn ? "Premium membership" : "Premium"
-        );
+        if (iconWrap) iconWrap.innerHTML = LOCK;
+        btn.classList.remove("is-unlocked");
+        btn.setAttribute("aria-label", "Premium");
+        btn.style.display = signedIn ? "none" : "";
       }
     );
+
+    removeLandingChips();
+    if (!signedIn || !state.profile) return;
+
+    // One chip per unique host (desktop auth-section / header-right; mobile menu).
+    var hosts = [];
+    var seen = [];
+    Array.prototype.forEach.call(
+      document.querySelectorAll("[data-qava-premium-nav]"),
+      function (btn) {
+        var host = chipHostForPremiumBtn(btn);
+        if (!host || seen.indexOf(host) !== -1) return;
+        seen.push(host);
+        hosts.push(host);
+      }
+    );
+    hosts.forEach(injectLandingChip);
   }
 
   /* ---------------- Nav augmentation ---------------- */
