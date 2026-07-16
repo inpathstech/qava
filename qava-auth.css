@@ -14,16 +14,51 @@
   margin-right: 12px !important;
 }
 /* Parent flex gaps differ by page (8px community vs 28px homepage/app). Zero them
-   when the chip is present so only the margin above controls spacing. */
+   when the chip/shimmer is present so only the margin above controls spacing. */
 .header-right:has([data-qava-member-chip]),
 .auth-section:has([data-qava-member-chip]),
+.header-right:has([data-qava-auth-shimmer]),
+.auth-section:has([data-qava-auth-shimmer]),
 .qava-landing-nav .header-right:has([data-qava-member-chip]),
 .qava-landing-nav .auth-section:has([data-qava-member-chip]),
+.qava-landing-nav .header-right:has([data-qava-auth-shimmer]),
+.qava-landing-nav .auth-section:has([data-qava-auth-shimmer]),
 .header-container .header-right:has([data-qava-member-chip]),
-.header-container .auth-section:has([data-qava-member-chip]) {
+.header-container .auth-section:has([data-qava-member-chip]),
+.header-container .header-right:has([data-qava-auth-shimmer]),
+.header-container .auth-section:has([data-qava-auth-shimmer]) {
   gap: 0 !important;
   column-gap: 0 !important;
   row-gap: 0 !important;
+}
+
+/* Hide Premium until session resolves — avoids lock → circle flash. */
+[data-qava-nav="landing"]:not([data-qava-auth-ready]) [data-qava-premium-nav] {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.qava-auth-shimmer {
+  display: block;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  background: linear-gradient(
+    90deg,
+    #eceff3 0%,
+    #f7f8fa 45%,
+    #eceff3 90%
+  );
+  background-size: 200% 100%;
+  animation: qava-auth-shimmer 1.1s ease-in-out infinite;
+}
+@keyframes qava-auth-shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .qava-auth-shimmer { animation: none; background: #eceff3; }
 }
 .qava-member-chip {
   display: inline-flex;

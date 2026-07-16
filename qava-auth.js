@@ -600,11 +600,60 @@
 
   function removeLandingChips() {
     Array.prototype.forEach.call(
-      document.querySelectorAll("[data-qava-member-chip]"),
+      document.querySelectorAll("[data-qava-member-chip], [data-qava-auth-shimmer]"),
       function (el) {
         if (el.parentNode) el.parentNode.removeChild(el);
       }
     );
+  }
+
+  function landingChipHosts() {
+    var hosts = [];
+    var seen = [];
+    Array.prototype.forEach.call(
+      document.querySelectorAll("[data-qava-premium-nav]"),
+      function (btn) {
+        var host = chipHostForPremiumBtn(btn);
+        if (!host || seen.indexOf(host) !== -1) return;
+        seen.push(host);
+        hosts.push(host);
+      }
+    );
+    return hosts;
+  }
+
+  function setLandingAuthReady(ready) {
+    Array.prototype.forEach.call(
+      document.querySelectorAll("[data-qava-nav=\"landing\"]"),
+      function (nav) {
+        if (ready) nav.setAttribute("data-qava-auth-ready", "1");
+        else nav.removeAttribute("data-qava-auth-ready");
+      }
+    );
+  }
+
+  function injectLandingShimmer(host) {
+    if (!host || host.querySelector("[data-qava-auth-shimmer], [data-qava-member-chip]")) return;
+    var wrap = document.createElement("div");
+    wrap.className = "qava-member-chip-wrap qava-auth-shimmer-wrap";
+    wrap.setAttribute("data-qava-auth-shimmer", "1");
+    wrap.setAttribute("aria-hidden", "true");
+    wrap.innerHTML = '<span class="qava-auth-shimmer"></span>';
+    var join = host.querySelector(".join-button");
+    if (join && join.parentNode === host) host.insertBefore(wrap, join);
+    else host.insertBefore(wrap, host.firstChild);
+  }
+
+  function renderLandingNavPending() {
+    // Hide Premium immediately and show a chip-sized shimmer so signed-in
+    // members never see lock → circle flash while /premium/me resolves.
+    Array.prototype.forEach.call(
+      document.querySelectorAll("[data-qava-premium-nav]"),
+      function (btn) { btn.style.display = "none"; }
+    );
+    setLandingAuthReady(false);
+    removeLandingChips();
+    landingChipHosts().forEach(injectLandingShimmer);
   }
 
   function goViewProfile() {
@@ -701,6 +750,9 @@
   }
 
   function renderLandingNavState(signedIn) {
+    removeLandingChips();
+    setLandingAuthReady(true);
+
     // Chip-first: hide Premium when signed in; restore locked Premium when out.
     Array.prototype.forEach.call(
       document.querySelectorAll("[data-qava-premium-nav]"),
@@ -713,22 +765,8 @@
       }
     );
 
-    removeLandingChips();
     if (!signedIn || !state.profile) return;
-
-    // One chip per unique host (desktop auth-section / header-right; mobile menu).
-    var hosts = [];
-    var seen = [];
-    Array.prototype.forEach.call(
-      document.querySelectorAll("[data-qava-premium-nav]"),
-      function (btn) {
-        var host = chipHostForPremiumBtn(btn);
-        if (!host || seen.indexOf(host) !== -1) return;
-        seen.push(host);
-        hosts.push(host);
-      }
-    );
-    hosts.forEach(injectLandingChip);
+    landingChipHosts().forEach(injectLandingChip);
   }
 
   /* ---------------- Nav augmentation ---------------- */
@@ -1037,6 +1075,7 @@
     if (!isLandingNav()) normalizeCenterNav();
     if (isLandingNav()) {
       augmentLandingNav();
+      renderLandingNavPending();
     } else {
       augmentDesktopNav();
       augmentMobileNav();
