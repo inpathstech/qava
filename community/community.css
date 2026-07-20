@@ -29,6 +29,26 @@
       background-repeat: repeat;
     }
 
+    /* Embedded in app.qava.ai shell — no marketing mini-nav / dots */
+    html.community-embed,
+    html.community-embed body {
+      background: #fff !important;
+      min-height: 0;
+    }
+    html.community-embed #qava-dot-base-fixed,
+    html.community-embed .header-container {
+      display: none !important;
+    }
+    html.community-embed .chat-page,
+    html.community-embed .view {
+      margin-top: 0;
+      padding-top: 0;
+    }
+    html.community-embed .chat-page {
+      margin: 24px auto 48px;
+      width: min(680px, calc(100% - 32px));
+    }
+
     body > *:not(#qava-dot-base-fixed):not(#mentionDropdown):not(#mentionInviteToast):not(#reportModal):not(#communityAuthModal):not(.community-toast) { position: relative; z-index: 1; }
 
     a { color: inherit; text-decoration: none; }
@@ -133,6 +153,14 @@
 
     .header-right { display: flex; align-items: center; gap: 8px; }
 
+    /* Match templates.html: Premium + Get Started share an auth-section cluster.
+       qava-landing.css sets .header-container .auth-section { gap: 28px }. */
+    .auth-section {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
     .join-button {
       padding: 6px 12px;
       background: #2b2b2b;
@@ -140,21 +168,55 @@
       border-radius: 6px;
       color: #fff;
       font-size: 13px;
-    }
-
-    .qava-premium-nav-btn {
+      font-weight: 400;
+      text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      justify-content: center;
+      white-space: nowrap;
+    }
+    .join-button .join-text {
+      color: #fff;
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    /* Match templates Premium control: Inter 300, grey → black on hover. */
+    .qava-premium-nav-btn {
+      padding: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transition: color 0.2s ease;
+      font-family: "Inter", sans-serif;
       font-size: 14px;
       font-weight: 300;
       color: #6b6b6b;
-      background: transparent;
-      border: 0;
-      cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       text-decoration: none;
+      line-height: 1.4;
     }
-    .qava-premium-nav-btn:hover { color: #000; }
+    .qava-premium-nav-btn .nav-text {
+      color: inherit;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.4;
+      padding: 0 4px;
+    }
+    .qava-premium-nav-btn:hover,
+    .qava-premium-nav-btn:hover .nav-text,
+    .qava-premium-nav-btn:focus-visible,
+    .qava-premium-nav-btn:focus-visible .nav-text {
+      color: #000;
+      background: transparent;
+    }
     .qava-premium-nav-icon {
       display: inline-flex;
       align-items: center;
@@ -162,6 +224,7 @@
       width: 15px;
       height: 15px;
       flex-shrink: 0;
+      margin-top: -1px;
     }
     .qava-premium-nav-icon svg { width: 15px; height: 15px; display: block; }
 
@@ -3044,18 +3107,36 @@
       font-size: 18px;
     }
 
+    .profile-identity {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      min-width: 0;
+    }
+
     .profile-identity h1 {
       font-family: var(--display);
       font-size: 24px;
       font-weight: 400;
       line-height: 1.15;
-      margin-bottom: 2px;
+      margin: 0 0 2px;
+    }
+
+    .profile-username {
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.3;
+      color: #6b7280;
+      margin: 0;
     }
 
     .profile-role {
       font-size: 12px;
       color: #6b7280;
       font-weight: 300;
+      margin: 4px 0 0;
     }
 
     .profile-bio {
