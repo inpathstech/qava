@@ -32,13 +32,14 @@ body.embed-app #chatProduct {
   position: sticky;
   top: var(--chat-seq-sticky-top);
   z-index: 2;
-  height: calc(100vh - var(--chat-seq-sticky-top));
+  /* Size to content so the first frame matches landing density (no full-viewport void) */
+  height: auto;
   min-height: 0;
   max-height: calc(100vh - var(--chat-seq-sticky-top));
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 12px 0 20px;
+  padding: 0 0 24px;
   pointer-events: none;
   overflow: hidden;
   box-sizing: border-box;
@@ -52,16 +53,21 @@ body.embed-app #chatProduct {
   pointer-events: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
-/* Landing-matched chat marketing hero — scrolls away before sequence sticks */
+/* Match landing .feature-cards-section padding + hero rhythm */
 .chat-marketing-hero {
   text-align: center;
   width: min(920px, calc(100vw - 32px));
-  margin: 36px auto 28px;
+  margin: 100px auto 0;
   position: relative;
   z-index: 1;
+}
+
+/* Override community .chat-head bottom spacing on the marketing hero */
+.chat-marketing-hero.chat-head {
+  margin-bottom: 0;
 }
 
 .chat-marketing-hero .chat-hero-icon,
@@ -118,13 +124,18 @@ body.embed-app #chatProduct {
   font-weight: 300;
   color: #6b6b6b;
   text-align: center;
-  margin: 0 auto;
+  margin: 0 auto 20px;
   line-height: 1.45;
   white-space: nowrap;
   max-width: none;
 }
 
 @media (max-width: 720px) {
+  /* Match landing mobile feature-cards-section top padding */
+  .chat-marketing-hero {
+    margin-top: 60px;
+  }
+
   .chat-marketing-hero p.feature-cards-subheader,
   .chat-marketing-hero .qava-hero-subheader {
     white-space: normal;
@@ -164,9 +175,9 @@ body.embed-app #chatProduct {
 
 .chat-story .scroll-track {
   position: relative;
-  /* First pin keeps progress at step 0 after sticky engages */
-  margin-top: calc(-100vh + var(--chat-seq-sticky-top));
-  padding-top: 100vh;
+  /* Pins sit after the content-sized stage; arming holds step 0 until sticky */
+  margin-top: 0;
+  padding-top: 0;
 }
 
 .chat-story .scroll-pin {
