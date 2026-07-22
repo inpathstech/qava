@@ -23,6 +23,8 @@
   const post = document.getElementById("seqPost");
   if (!post) return;
 
+  const stage = document.getElementById("seqStage");
+  const repliesRoot = document.getElementById("seqReplies");
   const replies = Array.from(document.querySelectorAll(".seq-reply"));
   const cue = document.getElementById("seqCue");
   const pins = Array.from(document.querySelectorAll(".scroll-pin"));
@@ -37,6 +39,20 @@
   let isSnapping = false;
   const DWELL_FORWARD_MS = 650;
   const DWELL_BACK_MS = 320;
+
+  function stickyTopPx() {
+    const raw = getComputedStyle(document.documentElement)
+      .getPropertyValue("--chat-seq-sticky-top")
+      .trim();
+    const n = parseFloat(raw);
+    return Number.isFinite(n) ? n : 110;
+  }
+
+  /** Progress only advances after the sticky frame has locked in place. */
+  function sequenceArmed() {
+    if (!stage) return true;
+    return stage.getBoundingClientRect().top <= stickyTopPx() + 6;
+  }
 
   function setCue(text, done) {
     if (!cue) return;
@@ -71,12 +87,26 @@
     post.classList.add("is-in");
 
     let visible = 0;
+    let topEl = null;
     replies.forEach((el) => {
       const n = Number(el.getAttribute("data-step"));
       const on = step >= n;
       el.classList.toggle("is-in", on);
-      if (on) visible += 1;
+      el.classList.remove("is-top");
+      if (on) {
+        visible += 1;
+        el.style.setProperty("--seq-z", String(visible));
+        topEl = el;
+      } else {
+        el.style.removeProperty("--seq-z");
+      }
     });
+    if (topEl) topEl.classList.add("is-top");
+
+    if (repliesRoot) {
+      repliesRoot.style.setProperty("--seq-stack-count", String(visible));
+      repliesRoot.setAttribute("data-count", String(visible));
+    }
 
     if (metaSub) {
       metaSub.textContent =
@@ -134,6 +164,13 @@
 
   function updateFromScroll() {
     if (isSnapping) return;
+
+    // Hold at step 0 until the user has scrolled the sticky frame into place
+    if (!sequenceArmed()) {
+      if (step !== 0) setStep(0);
+      else if (step < 0) setStep(0);
+      return;
+    }
 
     const target = targetFromPins();
     if (step < 0) {

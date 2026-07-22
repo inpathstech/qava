@@ -77,19 +77,19 @@
   <section class="view is-active" id="view-chat">
     <div id="chatMarketing">
       <section class="chat-story story" id="story" aria-label="How to use chat">
-        <div class="stage">
-          <div class="chat-page">
-            <div class="chat-head chat-marketing-hero">
-              <img
-                id="chat-hero-icon"
-                class="qava-hero-icon chat-hero-icon"
-                src="chat-hero-logo.jpg"
-                alt="Chat"
-              />
-              <h1 class="feature-cards-header qava-hero-heading">Ask the room.</h1>
-              <p class="feature-cards-subheader qava-hero-subheader">Ask for feedback, share what you're working on, and learn from other members.</p>
-            </div>
+        <div class="chat-head chat-marketing-hero">
+          <img
+            id="chat-hero-icon"
+            class="qava-hero-icon chat-hero-icon"
+            src="chat-hero-logo.jpg"
+            alt="Chat"
+          />
+          <h1 class="feature-cards-header qava-hero-heading">Ask the room.</h1>
+          <p class="feature-cards-subheader qava-hero-subheader">Ask for feedback, share what you're working on, and learn from other members.</p>
+        </div>
 
+        <div class="stage" id="seqStage">
+          <div class="chat-page">
             <div class="seq-progress" id="seqProgress" aria-live="polite">
               <div class="seq-progress-top">
                 <div class="seq-stage-title" id="seqStageTitle">Ask the room</div>
@@ -129,7 +129,7 @@
                   </div>
                 </article>
 
-                <div class="seq-replies" id="seqReplies">
+                <div class="seq-replies" id="seqReplies" data-count="0">
                   <div class="reply seq-reply" data-step="1">
                     <div class="avatar">AM</div>
                     <div>
