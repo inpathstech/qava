@@ -1,0 +1,445 @@
+/* Chat marketing scroll sequence — public /community/chat */
+
+:root {
+  --chat-seq-sticky-top: 110px;
+}
+
+@media (max-width: 860px) {
+  :root {
+    --chat-seq-sticky-top: 146px;
+  }
+}
+
+/* Public: marketing on; product off. Embed: reverse. */
+#chatProduct {
+  display: none;
+}
+
+body.embed-app #chatMarketing,
+body.embed-app .footer-section {
+  display: none !important;
+}
+
+body.embed-app #chatProduct {
+  display: block;
+}
+
+.chat-story {
+  position: relative;
+}
+
+.chat-story .stage {
+  position: sticky;
+  top: var(--chat-seq-sticky-top);
+  z-index: 2;
+  min-height: calc(100vh - var(--chat-seq-sticky-top));
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 8px 0 32px;
+  pointer-events: none;
+}
+
+.chat-story .stage .chat-page {
+  margin-top: 28px;
+  margin-bottom: 0;
+  width: min(680px, calc(100vw - 32px));
+  pointer-events: auto;
+}
+
+.chat-story .scroll-track {
+  position: relative;
+  margin-top: calc(-100vh + var(--chat-seq-sticky-top));
+  padding-top: 100vh;
+}
+
+.chat-story .scroll-pin {
+  height: 55vh;
+  pointer-events: none;
+}
+
+.chat-story .scroll-pin:last-child {
+  height: 70vh;
+}
+
+.seq-progress {
+  margin: 0 0 14px;
+}
+
+.seq-progress-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.seq-stage-title {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #111827;
+  transition: color 0.3s ease;
+}
+
+.seq-stage-count {
+  font-size: 11px;
+  font-weight: 300;
+  color: #9ca3af;
+  white-space: nowrap;
+}
+
+.seq-progress-bar {
+  display: flex;
+  gap: 5px;
+}
+
+.seq-progress-bar i {
+  flex: 1;
+  height: 3px;
+  border-radius: 99px;
+  background: rgba(17, 24, 39, 0.08);
+  overflow: hidden;
+  position: relative;
+}
+
+.seq-progress-bar i::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #111827;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.seq-progress-bar i.is-on::after {
+  transform: scaleX(1);
+}
+
+.seq-cue {
+  margin: 14px 0 0;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 300;
+  color: #9ca3af;
+  letter-spacing: 0.01em;
+  transition: opacity 0.3s ease;
+}
+
+.seq-cue svg {
+  width: 13px;
+  height: 13px;
+  vertical-align: -2px;
+  margin-right: 4px;
+}
+
+.seq-post.is-in {
+  opacity: 1;
+}
+
+.seq-thread-flow {
+  position: relative;
+}
+
+.seq-replies {
+  position: relative;
+  margin-top: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.thread-detail .seq-replies .seq-reply {
+  display: flex;
+  gap: 10px;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  transform: translateY(12px);
+  filter: blur(1.5px);
+  box-shadow: none;
+  transition:
+    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.4s ease,
+    max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    padding 0.45s ease,
+    margin 0.45s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease,
+    background 0.35s ease;
+  pointer-events: none;
+  position: relative;
+  background: transparent;
+}
+
+.thread-detail .seq-replies .seq-reply.is-in {
+  opacity: 1;
+  max-height: 420px;
+  margin-top: 10px;
+  padding: 12px 14px;
+  background: #fff;
+  border-color: rgba(17, 24, 39, 0.06);
+  border-top-color: rgba(17, 24, 39, 0.06);
+  border-left-color: rgba(17, 24, 39, 0.06);
+  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04), 0 4px 12px rgba(17, 24, 39, 0.05);
+  transform: translateY(0);
+  filter: none;
+  pointer-events: auto;
+}
+
+.thread-detail .seq-replies .seq-reply.is-in:hover {
+  background: #fff;
+  border-left-color: rgba(17, 24, 39, 0.06);
+}
+
+.seq-reply-stats,
+.seq-op-stats {
+  margin-top: 8px;
+  width: 100%;
+}
+
+.thread-detail.seq-stage-card {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  overflow: visible;
+}
+
+.thread-detail.seq-stage-card .thread-post.is-op.seq-post {
+  margin: 0;
+  padding: 14px;
+  background: #f3f4f6;
+  border-radius: 8px;
+}
+
+.thread-detail.seq-stage-card .thread-post.is-op.seq-post .thread-body p:last-child {
+  margin-bottom: 0;
+}
+
+.seq-stat {
+  display: inline;
+  font-weight: 500;
+  color: #111827;
+}
+
+.seq-mark {
+  color: inherit;
+  font: inherit;
+  background: linear-gradient(
+    transparent 62%,
+    rgba(250, 204, 21, 0.42) 62%
+  );
+  border-radius: 1px;
+  padding: 0 1px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.seq-mark.seq-stat {
+  background: linear-gradient(
+    transparent 55%,
+    rgba(250, 204, 21, 0.5) 55%
+  );
+}
+
+.seq-stage-card .thread-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.seq-stage-card .thread-tags .tag-pill {
+  cursor: default;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .seq-post,
+  .seq-reply {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+}
+
+.room-thesis {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  padding: 96px 16px 40px;
+  background: transparent;
+}
+
+.room-thesis-inner {
+  width: min(920px, calc(100vw - 32px));
+  text-align: center;
+  padding: 36px 40px 40px;
+  border-radius: 12px;
+  background: #111827;
+}
+
+.room-thesis h2 {
+  margin: 0 0 14px;
+  font-family: "Libre Caslon Display", Georgia, serif;
+  font-size: clamp(17px, 3.35vw, 36px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.room-thesis p {
+  margin: 0 auto;
+  max-width: none;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: clamp(13px, 1.65vw, 16px);
+  font-weight: 300;
+  line-height: 1.55;
+  color: #9ca3af;
+  white-space: nowrap;
+}
+
+.premium-pitch {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  padding: 56px 16px 100px;
+}
+
+.premium-pitch-inner {
+  width: min(560px, calc(100vw - 32px));
+  text-align: center;
+}
+
+.premium-pitch-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 18px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #111827;
+  color: #fff;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.premium-pitch-badge svg {
+  display: block;
+  width: 13px;
+  height: 13px;
+}
+
+.premium-pitch h3 {
+  margin: 0 0 8px;
+  font-family: "Libre Caslon Display", Georgia, serif;
+  font-size: clamp(26px, 3.6vw, 34px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: #111827;
+}
+
+.premium-pitch-lead {
+  margin: 0 0 28px;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: #6b7280;
+}
+
+.premium-pitch-card {
+  text-align: left;
+  margin: 0 0 28px;
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04), 0 8px 24px rgba(17, 24, 39, 0.06);
+  overflow: hidden;
+}
+
+.premium-pitch-feats {
+  padding: 8px 20px 4px;
+}
+
+.premium-pitch-feat {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  color: #111827;
+}
+
+.premium-pitch-feat:last-child {
+  border-bottom: 0;
+}
+
+.premium-pitch-icon {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: #f3f4f6;
+  color: #111827;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.premium-pitch-icon svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+.premium-pitch-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 160px;
+  padding: 12px 22px;
+  border-radius: 8px;
+  background: #111827;
+  color: #fff;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.premium-pitch-cta:hover {
+  background: #000;
+  color: #fff;
+}
+
+@media (max-width: 640px) {
+  .room-thesis h2,
+  .room-thesis p {
+    white-space: normal;
+  }
+
+  .room-thesis-inner {
+    padding: 28px 20px 32px;
+  }
+}
