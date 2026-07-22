@@ -32,25 +32,36 @@ body.embed-app #chatProduct {
   position: sticky;
   top: var(--chat-seq-sticky-top);
   z-index: 2;
-  min-height: calc(100vh - var(--chat-seq-sticky-top));
+  height: calc(100vh - var(--chat-seq-sticky-top));
+  min-height: 0;
+  max-height: calc(100vh - var(--chat-seq-sticky-top));
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  padding: 8px 0 32px;
+  padding: 12px 0 20px;
   pointer-events: none;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .chat-story .stage .chat-page {
-  margin-top: 28px;
+  margin-top: 0;
   margin-bottom: 0;
-  width: min(920px, calc(100vw - 32px));
+  width: min(680px, calc(100vw - 32px));
+  max-height: 100%;
   pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-/* Landing-matched chat marketing hero */
+/* Landing-matched chat marketing hero — scrolls away before sequence sticks */
 .chat-marketing-hero {
   text-align: center;
-  margin-bottom: 28px;
+  width: min(920px, calc(100vw - 32px));
+  margin: 36px auto 28px;
+  position: relative;
+  z-index: 1;
 }
 
 .chat-marketing-hero .chat-hero-icon,
@@ -153,17 +164,22 @@ body.embed-app #chatProduct {
 
 .chat-story .scroll-track {
   position: relative;
+  /* First pin keeps progress at step 0 after sticky engages */
   margin-top: calc(-100vh + var(--chat-seq-sticky-top));
   padding-top: 100vh;
 }
 
 .chat-story .scroll-pin {
-  height: 55vh;
+  height: 70vh;
   pointer-events: none;
 }
 
+.chat-story .scroll-pin[data-step="0"] {
+  height: 85vh;
+}
+
 .chat-story .scroll-pin:last-child {
-  height: 70vh;
+  height: 80vh;
 }
 
 .seq-progress {
@@ -248,58 +264,116 @@ body.embed-app #chatProduct {
 }
 
 .seq-replies {
+  --seq-stack-step: 36px;
+  --seq-peek-h: 48px;
+  --seq-top-card-h: 152px;
+  --seq-stack-count: 0;
   position: relative;
-  margin-top: 0;
+  margin-top: 6px;
   padding: 0;
   background: transparent;
+  /* n cards → (n-1) peeks + top card; JS keeps count at 0 when empty */
+  height: calc(
+    (var(--seq-stack-count) - 1) * var(--seq-stack-step) + var(--seq-top-card-h)
+  );
+  transition: height 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.seq-replies[data-count="0"] {
+  height: 0;
+  margin-top: 0;
 }
 
 .thread-detail .seq-replies .seq-reply {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   opacity: 0;
-  max-height: 0;
   overflow: hidden;
   margin: 0;
   padding: 0;
   border: 1px solid transparent;
   border-radius: 8px;
-  transform: translateY(12px);
+  transform: translateY(14px) scale(0.985);
   filter: blur(1.5px);
   box-shadow: none;
   transition:
-    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 0.4s ease,
-    max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-    padding 0.45s ease,
-    margin 0.45s ease,
-    box-shadow 0.35s ease,
-    border-color 0.35s ease,
-    background 0.35s ease;
+    opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.35s ease,
+    top 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    padding 0.35s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease,
+    background 0.3s ease;
   pointer-events: none;
-  position: relative;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
   background: transparent;
+  z-index: 0;
+  max-height: var(--seq-peek-h);
+  box-sizing: border-box;
 }
 
+/* Stacked deck: buried cards peek a name strip; newest sits on top */
 .thread-detail .seq-replies .seq-reply.is-in {
   opacity: 1;
-  max-height: 420px;
-  margin-top: 10px;
-  padding: 12px 14px;
+  padding: 8px 10px;
   background: #fff;
-  border-color: rgba(17, 24, 39, 0.06);
-  border-top-color: rgba(17, 24, 39, 0.06);
-  border-left-color: rgba(17, 24, 39, 0.06);
-  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04), 0 4px 12px rgba(17, 24, 39, 0.05);
-  transform: translateY(0);
+  border-color: rgba(17, 24, 39, 0.1);
+  box-shadow:
+    0 1px 2px rgba(17, 24, 39, 0.04),
+    0 8px 20px rgba(17, 24, 39, 0.1);
+  transform: translateY(0) scale(1);
   filter: none;
   pointer-events: auto;
+  z-index: var(--seq-z, 1);
+  top: calc((var(--seq-z, 1) - 1) * var(--seq-stack-step));
+  overflow: hidden;
+  max-height: var(--seq-peek-h);
+}
+
+.thread-detail .seq-replies .seq-reply.is-in.is-top {
+  max-height: var(--seq-top-card-h);
 }
 
 .thread-detail .seq-replies .seq-reply.is-in:hover {
   background: #fff;
-  border-left-color: rgba(17, 24, 39, 0.06);
+  border-left-color: rgba(17, 24, 39, 0.1);
+}
+
+.thread-detail .seq-replies .seq-reply.is-in .reply-body {
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.thread-detail .seq-replies .seq-reply.is-in .attach-chips {
+  margin-top: 6px;
+  gap: 4px;
+}
+
+.thread-detail .seq-replies .seq-reply.is-in .attach-chip {
+  font-size: 11px;
+  padding: 4px 8px;
+}
+
+.thread-detail .seq-replies .seq-reply.is-in .seq-reply-stats {
+  margin-top: 6px;
+}
+
+.thread-detail .seq-replies .seq-reply.is-in:not(.is-top) .reply-body,
+.thread-detail .seq-replies .seq-reply.is-in:not(.is-top) .seq-reply-stats,
+.thread-detail .seq-replies .seq-reply.is-in:not(.is-top) .attach-chips {
+  visibility: hidden;
+}
+
+@media (max-width: 860px) {
+  .seq-replies {
+    --seq-stack-step: 34px;
+    --seq-peek-h: 46px;
+    --seq-top-card-h: 140px;
+  }
 }
 
 .seq-reply-stats,
@@ -315,13 +389,25 @@ body.embed-app #chatProduct {
   box-shadow: none;
   padding: 0;
   overflow: visible;
+  flex: 0 1 auto;
+  min-height: 0;
 }
 
 .thread-detail.seq-stage-card .thread-post.is-op.seq-post {
   margin: 0;
-  padding: 14px;
+  padding: 12px 14px;
   background: #f3f4f6;
   border-radius: 8px;
+}
+
+.thread-detail.seq-stage-card .thread-post.is-op.seq-post .thread-title {
+  font-size: clamp(17px, 2vw, 20px);
+  margin-bottom: 4px;
+}
+
+.thread-detail.seq-stage-card .thread-post.is-op.seq-post .thread-body {
+  font-size: 13.5px;
+  line-height: 1.4;
 }
 
 .thread-detail.seq-stage-card .thread-post.is-op.seq-post .thread-body p:last-child {
