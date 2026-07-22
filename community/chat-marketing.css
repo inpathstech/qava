@@ -43,8 +43,112 @@ body.embed-app #chatProduct {
 .chat-story .stage .chat-page {
   margin-top: 28px;
   margin-bottom: 0;
-  width: min(680px, calc(100vw - 32px));
+  width: min(920px, calc(100vw - 32px));
   pointer-events: auto;
+}
+
+/* Landing-matched chat marketing hero */
+.chat-marketing-hero {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.chat-marketing-hero .chat-hero-icon,
+.chat-marketing-hero .qava-hero-icon {
+  width: 124px;
+  height: 124px;
+  border-radius: 28px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto 26px auto;
+  box-shadow: 0 16px 50px rgba(20, 10, 22, 0.18);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform;
+  animation: qavaSideToSideFlip 2.4s linear infinite;
+}
+
+@keyframes qavaSideToSideFlip {
+  0% {
+    transform: perspective(900px) rotateY(-22deg) rotateZ(-1deg);
+  }
+  25% {
+    transform: perspective(900px) rotateY(0deg) rotateZ(0deg);
+  }
+  50% {
+    transform: perspective(900px) rotateY(22deg) rotateZ(1deg);
+  }
+  75% {
+    transform: perspective(900px) rotateY(0deg) rotateZ(0deg);
+  }
+  100% {
+    transform: perspective(900px) rotateY(-22deg) rotateZ(-1deg);
+  }
+}
+
+.chat-marketing-hero h1.feature-cards-header,
+.chat-marketing-hero .qava-hero-heading {
+  font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+  font-weight: 400;
+  letter-spacing: -0.012em;
+  font-size: clamp(34px, 3.6vw, 54px);
+  line-height: 1.08;
+  white-space: nowrap;
+  max-width: none;
+  margin: 0 auto 10px auto;
+  text-align: center;
+  color: #111827;
+}
+
+.chat-marketing-hero p.feature-cards-subheader,
+.chat-marketing-hero .qava-hero-subheader {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: #6b6b6b;
+  text-align: center;
+  margin: 0 auto;
+  line-height: 1.45;
+  white-space: nowrap;
+  max-width: none;
+}
+
+@media (max-width: 720px) {
+  .chat-marketing-hero p.feature-cards-subheader,
+  .chat-marketing-hero .qava-hero-subheader {
+    white-space: normal;
+    padding: 0 8px;
+  }
+
+  .chat-marketing-hero h1.feature-cards-header,
+  .chat-marketing-hero .qava-hero-heading {
+    white-space: normal;
+  }
+
+  .chat-marketing-hero .chat-hero-icon,
+  .chat-marketing-hero .qava-hero-icon {
+    width: 96px;
+    height: 96px;
+    border-radius: 22px;
+    margin-bottom: 20px;
+  }
+}
+
+/* Keep the scroll sequence card column at the prior width */
+.chat-story .seq-progress,
+.chat-story .seq-stage-card,
+.chat-story .seq-cue {
+  width: min(680px, 100%);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.chat-story .seq-progress {
+  margin-bottom: 14px;
+}
+
+.chat-story .seq-cue {
+  margin-top: 14px;
 }
 
 .chat-story .scroll-track {
