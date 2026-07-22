@@ -9,21 +9,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../qava-landing.css" />
   <link rel="stylesheet" href="community.css" />
+  <link rel="stylesheet" href="chat-marketing.css" />
   <link rel="stylesheet" href="../qava-auth.css" />
 </head>
 <body>
-  <script>
-    (function () {
-      try {
-        var params = new URLSearchParams(window.location.search);
-        var framed = false;
-        try { framed = window.self !== window.top; } catch (e) { framed = true; }
-        if (params.get("embed") === "1" || params.get("app") === "1" || framed) {
-          document.documentElement.classList.add("community-embed");
-        }
-      } catch (e) {}
-    })();
-  </script>
   <div id="qava-dot-base-fixed" aria-hidden="true"></div>
 
   <header class="header-container" data-qava-nav="landing">
@@ -86,130 +75,367 @@
   </template>
 
   <section class="view is-active" id="view-chat">
-    <div class="chat-page">
-      <div class="chat-head">
-        <h1>Chat</h1>
-        <p>Ask for feedback, share what you're working on, and learn from other members.</p>
-      </div>
+    <div id="chatMarketing">
+      <section class="chat-story story" id="story" aria-label="How to use chat">
+        <div class="stage">
+          <div class="chat-page">
+            <div class="chat-head">
+              <h1>Chat</h1>
+              <p>Ask for feedback, share what you're working on, and learn from other members.</p>
+            </div>
 
-      <div class="composer-card">
-        <div class="composer-top">
-          <div class="avatar">You</div>
-          <div class="composer-top-actions">
-            <div class="composer-lock" id="composerLockLabel">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              Premium required
-            </div>
-          </div>
-        </div>
-        <div class="composer-fields" id="composerFields">
-          <div class="composer-field">
-            <label class="composer-field-label" for="composerTitle">Title</label>
-            <div class="composer-field-input">
-              <input class="composer-title" id="composerTitle" type="text" maxlength="120" placeholder="Post title" aria-label="Post title" />
-            </div>
-          </div>
-          <div class="composer-field">
-            <label class="composer-field-label" for="composerInput">Body</label>
-            <div class="composer-field-input input-with-gate" id="composerBodyField">
-              <div class="composer-input" id="composerInput" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Post body" data-placeholder="Add context, links, or details…"></div>
-              <div class="input-gate-prompt" id="composerGatePrompt">
-                <a href="../premium/">Sign in as a Premium member</a> to post…
+            <div class="seq-progress" id="seqProgress" aria-live="polite">
+              <div class="seq-progress-top">
+                <div class="seq-stage-title" id="seqStageTitle">Ask the room</div>
+                <div class="seq-stage-count" id="seqStageCount">1 / 5</div>
+              </div>
+              <div class="seq-progress-bar" id="seqProgressBar" aria-hidden="true">
+                <i data-bar="0"></i>
+                <i data-bar="1"></i>
+                <i data-bar="2"></i>
+                <i data-bar="3"></i>
+                <i data-bar="4"></i>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="composer-attachments" id="composerAttachments" aria-label="Attached files"></div>
-        <input type="file" id="composerFileInput" hidden multiple />
-        <div class="composer-agenda" id="composerAgenda">
-          <div class="composer-agenda-header">
-            <div class="composer-agenda-header-left">
-              <span class="composer-agenda-label">Agenda or topic</span>
-              <span class="composer-agenda-hint">· Select up to two</span>
+
+            <div class="thread-detail seq-stage-card">
+              <div class="seq-thread-flow">
+                <article class="thread-post is-op seq-post is-in" id="seqPost">
+                  <div class="thread-meta">
+                    <div class="avatar">JR</div>
+                    <div class="meta-lines">
+                      <div class="meta-top"><strong>Jordan R.</strong> · Founder · Seed stage</div>
+                      <div class="meta-sub">2 days ago · 0 replies</div>
+                    </div>
+                    <div class="thread-tags">
+                      <span class="tag-pill" aria-hidden="true"><span class="tag-pill-emoji">🧸</span>Product</span>
+                      <span class="tag-pill" aria-hidden="true"><span class="tag-pill-emoji">💰</span>Fundraising</span>
+                    </div>
+                  </div>
+                  <h3 class="thread-title">Anyone familiar with mental health apps?</h3>
+                  <div class="thread-body">
+                    <p>I have an idea and I’m concerned about confirmation bias, so I want to share it for someone to poke holes in it.</p>
+                  </div>
+                  <div class="feed-stats seq-op-stats">
+                    <span class="feed-stat" aria-label="42 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>42</span></span>
+                    <span class="feed-stat" id="seqOpComments" aria-label="0 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>0</span></span>
+                    <span class="feed-stat-time">2 days ago</span>
+                  </div>
+                </article>
+
+                <div class="seq-replies" id="seqReplies">
+                  <div class="reply seq-reply" data-step="1">
+                    <div class="avatar">AM</div>
+                    <div>
+                      <div class="reply-meta"><strong>Aisha M.</strong> · Operator · B2B health</div>
+                      <div class="reply-body">
+                        I do — what angle are you thinking of taking? I see opportunity in <mark class="seq-mark">corporate</mark>, but <mark class="seq-mark">DTC</mark> is pretty crowded. Happy to chat more.
+                      </div>
+                      <div class="feed-stats seq-reply-stats">
+                        <span class="feed-stat" aria-label="18 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>18</span></span>
+                        <span class="feed-stat" aria-label="4 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>4</span></span>
+                        <span class="feed-stat-time">2 days ago</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="reply seq-reply" data-step="1">
+                    <div class="avatar">PR</div>
+                    <div>
+                      <div class="reply-meta"><strong>Priya R.</strong> · Founder · New parent</div>
+                      <div class="reply-body">
+                        Different angle: <mark class="seq-mark">new parents</mark>. Sleep, anxiety, and “am I doing this right?” hit hard in the first year — and most apps feel built for <mark class="seq-mark">clinicians</mark>, not for 2 a.m. on the couch.
+                      </div>
+                      <div class="feed-stats seq-reply-stats">
+                        <span class="feed-stat" aria-label="24 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>24</span></span>
+                        <span class="feed-stat" aria-label="6 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>6</span></span>
+                        <span class="feed-stat-time">2 days ago</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="reply seq-reply" data-step="1">
+                    <div class="avatar">MC</div>
+                    <div>
+                      <div class="reply-meta"><strong>Marcus C.</strong> · Operator · Startup ops</div>
+                      <div class="reply-body">
+                        Or <mark class="seq-mark">entrepreneurs</mark> — founders burn out quietly and won’t touch anything that feels like “therapy homework.” <mark class="seq-mark">Peer accountability</mark> + short check-ins beats another meditation library.
+                      </div>
+                      <div class="feed-stats seq-reply-stats">
+                        <span class="feed-stat" aria-label="15 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>15</span></span>
+                        <span class="feed-stat" aria-label="3 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>3</span></span>
+                        <span class="feed-stat-time">2 days ago</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="reply seq-reply" data-step="2">
+                    <div class="avatar">NL</div>
+                    <div>
+                      <div class="reply-meta"><strong>Noah L.</strong> · Investor · Early stage</div>
+                      <div class="reply-body">
+                        Worth reading before you <mark class="seq-mark">lock the thesis</mark> — solid overview of the category and where <mark class="seq-mark">growth</mark> is actually landing.
+                        <div class="attach-chips">
+                          <span class="attach-chip">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg>
+                            Mental Health Apps Report 2025 · rockhealth.com
+                          </span>
+                          <span class="attach-chip">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg>
+                            Digital Therapeutics Market Outlook · cbinsights.com
+                          </span>
+                          <span class="attach-chip">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg>
+                            Employer Mental Health Benefits Survey · shrm.org
+                          </span>
+                        </div>
+                      </div>
+                      <div class="feed-stats seq-reply-stats">
+                        <span class="feed-stat" aria-label="31 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>31</span></span>
+                        <span class="feed-stat" aria-label="9 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>9</span></span>
+                        <span class="feed-stat-time">2 days ago</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="reply seq-reply" data-step="3">
+                    <div class="avatar">SK</div>
+                    <div>
+                      <div class="reply-meta"><strong>Sofia K.</strong> · Researcher · Public health</div>
+                      <div class="reply-body">
+                        One number that changed how I think about <mark class="seq-mark">demand</mark>:
+                        <mark class="seq-mark seq-stat">1 in 5</mark> U.S. adults experience mental illness each year.
+                      </div>
+                      <div class="feed-stats seq-reply-stats">
+                        <span class="feed-stat" aria-label="27 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>27</span></span>
+                        <span class="feed-stat" aria-label="5 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>5</span></span>
+                        <span class="feed-stat-time">2 days ago</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="reply seq-reply" data-step="4">
+                    <div class="avatar">DT</div>
+                    <div>
+                      <div class="reply-meta"><strong>Dev T.</strong> · Founder · Grant-backed</div>
+                      <div class="reply-body">
+                        If you’re early-stage, look at NIH / SAMHSA <mark class="seq-mark">SBIR grants</mark> — start with a one-pager of problem, population, and <mark class="seq-mark">measurable outcome</mark>. I can share a checklist.
+                      </div>
+                      <div class="feed-stats seq-reply-stats">
+                        <span class="feed-stat" aria-label="19 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>19</span></span>
+                        <span class="feed-stat" aria-label="7 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>7</span></span>
+                        <span class="feed-stat-time">2 days ago</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="word-count" id="wordCount">0 / 250 words</div>
-          </div>
-          <div class="composer-tags-row">
-            <div class="composer-tags" id="composerTags" aria-label="Agenda or topic"></div>
-            <button type="button" class="composer-topics-more" id="composerTopicsMore">Show more</button>
-          </div>
-        </div>
-        <div class="composer-actions">
-          <div class="toolbar" aria-label="Formatting">
-            <button class="tool-btn" type="button" data-tool="bold" aria-label="Bold" title="Bold">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a4 4 0 0 1 0 8H6z"/><path d="M6 12h9a4 4 0 0 1 0 8H6z"/></svg>
-            </button>
-            <button class="tool-btn" type="button" data-tool="bullet" aria-label="Bullet list" title="Bullet list">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11"/><path d="M9 12h11"/><path d="M9 18h11"/><circle cx="4" cy="6" r="1" fill="currentColor" stroke="none"/><circle cx="4" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="4" cy="18" r="1" fill="currentColor" stroke="none"/></svg>
-            </button>
-            <button class="tool-btn" type="button" data-tool="link" aria-label="Add link" title="Add link">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-            </button>
-            <button class="tool-btn" type="button" data-tool="mention" aria-label="Mention member" title="Mention member">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"/></svg>
-            </button>
-            <button class="tool-btn" type="button" data-tool="attach" aria-label="Attach file" title="Attach file or image">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
-            </button>
-            <div class="thread-display-menu-slot" data-display-menu-slot></div>
-          </div>
-          <div class="composer-footer">
-            <button class="btn btn-primary btn-post" type="button" id="postBtn">Post</button>
-          </div>
-        </div>
-      </div>
 
-      <div class="composer-collab-box">
-        <div class="composer-collab-left">
-          <p class="composer-collab-heading">Looking for hands-on support?</p>
-          <a class="composer-collab-cta" href="https://app.qava.ai/" target="_blank" rel="noopener noreferrer">Join match-maker for free</a>
-        </div>
-        <div class="composer-collab-right">
-          <p class="composer-collab-right-heading">Share a listing in minutes</p>
-          <div class="composer-collab-actions">
-            <a class="composer-collab-btn" href="https://qava.app" target="_blank" rel="noopener noreferrer">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 5h12"/><path d="M4 12h10"/><path d="M12 19h8"/></svg>
-              <span>Project</span>
-            </a>
-            <a class="composer-collab-btn" href="https://qava.app" target="_blank" rel="noopener noreferrer">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>
-              <span>Job</span>
-            </a>
-            <a class="composer-collab-btn" href="https://qava.app" target="_blank" rel="noopener noreferrer">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 13v8"/><path d="M12 3v3"/><path d="M2.354 10.354a1.207 1.207 0 0 1 0-1.708l2.06-2.06A2 2 0 0 1 5.828 6h12.344a2 2 0 0 1 1.414.586l2.06 2.06a1.207 1.207 0 0 1 0 1.708l-2.06 2.06a2 2 0 0 1-1.414.586H5.828a2 2 0 0 1-1.414-.586z"/></svg>
-              <span>Internship</span>
-            </a>
+            <p class="seq-cue" id="seqCue">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+              Scroll to see replies come in
+            </p>
           </div>
         </div>
-      </div>
 
-      <div class="feed-section-wrap">
-        <div class="feed-card">
-        <div class="feed-header">
-          <span class="feed-section-label">Discussions</span>
-          <h2 class="feed-section-title">What members are discussing</h2>
-          <p class="feed-section-body">Browse freely — tap a thread to read. Reply with Premium.</p>
+        <div class="scroll-track" aria-hidden="true">
+          <div class="scroll-pin" data-step="0"></div>
+          <div class="scroll-pin" data-step="1"></div>
+          <div class="scroll-pin" data-step="2"></div>
+          <div class="scroll-pin" data-step="3"></div>
+          <div class="scroll-pin" data-step="4"></div>
         </div>
-        <div class="feed-toolbar">
-          <label>Sort by
-            <div class="feed-sort-wrap" id="feedSortWrap">
-              <button type="button" class="feed-sort-trigger" id="feedSortTrigger" aria-expanded="false" aria-haspopup="listbox">
-                <span id="feedSortLabel">Most active</span>
-                <span class="feed-sort-icon" id="feedSortIcon" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+      </section>
+
+      <section class="room-thesis" aria-label="Why the room">
+        <div class="room-thesis-inner">
+          <h2>The smartest person in the room is the room itself.</h2>
+          <p>Chat turns a single question into the collective views of people who’ve been there.</p>
+        </div>
+      </section>
+
+      <section class="premium-pitch" aria-label="Premium Plus benefits">
+        <div class="premium-pitch-inner">
+          <div class="premium-pitch-badge">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Premium Plus
+          </div>
+          <h3>Go further, faster.</h3>
+          <p class="premium-pitch-lead">Unlock the room — and the tools to act on what you learn.</p>
+
+          <div class="premium-pitch-card">
+            <div class="premium-pitch-feats">
+              <div class="premium-pitch-feat">
+                <span class="premium-pitch-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.1 2.18a9.93 9.93 0 0 1 3.8 0"/><path d="M17.6 3.71a9.95 9.95 0 0 1 2.69 2.7"/><path d="M21.82 10.1a9.93 9.93 0 0 1 0 3.8"/><path d="M20.29 17.6a9.95 9.95 0 0 1-2.7 2.69"/><path d="M13.9 21.82a9.94 9.94 0 0 1-3.8 0"/><path d="M6.4 20.29a9.95 9.95 0 0 1-2.69-2.7"/><path d="M2.18 13.9a9.93 9.93 0 0 1 0-3.8"/><path d="M3.71 6.4a9.95 9.95 0 0 1 2.7-2.69"/><circle cx="12" cy="12" r="1"/></svg>
                 </span>
-              </button>
-              <div class="feed-sort-menu" id="feedSortMenu" role="listbox" hidden>
-                <button type="button" class="feed-sort-option is-selected" data-sort="active">Most active</button>
-                <button type="button" class="feed-sort-option" data-sort="new">New first</button>
-                <button type="button" class="feed-sort-option" data-sort="replies">Most replies</button>
-                <button type="button" class="feed-sort-option" data-sort="likes">Most likes</button>
+                Unlimited access to our expert template library
+              </div>
+              <div class="premium-pitch-feat">
+                <span class="premium-pitch-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 13v8"/><path d="M12 3v3"/><path d="M2.354 10.354a1.207 1.207 0 0 1 0-1.708l2.06-2.06A2 2 0 0 1 5.828 6h12.344a2 2 0 0 1 1.414.586l2.06 2.06a1.207 1.207 0 0 1 0 1.708l-2.06 2.06a2 2 0 0 1-1.414.586H5.828a2 2 0 0 1-1.414-.586z"/></svg>
+                </span>
+                Pre-built slides to drive smarter decisions, faster
+              </div>
+              <div class="premium-pitch-feat">
+                <span class="premium-pitch-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m10.586 5.414-5.172 5.172"/><path d="m18.586 13.414-5.172 5.172"/><path d="M6 12h12"/><circle cx="12" cy="20" r="2"/><circle cx="12" cy="4" r="2"/><circle cx="20" cy="12" r="2"/><circle cx="4" cy="12" r="2"/></svg>
+                </span>
+                Turn connections into meaningful outcomes
+              </div>
+              <div class="premium-pitch-feat">
+                <span class="premium-pitch-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m19 16-3 3"/><path d="M2 21a8 8 0 0 1 12.664-6.5"/><path d="M22 19h-6l3 3"/><circle cx="10" cy="8" r="5"/></svg>
+                </span>
+                Build proof, not just profiles
+              </div>
+              <div class="premium-pitch-feat">
+                <span class="premium-pitch-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 22V7a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a1 1 0 0 0-1-1H2"/><rect x="14" y="2" width="8" height="8" rx="1"/></svg>
+                </span>
+                Learn, grow, and execute with confidence
+              </div>
+              <div class="premium-pitch-feat">
+                <span class="premium-pitch-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </span>
+                Cancel anytime
               </div>
             </div>
-          </label>
+          </div>
+
+          <a class="premium-pitch-cta" href="https://app.qava.ai/">Get Started</a>
         </div>
-        <div class="feed-list" id="feedList"></div>
-      </div>
+      </section>
+    </div>
+
+    <div id="chatProduct">
+      <div class="chat-page">
+        <div class="chat-head">
+          <h1>Chat</h1>
+          <p>Ask for feedback, share what you're working on, and learn from other members.</p>
+        </div>
+
+        <div class="composer-card">
+          <div class="composer-top">
+            <div class="avatar">You</div>
+            <div class="composer-top-actions">
+              <div class="composer-lock" id="composerLockLabel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                Premium required
+              </div>
+            </div>
+          </div>
+          <div class="composer-fields" id="composerFields">
+            <div class="composer-field">
+              <label class="composer-field-label" for="composerTitle">Title</label>
+              <div class="composer-field-input">
+                <input class="composer-title" id="composerTitle" type="text" maxlength="120" placeholder="Post title" aria-label="Post title" />
+              </div>
+            </div>
+            <div class="composer-field">
+              <label class="composer-field-label" for="composerInput">Body</label>
+              <div class="composer-field-input input-with-gate" id="composerBodyField">
+                <div class="composer-input" id="composerInput" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Post body" data-placeholder="Add context, links, or details…"></div>
+                <div class="input-gate-prompt" id="composerGatePrompt">
+                  <a href="../premium/">Sign in as a Premium member</a> to post…
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="composer-attachments" id="composerAttachments" aria-label="Attached files"></div>
+          <input type="file" id="composerFileInput" hidden multiple />
+          <div class="composer-agenda" id="composerAgenda">
+            <div class="composer-agenda-header">
+              <div class="composer-agenda-header-left">
+                <span class="composer-agenda-label">Agenda or topic</span>
+                <span class="composer-agenda-hint">· Select up to two</span>
+              </div>
+              <div class="word-count" id="wordCount">0 / 250 words</div>
+            </div>
+            <div class="composer-tags-row">
+              <div class="composer-tags" id="composerTags" aria-label="Agenda or topic"></div>
+              <button type="button" class="composer-topics-more" id="composerTopicsMore">Show more</button>
+            </div>
+          </div>
+          <div class="composer-actions">
+            <div class="toolbar" aria-label="Formatting">
+              <button class="tool-btn" type="button" data-tool="bold" aria-label="Bold" title="Bold">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a4 4 0 0 1 0 8H6z"/><path d="M6 12h9a4 4 0 0 1 0 8H6z"/></svg>
+              </button>
+              <button class="tool-btn" type="button" data-tool="bullet" aria-label="Bullet list" title="Bullet list">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11"/><path d="M9 12h11"/><path d="M9 18h11"/><circle cx="4" cy="6" r="1" fill="currentColor" stroke="none"/><circle cx="4" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="4" cy="18" r="1" fill="currentColor" stroke="none"/></svg>
+              </button>
+              <button class="tool-btn" type="button" data-tool="link" aria-label="Add link" title="Add link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              </button>
+              <button class="tool-btn" type="button" data-tool="mention" aria-label="Mention member" title="Mention member">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"/></svg>
+              </button>
+              <button class="tool-btn" type="button" data-tool="attach" aria-label="Attach file" title="Attach file or image">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+              </button>
+              <div class="thread-display-menu-slot" data-display-menu-slot></div>
+            </div>
+            <div class="composer-footer">
+              <button class="btn btn-primary btn-post" type="button" id="postBtn">Post</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="composer-collab-box">
+          <div class="composer-collab-left">
+            <p class="composer-collab-heading">Looking for hands-on support?</p>
+            <a class="composer-collab-cta" href="https://app.qava.ai/" target="_blank" rel="noopener noreferrer">Join match-maker for free</a>
+          </div>
+          <div class="composer-collab-right">
+            <p class="composer-collab-right-heading">Share a listing in minutes</p>
+            <div class="composer-collab-actions">
+              <a class="composer-collab-btn" href="https://qava.app" target="_blank" rel="noopener noreferrer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 5h12"/><path d="M4 12h10"/><path d="M12 19h8"/></svg>
+                <span>Project</span>
+              </a>
+              <a class="composer-collab-btn" href="https://qava.app" target="_blank" rel="noopener noreferrer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>
+                <span>Job</span>
+              </a>
+              <a class="composer-collab-btn" href="https://qava.app" target="_blank" rel="noopener noreferrer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 13v8"/><path d="M12 3v3"/><path d="M2.354 10.354a1.207 1.207 0 0 1 0-1.708l2.06-2.06A2 2 0 0 1 5.828 6h12.344a2 2 0 0 1 1.414.586l2.06 2.06a1.207 1.207 0 0 1 0 1.708l-2.06 2.06a2 2 0 0 1-1.414.586H5.828a2 2 0 0 1-1.414-.586z"/></svg>
+                <span>Internship</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="feed-section-wrap">
+          <div class="feed-card">
+          <div class="feed-header">
+            <span class="feed-section-label">Discussions</span>
+            <h2 class="feed-section-title">What members are discussing</h2>
+            <p class="feed-section-body">Browse freely — tap a thread to read. Reply with Premium.</p>
+          </div>
+          <div class="feed-toolbar">
+            <label>Sort by
+              <div class="feed-sort-wrap" id="feedSortWrap">
+                <button type="button" class="feed-sort-trigger" id="feedSortTrigger" aria-expanded="false" aria-haspopup="listbox">
+                  <span id="feedSortLabel">Most active</span>
+                  <span class="feed-sort-icon" id="feedSortIcon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                  </span>
+                </button>
+                <div class="feed-sort-menu" id="feedSortMenu" role="listbox" hidden>
+                  <button type="button" class="feed-sort-option is-selected" data-sort="active">Most active</button>
+                  <button type="button" class="feed-sort-option" data-sort="new">New first</button>
+                  <button type="button" class="feed-sort-option" data-sort="replies">Most replies</button>
+                  <button type="button" class="feed-sort-option" data-sort="likes">Most likes</button>
+                </div>
+              </div>
+            </label>
+          </div>
+          <div class="feed-list" id="feedList"></div>
+        </div>
+        </div>
       </div>
     </div>
   </section>
@@ -338,11 +564,43 @@
     </div>
   </div>
 
+  <footer class="footer-section"></footer>
+
+  <script>
+    (function () {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var framed = false;
+        try { framed = window.self !== window.top; } catch (e) { framed = true; }
+        var inApp =
+          params.get("embed") === "1" ||
+          params.get("embed") === "app" ||
+          params.get("app") === "1" ||
+          framed;
+        if (inApp) {
+          document.body.classList.add("embed-app");
+          document.documentElement.classList.add("community-embed");
+        }
+      } catch (e) {
+        if (window.self !== window.top) {
+          document.body.classList.add("embed-app");
+          document.documentElement.classList.add("community-embed");
+        }
+      }
+    })();
+  </script>
+  <script src="chat-sequence.js"></script>
   <script src="app.js"></script>
   <script src="enhancements.js"></script>
   <script src="api.js"></script>
   <script src="auth.js"></script>
   <script src="profile-edit.js"></script>
   <script src="../qava-auth.js"></script>
+  <script src="../qava-footer.js"></script>
+  <script>
+    if (typeof window.applyQavaFooter === "function" && !document.body.classList.contains("embed-app")) {
+      window.applyQavaFooter(document);
+    }
+  </script>
 </body>
 </html>
