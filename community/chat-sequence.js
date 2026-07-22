@@ -2,7 +2,8 @@
   if (document.body.classList.contains("embed-app")) return;
   if (!document.getElementById("story")) return;
 
-  const stages = [
+  // Conceptual stages for the 5-segment progress bar
+  const stageLabels = [
     "Ask the room",
     "Find new Angles",
     "Share research",
@@ -10,21 +11,65 @@
     "Find a path",
   ];
 
+  // Fine scroll steps: 0 ask, then 3 replies per phase (angles/research/data/path)
+  // 1–3 angles | 4–6 research | 7–9 data | 10–12 path
   const cues = [
     "Scroll to see replies come in",
     "Keep scrolling — next reply",
     "Keep scrolling — next reply",
     "Keep scrolling — next reply",
+    "Keep scrolling — next phase",
+    "Keep scrolling — next reply",
+    "Keep scrolling — next reply",
+    "Keep scrolling — next phase",
+    "Keep scrolling — next reply",
+    "Keep scrolling — next reply",
+    "Keep scrolling — next phase",
+    "Keep scrolling — next reply",
     "Ask clearly — the room answers",
   ];
 
-  const lastStep = stages.length - 1;
+  const lastStep = 12;
+  const CONCEPTUAL_COUNT = stageLabels.length;
+
+  /** Map fine scroll step → conceptual progress index 0–4 */
+  function conceptualIndex(scrollStep) {
+    if (scrollStep <= 0) return 0;
+    if (scrollStep <= 3) return 1; // Angles
+    if (scrollStep <= 6) return 2; // Research
+    if (scrollStep <= 9) return 3; // Data
+    return 4; // Path
+  }
+
+  /** Accumulate 1→2→3 within the active phase */
+  function visibleReplySteps(scrollStep) {
+    if (scrollStep <= 0) return [];
+    if (scrollStep === 1) return [1];
+    if (scrollStep === 2) return [1, 2];
+    if (scrollStep === 3) return [1, 2, 3];
+    if (scrollStep === 4) return [4];
+    if (scrollStep === 5) return [4, 5];
+    if (scrollStep === 6) return [4, 5, 6];
+    if (scrollStep === 7) return [7];
+    if (scrollStep === 8) return [7, 8];
+    if (scrollStep === 9) return [7, 8, 9];
+    if (scrollStep === 10) return [10];
+    if (scrollStep === 11) return [10, 11];
+    return [10, 11, 12];
+  }
+
+  /** Prior phases shrink away when a new phase starts */
+  function outgoingReplySteps(scrollStep) {
+    if (scrollStep <= 3) return [];
+    if (scrollStep <= 6) return [1, 2, 3];
+    if (scrollStep <= 9) return [1, 2, 3, 4, 5, 6];
+    return [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  }
 
   const post = document.getElementById("seqPost");
   if (!post) return;
 
   const stage = document.getElementById("seqStage");
-  const repliesRoot = document.getElementById("seqReplies");
   const replies = Array.from(document.querySelectorAll(".seq-reply"));
   const cue = document.getElementById("seqCue");
   const pins = Array.from(document.querySelectorAll(".scroll-pin"));
@@ -70,12 +115,12 @@
     cue.appendChild(document.createTextNode(" " + text));
   }
 
-  function setProgress(next) {
-    if (stageTitle) stageTitle.textContent = stages[next] || stages[0];
-    if (stageCount) stageCount.textContent = `${next + 1} / ${stages.length}`;
-
+  function setProgress(scrollStep) {
+    const idx = conceptualIndex(scrollStep);
+    if (stageTitle) stageTitle.textContent = stageLabels[idx] || stageLabels[0];
+    if (stageCount) stageCount.textContent = `${idx + 1} / ${CONCEPTUAL_COUNT}`;
     bars.forEach((bar, i) => {
-      bar.classList.toggle("is-on", i <= next);
+      bar.classList.toggle("is-on", i <= idx);
     });
   }
 
@@ -86,27 +131,21 @@
 
     post.classList.add("is-in");
 
-    let visible = 0;
-    let topEl = null;
+    const visibleSet = new Set(visibleReplySteps(step));
+    const outSet = new Set(outgoingReplySteps(step));
+
     replies.forEach((el) => {
       const n = Number(el.getAttribute("data-step"));
-      const on = step >= n;
+      const on = visibleSet.has(n);
+      const out = outSet.has(n) && !on;
       el.classList.toggle("is-in", on);
-      el.classList.remove("is-top");
-      if (on) {
-        visible += 1;
-        el.style.setProperty("--seq-z", String(visible));
-        topEl = el;
-      } else {
-        el.style.removeProperty("--seq-z");
-      }
+      el.classList.toggle("is-out", out);
     });
-    if (topEl) topEl.classList.add("is-top");
 
-    if (repliesRoot) {
-      repliesRoot.style.setProperty("--seq-stack-count", String(visible));
-      repliesRoot.setAttribute("data-count", String(visible));
-    }
+    // Opener comment count = replies currently shown under the OP
+    const visible = replies.filter(
+      (el) => el.classList.contains("is-in") && !el.classList.contains("is-out")
+    ).length;
 
     if (metaSub) {
       metaSub.textContent =
@@ -116,7 +155,7 @@
     }
 
     if (opComments) {
-      const countEl = opComments.querySelector("span");
+      const countEl = opComments.querySelector(".seq-op-count");
       if (countEl) countEl.textContent = String(visible);
       opComments.setAttribute(
         "aria-label",

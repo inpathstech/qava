@@ -41,7 +41,8 @@ body.embed-app #chatProduct {
   justify-content: center;
   padding: 0 0 24px;
   pointer-events: none;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   box-sizing: border-box;
 }
 
@@ -181,7 +182,7 @@ body.embed-app #chatProduct {
 }
 
 .chat-story .scroll-pin {
-  height: 70vh;
+  height: 55vh;
   pointer-events: none;
 }
 
@@ -190,7 +191,7 @@ body.embed-app #chatProduct {
 }
 
 .chat-story .scroll-pin:last-child {
-  height: 80vh;
+  height: 70vh;
 }
 
 .seq-progress {
@@ -275,83 +276,82 @@ body.embed-app #chatProduct {
 }
 
 .seq-replies {
-  --seq-stack-step: 36px;
-  --seq-peek-h: 48px;
-  --seq-top-card-h: 152px;
-  --seq-stack-count: 0;
   position: relative;
-  margin-top: 6px;
+  margin-top: 0;
   padding: 0;
   background: transparent;
-  /* n cards → (n-1) peeks + top card; JS keeps count at 0 when empty */
-  height: calc(
-    (var(--seq-stack-count) - 1) * var(--seq-stack-step) + var(--seq-top-card-h)
-  );
-  transition: height 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
-.seq-replies[data-count="0"] {
-  height: 0;
-  margin-top: 0;
-}
-
+/* Hidden: parked left — each reply is a full card when revealed (no deck overlap) */
 .thread-detail .seq-replies .seq-reply {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   opacity: 0;
+  max-height: 0;
   overflow: hidden;
   margin: 0;
   padding: 0;
   border: 1px solid transparent;
   border-radius: 8px;
-  transform: translateY(14px) scale(0.985);
-  filter: blur(1.5px);
+  transform: translateX(-28px);
+  filter: none;
   box-shadow: none;
   transition:
-    opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 0.35s ease,
-    top 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    padding 0.35s ease,
+    opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.48s cubic-bezier(0.22, 1, 0.36, 1),
+    max-height 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    padding 0.4s ease,
+    margin 0.4s ease,
     box-shadow 0.3s ease,
     border-color 0.3s ease,
     background 0.3s ease;
   pointer-events: none;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
+  position: relative;
   background: transparent;
-  z-index: 0;
-  max-height: var(--seq-peek-h);
+  transform-origin: center top;
   box-sizing: border-box;
 }
 
-/* Stacked deck: buried cards peek a name strip; newest sits on top */
+/* Enter: slide left → right + fade — height follows content */
 .thread-detail .seq-replies .seq-reply.is-in {
   opacity: 1;
-  padding: 8px 10px;
+  max-height: 280px;
+  min-height: 0;
+  margin-top: 10px;
+  padding: 12px 14px;
   background: #fff;
-  border-color: rgba(17, 24, 39, 0.1);
+  border-color: rgba(17, 24, 39, 0.08);
   box-shadow:
     0 1px 2px rgba(17, 24, 39, 0.04),
-    0 8px 20px rgba(17, 24, 39, 0.1);
-  transform: translateY(0) scale(1);
-  filter: none;
+    0 4px 12px rgba(17, 24, 39, 0.06);
+  transform: translateX(0);
   pointer-events: auto;
-  z-index: var(--seq-z, 1);
-  top: calc((var(--seq-z, 1) - 1) * var(--seq-stack-step));
-  overflow: hidden;
-  max-height: var(--seq-peek-h);
 }
 
-.thread-detail .seq-replies .seq-reply.is-in.is-top {
-  max-height: var(--seq-top-card-h);
+.thread-detail .seq-replies .seq-reply.is-in > div:not(.avatar) {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Leave stage: shrink away */
+.thread-detail .seq-replies .seq-reply.is-out {
+  opacity: 0;
+  max-height: 0;
+  margin-top: 0;
+  padding: 0;
+  border-color: transparent;
+  box-shadow: none;
+  transform: scale(0.92) translateY(-8px);
+  pointer-events: none;
+  overflow: hidden;
 }
 
 .thread-detail .seq-replies .seq-reply.is-in:hover {
   background: #fff;
-  border-left-color: rgba(17, 24, 39, 0.1);
+  border-left-color: rgba(17, 24, 39, 0.08);
 }
 
 .thread-detail .seq-replies .seq-reply.is-in .reply-body {
@@ -371,20 +371,6 @@ body.embed-app #chatProduct {
 
 .thread-detail .seq-replies .seq-reply.is-in .seq-reply-stats {
   margin-top: 6px;
-}
-
-.thread-detail .seq-replies .seq-reply.is-in:not(.is-top) .reply-body,
-.thread-detail .seq-replies .seq-reply.is-in:not(.is-top) .seq-reply-stats,
-.thread-detail .seq-replies .seq-reply.is-in:not(.is-top) .attach-chips {
-  visibility: hidden;
-}
-
-@media (max-width: 860px) {
-  .seq-replies {
-    --seq-stack-step: 34px;
-    --seq-peek-h: 46px;
-    --seq-top-card-h: 140px;
-  }
 }
 
 .seq-reply-stats,
@@ -466,10 +452,19 @@ body.embed-app #chatProduct {
 @media (prefers-reduced-motion: reduce) {
   .seq-post,
   .seq-reply {
+    transition: none !important;
+    filter: none !important;
+  }
+
+  .seq-reply.is-in {
     opacity: 1 !important;
     transform: none !important;
-    filter: none !important;
-    transition: none !important;
+  }
+
+  .seq-reply.is-out {
+    opacity: 0 !important;
+    transform: none !important;
+    max-height: 0 !important;
   }
 }
 
