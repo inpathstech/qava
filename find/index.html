@@ -1,0 +1,1443 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Find Work — Qava</title>
+  <link rel="icon" type="image/svg+xml" href="../qava-logo.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../qava-landing.css" />
+  <link rel="stylesheet" href="../community/community.css" />
+  <link rel="stylesheet" href="../community/chat-marketing.css" />
+  <style>
+    :root {
+      --fw-display: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+      --fw-ui: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--fw-ui);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    #fw-how {
+      scroll-margin-top: 96px;
+    }
+
+
+    /* Hero — match landing display + UI stacks */
+    .chat-marketing-hero h1.feature-cards-header,
+    .chat-marketing-hero .qava-hero-heading {
+      font-family: var(--fw-display) !important;
+      font-weight: 400 !important;
+    }
+
+    .chat-marketing-hero p.feature-cards-subheader,
+    .chat-marketing-hero .qava-hero-subheader {
+      font-family: var(--fw-ui) !important;
+      white-space: nowrap;
+      margin-bottom: 28px;
+    }
+
+    /* Marquees */
+    .fw-marquees {
+      width: min(920px, calc(100vw - 32px));
+      margin: 0 auto 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .fw-marquee {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+    }
+
+    .fw-marquee-track {
+      display: flex;
+      width: max-content;
+      align-items: center;
+      gap: 28px;
+      animation: fwMarquee 42s linear infinite;
+    }
+
+    .fw-marquee--pills .fw-marquee-track {
+      gap: 8px;
+      animation-duration: 36s;
+      animation-direction: reverse;
+    }
+
+    .fw-marquee-track:hover { animation-play-state: paused; }
+
+    @keyframes fwMarquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .fw-logo-item {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.38;
+      filter: grayscale(1);
+    }
+
+    .fw-logo-item img {
+      display: block;
+      height: 26px;
+      width: auto;
+      max-width: 120px;
+      object-fit: contain;
+    }
+
+    .fw-project-pill {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 7px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      white-space: nowrap;
+    }
+
+    .fw-project-pill .title {
+      font-family: var(--fw-ui);
+      font-size: 10px;
+      font-weight: 400;
+      color: #111827;
+      line-height: 1;
+    }
+
+    .fw-project-pill .icon {
+      font-size: 10px;
+      line-height: 1;
+    }
+
+    /* Hero CTAs — match homepage Get Started / Templates */
+    .fw-hero-ctas {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0;
+      margin: 0 auto 72px;
+      width: min(920px, calc(100vw - 32px));
+    }
+
+    .fw-hero-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-width: auto;
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-family: var(--fw-ui);
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      white-space: nowrap;
+      box-shadow: none;
+      transition: background-color 0.18s ease, border-color 0.18s ease, color 0.15s ease;
+    }
+
+    .fw-hero-cta--primary {
+      background: #2b2b2b;
+      color: #fff;
+      border: 1px solid #2b2b2b;
+    }
+
+    .fw-hero-cta--primary:hover {
+      background: #000;
+      border-color: #000;
+      color: #fff;
+    }
+
+    .fw-hero-cta--ghost {
+      background: #fff;
+      color: #6b6b6b;
+      border: 1px solid #fff;
+      font-weight: 300;
+      margin-left: 16px;
+    }
+
+    .fw-hero-cta--ghost:hover {
+      background: #fff;
+      color: #111827;
+      border-color: #fff;
+    }
+
+    .fw-hero-cta--ghost svg {
+      flex: 0 0 auto;
+      display: block;
+      color: inherit;
+    }
+
+    .fw-hero-cta--ghost .qava-blog-shimmer {
+      display: block;
+      line-height: 1;
+    }
+
+    /* One-stop shop section */
+    .fw-shop {
+      position: relative;
+      z-index: 2;
+      width: min(1040px, calc(100vw - 32px));
+      margin: 0 auto 80px;
+      text-align: center;
+    }
+
+    .fw-shop-title {
+      margin: 0 0 10px;
+      font-family: var(--fw-display);
+      font-size: clamp(28px, 3.6vw, 40px);
+      font-weight: 400;
+      letter-spacing: -0.012em;
+      line-height: 1.15;
+      color: #111827;
+    }
+
+    .fw-shop-sub {
+      margin: 0 auto 28px;
+      font-family: var(--fw-ui);
+      font-size: 14px;
+      font-weight: 300;
+      color: #6b6b6b;
+      line-height: 1.45;
+      white-space: nowrap;
+    }
+
+    .fw-shop-panel {
+      padding: 0;
+      background: none;
+      box-sizing: border-box;
+    }
+
+    .fw-shop-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .fw-shop-card {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      border: 1px solid rgba(17, 24, 39, 0.06);
+      border-radius: 12px;
+      background: #fff;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04);
+    }
+
+    .fw-shop-card .img-wrap {
+      padding: 12px 12px 0;
+    }
+
+    .fw-shop-card .img-wrap img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .fw-shop-card .body {
+      padding: 12px 14px 16px;
+    }
+
+    .fw-shop-card .title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .fw-shop-card .title-row strong {
+      font-family: var(--fw-display);
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: -0.012em;
+      color: #111827;
+      line-height: 1.2;
+    }
+
+    .fw-shop-card .box {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      border: 1px solid #d0d0d0;
+      background: #fff;
+      flex-shrink: 0;
+    }
+
+    .fw-shop-card .desc {
+      margin: 0;
+      font-family: var(--fw-ui);
+      font-size: 12.5px;
+      font-weight: 300;
+      color: #767676;
+      line-height: 1.4;
+    }
+
+    /* How it works */
+    .fw-how {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      margin: 0 0 80px;
+      padding: 64px 16px;
+      background: #f3f4f6;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    .fw-how-inner {
+      width: min(1040px, 100%);
+      margin: 0 auto;
+    }
+
+    .fw-how-title {
+      margin: 0 0 10px;
+      font-family: var(--fw-display);
+      font-size: clamp(28px, 3.6vw, 40px);
+      font-weight: 400;
+      letter-spacing: -0.012em;
+      line-height: 1.15;
+      color: #111827;
+    }
+
+    .fw-how-sub {
+      margin: 0 auto 32px;
+      font-family: var(--fw-ui);
+      font-size: 14px;
+      font-weight: 300;
+      color: #6b6b6b;
+      line-height: 1.45;
+    }
+
+    .fw-how-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      text-align: left;
+    }
+
+    .fw-how-card {
+      background: #fff;
+      border: 1px solid rgba(17, 24, 39, 0.08);
+      border-radius: 12px;
+      padding: 20px 18px 22px;
+      box-shadow: 0 1px 2px rgba(17, 24, 39, 0.03);
+    }
+
+    .fw-how-step {
+      margin: 0 0 14px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #9ca3af;
+    }
+
+    .fw-how-heading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 8px;
+    }
+
+    .fw-how-icon {
+      flex: 0 0 auto;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #f3f4f6;
+      color: #111827;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fw-how-icon svg {
+      display: block;
+      width: 16px;
+      height: 16px;
+    }
+
+    .fw-how-card h3 {
+      margin: 0;
+      font-family: var(--fw-ui);
+      font-size: 16px;
+      font-weight: 600;
+      color: #111827;
+      line-height: 1.25;
+    }
+
+    .fw-how-card p {
+      margin: 0;
+      font-family: var(--fw-ui);
+      font-size: 13px;
+      font-weight: 300;
+      color: #6b7280;
+      line-height: 1.5;
+    }
+
+    /* Live opportunities */
+    .fw-live {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      margin: 0 0 64px;
+      padding: 64px 0 56px;
+      background: transparent;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .fw-live-title {
+      margin: 0 0 10px;
+      padding: 0 16px;
+      font-family: var(--fw-display);
+      font-size: clamp(28px, 3.6vw, 40px);
+      font-weight: 400;
+      letter-spacing: -0.012em;
+      line-height: 1.15;
+      color: #111827;
+    }
+
+    .fw-live-sub {
+      margin: 0 auto 32px;
+      padding: 0 16px;
+      font-family: var(--fw-ui);
+      font-size: 14px;
+      font-weight: 300;
+      color: #6b6b6b;
+      line-height: 1.45;
+    }
+
+    .fw-live-rail {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
+    }
+
+    .fw-live-track {
+      display: flex;
+      width: max-content;
+      gap: 12px;
+      padding: 4px 16px;
+      animation: fwLiveScroll 48s linear infinite;
+    }
+
+    .fw-live-track:hover { animation-play-state: paused; }
+
+    @keyframes fwLiveScroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .fw-opp {
+      flex: 0 0 auto;
+      width: min(420px, 78vw);
+      text-align: left;
+      background: #fff;
+      border: 1px solid rgba(17, 24, 39, 0.08);
+      border-radius: 12px;
+      padding: 16px 18px;
+      box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04);
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 0.15s ease, transform 0.15s ease;
+    }
+
+    .fw-opp:hover {
+      box-shadow: 0 6px 18px rgba(17, 24, 39, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .fw-opp-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .fw-opp-ico {
+      flex: 0 0 auto;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #eaf2ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      line-height: 1;
+    }
+
+    .fw-opp-role {
+      font-family: var(--fw-ui);
+      font-size: 15px;
+      font-weight: 600;
+      color: #111827;
+      line-height: 1.25;
+    }
+
+    .fw-opp-org {
+      margin: 0 0 12px;
+      font-size: 13px;
+      font-weight: 300;
+      color: #6b7280;
+      line-height: 1.35;
+    }
+
+    .fw-opp-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 12px;
+      font-size: 12px;
+      font-weight: 300;
+      color: #6b7280;
+    }
+
+    .fw-opp-meta .loc {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .fw-opp-meta .pin {
+      color: #e11d48;
+      font-size: 11px;
+      line-height: 1;
+    }
+
+    .fw-opp-badge {
+      margin-left: auto;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: #eaf2ff;
+      color: #1d4ed8;
+      font-size: 11px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    /* Testimonials */
+    .fw-say {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      margin: 0 0 24px;
+      padding: 72px 16px 0;
+      background: #fff;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .fw-say-inner {
+      width: min(1040px, 100%);
+      margin: 0 auto 40px;
+    }
+
+    .fw-say-title {
+      margin: 0 0 10px;
+      font-family: var(--fw-display);
+      font-size: clamp(28px, 3.6vw, 40px);
+      font-weight: 400;
+      letter-spacing: -0.012em;
+      line-height: 1.15;
+      color: #111827;
+    }
+
+    .fw-say-sub {
+      margin: 0 auto 32px;
+      max-width: 42em;
+      font-family: var(--fw-ui);
+      font-size: 14px;
+      font-weight: 300;
+      color: #6b6b6b;
+      line-height: 1.45;
+    }
+
+    .fw-say-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      text-align: left;
+    }
+
+    .fw-say-card {
+      background: #fff;
+      border: 1px solid rgba(17, 24, 39, 0.08);
+      border-radius: 12px;
+      padding: 22px 20px 18px;
+      box-shadow: 0 1px 2px rgba(17, 24, 39, 0.03);
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    .fw-say-stars {
+      margin: 0 0 12px;
+      color: #f5b301;
+      font-size: 14px;
+      letter-spacing: 2px;
+      line-height: 1;
+    }
+
+    .fw-say-quote {
+      margin: 0 0 20px;
+      flex: 1;
+      font-family: var(--fw-ui);
+      font-size: 14px;
+      font-weight: 400;
+      font-style: italic;
+      color: #111827;
+      line-height: 1.55;
+    }
+
+    .fw-say-person {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .fw-say-avatar {
+      flex: 0 0 auto;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #f3f4f6;
+      color: #111827;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fw-say-avatar svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .fw-say-school {
+      font-size: 13px;
+      font-weight: 600;
+      color: #111827;
+      line-height: 1.25;
+    }
+
+    .fw-say-class {
+      font-size: 12px;
+      font-weight: 300;
+      color: #6b7280;
+      line-height: 1.3;
+    }
+
+    .fw-say-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .fw-say-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      font-size: 10px;
+      font-weight: 400;
+      color: #374151;
+      white-space: nowrap;
+      line-height: 1.2;
+    }
+
+    .fw-stats {
+      width: 100%;
+      border-top: 1px solid rgba(17, 24, 39, 0.08);
+      background: #f3f4f6;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 5%, #000 95%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, #000 5%, #000 95%, transparent 100%);
+    }
+
+    .fw-stats-track {
+      display: flex;
+      width: max-content;
+      gap: 36px;
+      padding: 14px 20px;
+      animation: fwStatsScroll 40s linear infinite;
+    }
+
+    .fw-stats-track:hover { animation-play-state: paused; }
+
+    @keyframes fwStatsScroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .fw-stats-item {
+      flex: 0 0 auto;
+      font-family: var(--fw-ui);
+      font-size: 13px;
+      font-weight: 300;
+      color: #374151;
+      white-space: nowrap;
+    }
+
+    .fw-cta-band {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      justify-content: center;
+      padding: 56px 16px 100px;
+    }
+
+    .fw-cta-inner {
+      width: min(720px, calc(100vw - 32px));
+      text-align: center;
+    }
+
+    .fw-cta-title {
+      margin: 0 0 10px;
+      font-family: var(--fw-display);
+      font-size: clamp(28px, 3.6vw, 40px);
+      font-weight: 400;
+      letter-spacing: -0.012em;
+      line-height: 1.15;
+      color: #111827;
+    }
+
+    .fw-cta-sub {
+      margin: 0 auto 28px;
+      font-family: var(--fw-ui);
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.5;
+      color: #6b7280;
+      white-space: nowrap;
+    }
+
+    .fw-cta-actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    /* FAQ */
+    .fw-faq {
+      position: relative;
+      z-index: 2;
+      width: min(720px, calc(100vw - 32px));
+      margin: 0 auto 100px;
+      padding: 32px 28px 8px;
+      background: #fff;
+      border: 1px solid rgba(17, 24, 39, 0.08);
+      border-radius: 16px;
+      box-shadow: 0 1px 2px rgba(17, 24, 39, 0.03);
+    }
+
+    .fw-faq-title {
+      margin: 0 0 28px;
+      text-align: center;
+      font-family: var(--fw-display);
+      font-size: clamp(26px, 3.2vw, 36px);
+      font-weight: 400;
+      letter-spacing: -0.012em;
+      text-transform: none;
+      color: #111827;
+    }
+
+    .fw-faq-list {
+      border-top: 1px solid rgba(17, 24, 39, 0.1);
+    }
+
+    .fw-faq-item {
+      border-bottom: 1px solid rgba(17, 24, 39, 0.1);
+    }
+
+    .fw-faq-q {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 0;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      text-align: left;
+      font-family: var(--fw-ui);
+      font-size: 15px;
+      font-weight: 600;
+      color: #111827;
+      line-height: 1.35;
+    }
+
+    .fw-faq-q:hover { color: #000; }
+
+    .fw-faq-icon {
+      flex: 0 0 auto;
+      width: 18px;
+      height: 18px;
+      color: #9ca3af;
+      position: relative;
+    }
+
+    .fw-faq-icon::before,
+    .fw-faq-icon::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 12px;
+      height: 1.5px;
+      background: currentColor;
+      border-radius: 1px;
+      transform: translate(-50%, -50%);
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .fw-faq-icon::after {
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
+
+    .fw-faq-item.is-open .fw-faq-icon::after {
+      opacity: 0;
+      transform: translate(-50%, -50%) rotate(90deg) scaleX(0);
+    }
+
+    .fw-faq-a {
+      display: none;
+      padding: 0 28px 18px 0;
+      margin: 0;
+      font-family: var(--fw-ui);
+      font-size: 14px;
+      font-weight: 300;
+      color: #4b5563;
+      line-height: 1.6;
+    }
+
+    .fw-faq-item.is-open .fw-faq-a {
+      display: block;
+    }
+
+    @media (max-width: 720px) {
+      .chat-marketing-hero p.feature-cards-subheader,
+      .chat-marketing-hero .qava-hero-subheader {
+        white-space: nowrap;
+        font-size: 12px;
+        padding: 0;
+      }
+      .fw-logo-item img { height: 22px; }
+      .fw-marquee-track { gap: 20px; }
+      .fw-shop-sub { white-space: normal; padding: 0 8px; }
+      .fw-shop-grid { grid-template-columns: 1fr; }
+      .fw-hero-ctas { margin-bottom: 56px; }
+      .fw-how { padding: 48px 16px; margin-bottom: 56px; }
+      .fw-how-grid { grid-template-columns: 1fr; }
+      .fw-say-grid { grid-template-columns: 1fr; }
+      .fw-say { padding-top: 56px; }
+      .fw-faq { padding: 24px 18px 4px; }
+      .fw-cta-sub { font-size: 12px; }
+    }
+
+    @media (min-width: 721px) and (max-width: 960px) {
+      .fw-how-grid { grid-template-columns: repeat(2, 1fr); }
+      .fw-say-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fw-marquee-track,
+      .fw-live-track,
+      .fw-stats-track { animation: none !important; }
+      .chat-marketing-hero .qava-hero-icon { animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div id="qava-dot-base-fixed" aria-hidden="true"></div>
+
+  <header class="header-container" data-qava-nav="landing">
+    <div class="header-logo">
+      <a href="https://qava.ai/"><img src="../qava-logo.svg" alt="Qava" /></a>
+    </div>
+    <div class="header-center">
+      <nav class="navigation">
+        <a href="https://qava.ai/community/chat" class="nav-item"><span class="nav-text">Chat</span></a>
+        <a href="https://qava.ai/templates" class="nav-item"><span class="nav-text">Templates</span></a>
+        <a href="https://qava.ai/find/" class="nav-item is-active" aria-current="page"><span class="nav-text">Find Work</span></a>
+        <a href="https://app.qava.ai/guest" class="nav-item"><span class="nav-text">Find Talent</span></a>
+      </nav>
+    </div>
+    <div class="header-right">
+      <div class="auth-section">
+        <button type="button" class="qava-premium-nav-btn" aria-label="Premium">
+          <span class="qava-premium-nav-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+          <span class="nav-text">Premium</span>
+        </button>
+        <a href="https://app.qava.ai/" class="join-button">
+          <span class="join-text">Get Started</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <section class="fw-hero" aria-label="Find Work hero">
+    <div class="chat-head chat-marketing-hero">
+      <img class="qava-hero-icon" src="hero-icon.png" alt="Find Work" width="124" height="124" />
+      <h1 class="feature-cards-header qava-hero-heading">Work that moves you</h1>
+      <p class="feature-cards-subheader qava-hero-subheader">Real projects, jobs, and internships from startups, enterprises, and non-profits.</p>
+    </div>
+
+    <div class="fw-marquees" aria-hidden="true">
+      <div class="fw-marquee fw-marquee--logos">
+        <div class="fw-marquee-track">
+          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/Wharton.png" alt="" /></div>
+          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/HBS.png" alt="" /></div>
+          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/Haas.png" alt="" /></div>
+          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/Standford.png" alt="" /></div>
+          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/Kellogg.png" alt="" /></div>
+          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/Said.png" alt="" /></div>
+          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/AGSM.jpg" alt="" /></div>
+          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/MIT.png" alt="" /></div>
+          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/Stern.png" alt="" /></div>
+          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/Wharton.png" alt="" /></div>
+          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/HBS.png" alt="" /></div>
+          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/Haas.png" alt="" /></div>
+          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/Standford.png" alt="" /></div>
+          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/Kellogg.png" alt="" /></div>
+          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/Said.png" alt="" /></div>
+          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/AGSM.jpg" alt="" /></div>
+          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/MIT.png" alt="" /></div>
+          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/Stern.png" alt="" /></div>
+        </div>
+      </div>
+
+      <div class="fw-marquee fw-marquee--pills">
+        <div class="fw-marquee-track">
+          <div class="fw-project-pill"><span class="title">Go-To-Market Strategy</span><span class="icon">🚀</span></div>
+          <div class="fw-project-pill"><span class="title">Growth Plan</span><span class="icon">🌱</span></div>
+          <div class="fw-project-pill"><span class="title">Partnership Strategy</span><span class="icon">🤝</span></div>
+          <div class="fw-project-pill"><span class="title">Pricing Strategy</span><span class="icon">💰</span></div>
+          <div class="fw-project-pill"><span class="title">Sales &amp; Marketing Strategy</span><span class="icon">📊</span></div>
+          <div class="fw-project-pill"><span class="title">Strategic Finance</span><span class="icon">💼</span></div>
+          <div class="fw-project-pill"><span class="title">Custom Project</span><span class="icon">🎨</span></div>
+          <div class="fw-project-pill"><span class="title">Business Plan</span><span class="icon">📈</span></div>
+          <div class="fw-project-pill"><span class="title">Pitch Deck</span><span class="icon">📋</span></div>
+          <div class="fw-project-pill"><span class="title">Financial Model</span><span class="icon">💡</span></div>
+          <div class="fw-project-pill"><span class="title">Go-To-Market Strategy</span><span class="icon">🚀</span></div>
+          <div class="fw-project-pill"><span class="title">Growth Plan</span><span class="icon">🌱</span></div>
+          <div class="fw-project-pill"><span class="title">Partnership Strategy</span><span class="icon">🤝</span></div>
+          <div class="fw-project-pill"><span class="title">Pricing Strategy</span><span class="icon">💰</span></div>
+          <div class="fw-project-pill"><span class="title">Sales &amp; Marketing Strategy</span><span class="icon">📊</span></div>
+          <div class="fw-project-pill"><span class="title">Strategic Finance</span><span class="icon">💼</span></div>
+          <div class="fw-project-pill"><span class="title">Custom Project</span><span class="icon">🎨</span></div>
+          <div class="fw-project-pill"><span class="title">Business Plan</span><span class="icon">📈</span></div>
+          <div class="fw-project-pill"><span class="title">Pitch Deck</span><span class="icon">📋</span></div>
+          <div class="fw-project-pill"><span class="title">Financial Model</span><span class="icon">💡</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fw-hero-ctas">
+      <a class="fw-hero-cta fw-hero-cta--primary" href="https://app.qava.ai/">Search Listings</a>
+      <a class="fw-hero-cta fw-hero-cta--ghost" href="#fw-how" data-fw-scroll="fw-how">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.983 21.186a1 1 0 0 1-1.966 0 10 10 0 0 0-8.203-8.203 1 1 0 0 1 0-1.966 10 10 0 0 0 8.203-8.203 1 1 0 0 1 1.966 0 10 10 0 0 0 8.203 8.203 1 1 0 0 1 0 1.966 10 10 0 0 0-8.203 8.203"/></svg>
+        <span class="qava-blog-shimmer">How It Works</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="fw-shop" id="fw-shop" aria-label="Types of work">
+    <h2 class="fw-shop-title">Your one-stop shop for work that matters</h2>
+    <p class="fw-shop-sub">Projects, jobs, and internships designed to accelerate your career.</p>
+
+    <div class="fw-shop-panel">
+      <div class="fw-shop-grid">
+        <article class="fw-shop-card">
+          <div class="img-wrap">
+            <img src="../Wave%20barrel.png" alt="Project work" />
+          </div>
+          <div class="body">
+            <div class="title-row">
+              <strong>Project</strong>
+              <span class="box" aria-hidden="true"></span>
+            </div>
+            <p class="desc">Targeted short-term work with clearly defined deliverables</p>
+          </div>
+        </article>
+
+        <article class="fw-shop-card">
+          <div class="img-wrap">
+            <img src="../Ocean.png" alt="Job opportunities" />
+          </div>
+          <div class="body">
+            <div class="title-row">
+              <strong>Job</strong>
+              <span class="box" aria-hidden="true"></span>
+            </div>
+            <p class="desc">Ongoing, compensated work with continuous responsibilities</p>
+          </div>
+        </article>
+
+        <article class="fw-shop-card">
+          <div class="img-wrap">
+            <img src="../Sandy%20Trail.png" alt="Internship opportunities" />
+          </div>
+          <div class="body">
+            <div class="title-row">
+              <strong>Internship</strong>
+              <span class="box" aria-hidden="true"></span>
+            </div>
+            <p class="desc">Short-term learning opportunities with hands-on experience</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="fw-how" id="fw-how" aria-label="How it works">
+    <div class="fw-how-inner">
+      <h2 class="fw-how-title">How it works</h2>
+      <p class="fw-how-sub">Four steps from signup to getting paid.</p>
+
+      <div class="fw-how-grid">
+        <article class="fw-how-card">
+          <p class="fw-how-step">Step 1</p>
+          <div class="fw-how-heading">
+            <div class="fw-how-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <h3>Create your profile</h3>
+          </div>
+          <p>Sign up, add your skills, education, and experience. Takes about 5 minutes.</p>
+        </article>
+
+        <article class="fw-how-card">
+          <p class="fw-how-step">Step 2</p>
+          <div class="fw-how-heading">
+            <div class="fw-how-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            </div>
+            <h3>Browse &amp; apply</h3>
+          </div>
+          <p>Search live projects, jobs, and internships. Apply with one click when you find the right fit.</p>
+        </article>
+
+        <article class="fw-how-card">
+          <p class="fw-how-step">Step 3</p>
+          <div class="fw-how-heading">
+            <div class="fw-how-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+            </div>
+            <h3>Do great work</h3>
+          </div>
+          <p>Get matched, align on deliverables, and execute. Structured support keeps everything on track.</p>
+        </article>
+
+        <article class="fw-how-card">
+          <p class="fw-how-step">Step 4</p>
+          <div class="fw-how-heading">
+            <div class="fw-how-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2.3"/><path d="M10 12h4"/></svg>
+            </div>
+            <h3>Get paid</h3>
+          </div>
+          <p>Secure payment on completion. Build your reputation and unlock higher-value opportunities.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="fw-live" id="fw-live" aria-label="Live opportunities">
+    <h2 class="fw-live-title">Live opportunities</h2>
+    <p class="fw-live-sub">New listings added daily. Here’s a sample of what’s available now.</p>
+
+    <div class="fw-live-rail" aria-hidden="true">
+      <div class="fw-live-track">
+        <a class="fw-opp" href="https://app.qava.ai/projects">
+          <div class="fw-opp-top">
+            <span class="fw-opp-ico">👩‍💻</span>
+            <span class="fw-opp-role">Marketing Lead</span>
+          </div>
+          <p class="fw-opp-org">Early-Stage Fintech — Full-time role</p>
+          <div class="fw-opp-meta">
+            <span class="loc"><span class="pin">📍</span> New York City</span>
+            <span>Full-time</span>
+            <span>$120k–$160k</span>
+            <span class="fw-opp-badge">Featured</span>
+          </div>
+        </a>
+
+        <a class="fw-opp" href="https://app.qava.ai/projects">
+          <div class="fw-opp-top">
+            <span class="fw-opp-ico">🎓</span>
+            <span class="fw-opp-role">Strategy Intern</span>
+          </div>
+          <p class="fw-opp-org">Boutique Consulting Firm Seeks Strategy Intern</p>
+          <div class="fw-opp-meta">
+            <span class="loc"><span class="pin">📍</span> Boston</span>
+            <span>Fall 2026</span>
+            <span>$32/hr</span>
+            <span class="fw-opp-badge">Featured</span>
+          </div>
+        </a>
+
+        <a class="fw-opp" href="https://app.qava.ai/projects">
+          <div class="fw-opp-top">
+            <span class="fw-opp-ico">🖼️</span>
+            <span class="fw-opp-role">Pitch Deck</span>
+          </div>
+          <p class="fw-opp-org">Series B SaaS Looking for Pitch Deck</p>
+          <div class="fw-opp-meta">
+            <span class="loc"><span class="pin">📍</span> Austin</span>
+            <span>$525</span>
+            <span>10 hours</span>
+            <span class="fw-opp-badge">Featured</span>
+          </div>
+        </a>
+
+        <a class="fw-opp" href="https://app.qava.ai/projects">
+          <div class="fw-opp-top">
+            <span class="fw-opp-ico">🚀</span>
+            <span class="fw-opp-role">Go-To-Market Strategy</span>
+          </div>
+          <p class="fw-opp-org">Pre-Seed Marketplace Seeks Go-To-Market Strategy</p>
+          <div class="fw-opp-meta">
+            <span class="loc"><span class="pin">📍</span> Sydney</span>
+            <span>$280</span>
+            <span>12 hours</span>
+            <span class="fw-opp-badge">Featured</span>
+          </div>
+        </a>
+
+        <a class="fw-opp" href="https://app.qava.ai/projects">
+          <div class="fw-opp-top">
+            <span class="fw-opp-ico">💰</span>
+            <span class="fw-opp-role">Pricing Strategy</span>
+          </div>
+          <p class="fw-opp-org">Series A Fintech Company Seeks Pricing Strategy</p>
+          <div class="fw-opp-meta">
+            <span class="loc"><span class="pin">📍</span> San Francisco</span>
+            <span>$280</span>
+            <span>12 hours</span>
+            <span class="fw-opp-badge">Featured</span>
+          </div>
+        </a>
+
+        <a class="fw-opp" href="https://app.qava.ai/projects">
+          <div class="fw-opp-top">
+            <span class="fw-opp-ico">💼</span>
+            <span class="fw-opp-role">Part-time Product Designer</span>
+          </div>
+          <p class="fw-opp-org">Harbor · B2B marketplace — Ongoing role</p>
+          <div class="fw-opp-meta">
+            <span class="loc"><span class="pin">📍</span> Remote</span>
+            <span>20 hrs/wk</span>
+            <span>$72k–$90k</span>
+            <span class="fw-opp-badge">Featured</span>
+          </div>
+        </a>
+
+        <!-- duplicate for seamless loop -->
+        <a class="fw-opp" href="https://app.qava.ai/projects">
+          <div class="fw-opp-top">
+            <span class="fw-opp-ico">👩‍💻</span>
+            <span class="fw-opp-role">Marketing Lead</span>
+          </div>
+          <p class="fw-opp-org">Early-Stage Fintech — Full-time role</p>
+          <div class="fw-opp-meta">
+            <span class="loc"><span class="pin">📍</span> New York City</span>
+            <span>Full-time</span>
+            <span>$120k–$160k</span>
+            <span class="fw-opp-badge">Featured</span>
+          </div>
+        </a>
+
+        <a class="fw-opp" href="https://app.qava.ai/projects">
+          <div class="fw-opp-top">
+            <span class="fw-opp-ico">🎓</span>
+            <span class="fw-opp-role">Strategy Intern</span>
+          </div>
+          <p class="fw-opp-org">Boutique Consulting Firm Seeks Strategy Intern</p>
+          <div class="fw-opp-meta">
+            <span class="loc"><span class="pin">📍</span> Boston</span>
+            <span>Fall 2026</span>
+            <span>$32/hr</span>
+            <span class="fw-opp-badge">Featured</span>
+          </div>
+        </a>
+
+        <a class="fw-opp" href="https://app.qava.ai/projects">
+          <div class="fw-opp-top">
+            <span class="fw-opp-ico">🖼️</span>
+            <span class="fw-opp-role">Pitch Deck</span>
+          </div>
+          <p class="fw-opp-org">Series B SaaS Looking for Pitch Deck</p>
+          <div class="fw-opp-meta">
+            <span class="loc"><span class="pin">📍</span> Austin</span>
+            <span>$525</span>
+            <span>10 hours</span>
+            <span class="fw-opp-badge">Featured</span>
+          </div>
+        </a>
+
+        <a class="fw-opp" href="https://app.qava.ai/projects">
+          <div class="fw-opp-top">
+            <span class="fw-opp-ico">🚀</span>
+            <span class="fw-opp-role">Go-To-Market Strategy</span>
+          </div>
+          <p class="fw-opp-org">Pre-Seed Marketplace Seeks Go-To-Market Strategy</p>
+          <div class="fw-opp-meta">
+            <span class="loc"><span class="pin">📍</span> Sydney</span>
+            <span>$280</span>
+            <span>12 hours</span>
+            <span class="fw-opp-badge">Featured</span>
+          </div>
+        </a>
+
+        <a class="fw-opp" href="https://app.qava.ai/projects">
+          <div class="fw-opp-top">
+            <span class="fw-opp-ico">💰</span>
+            <span class="fw-opp-role">Pricing Strategy</span>
+          </div>
+          <p class="fw-opp-org">Series A Fintech Company Seeks Pricing Strategy</p>
+          <div class="fw-opp-meta">
+            <span class="loc"><span class="pin">📍</span> San Francisco</span>
+            <span>$280</span>
+            <span>12 hours</span>
+            <span class="fw-opp-badge">Featured</span>
+          </div>
+        </a>
+
+        <a class="fw-opp" href="https://app.qava.ai/projects">
+          <div class="fw-opp-top">
+            <span class="fw-opp-ico">💼</span>
+            <span class="fw-opp-role">Part-time Product Designer</span>
+          </div>
+          <p class="fw-opp-org">Harbor · B2B marketplace — Ongoing role</p>
+          <div class="fw-opp-meta">
+            <span class="loc"><span class="pin">📍</span> Remote</span>
+            <span>20 hrs/wk</span>
+            <span>$72k–$90k</span>
+            <span class="fw-opp-badge">Featured</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="fw-say" id="fw-say" aria-label="What talent say">
+    <div class="fw-say-inner">
+      <h2 class="fw-say-title">What talent say about Qava</h2>
+      <p class="fw-say-sub">From MBA students to experienced consultants — real feedback from people who’ve done the work.</p>
+
+      <div class="fw-say-grid">
+        <article class="fw-say-card">
+          <div class="fw-say-stars" aria-label="5 stars">★★★★★</div>
+          <p class="fw-say-quote">“Working with startups gave me hands-on experience that no case study could match. I helped build go-to-market strategies that actually launched products.”</p>
+          <div class="fw-say-person">
+            <div class="fw-say-avatar" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.084a1 1 0 0 0 0 1.838l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg>
+            </div>
+            <div>
+              <div class="fw-say-school">Kellogg School of Management</div>
+              <div class="fw-say-class">Class of 2024</div>
+            </div>
+          </div>
+          <div class="fw-say-pills">
+            <span class="fw-say-pill">Go-To-Market 📍</span>
+            <span class="fw-say-pill">Competitor Analysis 🕵️</span>
+          </div>
+        </article>
+
+        <article class="fw-say-card">
+          <div class="fw-say-stars" aria-label="5 stars">★★★★★</div>
+          <p class="fw-say-quote">“I helped companies raise capital. I built pitch decks and financial models. This experience accelerated my career by 10 years.”</p>
+          <div class="fw-say-person">
+            <div class="fw-say-avatar" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.084a1 1 0 0 0 0 1.838l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg>
+            </div>
+            <div>
+              <div class="fw-say-school">The Wharton School</div>
+              <div class="fw-say-class">Class of 2023</div>
+            </div>
+          </div>
+          <div class="fw-say-pills">
+            <span class="fw-say-pill">Pitch Deck 🖼️</span>
+            <span class="fw-say-pill">Financial Model 📊</span>
+          </div>
+        </article>
+
+        <article class="fw-say-card">
+          <div class="fw-say-stars" aria-label="5 stars">★★★★★</div>
+          <p class="fw-say-quote">“I worked on real strategic projects for growing companies that I will stay in touch with for years to come.”</p>
+          <div class="fw-say-person">
+            <div class="fw-say-avatar" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.084a1 1 0 0 0 0 1.838l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg>
+            </div>
+            <div>
+              <div class="fw-say-school">Columbia Business School</div>
+              <div class="fw-say-class">Class of 2024</div>
+            </div>
+          </div>
+          <div class="fw-say-pills">
+            <span class="fw-say-pill">Industry Analysis 🔎</span>
+            <span class="fw-say-pill">Partnership 🤝</span>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="fw-stats" aria-hidden="true">
+      <div class="fw-stats-track">
+        <span class="fw-stats-item">🔗 70% of projects lead to ongoing relationships</span>
+        <span class="fw-stats-item">⚡ Matches made in &lt;24 hours on average</span>
+        <span class="fw-stats-item">📊 3x higher applicant quality vs. traditional job boards</span>
+        <span class="fw-stats-item">🔒 100% project protection guarantee</span>
+        <span class="fw-stats-item">🏆 96% of clients would recommend Qava</span>
+        <span class="fw-stats-item">🎓 Talent from top 50 global MBA &amp; EMBA schools</span>
+        <span class="fw-stats-item">🔗 70% of projects lead to ongoing relationships</span>
+        <span class="fw-stats-item">⚡ Matches made in &lt;24 hours on average</span>
+        <span class="fw-stats-item">📊 3x higher applicant quality vs. traditional job boards</span>
+        <span class="fw-stats-item">🔒 100% project protection guarantee</span>
+        <span class="fw-stats-item">🏆 96% of clients would recommend Qava</span>
+        <span class="fw-stats-item">🎓 Talent from top 50 global MBA &amp; EMBA schools</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="fw-cta-band" aria-label="Ready to start">
+    <div class="fw-cta-inner">
+      <h3 class="fw-cta-title">Ready to start?</h3>
+      <p class="fw-cta-sub">Create your free profile in minutes and start applying to live opportunities today.</p>
+      <div class="fw-cta-actions">
+        <a class="fw-hero-cta fw-hero-cta--primary" href="https://app.qava.ai/">Get Started</a>
+        <a class="fw-hero-cta fw-hero-cta--ghost" href="https://app.qava.ai/">Search Listings</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="fw-faq" id="fw-faq" aria-label="FAQ">
+    <h2 class="fw-faq-title">FAQ</h2>
+    <div class="fw-faq-list">
+      <div class="fw-faq-item is-open">
+        <button type="button" class="fw-faq-q" aria-expanded="true">
+          Who can apply for work on Qava?
+          <span class="fw-faq-icon" aria-hidden="true"></span>
+        </button>
+        <p class="fw-faq-a">Qava is designed for MBA students, graduate-level talent, and experienced professionals with strong business or technical expertise. While it was founded for MBAs and advanced degree holders, we also welcome independent consultants with relevant skills.</p>
+      </div>
+
+      <div class="fw-faq-item">
+        <button type="button" class="fw-faq-q" aria-expanded="false">
+          What types of work are available?
+          <span class="fw-faq-icon" aria-hidden="true"></span>
+        </button>
+        <p class="fw-faq-a">Three types: on-demand projects (strategy, finance, marketing work with clear scope and deliverables), jobs (full-time and part-time roles at fast-growing companies), and internships (paid, structured opportunities across industries and functions).</p>
+      </div>
+
+      <div class="fw-faq-item">
+        <button type="button" class="fw-faq-q" aria-expanded="false">
+          How does the application process work?
+          <span class="fw-faq-icon" aria-hidden="true"></span>
+        </button>
+        <p class="fw-faq-a">Browse live listings, find a project or role that fits your skills, and submit your application with one click. Our AI-powered matching helps surface the right opportunities. Once a client selects you, you’ll align on deliverables and timelines before work begins.</p>
+      </div>
+
+      <div class="fw-faq-item">
+        <button type="button" class="fw-faq-q" aria-expanded="false">
+          How do I get paid?
+          <span class="fw-faq-icon" aria-hidden="true"></span>
+        </button>
+        <p class="fw-faq-a">Qava makes payments seamless and secure. Once the project is complete, funds are released based on the agreed terms — giving both sides confidence and clarity. For jobs and internships, compensation follows the employer’s standard payroll process.</p>
+      </div>
+
+      <div class="fw-faq-item">
+        <button type="button" class="fw-faq-q" aria-expanded="false">
+          Is Qava available globally?
+          <span class="fw-faq-icon" aria-hidden="true"></span>
+        </button>
+        <p class="fw-faq-a">Yes. Qava operates internationally, matching talent and clients across time zones. Projects can be remote or in-person depending on the listing.</p>
+      </div>
+
+      <div class="fw-faq-item">
+        <button type="button" class="fw-faq-q" aria-expanded="false">
+          What makes Qava different from other job boards?
+          <span class="fw-faq-icon" aria-hidden="true"></span>
+        </button>
+        <p class="fw-faq-a">Quality, not volume. Every listing is curated. The work is strategic and MBA-level — not busy work. You’re matched with operators who value your thinking, and every project includes structured support and secure payment. Plus, 70% of projects lead to ongoing relationships.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section (populated by qava-footer.js) -->
+  <footer class="footer-section"></footer>
+
+  <script src="../qava-footer.js"></script>
+  <script>
+    if (typeof window.applyQavaFooter === "function") {
+      window.applyQavaFooter(document);
+    }
+
+    (function () {
+      var list = document.querySelector(".fw-faq-list");
+      if (!list) return;
+      list.addEventListener("click", function (e) {
+        var btn = e.target.closest(".fw-faq-q");
+        if (!btn) return;
+        var item = btn.closest(".fw-faq-item");
+        var open = item.classList.contains("is-open");
+        list.querySelectorAll(".fw-faq-item").forEach(function (el) {
+          el.classList.remove("is-open");
+          var q = el.querySelector(".fw-faq-q");
+          if (q) q.setAttribute("aria-expanded", "false");
+        });
+        if (!open) {
+          item.classList.add("is-open");
+          btn.setAttribute("aria-expanded", "true");
+        }
+      });
+    })();
+
+    (function () {
+      document.querySelectorAll("[data-fw-scroll]").forEach(function (link) {
+        link.addEventListener("click", function (e) {
+          var id = link.getAttribute("data-fw-scroll");
+          var target = id && document.getElementById(id);
+          if (!target) return;
+          e.preventDefault();
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+          if (history.replaceState) {
+            history.replaceState(null, "", "#" + id);
+          } else {
+            location.hash = id;
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
