@@ -242,7 +242,77 @@
     }
 
     .fw-shop-card .img-wrap {
+      position: relative;
       padding: 12px 12px 0;
+      isolation: isolate;
+    }
+
+    /* Placeholder visual — gray frame, inner margin, black dots */
+    .fw-shop-ph {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      border-radius: 6px;
+      background: #f3f4f6;
+      padding: 28px;
+      box-sizing: border-box;
+    }
+
+    .fw-shop-ph-inner {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      border-radius: 0;
+      box-sizing: border-box;
+      background-color: #f3f4f6;
+      background-image: radial-gradient(circle, #111 0.55px, transparent 0.7px);
+      background-size: 8px 8px;
+      background-position: 0 0;
+    }
+
+    /* Shop marks — snapped to centered dot grid */
+    .fw-shop-ph--project .fw-shop-ph-inner,
+    .fw-shop-ph--job .fw-shop-ph-inner,
+    .fw-shop-ph--internship .fw-shop-ph-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-position: center center;
+    }
+
+    .fw-shop-geo {
+      width: min(148px, 72%);  /* fill more of the pitch height */
+      height: auto;
+      aspect-ratio: 1;
+      flex: 0 0 auto;
+      overflow: visible;
+    }
+
+    .fw-shop-geo path,
+    .fw-shop-geo line,
+    .fw-shop-geo circle {
+      fill: none;
+      stroke: #111;
+      stroke-width: 1.5;
+      stroke-linecap: square;
+      stroke-linejoin: miter;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .fw-shop-geo .fw-shop-geo-fill {
+      fill: #111;
+      stroke: none;
+    }
+
+    .fw-shop-geo .fw-shop-geo-on-fill circle,
+    .fw-shop-geo .fw-shop-geo-on-fill path,
+    .fw-shop-geo .fw-shop-geo-on-fill line {
+      fill: none;
+      stroke: #f3f4f6; /* match How it works / pitch background */
+      stroke-width: 1.5;
+      stroke-linecap: square;
+      stroke-linejoin: miter;
+      vector-effect: non-scaling-stroke;
     }
 
     .fw-shop-card .img-wrap img {
@@ -267,7 +337,7 @@
 
     .fw-shop-card .title-row strong {
       font-family: var(--fw-display);
-      font-size: 18px;
+      font-size: 28px;
       font-weight: 400;
       letter-spacing: -0.012em;
       color: #111827;
@@ -286,7 +356,7 @@
     .fw-shop-card .desc {
       margin: 0;
       font-family: var(--fw-ui);
-      font-size: 12.5px;
+      font-size: 14.5px;
       font-weight: 300;
       color: #767676;
       line-height: 1.4;
@@ -379,9 +449,10 @@
 
     .fw-how-card h3 {
       margin: 0;
-      font-family: var(--fw-ui);
-      font-size: 16px;
-      font-weight: 600;
+      font-family: var(--fw-display);
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: -0.01em;
       color: #111827;
       line-height: 1.25;
     }
@@ -431,133 +502,157 @@
     .fw-live-rail {
       position: relative;
       overflow: hidden;
-      width: 100%;
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
-      mask-image: linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
+      width: min(520px, calc(100vw - 32px));
+      height: 300px;
+      margin: 0 auto;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%);
     }
 
     .fw-live-track {
       display: flex;
-      width: max-content;
-      gap: 12px;
-      padding: 4px 16px;
-      animation: fwLiveScroll 48s linear infinite;
+      flex-direction: column;
+      width: 100%;
+      gap: 8px;
+      padding: 4px 0;
+      animation: fwLiveScroll 36s linear infinite;
+      will-change: transform;
     }
 
     .fw-live-track:hover { animation-play-state: paused; }
 
     @keyframes fwLiveScroll {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
+      from { transform: translateY(0); }
+      to { transform: translateY(-50%); }
     }
 
+    /* Match app ProjectBox list row / homepage listing cards */
     .fw-opp {
       flex: 0 0 auto;
-      width: min(420px, 78vw);
-      text-align: left;
-      background: #fff;
-      border: 1px solid rgba(17, 24, 39, 0.08);
-      border-radius: 12px;
-      padding: 16px 18px;
-      box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04);
-      text-decoration: none;
-      color: inherit;
-      transition: box-shadow 0.15s ease, transform 0.15s ease;
-    }
-
-    .fw-opp:hover {
-      box-shadow: 0 6px 18px rgba(17, 24, 39, 0.08);
-      transform: translateY(-1px);
-    }
-
-    .fw-opp-top {
+      width: 100%;
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 6px;
+      text-align: left;
+      background: #fff;
+      border: 1px solid #f0f0f0;
+      border-radius: 10px;
+      padding: 8px 12px 8px 8px;
+      box-shadow: none;
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 0.15s ease, background 0.15s ease;
     }
 
-    .fw-opp-ico {
+    .fw-opp:hover {
+      background: #f8f8f8;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    }
+
+    .fw-opp-thumb {
       flex: 0 0 auto;
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      background: #eaf2ff;
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      object-fit: cover;
+      background: #f3f4f6;
+      display: block;
+    }
+
+    .fw-opp-body {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .fw-opp-kicker {
       display: flex;
       align-items: center;
-      justify-content: center;
-      font-size: 15px;
-      line-height: 1;
+      gap: 6px;
     }
 
-    .fw-opp-role {
+    .fw-opp-type {
       font-family: var(--fw-ui);
-      font-size: 15px;
-      font-weight: 600;
-      color: #111827;
+      font-size: 11px;
+      font-weight: 300;
+      color: #767676;
       line-height: 1.25;
     }
 
-    .fw-opp-org {
-      margin: 0 0 12px;
-      font-size: 13px;
+    .fw-opp-badge {
+      padding: 0 5px;
+      border-radius: 3px;
+      background: #111827;
+      color: #fff;
+      font-family: var(--fw-ui);
+      font-size: 10px;
+      font-weight: 400;
+      line-height: 1.4;
+      white-space: nowrap;
+    }
+
+    .fw-opp-role {
+      margin: 0;
+      font-family: var(--fw-display);
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: -0.012em;
+      color: #111827;
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .fw-opp-desc {
+      margin: 0;
+      font-family: var(--fw-ui);
+      font-size: 12px;
       font-weight: 300;
       color: #6b7280;
-      line-height: 1.35;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .fw-opp-meta {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 8px 12px;
-      font-size: 12px;
+      gap: 0 5px;
+      font-family: var(--fw-ui);
+      font-size: 11px;
       font-weight: 300;
-      color: #6b7280;
+      color: #9ca3af;
+      line-height: 1.25;
     }
 
-    .fw-opp-meta .loc {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
+    .fw-opp-meta .fw-opp-dot {
+      color: #d1d5db;
     }
 
-    .fw-opp-meta .pin {
-      color: #e11d48;
-      font-size: 11px;
-      line-height: 1;
-    }
-
-    .fw-opp-badge {
-      margin-left: auto;
-      padding: 3px 9px;
-      border-radius: 999px;
-      background: #eaf2ff;
-      color: #1d4ed8;
-      font-size: 11px;
-      font-weight: 500;
-      white-space: nowrap;
-    }
-
-    /* Testimonials */
+    /* Testimonials — transparent so site dots show between white cards */
     .fw-say {
       position: relative;
       z-index: 2;
       width: 100%;
-      margin: 0 0 24px;
-      padding: 72px 16px 0;
-      background: #fff;
+      margin: 0 0 56px;
+      padding: 72px 16px 28px;
+      background: transparent;
       text-align: center;
       box-sizing: border-box;
     }
 
     .fw-say-inner {
-      width: min(1040px, 100%);
-      margin: 0 auto 40px;
+      width: min(1180px, 100%);
+      margin: 0 auto;
     }
 
     .fw-say-title {
-      margin: 0 0 10px;
+      margin: 0 0 8px;
       font-family: var(--fw-display);
       font-size: clamp(28px, 3.6vw, 40px);
       font-weight: 400;
@@ -567,7 +662,7 @@
     }
 
     .fw-say-sub {
-      margin: 0 auto 32px;
+      margin: 0 auto 28px;
       max-width: 42em;
       font-family: var(--fw-ui);
       font-size: 14px;
@@ -578,130 +673,149 @@
 
     .fw-say-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
       text-align: left;
     }
 
     .fw-say-card {
       background: #fff;
       border: 1px solid rgba(17, 24, 39, 0.08);
-      border-radius: 12px;
-      padding: 22px 20px 18px;
-      box-shadow: 0 1px 2px rgba(17, 24, 39, 0.03);
+      border-radius: 8px;
+      padding: 12px 12px 11px;
+      box-shadow: none;
       display: flex;
       flex-direction: column;
       min-height: 100%;
-    }
-
-    .fw-say-stars {
-      margin: 0 0 12px;
-      color: #f5b301;
-      font-size: 14px;
-      letter-spacing: 2px;
-      line-height: 1;
-    }
-
-    .fw-say-quote {
-      margin: 0 0 20px;
-      flex: 1;
-      font-family: var(--fw-ui);
-      font-size: 14px;
-      font-weight: 400;
-      font-style: italic;
-      color: #111827;
-      line-height: 1.55;
+      text-align: left;
+      box-sizing: border-box;
     }
 
     .fw-say-person {
       display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 14px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      margin-bottom: 8px;
+    }
+
+    .fw-say-person > div:last-child {
+      margin-top: -4px; /* pull name tight against logo (PNGs have internal padding) */
     }
 
     .fw-say-avatar {
       flex: 0 0 auto;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: #f3f4f6;
-      color: #111827;
+      width: 28px;
+      height: 28px;
+      border-radius: 0;
+      background: transparent;
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    .fw-say-avatar svg {
-      width: 16px;
-      height: 16px;
+    .fw-say-avatar img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: grayscale(1);
+      opacity: 0.9;
+    }
+
+    /* Crest fills the box harder than wordmark PNGs — scale to match optical size */
+    .fw-say-avatar--crest {
+      width: 20px;
+      height: 20px;
     }
 
     .fw-say-school {
-      font-size: 13px;
-      font-weight: 600;
+      font-family: var(--fw-display);
+      font-size: 12.5px;
+      font-weight: 400;
+      letter-spacing: -0.01em;
       color: #111827;
-      line-height: 1.25;
+      line-height: 1.2;
     }
 
     .fw-say-class {
-      font-size: 12px;
+      font-family: var(--fw-ui);
+      font-size: 11px;
       font-weight: 300;
       color: #6b7280;
-      line-height: 1.3;
+      line-height: 1.25;
+    }
+
+    .fw-say-quote {
+      margin: 0 0 10px;
+      flex: 1;
+      font-family: var(--fw-display);
+      font-size: 13.5px;
+      font-weight: 400;
+      font-style: normal;
+      letter-spacing: -0.01em;
+      color: #111827;
+      line-height: 1.35;
     }
 
     .fw-say-pills {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
+      gap: 4px;
     }
 
     .fw-say-pill {
       display: inline-flex;
       align-items: center;
-      gap: 3px;
-      padding: 3px 7px;
-      border-radius: 999px;
+      padding: 2px 6px;
+      border-radius: 3px;
       background: #f3f4f6;
+      font-family: var(--fw-ui);
       font-size: 10px;
       font-weight: 400;
-      color: #374151;
+      color: #4b5563;
       white-space: nowrap;
-      line-height: 1.2;
+      line-height: 1.3;
     }
 
     .fw-stats {
-      width: 100%;
-      border-top: 1px solid rgba(17, 24, 39, 0.08);
-      background: #f3f4f6;
-      overflow: hidden;
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 5%, #000 95%, transparent 100%);
-      mask-image: linear-gradient(to right, transparent 0%, #000 5%, #000 95%, transparent 100%);
-    }
-
-    .fw-stats-track {
-      display: flex;
-      width: max-content;
-      gap: 36px;
-      padding: 14px 20px;
-      animation: fwStatsScroll 40s linear infinite;
-    }
-
-    .fw-stats-track:hover { animation-play-state: paused; }
-
-    @keyframes fwStatsScroll {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 10px 0 0; /* match .fw-say-grid gap */
+      padding: 0;
+      text-align: left;
     }
 
     .fw-stats-item {
-      flex: 0 0 auto;
+      background: #000;
+      border: 1px solid #000;
+      border-radius: 8px;
+      padding: 14px 14px 12px;
+      box-sizing: border-box;
+    }
+
+    .fw-stats-item strong {
+      display: block;
+      margin: 0 0 4px;
+      font-family: var(--fw-display);
+      font-size: 26px;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: #fff;
+      line-height: 1.1;
+    }
+
+    .fw-stats-item span {
+      display: block;
       font-family: var(--fw-ui);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 300;
-      color: #374151;
-      white-space: nowrap;
+      color: rgba(255, 255, 255, 0.62);
+      line-height: 1.35;
     }
 
     .fw-cta-band {
@@ -715,6 +829,18 @@
     .fw-cta-inner {
       width: min(720px, calc(100vw - 32px));
       text-align: center;
+      background: #000;
+      border-radius: 16px;
+      padding: 40px 32px 36px;
+      box-sizing: border-box;
+    }
+
+    .fw-cta-logo {
+      display: block;
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 18px;
+      object-fit: contain;
     }
 
     .fw-cta-title {
@@ -724,7 +850,7 @@
       font-weight: 400;
       letter-spacing: -0.012em;
       line-height: 1.15;
-      color: #111827;
+      color: #fff;
     }
 
     .fw-cta-sub {
@@ -733,7 +859,7 @@
       font-size: 15px;
       font-weight: 300;
       line-height: 1.5;
-      color: #6b7280;
+      color: rgba(255, 255, 255, 0.72);
       white-space: nowrap;
     }
 
@@ -745,17 +871,41 @@
       gap: 10px;
     }
 
+    .fw-cta-inner .fw-hero-cta--primary {
+      background: #fff;
+      color: #111;
+      border-color: #fff;
+    }
+
+    .fw-cta-inner .fw-hero-cta--primary:hover {
+      background: #f3f4f6;
+      border-color: #f3f4f6;
+      color: #111;
+    }
+
+    .fw-cta-inner .fw-hero-cta--ghost {
+      background: transparent;
+      color: rgba(255, 255, 255, 0.78);
+      border-color: transparent;
+    }
+
+    .fw-cta-inner .fw-hero-cta--ghost:hover {
+      background: transparent;
+      color: #fff;
+      border-color: transparent;
+    }
+
     /* FAQ */
     .fw-faq {
       position: relative;
       z-index: 2;
       width: min(720px, calc(100vw - 32px));
       margin: 0 auto 100px;
-      padding: 32px 28px 8px;
+      padding: 32px 28px 32px;
       background: #fff;
-      border: 1px solid rgba(17, 24, 39, 0.08);
+      border: 0;
       border-radius: 16px;
-      box-shadow: 0 1px 2px rgba(17, 24, 39, 0.03);
+      box-shadow: none;
     }
 
     .fw-faq-title {
@@ -828,8 +978,22 @@
       transform: translate(-50%, -50%) rotate(90deg) scaleX(0);
     }
 
+    .fw-faq-panel {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.32s ease;
+    }
+
+    .fw-faq-item.is-open .fw-faq-panel {
+      grid-template-rows: 1fr;
+    }
+
+    .fw-faq-panel-inner {
+      overflow: hidden;
+      min-height: 0;
+    }
+
     .fw-faq-a {
-      display: none;
       padding: 0 28px 18px 0;
       margin: 0;
       font-family: var(--fw-ui);
@@ -837,10 +1001,15 @@
       font-weight: 300;
       color: #4b5563;
       line-height: 1.6;
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
     }
 
     .fw-faq-item.is-open .fw-faq-a {
-      display: block;
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.04s;
     }
 
     @media (max-width: 720px) {
@@ -857,22 +1026,30 @@
       .fw-hero-ctas { margin-bottom: 56px; }
       .fw-how { padding: 48px 16px; margin-bottom: 56px; }
       .fw-how-grid { grid-template-columns: 1fr; }
-      .fw-say-grid { grid-template-columns: 1fr; }
+      .fw-say-grid { grid-template-columns: 1fr 1fr; }
+      .fw-stats { grid-template-columns: 1fr 1fr; }
       .fw-say { padding-top: 56px; }
-      .fw-faq { padding: 24px 18px 4px; }
+      .fw-faq { padding: 24px 18px 28px; }
       .fw-cta-sub { font-size: 12px; }
+    }
+
+    @media (max-width: 520px) {
+      .fw-say-grid { grid-template-columns: 1fr; }
+      .fw-stats { grid-template-columns: 1fr; }
     }
 
     @media (min-width: 721px) and (max-width: 960px) {
       .fw-how-grid { grid-template-columns: repeat(2, 1fr); }
-      .fw-say-grid { grid-template-columns: 1fr; }
+      .fw-say-grid { grid-template-columns: repeat(2, 1fr); }
+      .fw-stats { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (prefers-reduced-motion: reduce) {
       .fw-marquee-track,
-      .fw-live-track,
-      .fw-stats-track { animation: none !important; }
+      .fw-live-track { animation: none !important; }
       .chat-marketing-hero .qava-hero-icon { animation: none !important; }
+      .fw-faq-panel,
+      .fw-faq-a { transition: none !important; }
     }
   </style>
 </head>
@@ -978,11 +1155,24 @@
       <div class="fw-shop-grid">
         <article class="fw-shop-card">
           <div class="img-wrap">
-            <img src="../Wave%20barrel.png" alt="Project work" />
+            <div class="fw-shop-ph fw-shop-ph--project" aria-hidden="true">
+              <div class="fw-shop-ph-inner">
+                <svg class="fw-shop-geo" viewBox="0 0 80 80" aria-hidden="true">
+                  <!-- Fill: quarter-circle toward center (not the outer corner wedge) -->
+                  <path class="fw-shop-geo-fill" d="M8 40 A32 32 0 0 1 40 72 L40 40 Z"/>
+                  <!-- Outer: circle with squared bottom-left; r=32, center 40,40 (on dot grid) -->
+                  <path d="M40 8 A32 32 0 0 1 72 40 A32 32 0 0 1 40 72 L8 72 L8 40 A32 32 0 0 1 40 8"/>
+                  <line x1="40" y1="8" x2="40" y2="72"/>
+                  <line x1="8" y1="40" x2="40" y2="40"/>
+                  <!-- Inner quarter-circle in the squared corner -->
+                  <path d="M8 40 A32 32 0 0 1 40 72"/>
+                </svg>
+              </div>
+            </div>
           </div>
           <div class="body">
             <div class="title-row">
-              <strong>Project</strong>
+              <strong>Projects</strong>
               <span class="box" aria-hidden="true"></span>
             </div>
             <p class="desc">Targeted short-term work with clearly defined deliverables</p>
@@ -991,11 +1181,33 @@
 
         <article class="fw-shop-card">
           <div class="img-wrap">
-            <img src="../Ocean.png" alt="Job opportunities" />
+            <div class="fw-shop-ph fw-shop-ph--job" aria-hidden="true">
+              <div class="fw-shop-ph-inner">
+                <svg class="fw-shop-geo" viewBox="0 0 80 80" aria-hidden="true">
+                  <defs>
+                    <clipPath id="fw-job-clip-right">
+                      <circle cx="56" cy="40" r="16"/>
+                    </clipPath>
+                  </defs>
+                  <!-- Right circle: fill only, no border -->
+                  <circle class="fw-shop-geo-fill" cx="56" cy="40" r="16"/>
+                  <!-- Outlined circles -->
+                  <circle cx="40" cy="24" r="16"/>
+                  <circle cx="40" cy="56" r="16"/>
+                  <circle cx="24" cy="40" r="16"/>
+                  <!-- Grey stroke sections where lines cross the black fill -->
+                  <g class="fw-shop-geo-on-fill" clip-path="url(#fw-job-clip-right)">
+                    <circle cx="40" cy="24" r="16"/>
+                    <circle cx="40" cy="56" r="16"/>
+                    <circle cx="24" cy="40" r="16"/>
+                  </g>
+                </svg>
+              </div>
+            </div>
           </div>
           <div class="body">
             <div class="title-row">
-              <strong>Job</strong>
+              <strong>Jobs</strong>
               <span class="box" aria-hidden="true"></span>
             </div>
             <p class="desc">Ongoing, compensated work with continuous responsibilities</p>
@@ -1004,11 +1216,35 @@
 
         <article class="fw-shop-card">
           <div class="img-wrap">
-            <img src="../Sandy%20Trail.png" alt="Internship opportunities" />
+            <div class="fw-shop-ph fw-shop-ph--internship" aria-hidden="true">
+              <div class="fw-shop-ph-inner">
+                <svg class="fw-shop-geo" viewBox="0 0 80 80" aria-hidden="true">
+                  <!-- Small center fill in the open void -->
+                  <circle class="fw-shop-geo-fill" cx="40" cy="40" r="4"/>
+                  <!-- 8 double-line spokes; open center; tips on 4-dot radius -->
+                  <line x1="37.50" y1="32.00" x2="37.50" y2="8.00"/>
+                  <line x1="42.50" y1="32.00" x2="42.50" y2="8.00"/>
+                  <line x1="43.89" y1="32.58" x2="60.86" y2="15.60"/>
+                  <line x1="47.42" y1="36.11" x2="64.40" y2="19.14"/>
+                  <line x1="48.00" y1="37.50" x2="72.00" y2="37.50"/>
+                  <line x1="48.00" y1="42.50" x2="72.00" y2="42.50"/>
+                  <line x1="47.42" y1="43.89" x2="64.40" y2="60.86"/>
+                  <line x1="43.89" y1="47.42" x2="60.86" y2="64.40"/>
+                  <line x1="42.50" y1="48.00" x2="42.50" y2="72.00"/>
+                  <line x1="37.50" y1="48.00" x2="37.50" y2="72.00"/>
+                  <line x1="36.11" y1="47.42" x2="19.14" y2="64.40"/>
+                  <line x1="32.58" y1="43.89" x2="15.60" y2="60.86"/>
+                  <line x1="32.00" y1="42.50" x2="8.00" y2="42.50"/>
+                  <line x1="32.00" y1="37.50" x2="8.00" y2="37.50"/>
+                  <line x1="32.58" y1="36.11" x2="15.60" y2="19.14"/>
+                  <line x1="36.11" y1="32.58" x2="19.14" y2="15.60"/>
+                </svg>
+              </div>
+            </div>
           </div>
           <div class="body">
             <div class="title-row">
-              <strong>Internship</strong>
+              <strong>Internships</strong>
               <span class="box" aria-hidden="true"></span>
             </div>
             <p class="desc">Short-term learning opportunities with hands-on experience</p>
@@ -1077,260 +1313,453 @@
 
     <div class="fw-live-rail" aria-hidden="true">
       <div class="fw-live-track">
-        <a class="fw-opp" href="https://app.qava.ai/projects">
-          <div class="fw-opp-top">
-            <span class="fw-opp-ico">👩‍💻</span>
-            <span class="fw-opp-role">Marketing Lead</span>
-          </div>
-          <p class="fw-opp-org">Early-Stage Fintech — Full-time role</p>
-          <div class="fw-opp-meta">
-            <span class="loc"><span class="pin">📍</span> New York City</span>
-            <span>Full-time</span>
-            <span>$120k–$160k</span>
-            <span class="fw-opp-badge">Featured</span>
-          </div>
-        </a>
-
-        <a class="fw-opp" href="https://app.qava.ai/projects">
-          <div class="fw-opp-top">
-            <span class="fw-opp-ico">🎓</span>
-            <span class="fw-opp-role">Strategy Intern</span>
-          </div>
-          <p class="fw-opp-org">Boutique Consulting Firm Seeks Strategy Intern</p>
-          <div class="fw-opp-meta">
-            <span class="loc"><span class="pin">📍</span> Boston</span>
-            <span>Fall 2026</span>
-            <span>$32/hr</span>
-            <span class="fw-opp-badge">Featured</span>
+        <a class="fw-opp" href="https://app.qava.ai/">
+          <img class="fw-opp-thumb" src="../Paths%20Image%20Libarary%20SVG%203%20copy/Growth%20Strategy.svg" alt="" />
+          <div class="fw-opp-body">
+            <div class="fw-opp-kicker">
+              <span class="fw-opp-type">Job</span>
+              <span class="fw-opp-badge">Featured</span>
+            </div>
+            <div class="fw-opp-role">Early-Stage Fintech Scale-Up Seeks Full-Time Growth Marketing Lead Role</div>
+            <p class="fw-opp-desc">Own acquisition, content, and brand campaigns for a seed-stage payments firm</p>
+            <div class="fw-opp-meta">
+              <span>New York City</span>
+              <span class="fw-opp-dot" aria-hidden="true">·</span>
+              <span>Full-time</span>
+              <span class="fw-opp-dot" aria-hidden="true">·</span>
+              <span>$120k–$160k</span>
+            </div>
           </div>
         </a>
 
-        <a class="fw-opp" href="https://app.qava.ai/projects">
-          <div class="fw-opp-top">
-            <span class="fw-opp-ico">🖼️</span>
-            <span class="fw-opp-role">Pitch Deck</span>
-          </div>
-          <p class="fw-opp-org">Series B SaaS Looking for Pitch Deck</p>
-          <div class="fw-opp-meta">
-            <span class="loc"><span class="pin">📍</span> Austin</span>
-            <span>$525</span>
-            <span>10 hours</span>
-            <span class="fw-opp-badge">Featured</span>
-          </div>
-        </a>
-
-        <a class="fw-opp" href="https://app.qava.ai/projects">
-          <div class="fw-opp-top">
-            <span class="fw-opp-ico">🚀</span>
-            <span class="fw-opp-role">Go-To-Market Strategy</span>
-          </div>
-          <p class="fw-opp-org">Pre-Seed Marketplace Seeks Go-To-Market Strategy</p>
-          <div class="fw-opp-meta">
-            <span class="loc"><span class="pin">📍</span> Sydney</span>
-            <span>$280</span>
-            <span>12 hours</span>
-            <span class="fw-opp-badge">Featured</span>
+        <a class="fw-opp" href="https://app.qava.ai/">
+          <img class="fw-opp-thumb" src="../Paths%20Image%20Libarary%20SVG%203%20copy/Industry%20Analysis.svg" alt="" />
+          <div class="fw-opp-body">
+            <div class="fw-opp-kicker">
+              <span class="fw-opp-type">Internship</span>
+            </div>
+            <div class="fw-opp-role">Boutique Strategy Consulting Firm Seeks Hands-On MBA Strategy Intern Role</div>
+            <p class="fw-opp-desc">Support client workstreams across market entry, pricing, and growth planning</p>
+            <div class="fw-opp-meta">
+              <span>Remote</span>
+              <span class="fw-opp-dot" aria-hidden="true">·</span>
+              <span>Fall 2026</span>
+              <span class="fw-opp-dot" aria-hidden="true">·</span>
+              <span>$32/hr</span>
+            </div>
           </div>
         </a>
 
-        <a class="fw-opp" href="https://app.qava.ai/projects">
-          <div class="fw-opp-top">
-            <span class="fw-opp-ico">💰</span>
-            <span class="fw-opp-role">Pricing Strategy</span>
-          </div>
-          <p class="fw-opp-org">Series A Fintech Company Seeks Pricing Strategy</p>
-          <div class="fw-opp-meta">
-            <span class="loc"><span class="pin">📍</span> San Francisco</span>
-            <span>$280</span>
-            <span>12 hours</span>
-            <span class="fw-opp-badge">Featured</span>
+        <a class="fw-opp" href="https://app.qava.ai/">
+          <img class="fw-opp-thumb" src="../Paths%20Image%20Libarary%20SVG%203%20copy/Pitch%20Deck.svg" alt="" />
+          <div class="fw-opp-body">
+            <div class="fw-opp-kicker">
+              <span class="fw-opp-type">Project</span>
+              <span class="fw-opp-badge">Featured</span>
+            </div>
+            <div class="fw-opp-role">Series B B2B SaaS Platform Looking for Investor Pitch Deck and Narrative</div>
+            <p class="fw-opp-desc">Build investor-ready narrative, core slides, appendix, and supporting storyline</p>
+            <div class="fw-opp-meta">
+              <span>Remote</span>
+              <span class="fw-opp-dot" aria-hidden="true">·</span>
+              <span>$525</span>
+              <span class="fw-opp-dot" aria-hidden="true">·</span>
+              <span>10 hours</span>
+            </div>
           </div>
         </a>
 
-        <a class="fw-opp" href="https://app.qava.ai/projects">
-          <div class="fw-opp-top">
-            <span class="fw-opp-ico">💼</span>
-            <span class="fw-opp-role">Part-time Product Designer</span>
+        <a class="fw-opp" href="https://app.qava.ai/">
+          <img class="fw-opp-thumb" src="../Paths%20Image%20Libarary%20SVG%203%20copy/Go-To-Market%20Strategy.svg" alt="" />
+          <div class="fw-opp-body">
+            <div class="fw-opp-kicker">
+              <span class="fw-opp-type">Project</span>
+            </div>
+            <div class="fw-opp-role">Pre-Seed Consumer Marketplace Seeks Complete Go-To-Market Strategy Plan</div>
+            <p class="fw-opp-desc">Define ICP, positioning, channels, and a 90-day launch plan for new vertical</p>
+            <div class="fw-opp-meta">
+              <span>Remote</span>
+              <span class="fw-opp-dot" aria-hidden="true">·</span>
+              <span>$280</span>
+              <span class="fw-opp-dot" aria-hidden="true">·</span>
+              <span>12 hours</span>
+            </div>
           </div>
-          <p class="fw-opp-org">Harbor · B2B marketplace — Ongoing role</p>
-          <div class="fw-opp-meta">
-            <span class="loc"><span class="pin">📍</span> Remote</span>
-            <span>20 hrs/wk</span>
-            <span>$72k–$90k</span>
-            <span class="fw-opp-badge">Featured</span>
+        </a>
+
+        <a class="fw-opp" href="https://app.qava.ai/">
+          <img class="fw-opp-thumb" src="../Paths%20Image%20Libarary%20SVG%203%20copy/Pricing%20Strategy.svg" alt="" />
+          <div class="fw-opp-body">
+            <div class="fw-opp-kicker">
+              <span class="fw-opp-type">Project</span>
+            </div>
+            <div class="fw-opp-role">Series A Fintech Company Seeks Full Pricing and Packaging Strategy Project</div>
+            <p class="fw-opp-desc">Refine packaging, tiers, and willingness-to-pay experiments for core product</p>
+            <div class="fw-opp-meta">
+              <span>Remote</span>
+              <span class="fw-opp-dot" aria-hidden="true">·</span>
+              <span>$280</span>
+              <span class="fw-opp-dot" aria-hidden="true">·</span>
+              <span>12 hours</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="fw-opp" href="https://app.qava.ai/">
+          <img class="fw-opp-thumb" src="../Paths%20Image%20Libarary%20SVG%203%20copy/Product%20Strategy.svg" alt="" />
+          <div class="fw-opp-body">
+            <div class="fw-opp-kicker">
+              <span class="fw-opp-type">Job</span>
+            </div>
+            <div class="fw-opp-role">Harbor B2B Marketplace Seeks Part-Time Product Designer for Core Product</div>
+            <p class="fw-opp-desc">Design product flows, UI components, and iteration cycles with a lean team</p>
+            <div class="fw-opp-meta">
+              <span>Remote</span>
+              <span class="fw-opp-dot" aria-hidden="true">·</span>
+              <span>20 hrs/wk</span>
+              <span class="fw-opp-dot" aria-hidden="true">·</span>
+              <span>$72k–$90k</span>
+            </div>
           </div>
         </a>
 
         <!-- duplicate for seamless loop -->
-        <a class="fw-opp" href="https://app.qava.ai/projects">
-          <div class="fw-opp-top">
-            <span class="fw-opp-ico">👩‍💻</span>
-            <span class="fw-opp-role">Marketing Lead</span>
-          </div>
-          <p class="fw-opp-org">Early-Stage Fintech — Full-time role</p>
-          <div class="fw-opp-meta">
-            <span class="loc"><span class="pin">📍</span> New York City</span>
-            <span>Full-time</span>
-            <span>$120k–$160k</span>
-            <span class="fw-opp-badge">Featured</span>
-          </div>
-        </a>
-
-        <a class="fw-opp" href="https://app.qava.ai/projects">
-          <div class="fw-opp-top">
-            <span class="fw-opp-ico">🎓</span>
-            <span class="fw-opp-role">Strategy Intern</span>
-          </div>
-          <p class="fw-opp-org">Boutique Consulting Firm Seeks Strategy Intern</p>
-          <div class="fw-opp-meta">
-            <span class="loc"><span class="pin">📍</span> Boston</span>
-            <span>Fall 2026</span>
-            <span>$32/hr</span>
-            <span class="fw-opp-badge">Featured</span>
+        <a class="fw-opp" href="https://app.qava.ai/">
+          <img class="fw-opp-thumb" src="../Paths%20Image%20Libarary%20SVG%203%20copy/Growth%20Strategy.svg" alt="" />
+          <div class="fw-opp-body">
+            <div class="fw-opp-kicker">
+              <span class="fw-opp-type">Job</span>
+              <span class="fw-opp-badge">Featured</span>
+            </div>
+            <div class="fw-opp-role">Early-Stage Fintech Scale-Up Seeks Full-Time Growth Marketing Lead Role</div>
+            <p class="fw-opp-desc">Own acquisition, content, and brand campaigns for a seed-stage payments firm</p>
+            <div class="fw-opp-meta">
+              <span>New York City</span>
+              <span class="fw-opp-dot" aria-hidden="true">·</span>
+              <span>Full-time</span>
+              <span class="fw-opp-dot" aria-hidden="true">·</span>
+              <span>$120k–$160k</span>
+            </div>
           </div>
         </a>
 
-        <a class="fw-opp" href="https://app.qava.ai/projects">
-          <div class="fw-opp-top">
-            <span class="fw-opp-ico">🖼️</span>
-            <span class="fw-opp-role">Pitch Deck</span>
-          </div>
-          <p class="fw-opp-org">Series B SaaS Looking for Pitch Deck</p>
-          <div class="fw-opp-meta">
-            <span class="loc"><span class="pin">📍</span> Austin</span>
-            <span>$525</span>
-            <span>10 hours</span>
-            <span class="fw-opp-badge">Featured</span>
-          </div>
-        </a>
-
-        <a class="fw-opp" href="https://app.qava.ai/projects">
-          <div class="fw-opp-top">
-            <span class="fw-opp-ico">🚀</span>
-            <span class="fw-opp-role">Go-To-Market Strategy</span>
-          </div>
-          <p class="fw-opp-org">Pre-Seed Marketplace Seeks Go-To-Market Strategy</p>
-          <div class="fw-opp-meta">
-            <span class="loc"><span class="pin">📍</span> Sydney</span>
-            <span>$280</span>
-            <span>12 hours</span>
-            <span class="fw-opp-badge">Featured</span>
+        <a class="fw-opp" href="https://app.qava.ai/">
+          <img class="fw-opp-thumb" src="../Paths%20Image%20Libarary%20SVG%203%20copy/Industry%20Analysis.svg" alt="" />
+          <div class="fw-opp-body">
+            <div class="fw-opp-kicker">
+              <span class="fw-opp-type">Internship</span>
+            </div>
+            <div class="fw-opp-role">Boutique Strategy Consulting Firm Seeks Hands-On MBA Strategy Intern Role</div>
+            <p class="fw-opp-desc">Support client workstreams across market entry, pricing, and growth planning</p>
+            <div class="fw-opp-meta">
+              <span>Remote</span>
+              <span class="fw-opp-dot" aria-hidden="true">·</span>
+              <span>Fall 2026</span>
+              <span class="fw-opp-dot" aria-hidden="true">·</span>
+              <span>$32/hr</span>
+            </div>
           </div>
         </a>
 
-        <a class="fw-opp" href="https://app.qava.ai/projects">
-          <div class="fw-opp-top">
-            <span class="fw-opp-ico">💰</span>
-            <span class="fw-opp-role">Pricing Strategy</span>
-          </div>
-          <p class="fw-opp-org">Series A Fintech Company Seeks Pricing Strategy</p>
-          <div class="fw-opp-meta">
-            <span class="loc"><span class="pin">📍</span> San Francisco</span>
-            <span>$280</span>
-            <span>12 hours</span>
-            <span class="fw-opp-badge">Featured</span>
+        <a class="fw-opp" href="https://app.qava.ai/">
+          <img class="fw-opp-thumb" src="../Paths%20Image%20Libarary%20SVG%203%20copy/Pitch%20Deck.svg" alt="" />
+          <div class="fw-opp-body">
+            <div class="fw-opp-kicker">
+              <span class="fw-opp-type">Project</span>
+              <span class="fw-opp-badge">Featured</span>
+            </div>
+            <div class="fw-opp-role">Series B B2B SaaS Platform Looking for Investor Pitch Deck and Narrative</div>
+            <p class="fw-opp-desc">Build investor-ready narrative, core slides, appendix, and supporting storyline</p>
+            <div class="fw-opp-meta">
+              <span>Remote</span>
+              <span class="fw-opp-dot" aria-hidden="true">·</span>
+              <span>$525</span>
+              <span class="fw-opp-dot" aria-hidden="true">·</span>
+              <span>10 hours</span>
+            </div>
           </div>
         </a>
 
-        <a class="fw-opp" href="https://app.qava.ai/projects">
-          <div class="fw-opp-top">
-            <span class="fw-opp-ico">💼</span>
-            <span class="fw-opp-role">Part-time Product Designer</span>
+        <a class="fw-opp" href="https://app.qava.ai/">
+          <img class="fw-opp-thumb" src="../Paths%20Image%20Libarary%20SVG%203%20copy/Go-To-Market%20Strategy.svg" alt="" />
+          <div class="fw-opp-body">
+            <div class="fw-opp-kicker">
+              <span class="fw-opp-type">Project</span>
+            </div>
+            <div class="fw-opp-role">Pre-Seed Consumer Marketplace Seeks Complete Go-To-Market Strategy Plan</div>
+            <p class="fw-opp-desc">Define ICP, positioning, channels, and a 90-day launch plan for new vertical</p>
+            <div class="fw-opp-meta">
+              <span>Remote</span>
+              <span class="fw-opp-dot" aria-hidden="true">·</span>
+              <span>$280</span>
+              <span class="fw-opp-dot" aria-hidden="true">·</span>
+              <span>12 hours</span>
+            </div>
           </div>
-          <p class="fw-opp-org">Harbor · B2B marketplace — Ongoing role</p>
-          <div class="fw-opp-meta">
-            <span class="loc"><span class="pin">📍</span> Remote</span>
-            <span>20 hrs/wk</span>
-            <span>$72k–$90k</span>
-            <span class="fw-opp-badge">Featured</span>
+        </a>
+
+        <a class="fw-opp" href="https://app.qava.ai/">
+          <img class="fw-opp-thumb" src="../Paths%20Image%20Libarary%20SVG%203%20copy/Pricing%20Strategy.svg" alt="" />
+          <div class="fw-opp-body">
+            <div class="fw-opp-kicker">
+              <span class="fw-opp-type">Project</span>
+            </div>
+            <div class="fw-opp-role">Series A Fintech Company Seeks Full Pricing and Packaging Strategy Project</div>
+            <p class="fw-opp-desc">Refine packaging, tiers, and willingness-to-pay experiments for core product</p>
+            <div class="fw-opp-meta">
+              <span>Remote</span>
+              <span class="fw-opp-dot" aria-hidden="true">·</span>
+              <span>$280</span>
+              <span class="fw-opp-dot" aria-hidden="true">·</span>
+              <span>12 hours</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="fw-opp" href="https://app.qava.ai/">
+          <img class="fw-opp-thumb" src="../Paths%20Image%20Libarary%20SVG%203%20copy/Product%20Strategy.svg" alt="" />
+          <div class="fw-opp-body">
+            <div class="fw-opp-kicker">
+              <span class="fw-opp-type">Job</span>
+            </div>
+            <div class="fw-opp-role">Harbor B2B Marketplace Seeks Part-Time Product Designer for Core Product</div>
+            <p class="fw-opp-desc">Design product flows, UI components, and iteration cycles with a lean team</p>
+            <div class="fw-opp-meta">
+              <span>Remote</span>
+              <span class="fw-opp-dot" aria-hidden="true">·</span>
+              <span>20 hrs/wk</span>
+              <span class="fw-opp-dot" aria-hidden="true">·</span>
+              <span>$72k–$90k</span>
+            </div>
           </div>
         </a>
       </div>
     </div>
   </section>
 
-  <section class="fw-say" id="fw-say" aria-label="What talent say">
+  <section class="fw-say" id="fw-say" aria-label="Reviews">
     <div class="fw-say-inner">
-      <h2 class="fw-say-title">What talent say about Qava</h2>
-      <p class="fw-say-sub">From MBA students to experienced consultants — real feedback from people who’ve done the work.</p>
+      <h2 class="fw-say-title">This many doers can’t be wrong</h2>
+      <p class="fw-say-sub">Real reviews from MBA talent who shipped real work.</p>
 
       <div class="fw-say-grid">
         <article class="fw-say-card">
-          <div class="fw-say-stars" aria-label="5 stars">★★★★★</div>
-          <p class="fw-say-quote">“Working with startups gave me hands-on experience that no case study could match. I helped build go-to-market strategies that actually launched products.”</p>
           <div class="fw-say-person">
-            <div class="fw-say-avatar" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.084a1 1 0 0 0 0 1.838l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg>
-            </div>
+            <div class="fw-say-avatar" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/Kellogg.png" alt="" /></div>
             <div>
-              <div class="fw-say-school">Kellogg School of Management</div>
+              <div class="fw-say-school">Kellogg</div>
               <div class="fw-say-class">Class of 2024</div>
             </div>
           </div>
-          <div class="fw-say-pills">
-            <span class="fw-say-pill">Go-To-Market 📍</span>
-            <span class="fw-say-pill">Competitor Analysis 🕵️</span>
-          </div>
+          <p class="fw-say-quote">“Hands-on startup work no case study could match — I still talk to those founders.”</p>
+          <div class="fw-say-pills"><span class="fw-say-pill">Go-To-Market</span></div>
         </article>
 
         <article class="fw-say-card">
-          <div class="fw-say-stars" aria-label="5 stars">★★★★★</div>
-          <p class="fw-say-quote">“I helped companies raise capital. I built pitch decks and financial models. This experience accelerated my career by 10 years.”</p>
           <div class="fw-say-person">
-            <div class="fw-say-avatar" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.084a1 1 0 0 0 0 1.838l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg>
-            </div>
+            <div class="fw-say-avatar" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/Wharton.png" alt="" /></div>
             <div>
-              <div class="fw-say-school">The Wharton School</div>
+              <div class="fw-say-school">Wharton</div>
               <div class="fw-say-class">Class of 2023</div>
             </div>
           </div>
-          <div class="fw-say-pills">
-            <span class="fw-say-pill">Pitch Deck 🖼️</span>
-            <span class="fw-say-pill">Financial Model 📊</span>
-          </div>
+          <p class="fw-say-quote">“Built decks and models that went into real investor meetings. Career acceleration.”</p>
+          <div class="fw-say-pills"><span class="fw-say-pill">Pitch Deck</span></div>
         </article>
 
         <article class="fw-say-card">
-          <div class="fw-say-stars" aria-label="5 stars">★★★★★</div>
-          <p class="fw-say-quote">“I worked on real strategic projects for growing companies that I will stay in touch with for years to come.”</p>
           <div class="fw-say-person">
-            <div class="fw-say-avatar" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.084a1 1 0 0 0 0 1.838l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg>
-            </div>
+            <div class="fw-say-avatar fw-say-avatar--crest" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/Columbia.svg" alt="" /></div>
             <div>
-              <div class="fw-say-school">Columbia Business School</div>
+              <div class="fw-say-school">Columbia</div>
               <div class="fw-say-class">Class of 2024</div>
             </div>
           </div>
-          <div class="fw-say-pills">
-            <span class="fw-say-pill">Industry Analysis 🔎</span>
-            <span class="fw-say-pill">Partnership 🤝</span>
+          <p class="fw-say-quote">“Real strategy work — partnerships and decisions that actually mattered.”</p>
+          <div class="fw-say-pills"><span class="fw-say-pill">Strategy</span></div>
+        </article>
+
+        <article class="fw-say-card">
+          <div class="fw-say-person">
+            <div class="fw-say-avatar" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/HBS.png" alt="" /></div>
+            <div>
+              <div class="fw-say-school">Harvard Business School</div>
+              <div class="fw-say-class">Class of 2024</div>
+            </div>
           </div>
+          <p class="fw-say-quote">“Matched in a day. Scoped cleanly. Paid on time. I’ll keep coming back.”</p>
+          <div class="fw-say-pills"><span class="fw-say-pill">Ops</span></div>
+        </article>
+
+        <article class="fw-say-card">
+          <div class="fw-say-person">
+            <div class="fw-say-avatar" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/Haas.png" alt="" /></div>
+            <div>
+              <div class="fw-say-school">Berkeley Haas</div>
+              <div class="fw-say-class">Class of 2025</div>
+            </div>
+          </div>
+          <p class="fw-say-quote">“Finally, project work that respects MBA-level thinking — not busywork.”</p>
+          <div class="fw-say-pills"><span class="fw-say-pill">Product</span></div>
+        </article>
+
+        <article class="fw-say-card">
+          <div class="fw-say-person">
+            <div class="fw-say-avatar" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/Standford.png" alt="" /></div>
+            <div>
+              <div class="fw-say-school">Stanford GSB</div>
+              <div class="fw-say-class">Class of 2023</div>
+            </div>
+          </div>
+          <p class="fw-say-quote">“I shipped a pricing project that the client still uses. That’s the bar.”</p>
+          <div class="fw-say-pills"><span class="fw-say-pill">Pricing</span></div>
+        </article>
+
+        <article class="fw-say-card">
+          <div class="fw-say-person">
+            <div class="fw-say-avatar" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/MIT.png" alt="" /></div>
+            <div>
+              <div class="fw-say-school">MIT Sloan</div>
+              <div class="fw-say-class">Class of 2024</div>
+            </div>
+          </div>
+          <p class="fw-say-quote">“Clear scope, sharp clients, and work I can put on a resume with pride.”</p>
+          <div class="fw-say-pills"><span class="fw-say-pill">Analytics</span></div>
+        </article>
+
+        <article class="fw-say-card">
+          <div class="fw-say-person">
+            <div class="fw-say-avatar" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/Stern.png" alt="" /></div>
+            <div>
+              <div class="fw-say-school">NYU Stern</div>
+              <div class="fw-say-class">Class of 2025</div>
+            </div>
+          </div>
+          <p class="fw-say-quote">“Better than cold outreach. Better briefs. Better outcomes. Simple.”</p>
+          <div class="fw-say-pills"><span class="fw-say-pill">Marketing</span></div>
+        </article>
+
+        <article class="fw-say-card">
+          <div class="fw-say-person">
+            <div class="fw-say-avatar" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/Said.png" alt="" /></div>
+            <div>
+              <div class="fw-say-school">Oxford Saïd</div>
+              <div class="fw-say-class">Class of 2024</div>
+            </div>
+          </div>
+          <p class="fw-say-quote">“Remote, high-trust projects with founders who actually wanted my input.”</p>
+          <div class="fw-say-pills"><span class="fw-say-pill">Growth</span></div>
+        </article>
+
+        <article class="fw-say-card">
+          <div class="fw-say-person">
+            <div class="fw-say-avatar" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/AGSM.jpg" alt="" /></div>
+            <div>
+              <div class="fw-say-school">AGSM</div>
+              <div class="fw-say-class">Class of 2023</div>
+            </div>
+          </div>
+          <p class="fw-say-quote">“I landed a role through a project. The relationship outlived the brief.”</p>
+          <div class="fw-say-pills"><span class="fw-say-pill">Full-time</span></div>
+        </article>
+
+        <article class="fw-say-card">
+          <div class="fw-say-person">
+            <div class="fw-say-avatar" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/Kellogg.png" alt="" /></div>
+            <div>
+              <div class="fw-say-school">Kellogg</div>
+              <div class="fw-say-class">Class of 2025</div>
+            </div>
+          </div>
+          <p class="fw-say-quote">“Applied Friday, kicked off Monday. The platform just moves.”</p>
+          <div class="fw-say-pills"><span class="fw-say-pill">Speed</span></div>
+        </article>
+
+        <article class="fw-say-card">
+          <div class="fw-say-person">
+            <div class="fw-say-avatar" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/Wharton.png" alt="" /></div>
+            <div>
+              <div class="fw-say-school">Wharton</div>
+              <div class="fw-say-class">Class of 2024</div>
+            </div>
+          </div>
+          <p class="fw-say-quote">“Quality over volume. Every listing felt worth opening.”</p>
+          <div class="fw-say-pills"><span class="fw-say-pill">Finance</span></div>
+        </article>
+
+        <article class="fw-say-card">
+          <div class="fw-say-person">
+            <div class="fw-say-avatar fw-say-avatar--crest" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/Columbia.svg" alt="" /></div>
+            <div>
+              <div class="fw-say-school">Columbia</div>
+              <div class="fw-say-class">Class of 2025</div>
+            </div>
+          </div>
+          <p class="fw-say-quote">“Protected payments, clear deliverables — I could focus on the work.”</p>
+          <div class="fw-say-pills"><span class="fw-say-pill">Consulting</span></div>
+        </article>
+
+        <article class="fw-say-card">
+          <div class="fw-say-person">
+            <div class="fw-say-avatar" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/HBS.png" alt="" /></div>
+            <div>
+              <div class="fw-say-school">Harvard Business School</div>
+              <div class="fw-say-class">Class of 2023</div>
+            </div>
+          </div>
+          <p class="fw-say-quote">“The clients were operators. The feedback was direct. I grew fast.”</p>
+          <div class="fw-say-pills"><span class="fw-say-pill">Leadership</span></div>
+        </article>
+
+        <article class="fw-say-card">
+          <div class="fw-say-person">
+            <div class="fw-say-avatar" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/Haas.png" alt="" /></div>
+            <div>
+              <div class="fw-say-school">Berkeley Haas</div>
+              <div class="fw-say-class">Class of 2024</div>
+            </div>
+          </div>
+          <p class="fw-say-quote">“Short projects, real ownership. Exactly what I wanted between terms.”</p>
+          <div class="fw-say-pills"><span class="fw-say-pill">Internship</span></div>
+        </article>
+
+        <article class="fw-say-card">
+          <div class="fw-say-person">
+            <div class="fw-say-avatar" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/MIT.png" alt="" /></div>
+            <div>
+              <div class="fw-say-school">MIT Sloan</div>
+              <div class="fw-say-class">Class of 2025</div>
+            </div>
+          </div>
+          <p class="fw-say-quote">“I’d recommend Qava to anyone who wants proof, not just potential.”</p>
+          <div class="fw-say-pills"><span class="fw-say-pill">Proof</span></div>
         </article>
       </div>
-    </div>
 
-    <div class="fw-stats" aria-hidden="true">
-      <div class="fw-stats-track">
-        <span class="fw-stats-item">🔗 70% of projects lead to ongoing relationships</span>
-        <span class="fw-stats-item">⚡ Matches made in &lt;24 hours on average</span>
-        <span class="fw-stats-item">📊 3x higher applicant quality vs. traditional job boards</span>
-        <span class="fw-stats-item">🔒 100% project protection guarantee</span>
-        <span class="fw-stats-item">🏆 96% of clients would recommend Qava</span>
-        <span class="fw-stats-item">🎓 Talent from top 50 global MBA &amp; EMBA schools</span>
-        <span class="fw-stats-item">🔗 70% of projects lead to ongoing relationships</span>
-        <span class="fw-stats-item">⚡ Matches made in &lt;24 hours on average</span>
-        <span class="fw-stats-item">📊 3x higher applicant quality vs. traditional job boards</span>
-        <span class="fw-stats-item">🔒 100% project protection guarantee</span>
-        <span class="fw-stats-item">🏆 96% of clients would recommend Qava</span>
-        <span class="fw-stats-item">🎓 Talent from top 50 global MBA &amp; EMBA schools</span>
+      <div class="fw-stats" aria-label="Qava highlights">
+        <div class="fw-stats-item">
+          <strong>70%</strong>
+          <span>of projects lead to ongoing relationships</span>
+        </div>
+        <div class="fw-stats-item">
+          <strong>&lt;24h</strong>
+          <span>average time to a match</span>
+        </div>
+        <div class="fw-stats-item">
+          <strong>96%</strong>
+          <span>of clients would recommend Qava</span>
+        </div>
+        <div class="fw-stats-item">
+          <strong>Top 50</strong>
+          <span>global MBA &amp; EMBA schools</span>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="fw-cta-band" aria-label="Ready to start">
     <div class="fw-cta-inner">
+      <img class="fw-cta-logo" src="../qava-hero-arrow.png" alt="Qava" />
       <h3 class="fw-cta-title">Ready to start?</h3>
       <p class="fw-cta-sub">Create your free profile in minutes and start applying to live opportunities today.</p>
       <div class="fw-cta-actions">
@@ -1348,7 +1777,11 @@
           Who can apply for work on Qava?
           <span class="fw-faq-icon" aria-hidden="true"></span>
         </button>
-        <p class="fw-faq-a">Qava is designed for MBA students, graduate-level talent, and experienced professionals with strong business or technical expertise. While it was founded for MBAs and advanced degree holders, we also welcome independent consultants with relevant skills.</p>
+        <div class="fw-faq-panel">
+          <div class="fw-faq-panel-inner">
+            <p class="fw-faq-a">Qava is designed for MBA students, graduate-level talent, and experienced professionals with strong business or technical expertise. While it was founded for MBAs and advanced degree holders, we also welcome independent consultants with relevant skills.</p>
+          </div>
+        </div>
       </div>
 
       <div class="fw-faq-item">
@@ -1356,7 +1789,11 @@
           What types of work are available?
           <span class="fw-faq-icon" aria-hidden="true"></span>
         </button>
-        <p class="fw-faq-a">Three types: on-demand projects (strategy, finance, marketing work with clear scope and deliverables), jobs (full-time and part-time roles at fast-growing companies), and internships (paid, structured opportunities across industries and functions).</p>
+        <div class="fw-faq-panel">
+          <div class="fw-faq-panel-inner">
+            <p class="fw-faq-a">Three types: on-demand projects (strategy, finance, marketing work with clear scope and deliverables), jobs (full-time and part-time roles at fast-growing companies), and internships (paid, structured opportunities across industries and functions).</p>
+          </div>
+        </div>
       </div>
 
       <div class="fw-faq-item">
@@ -1364,7 +1801,11 @@
           How does the application process work?
           <span class="fw-faq-icon" aria-hidden="true"></span>
         </button>
-        <p class="fw-faq-a">Browse live listings, find a project or role that fits your skills, and submit your application with one click. Our AI-powered matching helps surface the right opportunities. Once a client selects you, you’ll align on deliverables and timelines before work begins.</p>
+        <div class="fw-faq-panel">
+          <div class="fw-faq-panel-inner">
+            <p class="fw-faq-a">Browse live listings, find a project or role that fits your skills, and submit your application with one click. Our AI-powered matching helps surface the right opportunities. Once a client selects you, you’ll align on deliverables and timelines before work begins.</p>
+          </div>
+        </div>
       </div>
 
       <div class="fw-faq-item">
@@ -1372,7 +1813,11 @@
           How do I get paid?
           <span class="fw-faq-icon" aria-hidden="true"></span>
         </button>
-        <p class="fw-faq-a">Qava makes payments seamless and secure. Once the project is complete, funds are released based on the agreed terms — giving both sides confidence and clarity. For jobs and internships, compensation follows the employer’s standard payroll process.</p>
+        <div class="fw-faq-panel">
+          <div class="fw-faq-panel-inner">
+            <p class="fw-faq-a">Qava makes payments seamless and secure. Once the project is complete, funds are released based on the agreed terms — giving both sides confidence and clarity. For jobs and internships, compensation follows the employer’s standard payroll process.</p>
+          </div>
+        </div>
       </div>
 
       <div class="fw-faq-item">
@@ -1380,7 +1825,11 @@
           Is Qava available globally?
           <span class="fw-faq-icon" aria-hidden="true"></span>
         </button>
-        <p class="fw-faq-a">Yes. Qava operates internationally, matching talent and clients across time zones. Projects can be remote or in-person depending on the listing.</p>
+        <div class="fw-faq-panel">
+          <div class="fw-faq-panel-inner">
+            <p class="fw-faq-a">Yes. Qava operates internationally, matching talent and clients across time zones. Projects can be remote or in-person depending on the listing.</p>
+          </div>
+        </div>
       </div>
 
       <div class="fw-faq-item">
@@ -1388,7 +1837,11 @@
           What makes Qava different from other job boards?
           <span class="fw-faq-icon" aria-hidden="true"></span>
         </button>
-        <p class="fw-faq-a">Quality, not volume. Every listing is curated. The work is strategic and MBA-level — not busy work. You’re matched with operators who value your thinking, and every project includes structured support and secure payment. Plus, 70% of projects lead to ongoing relationships.</p>
+        <div class="fw-faq-panel">
+          <div class="fw-faq-panel-inner">
+            <p class="fw-faq-a">Quality, not volume. Every listing is curated. The work is strategic and MBA-level — not busy work. You’re matched with operators who value your thinking, and every project includes structured support and secure payment. Plus, 70% of projects lead to ongoing relationships.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1436,6 +1889,25 @@
             location.hash = id;
           }
         });
+      });
+    })();
+
+    (function () {
+      document.querySelectorAll(".fw-shop-card").forEach(function (card) {
+        var img = card.querySelector(".img-wrap img");
+        if (!img) {
+          card.classList.add("is-loaded");
+          return;
+        }
+        var markLoaded = function () {
+          card.classList.add("is-loaded");
+        };
+        if (img.complete && img.naturalWidth > 0) {
+          markLoaded();
+        } else {
+          img.addEventListener("load", markLoaded, { once: true });
+          img.addEventListener("error", markLoaded, { once: true });
+        }
       });
     })();
   </script>
