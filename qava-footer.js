@@ -10,7 +10,7 @@
             <h4 class="footer-heading">Welcome</h4>
             <ul class="footer-link-list">
               <li><a href="https://app.qava.ai/guest" class="footer-link">Create listing</a></li>
-              <li><a href="https://qava.ai/find-work/" class="footer-link">Find work</a></li>
+              <li><a href="https://qava.ai/find/" class="footer-link">Find work</a></li>
               <li><a href="https://qava.ai/howitworks" class="footer-link">How it works</a></li>
               <li><a href="https://qava.ai/newsletter" class="footer-link">Newsletter</a></li>
               <li><a href="https://qava.ai/premium" class="footer-link">Premium</a></li>
