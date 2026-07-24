@@ -2137,7 +2137,7 @@
           justify-content: center;
           align-items: center;
           gap: 24px;
-          margin: 18px auto 0;
+          margin: 40px auto 56px;
         }
 
         .qava-blog-actbtn {
@@ -5080,8 +5080,10 @@
 
         .header-container .nav-item:hover .nav-text,
         .header-container .nav-item.active .nav-text,
+        .header-container .nav-item.is-active .nav-text,
         .header-container .auth-item:hover .nav-text,
-        .header-container .auth-item.active .nav-text {
+        .header-container .auth-item.active .nav-text,
+        .header-container .auth-item.is-active .nav-text {
           background: none !important;
           box-shadow: none !important;
           text-decoration: none !important;
@@ -5135,13 +5137,49 @@
 
         .header-container .nav-item:hover .nav-text,
         .header-container .nav-item.active .nav-text,
+        .header-container .nav-item.is-active .nav-text,
         .header-container .auth-item:hover .nav-text,
-        .header-container .auth-item.active .nav-text {
+        .header-container .auth-item.active .nav-text,
+        .header-container .auth-item.is-active .nav-text {
           color: #000000 !important;
         }
 
         .header-container .auth-section {
           gap: 28px !important;
+        }
+
+        /* Premium control — same weight/spacing as Templates nav links */
+        .header-container .qava-premium-nav-btn {
+          padding: 0 !important;
+          border: none !important;
+          background: transparent !important;
+          cursor: pointer;
+          transition: color 0.2s ease !important;
+          font-family: "Inter", sans-serif !important;
+          font-size: 14px !important;
+          font-weight: 300 !important;
+          color: #6b6b6b !important;
+          white-space: nowrap;
+          display: inline-flex !important;
+          align-items: center;
+          gap: 6px;
+          text-decoration: none;
+          line-height: 1.4 !important;
+        }
+        .header-container .qava-premium-nav-btn .nav-text {
+          padding: 0 4px;
+          color: inherit !important;
+          font-family: "Inter", sans-serif !important;
+          font-size: 14px !important;
+          font-weight: 300 !important;
+          line-height: 1.4 !important;
+        }
+        .header-container .qava-premium-nav-btn:hover,
+        .header-container .qava-premium-nav-btn:hover .nav-text,
+        .header-container .qava-premium-nav-btn:focus-visible,
+        .header-container .qava-premium-nav-btn:focus-visible .nav-text {
+          color: #000000 !important;
+          background: transparent !important;
         }
 
         /* Initials chip → Get Started: same 12px as community / app landing nav */
