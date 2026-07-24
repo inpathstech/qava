@@ -125,7 +125,7 @@ body.embed-app #chatProduct {
   font-weight: 300;
   color: #6b6b6b;
   text-align: center;
-  margin: 0 auto 48px;
+  margin: 0 auto 96px;
   line-height: 1.45;
   white-space: nowrap;
   max-width: none;
@@ -275,9 +275,134 @@ body.embed-app #chatProduct {
   position: relative;
 }
 
+.seq-reply-column {
+  margin: 0 0 0 12px;
+  padding: 0 0 0 12px;
+  border-left: 1px solid #d1d5db;
+}
+
+.seq-reply-column:not(:has(.seq-reply.is-in)):has(.seq-compact-grid.is-empty) {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* Compact prior-phase replies (2-col chip grid) */
+.seq-compact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 6px;
+  margin-top: 8px;
+}
+
+.seq-compact-grid.is-empty {
+  display: none;
+  margin: 0;
+}
+
+.seq-chip {
+  opacity: 0;
+  transform: scale(0.97);
+  padding: 6px 8px;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 300;
+  color: #6b7280;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  background: #fff;
+  box-shadow:
+    0 1px 2px rgba(17, 24, 39, 0.04),
+    0 4px 12px rgba(17, 24, 39, 0.05);
+  border-radius: 8px;
+  transition:
+    opacity 0.2s ease,
+    transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.seq-chip.is-in {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.seq-chip b {
+  font-weight: 500;
+  color: #374151;
+  flex-shrink: 0;
+}
+
+.seq-chip-dot {
+  color: #d1d5db;
+  flex-shrink: 0;
+}
+
+.seq-chip-snip {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+/* Dot loader before first perspectives auto-start */
+.seq-loader {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 22px 4px 16px;
+}
+
+.seq-loader.is-on {
+  display: flex;
+}
+
+.seq-loader-ring {
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+
+.seq-loader-ring i {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  margin-left: -2.5px;
+  border-radius: 50%;
+  background: #9ca3af;
+  transform-origin: 50% 16px;
+  animation: seq-loader-dot 0.9s linear infinite;
+}
+
+.seq-loader-ring i:nth-child(1) { transform: rotate(0deg); animation-delay: 0s; }
+.seq-loader-ring i:nth-child(2) { transform: rotate(45deg); animation-delay: -0.1125s; }
+.seq-loader-ring i:nth-child(3) { transform: rotate(90deg); animation-delay: -0.225s; }
+.seq-loader-ring i:nth-child(4) { transform: rotate(135deg); animation-delay: -0.3375s; }
+.seq-loader-ring i:nth-child(5) { transform: rotate(180deg); animation-delay: -0.45s; }
+.seq-loader-ring i:nth-child(6) { transform: rotate(225deg); animation-delay: -0.5625s; }
+.seq-loader-ring i:nth-child(7) { transform: rotate(270deg); animation-delay: -0.675s; }
+.seq-loader-ring i:nth-child(8) { transform: rotate(315deg); animation-delay: -0.7875s; }
+
+@keyframes seq-loader-dot {
+  0%, 100% { opacity: 0.15; }
+  40% { opacity: 1; }
+}
+
+.seq-loader-label {
+  font-size: 13px;
+  font-weight: 300;
+  color: #9a9a9a;
+}
+
 .seq-replies {
   position: relative;
-  margin-top: 0;
+  margin: 0;
   padding: 0;
   background: transparent;
   display: flex;
@@ -285,7 +410,7 @@ body.embed-app #chatProduct {
   gap: 0;
 }
 
-/* Hidden: parked left — each reply is a full card when revealed (no deck overlap) */
+/* Hidden: soft rise parked below — each reply is a full card when revealed */
 .thread-detail .seq-replies .seq-reply {
   display: flex;
   gap: 10px;
@@ -296,15 +421,15 @@ body.embed-app #chatProduct {
   padding: 0;
   border: 1px solid transparent;
   border-radius: 8px;
-  transform: translateX(-28px);
+  transform: translateY(6px);
   filter: none;
   box-shadow: none;
   transition:
-    opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.48s cubic-bezier(0.22, 1, 0.36, 1),
-    max-height 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    padding 0.4s ease,
-    margin 0.4s ease,
+    opacity 0.32s ease,
+    transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    max-height 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    padding 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    margin 0.38s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.3s ease,
     border-color 0.3s ease,
     background 0.3s ease;
@@ -315,19 +440,19 @@ body.embed-app #chatProduct {
   box-sizing: border-box;
 }
 
-/* Enter: slide left → right + fade — height follows content */
+/* Enter: soft rise + fade. Stagger delay set inline when a phase opens. */
 .thread-detail .seq-replies .seq-reply.is-in {
   opacity: 1;
   max-height: 280px;
   min-height: 0;
-  margin-top: 10px;
+  margin-top: 8px;
   padding: 12px 14px;
   background: #fff;
   border-color: rgba(17, 24, 39, 0.08);
   box-shadow:
     0 1px 2px rgba(17, 24, 39, 0.04),
-    0 4px 12px rgba(17, 24, 39, 0.06);
-  transform: translateX(0);
+    0 4px 12px rgba(17, 24, 39, 0.05);
+  transform: translateY(0);
   pointer-events: auto;
 }
 
@@ -336,7 +461,7 @@ body.embed-app #chatProduct {
   min-width: 0;
 }
 
-/* Leave stage: shrink away */
+/* Leave / compact: faster collapse into chips */
 .thread-detail .seq-replies .seq-reply.is-out {
   opacity: 0;
   max-height: 0;
@@ -344,9 +469,18 @@ body.embed-app #chatProduct {
   padding: 0;
   border-color: transparent;
   box-shadow: none;
-  transform: scale(0.92) translateY(-8px);
+  transform: translateY(-3px);
   pointer-events: none;
   overflow: hidden;
+  transition:
+    opacity 0.14s ease,
+    transform 0.16s ease,
+    max-height 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    padding 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    margin 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.14s ease,
+    border-color 0.14s ease,
+    background 0.14s ease;
 }
 
 .thread-detail .seq-replies .seq-reply.is-in:hover {
@@ -394,7 +528,12 @@ body.embed-app #chatProduct {
   margin: 0;
   padding: 12px 14px;
   background: #f3f4f6;
+  color: #111827;
   border-radius: 8px;
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  box-shadow:
+    0 1px 2px rgba(17, 24, 39, 0.04),
+    0 4px 12px rgba(17, 24, 39, 0.05);
 }
 
 .thread-detail.seq-stage-card .thread-post.is-op.seq-post .thread-title {
@@ -451,12 +590,16 @@ body.embed-app #chatProduct {
 
 @media (prefers-reduced-motion: reduce) {
   .seq-post,
-  .seq-reply {
+  .seq-reply,
+  .seq-chip,
+  .seq-loader-ring i {
     transition: none !important;
     filter: none !important;
+    animation: none !important;
   }
 
-  .seq-reply.is-in {
+  .seq-reply.is-in,
+  .seq-chip.is-in {
     opacity: 1 !important;
     transform: none !important;
   }
