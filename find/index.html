@@ -239,6 +239,28 @@
       background: #fff;
       overflow: hidden;
       box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04);
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+    }
+
+    a.fw-shop-card:hover {
+      border-color: rgba(17, 24, 39, 0.12);
+      box-shadow: 0 2px 10px rgba(17, 24, 39, 0.06);
+      transform: translateY(-1px);
+    }
+
+    a.fw-shop-card:hover .fw-shop-link {
+      color: #111827;
+    }
+
+    a.fw-shop-card:hover .fw-shop-link .arrow {
+      transform: translateX(2px);
+    }
+
+    a.fw-shop-card:focus-visible {
+      outline: 2px solid #111827;
+      outline-offset: 3px;
     }
 
     .fw-shop-card .img-wrap {
@@ -370,6 +392,24 @@
       font-weight: 300;
       color: #767676;
       line-height: 1.4;
+    }
+
+    .fw-shop-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 10px;
+      font-family: var(--fw-ui);
+      font-size: 13px;
+      font-weight: 500;
+      color: #111827;
+      letter-spacing: 0.01em;
+      line-height: 1.2;
+    }
+
+    .fw-shop-link .arrow {
+      display: inline-block;
+      transition: transform 0.18s ease;
     }
 
     /* How it works */
@@ -760,12 +800,12 @@
     .fw-say-quote {
       margin: 0 0 10px;
       flex: 1;
-      font-family: var(--fw-display);
+      font-family: var(--fw-ui);
       font-size: 13.5px;
-      font-weight: 400;
+      font-weight: 300;
       font-style: normal;
       letter-spacing: -0.01em;
-      color: #111827;
+      color: #000;
       line-height: 1.35;
     }
 
@@ -1161,7 +1201,7 @@
 
     <div class="fw-shop-panel">
       <div class="fw-shop-grid">
-        <article class="fw-shop-card">
+        <a class="fw-shop-card" href="https://app.qava.ai/">
           <div class="img-wrap">
             <div class="fw-shop-ph fw-shop-ph--project" aria-hidden="true">
               <div class="fw-shop-ph-inner">
@@ -1184,10 +1224,11 @@
               <span class="box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
             </div>
             <p class="desc">Targeted short-term work with clearly defined deliverables</p>
+            <span class="fw-shop-link">Search now <span class="arrow" aria-hidden="true">→</span></span>
           </div>
-        </article>
+        </a>
 
-        <article class="fw-shop-card">
+        <a class="fw-shop-card" href="https://app.qava.ai/">
           <div class="img-wrap">
             <div class="fw-shop-ph fw-shop-ph--job" aria-hidden="true">
               <div class="fw-shop-ph-inner">
@@ -1219,10 +1260,11 @@
               <span class="box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
             </div>
             <p class="desc">Ongoing, compensated work with continuous responsibilities</p>
+            <span class="fw-shop-link">Search now <span class="arrow" aria-hidden="true">→</span></span>
           </div>
-        </article>
+        </a>
 
-        <article class="fw-shop-card">
+        <a class="fw-shop-card" href="https://app.qava.ai/">
           <div class="img-wrap">
             <div class="fw-shop-ph fw-shop-ph--internship" aria-hidden="true">
               <div class="fw-shop-ph-inner">
@@ -1256,8 +1298,9 @@
               <span class="box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
             </div>
             <p class="desc">Short-term learning opportunities with hands-on experience</p>
+            <span class="fw-shop-link">Search now <span class="arrow" aria-hidden="true">→</span></span>
           </div>
-        </article>
+        </a>
       </div>
     </div>
   </section>
