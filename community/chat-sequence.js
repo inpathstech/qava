@@ -2,68 +2,72 @@
   if (document.body.classList.contains("embed-app")) return;
   if (!document.getElementById("story")) return;
 
-  // Conceptual stages for the 5-segment progress bar
+  // 3-phase journey: Get perspectives → Find new angles → Find your path
   const stageLabels = [
-    "Ask the room",
-    "Find new Angles",
-    "Share research",
-    "Ground in data",
-    "Find a path",
+    "Get perspectives",
+    "Find new angles",
+    "Find your path",
   ];
 
-  // Fine scroll steps: 0 ask, then 3 replies per phase (angles/research/data/path)
-  // 1–3 angles | 4–6 research | 7–9 data | 10–12 path
-  const cues = [
-    "Scroll to see replies come in",
-    "Keep scrolling — next reply",
-    "Keep scrolling — next reply",
-    "Keep scrolling — next reply",
-    "Keep scrolling — next phase",
-    "Keep scrolling — next reply",
-    "Keep scrolling — next reply",
-    "Keep scrolling — next phase",
-    "Keep scrolling — next reply",
-    "Keep scrolling — next reply",
-    "Keep scrolling — next phase",
-    "Keep scrolling — next reply",
-    "Ask clearly — the room answers",
-  ];
+  // Pin steps: 0 (armed / loading) → 3 perspectives → 6 angles → 9 path
+  const PHASE_ENDS = [0, 3, 6, 9];
+  const REPLY_STAGGER_MS = 85;
+  const LOADER_MS = 1000;
 
-  const lastStep = 12;
+  const cuesByStep = {
+    0: "Waiting for the room…",
+    3: "Keep scrolling — find new angles",
+    6: "Keep scrolling — find your path",
+    9: "Ask clearly — the room answers",
+  };
+
+  const lastStep = 9;
   const CONCEPTUAL_COUNT = stageLabels.length;
 
-  /** Map fine scroll step → conceptual progress index 0–4 */
   function conceptualIndex(scrollStep) {
-    if (scrollStep <= 0) return 0;
-    if (scrollStep <= 3) return 1; // Angles
-    if (scrollStep <= 6) return 2; // Research
-    if (scrollStep <= 9) return 3; // Data
-    return 4; // Path
+    if (scrollStep <= 3) return 0; // Get perspectives
+    if (scrollStep <= 6) return 1; // Find new angles
+    return 2; // Find your path
   }
 
-  /** Accumulate 1→2→3 within the active phase */
+  /** Live (full) replies for this phase */
   function visibleReplySteps(scrollStep) {
     if (scrollStep <= 0) return [];
-    if (scrollStep === 1) return [1];
-    if (scrollStep === 2) return [1, 2];
-    if (scrollStep === 3) return [1, 2, 3];
-    if (scrollStep === 4) return [4];
-    if (scrollStep === 5) return [4, 5];
-    if (scrollStep === 6) return [4, 5, 6];
-    if (scrollStep === 7) return [7];
-    if (scrollStep === 8) return [7, 8];
-    if (scrollStep === 9) return [7, 8, 9];
-    if (scrollStep === 10) return [10];
-    if (scrollStep === 11) return [10, 11];
-    return [10, 11, 12];
+    if (scrollStep <= 3) return [1, 2, 3];
+    if (scrollStep <= 6) return [4, 5, 6];
+    return [7, 8, 9];
   }
 
-  /** Prior phases shrink away when a new phase starts */
-  function outgoingReplySteps(scrollStep) {
+  /** Prior replies become compact chips */
+  function compactReplySteps(scrollStep) {
     if (scrollStep <= 3) return [];
     if (scrollStep <= 6) return [1, 2, 3];
-    if (scrollStep <= 9) return [1, 2, 3, 4, 5, 6];
-    return [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    return [1, 2, 3, 4, 5, 6];
+  }
+
+  function phaseEndFor(pinStep) {
+    if (pinStep <= 0) return 0;
+    if (pinStep <= 3) return 3;
+    if (pinStep <= 6) return 6;
+    return 9;
+  }
+
+  function phaseStepFrom(current, dir) {
+    if (dir > 0) {
+      for (let i = 0; i < PHASE_ENDS.length; i++) {
+        if (PHASE_ENDS[i] > current) return PHASE_ENDS[i];
+      }
+      return lastStep;
+    }
+    for (let i = PHASE_ENDS.length - 1; i >= 0; i--) {
+      if (PHASE_ENDS[i] < current) return PHASE_ENDS[i];
+    }
+    return 0;
+  }
+
+  function phaseLocalIndex(replyStep) {
+    if (replyStep <= 0) return 0;
+    return (replyStep - 1) % 3;
   }
 
   const post = document.getElementById("seqPost");
@@ -78,12 +82,16 @@
   const stageCount = document.getElementById("seqStageCount");
   const metaSub = post.querySelector(".meta-sub");
   const opComments = document.getElementById("seqOpComments");
+  const compactGrid = document.getElementById("seqCompactGrid");
+  const loaderEl = document.getElementById("seqLoader");
 
   let step = -1;
   let lastAdvanceAt = 0;
   let isSnapping = false;
-  const DWELL_FORWARD_MS = 650;
-  const DWELL_BACK_MS = 320;
+  let hasBootstrapped = false;
+  let bootstrapping = false;
+  const DWELL_FORWARD_MS = 720;
+  const DWELL_BACK_MS = 240;
 
   function stickyTopPx() {
     const raw = getComputedStyle(document.documentElement)
@@ -93,10 +101,16 @@
     return Number.isFinite(n) ? n : 110;
   }
 
-  /** Progress only advances after the sticky frame has locked in place. */
   function sequenceArmed() {
     if (!stage) return true;
     return stage.getBoundingClientRect().top <= stickyTopPx() + 6;
+  }
+
+  function setLoader(on) {
+    if (!loaderEl) return;
+    loaderEl.classList.toggle("is-on", on);
+    loaderEl.setAttribute("aria-busy", on ? "true" : "false");
+    loaderEl.hidden = !on;
   }
 
   function setCue(text, done) {
@@ -116,55 +130,113 @@
   }
 
   function setProgress(scrollStep) {
-    const idx = conceptualIndex(scrollStep);
-    if (stageTitle) stageTitle.textContent = stageLabels[idx] || stageLabels[0];
-    if (stageCount) stageCount.textContent = `${idx + 1} / ${CONCEPTUAL_COUNT}`;
+    const idx = conceptualIndex(scrollStep <= 0 ? 0 : scrollStep);
+    // While still on step 0 (loading), show perspectives as active
+    const progressIdx = scrollStep <= 0 ? 0 : idx;
+    if (stageTitle) stageTitle.textContent = stageLabels[progressIdx] || stageLabels[0];
+    if (stageCount) {
+      stageCount.textContent = `${progressIdx + 1} / ${CONCEPTUAL_COUNT}`;
+    }
     bars.forEach((bar, i) => {
-      bar.classList.toggle("is-on", i <= idx);
+      bar.classList.toggle("is-on", i <= progressIdx);
     });
+  }
+
+  function syncCompactChips(compactSteps) {
+    if (!compactGrid) return;
+    const want = new Set(compactSteps);
+    // Remove chips no longer needed
+    compactGrid.querySelectorAll(".seq-chip").forEach((chip) => {
+      const n = Number(chip.getAttribute("data-step"));
+      if (!want.has(n)) chip.remove();
+    });
+    // Add missing chips in step order
+    compactSteps.forEach((n) => {
+      if (compactGrid.querySelector(`.seq-chip[data-step="${n}"]`)) return;
+      const src = replies.find((el) => Number(el.getAttribute("data-step")) === n);
+      if (!src) return;
+      const name =
+        src.getAttribute("data-chip-name") ||
+        src.querySelector(".reply-meta strong")?.textContent ||
+        "Member";
+      const snip = src.getAttribute("data-chip-snip") || "";
+      const chip = document.createElement("div");
+      chip.className = "seq-chip";
+      chip.setAttribute("data-step", String(n));
+      chip.innerHTML =
+        `<b>${name}</b><span class="seq-chip-dot" aria-hidden="true">·</span>` +
+        `<span class="seq-chip-snip">${snip}</span>`;
+      compactGrid.appendChild(chip);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => chip.classList.add("is-in"));
+      });
+    });
+    compactGrid.classList.toggle("is-empty", compactSteps.length === 0);
   }
 
   function setStep(next) {
     next = Math.max(0, Math.min(lastStep, next));
     if (next === step) return;
+    const prev = step;
     step = next;
 
     post.classList.add("is-in");
 
     const visibleSet = new Set(visibleReplySteps(step));
-    const outSet = new Set(outgoingReplySteps(step));
+    const compactSteps = compactReplySteps(step);
+    const compactSet = new Set(compactSteps);
+    const enteringPhase =
+      step > prev && visibleSet.size === 3 && step !== prev;
 
     replies.forEach((el) => {
       const n = Number(el.getAttribute("data-step"));
       const on = visibleSet.has(n);
-      const out = outSet.has(n) && !on;
+      const compact = compactSet.has(n);
+
+      if (on && enteringPhase) {
+        el.style.transitionDelay = `${phaseLocalIndex(n) * REPLY_STAGGER_MS}ms`;
+      } else {
+        el.style.transitionDelay = "0ms";
+      }
+
       el.classList.toggle("is-in", on);
-      el.classList.toggle("is-out", out);
+      el.classList.toggle("is-out", compact || (!on && !compact));
+      // Compacted replies stay out of the live stack (chips represent them)
+      if (compact) {
+        el.classList.remove("is-in");
+        el.classList.add("is-out");
+      }
     });
 
-    // Opener comment count = replies currently shown under the OP
-    const visible = replies.filter(
-      (el) => el.classList.contains("is-in") && !el.classList.contains("is-out")
-    ).length;
+    syncCompactChips(compactSteps);
+
+    // Cumulative: chips + currently live replies
+    const liveCount = visibleSet.size;
+    const total = compactSteps.length + liveCount;
 
     if (metaSub) {
       metaSub.textContent =
-        visible === 0
+        total === 0
           ? "2 days ago · 0 replies"
-          : `2 days ago · ${visible} ${visible === 1 ? "reply" : "replies"}`;
+          : `2 days ago · ${total} ${total === 1 ? "reply" : "replies"}`;
     }
 
     if (opComments) {
       const countEl = opComments.querySelector(".seq-op-count");
-      if (countEl) countEl.textContent = String(visible);
+      if (countEl) countEl.textContent = String(total);
       opComments.setAttribute(
         "aria-label",
-        visible === 1 ? "1 comment" : `${visible} comments`
+        total === 1 ? "1 comment" : `${total} comments`
       );
     }
 
     setProgress(step);
-    setCue(cues[step], step >= lastStep);
+    const cueText =
+      cuesByStep[step] ||
+      (step >= lastStep
+        ? "Ask clearly — the room answers"
+        : "Keep scrolling — next phase");
+    setCue(cueText, step >= lastStep);
   }
 
   function targetFromPins() {
@@ -201,26 +273,52 @@
     });
   }
 
-  function updateFromScroll() {
-    if (isSnapping) return;
+  function bootstrapPerspectives() {
+    if (hasBootstrapped || bootstrapping) return;
+    bootstrapping = true;
+    setLoader(true);
+    setCue("Waiting for the room…", false);
+    window.setTimeout(() => {
+      setLoader(false);
+      hasBootstrapped = true;
+      bootstrapping = false;
+      setStep(3);
+      lastAdvanceAt = performance.now();
+      snapToStep(3);
+    }, LOADER_MS);
+  }
 
-    // Hold at step 0 until the user has scrolled the sticky frame into place
+  function updateFromScroll() {
+    if (isSnapping || bootstrapping) return;
+
     if (!sequenceArmed()) {
       if (step !== 0) setStep(0);
       else if (step < 0) setStep(0);
+      setLoader(false);
+      return;
+    }
+
+    // First time sticky locks: loader → first perspectives (no scroll required)
+    if (!hasBootstrapped) {
+      if (step < 0) setStep(0);
+      bootstrapPerspectives();
       return;
     }
 
     const target = targetFromPins();
     if (step < 0) {
-      setStep(0);
+      setStep(3);
       lastAdvanceAt = performance.now();
       return;
     }
-    if (target === step) return;
 
+    const desired = phaseEndFor(target);
+    // Don't fall back to 0 after bootstrap — hold perspectives
+    const clampedDesired = desired < 3 ? 3 : desired;
+    if (clampedDesired === step) return;
+
+    const dir = clampedDesired > step ? 1 : -1;
     const now = performance.now();
-    const dir = target > step ? 1 : -1;
     const dwell = dir > 0 ? DWELL_FORWARD_MS : DWELL_BACK_MS;
 
     if (now - lastAdvanceAt < dwell) {
@@ -228,13 +326,11 @@
       return;
     }
 
-    setStep(step + dir);
+    let next = phaseStepFrom(step, dir);
+    if (next < 3) next = 3;
+    setStep(next);
     lastAdvanceAt = now;
-
-    const after = targetFromPins();
-    if ((dir > 0 && after > step) || (dir < 0 && after < step)) {
-      snapToStep(step);
-    }
+    snapToStep(next);
   }
 
   let ticking = false;
@@ -250,6 +346,7 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onScroll, { passive: true });
 
+  setLoader(false);
   setStep(0);
   lastAdvanceAt = performance.now();
   updateFromScroll();

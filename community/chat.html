@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../qava-landing.css" />
   <link rel="stylesheet" href="community.css" />
-  <link rel="stylesheet" href="chat-marketing.css?v=seq-phases-1" />
+  <link rel="stylesheet" href="chat-marketing.css?v=seq-3phase-1" />
   <link rel="stylesheet" href="../qava-auth.css" />
 </head>
 <body>
@@ -92,15 +92,13 @@
           <div class="chat-page">
             <div class="seq-progress" id="seqProgress" aria-live="polite">
               <div class="seq-progress-top">
-                <div class="seq-stage-title" id="seqStageTitle">Ask the room</div>
-                <div class="seq-stage-count" id="seqStageCount">1 / 5</div>
+                <div class="seq-stage-title" id="seqStageTitle">Get perspectives</div>
+                <div class="seq-stage-count" id="seqStageCount">1 / 3</div>
               </div>
               <div class="seq-progress-bar" id="seqProgressBar" aria-hidden="true">
                 <i data-bar="0"></i>
                 <i data-bar="1"></i>
                 <i data-bar="2"></i>
-                <i data-bar="3"></i>
-                <i data-bar="4"></i>
               </div>
             </div>
 
@@ -129,13 +127,23 @@
                   </div>
                 </article>
 
+                <div class="seq-loader" id="seqLoader" hidden aria-live="polite" aria-busy="false">
+                  <div class="seq-loader-ring" aria-hidden="true">
+                    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                  </div>
+                  <span class="seq-loader-label">Waiting for the room…</span>
+                </div>
+
+                <div class="seq-reply-column">
+                <div class="seq-compact-grid is-empty" id="seqCompactGrid" aria-hidden="true"></div>
+
                 <div class="seq-replies" id="seqReplies">
-                  <div class="reply seq-reply" data-step="1" data-stage="angles">
+                  <div class="reply seq-reply" data-step="1" data-stage="perspectives" data-chip-name="Aisha M." data-chip-snip="shipped employer wellness">
                     <div class="avatar">AM</div>
                     <div>
                       <div class="reply-meta"><strong>Aisha M.</strong> · Operator · B2B health</div>
                       <div class="reply-body">
-                        I do — what angle are you thinking of taking? I see opportunity in <mark class="seq-mark">corporate</mark>, but <mark class="seq-mark">DTC</mark> is pretty crowded. Happy to chat more.
+                        Yes — I ran an <mark class="seq-mark">employer wellness</mark> pilot last year. Buyers cared about utilization, not downloads.
                       </div>
                       <div class="feed-stats seq-reply-stats">
                         <span class="feed-stat" aria-label="18 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>18</span></span>
@@ -145,12 +153,42 @@
                     </div>
                   </div>
 
-                  <div class="reply seq-reply" data-step="2" data-stage="angles">
+                  <div class="reply seq-reply" data-step="2" data-stage="perspectives" data-chip-name="Diego R." data-chip-snip="what patients reject">
+                    <div class="avatar">DR</div>
+                    <div>
+                      <div class="reply-meta"><strong>Diego R.</strong> · Clinician · Behavioral health</div>
+                      <div class="reply-body">
+                        From the clinic: patients drop anything that feels like <mark class="seq-mark">homework</mark>. If it isn’t usable at 2 a.m., it won’t stick.
+                      </div>
+                      <div class="feed-stats seq-reply-stats">
+                        <span class="feed-stat" aria-label="22 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>22</span></span>
+                        <span class="feed-stat" aria-label="5 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>5</span></span>
+                        <span class="feed-stat-time">2 days ago</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="reply seq-reply" data-step="3" data-stage="perspectives" data-chip-name="Sam T." data-chip-snip="burned on DTC CAC">
+                    <div class="avatar">ST</div>
+                    <div>
+                      <div class="reply-meta"><strong>Sam T.</strong> · Founder · Seed</div>
+                      <div class="reply-body">
+                        I tried <mark class="seq-mark">DTC</mark> first — CAC crushed us. Wish I’d talked to <mark class="seq-mark">benefits buyers</mark> before we built.
+                      </div>
+                      <div class="feed-stats seq-reply-stats">
+                        <span class="feed-stat" aria-label="16 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>16</span></span>
+                        <span class="feed-stat" aria-label="3 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>3</span></span>
+                        <span class="feed-stat-time">2 days ago</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="reply seq-reply" data-step="4" data-stage="angles" data-chip-name="Priya R." data-chip-snip="new parents wedge">
                     <div class="avatar">PR</div>
                     <div>
                       <div class="reply-meta"><strong>Priya R.</strong> · Founder · New parent</div>
                       <div class="reply-body">
-                        Different angle: <mark class="seq-mark">new parents</mark>. Sleep, anxiety, and “am I doing this right?” hit hard in the first year — and most apps feel built for <mark class="seq-mark">clinicians</mark>, not for 2 a.m. on the couch.
+                        Different angle: <mark class="seq-mark">new parents</mark>. Most apps feel built for <mark class="seq-mark">clinicians</mark>, not 2 a.m. on the couch.
                       </div>
                       <div class="feed-stats seq-reply-stats">
                         <span class="feed-stat" aria-label="24 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>24</span></span>
@@ -160,12 +198,12 @@
                     </div>
                   </div>
 
-                  <div class="reply seq-reply" data-step="3" data-stage="angles">
+                  <div class="reply seq-reply" data-step="5" data-stage="angles" data-chip-name="Marcus C." data-chip-snip="founders · peer accountability">
                     <div class="avatar">MC</div>
                     <div>
                       <div class="reply-meta"><strong>Marcus C.</strong> · Operator · Startup ops</div>
                       <div class="reply-body">
-                        Or <mark class="seq-mark">entrepreneurs</mark> — founders burn out quietly and won’t touch anything that feels like “therapy homework.” <mark class="seq-mark">Peer accountability</mark> + short check-ins beats another meditation library.
+                        Or <mark class="seq-mark">entrepreneurs</mark> — <mark class="seq-mark">Peer accountability</mark> + short check-ins beats another meditation library.
                       </div>
                       <div class="feed-stats seq-reply-stats">
                         <span class="feed-stat" aria-label="15 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>15</span></span>
@@ -175,12 +213,12 @@
                     </div>
                   </div>
 
-                  <div class="reply seq-reply" data-step="4" data-stage="research">
+                  <div class="reply seq-reply" data-step="6" data-stage="angles" data-chip-name="Noah L." data-chip-snip="where growth is landing">
                     <div class="avatar">NL</div>
                     <div>
                       <div class="reply-meta"><strong>Noah L.</strong> · Investor · Early stage</div>
                       <div class="reply-body">
-                        Worth reading before you <mark class="seq-mark">lock the thesis</mark> — solid overview of the category and where <mark class="seq-mark">growth</mark> is actually landing.
+                        Before you <mark class="seq-mark">lock the thesis</mark>, read where <mark class="seq-mark">growth</mark> is actually landing — corporate vs consumer looks different on paper.
                         <div class="attach-chips">
                           <span class="attach-chip"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg>Mental Health Apps Report 2025 · rockhealth.com</span>
                           <span class="attach-chip"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg>Digital Therapeutics Market Outlook · cbinsights.com</span>
@@ -194,165 +232,73 @@
                     </div>
                   </div>
 
-                  <div class="reply seq-reply" data-step="5" data-stage="research">
-                    <div class="avatar">EL</div>
-                    <div>
-                      <div class="reply-meta"><strong>Elena V.</strong> · Strategist · Healthtech</div>
-                      <div class="reply-body">
-                        Sharing a <mark class="seq-mark">category map</mark> write-up — competitive clusters + white space we saw in employer wellness.
-                        <div class="attach-chips">
-                          <span class="attach-chip"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg>Employer Wellness Category Map · Notion</span>
-                          <span class="attach-chip"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg>Competitive Clusters Notes · PDF</span>
-                        </div>
-                      </div>
-                      <div class="feed-stats seq-reply-stats">
-                        <span class="feed-stat" aria-label="22 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>22</span></span>
-                        <span class="feed-stat" aria-label="6 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>6</span></span>
-                        <span class="feed-stat-time">2 days ago</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="reply seq-reply" data-step="6" data-stage="research">
-                    <div class="avatar">HW</div>
-                    <div>
-                      <div class="reply-meta"><strong>Hannah W.</strong> · Analyst · Benefits</div>
-                      <div class="reply-body">
-                        Employer survey is messy but useful — <mark class="seq-mark">budget owners</mark> and buying cycles are clearer than the DTC funnel charts.
-                        <div class="attach-chips">
-                          <span class="attach-chip"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg>Employer Mental Health Benefits Survey · shrm.org</span>
-                          <span class="attach-chip"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg>Benefits Buyer Journey Notes · Notion</span>
-                        </div>
-                      </div>
-                      <div class="feed-stats seq-reply-stats">
-                        <span class="feed-stat" aria-label="17 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>17</span></span>
-                        <span class="feed-stat" aria-label="4 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>4</span></span>
-                        <span class="feed-stat-time">2 days ago</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="reply seq-reply" data-step="7" data-stage="data">
+                  <div class="reply seq-reply" data-step="7" data-stage="path" data-chip-name="Sofia K." data-chip-snip="1 in 5 demand signal">
                     <div class="avatar">SK</div>
                     <div>
                       <div class="reply-meta"><strong>Sofia K.</strong> · Researcher · Public health</div>
                       <div class="reply-body">
-                        One number that changed how I think about <mark class="seq-mark">demand</mark>:
-                        <mark class="seq-mark seq-stat">1 in 5</mark> U.S. adults experience mental illness each year — about <mark class="seq-mark">20%</mark> prevalence, with <mark class="seq-mark">50%+</mark> of cases onset by age 14.
-                      </div>
-                      <div class="feed-stats seq-reply-stats">
-                        <span class="feed-stat" aria-label="27 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>27</span></span>
-                        <span class="feed-stat" aria-label="5 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>5</span></span>
-                        <span class="feed-stat-time">2 days ago</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="reply seq-reply" data-step="8" data-stage="data">
-                    <div class="avatar">RJ</div>
-                    <div>
-                      <div class="reply-meta"><strong>Ravi J.</strong> · Product · B2B SaaS</div>
-                      <div class="reply-body">
-                        Retention is the tell — most MH apps sit around <mark class="seq-mark">18% D30</mark> and see a <mark class="seq-mark">3.2×</mark> drop after onboarding. Design for <mark class="seq-mark">habit loops</mark>, not download spikes.
-                      </div>
-                      <div class="feed-stats seq-reply-stats">
-                        <span class="feed-stat" aria-label="33 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>33</span></span>
-                        <span class="feed-stat" aria-label="8 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>8</span></span>
-                        <span class="feed-stat-time">2 days ago</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="reply seq-reply" data-step="9" data-stage="data">
-                    <div class="avatar">CM</div>
-                    <div>
-                      <div class="reply-meta"><strong>Chris M.</strong> · Operator · Payer side</div>
-                      <div class="reply-body">
-                        If you go B2B, underwrite to <mark class="seq-mark">outcomes</mark> — buyers ask for utilization + clinical signal, not MAU vanity. Typical PEPM is <mark class="seq-mark">$8–14</mark> with a <mark class="seq-mark">12-week</mark> pilot window.
-                      </div>
-                      <div class="feed-stats seq-reply-stats">
-                        <span class="feed-stat" aria-label="21 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>21</span></span>
-                        <span class="feed-stat" aria-label="5 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>5</span></span>
-                        <span class="feed-stat-time">2 days ago</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="reply seq-reply" data-step="10" data-stage="path">
-                    <div class="avatar">DT</div>
-                    <div>
-                      <div class="reply-meta"><strong>Dev T.</strong> · Founder · Grant-backed</div>
-                      <div class="reply-body">
-                        If you’re early-stage, look at NIH / SAMHSA <mark class="seq-mark">SBIR grants</mark> — start with a one-pager of problem, population, and <mark class="seq-mark">measurable outcome</mark>.
+                        One number: <mark class="seq-mark seq-stat">1 in 5</mark> adults — design for real <mark class="seq-mark">demand</mark>, not downloads.
                         <div class="attach-chips">
-                          <span class="attach-chip"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg>SBIR one-pager checklist · PDF</span>
+                          <span class="attach-chip"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg>Employer Mental Health Benefits Survey · shrm.org</span>
                         </div>
                       </div>
                       <div class="feed-stats seq-reply-stats">
-                        <span class="feed-stat" aria-label="19 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>19</span></span>
-                        <span class="feed-stat" aria-label="7 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>7</span></span>
+                        <span class="feed-stat" aria-label="27 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>27</span></span>
+                        <span class="feed-stat" aria-label="5 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>5</span></span>
                         <span class="feed-stat-time">2 days ago</span>
                       </div>
                     </div>
                   </div>
 
-                  <div class="reply seq-reply" data-step="11" data-stage="path">
+                  <div class="reply seq-reply" data-step="8" data-stage="path" data-chip-name="Maya S." data-chip-snip="beachhead · design partners">
                     <div class="avatar">MS</div>
                     <div>
                       <div class="reply-meta"><strong>Maya S.</strong> · Founder · Seed</div>
                       <div class="reply-body">
-                        Pick a <mark class="seq-mark">beachhead</mark> — 10 design partners in one ICP beats a broad landing page. Ask for paid pilots, not feedback alone.
+                        Pick a <mark class="seq-mark">beachhead</mark> — 10 design partners in one ICP beats a broad landing page.
                         <div class="attach-chips">
                           <span class="attach-chip"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg>Design-partner outreach script · Doc</span>
                         </div>
                       </div>
                       <div class="feed-stats seq-reply-stats">
-                        <span class="feed-stat" aria-label="28 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>28</span></span>
+                        <span class="feed-stat" aria-label="28 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>28</span></span>
                         <span class="feed-stat" aria-label="11 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>11</span></span>
                         <span class="feed-stat-time">2 days ago</span>
                       </div>
                     </div>
                   </div>
 
-                  <div class="reply seq-reply" data-step="12" data-stage="path">
+                  <div class="reply seq-reply" data-step="9" data-stage="path" data-chip-name="Omar K." data-chip-snip="30-day wedge validation">
                     <div class="avatar">OK</div>
                     <div>
                       <div class="reply-meta"><strong>Omar K.</strong> · Advisor · GTM</div>
                       <div class="reply-body">
-                        Next 30 days: validate the <mark class="seq-mark">wedge</mark> with ICP interviews in weeks 1–2, then in weeks 3–4 price a paid pilot and write the outcome metric you’ll put on the invoice.
+                        Next 30 days: validate the <mark class="seq-mark">wedge</mark>, then price a paid pilot with an outcome metric.
                       </div>
                       <div class="feed-stats seq-reply-stats">
-                        <span class="feed-stat" aria-label="24 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>24</span></span>
+                        <span class="feed-stat" aria-label="24 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>24</span></span>
                         <span class="feed-stat" aria-label="6 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>6</span></span>
                         <span class="feed-stat-time">2 days ago</span>
                       </div>
                     </div>
                   </div>
                 </div>
+                </div>
               </div>
             </div>
 
             <p class="seq-cue" id="seqCue">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-              Scroll to see replies come in
+              Waiting for the room…
             </p>
           </div>
         </div>
 
         <div class="scroll-track" aria-hidden="true">
           <div class="scroll-pin" data-step="0"></div>
-          <div class="scroll-pin" data-step="1"></div>
-          <div class="scroll-pin" data-step="2"></div>
           <div class="scroll-pin" data-step="3"></div>
-          <div class="scroll-pin" data-step="4"></div>
-          <div class="scroll-pin" data-step="5"></div>
           <div class="scroll-pin" data-step="6"></div>
-          <div class="scroll-pin" data-step="7"></div>
-          <div class="scroll-pin" data-step="8"></div>
           <div class="scroll-pin" data-step="9"></div>
-          <div class="scroll-pin" data-step="10"></div>
-          <div class="scroll-pin" data-step="11"></div>
-          <div class="scroll-pin" data-step="12"></div>
         </div>
       </section>
 
@@ -697,7 +643,7 @@
       }
     })();
   </script>
-  <script src="chat-sequence.js?v=seq-phases-1"></script>
+  <script src="chat-sequence.js?v=seq-3phase-1"></script>
   <script src="app.js"></script>
   <script src="enhancements.js"></script>
   <script src="api.js"></script>
