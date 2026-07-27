@@ -589,12 +589,7 @@
   function wirePremiumNavBtn(btn) {
     if (!btn || btn.getAttribute("data-qava-premium-wired") === "1") return;
     btn.setAttribute("data-qava-premium-wired", "1");
-    btn.addEventListener("click", function (e) {
-      e.preventDefault();
-      // Signed-in members use the chip; Premium only appears when signed out.
-      if (state.profile) openSubscription();
-      else openLogin();
-    });
+    // Log in is a real link to the app; signed-in members see the chip instead.
   }
 
   function augmentLandingNav() {
@@ -651,8 +646,8 @@
   }
 
   function renderLandingNavPending() {
-    // Hide Premium immediately and show a chip-sized shimmer so signed-in
-    // members never see lock → circle flash while /premium/me resolves.
+    // Hide Log in immediately and show a chip-sized shimmer so signed-in
+    // members never see Log in → circle flash while /premium/me resolves.
     Array.prototype.forEach.call(
       document.querySelectorAll("[data-qava-premium-nav]"),
       function (btn) { btn.style.display = "none"; }
@@ -780,14 +775,14 @@
     removeLandingChips();
     setLandingAuthReady(true);
 
-    // Chip-first: hide Premium when signed in; restore locked Premium when out.
+    // Chip-first: hide Log in when signed in; restore it when signed out.
     Array.prototype.forEach.call(
       document.querySelectorAll("[data-qava-premium-nav]"),
       function (btn) {
-        var iconWrap = btn.querySelector("[data-qava-premium-lock-icon]");
-        if (iconWrap) iconWrap.innerHTML = LOCK;
         btn.classList.remove("is-unlocked");
-        btn.setAttribute("aria-label", "Premium");
+        btn.setAttribute("aria-label", "Log in");
+        var label = btn.querySelector(".nav-text");
+        if (label) label.textContent = "Log in";
         btn.style.display = signedIn ? "none" : "";
       }
     );
