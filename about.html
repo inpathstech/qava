@@ -375,10 +375,26 @@
         dots.forEach((dot, i) => dot.classList.toggle("active", i === index));
       };
 
+      const fitQuoteOnOneLine = () => {
+        if (window.matchMedia("(max-width: 768px)").matches) {
+          quoteText.style.fontSize = "";
+          return;
+        }
+        quoteText.style.fontSize = "";
+        const parent = quoteText.parentElement;
+        if (!parent) return;
+        let size = parseFloat(getComputedStyle(quoteText).fontSize);
+        while (quoteText.scrollWidth > parent.clientWidth && size > 12) {
+          size -= 0.5;
+          quoteText.style.fontSize = size + "px";
+        }
+      };
+
       const updateQuote = (index) => {
         quoteText.textContent = quotes[index].text;
         quoteAuthor.textContent = quotes[index].author;
         updateDots(index);
+        requestAnimationFrame(fitQuoteOnOneLine);
       };
 
       const goToQuote = (index) => {
