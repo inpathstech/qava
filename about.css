@@ -17,7 +17,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-
+/* Solid white under page copy so the grey dot grid doesn't reduce readability */
+main[aria-label="About Qava"] {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+}
 
 /* Title + quote band */
 .about-intro {
