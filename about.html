@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="qava-landing.css" />
   <link rel="stylesheet" href="community/landing-community.css" />
   <link rel="stylesheet" href="qava-auth.css" />
-  <link rel="stylesheet" href="about.css?v=12" />
+  <link rel="stylesheet" href="about.css?v=13" />
 </head>
 <body>
   <div id="qava-dot-base-fixed" aria-hidden="true"></div>
@@ -321,7 +321,7 @@
 
       const quotes = [
         {
-          text: "Stay hungry. Stay foolish.",
+          text: "Everything around you that you call life was made up by people that were no smarter than you—and you can change it, you can influence it, you can build your own things that other people can use.",
           author: "— Steve Jobs",
         },
         {
@@ -335,6 +335,7 @@
         {
           text: "The way to get started is to quit talking and begin doing.",
           author: "— Walt Disney",
+          singleLine: true,
         },
         {
           text: "Opportunities don't happen. You create them.",
@@ -343,6 +344,7 @@
         {
           text: "Success is the sum of small efforts, repeated day in and day out.",
           author: "— Robert Collier",
+          singleLine: true,
         },
         {
           text: "Great things are done by a series of small things brought together.",
@@ -375,33 +377,32 @@
         dots.forEach((dot, i) => dot.classList.toggle("active", i === index));
       };
 
-      const fitQuoteOnOneLine = () => {
-        if (window.matchMedia("(max-width: 768px)").matches) {
-          quoteText.style.fontSize = "";
-          quoteAuthor.style.fontSize = "";
+      const fitSingleLineQuote = () => {
+        quoteText.style.fontSize = "";
+        if (
+          !quotes[currentIndex].singleLine ||
+          window.matchMedia("(max-width: 768px)").matches
+        ) {
           return;
         }
-        quoteText.style.fontSize = "";
-        quoteAuthor.style.fontSize = "";
         const panel = document.querySelector(".hero-quote-panel");
         if (!panel) return;
         let size = parseFloat(getComputedStyle(quoteText).fontSize);
-        const authorRatio = 0.64;
-        while (quoteCopy.scrollWidth > panel.clientWidth && size > 11) {
+        while (quoteText.scrollWidth > panel.clientWidth && size > 14) {
           size -= 0.5;
           quoteText.style.fontSize = size + "px";
-          quoteAuthor.style.fontSize = Math.max(11, size * authorRatio) + "px";
         }
       };
 
       const updateQuote = (index) => {
         quoteText.textContent = quotes[index].text;
         quoteAuthor.textContent = quotes[index].author;
+        quoteText.classList.toggle("is-single-line", !!quotes[index].singleLine);
         updateDots(index);
-        requestAnimationFrame(() => requestAnimationFrame(fitQuoteOnOneLine));
+        requestAnimationFrame(() => requestAnimationFrame(fitSingleLineQuote));
       };
 
-      window.addEventListener("resize", fitQuoteOnOneLine);
+      window.addEventListener("resize", fitSingleLineQuote);
 
       const goToQuote = (index) => {
         if (index === currentIndex) return;
