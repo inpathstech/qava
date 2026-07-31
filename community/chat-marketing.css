@@ -569,14 +569,13 @@ body.embed-app #chatProduct {
 
 .thread-detail.seq-stage-card .thread-post.is-op.seq-post {
   margin: 0;
-  padding: 12px 14px;
-  background: #f3f4f6;
+  padding: 14px 12px;
+  /* Match community .thread-post.is-op surface */
+  background: rgba(17, 24, 39, 0.02);
   color: #111827;
   border-radius: 8px;
-  border: 1px solid rgba(17, 24, 39, 0.08);
-  box-shadow:
-    0 1px 2px rgba(17, 24, 39, 0.04),
-    0 4px 12px rgba(17, 24, 39, 0.05);
+  border: 0;
+  box-shadow: none;
 }
 
 .thread-detail.seq-stage-card .thread-post.is-op.seq-post .thread-title {
@@ -627,8 +626,27 @@ body.embed-app #chatProduct {
   justify-content: flex-end;
 }
 
+/* Match community .tag-pill (composer / agenda) exactly */
 .seq-stage-card .thread-tags .tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  background: #fff;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 400;
+  color: #6b7280;
   cursor: default;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.seq-stage-card .thread-tags .tag-pill-emoji {
+  font-size: 12px;
+  line-height: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
