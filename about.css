@@ -259,11 +259,11 @@ main[aria-label="About Qava"] {
   scroll-margin-top: 96px;
 }
 
-/* Manifesto callout — thin black border, screenshot line */
+/* Manifesto callout */
 .about-callout {
   width: 100%;
   box-sizing: border-box;
-  border: 1px solid #000;
+  border: 0;
   padding: clamp(36px, 5vw, 56px) clamp(24px, 4vw, 48px);
   margin: 0 0 72px;
   text-align: center;
