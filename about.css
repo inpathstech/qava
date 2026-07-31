@@ -17,18 +17,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Solid white under page copy so the grey dot grid doesn't reduce readability */
-body:has(main[aria-label="About Qava"]) #qava-dot-base-fixed {
-  display: none !important;
-}
-
-main[aria-label="About Qava"] {
-  position: relative;
-  z-index: 1;
-  background: #fff;
-}
-
-/* Title + quote band */
+/* Title + quote band — keep transparent so the dot grid shows through */
 .about-intro {
   position: relative;
   z-index: 1;
@@ -36,7 +25,7 @@ main[aria-label="About Qava"] {
   margin: 0 auto;
   padding: 72px 24px 32px;
   text-align: center;
-  background: #fff;
+  background: transparent;
 }
 
 .about-intro-logo {
