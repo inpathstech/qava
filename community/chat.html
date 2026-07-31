@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../qava-landing.css" />
   <link rel="stylesheet" href="community.css" />
-  <link rel="stylesheet" href="chat-marketing.css?v=seq-3phase-1" />
+  <link rel="stylesheet" href="chat-marketing.css?v=ex-switch-6" />
   <link rel="stylesheet" href="../qava-auth.css" />
 </head>
 <body>
@@ -81,228 +81,100 @@
             src="chat-hero-logo.jpg"
             alt="Chat"
           />
-          <h1 class="feature-cards-header qava-hero-heading">Ask the room.</h1>
+          <h1 class="feature-cards-header qava-hero-heading">
+            <span class="qava-hero-line">The smartest person in the room</span>
+            <span class="qava-hero-line">is the room itself.</span>
+          </h1>
           <p class="feature-cards-subheader qava-hero-subheader">Ask for feedback, share what you're working on, and learn from other members.</p>
         </div>
 
-        <div class="stage" id="seqStage">
-          <div class="chat-page">
-            <div class="seq-progress" id="seqProgress" aria-live="polite">
-              <div class="seq-progress-top">
-                <div class="seq-stage-title" id="seqStageTitle">Get perspectives</div>
-                <div class="seq-stage-count" id="seqStageCount">1 / 3</div>
-              </div>
-              <div class="seq-progress-bar" id="seqProgressBar" aria-hidden="true">
-                <i data-bar="0"></i>
-                <i data-bar="1"></i>
-                <i data-bar="2"></i>
-              </div>
-            </div>
+        <div class="ex-switcher" id="exSwitcher" aria-label="Browse examples">
+          <button type="button" class="ex-nav" id="exPrev" aria-label="Previous example">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <div class="ex-switcher-mid">
+            <div class="ex-label" id="exLabel">Mental health apps</div>
+            <div class="ex-dots" id="exDots" role="tablist" aria-label="Examples"></div>
+          </div>
+          <button type="button" class="ex-nav" id="exNext" aria-label="Next example">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
 
-            <div class="thread-detail seq-stage-card">
-              <div class="seq-thread-flow">
-                <article class="thread-post is-op seq-post is-in" id="seqPost">
+        <div class="chat-static-flow" id="chatStaticFlow">
+          <!-- Section 1: Get perspectives -->
+          <div class="chat-static-section" id="exSectionOp">
+            <aside class="seq-rail">
+              <div class="seq-rail-item is-active">
+                <span class="seq-rail-label">Get perspectives</span>
+              </div>
+              <div class="seq-stage-count">1 / 3</div>
+            </aside>
+            <div class="seq-main">
+              <div class="thread-detail seq-stage-card">
+                <article class="thread-post is-op seq-post is-in" id="exOp">
                   <div class="thread-meta">
-                    <div class="avatar">JR</div>
+                    <div class="avatar" id="exOpAvatar">JR</div>
                     <div class="meta-lines">
-                      <div class="meta-top"><strong>Jordan R.</strong> · Founder · Seed stage</div>
-                      <div class="meta-sub">2 days ago · 0 replies</div>
+                      <div class="meta-top" id="exOpMeta"><strong>Jordan R.</strong> · Founder · Seed stage</div>
+                      <div class="meta-sub" id="exOpSub">2 days ago · 0 replies</div>
                     </div>
-                    <div class="thread-tags">
-                      <span class="tag-pill" aria-hidden="true"><span class="tag-pill-emoji">🧸</span>Product</span>
-                      <span class="tag-pill" aria-hidden="true"><span class="tag-pill-emoji">💰</span>Fundraising</span>
-                    </div>
+                    <div class="thread-tags" id="exOpTags"></div>
                   </div>
-                  <h3 class="thread-title">Anyone familiar with mental health apps?</h3>
+                  <h3 class="thread-title" id="exOpTitle">Anyone familiar with mental health apps?</h3>
                   <div class="thread-body">
-                    <p>I have an idea and I’m concerned about confirmation bias, so I want to share it for someone to poke holes in it.</p>
+                    <p id="exOpBody">I have an idea and I’m concerned about confirmation bias, so I want to share it for someone to poke holes in it.</p>
                   </div>
                   <div class="feed-stats seq-op-stats">
-                    <span class="feed-stat" aria-label="42 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>42</span></span>
-                    <span class="feed-stat" id="seqOpComments" aria-label="0 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="seq-op-count">0</span></span>
+                    <span class="feed-stat" id="exOpLikes" aria-label="42 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span id="exOpLikesN">42</span></span>
+                    <span class="feed-stat" id="exOpComments" aria-label="0 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span id="exOpCommentsN">0</span></span>
                     <span class="feed-stat-time">2 days ago</span>
                   </div>
                 </article>
+              </div>
+            </div>
+          </div>
 
-                <div class="seq-loader" id="seqLoader" hidden aria-live="polite" aria-busy="false">
-                  <div class="seq-loader-ring" aria-hidden="true">
-                    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-                  </div>
-                  <span class="seq-loader-label">Waiting for the room…</span>
-                </div>
-
-                <div class="seq-reply-column">
-                <div class="seq-compact-grid is-empty" id="seqCompactGrid" aria-hidden="true"></div>
-
-                <div class="seq-replies" id="seqReplies">
-                  <div class="reply seq-reply" data-step="1" data-stage="perspectives" data-chip-name="Aisha M." data-chip-snip="shipped employer wellness">
-                    <div class="avatar">AM</div>
-                    <div>
-                      <div class="reply-meta"><strong>Aisha M.</strong> · Operator · B2B health</div>
-                      <div class="reply-body">
-                        Yes — I ran an <mark class="seq-mark">employer wellness</mark> pilot last year. Buyers cared about utilization, not downloads.
-                      </div>
-                      <div class="feed-stats seq-reply-stats">
-                        <span class="feed-stat" aria-label="18 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>18</span></span>
-                        <span class="feed-stat" aria-label="4 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>4</span></span>
-                        <span class="feed-stat-time">2 days ago</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="reply seq-reply" data-step="2" data-stage="perspectives" data-chip-name="Diego R." data-chip-snip="what patients reject">
-                    <div class="avatar">DR</div>
-                    <div>
-                      <div class="reply-meta"><strong>Diego R.</strong> · Clinician · Behavioral health</div>
-                      <div class="reply-body">
-                        From the clinic: patients drop anything that feels like <mark class="seq-mark">homework</mark>. If it isn’t usable at 2 a.m., it won’t stick.
-                      </div>
-                      <div class="feed-stats seq-reply-stats">
-                        <span class="feed-stat" aria-label="22 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>22</span></span>
-                        <span class="feed-stat" aria-label="5 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>5</span></span>
-                        <span class="feed-stat-time">2 days ago</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="reply seq-reply" data-step="3" data-stage="perspectives" data-chip-name="Sam T." data-chip-snip="burned on DTC CAC">
-                    <div class="avatar">ST</div>
-                    <div>
-                      <div class="reply-meta"><strong>Sam T.</strong> · Founder · Seed</div>
-                      <div class="reply-body">
-                        I tried <mark class="seq-mark">DTC</mark> first — CAC crushed us. Wish I’d talked to <mark class="seq-mark">benefits buyers</mark> before we built.
-                      </div>
-                      <div class="feed-stats seq-reply-stats">
-                        <span class="feed-stat" aria-label="16 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>16</span></span>
-                        <span class="feed-stat" aria-label="3 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>3</span></span>
-                        <span class="feed-stat-time">2 days ago</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="reply seq-reply" data-step="4" data-stage="angles" data-chip-name="Priya R." data-chip-snip="new parents wedge">
-                    <div class="avatar">PR</div>
-                    <div>
-                      <div class="reply-meta"><strong>Priya R.</strong> · Founder · New parent</div>
-                      <div class="reply-body">
-                        Different angle: <mark class="seq-mark">new parents</mark>. Most apps feel built for <mark class="seq-mark">clinicians</mark>, not 2 a.m. on the couch.
-                      </div>
-                      <div class="feed-stats seq-reply-stats">
-                        <span class="feed-stat" aria-label="24 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>24</span></span>
-                        <span class="feed-stat" aria-label="6 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>6</span></span>
-                        <span class="feed-stat-time">2 days ago</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="reply seq-reply" data-step="5" data-stage="angles" data-chip-name="Marcus C." data-chip-snip="founders · peer accountability">
-                    <div class="avatar">MC</div>
-                    <div>
-                      <div class="reply-meta"><strong>Marcus C.</strong> · Operator · Startup ops</div>
-                      <div class="reply-body">
-                        Or <mark class="seq-mark">entrepreneurs</mark> — <mark class="seq-mark">Peer accountability</mark> + short check-ins beats another meditation library.
-                      </div>
-                      <div class="feed-stats seq-reply-stats">
-                        <span class="feed-stat" aria-label="15 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>15</span></span>
-                        <span class="feed-stat" aria-label="3 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>3</span></span>
-                        <span class="feed-stat-time">2 days ago</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="reply seq-reply" data-step="6" data-stage="angles" data-chip-name="Noah L." data-chip-snip="where growth is landing">
-                    <div class="avatar">NL</div>
-                    <div>
-                      <div class="reply-meta"><strong>Noah L.</strong> · Investor · Early stage</div>
-                      <div class="reply-body">
-                        Before you <mark class="seq-mark">lock the thesis</mark>, read where <mark class="seq-mark">growth</mark> is actually landing — corporate vs consumer looks different on paper.
-                        <div class="attach-chips">
-                          <span class="attach-chip"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg>Mental Health Apps Report 2025 · rockhealth.com</span>
-                          <span class="attach-chip"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg>Digital Therapeutics Market Outlook · cbinsights.com</span>
-                        </div>
-                      </div>
-                      <div class="feed-stats seq-reply-stats">
-                        <span class="feed-stat" aria-label="31 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>31</span></span>
-                        <span class="feed-stat" aria-label="9 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>9</span></span>
-                        <span class="feed-stat-time">2 days ago</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="reply seq-reply" data-step="7" data-stage="path" data-chip-name="Sofia K." data-chip-snip="1 in 5 demand signal">
-                    <div class="avatar">SK</div>
-                    <div>
-                      <div class="reply-meta"><strong>Sofia K.</strong> · Researcher · Public health</div>
-                      <div class="reply-body">
-                        One number: <mark class="seq-mark seq-stat">1 in 5</mark> adults — design for real <mark class="seq-mark">demand</mark>, not downloads.
-                        <div class="attach-chips">
-                          <span class="attach-chip"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg>Employer Mental Health Benefits Survey · shrm.org</span>
-                        </div>
-                      </div>
-                      <div class="feed-stats seq-reply-stats">
-                        <span class="feed-stat" aria-label="27 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>27</span></span>
-                        <span class="feed-stat" aria-label="5 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>5</span></span>
-                        <span class="feed-stat-time">2 days ago</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="reply seq-reply" data-step="8" data-stage="path" data-chip-name="Maya S." data-chip-snip="beachhead · design partners">
-                    <div class="avatar">MS</div>
-                    <div>
-                      <div class="reply-meta"><strong>Maya S.</strong> · Founder · Seed</div>
-                      <div class="reply-body">
-                        Pick a <mark class="seq-mark">beachhead</mark> — 10 design partners in one ICP beats a broad landing page.
-                        <div class="attach-chips">
-                          <span class="attach-chip"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg>Design-partner outreach script · Doc</span>
-                        </div>
-                      </div>
-                      <div class="feed-stats seq-reply-stats">
-                        <span class="feed-stat" aria-label="28 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>28</span></span>
-                        <span class="feed-stat" aria-label="11 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>11</span></span>
-                        <span class="feed-stat-time">2 days ago</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="reply seq-reply" data-step="9" data-stage="path" data-chip-name="Omar K." data-chip-snip="30-day wedge validation">
-                    <div class="avatar">OK</div>
-                    <div>
-                      <div class="reply-meta"><strong>Omar K.</strong> · Advisor · GTM</div>
-                      <div class="reply-body">
-                        Next 30 days: validate the <mark class="seq-mark">wedge</mark>, then price a paid pilot with an outcome metric.
-                      </div>
-                      <div class="feed-stats seq-reply-stats">
-                        <span class="feed-stat" aria-label="24 likes"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span>24</span></span>
-                        <span class="feed-stat" aria-label="6 comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>6</span></span>
-                        <span class="feed-stat-time">2 days ago</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+          <!-- Section 2: Find new angles -->
+          <div class="chat-static-section" id="exSectionAngles">
+            <aside class="seq-rail">
+              <div class="seq-rail-item is-active">
+                <span class="seq-rail-label">Find new angles</span>
+              </div>
+              <div class="seq-stage-count">2 / 3</div>
+            </aside>
+            <div class="seq-main">
+              <div class="thread-detail seq-stage-card">
+                <div class="ex-slide-viewport">
+                  <div class="seq-replies is-static ex-slide-panel" id="exAngles"></div>
                 </div>
               </div>
             </div>
-
-            <p class="seq-cue" id="seqCue">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-              Waiting for the room…
-            </p>
           </div>
-        </div>
 
-        <div class="scroll-track" aria-hidden="true">
-          <div class="scroll-pin" data-step="0"></div>
-          <div class="scroll-pin" data-step="3"></div>
-          <div class="scroll-pin" data-step="6"></div>
-          <div class="scroll-pin" data-step="9"></div>
+          <!-- Section 3: Find your path -->
+          <div class="chat-static-section" id="exSectionPath">
+            <aside class="seq-rail">
+              <div class="seq-rail-item is-active">
+                <span class="seq-rail-label">Find your path</span>
+              </div>
+              <div class="seq-stage-count">3 / 3</div>
+            </aside>
+            <div class="seq-main">
+              <div class="thread-detail seq-stage-card">
+                <div class="ex-slide-viewport">
+                  <div class="seq-replies is-static ex-slide-panel" id="exPath"></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       <section class="room-thesis" aria-label="Why the room">
         <div class="room-thesis-inner">
-          <h2>The smartest person in the room is the room itself.</h2>
-          <p>Chat turns a single question into the collective views of people who’ve been there.</p>
+          <h2>Your question deserves a better room.</h2>
+          <p>Then turn the best answers into your next move.</p>
         </div>
       </section>
 
@@ -640,7 +512,7 @@
       }
     })();
   </script>
-  <script src="chat-sequence.js?v=seq-3phase-1"></script>
+  <script src="chat-examples.js?v=ex-switch-6"></script>
   <script src="app.js"></script>
   <script src="enhancements.js"></script>
   <script src="api.js"></script>
