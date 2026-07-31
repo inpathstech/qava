@@ -137,7 +137,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(16px, 3vw, 28px) clamp(16px, 3vw, 28px) 28px;
+  padding: 0 clamp(16px, 3vw, 28px);
   z-index: 2;
 }
 
@@ -587,7 +587,7 @@ body {
     width: calc(100% - 28px);
     margin: 56px auto 64px;
   }
-  .hero-quote-overlay { padding: 18px; }
+  .hero-quote-overlay { padding: 0 18px; }
 }
 
 /* ===== Site nav (exact structural styles from qava.ai homepage) ===== */
