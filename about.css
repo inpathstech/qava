@@ -18,6 +18,10 @@ body {
 }
 
 /* Solid white under page copy so the grey dot grid doesn't reduce readability */
+body:has(main[aria-label="About Qava"]) #qava-dot-base-fixed {
+  display: none !important;
+}
+
 main[aria-label="About Qava"] {
   position: relative;
   z-index: 1;
