@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="qava-landing.css" />
   <link rel="stylesheet" href="community/landing-community.css" />
   <link rel="stylesheet" href="qava-auth.css" />
-  <link rel="stylesheet" href="about.css?v=10" />
+  <link rel="stylesheet" href="about.css?v=12" />
 </head>
 <body>
   <div id="qava-dot-base-fixed" aria-hidden="true"></div>
@@ -321,7 +321,7 @@
 
       const quotes = [
         {
-          text: "Everything around you that you call life was made up by people that were no smarter than you—and you can change it, you can influence it, you can build your own things that other people can use.",
+          text: "Stay hungry. Stay foolish.",
           author: "— Steve Jobs",
         },
         {
@@ -378,15 +378,19 @@
       const fitQuoteOnOneLine = () => {
         if (window.matchMedia("(max-width: 768px)").matches) {
           quoteText.style.fontSize = "";
+          quoteAuthor.style.fontSize = "";
           return;
         }
         quoteText.style.fontSize = "";
-        const parent = quoteText.parentElement;
-        if (!parent) return;
+        quoteAuthor.style.fontSize = "";
+        const panel = document.querySelector(".hero-quote-panel");
+        if (!panel) return;
         let size = parseFloat(getComputedStyle(quoteText).fontSize);
-        while (quoteText.scrollWidth > parent.clientWidth && size > 12) {
+        const authorRatio = 0.64;
+        while (quoteCopy.scrollWidth > panel.clientWidth && size > 11) {
           size -= 0.5;
           quoteText.style.fontSize = size + "px";
+          quoteAuthor.style.fontSize = Math.max(11, size * authorRatio) + "px";
         }
       };
 
@@ -394,8 +398,10 @@
         quoteText.textContent = quotes[index].text;
         quoteAuthor.textContent = quotes[index].author;
         updateDots(index);
-        requestAnimationFrame(fitQuoteOnOneLine);
+        requestAnimationFrame(() => requestAnimationFrame(fitQuoteOnOneLine));
       };
+
+      window.addEventListener("resize", fitQuoteOnOneLine);
 
       const goToQuote = (index) => {
         if (index === currentIndex) return;
