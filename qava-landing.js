@@ -79,8 +79,7 @@
 
         const navRenames = [
           { match: "create listing", label: "Create listing" },
-          { match: "search listings", label: "Find work" },
-          { match: "about", label: "Newsletter" }
+          { match: "search listings", label: "Find work" }
         ];
         Array.from(doc.querySelectorAll(".navigation .nav-item .nav-text, .navigation .nav-item")).forEach((el) => {
           const textNode = el.classList.contains("nav-text") ? el : el.querySelector(".nav-text");
@@ -92,13 +91,12 @@
           }
         });
 
+        // Keep explicit Newsletter links pointed at /newsletter. Do not rewrite About.
         const newsletterNavLinks = Array.from(doc.querySelectorAll(".navigation .nav-item, .mobile-nav-item")).filter((a) =>
-          (a.textContent || "").trim().toLowerCase() === "newsletter" ||
-          (a.classList.contains("about") && (a.textContent || "").trim().toLowerCase() === "newsletter")
+          (a.textContent || "").trim().toLowerCase() === "newsletter"
         );
         newsletterNavLinks.forEach((link) => {
           link.href = "https://qava.ai/newsletter";
-          link.classList.remove("about");
           link.classList.add("newsletter");
         });
 
