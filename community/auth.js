@@ -276,6 +276,7 @@
                     state.handle = p.name;
                     state.profile = p;
                     if (window.communityMergeMember) window.communityMergeMember(p.name, p);
+                    paintSelfAvatars();
                   }
                 })
                 .catch(function () {});
@@ -283,6 +284,24 @@
         }
       })
       .catch(function () { /* API unreachable: stay in locked demo state */ });
+  }
+
+
+  function paintSelfAvatars() {
+    var profile = state.profile;
+    if (!profile) return;
+    var html;
+    if (profile.photo) {
+      var pos = profile.photoPosition
+        ? ' style="object-position:' + String(profile.photoPosition).replace(/"/g, '') + '"'
+        : '';
+      html = '<img src="' + String(profile.photo).replace(/"/g, '&quot;') + '" alt=""' + pos + ' />';
+    } else {
+      html = (profile.initials || 'You').replace(/</g, '');
+    }
+    document.querySelectorAll('.composer-card .avatar, .reply-box .avatar, #userThreadPost .avatar').forEach(function (el) {
+      el.innerHTML = html;
+    });
   }
 
   function openMyProfile() {
@@ -315,6 +334,7 @@
     if (window.communityMergeMember && profile.name) {
       window.communityMergeMember(profile.name, profile);
     }
+    paintSelfAvatars();
     renderHeader();
     if (window.qavaAuth && typeof window.qavaAuth.refresh === 'function') {
       try { window.qavaAuth.refresh(); } catch (e) {}

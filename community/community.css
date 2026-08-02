@@ -792,7 +792,7 @@
     .landing-section .reply,
     .thread-detail .reply,
     .feed-item .reply {
-      gap: 8px;
+      gap: 6px;
       padding: 10px 8px 5px 6px;
       border-top: 1px solid rgba(17,24,39,0.06);
       border-left: 2px solid transparent;
@@ -2238,12 +2238,12 @@
       color: inherit;
       text-decoration: none;
       cursor: pointer;
-      background: var(--panel-soft);
+      background: #f0f0f0;
       transition: background 0.15s ease;
     }
 
     .feed-opener:hover {
-      background: #f3f4f6;
+      background: #ebebeb;
     }
 
     .feed-replies {
@@ -2526,7 +2526,7 @@
     .feed-opener-meta-row {
       display: flex;
       align-items: flex-start;
-      gap: 8px;
+      gap: 6px;
       margin-bottom: 6px;
     }
 
