@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../qava-landing.css" />
   <link rel="stylesheet" href="community.css" />
-  <link rel="stylesheet" href="chat-marketing.css?v=ex-op-pills-1" />
+  <link rel="stylesheet" href="chat-marketing.css?v=ex-op-solid-1" />
   <link rel="stylesheet" href="../qava-auth.css" />
 </head>
 <body>
@@ -25,6 +25,7 @@
         <a href="https://qava.ai/templates" class="nav-item"><span class="nav-text">Templates</span></a>
         <a href="https://qava.ai/find/" class="nav-item"><span class="nav-text">Find Work</span></a>
         <a href="https://app.qava.ai/guest" class="nav-item"><span class="nav-text">Find Talent</span></a>
+        <a href="https://qava.ai/about" class="nav-item about"><span class="nav-text">About</span></a>
       </nav>
     </div>
     <div class="header-right">
@@ -512,18 +513,29 @@
       }
     })();
   </script>
-  <script src="chat-examples.js?v=ex-op-pills-1"></script>
-  <script src="app.js"></script>
-  <script src="enhancements.js"></script>
-  <script src="api.js"></script>
-  <script src="auth.js"></script>
-  <script src="profile-edit.js"></script>
-  <script src="../qava-auth.js"></script>
-  <script src="../qava-footer.js"></script>
   <script>
-    if (typeof window.applyQavaFooter === "function" && !document.body.classList.contains("embed-app")) {
-      window.applyQavaFooter(document);
-    }
+    (function () {
+      var inApp = document.body.classList.contains("embed-app");
+      // Product chat scripts only in the app.qava.ai embed. Public page is marketing-only.
+      var scripts = inApp
+        ? ["app.js", "enhancements.js", "api.js", "auth.js", "profile-edit.js"]
+        : ["chat-examples.js?v=ex-op-solid-1", "../qava-auth.js", "../qava-footer.js"];
+
+      function loadNext(i) {
+        if (i >= scripts.length) {
+          if (!inApp && typeof window.applyQavaFooter === "function") {
+            window.applyQavaFooter(document);
+          }
+          return;
+        }
+        var s = document.createElement("script");
+        s.src = scripts[i];
+        s.onload = function () { loadNext(i + 1); };
+        s.onerror = function () { loadNext(i + 1); };
+        document.body.appendChild(s);
+      }
+      loadNext(0);
+    })();
   </script>
 </body>
 </html>
