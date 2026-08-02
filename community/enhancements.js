@@ -1438,12 +1438,16 @@
     document.getElementById('reportModalClose')?.addEventListener('click', closeReportModal);
     document.getElementById('reportCancelBtn')?.addEventListener('click', closeReportModal);
     document.getElementById('reportSubmitBtn')?.addEventListener('click', () => {
+      const modal = document.getElementById('reportModal');
       const category = document.getElementById('reportCategory');
       const description = document.getElementById('reportDescription');
       const categoryLabel = document.getElementById('reportCategoryLabel')?.textContent?.trim()
         || category?.value
         || 'Report';
+      const reason = category?.value || 'other';
       const details = description?.value.trim() || '';
+      const target = modal?.dataset.reportTarget || 'thread';
+      const targetId = modal?.dataset.reportId || '';
       if (!details) {
         description?.focus();
         alert('Please add a short description so our team can review your report.');
@@ -1451,7 +1455,28 @@
       }
       closeReportModal();
       resetReportForm();
-      alert(`Report submitted (${categoryLabel}). Our team will review within 24 hours.`);
+
+      // Persist to API when we have a live id so moderators get email + DB row.
+      // Mock/demo ids stay local-only (same pattern as other community writes).
+      const api = window.CommunityAPI;
+      const isLive = typeof targetId === 'string'
+        && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(targetId);
+      const payload = { reason, details };
+      const persist = isLive && api
+        ? (target === 'reply'
+            ? api.reportReply(targetId, payload)
+            : api.reportThread(targetId, payload))
+        : Promise.resolve();
+
+      Promise.resolve(persist)
+        .catch((err) => {
+          const msg = (err && err.message) || 'Could not submit report.';
+          if (window.communityToast) window.communityToast(msg, 'error');
+          else alert(msg);
+        })
+        .then(() => {
+          alert(`Report submitted (${categoryLabel}). Our team will review within 24 hours.`);
+        });
     });
     document.querySelectorAll('[data-modal-backdrop]').forEach((el) => {
       el.addEventListener('click', (e) => {
