@@ -15,8 +15,7 @@
   display: none;
 }
 
-body.embed-app #chatMarketing,
-body.embed-app .footer-section {
+body.embed-app #chatMarketing {
   display: none !important;
 }
 
