@@ -324,6 +324,24 @@
         .replace(/"/g, '&quot;');
     }
 
+    // Invisible marker written after masked external invites so reload can
+    // still render `@jan` as an external chip (not a profile link).
+    const EXTERNAL_MENTION_MARK = '\u200c';
+
+    function resolveMemberHandle(handle) {
+      const profiles = window.MEMBER_PROFILES || {};
+      if (profiles[handle]) return handle;
+      const lower = String(handle || '').toLowerCase();
+      if (!lower) return null;
+      const key = Object.keys(profiles).find((k) => k.toLowerCase() === lower);
+      return key || null;
+    }
+
+    function maskEmailLocalPart(email) {
+      const local = String(email || '').split('@')[0] || '';
+      return `@${local.slice(0, 3)}`;
+    }
+
     function formatInlineMarkup(text) {
       let html = escapeHtml(text);
       html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
@@ -331,8 +349,25 @@
         const safeUrl = escapeHtml(url);
         return `<a href="${safeUrl}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)}</a>`;
       });
-      html = html.replace(/@([^\s@]+@[^\s@]+\.[^\s@]+)/g, '<span class="reply-mention is-external">@$1</span>');
-      html = html.replace(/@([A-Za-z][A-Za-z0-9]*)/g, '<span class="reply-mention">@$1</span>');
+      // Full emails (draft / legacy) → masked external chip.
+      html = html.replace(/@([^\s@]+@[^\s@]+\.[^\s@]+)/g, (_, email) => {
+        const masked = maskEmailLocalPart(email);
+        return `<span class="reply-mention is-external">${escapeHtml(masked)}</span>`;
+      });
+      // Already-masked external invites (marked with ZWNJ on submit).
+      html = html.replace(
+        new RegExp(`@([A-Za-z0-9._+-]{1,64})${EXTERNAL_MENTION_MARK}`, 'g'),
+        (_, local) => {
+          const masked = `@${String(local).slice(0, 3)}`;
+          return `<span class="reply-mention is-external">${escapeHtml(masked)}</span>`;
+        },
+      );
+      // Real member handles only — free-typed @notarealuser stays plain text.
+      html = html.replace(/@([A-Za-z][A-Za-z0-9]*)/g, (match, handle) => {
+        const canonical = resolveMemberHandle(handle);
+        if (!canonical) return match;
+        return `<span class="reply-mention" data-member="${escapeHtml(canonical)}">@${escapeHtml(canonical)}</span>`;
+      });
       return html;
     }
 
