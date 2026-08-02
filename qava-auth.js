@@ -646,15 +646,20 @@
   }
 
   function renderLandingNavPending() {
-    // Hide Log in immediately and show a chip-sized shimmer so signed-in
-    // members never see Log in → circle flash while /premium/me resolves.
+    // Marketing pages: always show Log in → app. Never chip/shimmer/profile menu.
+    removeLandingChips();
     Array.prototype.forEach.call(
       document.querySelectorAll("[data-qava-premium-nav]"),
-      function (btn) { btn.style.display = "none"; }
+      function (btn) {
+        btn.classList.remove("is-unlocked");
+        btn.setAttribute("aria-label", "Log in");
+        var label = btn.querySelector(".nav-text");
+        if (label) label.textContent = "Log in";
+        if (btn.tagName === "A") btn.setAttribute("href", APP_URL);
+        btn.style.display = "";
+      }
     );
-    setLandingAuthReady(false);
-    removeLandingChips();
-    landingChipHosts().forEach(injectLandingShimmer);
+    setLandingAuthReady(true);
   }
 
   function goViewProfile() {
@@ -771,24 +776,9 @@
     wireLandingChip(wrap);
   }
 
-  function renderLandingNavState(signedIn) {
-    removeLandingChips();
-    setLandingAuthReady(true);
-
-    // Chip-first: hide Log in when signed in; restore it when signed out.
-    Array.prototype.forEach.call(
-      document.querySelectorAll("[data-qava-premium-nav]"),
-      function (btn) {
-        btn.classList.remove("is-unlocked");
-        btn.setAttribute("aria-label", "Log in");
-        var label = btn.querySelector(".nav-text");
-        if (label) label.textContent = "Log in";
-        btn.style.display = signedIn ? "none" : "";
-      }
-    );
-
-    if (!signedIn || !state.profile) return;
-    landingChipHosts().forEach(injectLandingChip);
+  function renderLandingNavState(/* signedIn */) {
+    // Marketing pages stay Log in → app.qava.ai only (no Premium profile menu).
+    renderLandingNavPending();
   }
 
   /* ---------------- Nav augmentation ---------------- */
