@@ -156,7 +156,6 @@
   let currentThreadId = 'nathan';
   let userThreadState = null;
   let savedThreads = new Set();
-  let savedReplies = new Set();
   let likedThreads = new Set();
   let hiddenContent = new Set();
   let blockedMembers = new Set();
@@ -335,7 +334,6 @@
         <div class="reply-actions-row">
           <button type="button" class="reply-heart${reply.hearts >= 3 ? ' is-active' : ''}" data-heart-count="${reply.hearts}" aria-label="${reply.hearts} helpful">${HEART_SVG}<span>${reply.hearts}</span></button>
           <button type="button" class="reply-to-btn" data-reply-to="${reply.id}" data-reply-author="${escapeHtml(reply.author)}">Reply</button>
-          <button type="button" class="reply-save-btn${savedReplies.has(`${thread.id}:${reply.id}`) ? ' is-active' : ''}" data-reply-save="${thread.id}:${reply.id}">${savedReplies.has(`${thread.id}:${reply.id}`) ? 'Saved' : 'Save'}</button>
           <button type="button" class="report-btn" data-report-target="reply" data-report-id="${reply.id}">Report</button>
         </div>
       </div>
@@ -476,15 +474,6 @@
         refreshProfileIfVisible();
       };
     });
-    document.querySelectorAll('[data-reply-save]').forEach((btn) => {
-      btn.onclick = () => {
-        const key = btn.dataset.replySave;
-        if (savedReplies.has(key)) savedReplies.delete(key); else savedReplies.add(key);
-        btn.classList.toggle('is-active', savedReplies.has(key));
-        btn.textContent = savedReplies.has(key) ? 'Saved' : 'Save';
-        refreshProfileIfVisible();
-      };
-    });
     document.querySelectorAll('[data-reply-to]').forEach((btn) => {
       btn.onclick = () => {
         const replyInput = document.getElementById('replyInput');
@@ -528,15 +517,7 @@
   }
 
   function getSavedItemCount() {
-    return savedThreads.size + savedReplies.size;
-  }
-
-  function findThreadReply(threadId, replyId) {
-    const thread = THREAD_DATA[threadId];
-    if (!thread) return null;
-    const reply = thread.replies?.find((r) => r.id === replyId);
-    if (!reply) return null;
-    return { thread, reply };
+    return savedThreads.size;
   }
 
   function getSavedProfileItems() {
@@ -549,21 +530,6 @@
         threadId,
         title: thread.title,
         meta: `${thread.likes} likes · ${getThreadReplyCount(thread)} replies · ${thread.time}`,
-        sortTs: thread.activityTs || 0,
-      });
-    });
-    savedReplies.forEach((key) => {
-      const [threadId, replyId] = key.split(':');
-      const found = findThreadReply(threadId, replyId);
-      if (!found) return;
-      const { thread, reply } = found;
-      items.push({
-        type: 'reply',
-        threadId,
-        replyId,
-        title: thread.title,
-        meta: `${reply.hearts} helpful · ${reply.time}`,
-        excerpt: profileReplyExcerpt(reply.body),
         sortTs: thread.activityTs || 0,
       });
     });
@@ -606,24 +572,13 @@
     const savedItems = getSavedProfileItems();
     const savedCount = getSavedItemCount();
     const savedItemsHtml = savedItems.length
-      ? savedItems.map((item) => {
-          if (item.type === 'thread') {
-            return `
+      ? savedItems.map((item) => `
           <button type="button" class="profile-saved-item profile-thread-item" data-open-thread data-thread="${item.threadId}">
             <div class="profile-saved-type">Thread</div>
             <h3>${escapeHtml(item.title)}</h3>
             <div class="profile-thread-meta">${escapeHtml(item.meta)}</div>
-          </button>`;
-          }
-          return `
-          <button type="button" class="profile-saved-item profile-reply-item" data-open-thread data-thread="${item.threadId}">
-            <div class="profile-saved-type">Reply</div>
-            <h3>${escapeHtml(item.title)}</h3>
-            <div class="profile-reply-meta">${escapeHtml(item.meta)}</div>
-            <div class="profile-reply-excerpt reply-body">${item.excerpt}</div>
-          </button>`;
-        }).join('')
-      : '<p class="profile-empty-note">Nothing saved yet. Save threads or replies from Chat to find them here.</p>';
+          </button>`).join('')
+      : '<p class="profile-empty-note">Nothing saved yet. Save a thread opener from Chat to find it here.</p>';
 
     const posStyle = p.photoPosition ? ` style="object-position:${escapeHtml(p.photoPosition)}"` : '';
     const avatarInner = p.photo

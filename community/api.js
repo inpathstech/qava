@@ -101,7 +101,6 @@
     likeThread: function (id) { return send('POST', '/community/threads/' + encodeURIComponent(id) + '/like'); },
     heartReply: function (id) { return send('POST', '/community/replies/' + encodeURIComponent(id) + '/heart'); },
     saveThread: function (id) { return send('POST', '/community/threads/' + encodeURIComponent(id) + '/save'); },
-    saveReply: function (id) { return send('POST', '/community/replies/' + encodeURIComponent(id) + '/save'); },
     reportThread: function (id, b) { return send('POST', '/community/threads/' + encodeURIComponent(id) + '/report', b); },
     reportReply: function (id, b) { return send('POST', '/community/replies/' + encodeURIComponent(id) + '/report', b); },
 
@@ -404,21 +403,15 @@
       };
     }
 
-    // Hearts, saves and reports: fire-and-forget delegated listeners. They only
-    // act on live (UUID) ids, so mock interactions never hit the network.
+    // Hearts: fire-and-forget delegated listeners. They only act on live
+    // (UUID) ids, so mock interactions never hit the network. Saves are
+    // thread-opener only (handled via [data-thread-save] elsewhere).
     document.addEventListener('click', function (e) {
       var heart = e.target.closest && e.target.closest('.reply-heart');
       if (heart) {
         var rEl = heart.closest('.reply');
         var rid = rEl && rEl.dataset.replyId;
         if (isLiveId(rid)) API.heartReply(rid).catch(function () {});
-        return;
-      }
-      var save = e.target.closest && e.target.closest('.reply-save-btn');
-      if (save && save.dataset.replySave) {
-        var parts = save.dataset.replySave.split(':');
-        var srid = parts[1];
-        if (isLiveId(srid)) API.saveReply(srid).catch(function () {});
         return;
       }
     }, true);
