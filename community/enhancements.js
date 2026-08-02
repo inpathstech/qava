@@ -1469,13 +1469,13 @@
         : Promise.resolve();
 
       Promise.resolve(persist)
+        .then(() => {
+          alert(`Report submitted (${categoryLabel}). Our team will review within 24 hours.`);
+        })
         .catch((err) => {
           const msg = (err && err.message) || 'Could not submit report.';
           if (window.communityToast) window.communityToast(msg, 'error');
           else alert(msg);
-        })
-        .then(() => {
-          alert(`Report submitted (${categoryLabel}). Our team will review within 24 hours.`);
         });
     });
     document.querySelectorAll('[data-modal-backdrop]').forEach((el) => {
