@@ -792,7 +792,7 @@
     .landing-section .reply,
     .thread-detail .reply,
     .feed-item .reply {
-      gap: 6px;
+      gap: 12px;
       padding: 10px 8px 5px 6px;
       border-top: 1px solid rgba(17,24,39,0.06);
       border-left: 2px solid transparent;
@@ -2254,7 +2254,7 @@
     .feed-inline-reply {
       display: flex;
       align-items: flex-start;
-      gap: 6px;
+      gap: 12px;
       padding: 10px 12px 12px;
       border-top: 1px solid rgba(17, 24, 39, 0.06);
       background: #fff;
@@ -2569,7 +2569,7 @@
     .feed-opener-meta-row {
       display: flex;
       align-items: flex-start;
-      gap: 6px;
+      gap: 12px;
       margin-bottom: 6px;
     }
 
