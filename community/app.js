@@ -864,6 +864,7 @@
       const titlePlaceholder = 'Post title';
       const bodyPlaceholder = 'Add context, links, or details…';
       const replyPlaceholder = 'Write a reply…';
+      const feedReplyPlaceholder = 'Write a reply… @ to mention';
 
       composerTitle.disabled = false;
       composerInput.contentEditable = 'true';
@@ -875,6 +876,12 @@
       composerBodyField?.classList.toggle('is-enabled', enabled);
       replyInput.closest('.input-with-gate').classList.toggle('is-enabled', enabled);
 
+      document.querySelectorAll('.feed-reply-input').forEach((input) => {
+        input.contentEditable = enabled ? 'true' : 'false';
+        input.dataset.placeholder = enabled ? feedReplyPlaceholder : '';
+        input.closest('.input-with-gate')?.classList.toggle('is-enabled', enabled);
+      });
+
       composerTitle.placeholder = titlePlaceholder;
       composerInput.dataset.placeholder = enabled ? bodyPlaceholder : '';
       replyInput.dataset.placeholder = enabled ? replyPlaceholder : '';
@@ -882,6 +889,9 @@
       replyLockLabel.style.display = enabled ? 'none' : 'inline-flex';
       syncComposerGate();
       syncInputGate(replyInput);
+      if (typeof window.applyPremiumToFeedReplyInputs === 'function') {
+        window.applyPremiumToFeedReplyInputs();
+      }
     }
 
     premiumToggle.addEventListener('change', () => setPremiumMode(premiumToggle.checked));

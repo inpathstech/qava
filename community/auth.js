@@ -299,10 +299,11 @@
     } else {
       html = (profile.initials || 'You').replace(/</g, '');
     }
-    document.querySelectorAll('.composer-card .avatar, .reply-box .avatar, #userThreadPost .avatar').forEach(function (el) {
+    document.querySelectorAll('.composer-card .avatar, .reply-box .avatar, #userThreadPost .avatar, .feed-inline-reply .avatar').forEach(function (el) {
       el.innerHTML = html;
     });
   }
+  window.communityPaintSelfAvatars = paintSelfAvatars;
 
   function openMyProfile() {
     if (state.handle && window.openProfilePage) {

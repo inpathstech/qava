@@ -234,7 +234,7 @@
   }
 
   function renderFeedPreviewReplies(thread) {
-    const visible = thread.replies.filter((r) => !hiddenContent.has(r.id) && !blockedMembers.has(r.author));
+    const visible = (thread.replies || []).filter((r) => !hiddenContent.has(r.id) && !blockedMembers.has(r.author));
     const previews = visible.slice(0, 2);
     const more = visible.length - previews.length;
     const items = previews.map((r) => {
@@ -252,6 +252,15 @@
       ? `<button type="button" class="feed-replies-more" data-open-thread data-thread="${thread.id}">+${more} more ${more === 1 ? 'reply' : 'replies'}</button>`
       : '';
     return `<div class="feed-replies">${items}${moreBtn}</div>`;
+  }
+
+  function renderFeedInlineReply(thread) {
+    return `<div class="feed-inline-reply" data-feed-reply-thread="${thread.id}">
+      ${selfAvatarHtml('You')}
+      <div class="feed-inline-reply-field input-with-gate">
+        <div class="composer-input feed-reply-input" contenteditable="false" role="textbox" aria-multiline="true" aria-label="Write a reply" data-placeholder="Write a reply… @ to mention"></div>
+      </div>
+    </div>`;
   }
 
   function renderFeedItem(thread) {
@@ -273,6 +282,7 @@
         ${renderFeedStats(thread.likes, replies, thread.time)}
       </a>
       ${renderFeedPreviewReplies(thread)}
+      ${renderFeedInlineReply(thread)}
     </div>`;
   }
 
@@ -804,6 +814,151 @@
     setReportCategoryOpen(false);
   }
 
+  function applyPremiumToFeedReplyInputs() {
+    const enabled = typeof window.communityIsPremium === 'function'
+      ? !!window.communityIsPremium()
+      : false;
+    document.querySelectorAll('.feed-reply-input').forEach((input) => {
+      input.contentEditable = enabled ? 'true' : 'false';
+      input.dataset.placeholder = enabled ? 'Write a reply… @ to mention' : '';
+      input.closest('.input-with-gate')?.classList.toggle('is-enabled', enabled);
+    });
+  }
+
+  function refreshFeedItemReplies(threadId) {
+    const thread = THREAD_DATA[threadId];
+    const feedItem = document.querySelector(`.feed-item[data-feed-thread="${threadId}"]`);
+    if (!thread || !feedItem) return;
+    const count = getThreadReplyCount(thread);
+    feedItem.dataset.replies = String(count);
+    feedItem.dataset.activity = String(thread.activityTs || Date.now());
+    const stat = feedItem.querySelector('[data-feed-replies] span');
+    if (stat) stat.textContent = String(count);
+    feedItem.querySelector('.feed-replies')?.remove();
+    const opener = feedItem.querySelector('.feed-opener');
+    if (opener) opener.insertAdjacentHTML('afterend', renderFeedPreviewReplies(thread));
+    bindDynamicHandlers();
+    feedItem.querySelectorAll('.reply-heart').forEach((btn) => window.bindReplyHeart?.(btn));
+  }
+
+  function submitFeedInlineReply(input) {
+    if (!input) return;
+    const isPremium = typeof window.communityIsPremium === 'function'
+      ? !!window.communityIsPremium()
+      : !!(window.communityGetAuthState?.()?.premium);
+    if (!isPremium) {
+      if (typeof window.communityRequireSignIn === 'function') window.communityRequireSignIn();
+      return;
+    }
+
+    const raw = (window.getInputRaw ? window.getInputRaw(input) : (input.textContent || '')).trim();
+    if (!raw) return;
+
+    const wrap = input.closest('[data-feed-reply-thread]');
+    const threadId = wrap?.dataset?.feedReplyThread || input.closest('[data-feed-thread]')?.dataset?.feedThread;
+    const thread = threadId ? THREAD_DATA[threadId] : null;
+    if (!thread) return;
+
+    const auth = (typeof window.communityGetAuthState === 'function' && window.communityGetAuthState()) || {};
+    const author = auth.handle || 'You';
+    const bodyHtml = window.formatPostBody ? window.formatPostBody(raw) : escapeHtml(raw);
+
+    thread.replies = thread.replies || [];
+    thread.replies.unshift({
+      id: `${threadId}-r${Date.now()}`,
+      author,
+      hearts: 0,
+      time: 'Just now',
+      parentId: null,
+      body: bodyHtml,
+    });
+    thread.activityTs = Date.now();
+    thread.status = thread.status === 'new' ? 'new' : 'active';
+
+    refreshFeedItemReplies(threadId);
+    if (window.clearInput) window.clearInput(input);
+    else input.innerHTML = '';
+    bindMentionInputs(document.querySelectorAll('.feed-reply-input'));
+    applyPremiumToFeedReplyInputs();
+    if (typeof window.communityPaintSelfAvatars === 'function') window.communityPaintSelfAvatars();
+
+    if (typeof window.communityIsLiveId === 'function' && window.communityIsLiveId(threadId)
+        && typeof window.communityCreateReply === 'function') {
+      window.communityCreateReply(threadId, raw)
+        .then(() => {
+          if (window.communityToast) window.communityToast('Reply posted.', 'success');
+          const api = window.CommunityAPI;
+          if (!api || typeof api.getThread !== 'function') return null;
+          return api.getThread(threadId);
+        })
+        .then((t) => {
+          if (!t || !t.id) return;
+          if (typeof window.communityMapThread === 'function') {
+            THREAD_DATA[t.id] = window.communityMapThread(t);
+          }
+          refreshFeedItemReplies(t.id);
+          bindMentionInputs(document.querySelectorAll('.feed-reply-input'));
+          applyPremiumToFeedReplyInputs();
+        })
+        .catch((e) => {
+          const status = e && e.status;
+          if (status === 401) {
+            if (window.communityToast) window.communityToast('Please sign in to your Premium account to post.', 'error');
+            if (window.communityRequireSignIn) window.communityRequireSignIn();
+          } else if (status === 403) {
+            if (window.communityToast) window.communityToast((e && e.message) || 'Posting is available to Premium members.', 'error');
+          } else if (window.communityToast) {
+            window.communityToast('Could not save that just now. Please try again.', 'error');
+          }
+        });
+    }
+  }
+
+  function initFeedInlineReply() {
+    const feedList = document.getElementById('feedList');
+    if (!feedList || feedList.dataset.inlineReplyBound === '1') return;
+    feedList.dataset.inlineReplyBound = '1';
+
+    const isPremiumEnabled = () => (typeof window.communityIsPremium === 'function'
+      ? !!window.communityIsPremium()
+      : !!(window.communityGetAuthState?.()?.premium));
+
+    feedList.addEventListener('keydown', (e) => {
+      const input = e.target.closest?.('.feed-reply-input');
+      if (!input || !feedList.contains(input)) return;
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        e.stopPropagation();
+        submitFeedInlineReply(input);
+      }
+    });
+
+    feedList.addEventListener('click', (e) => {
+      if (e.target.closest('.feed-inline-reply')) e.stopPropagation();
+    });
+
+    feedList.addEventListener('pointerdown', (e) => {
+      const inline = e.target.closest('.feed-inline-reply');
+      if (!inline || !feedList.contains(inline)) return;
+      e.stopPropagation();
+      const input = e.target.closest?.('.feed-reply-input');
+      if (input && !isPremiumEnabled()) {
+        e.preventDefault();
+        if (typeof window.communityRequireSignIn === 'function') window.communityRequireSignIn();
+      }
+    });
+
+    feedList.addEventListener('focusin', (e) => {
+      const input = e.target.closest?.('.feed-reply-input');
+      if (!input || !feedList.contains(input)) return;
+      if (!isPremiumEnabled()) {
+        e.preventDefault();
+        input.blur();
+        if (typeof window.communityRequireSignIn === 'function') window.communityRequireSignIn();
+      }
+    });
+  }
+
   function initFeedFromData() {
     const feedList = document.getElementById('feedList');
     if (!feedList) return;
@@ -813,6 +968,9 @@
     document.querySelectorAll('.feed-item .reply-heart').forEach((btn) => {
       if (window.bindReplyHeart) window.bindReplyHeart(btn);
     });
+    bindMentionInputs(feedList.querySelectorAll('.feed-reply-input'));
+    applyPremiumToFeedReplyInputs();
+    if (typeof window.communityPaintSelfAvatars === 'function') window.communityPaintSelfAvatars();
   }
 
   function getMentionQuery(input) {
@@ -849,11 +1007,19 @@
   }
 
   function getMentionCandidateNames(input) {
-    const isReply = input.id === 'replyInput';
+    const isFeedReply = input.classList?.contains('feed-reply-input');
+    const isReply = input.id === 'replyInput' || isFeedReply;
     if (isReply) {
-      const threadId = currentThreadId || window.__currentThreadId;
+      let threadId = currentThreadId || window.__currentThreadId;
+      if (isFeedReply) {
+        const wrap = input.closest('[data-feed-reply-thread], [data-feed-thread]');
+        threadId = wrap?.dataset?.feedReplyThread || wrap?.dataset?.feedThread || threadId;
+      }
       const participants = getThreadParticipantNames(threadId);
-      if (participants.length) return participants;
+      const all = Object.keys(MEMBER_PROFILES);
+      if (!participants.length) return all;
+      const seen = new Set(participants);
+      return participants.concat(all.filter((n) => !seen.has(n)));
     }
     return Object.keys(MEMBER_PROFILES);
   }
@@ -969,7 +1135,7 @@
     }
 
     const query = getMentionQuery(input).toLowerCase();
-    const isReply = input.id === 'replyInput';
+    const isReply = input.id === 'replyInput' || input.classList?.contains('feed-reply-input');
     const names = getMentionCandidateNames(input).filter((n) => mentionNameMatches(n, query));
 
     const memberItems = names.length
@@ -977,7 +1143,7 @@
           const p = MEMBER_PROFILES[n];
           return `<button type="button" class="mention-option" data-mention-name="${escapeHtml(n)}">
             <span>${escapeHtml(n)}</span>
-            <span class="mention-option-role">${escapeHtml(p.role)}</span>
+            <span class="mention-option-role">${escapeHtml(p.role || '')}</span>
           </button>`;
         }).join('')
       : `<div class="mention-empty">${query ? `No one in this thread matches "${escapeHtml(query)}"` : 'No members in this thread yet'}</div>`;
@@ -1005,48 +1171,57 @@
     activeMentionInput = null;
   }
 
-  function initMentionTypeahead() {
-    mentionDropdown = document.getElementById('mentionDropdown');
-    if (!mentionDropdown) return;
+  function bindMentionInput(input) {
+    if (!input || input.dataset.mentionBound === '1') return;
+    input.dataset.mentionBound = '1';
 
-    document.querySelectorAll('.composer-input[contenteditable]').forEach((input) => {
-      input.addEventListener('keyup', (e) => {
-        if (e.key === '@') {
-          showMentionDropdown(input);
-          return;
-        }
-        if (e.key === 'Escape') {
-          hideMentionDropdown();
-          return;
-        }
-        const query = getMentionQuery(input);
-        if (query !== null && input.textContent.includes('@')) {
-          if (query === '' || /^[a-z0-9@._-]*$/i.test(query)) {
-            showMentionDropdown(input);
-          } else {
-            hideMentionDropdown();
-          }
-        } else if (!input.textContent.includes('@')) {
-          hideMentionDropdown();
-        }
-      });
-      input.addEventListener('input', () => {
-        const query = getMentionQuery(input);
-        if (input.textContent.includes('@') && (query === '' || /^[a-z0-9@._-]*$/i.test(query))) {
+    input.addEventListener('keyup', (e) => {
+      if (e.key === '@') {
+        showMentionDropdown(input);
+        return;
+      }
+      if (e.key === 'Escape') {
+        hideMentionDropdown();
+        return;
+      }
+      const query = getMentionQuery(input);
+      if (query !== null && input.textContent.includes('@')) {
+        if (query === '' || /^[a-z0-9@._-]*$/i.test(query)) {
           showMentionDropdown(input);
         } else {
           hideMentionDropdown();
         }
-      });
-      input.addEventListener('blur', () => {
-        setTimeout(() => {
-          if (mentionDropdown && !mentionDropdown.hidden && mentionDropdown.contains(document.activeElement)) {
-            return;
-          }
-          hideMentionDropdown();
-        }, 180);
-      });
+      } else if (!input.textContent.includes('@')) {
+        hideMentionDropdown();
+      }
     });
+    input.addEventListener('input', () => {
+      const query = getMentionQuery(input);
+      if (input.textContent.includes('@') && (query === '' || /^[a-z0-9@._-]*$/i.test(query))) {
+        showMentionDropdown(input);
+      } else {
+        hideMentionDropdown();
+      }
+    });
+    input.addEventListener('blur', () => {
+      setTimeout(() => {
+        if (mentionDropdown && !mentionDropdown.hidden && mentionDropdown.contains(document.activeElement)) {
+          return;
+        }
+        hideMentionDropdown();
+      }, 180);
+    });
+  }
+
+  function bindMentionInputs(nodeList) {
+    (nodeList || []).forEach((input) => bindMentionInput(input));
+  }
+
+  function initMentionTypeahead() {
+    mentionDropdown = document.getElementById('mentionDropdown');
+    if (!mentionDropdown) return;
+
+    bindMentionInputs(document.querySelectorAll('.composer-input[contenteditable], .feed-reply-input'));
 
     window.addEventListener('resize', () => {
       if (activeMentionInput && !mentionDropdown?.hidden) {
@@ -1582,6 +1757,7 @@
   function init() {
     initFeedFromData();
     initMentionTypeahead();
+    initFeedInlineReply();
     initTagPicker();
     initTryAskingMenu();
     initDrafts();
@@ -1614,4 +1790,8 @@
   window.getProfileMember = getProfileMember;
   window.showMentionDropdown = showMentionDropdown;
   window.hideMentionDropdown = hideMentionDropdown;
+  window.applyPremiumToFeedReplyInputs = applyPremiumToFeedReplyInputs;
+  window.bindFeedReplyMentions = function () {
+    bindMentionInputs(document.querySelectorAll('.feed-reply-input'));
+  };
 })();
