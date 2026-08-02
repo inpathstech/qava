@@ -2180,13 +2180,24 @@
       line-height: 1.45;
     }
 
-    .feed-list { padding: 0; }
+    .feed-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 12px 0 16px;
+    }
 
     .feed-item {
       display: block;
       padding: 0;
-      border-bottom: 1px solid rgba(17,24,39,0.06);
+      border-bottom: 0;
       transition: background 0.15s ease;
+    }
+
+    /* Soft rule between thread groups so each opener + replies reads as a unit. */
+    .feed-item + .feed-item {
+      border-top: 1px solid rgba(17, 24, 39, 0.08);
+      padding-top: 4px;
     }
 
     .feed-opener {
@@ -2227,8 +2238,6 @@
     .feed-replies-more:hover {
       color: #111827;
     }
-
-    .feed-item:last-child { border-bottom: 0; }
 
     .feed-opener h3 {
       font-family: var(--display);
