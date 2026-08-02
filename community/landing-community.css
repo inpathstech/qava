@@ -1826,8 +1826,8 @@
 
     .feed-header {
       padding: 12px 16px 14px;
-      background: rgba(17, 24, 39, 0.025);
-      border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+      background: var(--panel-soft);
+      border-bottom: 0;
     }
 
     .feed-section-label {
@@ -1858,24 +1858,50 @@
       line-height: 1.45;
     }
 
+    /* Discussions shell: header/toolbar stay framed; threads are separate cards. */
+    .feed-section-wrap > .feed-card {
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+      overflow: visible;
+    }
+
+    .feed-header {
+      border: 1px solid var(--hairline);
+      border-bottom: 0;
+      border-radius: 10px 10px 0 0;
+      background: var(--panel-soft);
+    }
+
+    .feed-toolbar {
+      border: 1px solid var(--hairline);
+      border-top: 1px solid rgba(17, 24, 39, 0.06);
+      border-radius: 0 0 10px 10px;
+      background: rgba(255, 255, 255, 0.92);
+      margin-bottom: 0;
+    }
+
     .feed-list {
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      padding: 12px 0 16px;
+      gap: 16px;
+      padding: 16px 0 8px;
+      background: transparent;
     }
 
     .feed-item {
       display: block;
       padding: 0;
-      border-bottom: 0;
+      border: 1px solid var(--hairline);
+      border-radius: 10px;
+      background: #ffffff;
+      overflow: hidden;
       transition: background 0.15s ease;
     }
 
-    /* Soft rule between thread groups so each opener + replies reads as a unit. */
     .feed-item + .feed-item {
-      border-top: 1px solid rgba(17, 24, 39, 0.08);
-      padding-top: 4px;
+      border-top: 1px solid var(--hairline);
+      padding-top: 0;
     }
 
     .feed-opener {
@@ -1884,15 +1910,17 @@
       color: inherit;
       text-decoration: none;
       cursor: pointer;
+      background: var(--panel-soft);
       transition: background 0.15s ease;
     }
 
     .feed-opener:hover {
-      background: rgba(17,24,39,0.02);
+      background: #f3f4f6;
     }
 
     .feed-replies {
       padding: 0 8px 10px 16px;
+      background: #ffffff;
     }
 
     .feed-item .reply {
@@ -2063,7 +2091,7 @@
       justify-content: space-between;
       gap: 10px;
       padding: 10px 16px;
-      border-bottom: 1px solid rgba(17,24,39,0.06);
+      border-bottom: 0;
     }
 
     .feed-toolbar label {
