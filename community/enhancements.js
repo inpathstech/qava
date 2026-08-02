@@ -192,6 +192,30 @@
     return parts.map((p) => ` · ${escapeHtml(p)}`).join('');
   }
 
+
+  // Circular avatar: photo when present, otherwise initials.
+  function avatarHtml(profile, fallbackName) {
+    const p = profile || {};
+    const name = fallbackName || p.displayName || p.name || '';
+    const initials = p.initials || (name ? String(name).slice(0, 2).toUpperCase() : '??');
+    if (p.photo) {
+      const posStyle = p.photoPosition
+        ? ` style="object-position:${escapeHtml(p.photoPosition)}"`
+        : '';
+      return `<div class="avatar"><img src="${escapeHtml(p.photo)}" alt="${escapeHtml(name || initials)}"${posStyle} /></div>`;
+    }
+    return `<div class="avatar">${escapeHtml(initials)}</div>`;
+  }
+
+  function selfAvatarHtml(fallbackLabel) {
+    const auth = (typeof window.communityGetAuthState === 'function' && window.communityGetAuthState()) || {};
+    const profile = auth.profile || (auth.handle && window.MEMBER_PROFILES && window.MEMBER_PROFILES[auth.handle]) || null;
+    if (profile && (profile.photo || profile.initials)) {
+      return avatarHtml(profile, auth.handle || fallbackLabel || 'You');
+    }
+    return `<div class="avatar">${escapeHtml(fallbackLabel || 'You')}</div>`;
+  }
+
   function renderAttachChip(label) {
     return `<span class="attach-chip">${DOC_SVG} ${escapeHtml(label)}</span>`;
   }
@@ -216,7 +240,7 @@
     const items = previews.map((r) => {
       const p = MEMBER_PROFILES[r.author] || { initials: '??', role: '', school: '' };
       return `<div class="reply">
-        <div class="avatar">${p.initials}</div>
+        ${avatarHtml(p, r.author)}
         <div>
           <div class="reply-meta"><strong>${memberLink(r.author)}</strong>${metaExtra(p.role, p.school)}</div>
           <div class="reply-body">${r.body} <span class="reply-time">${escapeHtml(r.time)}</span></div>
@@ -237,7 +261,7 @@
     return `<div class="feed-item${unread ? ' has-unread' : ''}" data-feed-thread="${thread.id}" data-activity="${thread.activityTs}" data-likes="${thread.likes}" data-replies="${replies}" data-status="${thread.status}">
       <a class="feed-opener" href="#" data-open-thread data-thread="${thread.id}">
         <div class="feed-opener-meta-row">
-          <div class="avatar">${op.initials}</div>
+          ${avatarHtml(op, op.name)}
           <div class="meta-lines">
             <div class="meta-top"><strong>${memberLink(op.name)}</strong>${metaExtra(op.role, op.school)}</div>
             <div class="meta-sub">${thread.status === 'new' ? 'New' : 'Active'}${unread ? ` · <span class="feed-unread">${thread.newReplies} new</span>` : ''}</div>
@@ -320,13 +344,13 @@
   function renderReply(thread, reply, isBest) {
     if (hiddenContent.has(reply.id) || blockedMembers.has(reply.author)) return '';
     const p = reply.author === 'You'
-      ? { initials: 'You', role: '', school: '' }
+      ? ((typeof window.communityGetAuthState === 'function' && window.communityGetAuthState().profile) || { initials: 'You', role: '', school: '' })
       : (MEMBER_PROFILES[reply.author] || { initials: '??', role: '', school: '' });
     const nested = reply.parentId ? ' is-nested' : '';
     const best = isBest ? ' is-best-answer' : '';
     const attach = reply.attachment ? `<div class="attach-chips">${renderAttachChip(reply.attachment)}</div>` : '';
     return `<div class="reply${nested}${best}" data-reply-id="${reply.id}" data-parent-id="${reply.parentId || ''}">
-      <div class="avatar">${p.initials}</div>
+      ${avatarHtml(p, reply.author)}
       <div>
         <div class="reply-meta"><strong>${memberLink(reply.author)}</strong>${metaExtra(p.role, p.school)}${isBest ? ' · <span class="best-answer-badge">Best answer</span>' : ''}</div>
         <div class="reply-body">${reply.body} <span class="reply-time">${escapeHtml(reply.time)}</span></div>
@@ -351,7 +375,7 @@
     userPost.className = 'thread-post is-op';
     userPost.innerHTML = `
       <div class="thread-meta">
-        <div class="avatar">You</div>
+        ${selfAvatarHtml('You')}
         <div class="meta-lines">
           <div class="meta-top"><strong>You</strong></div>
           <div class="meta-sub">${escapeHtml(userThreadState.time)} · ${replyCount} ${replyCount === 1 ? 'reply' : 'replies'} ${editBtn}</div>
@@ -410,7 +434,7 @@
     defaultPost.className = 'thread-post is-op';
     defaultPost.innerHTML = `
       <div class="thread-meta">
-        <div class="avatar">${op.initials}</div>
+        ${avatarHtml(op, op.name)}
         <div class="meta-lines">
           <div class="meta-top"><strong>${memberLink(op.name)}</strong>${metaExtra(op.role, op.school)}</div>
           <div class="meta-sub">${escapeHtml(thread.time)} · ${replyCount} ${replyCount === 1 ? 'reply' : 'replies'}</div>
