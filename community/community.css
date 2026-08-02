@@ -29,26 +29,6 @@
       background-repeat: repeat;
     }
 
-    /* Embedded in app.qava.ai shell — no marketing mini-nav / dots */
-    html.community-embed,
-    html.community-embed body {
-      background: #fff !important;
-      min-height: 0;
-    }
-    html.community-embed #qava-dot-base-fixed,
-    html.community-embed .header-container {
-      display: none !important;
-    }
-    html.community-embed .chat-page,
-    html.community-embed .view {
-      margin-top: 0;
-      padding-top: 0;
-    }
-    html.community-embed .chat-page {
-      margin: 24px auto 48px;
-      width: min(680px, calc(100% - 32px));
-    }
-
     body > *:not(#qava-dot-base-fixed):not(#mentionDropdown):not(#mentionInviteToast):not(#reportModal):not(#communityAuthModal):not(.community-toast) { position: relative; z-index: 1; }
 
     a { color: inherit; text-decoration: none; }
@@ -102,6 +82,20 @@
     }
 
     .proto-toggle input { accent-color: #fff; }
+
+    /* App shell embed (app.qava.ai/community iframe) — no mini nav */
+    body.embed-app .header-container,
+    body.embed-app #qava-dot-base-fixed {
+      display: none !important;
+    }
+    body.embed-app {
+      background: #fff;
+    }
+    body.embed-app .chat-page,
+    body.embed-app .thread-page,
+    body.embed-app .profile-page {
+      padding-top: 8px;
+    }
 
     /* Navbar */
     .header-container {
@@ -2180,13 +2174,24 @@
       line-height: 1.45;
     }
 
-    .feed-list { padding: 0; }
+    .feed-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 12px 0 16px;
+    }
 
     .feed-item {
       display: block;
       padding: 0;
-      border-bottom: 1px solid rgba(17,24,39,0.06);
+      border-bottom: 0;
       transition: background 0.15s ease;
+    }
+
+    /* Soft rule under each thread group so openers still read as distinct units. */
+    .feed-item + .feed-item {
+      border-top: 1px solid rgba(17, 24, 39, 0.08);
+      padding-top: 4px;
     }
 
     .feed-opener {
@@ -2227,8 +2232,6 @@
     .feed-replies-more:hover {
       color: #111827;
     }
-
-    .feed-item:last-child { border-bottom: 0; }
 
     .feed-opener h3 {
       font-family: var(--display);
