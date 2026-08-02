@@ -913,6 +913,14 @@
       white-space: nowrap;
     }
 
+    .reply-mention:not(.is-external) {
+      cursor: pointer;
+    }
+
+    .reply-mention:not(.is-external):hover {
+      background: rgba(17, 24, 39, 0.1);
+    }
+
     .landing-section .reply-time,
     .thread-detail .reply-time,
     .feed-item .reply-time {
@@ -2961,6 +2969,7 @@
     .reply-mention.is-external {
       background: rgba(17,24,39,0.04);
       border: 1px dashed rgba(17,24,39,0.14);
+      cursor: default;
     }
 
     .input-with-gate { position: relative; }

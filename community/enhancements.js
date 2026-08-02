@@ -526,6 +526,14 @@
     document.querySelectorAll('.member-link').forEach((btn) => {
       btn.onclick = (e) => { e.preventDefault(); e.stopPropagation(); openProfilePage(btn.dataset.member); };
     });
+    document.querySelectorAll('.reply-mention:not(.is-external)').forEach((el) => {
+      el.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const handle = (el.dataset.member || el.textContent || '').replace(/^@/, '').trim();
+        if (handle) openProfilePage(handle);
+      };
+    });
   }
 
   let currentProfileMember = 'Nathan';
@@ -854,6 +862,10 @@
     const raw = (window.getInputRaw ? window.getInputRaw(input) : (input.textContent || '')).trim();
     if (!raw) return;
 
+    const prepared = extractInvitesAndMaskBody(raw);
+    const publishBody = prepared.body.trim();
+    if (!publishBody) return;
+
     const wrap = input.closest('[data-feed-reply-thread]');
     const threadId = wrap?.dataset?.feedReplyThread || input.closest('[data-feed-thread]')?.dataset?.feedThread;
     const thread = threadId ? THREAD_DATA[threadId] : null;
@@ -861,7 +873,7 @@
 
     const auth = (typeof window.communityGetAuthState === 'function' && window.communityGetAuthState()) || {};
     const author = auth.handle || 'You';
-    const bodyHtml = window.formatPostBody ? window.formatPostBody(raw) : escapeHtml(raw);
+    const bodyHtml = window.formatPostBody ? window.formatPostBody(publishBody) : escapeHtml(publishBody);
 
     thread.replies = thread.replies || [];
     thread.replies.unshift({
@@ -884,7 +896,7 @@
 
     if (typeof window.communityIsLiveId === 'function' && window.communityIsLiveId(threadId)
         && typeof window.communityCreateReply === 'function') {
-      window.communityCreateReply(threadId, raw)
+      window.communityCreateReply(threadId, publishBody, prepared.invites)
         .then(() => {
           if (window.communityToast) window.communityToast('Reply posted.', 'success');
           const api = window.CommunityAPI;
@@ -990,6 +1002,15 @@
     return query;
   }
 
+  const MENTIONS_DROPDOWN_LIMIT = 8;
+  // Must match app.js — marks masked external invites in the stored body.
+  const EXTERNAL_MENTION_MARK = '\u200c';
+
+  function getSelfHandle() {
+    const auth = (typeof window.communityGetAuthState === 'function' && window.communityGetAuthState()) || {};
+    return String(auth.handle || '').trim();
+  }
+
   function getThreadParticipantNames(threadId) {
     if (!threadId || threadId === 'user') return [];
     const thread = THREAD_DATA[threadId];
@@ -1006,29 +1027,75 @@
     return names;
   }
 
-  function getMentionCandidateNames(input) {
+  function mentionNameMatches(name, query) {
+    if (!query) return true;
+    const normalizedQuery = query.toLowerCase();
+    const profile = MEMBER_PROFILES[name] || {};
+    const haystacks = [name, profile.displayName, profile.firstName, profile.lastName]
+      .filter(Boolean)
+      .map((v) => String(v).toLowerCase());
+    return haystacks.some((n) => n.startsWith(normalizedQuery) || n.includes(normalizedQuery));
+  }
+
+  function getFilteredMentionNames(input, query) {
+    const self = getSelfHandle().toLowerCase();
+    const isSelf = (n) => self && String(n).toLowerCase() === self;
     const isFeedReply = input.classList?.contains('feed-reply-input');
     const isReply = input.id === 'replyInput' || isFeedReply;
+
     if (isReply) {
       let threadId = currentThreadId || window.__currentThreadId;
       if (isFeedReply) {
         const wrap = input.closest('[data-feed-reply-thread], [data-feed-thread]');
         threadId = wrap?.dataset?.feedReplyThread || wrap?.dataset?.feedThread || threadId;
       }
-      const participants = getThreadParticipantNames(threadId);
-      const all = Object.keys(MEMBER_PROFILES);
-      if (!participants.length) return all;
-      const seen = new Set(participants);
-      return participants.concat(all.filter((n) => !seen.has(n)));
+      const participants = getThreadParticipantNames(threadId)
+        .filter((n) => !isSelf(n) && mentionNameMatches(n, query));
+      // Empty query: thread participants only. With a query: fill with other members.
+      if (!query) return participants.slice(0, MENTIONS_DROPDOWN_LIMIT);
+      const seen = new Set(participants.map((n) => n.toLowerCase()));
+      const others = Object.keys(MEMBER_PROFILES).filter(
+        (n) => !isSelf(n) && !seen.has(n.toLowerCase()) && mentionNameMatches(n, query),
+      );
+      return participants.concat(others).slice(0, MENTIONS_DROPDOWN_LIMIT);
     }
-    return Object.keys(MEMBER_PROFILES);
+
+    return Object.keys(MEMBER_PROFILES)
+      .filter((n) => !isSelf(n) && mentionNameMatches(n, query))
+      .slice(0, MENTIONS_DROPDOWN_LIMIT);
   }
 
-  function mentionNameMatches(name, query) {
-    if (!query) return true;
-    const normalizedName = name.toLowerCase();
-    const normalizedQuery = query.toLowerCase();
-    return normalizedName.startsWith(normalizedQuery) || normalizedName.includes(normalizedQuery);
+  function maskEmailMentionToken(email) {
+    const local = String(email || '').split('@')[0] || '';
+    return `@${local.slice(0, 3)}${EXTERNAL_MENTION_MARK}`;
+  }
+
+  /**
+   * On publish: collect invite emails, rewrite `@full@email.com` → masked `@jan`
+   * (with an invisible marker so render can keep the external chip).
+   */
+  function extractInvitesAndMaskBody(raw) {
+    const text = String(raw || '');
+    const invites = [];
+    const seen = new Set();
+    const addInvite = (email) => {
+      const trimmed = String(email || '').trim();
+      const normalized = trimmed.toLowerCase();
+      if (!normalized || !normalized.includes('@') || seen.has(normalized)) return;
+      seen.add(normalized);
+      invites.push(trimmed);
+    };
+    const body = text.replace(/@([^\s@]+@[^\s@]+\.[^\s@]+)/g, (_, email) => {
+      addInvite(email);
+      return maskEmailMentionToken(email);
+    });
+    // Safety net: invites inserted this session that remain in the draft.
+    pendingExternalInvites.forEach((email) => {
+      const normalized = String(email || '').trim().toLowerCase();
+      if (normalized && text.toLowerCase().includes(`@${normalized}`)) addInvite(email);
+    });
+    pendingExternalInvites = [];
+    return { body, invites: invites.slice(0, 10) };
   }
 
   function positionMentionDropdown(input) {
@@ -1136,7 +1203,11 @@
 
     const query = getMentionQuery(input).toLowerCase();
     const isReply = input.id === 'replyInput' || input.classList?.contains('feed-reply-input');
-    const names = getMentionCandidateNames(input).filter((n) => mentionNameMatches(n, query));
+    const names = getFilteredMentionNames(input, query);
+
+    let emptyMsg = 'Type a name to mention someone';
+    if (query) emptyMsg = `No members match "${escapeHtml(query)}"`;
+    else if (isReply) emptyMsg = 'No members in this thread yet';
 
     const memberItems = names.length
       ? names.map((n) => {
@@ -1146,9 +1217,9 @@
             <span class="mention-option-role">${escapeHtml(p.role || '')}</span>
           </button>`;
         }).join('')
-      : `<div class="mention-empty">${query ? `No one in this thread matches "${escapeHtml(query)}"` : 'No members in this thread yet'}</div>`;
+      : `<div class="mention-empty">${emptyMsg}</div>`;
 
-    const headerLabel = isReply ? 'In this thread' : 'Mention a member';
+    const headerLabel = isReply && !query ? 'In this thread' : 'Mention a member';
 
     mentionDropdown.innerHTML = `
       <div class="mention-dropdown-header">${headerLabel}</div>
@@ -1513,7 +1584,13 @@
     const original = window.publishComposerPost;
     window.publishComposerPost = function () {
       const title = document.getElementById('composerTitle')?.value.trim();
-      const bodyRaw = window.getInputRaw ? window.getInputRaw(document.getElementById('composerInput')) : '';
+      const composerEl = document.getElementById('composerInput');
+      const raw = window.getInputRaw && composerEl ? window.getInputRaw(composerEl) : '';
+      // Mask emails for local optimistic UI; api.js (outer wrap) also extracts
+      // invites from the pre-mask draft for the network payload.
+      const prepared = extractInvitesAndMaskBody(raw);
+      const bodyRaw = prepared.body;
+      if (composerEl && window.setInputRaw) window.setInputRaw(composerEl, bodyRaw);
 
       if (window.__editingUserPost && userThreadState) {
         if (!userThreadState.postedAt || (Date.now() - userThreadState.postedAt) >= EDIT_WINDOW_MS) {
@@ -1530,7 +1607,7 @@
         if (userFeedItem) {
           userFeedItem.querySelector('h3').textContent = title;
           const excerptEl = userFeedItem.querySelector('.feed-excerpt');
-          if (excerptEl) excerptEl.textContent = bodyRaw.replace(/\*\*/g, '').slice(0, 160);
+          if (excerptEl) excerptEl.textContent = bodyRaw.replace(/\*\*/g, '').replace(/\u200c/g, '').slice(0, 160);
         }
         composerTitle.value = '';
         if (window.clearInput) window.clearInput(document.getElementById('composerInput'));
@@ -1655,12 +1732,30 @@
     });
   }
 
+  function initMentionClickDelegation() {
+    if (document.body.dataset.mentionClickBound === '1') return;
+    document.body.dataset.mentionClickBound = '1';
+    document.body.addEventListener('click', (e) => {
+      const mention = e.target.closest?.('.reply-mention:not(.is-external)');
+      if (!mention) return;
+      // Ignore clicks inside the composer/typeahead.
+      if (mention.closest('.composer-input, .mention-dropdown')) return;
+      e.preventDefault();
+      e.stopPropagation();
+      const handle = (mention.dataset.member || mention.textContent || '').replace(/^@/, '').trim();
+      if (handle) openProfilePage(handle);
+    });
+  }
+
   function patchPublishReply() {
     if (!window.publishReply) return;
     const original = window.publishReply;
     window.publishReply = function () {
       const replyInput = document.getElementById('replyInput');
-      const body = window.getInputRaw ? window.getInputRaw(replyInput).trim() : '';
+      const raw = window.getInputRaw && replyInput ? window.getInputRaw(replyInput) : '';
+      const prepared = extractInvitesAndMaskBody(raw);
+      const body = prepared.body.trim();
+      if (replyInput && window.setInputRaw) window.setInputRaw(replyInput, prepared.body);
       const files = window.replyAttachmentFiles || [];
       if (!body && !files.length) return;
 
@@ -1772,6 +1867,7 @@
     initEditPost();
     initModals();
     initOpenThreadDelegation();
+    initMentionClickDelegation();
     renderThreadDetail('nathan');
   }
 
@@ -1790,6 +1886,8 @@
   window.getProfileMember = getProfileMember;
   window.showMentionDropdown = showMentionDropdown;
   window.hideMentionDropdown = hideMentionDropdown;
+  window.extractInvitesAndMaskBody = extractInvitesAndMaskBody;
+  window.getSelfHandle = getSelfHandle;
   window.applyPremiumToFeedReplyInputs = applyPremiumToFeedReplyInputs;
   window.bindFeedReplyMentions = function () {
     bindMentionInputs(document.querySelectorAll('.feed-reply-input'));

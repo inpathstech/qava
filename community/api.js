@@ -113,8 +113,10 @@
   };
   window.CommunityAPI = API;
   window.communityIsLiveId = isLiveId;
-  window.communityCreateReply = function (id, body) {
-    return API.createReply(id, { body: body });
+  window.communityCreateReply = function (id, body, invites) {
+    var payload = { body: body };
+    if (invites && invites.length) payload.invites = invites;
+    return API.createReply(id, payload);
   };
 
   // ---- Lightweight toast (write feedback) -----------------------------------
@@ -356,6 +358,13 @@
 
   // ---- Best-effort write-through --------------------------------------------
 
+  function prepareBodyAndInvites(raw) {
+    if (typeof window.extractInvitesAndMaskBody === 'function') {
+      return window.extractInvitesAndMaskBody(raw || '');
+    }
+    return { body: raw || '', invites: [] };
+  }
+
   function wrapWrites() {
     if (window.__communityWritesWrapped) return;
     window.__communityWritesWrapped = true;
@@ -367,9 +376,14 @@
         var title = (document.getElementById('composerTitle') || {}).value;
         var bodyEl = document.getElementById('composerInput');
         var rawBody = window.getInputRaw && bodyEl ? window.getInputRaw(bodyEl) : (bodyEl ? bodyEl.innerHTML : '');
+        // Extract invites from the draft *before* inner wraps mask the body.
+        var prepared = prepareBodyAndInvites(rawBody);
+        if (bodyEl && window.setInputRaw) window.setInputRaw(bodyEl, prepared.body);
         var result = origPost.apply(this, arguments);
         if (title && title.trim()) {
-          API.createThread({ title: title.trim(), body: rawBody || '' })
+          var payload = { title: title.trim(), body: prepared.body || '' };
+          if (prepared.invites && prepared.invites.length) payload.invites = prepared.invites;
+          API.createThread(payload)
             .then(function () {
               toast('Posted to the community.', 'success');
               // Refresh the feed from the server so the persisted thread shows.
@@ -387,10 +401,14 @@
       window.publishReply = function () {
         var replyEl = document.getElementById('replyInput');
         var raw = window.getInputRaw && replyEl ? window.getInputRaw(replyEl) : (replyEl ? replyEl.innerHTML : '');
+        var prepared = prepareBodyAndInvites(raw);
+        if (replyEl && window.setInputRaw) window.setInputRaw(replyEl, prepared.body);
         var tid = window.currentThreadId ? window.currentThreadId() : null;
         var result = origReply.apply(this, arguments);
-        if (isLiveId(tid) && raw && raw.trim()) {
-          API.createReply(tid, { body: raw })
+        if (isLiveId(tid) && prepared.body && prepared.body.trim()) {
+          var payload = { body: prepared.body };
+          if (prepared.invites && prepared.invites.length) payload.invites = prepared.invites;
+          API.createReply(tid, payload)
             .then(function () {
               toast('Reply posted.', 'success');
               // Re-fetch the open thread so the persisted reply is shown.
