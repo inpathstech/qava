@@ -580,7 +580,7 @@
     .thread-detail .reply-body p + ul,
     .feed-item .reply-body p + p,
     .feed-item .reply-body p + ul {
-      margin-top: 4px;
+      margin-top: 10px;
     }
 
     .landing-section .reply-body a,
@@ -1950,7 +1950,7 @@
       padding: 8px 10px;
       border: 1px solid rgba(17, 24, 39, 0.1);
       border-radius: 6px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 300;
       line-height: 1.4;
       outline: none;
