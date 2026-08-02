@@ -2251,6 +2251,49 @@
       background: #ffffff;
     }
 
+    .feed-inline-reply {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      padding: 10px 12px 12px;
+      border-top: 1px solid rgba(17, 24, 39, 0.06);
+      background: #fff;
+    }
+
+    .feed-inline-reply .avatar {
+      width: 28px;
+      height: 28px;
+      font-size: 11px;
+    }
+
+    .feed-inline-reply-field {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .feed-inline-reply .feed-reply-input {
+      min-height: 36px;
+      max-height: 120px;
+      overflow-y: auto;
+      padding: 8px 10px;
+      border: 1px solid rgba(17, 24, 39, 0.1);
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.4;
+      outline: none;
+      background: #fff;
+    }
+
+    .feed-inline-reply .feed-reply-input:focus {
+      border-color: #111827;
+    }
+
+    .feed-inline-reply .input-with-gate:not(.is-enabled) .feed-reply-input {
+      cursor: pointer;
+      background: #fafafa;
+    }
+
     .feed-item .reply {
       padding-left: 0;
     }

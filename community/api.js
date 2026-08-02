@@ -112,6 +112,10 @@
     logout: function () { return send('POST', '/premium/logout'); },
   };
   window.CommunityAPI = API;
+  window.communityIsLiveId = isLiveId;
+  window.communityCreateReply = function (id, body) {
+    return API.createReply(id, { body: body });
+  };
 
   // ---- Lightweight toast (write feedback) -----------------------------------
   function toast(message, kind) {
@@ -253,6 +257,7 @@
     };
   }
   window.communityMergeMember = mergeMember;
+  window.communityMapThread = mapThread;
 
   // ---- Progressive hydration ------------------------------------------------
 
