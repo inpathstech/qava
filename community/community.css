@@ -29,24 +29,30 @@
       background-repeat: repeat;
     }
 
-    /* Embedded in app.qava.ai shell — no marketing mini-nav / dots */
+    /* App shell embed (app.qava.ai/community iframe) — no mini nav.
+       Keep the page transparent so the parent shell’s dotted bg shows in the
+       side margins; those margins are inside this document so wheel-scroll
+       still moves the chat. */
     html.community-embed,
-    html.community-embed body {
-      background: #fff !important;
-      min-height: 0;
+    html.community-embed body,
+    body.embed-app {
+      background: transparent;
     }
-    html.community-embed #qava-dot-base-fixed,
+    body.embed-app .header-container,
     html.community-embed .header-container {
       display: none !important;
     }
-    html.community-embed .chat-page,
-    html.community-embed .view {
-      margin-top: 0;
-      padding-top: 0;
+    body.embed-app #qava-dot-base-fixed,
+    html.community-embed #qava-dot-base-fixed {
+      display: block !important;
     }
-    html.community-embed .chat-page {
-      margin: 24px auto 48px;
-      width: min(680px, calc(100% - 32px));
+    body.embed-app .chat-page,
+    body.embed-app .thread-page,
+    body.embed-app .profile-page,
+    html.community-embed .chat-page,
+    html.community-embed .thread-page,
+    html.community-embed .profile-page {
+      padding-top: 16px;
     }
 
     body > *:not(#qava-dot-base-fixed):not(#mentionDropdown):not(#mentionInviteToast):not(#reportModal):not(#communityAuthModal):not(.community-toast) { position: relative; z-index: 1; }
