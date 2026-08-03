@@ -14,28 +14,67 @@
 <body>
   <div id="qava-dot-base-fixed" aria-hidden="true"></div>
 
-  <header class="header-container" data-qava-nav="landing">
+  <div class="header-container" data-qava-nav="landing">
     <div class="header-logo">
-      <a href="https://qava.ai/"><img src="qava-logo.svg" alt="Qava" /></a>
+      <div class="logo-container">
+        <div class="logo">
+          <a href="https://qava.ai/">
+            <div class="qava-nav-logo-flip" id="qava-nav-logo-flip">
+              <div class="qava-nav-logo-inner" id="qava-nav-logo-inner">
+                <img class="qava-nav-logo-face qava-nav-logo-front" src="qava-logo.svg" alt="Qava" />
+                <img class="qava-nav-logo-face qava-nav-logo-back" src="qava-hero-arrow-2.png" alt="" />
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
     </div>
+
     <div class="header-center">
-      <nav class="navigation">
-        <a href="https://qava.ai/community/chat" class="nav-item"><span class="nav-text">Chat</span></a>
-        <a href="templates-marketing-prototype.html" class="nav-item is-active"><span class="nav-text">Templates</span></a>
-        <a href="https://qava.ai/find/" class="nav-item"><span class="nav-text">Find Work</span></a>
-        <a href="https://app.qava.ai/guest" class="nav-item"><span class="nav-text">Find Talent</span></a>
-        <a href="https://qava.ai/about" class="nav-item about"><span class="nav-text">About</span></a>
-      </nav>
+      <div class="navigation">
+        <a href="https://qava.ai/community/chat" class="nav-item chat">
+          <div class="nav-text">Chat</div>
+        </a>
+        <a href="templates-marketing-prototype.html" class="nav-item templates is-active" aria-current="page">
+          <div class="nav-text">Templates</div>
+        </a>
+        <a href="https://qava.ai/find/" class="nav-item search-listings">
+          <div class="nav-text">Find Work</div>
+        </a>
+        <a href="https://app.qava.ai/guest" class="nav-item create-listing">
+          <div class="nav-text">Find Talent</div>
+        </a>
+        <a href="https://qava.ai/about" class="nav-item about">
+          <div class="nav-text">About</div>
+        </a>
+      </div>
     </div>
+
     <div class="header-right">
       <div class="auth-section">
         <a href="https://app.qava.ai/" class="qava-premium-nav-btn" data-qava-premium-nav aria-label="Log in"><span class="nav-text">Log in</span></a>
         <a href="https://app.qava.ai/" class="join-button">
-          <span class="join-text">Get Started</span>
+          <div class="join-text">Get Started</div>
         </a>
       </div>
+      <div class="hamburger-menu" onclick="toggleMobileMenu()">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </div>
     </div>
-  </header>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
+    <a href="https://qava.ai/community/chat" class="mobile-nav-item"><div class="nav-text">Chat</div></a>
+    <a href="templates-marketing-prototype.html" class="mobile-nav-item is-active"><div class="nav-text">Templates</div></a>
+    <a href="https://qava.ai/find/" class="mobile-nav-item"><div class="nav-text">Find Work</div></a>
+    <a href="https://app.qava.ai/guest" class="mobile-nav-item"><div class="nav-text">Find Talent</div></a>
+    <a href="https://qava.ai/about" class="mobile-nav-item"><div class="nav-text">About</div></a>
+    <a href="https://app.qava.ai/" class="mobile-nav-item qava-premium-nav-btn" data-qava-premium-nav aria-label="Log in"><span class="nav-text">Log in</span></a>
+    <a href="https://app.qava.ai/" class="join-button mobile-menu-join-button"><div class="join-text">Get Started</div></a>
+  </div>
 
   <main>
     <section class="tpl-story" aria-label="How to use templates">
@@ -61,41 +100,87 @@
             <div class="seq-stage-count">1 / 3</div>
           </aside>
           <div class="seq-main">
-            <div class="tpl-demo-card">
-              <div class="tpl-demo-head">
-                <div class="tpl-demo-thumb" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+            <div class="tpl-demo-grid">
+              <div class="tpl-demo-card">
+                <div class="tpl-demo-head">
+                  <div class="tpl-demo-thumb" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                  </div>
+                  <div class="tpl-demo-meta">
+                    <h3 class="tpl-demo-title">Beachhead strategy</h3>
+                    <p class="tpl-demo-sub">Startup · Go-to-market</p>
+                  </div>
                 </div>
-                <div class="tpl-demo-meta">
-                  <h3 class="tpl-demo-title">Beachhead strategy</h3>
-                  <p class="tpl-demo-sub">Startup · Go-to-market</p>
-                </div>
-              </div>
-              <div class="tpl-demo-body">
-                <div class="tpl-demo-line is-med"></div>
-                <div class="tpl-demo-line"></div>
-                <div class="tpl-demo-line is-short"></div>
-                <div class="tpl-demo-chips">
-                  <span class="tpl-demo-chip">ICP</span>
-                  <span class="tpl-demo-chip">Positioning</span>
-                  <span class="tpl-demo-chip">First wedge</span>
-                </div>
-              </div>
-            </div>
-            <div class="tpl-demo-card">
-              <div class="tpl-demo-head">
-                <div class="tpl-demo-thumb" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-                </div>
-                <div class="tpl-demo-meta">
-                  <h3 class="tpl-demo-title">Pricing strategy</h3>
-                  <p class="tpl-demo-sub">Growth · Monetization</p>
+                <div class="tpl-demo-body">
+                  <div class="tpl-demo-line is-med"></div>
+                  <div class="tpl-demo-line"></div>
+                  <div class="tpl-demo-line is-short"></div>
+                  <div class="tpl-demo-chips">
+                    <span class="tpl-demo-chip">ICP</span>
+                    <span class="tpl-demo-chip">Positioning</span>
+                    <span class="tpl-demo-chip">First wedge</span>
+                  </div>
                 </div>
               </div>
-              <div class="tpl-demo-body">
-                <div class="tpl-demo-line"></div>
-                <div class="tpl-demo-line is-med"></div>
-                <div class="tpl-demo-line is-short"></div>
+              <div class="tpl-demo-card">
+                <div class="tpl-demo-head">
+                  <div class="tpl-demo-thumb" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                  </div>
+                  <div class="tpl-demo-meta">
+                    <h3 class="tpl-demo-title">Pricing strategy</h3>
+                    <p class="tpl-demo-sub">Growth · Monetization</p>
+                  </div>
+                </div>
+                <div class="tpl-demo-body">
+                  <div class="tpl-demo-line"></div>
+                  <div class="tpl-demo-line is-med"></div>
+                  <div class="tpl-demo-line is-short"></div>
+                  <div class="tpl-demo-chips">
+                    <span class="tpl-demo-chip">Value</span>
+                    <span class="tpl-demo-chip">Packaging</span>
+                  </div>
+                </div>
+              </div>
+              <div class="tpl-demo-card">
+                <div class="tpl-demo-head">
+                  <div class="tpl-demo-thumb" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 4-6"/></svg>
+                  </div>
+                  <div class="tpl-demo-meta">
+                    <h3 class="tpl-demo-title">Go-to-market strategy</h3>
+                    <p class="tpl-demo-sub">Launch · Channels</p>
+                  </div>
+                </div>
+                <div class="tpl-demo-body">
+                  <div class="tpl-demo-line is-med"></div>
+                  <div class="tpl-demo-line"></div>
+                  <div class="tpl-demo-line is-short"></div>
+                  <div class="tpl-demo-chips">
+                    <span class="tpl-demo-chip">Audience</span>
+                    <span class="tpl-demo-chip">Messaging</span>
+                  </div>
+                </div>
+              </div>
+              <div class="tpl-demo-card">
+                <div class="tpl-demo-head">
+                  <div class="tpl-demo-thumb" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h16"/><path d="M4 14h16"/><path d="M8 6v12"/><rect width="18" height="18" x="3" y="3" rx="2"/></svg>
+                  </div>
+                  <div class="tpl-demo-meta">
+                    <h3 class="tpl-demo-title">Financial model</h3>
+                    <p class="tpl-demo-sub">Finance · Planning</p>
+                  </div>
+                </div>
+                <div class="tpl-demo-body">
+                  <div class="tpl-demo-line"></div>
+                  <div class="tpl-demo-line is-med"></div>
+                  <div class="tpl-demo-line is-short"></div>
+                  <div class="tpl-demo-chips">
+                    <span class="tpl-demo-chip">Runway</span>
+                    <span class="tpl-demo-chip">Scenarios</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -149,8 +234,34 @@
           <div class="seq-main">
             <div class="tpl-demo-card">
               <div class="tpl-demo-slide">
-                <div class="tpl-demo-slide-kicker">Ready to present</div>
-                <div class="tpl-demo-slide-title">A clearer message — without rebuilding from scratch.</div>
+                <div class="tpl-demo-slide-art" aria-hidden="true">
+                  <h3 class="tpl-slide-heading">The Beachhead Strategy</h3>
+                  <p class="tpl-slide-sub">How the world’s biggest companies won everything by first winning one thing.</p>
+                  <div class="tpl-beachhead-diagram">
+                    <svg viewBox="0 0 360 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Beachhead strategy diagram">
+                      <path d="M180 18 L68 198 H292 Z" fill="none" stroke="#d1d5db" stroke-width="1.25" />
+                      <g fill="#fff" stroke="#c4c8d0" stroke-width="1.5">
+                        <circle cx="117" cy="178" r="14" />
+                        <circle cx="159" cy="178" r="14" />
+                        <circle cx="201" cy="178" r="14" />
+                        <circle cx="243" cy="178" r="14" />
+                        <circle cx="138" cy="138" r="14" />
+                        <circle cx="180" cy="138" r="14" />
+                        <circle cx="222" cy="138" r="14" />
+                        <circle cx="159" cy="98" r="14" />
+                        <circle cx="201" cy="98" r="14" />
+                      </g>
+                      <circle cx="180" cy="58" r="15" fill="#fff" stroke="#111827" stroke-width="2.75" />
+                      <line x1="268" y1="58" x2="202" y2="58" stroke="#111827" stroke-width="1.5" />
+                      <polygon points="202,58 210,54 210,62" fill="#111827" />
+                      <text x="274" y="62" font-family="Libre Caslon Display, Georgia, serif" font-size="14" fill="#111827">Beachhead</text>
+                    </svg>
+                  </div>
+                </div>
+                <div class="tpl-demo-slide-footer">
+                  <div class="tpl-demo-slide-kicker">Ready to present</div>
+                  <div class="tpl-demo-slide-title">A clearer message — without rebuilding from scratch.</div>
+                </div>
               </div>
             </div>
           </div>
@@ -208,12 +319,42 @@
     </section>
   </main>
 
-  <script src="qava-auth.js"></script>
   <script src="qava-footer.js"></script>
   <script>
-    if (typeof window.applyQavaFooter === "function") {
-      window.applyQavaFooter(document);
+    function toggleMobileMenu() {
+      var mobileMenu = document.getElementById("mobileMenu");
+      if (!mobileMenu) return;
+      mobileMenu.classList.toggle("active");
+      document.body.style.overflow = mobileMenu.classList.contains("active") ? "hidden" : "";
     }
+    document.addEventListener("click", function (event) {
+      var mobileMenu = document.getElementById("mobileMenu");
+      var hamburgerMenu = document.querySelector(".hamburger-menu");
+      if (
+        mobileMenu &&
+        hamburgerMenu &&
+        mobileMenu.classList.contains("active") &&
+        !mobileMenu.contains(event.target) &&
+        !hamburgerMenu.contains(event.target)
+      ) {
+        toggleMobileMenu();
+      }
+    });
+    (function () {
+      if (typeof window.applyQavaFooter === "function") {
+        window.applyQavaFooter(document);
+      }
+      var inner = document.getElementById("qava-nav-logo-inner");
+      if (inner) {
+        var flipped = false;
+        setInterval(function () {
+          flipped = !flipped;
+          inner.classList.toggle("is-flipped", flipped);
+        }, 5000);
+      }
+    })();
   </script>
+  <script src="qava-landing.js?v=2"></script>
+  <script src="qava-auth.js"></script>
 </body>
 </html>
