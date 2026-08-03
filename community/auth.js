@@ -277,6 +277,9 @@
                     state.profile = p;
                     if (window.communityMergeMember) window.communityMergeMember(p.name, p);
                     paintSelfAvatars();
+                    if (typeof window.communitySyncComposerAvatars === 'function') {
+                      window.communitySyncComposerAvatars();
+                    }
                   }
                 })
                 .catch(function () {});
@@ -336,6 +339,9 @@
       window.communityMergeMember(profile.name, profile);
     }
     paintSelfAvatars();
+    if (typeof window.communitySyncComposerAvatars === 'function') {
+      window.communitySyncComposerAvatars();
+    }
     renderHeader();
     if (window.qavaAuth && typeof window.qavaAuth.refresh === 'function') {
       try { window.qavaAuth.refresh(); } catch (e) {}
@@ -374,6 +380,32 @@
       return true;
     }
   }
+
+  // App shell (Edit Account) notifies the embed when the avatar changes.
+  window.addEventListener('message', function (event) {
+    var data = event && event.data;
+    if (!data || data.type !== 'qava-avatar-updated') return;
+    if (!state.loggedIn || typeof API.getMyProfile !== 'function') return;
+    API.getMyProfile()
+      .then(function (r) {
+        var p = r && r.profile;
+        if (p && p.name) {
+          state.handle = p.name;
+          state.profile = p;
+          if (window.communityMergeMember) window.communityMergeMember(p.name, p);
+        }
+        if (typeof window.communityPaintSelfAvatars === 'function') {
+          window.communityPaintSelfAvatars();
+        }
+        if (typeof window.communitySyncComposerAvatars === 'function') {
+          window.communitySyncComposerAvatars();
+        }
+        if (typeof window.initFeedFromData === 'function') {
+          window.initFeedFromData();
+        }
+      })
+      .catch(function () {});
+  });
 
   function boot() {
     refreshAuth();

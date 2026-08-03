@@ -786,7 +786,7 @@
       const reply = document.createElement('div');
       reply.className = 'reply';
       reply.innerHTML = `
-        <div class="avatar">You</div>
+        ${(typeof window.communitySelfAvatarHtml === 'function' && window.communitySelfAvatarHtml('You')) || '<div class="avatar">You</div>'}
         <div>
           <div class="reply-meta"><strong>You</strong></div>
           <div class="reply-body">${formatReplyBody(body)}</div>
@@ -835,7 +835,7 @@
       const userOpener = userFeedItem.querySelector('.feed-opener');
       userOpener.innerHTML = `
         <div class="thread-meta">
-          <div class="avatar">You</div>
+          ${(typeof window.communitySelfAvatarHtml === 'function' && window.communitySelfAvatarHtml('You')) || '<div class="avatar">You</div>'}
           <div class="meta-lines">
             <div class="meta-top"><strong>You</strong></div>
             <div class="meta-sub">Just now</div>
