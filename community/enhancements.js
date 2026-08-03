@@ -216,6 +216,14 @@
     return `<div class="avatar">${escapeHtml(fallbackLabel || 'You')}</div>`;
   }
 
+  function syncComposerAvatars() {
+    document.querySelectorAll('.composer-card .avatar, #replyComposer .avatar, .composer-top > .avatar, .reply-box .avatar, .feed-inline-reply .avatar, #userThreadPost .avatar').forEach((el) => {
+      el.outerHTML = selfAvatarHtml('You');
+    });
+  }
+  window.communitySelfAvatarHtml = selfAvatarHtml;
+  window.communitySyncComposerAvatars = syncComposerAvatars;
+
   function renderAttachChip(label) {
     return `<span class="attach-chip">${DOC_SVG} ${escapeHtml(label)}</span>`;
   }
@@ -359,8 +367,9 @@
     const nested = reply.parentId ? ' is-nested' : '';
     const best = isBest ? ' is-best-answer' : '';
     const attach = reply.attachment ? `<div class="attach-chips">${renderAttachChip(reply.attachment)}</div>` : '';
+    const avatar = reply.author === 'You' ? selfAvatarHtml('You') : avatarHtml(p, reply.author);
     return `<div class="reply${nested}${best}" data-reply-id="${reply.id}" data-parent-id="${reply.parentId || ''}">
-      ${avatarHtml(p, reply.author)}
+      ${avatar}
       <div>
         <div class="reply-meta"><strong>${memberLink(reply.author)}</strong>${metaExtra(p.role, p.school)}${isBest ? ' · <span class="best-answer-badge">Best answer</span>' : ''}</div>
         <div class="reply-body">${reply.body} <span class="reply-time">${escapeHtml(reply.time)}</span></div>
@@ -1869,6 +1878,7 @@
     initOpenThreadDelegation();
     initMentionClickDelegation();
     renderThreadDetail('nathan');
+    syncComposerAvatars();
   }
 
   if (document.readyState === 'loading') {
