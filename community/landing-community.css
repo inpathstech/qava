@@ -1158,7 +1158,7 @@
     .composer-card {
       padding: 12px 14px 10px;
       margin-bottom: 16px;
-      background: #f0f0f0;
+      background: var(--panel-soft);
     }
 
     .composer-card .avatar {
@@ -1920,12 +1920,12 @@
       color: inherit;
       text-decoration: none;
       cursor: pointer;
-      background: #f0f0f0;
+      background: var(--panel-soft);
       transition: background 0.15s ease;
     }
 
     .feed-opener:hover {
-      background: #ebebeb;
+      background: #f3f4f6;
     }
 
     .feed-replies {
