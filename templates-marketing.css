@@ -365,7 +365,8 @@
   text-align: center;
   margin: 0 auto 72px !important;
   line-height: 1.45;
-  max-width: 36em;
+  max-width: none;
+  white-space: nowrap;
 }
 
 .tpl-static-flow {
@@ -850,7 +851,8 @@
   }
 
   .tpl-slide-sub,
-  .tpl-demo-slide-title {
+  .tpl-demo-slide-title,
+  .tpl-marketing-hero p.qava-hero-subheader {
     white-space: normal;
   }
 }
