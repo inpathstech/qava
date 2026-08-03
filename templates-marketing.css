@@ -565,12 +565,13 @@
 
 .tpl-slide-sub {
   margin: 10px 0 0;
-  max-width: 28em;
+  max-width: none;
   font-family: Inter, system-ui, sans-serif;
   font-size: 13px;
   font-weight: 300;
   line-height: 1.45;
   color: #6b7280;
+  white-space: nowrap;
 }
 
 .tpl-beachhead-diagram {
@@ -607,7 +608,8 @@
   font-weight: 400;
   color: #111827;
   line-height: 1.2;
-  max-width: 18em;
+  max-width: none;
+  white-space: nowrap;
 }
 
 .tpl-demo-fields {
@@ -845,6 +847,11 @@
 
   .room-thesis-inner {
     padding: 28px 20px 32px;
+  }
+
+  .tpl-slide-sub,
+  .tpl-demo-slide-title {
+    white-space: normal;
   }
 }
 
