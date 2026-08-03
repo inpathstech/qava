@@ -852,6 +852,7 @@
     .landing-section .reply-body,
     .thread-detail .reply-body,
     .feed-item .reply-body {
+      margin-top: 8px;
       font-size: 12px;
       line-height: 1.45;
     }
