@@ -44,8 +44,8 @@
     .footer-section {
       background: #ffffff;
       width: 100%;
-      max-width: 1070px;
-      margin: 50px auto 0 auto;
+      max-width: none;
+      margin: 50px 0 0 0;
       padding: 78px 0 46px 0;
       border-top: 1px solid #EBEBEB;
       box-sizing: border-box;
@@ -56,17 +56,32 @@
       padding: 0 20px;
       box-sizing: border-box;
     }
-    .footer-section .footer-content { display: flex; flex-wrap: wrap; }
-    .footer-section .footer-logo { width: 39%; padding: 2px 15px 0 0; margin-bottom: 30px; }
-    .footer-section .footer-logo-img { width: 40px; height: auto; cursor: pointer; }
+    .footer-section .footer-content {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: flex-start;
+      width: 100%;
+    }
+    .footer-section .footer-logo {
+      flex: 0 0 39%;
+      width: 39%;
+      max-width: 39%;
+      padding: 2px 15px 0 0;
+      margin-bottom: 0;
+      box-sizing: border-box;
+    }
+    .footer-section .footer-logo-img { width: 40px; height: auto; cursor: pointer; display: block; }
     .footer-section .footer-links {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      width: 60%;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      flex: 1 1 auto;
+      width: 61%;
+      min-width: 0;
       gap: 16px 25px;
-      padding: 0 15px 0 10px;
+      padding: 0 0 0 10px;
+      box-sizing: border-box;
     }
-    .footer-section .footer-column { display: flex; flex-direction: column; }
+    .footer-section .footer-column { display: flex; flex-direction: column; min-width: 0; }
     .footer-section .footer-heading {
       font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
       font-weight: 400;
@@ -104,8 +119,18 @@
       color: #797979;
     }
     @media (max-width: 860px) {
-      .footer-section .footer-logo, .footer-section .footer-links { width: 100%; }
-      .footer-section .footer-links { grid-template-columns: repeat(2, 1fr); }
+      .footer-section .footer-content { flex-wrap: wrap; }
+      .footer-section .footer-logo,
+      .footer-section .footer-links {
+        flex: 1 1 100%;
+        width: 100%;
+        max-width: 100%;
+      }
+      .footer-section .footer-logo { margin-bottom: 30px; }
+      .footer-section .footer-links {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        padding: 0;
+      }
       .footer-section .footer-container { max-width: none; width: calc(100vw - 40px); padding: 0 20px; }
     }
   `;
@@ -132,9 +157,11 @@
   function ensureFooterStyles(doc) {
     if (!doc || !doc.head) return;
     ensureFooterFonts(doc);
-    if (doc.getElementById("qava-footer-style")) return;
+    const existing = doc.getElementById("qava-footer-style");
+    if (existing) existing.remove();
     const style = doc.createElement("style");
     style.id = "qava-footer-style";
+    style.setAttribute("data-qava-footer-css", "footer-row-1");
     style.textContent = FOOTER_CSS;
     doc.head.appendChild(style);
   }
