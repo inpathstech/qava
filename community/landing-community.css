@@ -1158,6 +1158,7 @@
     .composer-card {
       padding: 12px 14px 10px;
       margin-bottom: 16px;
+      background: #f0f0f0;
     }
 
     .composer-card .avatar {
