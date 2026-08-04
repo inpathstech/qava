@@ -2167,8 +2167,24 @@
       
   }
 
+  function revealLanding() {
+    if (typeof window.__qavaReveal === "function") {
+      window.__qavaReveal();
+    } else {
+      document.documentElement.classList.remove("qava-pending");
+      document.documentElement.classList.add("qava-enhanced");
+    }
+  }
+
   function boot() {
     attachLandingEnhancements();
+    // landing-community.js (next script) relocates Premium Community, then reveals.
+    // Fallback: reveal shortly after rebuild so the page never stays blank if that
+    // script is missing or fails — still after legacy sections have been removed.
+    window.__qavaLandingReady = true;
+    window.setTimeout(function () {
+      if (!window.__qavaCommunityPreviewReady) revealLanding();
+    }, 120);
   }
 
   if (document.readyState === 'loading') {
