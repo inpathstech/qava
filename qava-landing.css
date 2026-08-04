@@ -3,8 +3,13 @@
           --dot-y: 30vh;
         }
 
+        html {
+          margin: 0;
+        }
+
         body {
           position: relative;
+          margin: 0;
           background: #ffffff !important;
         }
 
