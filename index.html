@@ -5384,7 +5384,9 @@
         .feature-cards-header br { display: none !important; }
 
     </style>
-    <link rel="stylesheet" href="qava-landing.css" onload="window.__qavaReveal && window.__qavaReveal()" onerror="window.__qavaReveal && window.__qavaReveal()" />
+    <!-- Do NOT call __qavaReveal from stylesheet onload — CSS finishes before
+         qava-landing.js rebuilds the page, which re-exposes the legacy hero. -->
+    <link rel="stylesheet" href="qava-landing.css" />
     <link rel="stylesheet" href="community/landing-community.css" />
     <link rel="stylesheet" href="qava-auth.css" />
     <script>
