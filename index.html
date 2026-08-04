@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Qava</title>
     <link rel="icon" type="image/svg+xml" href="qava-logo.svg">
-    <!-- Anti-FOUC guard: keep the page hidden until the design stylesheet (qava-landing.css)
-         is applied, so the pre-CSS inline (old) styles can never flash on first paint. -->
+    <!-- Anti-flash guard: keep the page hidden until qava-landing.js rebuilds the homepage.
+         The static HTML still contains the legacy hero (uni logos, strategy pills, Top Talent
+         columns); JS swaps that for the current design. Revealing on CSS alone flashes the old site. -->
     <style id="qava-fouc-guard">html.qava-pending body { visibility: hidden !important; }</style>
     <script>document.documentElement.classList.add('qava-pending');</script>
     <!-- Fetch the design stylesheet as early and high-priority as possible so the
@@ -5388,27 +5389,16 @@
     <link rel="stylesheet" href="qava-auth.css" />
     <script>
       (function () {
-        function reveal() { document.documentElement.classList.remove('qava-pending'); }
-        window.__qavaReveal = reveal;
-        function landingApplied() {
-          var links = document.getElementsByTagName('link');
-          for (var i = 0; i < links.length; i++) {
-            var l = links[i];
-            if (l.rel === 'stylesheet' && l.href && l.href.indexOf('qava-landing.css') !== -1) {
-              try { return !!(l.sheet && l.sheet.cssRules); }
-              catch (e) { return !!l.sheet; }
-            }
-          }
-          return false;
+        var revealed = false;
+        function reveal() {
+          if (revealed) return;
+          revealed = true;
+          document.documentElement.classList.remove('qava-pending');
+          document.documentElement.classList.add('qava-enhanced');
         }
-        // qava-landing.css is a render-blocking stylesheet declared *above* this script,
-        // so this script only runs once that stylesheet has loaded and the new design is
-        // already applied — we can reveal immediately with no old-design flash. We do NOT
-        // reveal on DOMContentLoaded/load, because those can fire before the stylesheet is
-        // applied (e.g. slow network or an edge/CDN hiccup) and briefly expose the old
-        // inline design.
-        if (landingApplied()) { reveal(); return; }
-        // Safety net: never leave the page hidden if the stylesheet somehow never applies.
+        // Called by qava-landing.js / landing-community.js after the current homepage is built.
+        window.__qavaReveal = reveal;
+        // Safety net only — do not reveal on CSS ready (legacy HTML would flash first).
         setTimeout(reveal, 5000);
       })();
     </script>
@@ -11988,7 +11978,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
             }
         })();
     </script>
-    <script src="qava-landing.js"></script>
+    <script src="qava-landing.js?v=3"></script>
     <script src="qava-auth.js"></script>
     <script src="community/landing-community.js"></script>
 </body>
