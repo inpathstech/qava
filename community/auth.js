@@ -381,16 +381,51 @@
     }
   }
 
-  // App shell (Edit Account) notifies the embed when the avatar changes.
+  function applySelfPhoto(photoUrl) {
+    var url =
+      typeof photoUrl === 'string' && photoUrl.trim() ? photoUrl.trim() : null;
+    if (!state.profile) {
+      if (!url) return;
+      state.profile = { photo: url, photoPosition: null, initials: 'You' };
+    } else {
+      state.profile.photo = url;
+      state.profile.photoPosition = null;
+    }
+    if (state.handle && window.communityMergeMember) {
+      window.communityMergeMember(state.handle, state.profile);
+    }
+    paintSelfAvatars();
+    if (typeof window.communitySyncComposerAvatars === 'function') {
+      window.communitySyncComposerAvatars();
+    }
+    if (typeof window.initFeedFromData === 'function') {
+      window.initFeedFromData();
+    }
+  }
+
+  // App shell (Edit Account / community page) pushes User.profileImage so the
+  // embed matches the nav even before /community/me seed finishes.
   window.addEventListener('message', function (event) {
     var data = event && event.data;
     if (!data || data.type !== 'qava-avatar-updated') return;
+    var parentPhoto = null;
+    if (Object.prototype.hasOwnProperty.call(data, 'profileImage')) {
+      parentPhoto =
+        typeof data.profileImage === 'string' ? data.profileImage : null;
+      applySelfPhoto(parentPhoto);
+    }
     if (!state.loggedIn || typeof API.getMyProfile !== 'function') return;
     API.getMyProfile()
       .then(function (r) {
         var p = r && r.profile;
         if (p && p.name) {
           state.handle = p.name;
+          // Prefer the app-shell URL when provided — avoids a flicker back to a
+          // stale CommunityMember.photo before backend write-through lands.
+          if (parentPhoto) {
+            p.photo = parentPhoto;
+            p.photoPosition = null;
+          }
           state.profile = p;
           if (window.communityMergeMember) window.communityMergeMember(p.name, p);
         }
