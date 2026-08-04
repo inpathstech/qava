@@ -13,7 +13,7 @@
   var API = window.CommunityAPI;
   if (!API || typeof API.access !== 'function') return;
 
-  var state = { loggedIn: false, premium: false, email: null, name: null, handle: null, profile: null };
+  var state = { loggedIn: false, premium: false, email: null, name: null, handle: null, profile: null, appPhoto: null };
   var pendingEmail = null;
   var modal = null;
 
@@ -237,7 +237,7 @@
 
   function signOut() {
     API.logout().catch(function () {}).then(function () {
-      state = { loggedIn: false, premium: false, email: null, name: null };
+      state = { loggedIn: false, premium: false, email: null, name: null, handle: null, profile: null, appPhoto: null };
       if (window.communitySetPremium) window.communitySetPremium(false);
       renderHeader();
       if (window.communityToast) window.communityToast('Signed out.', 'info');
@@ -275,6 +275,10 @@
                   if (p && p.name) {
                     state.handle = p.name;
                     state.profile = p;
+                    if (state.appPhoto) {
+                      state.profile.photo = state.appPhoto;
+                      state.profile.photoPosition = null;
+                    }
                     if (window.communityMergeMember) window.communityMergeMember(p.name, p);
                     paintSelfAvatars();
                     if (typeof window.communitySyncComposerAvatars === 'function') {
@@ -290,8 +294,19 @@
   }
 
 
+  function effectiveSelfProfile() {
+    var p = state.profile ? Object.assign({}, state.profile) : null;
+    if (!p && !state.appPhoto) return null;
+    if (!p) p = { photo: null, photoPosition: null, initials: 'You' };
+    if (state.appPhoto) {
+      p.photo = state.appPhoto;
+      p.photoPosition = null;
+    }
+    return p;
+  }
+
   function paintSelfAvatars() {
-    var profile = state.profile;
+    var profile = effectiveSelfProfile();
     if (!profile) return;
     var html;
     if (profile.photo) {
@@ -324,7 +339,7 @@
       email: state.email,
       name: state.name,
       handle: state.handle,
-      profile: state.profile,
+      profile: effectiveSelfProfile(),
     };
   };
   window.communityOpenMyProfile = openMyProfile;
@@ -384,15 +399,18 @@
   function applySelfPhoto(photoUrl) {
     var url =
       typeof photoUrl === 'string' && photoUrl.trim() ? photoUrl.trim() : null;
-    if (!state.profile) {
-      if (!url) return;
-      state.profile = { photo: url, photoPosition: null, initials: 'You' };
-    } else {
-      state.profile.photo = url;
-      state.profile.photoPosition = null;
-    }
-    if (state.handle && window.communityMergeMember) {
-      window.communityMergeMember(state.handle, state.profile);
+    // Sticky app-shell photo wins over /community/me until parent clears it.
+    state.appPhoto = url;
+    if (url) {
+      if (!state.profile) {
+        state.profile = { photo: url, photoPosition: null, initials: 'You' };
+      } else {
+        state.profile.photo = url;
+        state.profile.photoPosition = null;
+      }
+      if (state.handle && window.communityMergeMember) {
+        window.communityMergeMember(state.handle, state.profile);
+      }
     }
     paintSelfAvatars();
     if (typeof window.communitySyncComposerAvatars === 'function') {
@@ -408,9 +426,8 @@
   window.addEventListener('message', function (event) {
     var data = event && event.data;
     if (!data || data.type !== 'qava-avatar-updated') return;
-    var parentPhoto = null;
     if (Object.prototype.hasOwnProperty.call(data, 'profileImage')) {
-      parentPhoto =
+      var parentPhoto =
         typeof data.profileImage === 'string' ? data.profileImage : null;
       applySelfPhoto(parentPhoto);
     }
@@ -420,10 +437,10 @@
         var p = r && r.profile;
         if (p && p.name) {
           state.handle = p.name;
-          // Prefer the app-shell URL when provided — avoids a flicker back to a
-          // stale CommunityMember.photo before backend write-through lands.
-          if (parentPhoto) {
-            p.photo = parentPhoto;
+          // Prefer sticky app-shell URL — survives late /community/me responses
+          // that still carry a stale CommunityMember.photo.
+          if (state.appPhoto) {
+            p.photo = state.appPhoto;
             p.photoPosition = null;
           }
           state.profile = p;
@@ -442,6 +459,20 @@
       .catch(function () {});
   });
 
+  function notifyParentReady() {
+    try {
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage(
+          { type: 'qava-community-ready' },
+          'https://app.qava.ai'
+        );
+      }
+    } catch (e) {}
+  }
+
+  // Listener is live — parent can push avatar ASAP (also retries on ready).
+  notifyParentReady();
+
   function boot() {
     refreshAuth();
     // After Premium access resolves, honor deep links once.
@@ -450,6 +481,7 @@
       tries += 1;
       if (consumeProfileQuery() || tries > 40) clearInterval(timer);
     }, 150);
+    notifyParentReady();
   }
   if (document.readyState === 'complete') boot();
   else window.addEventListener('load', boot);
