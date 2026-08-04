@@ -1,10 +1,25 @@
 /* Templates marketing — mirrors community/chat-marketing.css */
 
+/* Match landing index.html reset — without this, UA body margin: 8px
+   insets the sticky nav (narrower + lower than qava.ai/). */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
 /* Self-contained landing nav layout (does not rely on page-local index/about CSS) */
 .header-container {
   width: calc(100% - 22px) !important;
   margin: 0 auto !important;
   padding: 8px 20px !important;
+  border-radius: 0 !important;
   display: flex !important;
   justify-content: space-between !important;
   align-items: center !important;
