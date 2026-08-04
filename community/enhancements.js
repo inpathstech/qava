@@ -218,7 +218,18 @@
 
   function syncComposerAvatars() {
     document.querySelectorAll('.composer-card .avatar, #replyComposer .avatar, .composer-top > .avatar, .reply-box .avatar, .feed-inline-reply .avatar, #userThreadPost .avatar').forEach((el) => {
-      el.outerHTML = selfAvatarHtml('You');
+      const auth = (typeof window.communityGetAuthState === 'function' && window.communityGetAuthState()) || {};
+      const profile = auth.profile || null;
+      if (profile && profile.photo) {
+        const pos = profile.photoPosition
+          ? ` style="object-position:${escapeHtml(profile.photoPosition)}"`
+          : '';
+        el.innerHTML = `<img src="${escapeHtml(profile.photo)}" alt=""${pos} />`;
+      } else if (profile && profile.initials) {
+        el.textContent = profile.initials;
+      } else {
+        el.textContent = 'You';
+      }
     });
   }
   window.communitySelfAvatarHtml = selfAvatarHtml;

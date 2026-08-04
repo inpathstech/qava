@@ -17,6 +17,14 @@
   var pendingEmail = null;
   var modal = null;
 
+  try {
+    var bootParams = new URLSearchParams(window.location.search || '');
+    var bootAvatar = bootParams.get('avatar');
+    if (bootAvatar && String(bootAvatar).trim()) {
+      state.appPhoto = String(bootAvatar).trim();
+    }
+  } catch (e) {}
+
   function escapeHtml(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
@@ -397,11 +405,15 @@
   }
 
   function applySelfPhoto(photoUrl) {
-    var url =
-      typeof photoUrl === 'string' && photoUrl.trim() ? photoUrl.trim() : null;
-    // Sticky app-shell photo wins over /community/me until parent clears it.
-    state.appPhoto = url;
-    if (url) {
+    if (photoUrl === '') {
+      state.appPhoto = null;
+      if (state.profile) {
+        state.profile.photo = null;
+        state.profile.photoPosition = null;
+      }
+    } else if (typeof photoUrl === 'string' && photoUrl.trim()) {
+      var url = photoUrl.trim();
+      state.appPhoto = url;
       if (!state.profile) {
         state.profile = { photo: url, photoPosition: null, initials: 'You' };
       } else {
@@ -411,6 +423,8 @@
       if (state.handle && window.communityMergeMember) {
         window.communityMergeMember(state.handle, state.profile);
       }
+    } else {
+      // ignore null/undefined — keep sticky appPhoto
     }
     paintSelfAvatars();
     if (typeof window.communitySyncComposerAvatars === 'function') {
@@ -423,6 +437,7 @@
 
   // App shell (Edit Account / community page) pushes User.profileImage so the
   // embed matches the nav even before /community/me seed finishes.
+  // Do NOT refetch getMyProfile here — that races and re-paints stale CommunityMember.photo.
   window.addEventListener('message', function (event) {
     var data = event && event.data;
     if (!data || data.type !== 'qava-avatar-updated') return;
@@ -431,32 +446,6 @@
         typeof data.profileImage === 'string' ? data.profileImage : null;
       applySelfPhoto(parentPhoto);
     }
-    if (!state.loggedIn || typeof API.getMyProfile !== 'function') return;
-    API.getMyProfile()
-      .then(function (r) {
-        var p = r && r.profile;
-        if (p && p.name) {
-          state.handle = p.name;
-          // Prefer sticky app-shell URL — survives late /community/me responses
-          // that still carry a stale CommunityMember.photo.
-          if (state.appPhoto) {
-            p.photo = state.appPhoto;
-            p.photoPosition = null;
-          }
-          state.profile = p;
-          if (window.communityMergeMember) window.communityMergeMember(p.name, p);
-        }
-        if (typeof window.communityPaintSelfAvatars === 'function') {
-          window.communityPaintSelfAvatars();
-        }
-        if (typeof window.communitySyncComposerAvatars === 'function') {
-          window.communitySyncComposerAvatars();
-        }
-        if (typeof window.initFeedFromData === 'function') {
-          window.initFeedFromData();
-        }
-      })
-      .catch(function () {});
   });
 
   function notifyParentReady() {
