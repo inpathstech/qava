@@ -980,6 +980,7 @@
 
     .reply-heart.is-active svg {
       stroke: #111827;
+      fill: #111827;
     }
 
     .landing-section .reply-highlight,
