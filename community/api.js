@@ -378,11 +378,19 @@
         var rawBody = window.getInputRaw && bodyEl ? window.getInputRaw(bodyEl) : (bodyEl ? bodyEl.innerHTML : '');
         // Extract invites from the draft *before* inner wraps mask the body.
         var prepared = prepareBodyAndInvites(rawBody);
+        // Capture tags before inner wrappers clear the composer selection.
+        var tags = Array.prototype.map
+          .call(document.querySelectorAll('#composerTags .tag-pill.is-selected'), function (el) {
+            return el.getAttribute('data-tag');
+          })
+          .filter(Boolean)
+          .slice(0, 2);
         if (bodyEl && window.setInputRaw) window.setInputRaw(bodyEl, prepared.body);
         var result = origPost.apply(this, arguments);
         if (title && title.trim()) {
           var payload = { title: title.trim(), body: prepared.body || '' };
           if (prepared.invites && prepared.invites.length) payload.invites = prepared.invites;
+          if (tags.length) payload.tags = tags;
           API.createThread(payload)
             .then(function () {
               toast('Posted to the community.', 'success');
