@@ -9,6 +9,7 @@
 
   var API = "https://api.qava.ai/api";
   var APP_URL = "https://app.qava.ai/";
+  var APP_LOGIN_URL = "https://app.qava.ai/?login=1";
   var PREMIUM_URL = "https://qava.ai/premium";
   var COMMUNITY_CHAT = "https://qava.ai/community/chat.html";
 
@@ -655,7 +656,7 @@
         btn.setAttribute("aria-label", "Log in");
         var label = btn.querySelector(".nav-text");
         if (label) label.textContent = "Log in";
-        if (btn.tagName === "A") btn.setAttribute("href", APP_URL);
+        if (btn.tagName === "A") btn.setAttribute("href", APP_LOGIN_URL);
         btn.style.display = "";
       }
     );
@@ -798,11 +799,19 @@
 
       // Merge the existing "Log in" link and Premium Login into one dropdown.
       var loginLink = findLogin(section.querySelectorAll(".auth-item"));
-      var appHref = APP_URL;
+      var appHref = APP_LOGIN_URL;
       var insertRef = null;
       if (loginLink) {
+        // Prefer explicit login deep-links; upgrade bare app root to ?login=1.
         if (loginLink.tagName === "A" && loginLink.getAttribute("href")) {
-          appHref = loginLink.getAttribute("href");
+          var existing = loginLink.getAttribute("href") || "";
+          if (/[?&](login=1|login=true|mode=login)\b/i.test(existing)) {
+            appHref = existing;
+          } else if (/^https?:\/\/(www\.)?app\.qava\.ai\/?$/i.test(existing) || existing === APP_URL) {
+            appHref = APP_LOGIN_URL;
+          } else {
+            appHref = existing;
+          }
         }
         insertRef = loginLink.nextSibling;
         if (loginLink.parentNode) loginLink.parentNode.removeChild(loginLink);
@@ -948,6 +957,7 @@
     if (loginItem) {
       var t = loginItem.querySelector(".nav-text") || loginItem;
       t.textContent = "App Login";
+      if (loginItem.tagName === "A") loginItem.setAttribute("href", APP_LOGIN_URL);
     }
 
     var premium = document.createElement("button");
