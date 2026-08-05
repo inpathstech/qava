@@ -555,7 +555,19 @@
       return html;
     }
 
-    function inlineEditableToMarkdown(node) {
+    function isBoldElement(el) {
+      if (!el || el.nodeType !== Node.ELEMENT_NODE) return false;
+      const tag = el.tagName.toLowerCase();
+      if (tag === 'strong' || tag === 'b') return true;
+      // execCommand('bold') often uses <span style="font-weight: bold|700">
+      const weight = (el.style && el.style.fontWeight) || '';
+      if (weight === 'bold' || weight === 'bolder') return true;
+      const numeric = parseInt(weight, 10);
+      return Number.isFinite(numeric) && numeric >= 600;
+    }
+
+    /** Serialize children of a node to inline markdown (does not wrap `node` itself). */
+    function inlineChildrenToMarkdown(node) {
       let out = '';
       node.childNodes.forEach((child) => {
         if (child.nodeType === Node.TEXT_NODE) {
@@ -564,8 +576,10 @@
         }
         if (child.nodeType !== Node.ELEMENT_NODE) return;
         const tag = child.tagName.toLowerCase();
-        if (tag === 'strong' || tag === 'b') {
-          out += `**${child.textContent}**`;
+        if (isBoldElement(child)) {
+          const inner = inlineChildrenToMarkdown(child).replace(/\u00a0/g, ' ');
+          // Avoid empty or whitespace-only bold markers.
+          out += inner.trim() ? `**${inner}**` : inner;
         } else if (tag === 'br') {
           out += '\n';
         } else if (tag === 'a') {
@@ -575,6 +589,19 @@
         }
       });
       return out;
+    }
+
+    /**
+     * Serialize a contenteditable fragment to inline markdown.
+     * If `node` itself is bold (common when a block child is a lone <b>/<strong>
+     * or styled span), wrap the result in **…** — previously those roots lost bold.
+     */
+    function inlineEditableToMarkdown(node) {
+      if (node && node.nodeType === Node.ELEMENT_NODE && isBoldElement(node)) {
+        const inner = inlineChildrenToMarkdown(node).replace(/\u00a0/g, ' ');
+        return inner.trim() ? `**${inner}**` : inner;
+      }
+      return inlineChildrenToMarkdown(node);
     }
 
     function blockToMarkdownLines(root, lines) {
