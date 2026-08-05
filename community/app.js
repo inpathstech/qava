@@ -110,21 +110,12 @@
     });
 
     function showThread(threadId) {
-      const showUser = threadId === 'user';
-      defaultThreadPost.hidden = showUser;
-      userThreadPost.hidden = !showUser;
-      const repliesWrap = document.getElementById('threadRepliesWrap');
-      const repliesToggle = document.querySelector('#view-thread [data-replies-toggle]');
-      if (showUser) {
-        repliesWrap?.setAttribute('hidden', '');
-        repliesToggle?.setAttribute('hidden', '');
-      } else {
-        repliesWrap?.removeAttribute('hidden');
-        repliesWrap?.classList.remove('is-collapsed');
-        repliesToggle?.setAttribute('hidden', '');
-        applyCompactReplyState();
-      }
-      showView('thread');
+      // Feed-only UX: stay on the community feed and scroll to the post.
+      showView('chat');
+      const selector = threadId === 'user'
+        ? '.feed-item[data-feed-thread="user"]'
+        : `.feed-item[data-feed-thread="${threadId}"]`;
+      document.querySelector(selector)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     const THREAD_DISPLAY_PREFS = {
@@ -343,8 +334,21 @@
     }
 
     function formatInlineMarkup(text) {
+      const tokens = [];
+      const stash = (html) => {
+        const id = tokens.length;
+        tokens.push(html);
+        return `\uE000${id}\uE001`;
+      };
+
       let html = escapeHtml(text);
-      html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      // Combined markers first so nested bold+italic survives.
+      html = html.replace(/\*\*_([^_\n]+?)_\*\*/g, (_, inner) => stash(`<strong><em>${inner}</em></strong>`));
+      html = html.replace(/_\*\*(.+?)\*\*_/g, (_, inner) => stash(`<em><strong>${inner}</strong></em>`));
+      html = html.replace(/\*\*(.+?)\*\*/g, (_, inner) => stash(`<strong>${inner}</strong>`));
+      html = html.replace(/_([^_\n]+?)_/g, (_, inner) => stash(`<em>${inner}</em>`));
+      html = html.replace(/\uE000(\d+)\uE001/g, (_, id) => tokens[Number(id)] || '');
+
       html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, url) => {
         const safeUrl = escapeHtml(url);
         return `<a href="${safeUrl}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)}</a>`;
@@ -408,7 +412,10 @@
 
     function stripFormatting(raw) {
       return raw
+        .replace(/\*\*_([^_]+?)_\*\*/g, '$1')
+        .replace(/_\*\*(.+?)\*\*_/g, '$1')
         .replace(/\*\*(.+?)\*\*/g, '$1')
+        .replace(/_([^_\n]+?)_/g, '$1')
         .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
         .replace(/^\s*[-*]\s+/gm, '')
         .replace(/\s+/g, ' ')
@@ -479,8 +486,18 @@
     }
 
     function inlineMarkdownToEditableHtml(text) {
+      const tokens = [];
+      const stash = (html) => {
+        const id = tokens.length;
+        tokens.push(html);
+        return `\uE000${id}\uE001`;
+      };
       let html = escapeHtml(text);
-      html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      html = html.replace(/\*\*_([^_\n]+?)_\*\*/g, (_, inner) => stash(`<strong><em>${inner}</em></strong>`));
+      html = html.replace(/_\*\*(.+?)\*\*_/g, (_, inner) => stash(`<em><strong>${inner}</strong></em>`));
+      html = html.replace(/\*\*(.+?)\*\*/g, (_, inner) => stash(`<strong>${inner}</strong>`));
+      html = html.replace(/_([^_\n]+?)_/g, (_, inner) => stash(`<em>${inner}</em>`));
+      html = html.replace(/\uE000(\d+)\uE001/g, (_, id) => tokens[Number(id)] || '');
       html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, url) => {
         const safeUrl = escapeHtml(sanitizeLinkUrl(url) || url);
         return `<a href="${safeUrl}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)}</a>`;
@@ -566,6 +583,23 @@
       return Number.isFinite(numeric) && numeric >= 600;
     }
 
+    function isItalicElement(el) {
+      if (!el || el.nodeType !== Node.ELEMENT_NODE) return false;
+      const tag = el.tagName.toLowerCase();
+      if (tag === 'em' || tag === 'i') return true;
+      const style = (el.style && el.style.fontStyle) || '';
+      return style === 'italic' || style === 'oblique';
+    }
+
+    function wrapInlineMarkdown(inner, { bold, italic }) {
+      const text = String(inner || '').replace(/\u00a0/g, ' ');
+      if (!text.trim()) return text;
+      if (bold && italic) return `**_${text}_**`;
+      if (bold) return `**${text}**`;
+      if (italic) return `_${text}_`;
+      return text;
+    }
+
     /** Serialize children of a node to inline markdown (does not wrap `node` itself). */
     function inlineChildrenToMarkdown(node) {
       let out = '';
@@ -576,69 +610,98 @@
         }
         if (child.nodeType !== Node.ELEMENT_NODE) return;
         const tag = child.tagName.toLowerCase();
-        if (isBoldElement(child)) {
-          const inner = inlineChildrenToMarkdown(child).replace(/\u00a0/g, ' ');
-          // Avoid empty or whitespace-only bold markers.
-          out += inner.trim() ? `**${inner}**` : inner;
-        } else if (tag === 'br') {
-          out += '\n';
-        } else if (tag === 'a') {
-          out += `[${child.textContent}](${child.getAttribute('href') || ''})`;
-        } else {
-          out += inlineEditableToMarkdown(child);
+        if (tag === 'br') {
+          // Soft break inside a paragraph — keep as a space so one typed
+          // paragraph doesn't shatter into many <p> blocks on publish.
+          out += ' ';
+          return;
         }
+        if (tag === 'a') {
+          out += `[${child.textContent}](${child.getAttribute('href') || ''})`;
+          return;
+        }
+        const bold = isBoldElement(child);
+        const italic = isItalicElement(child);
+        if (bold || italic) {
+          const inner = inlineChildrenToMarkdown(child);
+          out += wrapInlineMarkdown(inner, { bold, italic });
+          return;
+        }
+        out += inlineEditableToMarkdown(child);
       });
       return out;
     }
 
     /**
      * Serialize a contenteditable fragment to inline markdown.
-     * If `node` itself is bold (common when a block child is a lone <b>/<strong>
-     * or styled span), wrap the result in **…** — previously those roots lost bold.
+     * If `node` itself is bold/italic (common when a block child is a lone
+     * <b>/<strong>/<em> or styled span), wrap the result accordingly.
      */
     function inlineEditableToMarkdown(node) {
-      if (node && node.nodeType === Node.ELEMENT_NODE && isBoldElement(node)) {
-        const inner = inlineChildrenToMarkdown(node).replace(/\u00a0/g, ' ');
-        return inner.trim() ? `**${inner}**` : inner;
+      if (node && node.nodeType === Node.ELEMENT_NODE) {
+        const bold = isBoldElement(node);
+        const italic = isItalicElement(node);
+        if (bold || italic) {
+          return wrapInlineMarkdown(inlineChildrenToMarkdown(node), { bold, italic });
+        }
       }
       return inlineChildrenToMarkdown(node);
     }
 
     function blockToMarkdownLines(root, lines) {
+      // Contenteditable often stores a single paragraph as mixed text + <b>/<i>/<span>
+      // siblings. Those must stay on ONE line; only real blocks start a new line.
+      let inlineBuf = '';
+      const flushInline = () => {
+        const text = inlineBuf.replace(/\u00a0/g, ' ').replace(/[ \t]+\n/g, '\n').trim();
+        if (text) lines.push(text);
+        inlineBuf = '';
+      };
+
       root.childNodes.forEach((node) => {
         if (node.nodeType === Node.TEXT_NODE) {
-          const text = node.textContent.replace(/\u00a0/g, ' ');
-          if (text.trim()) lines.push(text);
+          inlineBuf += node.textContent;
           return;
         }
         if (node.nodeType !== Node.ELEMENT_NODE) return;
         const tag = node.tagName.toLowerCase();
         if (tag === 'ul' || tag === 'ol') {
+          flushInline();
           node.querySelectorAll(':scope > li').forEach((li) => {
             lines.push('- ' + inlineEditableToMarkdown(li).replace(/\u00a0/g, ' ').trim());
           });
           return;
         }
         if (tag === 'li') {
+          flushInline();
           lines.push('- ' + inlineEditableToMarkdown(node).replace(/\u00a0/g, ' ').trim());
           return;
         }
         if (tag === 'br') {
-          lines.push('');
+          flushInline();
           return;
         }
-        if (tag === 'div' || tag === 'p') {
-          // A wrapper that itself contains blocks (lists, nested divs, breaks)
-          // must be recursed into so lists/newlines survive the round-trip.
-          if (node.querySelector('ul, ol, div, p, br')) {
+        if (tag === 'div' || tag === 'p' || /^h[1-6]$/.test(tag)) {
+          flushInline();
+          // A wrapper that itself contains blocks (lists, nested divs) must be
+          // recursed into so lists/newlines survive the round-trip.
+          if (node.querySelector('ul, ol, div, p, h1, h2, h3, h4, h5, h6')) {
             blockToMarkdownLines(node, lines);
           } else {
-            lines.push(inlineEditableToMarkdown(node).replace(/\u00a0/g, ' '));
+            // Ignore lone <br> placeholders Chrome inserts in empty blocks.
+            const onlyBreak = node.childNodes.length === 1
+              && node.firstChild?.nodeType === Node.ELEMENT_NODE
+              && node.firstChild.tagName.toLowerCase() === 'br';
+            if (onlyBreak) return;
+            const line = inlineEditableToMarkdown(node).replace(/\u00a0/g, ' ').trim();
+            if (line) lines.push(line);
           }
           return;
         }
-        lines.push(inlineEditableToMarkdown(node).replace(/\u00a0/g, ' '));
+        // Inline elements (<b>, <i>, <span>, <a>, …) stay in the current paragraph.
+        inlineBuf += inlineEditableToMarkdown(node);
       });
+      flushInline();
     }
 
     function editableToMarkdown(el) {
@@ -839,38 +902,51 @@
     function publishComposerPost() {
       const title = composerTitle.value.trim();
       const body = getInputRaw(composerInput).trim();
-      const excerpt = stripFormatting(body);
-      const excerptText = excerpt.length > 160 ? `${excerpt.slice(0, 160)}…` : excerpt;
+      const bodyHtml = formatPostBody(body) + renderAttachmentChips(composerAttachmentFiles);
 
       userThreadTitle.textContent = title;
-      userThreadBody.innerHTML = formatPostBody(body) + renderAttachmentChips(composerAttachmentFiles);
+      userThreadBody.innerHTML = bodyHtml;
 
       if (!userFeedItem) {
         userFeedItem = document.createElement('div');
         userFeedItem.className = 'feed-item';
+        userFeedItem.dataset.feedThread = 'user';
+        userFeedItem.dataset.activity = String(Date.now());
+        userFeedItem.dataset.likes = '0';
+        userFeedItem.dataset.replies = '0';
+        userFeedItem.dataset.status = 'new';
         userFeedItem.innerHTML = `
-          <a class="feed-opener" href="#" data-thread="user"></a>
+          <div class="feed-opener"></div>
+          <div class="feed-replies"></div>
+          <div class="feed-inline-reply" data-feed-reply-thread="user">
+            ${(typeof window.communitySelfAvatarHtml === 'function' && window.communitySelfAvatarHtml('You')) || '<div class="avatar">You</div>'}
+            <div class="feed-inline-reply-field input-with-gate">
+              <div class="composer-input feed-reply-input" contenteditable="false" role="textbox" aria-multiline="true" aria-label="Write a reply" data-placeholder="Write a reply… @ to mention"></div>
+            </div>
+          </div>
         `;
-        const opener = userFeedItem.querySelector('.feed-opener');
-        opener.addEventListener('click', (e) => {
-          e.preventDefault();
-          showThread('user');
-        });
         feedList.prepend(userFeedItem);
       }
 
       const userOpener = userFeedItem.querySelector('.feed-opener');
       userOpener.innerHTML = `
-        <div class="thread-meta">
+        <div class="feed-opener-meta-row">
           ${(typeof window.communitySelfAvatarHtml === 'function' && window.communitySelfAvatarHtml('You')) || '<div class="avatar">You</div>'}
           <div class="meta-lines">
             <div class="meta-top"><strong>You</strong></div>
-            <div class="meta-sub">Just now</div>
+            <div class="meta-sub">New</div>
           </div>
         </div>
         <h3>${escapeHtml(title)}</h3>
-        <p class="feed-excerpt">${escapeHtml(excerptText)}</p>
-        ${renderFeedStats(0, 0)}
+        <div class="feed-body">${bodyHtml}</div>
+        <div class="feed-stats">
+          <button type="button" class="feed-stat feed-like-btn" data-feed-like="user" aria-label="0 likes" aria-pressed="false">
+            ${HEART_SVG}
+            <span>0</span>
+          </button>
+          <span class="feed-stat" data-feed-replies aria-label="0 replies">${REPLY_SVG}<span>0</span></span>
+          <span class="feed-stat-time">Just now</span>
+        </div>
       `;
 
       composerTitle.value = '';
@@ -878,7 +954,9 @@
       composerAttachmentFiles.length = 0;
       renderComposerAttachments();
       syncComposerState();
-      showThread('user');
+      if (typeof window.applyPremiumToFeedReplyInputs === 'function') window.applyPremiumToFeedReplyInputs();
+      showView('chat');
+      userFeedItem.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function countWords(text) {
@@ -1040,7 +1118,16 @@
       }
       const words = updateWordCount(composerInput, wordCount);
       if (!composerTitle.value.trim() || !getInputText(composerInput).trim()) return;
-      if (words > 250) return alert('Posts are limited to 250 words in this prototype.');
+      if (words > 250) {
+        if (window.communityNotice) {
+          window.communityNotice({
+            title: 'Post is too long',
+            body: 'Posts are limited to 250 words.',
+            confirmLabel: 'OK',
+          });
+        }
+        return;
+      }
       publishComposerPost();
     });
 
@@ -1051,7 +1138,16 @@
       }
       const words = updateWordCount(replyInput, replyWordCount);
       if (!getInputText(replyInput).trim() && !replyAttachmentFiles.length) return;
-      if (words > 250) return alert('Replies are limited to 250 words in this prototype.');
+      if (words > 250) {
+        if (window.communityNotice) {
+          window.communityNotice({
+            title: 'Reply is too long',
+            body: 'Replies are limited to 250 words.',
+            confirmLabel: 'OK',
+          });
+        }
+        return;
+      }
       publishReply();
     });
 

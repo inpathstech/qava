@@ -204,7 +204,9 @@
   }
 
   function mapReply(r) {
-    if (r && r.authorProfile && r.author) mergeMember(r.author, r.authorProfile);
+    // Always register reply authors so @mention typeahead can match live handles
+    // even when authorProfile is omitted from the payload.
+    if (r && r.author) mergeMember(r.author, r.authorProfile || {});
     return {
       id: r.id,
       author: r.author,
@@ -242,24 +244,26 @@
   // profile cards + mentions resolve for live authors.
   function mergeMember(name, profile) {
     if (!name || !window.MEMBER_PROFILES) return;
+    profile = profile || {};
+    var existing = window.MEMBER_PROFILES[name] || {};
     // Username is the public label on openers + replies.
-    var displayName = profile.name || name;
+    var displayName = profile.name || profile.displayName || existing.displayName || name;
     window.MEMBER_PROFILES[name] = {
-      initials: profile.initials || name.slice(0, 2).toUpperCase(),
+      initials: profile.initials || existing.initials || String(name).slice(0, 2).toUpperCase(),
       displayName: displayName,
-      firstName: profile.firstName || '',
-      lastName: profile.lastName || '',
-      role: profile.role || '',
-      school: profile.school || '',
-      bio: profile.bio || '',
-      photo: profile.photo || '',
-      photoPosition: profile.photoPosition || '',
-      whatBringsYouHere: profile.whatBringsYouHere || [],
-      interests: profile.interests || [],
-      orgTypes: profile.orgTypes || [],
-      educations: profile.educations || [],
-      helpful: profile.helpful || 0,
-      listings: profile.listings || 0,
+      firstName: profile.firstName || existing.firstName || '',
+      lastName: profile.lastName || existing.lastName || '',
+      role: profile.role || existing.role || '',
+      school: profile.school || existing.school || '',
+      bio: profile.bio || existing.bio || '',
+      photo: profile.photo || existing.photo || '',
+      photoPosition: profile.photoPosition || existing.photoPosition || '',
+      whatBringsYouHere: profile.whatBringsYouHere || existing.whatBringsYouHere || [],
+      interests: profile.interests || existing.interests || [],
+      orgTypes: profile.orgTypes || existing.orgTypes || [],
+      educations: profile.educations || existing.educations || [],
+      helpful: profile.helpful != null ? profile.helpful : (existing.helpful || 0),
+      listings: profile.listings != null ? profile.listings : (existing.listings || 0),
     };
   }
   window.communityMergeMember = mergeMember;
@@ -296,12 +300,24 @@
   }
   window.communityRenderEmptyFeed = renderEmptyFeed;
 
+  // Map UI sort keys → API ListThreadsDto.sort ('active' | 'new' | 'top').
+  // "likes" is the UI label for likeCount ordering; API calls that "top".
+  // "replies" has no API sort — fetch active, then client-sort.
+  function apiSortParam(uiSort) {
+    if (uiSort === 'likes' || uiSort === 'top') return 'top';
+    if (uiSort === 'new') return 'new';
+    return 'active';
+  }
+
   // Returns { reachable, empty }. reachable=false means the API could not be
   // reached (network/CORS/down) — callers should keep the bundled mock content.
-  async function hydrateFeed() {
+  async function hydrateFeed(opts) {
+    var uiSort = (opts && opts.sort)
+      || (typeof window.communityGetFeedSort === 'function' && window.communityGetFeedSort())
+      || 'active';
     var list;
     try {
-      list = await API.listThreads({ sort: 'active' });
+      list = await API.listThreads({ sort: apiSortParam(uiSort) });
     } catch (e) {
       return { reachable: false, empty: false };
     }
@@ -316,8 +332,16 @@
     // reply previews. Threads that fail to load are simply skipped.
     var details = await Promise.allSettled(items.map(function (it) { return API.getThread(it.id); }));
     var built = {};
+    // Preserve API list order first (important for sort=top), then overlay details.
+    items.forEach(function (it) {
+      if (!it || !it.id) return;
+      // Seed from summary so likeCount is present even if detail fetch fails.
+      built[it.id] = mapThread(it);
+    });
     details.forEach(function (d) {
-      if (d.status === 'fulfilled' && d.value && d.value.id) built[d.value.id] = mapThread(d.value);
+      if (d.status === 'fulfilled' && d.value && d.value.id) {
+        built[d.value.id] = mapThread(d.value);
+      }
     });
     if (!Object.keys(built).length) {
       renderEmptyFeed();
@@ -429,7 +453,7 @@
             .then(function (t) {
               if (t && t.id && window.THREAD_DATA) {
                 window.THREAD_DATA[t.id] = mapThread(t);
-                if (window.renderThreadDetail) window.renderThreadDetail(t.id);
+                if (window.initFeedFromData) window.initFeedFromData();
               }
             })
             .catch(handleWriteError);
@@ -465,10 +489,7 @@
         var m = params.get('m');
         if (m && window.openProfilePage) { window.openProfilePage(m); return; }
         if (t && window.showThread) { window.showThread(t); return; }
-        var current = window.currentThreadId ? window.currentThreadId() : null;
-        if (current && window.THREAD_DATA && window.THREAD_DATA[current] && window.renderThreadDetail) {
-          window.renderThreadDetail(current);
-        }
+        // Feed-only: stay on the discussions list after hydrate.
       })
       .catch(function () { /* keep mock */ });
   }

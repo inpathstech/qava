@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../qava-landing.css" />
-  <link rel="stylesheet" href="community.css?v=composer-opener-gray-1" />
+  <link rel="stylesheet" href="community.css?v=mention-typeahead-1" />
   <link rel="stylesheet" href="chat-marketing.css?v=ex-op-solid-1" />
   <link rel="stylesheet" href="../qava-auth.css" />
 </head>
@@ -313,7 +313,7 @@
           <div class="feed-header">
             <span class="feed-section-label">Discussions</span>
             <h2 class="feed-section-title">What members are discussing</h2>
-            <p class="feed-section-body">Browse freely — tap a thread to read. Reply with Premium.</p>
+            <p class="feed-section-body">Read and reply here. Expand replies in place. Reply with Premium.</p>
           </div>
           <div class="feed-toolbar">
             <label>Sort by
@@ -454,6 +454,18 @@
 
   <div class="mention-dropdown" id="mentionDropdown" hidden></div>
 
+  <div class="proto-modal qava-modal-overlay" id="communityNoticeModal" data-notice-backdrop hidden>
+    <div class="proto-modal-card" role="dialog" aria-modal="true" aria-labelledby="communityNoticeTitle" aria-describedby="communityNoticeBody">
+      <button type="button" class="proto-modal-close" id="communityNoticeClose" aria-label="Close">×</button>
+      <h3 id="communityNoticeTitle">Notice</h3>
+      <p class="report-modal-sub" id="communityNoticeBody"></p>
+      <div class="report-submit-row">
+        <button type="button" class="report-cancel-btn" id="communityNoticeCancel" hidden>Cancel</button>
+        <button type="button" class="btn btn-primary btn-post" id="communityNoticeConfirm">OK</button>
+      </div>
+    </div>
+  </div>
+
   <div class="proto-modal qava-modal-overlay" id="reportModal" data-modal-backdrop hidden>
     <div class="proto-modal-card">
       <button type="button" class="proto-modal-close" id="reportModalClose" aria-label="Close">×</button>
@@ -519,8 +531,8 @@
       var inApp = document.body.classList.contains("embed-app");
       // Product chat scripts only in the app.qava.ai embed. Public page is marketing-only.
       var scripts = inApp
-        ? ["app.js?v=post-bold-tags-1", "enhancements.js?v=reply-edit-delete-1", "api.js?v=reply-edit-delete-1", "auth.js?v=avatar-sync-3", "profile-edit.js", "../qava-footer.js?v=footer-row-1"]
-        : ["chat-examples.js?v=ex-op-solid-1", "../qava-auth.js", "../qava-footer.js?v=footer-row-1"];
+        ? ["app.js?v=mention-typeahead-1", "enhancements.js?v=mention-typeahead-1", "api.js?v=mention-typeahead-1", "auth.js?v=avatar-sync-3", "profile-edit.js", "../qava-footer.js?v=footer-logo-40"]
+        : ["chat-examples.js?v=ex-op-solid-1", "../qava-auth.js", "../qava-footer.js?v=footer-logo-40"];
 
       function loadNext(i) {
         if (i >= scripts.length) {

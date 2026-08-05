@@ -156,7 +156,24 @@
   let currentThreadId = 'nathan';
   let userThreadState = null;
   let savedThreads = new Set();
-  let likedThreads = new Set();
+  const LIKED_THREADS_KEY = 'qava.community.likedThreads';
+  function loadLikedThreadIds() {
+    try {
+      const raw = sessionStorage.getItem(LIKED_THREADS_KEY);
+      const arr = raw ? JSON.parse(raw) : [];
+      return new Set(Array.isArray(arr) ? arr.map(String) : []);
+    } catch {
+      return new Set();
+    }
+  }
+  function persistLikedThreads() {
+    try {
+      sessionStorage.setItem(LIKED_THREADS_KEY, JSON.stringify([...likedThreads]));
+    } catch { /* ignore quota / private mode */ }
+  }
+  let likedThreads = loadLikedThreadIds();
+  let likedReplies = new Set();
+  let expandedReplies = new Set();
   let hiddenContent = new Set();
   let blockedMembers = new Set();
   let threadViewedAt = {};
@@ -166,6 +183,75 @@
   let activeMentionInput = null;
   let pendingExternalInvites = [];
   const EDIT_WINDOW_MS = 15 * 60 * 1000;
+  const FEED_REPLY_PREVIEW = 2;
+
+  function syncThreadLikeUi(threadId) {
+    const thread = THREAD_DATA[threadId] || (threadId === 'user' ? userThreadState : null);
+    const liked = likedThreads.has(threadId);
+    const likes = thread?.likes ?? 0;
+    document.querySelectorAll(`[data-feed-like="${threadId}"], [data-thread-like="${threadId}"]`).forEach((btn) => {
+      const span = btn.querySelector('span');
+      if (span) span.textContent = String(likes);
+      btn.classList.toggle('is-active', liked);
+      btn.setAttribute('aria-pressed', liked ? 'true' : 'false');
+      btn.setAttribute('aria-label', `${likes} like${likes === 1 ? '' : 's'}`);
+    });
+    const feedItem = document.querySelector(`.feed-item[data-feed-thread="${threadId}"]`);
+    if (feedItem) feedItem.dataset.likes = String(likes);
+  }
+
+  function threadStateForLike(threadId) {
+    return THREAD_DATA[threadId] || (threadId === 'user' ? userThreadState : null);
+  }
+
+  function toggleThreadLike(threadId) {
+    if (!threadId) return;
+    const thread = threadStateForLike(threadId);
+    const wasLiked = likedThreads.has(threadId);
+
+    if (wasLiked) {
+      likedThreads.delete(threadId);
+      if (thread) thread.likes = Math.max(0, (thread.likes || 0) - 1);
+    } else {
+      likedThreads.add(threadId);
+      if (thread) thread.likes = (thread.likes || 0) + 1;
+    }
+    persistLikedThreads();
+    syncThreadLikeUi(threadId);
+
+    const isLive = typeof window.communityIsLiveId === 'function' && window.communityIsLiveId(threadId);
+    const api = window.CommunityAPI;
+    if (!isLive || !api?.likeThread) return;
+
+    api.likeThread(threadId)
+      .then((res) => {
+        if (!res || typeof res.count !== 'number') return;
+        const live = threadStateForLike(threadId);
+        if (live) live.likes = res.count;
+        if (res.active) likedThreads.add(threadId);
+        else likedThreads.delete(threadId);
+        persistLikedThreads();
+        syncThreadLikeUi(threadId);
+      })
+      .catch((err) => {
+        const live = threadStateForLike(threadId);
+        if (wasLiked) {
+          likedThreads.add(threadId);
+          if (live) live.likes = (live.likes || 0) + 1;
+        } else {
+          likedThreads.delete(threadId);
+          if (live) live.likes = Math.max(0, (live.likes || 0) - 1);
+        }
+        persistLikedThreads();
+        syncThreadLikeUi(threadId);
+        const status = err && err.status;
+        if (status === 401 && typeof window.communityRequireSignIn === 'function') {
+          window.communityRequireSignIn();
+        } else if (window.communityToast) {
+          window.communityToast((err && err.message) || 'Could not save that like.', 'error');
+        }
+      });
+  }
 
   function escapeHtml(text) {
     return String(text)
@@ -243,34 +329,32 @@
     return thread.replies?.length || 0;
   }
 
-  function renderFeedStats(likes, replies, time) {
+  function renderFeedStats(thread) {
+    const liked = likedThreads.has(thread.id);
+    const likes = thread.likes || 0;
+    const replies = getThreadReplyCount(thread);
     return `
       <div class="feed-stats">
-        <span class="feed-stat" data-feed-likes aria-label="${likes} likes">${HEART_SVG}<span>${likes}</span></span>
+        <button type="button" class="feed-stat feed-like-btn${liked ? ' is-active' : ''}" data-feed-like="${thread.id}" aria-label="${likes} like${likes === 1 ? '' : 's'}" aria-pressed="${liked ? 'true' : 'false'}">${HEART_SVG}<span>${likes}</span></button>
         <span class="feed-stat" data-feed-replies aria-label="${replies} replies">${REPLY_SVG}<span>${replies}</span></span>
-        <span class="feed-stat-time">${escapeHtml(time)}</span>
+        <span class="feed-stat-time">${escapeHtml(thread.time || '')}</span>
       </div>`;
   }
 
-  function renderFeedPreviewReplies(thread) {
+  function renderFeedReplies(thread) {
     const visible = (thread.replies || []).filter((r) => !hiddenContent.has(r.id) && !blockedMembers.has(r.author));
-    const previews = visible.slice(0, 2);
-    const more = visible.length - previews.length;
-    const items = previews.map((r) => {
-      const p = MEMBER_PROFILES[r.author] || { initials: '??', role: '', school: '' };
-      return `<div class="reply">
-        ${avatarHtml(p, r.author)}
-        <div>
-          <div class="reply-meta"><strong>${memberLink(r.author)}</strong>${metaExtra(p.role, p.school)}</div>
-          <div class="reply-body">${r.body} <span class="reply-time">${escapeHtml(r.time)}</span></div>
-          <button type="button" class="reply-heart${r.hearts >= 3 ? ' is-active' : ''}" data-heart-count="${r.hearts}" aria-label="${r.hearts} helpful">${HEART_SVG}<span>${r.hearts}</span></button>
-        </div>
-      </div>`;
-    }).join('');
-    const moreBtn = more > 0
-      ? `<button type="button" class="feed-replies-more" data-open-thread data-thread="${thread.id}">+${more} more ${more === 1 ? 'reply' : 'replies'}</button>`
-      : '';
-    return `<div class="feed-replies">${items}${moreBtn}</div>`;
+    const expanded = expandedReplies.has(thread.id);
+    const shown = expanded ? visible : visible.slice(0, FEED_REPLY_PREVIEW);
+    const more = visible.length - shown.length;
+    const bestId = getBestAnswerId(thread);
+    const items = shown.map((r) => renderReply(thread, r, r.id === bestId)).join('');
+    let toggle = '';
+    if (!expanded && more > 0) {
+      toggle = `<button type="button" class="feed-replies-more" data-expand-replies="${thread.id}">+${more} more ${more === 1 ? 'reply' : 'replies'}</button>`;
+    } else if (expanded && visible.length > FEED_REPLY_PREVIEW) {
+      toggle = `<button type="button" class="feed-replies-more" data-collapse-replies="${thread.id}">Show fewer replies</button>`;
+    }
+    return `<div class="feed-replies">${items}${toggle}</div>`;
   }
 
   function renderFeedInlineReply(thread) {
@@ -286,8 +370,11 @@
     const op = thread.op;
     const replies = getThreadReplyCount(thread);
     const unread = thread.newReplies > 0 && threadViewedAt[thread.id] !== thread.activityTs;
+    const attach = thread.attachments?.length
+      ? `<div class="attach-chips">${thread.attachments.map(renderAttachChip).join('')}</div>`
+      : '';
     return `<div class="feed-item${unread ? ' has-unread' : ''}" data-feed-thread="${thread.id}" data-activity="${thread.activityTs}" data-likes="${thread.likes}" data-replies="${replies}" data-status="${thread.status}">
-      <a class="feed-opener" href="#" data-open-thread data-thread="${thread.id}">
+      <div class="feed-opener">
         <div class="feed-opener-meta-row">
           ${avatarHtml(op, op.name)}
           <div class="meta-lines">
@@ -297,12 +384,24 @@
           ${thread.tags.map((t) => `<span class="feed-tag-pill">${escapeHtml(t)}</span>`).join('')}
         </div>
         <h3>${escapeHtml(thread.title)}</h3>
-        <p class="feed-excerpt">${escapeHtml(thread.body.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 160))}</p>
-        ${renderFeedStats(thread.likes, replies, thread.time)}
-      </a>
-      ${renderFeedPreviewReplies(thread)}
+        <div class="feed-body">${thread.body}${attach}</div>
+        ${renderFeedStats(thread)}
+      </div>
+      ${renderFeedReplies(thread)}
       ${renderFeedInlineReply(thread)}
     </div>`;
+  }
+
+  function feedSortMetrics(el) {
+    const id = el?.dataset?.feedThread;
+    const thread = id ? THREAD_DATA[id] : null;
+    return {
+      id: id || '',
+      likes: Number(thread?.likes ?? el.dataset.likes) || 0,
+      replies: Number(thread ? getThreadReplyCount(thread) : el.dataset.replies) || 0,
+      activity: Number(thread?.activityTs ?? el.dataset.activity) || 0,
+      isNew: (thread?.status || el.dataset.status) === 'new' ? 1 : 0,
+    };
   }
 
   function sortFeedItems() {
@@ -310,13 +409,28 @@
     if (!feedList) return;
     const items = [...feedList.querySelectorAll('.feed-item[data-feed-thread]')];
     items.sort((a, b) => {
-      if (feedSort === 'active') return Number(b.dataset.activity) - Number(a.dataset.activity);
-      if (feedSort === 'new') return (a.dataset.status === 'new' ? -1 : 1) - (b.dataset.status === 'new' ? -1 : 1);
-      if (feedSort === 'replies') return Number(b.dataset.replies) - Number(a.dataset.replies);
-      if (feedSort === 'likes') return Number(b.dataset.likes) - Number(a.dataset.likes);
-      return 0;
+      const A = feedSortMetrics(a);
+      const B = feedSortMetrics(b);
+      let primary = 0;
+      if (feedSort === 'active') primary = B.activity - A.activity;
+      else if (feedSort === 'new') {
+        primary = B.isNew - A.isNew;
+        if (primary === 0) primary = B.activity - A.activity;
+      } else if (feedSort === 'replies') primary = B.replies - A.replies;
+      else if (feedSort === 'likes' || feedSort === 'top') primary = B.likes - A.likes;
+      if (primary !== 0) return primary;
+      // Tie-break so equal like/reply counts still produce a stable, intentional order.
+      if (B.activity !== A.activity) return B.activity - A.activity;
+      return String(A.id).localeCompare(String(B.id));
     });
-    items.forEach((el) => feedList.appendChild(el));
+    items.forEach((el) => {
+      // Keep data-* attrs aligned with THREAD_DATA so later sorts stay accurate.
+      const m = feedSortMetrics(el);
+      el.dataset.likes = String(m.likes);
+      el.dataset.replies = String(m.replies);
+      el.dataset.activity = String(m.activity);
+      feedList.appendChild(el);
+    });
   }
 
   function getBestAnswerId(thread) {
@@ -333,7 +447,10 @@
   function updateBestAnswerBadges(thread) {
     if (!thread) return;
     const bestId = getBestAnswerId(thread);
-    document.querySelectorAll('#threadRepliesWrap .reply').forEach((el) => {
+    const scope = thread.id
+      ? document.querySelector(`.feed-item[data-feed-thread="${thread.id}"]`) || document
+      : document;
+    scope.querySelectorAll('.reply[data-reply-id]').forEach((el) => {
       const isBest = el.dataset.replyId === bestId;
       el.classList.toggle('is-best-answer', isBest);
       const meta = el.querySelector('.reply-meta');
@@ -345,12 +462,32 @@
     });
   }
 
+  function getThreadById(threadId) {
+    if (threadId === 'user') return userThreadState;
+    return (threadId && THREAD_DATA[threadId]) || null;
+  }
+
+  function resolveReplyContext(replyId) {
+    const replyEl = document.querySelector(`.feed-item .reply[data-reply-id="${replyId}"]`)
+      || document.querySelector(`#threadRepliesWrap .reply[data-reply-id="${replyId}"]`)
+      || document.querySelector(`.reply[data-reply-id="${replyId}"]`);
+    const feedId = replyEl?.closest('[data-feed-thread]')?.dataset?.feedThread;
+    const threadId = feedId || currentThreadId;
+    const thread = getThreadById(threadId);
+    const reply = thread?.replies?.find((r) => r.id === replyId) || null;
+    return { replyEl, threadId, thread, reply };
+  }
+
   function bindReplyHeartEnhanced(btn) {
+    if (!btn || btn.dataset.heartBound === '1') return;
+    btn.dataset.heartBound = '1';
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
       const replyEl = btn.closest('.reply');
       const replyId = replyEl?.dataset.replyId;
-      const thread = currentThreadId === 'user' ? userThreadState : THREAD_DATA[currentThreadId];
+      const feedId = btn.closest('[data-feed-thread]')?.dataset?.feedThread;
+      const threadId = feedId || currentThreadId;
+      const thread = getThreadById(threadId);
       const reply = thread?.replies?.find((r) => r.id === replyId);
 
       const countEl = btn.querySelector('span');
@@ -359,9 +496,11 @@
       if (wasActive) {
         btn.classList.remove('is-active');
         count = Math.max(0, count - 1);
+        if (replyId) likedReplies.delete(replyId);
       } else {
         btn.classList.add('is-active');
         count += 1;
+        if (replyId) likedReplies.add(replyId);
       }
       btn.dataset.heartCount = String(count);
       countEl.textContent = String(count);
@@ -378,8 +517,7 @@
   }
 
   function getActiveThreadState() {
-    if (currentThreadId === 'user') return userThreadState;
-    return THREAD_DATA[currentThreadId] || null;
+    return getThreadById(currentThreadId);
   }
 
   function renderReply(thread, reply, isBest) {
@@ -407,7 +545,7 @@
         <div class="reply-body">${reply.body} <span class="reply-time">${escapeHtml(reply.time)}${edited}</span></div>
         ${attach}
         <div class="reply-actions-row">
-          <button type="button" class="reply-heart${reply.hearts >= 3 ? ' is-active' : ''}" data-heart-count="${reply.hearts}" aria-label="${reply.hearts} helpful">${HEART_SVG}<span>${reply.hearts}</span></button>
+          <button type="button" class="reply-heart${likedReplies.has(reply.id) ? ' is-active' : ''}" data-heart-count="${reply.hearts}" aria-label="${reply.hearts} helpful">${HEART_SVG}<span>${reply.hearts}</span></button>
           <button type="button" class="reply-to-btn" data-reply-to="${reply.id}" data-reply-author="${escapeHtml(reply.author)}">Reply</button>
           ${ownActions}
           ${reportBtn}
@@ -498,7 +636,7 @@
         ${thread.attachments?.length ? `<div class="attach-chips">${thread.attachments.map(renderAttachChip).join('')}</div>` : ''}
       </div>
       <div class="thread-op-actions" id="threadOpActionsInner">
-        <button type="button" class="thread-op-heart${likedThreads.has(threadId) ? ' is-active' : ''}" data-thread-like="${threadId}">${HEART_SVG}<span>${thread.likes + (likedThreads.has(threadId) ? 0 : 0)}</span></button>
+        <button type="button" class="thread-op-heart${likedThreads.has(threadId) ? ' is-active' : ''}" data-thread-like="${threadId}">${HEART_SVG}<span>${thread.likes || 0}</span></button>
         <button type="button" class="thread-action-btn${savedThreads.has(threadId) ? ' is-active' : ''}" data-thread-save="${threadId}">${savedThreads.has(threadId) ? 'Saved' : 'Save'}</button>
         <button type="button" class="report-btn" data-report-target="thread" data-report-id="${threadId}">Report</button>
       </div>`;
@@ -531,15 +669,7 @@
 
   function bindDynamicHandlers() {
     document.querySelectorAll('[data-thread-like]').forEach((btn) => {
-      btn.onclick = () => {
-        const id = btn.dataset.threadLike;
-        const active = likedThreads.has(id);
-        if (active) likedThreads.delete(id); else likedThreads.add(id);
-        const span = btn.querySelector('span');
-        const base = THREAD_DATA[id]?.likes || 0;
-        span.textContent = String(base + (likedThreads.has(id) ? 1 : 0));
-        btn.classList.toggle('is-active', likedThreads.has(id));
-      };
+      btn.onclick = () => toggleThreadLike(btn.dataset.threadLike);
     });
     document.querySelectorAll('[data-thread-save]').forEach((btn) => {
       btn.onclick = () => {
@@ -552,9 +682,14 @@
     });
     document.querySelectorAll('[data-reply-to]').forEach((btn) => {
       btn.onclick = () => {
-        const replyInput = document.getElementById('replyInput');
-        if (!replyInput) return;
         const author = btn.dataset.replyAuthor;
+        const feedItem = btn.closest('[data-feed-thread]');
+        const replyInput = feedItem?.querySelector('.feed-reply-input') || document.getElementById('replyInput');
+        if (!replyInput) return;
+        if (feedItem?.dataset?.feedThread) {
+          currentThreadId = feedItem.dataset.feedThread;
+          window.__currentThreadId = currentThreadId;
+        }
         replyInput.focus();
         document.execCommand('insertText', false, `@${author} `);
       };
@@ -805,14 +940,20 @@
   }
 
   let reportModalScrollY = 0;
+  let noticeResolver = null;
 
-  function portalReportModal() {
-    const modal = document.getElementById('reportModal');
-    if (!modal) return;
+  function portalModal(id) {
+    const modal = document.getElementById(id);
+    if (!modal) return null;
     modal.classList.add('qava-modal-overlay');
     if (modal.parentElement !== document.body) {
       document.body.appendChild(modal);
     }
+    return modal;
+  }
+
+  function portalReportModal() {
+    portalModal('reportModal');
   }
 
   function lockBodyScroll() {
@@ -827,6 +968,9 @@
   }
 
   function unlockBodyScroll() {
+    const reportOpen = !document.getElementById('reportModal')?.hidden;
+    const noticeOpen = !document.getElementById('communityNoticeModal')?.hidden;
+    if (reportOpen || noticeOpen) return;
     document.documentElement.classList.remove('is-modal-open');
     document.body.classList.remove('is-modal-open');
     document.body.style.position = '';
@@ -836,6 +980,73 @@
     document.body.style.width = '';
     window.scrollTo(0, reportModalScrollY);
   }
+
+  function closeCommunityNotice(result) {
+    const modal = document.getElementById('communityNoticeModal');
+    if (modal) modal.hidden = true;
+    unlockBodyScroll();
+    const resolve = noticeResolver;
+    noticeResolver = null;
+    if (resolve) resolve(!!result);
+  }
+
+  /**
+   * Styled notice / confirm dialog matching the report modal.
+   * @returns {Promise<boolean>} true if primary action, false if cancelled.
+   */
+  function showCommunityNotice(opts = {}) {
+    const {
+      title = 'Notice',
+      body = '',
+      confirmLabel = 'OK',
+      cancelLabel = null,
+    } = opts;
+
+    const modal = portalModal('communityNoticeModal');
+    const titleEl = document.getElementById('communityNoticeTitle');
+    const bodyEl = document.getElementById('communityNoticeBody');
+    const confirmBtn = document.getElementById('communityNoticeConfirm');
+    const cancelBtn = document.getElementById('communityNoticeCancel');
+    if (!modal || !titleEl || !bodyEl || !confirmBtn) {
+      if (cancelLabel) return Promise.resolve(window.confirm(body || title));
+      window.alert(body || title);
+      return Promise.resolve(true);
+    }
+
+    if (noticeResolver) closeCommunityNotice(false);
+
+    titleEl.textContent = title;
+    bodyEl.textContent = body;
+    confirmBtn.textContent = confirmLabel || 'OK';
+    if (cancelBtn) {
+      if (cancelLabel) {
+        cancelBtn.hidden = false;
+        cancelBtn.textContent = cancelLabel;
+      } else {
+        cancelBtn.hidden = true;
+      }
+    }
+
+    modal.hidden = false;
+    lockBodyScroll();
+    confirmBtn.focus();
+
+    return new Promise((resolve) => {
+      noticeResolver = resolve;
+    });
+  }
+
+  function showCommunityConfirm(opts = {}) {
+    return showCommunityNotice({
+      title: opts.title || 'Are you sure?',
+      body: opts.body || '',
+      confirmLabel: opts.confirmLabel || 'Confirm',
+      cancelLabel: opts.cancelLabel || 'Cancel',
+    });
+  }
+
+  window.communityNotice = showCommunityNotice;
+  window.communityConfirm = showCommunityConfirm;
 
   function openReportModal(target, id) {
     const modal = document.getElementById('reportModal');
@@ -872,23 +1083,54 @@
       input.contentEditable = enabled ? 'true' : 'false';
       input.dataset.placeholder = enabled ? 'Write a reply… @ to mention' : '';
       input.closest('.input-with-gate')?.classList.toggle('is-enabled', enabled);
+      if (enabled) {
+        input.dataset.mentionBound = '';
+        bindMentionInput(input);
+      }
     });
   }
 
   function refreshFeedItemReplies(threadId) {
-    const thread = THREAD_DATA[threadId];
+    const thread = getThreadById(threadId);
     const feedItem = document.querySelector(`.feed-item[data-feed-thread="${threadId}"]`);
     if (!thread || !feedItem) return;
     const count = getThreadReplyCount(thread);
     feedItem.dataset.replies = String(count);
     feedItem.dataset.activity = String(thread.activityTs || Date.now());
+    syncThreadLikeUi(threadId);
     const stat = feedItem.querySelector('[data-feed-replies] span');
     if (stat) stat.textContent = String(count);
     feedItem.querySelector('.feed-replies')?.remove();
     const opener = feedItem.querySelector('.feed-opener');
-    if (opener) opener.insertAdjacentHTML('afterend', renderFeedPreviewReplies(thread));
+    if (opener) opener.insertAdjacentHTML('afterend', renderFeedReplies(thread));
     bindDynamicHandlers();
-    feedItem.querySelectorAll('.reply-heart').forEach((btn) => window.bindReplyHeart?.(btn));
+    feedItem.querySelectorAll('.reply-heart').forEach((btn) => bindReplyHeartEnhanced(btn));
+    bindMentionInputs(feedItem.querySelectorAll('.feed-reply-input'));
+    applyPremiumToFeedReplyInputs();
+  }
+
+  function focusFeedThread(threadId, opts = {}) {
+    if (window.showView) window.showView('chat');
+    if (!threadId || threadId === 'user') {
+      const userEl = document.querySelector('.feed-item[data-feed-thread="user"]')
+        || document.querySelector('.feed-opener[data-thread="user"]')?.closest('.feed-item');
+      if (opts.scroll !== false) userEl?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      currentThreadId = 'user';
+      window.__currentThreadId = 'user';
+      return;
+    }
+    if (opts.expand !== false) expandedReplies.add(threadId);
+    currentThreadId = threadId;
+    window.__currentThreadId = threadId;
+    const thread = THREAD_DATA[threadId];
+    if (thread) {
+      threadViewedAt[threadId] = thread.activityTs;
+      refreshFeedItemReplies(threadId);
+    }
+    const el = document.querySelector(`.feed-item[data-feed-thread="${threadId}"]`);
+    el?.classList.remove('has-unread');
+    if (opts.scroll !== false) el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (opts.focusReply) el?.querySelector('.feed-reply-input')?.focus();
   }
 
   function submitFeedInlineReply(input) {
@@ -924,10 +1166,13 @@
       hearts: 0,
       time: 'Just now',
       parentId: null,
+      bodyRaw: publishBody,
       body: bodyHtml,
+      editedAt: null,
     });
     thread.activityTs = Date.now();
     thread.status = thread.status === 'new' ? 'new' : 'active';
+    expandedReplies.add(threadId);
 
     refreshFeedItemReplies(threadId);
     if (window.clearInput) window.clearInput(input);
@@ -1019,28 +1264,70 @@
     feedList.innerHTML = Object.values(THREAD_DATA).map(renderFeedItem).join('');
     sortFeedItems();
     bindDynamicHandlers();
-    document.querySelectorAll('.feed-item .reply-heart').forEach((btn) => {
-      if (window.bindReplyHeart) window.bindReplyHeart(btn);
-    });
+    feedList.querySelectorAll('.reply-heart').forEach((btn) => bindReplyHeartEnhanced(btn));
     bindMentionInputs(feedList.querySelectorAll('.feed-reply-input'));
     applyPremiumToFeedReplyInputs();
     if (typeof window.communityPaintSelfAvatars === 'function') window.communityPaintSelfAvatars();
   }
 
+  function initFeedInteractions() {
+    if (document.body.dataset.feedInteractionsBound === '1') return;
+    document.body.dataset.feedInteractionsBound = '1';
+
+    document.body.addEventListener('click', (e) => {
+      const likeBtn = e.target.closest?.('[data-feed-like]');
+      if (likeBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleThreadLike(likeBtn.dataset.feedLike);
+        return;
+      }
+
+      const expandBtn = e.target.closest?.('[data-expand-replies]');
+      if (expandBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        const id = expandBtn.dataset.expandReplies;
+        if (!id) return;
+        expandedReplies.add(id);
+        currentThreadId = id;
+        window.__currentThreadId = id;
+        refreshFeedItemReplies(id);
+        return;
+      }
+
+      const collapseBtn = e.target.closest?.('[data-collapse-replies]');
+      if (collapseBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        const id = collapseBtn.dataset.collapseReplies;
+        if (!id) return;
+        expandedReplies.delete(id);
+        refreshFeedItemReplies(id);
+      }
+    });
+  }
+
   function getMentionQuery(input) {
+    if (!input) return null;
     const text = (input.textContent || '').replace(/\u00a0/g, ' ');
     const sel = window.getSelection();
-    if (!sel || !sel.rangeCount) return '';
-    const range = sel.getRangeAt(0);
-    if (!input.contains(range.endContainer)) return '';
-    const preCaret = range.cloneRange();
-    preCaret.selectNodeContents(input);
-    preCaret.setEnd(range.endContainer, range.endOffset);
-    const before = preCaret.toString();
+    let before = text;
+    if (sel && sel.rangeCount) {
+      const range = sel.getRangeAt(0);
+      if (input.contains(range.endContainer)) {
+        const preCaret = range.cloneRange();
+        preCaret.selectNodeContents(input);
+        preCaret.setEnd(range.endContainer, range.endOffset);
+        before = preCaret.toString();
+      }
+    }
     const at = before.lastIndexOf('@');
-    if (at < 0) return '';
+    if (at < 0) return null;
+    // Require start-of-text or whitespace before @ so emails don't open the menu.
+    if (at > 0 && !/\s/.test(before.charAt(at - 1))) return null;
     const query = before.slice(at + 1);
-    if (/\s/.test(query)) return '';
+    if (/\s/.test(query)) return null;
     return query;
   }
 
@@ -1053,6 +1340,18 @@
     return String(auth.handle || '').trim();
   }
 
+  function ensureMemberProfile(name) {
+    if (!name) return;
+    if (MEMBER_PROFILES[name]) return;
+    MEMBER_PROFILES[name] = {
+      initials: String(name).slice(0, 2).toUpperCase(),
+      displayName: name,
+      role: '',
+      school: '',
+      bio: '',
+    };
+  }
+
   function getThreadParticipantNames(threadId) {
     if (!threadId || threadId === 'user') return [];
     const thread = THREAD_DATA[threadId];
@@ -1060,12 +1359,30 @@
     const names = [];
     const seen = new Set();
     const add = (name) => {
-      if (!name || seen.has(name) || !MEMBER_PROFILES[name]) return;
-      seen.add(name);
+      if (!name || seen.has(String(name).toLowerCase())) return;
+      ensureMemberProfile(name);
+      seen.add(String(name).toLowerCase());
       names.push(name);
     };
     add(thread.op?.name);
     thread.replies?.forEach((reply) => add(reply.author));
+    return names;
+  }
+
+  function getAllKnownMemberNames() {
+    const names = [];
+    const seen = new Set();
+    const add = (name) => {
+      if (!name || seen.has(String(name).toLowerCase())) return;
+      ensureMemberProfile(name);
+      seen.add(String(name).toLowerCase());
+      names.push(name);
+    };
+    Object.keys(MEMBER_PROFILES).forEach(add);
+    Object.values(THREAD_DATA || {}).forEach((thread) => {
+      add(thread?.op?.name);
+      (thread?.replies || []).forEach((reply) => add(reply?.author));
+    });
     return names;
   }
 
@@ -1093,16 +1410,21 @@
       }
       const participants = getThreadParticipantNames(threadId)
         .filter((n) => !isSelf(n) && mentionNameMatches(n, query));
-      // Empty query: thread participants only. With a query: fill with other members.
-      if (!query) return participants.slice(0, MENTIONS_DROPDOWN_LIMIT);
+      // Empty query: prefer people in this thread; fall back to known members.
+      if (!query) {
+        if (participants.length) return participants.slice(0, MENTIONS_DROPDOWN_LIMIT);
+        return getAllKnownMemberNames()
+          .filter((n) => !isSelf(n))
+          .slice(0, MENTIONS_DROPDOWN_LIMIT);
+      }
       const seen = new Set(participants.map((n) => n.toLowerCase()));
-      const others = Object.keys(MEMBER_PROFILES).filter(
+      const others = getAllKnownMemberNames().filter(
         (n) => !isSelf(n) && !seen.has(n.toLowerCase()) && mentionNameMatches(n, query),
       );
       return participants.concat(others).slice(0, MENTIONS_DROPDOWN_LIMIT);
     }
 
-    return Object.keys(MEMBER_PROFILES)
+    return getAllKnownMemberNames()
       .filter((n) => !isSelf(n) && mentionNameMatches(n, query))
       .slice(0, MENTIONS_DROPDOWN_LIMIT);
   }
@@ -1236,24 +1558,29 @@
 
   function showMentionDropdown(input) {
     mentionDropdown = document.getElementById('mentionDropdown');
-    if (!mentionDropdown) return;
+    if (!mentionDropdown || !input) return;
 
     activeMentionInput = input;
     if (mentionDropdown.parentElement !== document.body) {
       document.body.appendChild(mentionDropdown);
     }
 
-    const query = getMentionQuery(input).toLowerCase();
+    const rawQuery = getMentionQuery(input);
+    if (rawQuery === null) {
+      hideMentionDropdown();
+      return;
+    }
+    const query = String(rawQuery).toLowerCase();
     const isReply = input.id === 'replyInput' || input.classList?.contains('feed-reply-input');
     const names = getFilteredMentionNames(input, query);
 
     let emptyMsg = 'Type a name to mention someone';
     if (query) emptyMsg = `No members match "${escapeHtml(query)}"`;
-    else if (isReply) emptyMsg = 'No members in this thread yet';
+    else if (isReply) emptyMsg = 'No members to mention yet';
 
     const memberItems = names.length
       ? names.map((n) => {
-          const p = MEMBER_PROFILES[n];
+          const p = MEMBER_PROFILES[n] || {};
           return `<button type="button" class="mention-option" data-mention-name="${escapeHtml(n)}">
             <span>${escapeHtml(n)}</span>
             <span class="mention-option-role">${escapeHtml(p.role || '')}</span>
@@ -1284,44 +1611,45 @@
     activeMentionInput = null;
   }
 
+  function isMentionableInput(el) {
+    if (!el || el.nodeType !== 1) return false;
+    if (!(el.isContentEditable || el.getAttribute?.('contenteditable') === 'true')) return false;
+    return el.matches?.('.feed-reply-input, #composerInput, #replyInput, .composer-input');
+  }
+
+  function mentionInputFromEvent(e) {
+    const target = e.target;
+    if (!target) return null;
+    if (isMentionableInput(target)) return target;
+    return target.closest?.('.feed-reply-input, #composerInput, #replyInput, .composer-input') || null;
+  }
+
+  function refreshMentionFromInput(input) {
+    if (!isMentionableInput(input)) return;
+    const query = getMentionQuery(input);
+    if (query === null) {
+      hideMentionDropdown();
+      return;
+    }
+    if (query === '' || /^[a-z0-9._-]*$/i.test(query)) {
+      showMentionDropdown(input);
+    } else {
+      hideMentionDropdown();
+    }
+  }
+
   function bindMentionInput(input) {
     if (!input || input.dataset.mentionBound === '1') return;
     input.dataset.mentionBound = '1';
-
-    input.addEventListener('keyup', (e) => {
-      if (e.key === '@') {
-        showMentionDropdown(input);
-        return;
-      }
-      if (e.key === 'Escape') {
-        hideMentionDropdown();
-        return;
-      }
-      const query = getMentionQuery(input);
-      if (query !== null && input.textContent.includes('@')) {
-        if (query === '' || /^[a-z0-9@._-]*$/i.test(query)) {
-          showMentionDropdown(input);
-        } else {
-          hideMentionDropdown();
-        }
-      } else if (!input.textContent.includes('@')) {
-        hideMentionDropdown();
-      }
-    });
-    input.addEventListener('input', () => {
-      const query = getMentionQuery(input);
-      if (input.textContent.includes('@') && (query === '' || /^[a-z0-9@._-]*$/i.test(query))) {
-        showMentionDropdown(input);
-      } else {
-        hideMentionDropdown();
-      }
-    });
+    // Direct listeners remain as a backup; capture-phase delegation is the source of truth.
+    input.addEventListener('keyup', () => refreshMentionFromInput(input));
+    input.addEventListener('input', () => refreshMentionFromInput(input));
     input.addEventListener('blur', () => {
       setTimeout(() => {
         if (mentionDropdown && !mentionDropdown.hidden && mentionDropdown.contains(document.activeElement)) {
           return;
         }
-        hideMentionDropdown();
+        if (activeMentionInput === input) hideMentionDropdown();
       }, 180);
     });
   }
@@ -1334,7 +1662,30 @@
     mentionDropdown = document.getElementById('mentionDropdown');
     if (!mentionDropdown) return;
 
-    bindMentionInputs(document.querySelectorAll('.composer-input[contenteditable], .feed-reply-input'));
+    if (document.body.dataset.mentionTypeaheadBound !== '1') {
+      document.body.dataset.mentionTypeaheadBound = '1';
+      // Capture phase so feed reply stopPropagation / re-renders can't miss @mentions.
+      document.addEventListener('keyup', (e) => {
+        const input = mentionInputFromEvent(e);
+        if (!input) return;
+        if (e.key === 'Escape') {
+          hideMentionDropdown();
+          return;
+        }
+        refreshMentionFromInput(input);
+      }, true);
+      document.addEventListener('input', (e) => {
+        const input = mentionInputFromEvent(e);
+        if (!input) return;
+        refreshMentionFromInput(input);
+      }, true);
+      document.addEventListener('focusin', (e) => {
+        const input = mentionInputFromEvent(e);
+        if (input) bindMentionInput(input);
+      }, true);
+    }
+
+    bindMentionInputs(document.querySelectorAll('.composer-input, .feed-reply-input'));
 
     window.addEventListener('resize', () => {
       if (activeMentionInput && !mentionDropdown?.hidden) {
@@ -1529,6 +1880,14 @@
     document.querySelectorAll('.feed-sort-option').forEach((btn) => {
       btn.classList.toggle('is-selected', btn.dataset.sort === value);
     });
+    // Re-fetch so "Most likes" uses the API likeCount ordering (sort=top),
+    // not just a client reorder of the "most active" page.
+    if (typeof window.communityHydrateFeed === 'function') {
+      window.communityHydrateFeed({ sort: value })
+        .catch(() => {})
+        .finally(() => sortFeedItems());
+      return;
+    }
     sortFeedItems();
   }
 
@@ -1585,39 +1944,21 @@
         if (e.target.closest('button, a, .reply-heart, [data-opener-prev], [data-opener-next], .member-link')) return;
         e.preventDefault();
         e.stopPropagation();
-        if (window.showThread) window.showThread(threadId);
+        focusFeedThread(threadId, { expand: true, scroll: true });
       });
       slide.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          if (window.showThread) window.showThread(threadId);
+          focusFeedThread(threadId, { expand: true, scroll: true });
         }
       });
     });
   }
 
   function patchShowThread() {
-    const originalShowThread = window.showThread;
-    if (!originalShowThread) return;
-
+    if (!window.showThread) return;
     window.showThread = function (threadId) {
-      if (threadId === 'user') {
-        originalShowThread(threadId);
-        renderThreadDetail('user');
-        return;
-      }
-      renderThreadDetail(threadId);
-      const repliesWrap = document.getElementById('threadRepliesWrap');
-      const repliesToggle = document.querySelector('#view-thread [data-replies-toggle]');
-      const defaultThreadPost = document.getElementById('defaultThreadPost');
-      const userThreadPost = document.getElementById('userThreadPost');
-      defaultThreadPost.hidden = false;
-      userThreadPost.hidden = true;
-      repliesWrap?.removeAttribute('hidden');
-      repliesWrap?.classList.remove('is-collapsed');
-      repliesToggle?.setAttribute('hidden', '');
-      if (window.applyCompactReplyState) window.applyCompactReplyState();
-      if (window.showView) window.showView('thread');
+      focusFeedThread(threadId || 'nathan', { expand: true, scroll: true });
     };
   }
 
@@ -1636,7 +1977,11 @@
 
       if (window.__editingUserPost && userThreadState) {
         if (!userThreadState.postedAt || (Date.now() - userThreadState.postedAt) >= EDIT_WINDOW_MS) {
-          alert('Edit window has closed. Posts can be edited within 15 minutes of publishing.');
+          showCommunityNotice({
+            title: 'Edit window closed',
+            body: 'Posts can be edited within 15 minutes of publishing.',
+            confirmLabel: 'OK',
+          });
           window.__editingUserPost = false;
           return;
         }
@@ -1645,11 +1990,12 @@
         userThreadState.body = window.formatPostBody ? window.formatPostBody(bodyRaw) : bodyRaw;
         userThreadState.tags = [...selectedTags];
         renderUserThreadPost();
-        const userFeedItem = document.querySelector('.feed-opener[data-thread="user"]')?.closest('.feed-item');
+        const userFeedItem = document.querySelector('.feed-item[data-feed-thread="user"]')
+          || document.querySelector('.feed-opener[data-thread="user"]')?.closest('.feed-item');
         if (userFeedItem) {
           userFeedItem.querySelector('h3').textContent = title;
-          const excerptEl = userFeedItem.querySelector('.feed-excerpt');
-          if (excerptEl) excerptEl.textContent = bodyRaw.replace(/\*\*/g, '').replace(/\u200c/g, '').slice(0, 160);
+          const bodyEl = userFeedItem.querySelector('.feed-body');
+          if (bodyEl) bodyEl.innerHTML = userThreadState.body;
         }
         composerTitle.value = '';
         if (window.clearInput) window.clearInput(document.getElementById('composerInput'));
@@ -1657,7 +2003,8 @@
         document.querySelectorAll('.tag-pill').forEach((btn) => btn.classList.remove('is-selected'));
         if (window.syncComposerState) window.syncComposerState();
         window.__editingUserPost = false;
-        if (window.showThread) window.showThread('user');
+        if (window.showView) window.showView('chat');
+        focusFeedThread('user', { scroll: true });
         return;
       }
 
@@ -1686,8 +2033,7 @@
     const id = threadId || currentThreadId;
     if (!id) return;
     if (id === 'user') {
-      renderUserThreadReplies();
-      renderUserThreadPost();
+      refreshFeedItemReplies('user');
       return;
     }
     if (window.communityIsLiveId && window.communityIsLiveId(id) && window.CommunityAPI) {
@@ -1695,15 +2041,15 @@
         .then((t) => {
           if (t && t.id && window.communityMapThread) {
             THREAD_DATA[t.id] = window.communityMapThread(t);
-            renderThreadDetail(t.id);
+            refreshFeedItemReplies(t.id);
           }
         })
         .catch(() => {
-          if (THREAD_DATA[id]) renderThreadDetail(id);
+          if (THREAD_DATA[id]) refreshFeedItemReplies(id);
         });
       return;
     }
-    if (THREAD_DATA[id]) renderThreadDetail(id);
+    if (THREAD_DATA[id]) refreshFeedItemReplies(id);
   }
 
   function removeReplyLocally(thread, replyId) {
@@ -1723,12 +2069,11 @@
   }
 
   function startReplyEdit(replyId) {
-    const replyEl = document.querySelector(`#threadRepliesWrap .reply[data-reply-id="${replyId}"]`)
-      || document.querySelector(`.thread-detail .reply[data-reply-id="${replyId}"]`);
+    const { replyEl, threadId, reply } = resolveReplyContext(replyId);
     if (!replyEl || replyEl.classList.contains('is-editing')) return;
-    const thread = getActiveThreadState();
-    const reply = thread?.replies?.find((r) => r.id === replyId);
     if (!reply || !isOwnReply(reply)) return;
+    currentThreadId = threadId;
+    window.__currentThreadId = threadId;
 
     const bodyEl = replyEl.querySelector('.reply-body');
     const actions = replyEl.querySelector('.reply-actions-row');
@@ -1752,21 +2097,26 @@
   }
 
   function cancelReplyEdit(replyId) {
-    refreshOpenThread(currentThreadId);
+    const { threadId } = resolveReplyContext(replyId);
+    refreshOpenThread(threadId || currentThreadId);
   }
 
   function saveReplyEdit(replyId) {
-    const replyEl = document.querySelector(`.reply[data-reply-id="${replyId}"]`);
+    const { replyEl, threadId, reply } = resolveReplyContext(replyId);
     const input = replyEl?.querySelector('.reply-edit-input');
-    const thread = getActiveThreadState();
-    const reply = thread?.replies?.find((r) => r.id === replyId);
     if (!reply || !input) return;
+    currentThreadId = threadId;
+    window.__currentThreadId = threadId;
 
     const raw = window.getInputRaw ? window.getInputRaw(input) : (input.textContent || '');
     const prepared = extractInvitesAndMaskBody(raw);
     const body = String(prepared.body || '').trim();
     if (!body) {
-      alert('Reply can’t be empty.');
+      showCommunityNotice({
+        title: 'Reply can’t be empty',
+        body: 'Add a bit of text before saving your edit.',
+        confirmLabel: 'OK',
+      });
       return;
     }
 
@@ -1775,7 +2125,7 @@
       reply.body = window.formatPostBody ? window.formatPostBody(body) : escapeHtml(body);
       reply.editedAt = reply.editedAt || new Date().toISOString();
       reply.time = reply.time || 'Just now';
-      refreshOpenThread(currentThreadId);
+      refreshOpenThread(threadId);
     };
 
     if (window.communityIsLiveId && window.communityIsLiveId(replyId) && window.CommunityAPI) {
@@ -1790,7 +2140,7 @@
       })
         .then(() => {
           if (window.communityToast) window.communityToast('Reply updated.', 'success');
-          refreshOpenThread(currentThreadId);
+          refreshOpenThread(threadId);
         })
         .catch((err) => {
           if (saveBtn) {
@@ -1798,7 +2148,11 @@
             saveBtn.textContent = 'Save';
           }
           const msg = (err && err.message) || 'Could not update reply.';
-          alert(msg);
+          showCommunityNotice({
+            title: 'Couldn’t update reply',
+            body: msg,
+            confirmLabel: 'OK',
+          });
         });
       return;
     }
@@ -1807,36 +2161,42 @@
   }
 
   function deleteOwnReply(replyId) {
-    const thread = getActiveThreadState();
-    const reply = thread?.replies?.find((r) => r.id === replyId);
+    const { threadId, thread, reply } = resolveReplyContext(replyId);
     if (!reply || !isOwnReply(reply)) return;
-    if (!confirm('Delete this reply? This can’t be undone.')) return;
+    showCommunityConfirm({
+      title: 'Delete reply?',
+      body: 'This can’t be undone.',
+      confirmLabel: 'Delete',
+      cancelLabel: 'Cancel',
+    }).then((ok) => {
+      if (!ok) return;
+      currentThreadId = threadId;
+      window.__currentThreadId = threadId;
 
-    const applyLocal = () => {
-      removeReplyLocally(thread, replyId);
-      refreshOpenThread(currentThreadId);
-      const feedItem = document.querySelector(`.feed-item[data-feed-thread="${currentThreadId}"]`);
-      if (feedItem && thread?.replies) {
-        feedItem.dataset.replies = String(thread.replies.length);
-        const stat = feedItem.querySelector('[data-feed-replies] span');
-        if (stat) stat.textContent = String(thread.replies.length);
+      const applyLocal = () => {
+        removeReplyLocally(thread, replyId);
+        refreshOpenThread(threadId);
+      };
+
+      if (window.communityIsLiveId && window.communityIsLiveId(replyId) && window.CommunityAPI) {
+        window.CommunityAPI.deleteReply(replyId)
+          .then(() => {
+            if (window.communityToast) window.communityToast('Reply deleted.', 'success');
+            refreshOpenThread(threadId);
+          })
+          .catch((err) => {
+            const msg = (err && err.message) || 'Could not delete reply.';
+            showCommunityNotice({
+              title: 'Couldn’t delete reply',
+              body: msg,
+              confirmLabel: 'OK',
+            });
+          });
+        return;
       }
-    };
 
-    if (window.communityIsLiveId && window.communityIsLiveId(replyId) && window.CommunityAPI) {
-      window.CommunityAPI.deleteReply(replyId)
-        .then(() => {
-          if (window.communityToast) window.communityToast('Reply deleted.', 'success');
-          refreshOpenThread(currentThreadId);
-        })
-        .catch((err) => {
-          const msg = (err && err.message) || 'Could not delete reply.';
-          alert(msg);
-        });
-      return;
-    }
-
-    applyLocal();
+      applyLocal();
+    });
   }
 
   function initOwnReplyActions() {
@@ -1875,7 +2235,11 @@
     document.addEventListener('click', (e) => {
       if (e.target.id !== 'editUserPostBtn') return;
       if (!userThreadState?.postedAt || (Date.now() - userThreadState.postedAt) >= EDIT_WINDOW_MS) {
-        alert('Edit window has closed. Posts can be edited within 15 minutes of publishing.');
+        showCommunityNotice({
+          title: 'Edit window closed',
+          body: 'Posts can be edited within 15 minutes of publishing.',
+          confirmLabel: 'OK',
+        });
         return;
       }
       const title = document.getElementById('composerTitle');
@@ -1896,9 +2260,18 @@
 
   function initModals() {
     portalReportModal();
+    portalModal('communityNoticeModal');
     initReportCategoryPicker();
     document.getElementById('reportModalClose')?.addEventListener('click', closeReportModal);
     document.getElementById('reportCancelBtn')?.addEventListener('click', closeReportModal);
+    document.getElementById('communityNoticeClose')?.addEventListener('click', () => closeCommunityNotice(false));
+    document.getElementById('communityNoticeCancel')?.addEventListener('click', () => closeCommunityNotice(false));
+    document.getElementById('communityNoticeConfirm')?.addEventListener('click', () => closeCommunityNotice(true));
+    document.getElementById('communityNoticeModal')?.addEventListener('click', (e) => {
+      if (e.target?.dataset?.noticeBackdrop != null || e.target?.id === 'communityNoticeModal') {
+        closeCommunityNotice(false);
+      }
+    });
     document.getElementById('reportSubmitBtn')?.addEventListener('click', () => {
       const modal = document.getElementById('reportModal');
       const category = document.getElementById('reportCategory');
@@ -1912,7 +2285,11 @@
       const targetId = modal?.dataset.reportId || '';
       if (!details) {
         description?.focus();
-        alert('Please add a short description so our team can review your report.');
+        showCommunityNotice({
+          title: 'Add a description',
+          body: 'Please add a short description so our team can review your report.',
+          confirmLabel: 'OK',
+        });
         return;
       }
       closeReportModal();
@@ -1932,12 +2309,22 @@
 
       Promise.resolve(persist)
         .then(() => {
-          alert(`Report submitted (${categoryLabel}). Our team will review within 24 hours.`);
+          showCommunityNotice({
+            title: 'Report submitted',
+            body: `Thanks — we received your report (${categoryLabel}). Our team will review within 24 hours.`,
+            confirmLabel: 'OK',
+          });
         })
         .catch((err) => {
           const msg = (err && err.message) || 'Could not submit report.';
           if (window.communityToast) window.communityToast(msg, 'error');
-          else alert(msg);
+          else {
+            showCommunityNotice({
+              title: 'Couldn’t submit report',
+              body: msg,
+              confirmLabel: 'OK',
+            });
+          }
         });
     });
     document.querySelectorAll('[data-modal-backdrop]').forEach((el) => {
@@ -1946,7 +2333,12 @@
       });
     });
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !document.getElementById('reportModal')?.hidden) {
+      if (e.key !== 'Escape') return;
+      if (!document.getElementById('communityNoticeModal')?.hidden) {
+        closeCommunityNotice(false);
+        return;
+      }
+      if (!document.getElementById('reportModal')?.hidden) {
         closeReportModal();
       }
     });
@@ -1956,10 +2348,11 @@
     document.body.addEventListener('click', (e) => {
       const opener = e.target.closest('[data-open-thread]');
       if (!opener) return;
+      // Feed is the only reading surface — jump to the post in-place.
       e.preventDefault();
       e.stopPropagation();
       const threadId = opener.dataset.thread || 'nathan';
-      if (window.showThread) window.showThread(threadId);
+      focusFeedThread(threadId, { expand: true, scroll: true });
     });
   }
 
@@ -2005,19 +2398,8 @@
         if (files.length) newReply.attachment = files[0].name;
         thread.replies.unshift(newReply);
         thread.activityTs = Date.now();
-        renderThreadDetail(currentThreadId);
-        const feedItem = document.querySelector(`.feed-item[data-feed-thread="${currentThreadId}"]`);
-        if (feedItem) {
-          feedItem.dataset.replies = String(thread.replies.length);
-          feedItem.dataset.activity = String(thread.activityTs);
-          const stat = feedItem.querySelector('[data-feed-replies] span');
-          if (stat) stat.textContent = String(thread.replies.length);
-          feedItem.querySelector('.feed-replies')?.remove();
-          const opener = feedItem.querySelector('.feed-opener');
-          if (opener) opener.insertAdjacentHTML('afterend', renderFeedPreviewReplies(thread));
-          bindDynamicHandlers();
-          feedItem.querySelectorAll('.reply-heart').forEach((btn) => window.bindReplyHeart?.(btn));
-        }
+        expandedReplies.add(currentThreadId);
+        refreshFeedItemReplies(currentThreadId);
         if (window.clearInput) window.clearInput(replyInput);
         files.length = 0;
         if (window.renderReplyAttachments) window.renderReplyAttachments();
@@ -2039,15 +2421,8 @@
         if (files.length) newReply.attachment = files[0].name;
         userThreadState.replies = userThreadState.replies || [];
         userThreadState.replies.unshift(newReply);
-        renderUserThreadReplies();
-        renderUserThreadPost();
-        const userFeedItem = document.querySelector('.feed-opener[data-thread="user"]')?.closest('.feed-item');
-        if (userFeedItem) {
-          const count = userThreadState.replies.length;
-          const stat = userFeedItem.querySelector('[data-feed-replies] span');
-          if (stat) stat.textContent = String(count);
-          userFeedItem.dataset.replies = String(count);
-        }
+        expandedReplies.add('user');
+        refreshFeedItemReplies('user');
         if (window.clearInput) window.clearInput(replyInput);
         files.length = 0;
         if (window.renderReplyAttachments) window.renderReplyAttachments();
@@ -2063,7 +2438,7 @@
       const thread = THREAD_DATA[currentThreadId];
       if (!thread) return;
       thread.replies = thread.replies || [];
-      renderThreadDetail(currentThreadId);
+      refreshFeedItemReplies(currentThreadId);
     };
   }
 
@@ -2088,6 +2463,7 @@
     initFeedFromData();
     initMentionTypeahead();
     initFeedInlineReply();
+    initFeedInteractions();
     initTagPicker();
     initTryAskingMenu();
     initDrafts();
@@ -2104,7 +2480,6 @@
     initModals();
     initOpenThreadDelegation();
     initMentionClickDelegation();
-    renderThreadDetail('nathan');
     syncComposerAvatars();
   }
 
@@ -2117,6 +2492,8 @@
   window.THREAD_DATA = THREAD_DATA;
   window.MEMBER_PROFILES = MEMBER_PROFILES;
   window.initFeedFromData = initFeedFromData;
+  window.communityGetFeedSort = function () { return feedSort; };
+  window.communitySortFeedItems = sortFeedItems;
   window.renderThreadDetail = renderThreadDetail;
   window.openProfilePage = openProfilePage;
   window.renderProfilePage = renderProfilePage;
