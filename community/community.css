@@ -2635,7 +2635,8 @@
       margin-top: 10px;
     }
 
-    .thread-op-heart, .thread-action-btn, .reply-to-btn, .reply-save-btn, .mark-best-btn, .report-btn, .thread-edit-btn {
+    .thread-op-heart, .thread-action-btn, .reply-to-btn, .reply-save-btn, .mark-best-btn, .report-btn, .thread-edit-btn,
+    .reply-edit-btn, .reply-delete-btn {
       display: inline-flex;
       align-items: center;
       gap: 4px;
@@ -2647,6 +2648,72 @@
       line-height: 1;
       color: #6b7280;
       cursor: pointer;
+    }
+
+    .reply-edit-btn:hover, .reply-delete-btn:hover, .reply-to-btn:hover, .report-btn:hover {
+      color: #111827;
+    }
+
+    .reply-delete-btn:hover {
+      color: #D35050;
+    }
+
+    .reply-edited {
+      color: #9A9A9A;
+      font-weight: 300;
+    }
+
+    .reply-edit-box {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .reply-edit-input {
+      min-height: 56px;
+      padding: 8px 10px;
+      border: 1px solid #E0E0E0;
+      border-radius: 6px;
+      background: #fff;
+    }
+
+    .reply-edit-input:focus {
+      outline: none;
+      border-color: #111111;
+    }
+
+    .reply-edit-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .reply-edit-cancel,
+    .reply-edit-save {
+      border: 0;
+      border-radius: 6px;
+      padding: 6px 12px;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .reply-edit-cancel {
+      background: #fff;
+      color: #111111;
+      border: 1px solid #E0E0E0;
+    }
+
+    .reply-edit-save {
+      background: #111111;
+      color: #fff;
+    }
+
+    .reply-edit-save:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
 
     .thread-op-heart svg { width: 12px; height: 12px; }
