@@ -3,7 +3,7 @@
     <div class="footer-container">
       <div class="footer-content">
         <div class="footer-logo">
-          <a href="https://qava.ai/"><img src="https://qava.ai/qava-logo.svg" alt="Qava" class="footer-logo-img" /></a>
+          <a href="https://qava.ai/"><img src="https://qava.ai/qava-logo.svg" alt="Qava" class="footer-logo-img" width="40" height="40" decoding="async" /></a>
         </div>
         <div class="footer-links">
           <div class="footer-column">
@@ -20,7 +20,7 @@
             <h4 class="footer-heading">Get started</h4>
             <ul class="footer-link-list">
               <li><a href="https://app.qava.ai/" class="footer-link">Sign up</a></li>
-              <li><a href="https://app.qava.ai/" class="footer-link">Log in</a></li>
+              <li><a href="https://app.qava.ai/?login=1" class="footer-link">Log in</a></li>
             </ul>
           </div>
           <div class="footer-column">
@@ -70,7 +70,25 @@
       margin-bottom: 0;
       box-sizing: border-box;
     }
-    .footer-section .footer-logo-img { width: 40px; height: auto; cursor: pointer; display: block; }
+    .footer-section .footer-logo {
+      line-height: 0;
+    }
+    .footer-section .footer-logo a {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      overflow: hidden;
+      line-height: 0;
+    }
+    .footer-section .footer-logo-img {
+      width: 40px !important;
+      height: 40px !important;
+      max-width: 40px !important;
+      max-height: 40px !important;
+      object-fit: contain;
+      cursor: pointer;
+      display: block;
+    }
     .footer-section .footer-links {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -161,7 +179,7 @@
     if (existing) existing.remove();
     const style = doc.createElement("style");
     style.id = "qava-footer-style";
-    style.setAttribute("data-qava-footer-css", "footer-row-1");
+    style.setAttribute("data-qava-footer-css", "footer-logo-40");
     style.textContent = FOOTER_CSS;
     doc.head.appendChild(style);
   }
