@@ -370,6 +370,18 @@
     });
   }
 
+  function isOwnReply(reply) {
+    if (!reply) return false;
+    if (reply.author === 'You') return true;
+    const self = getSelfHandle();
+    return !!(self && reply.author && self.toLowerCase() === String(reply.author).toLowerCase());
+  }
+
+  function getActiveThreadState() {
+    if (currentThreadId === 'user') return userThreadState;
+    return THREAD_DATA[currentThreadId] || null;
+  }
+
   function renderReply(thread, reply, isBest) {
     if (hiddenContent.has(reply.id) || blockedMembers.has(reply.author)) return '';
     const p = reply.author === 'You'
@@ -379,16 +391,26 @@
     const best = isBest ? ' is-best-answer' : '';
     const attach = reply.attachment ? `<div class="attach-chips">${renderAttachChip(reply.attachment)}</div>` : '';
     const avatar = reply.author === 'You' ? selfAvatarHtml('You') : avatarHtml(p, reply.author);
+    const own = isOwnReply(reply);
+    const edited = reply.editedAt ? ' · <span class="reply-edited">Edited</span>' : '';
+    const ownActions = own
+      ? `<button type="button" class="reply-edit-btn" data-edit-reply="${reply.id}">Edit</button>
+          <button type="button" class="reply-delete-btn" data-delete-reply="${reply.id}">Delete</button>`
+      : '';
+    const reportBtn = own
+      ? ''
+      : `<button type="button" class="report-btn" data-report-target="reply" data-report-id="${reply.id}">Report</button>`;
     return `<div class="reply${nested}${best}" data-reply-id="${reply.id}" data-parent-id="${reply.parentId || ''}">
       ${avatar}
       <div>
         <div class="reply-meta"><strong>${memberLink(reply.author)}</strong>${metaExtra(p.role, p.school)}${isBest ? ' · <span class="best-answer-badge">Best answer</span>' : ''}</div>
-        <div class="reply-body">${reply.body} <span class="reply-time">${escapeHtml(reply.time)}</span></div>
+        <div class="reply-body">${reply.body} <span class="reply-time">${escapeHtml(reply.time)}${edited}</span></div>
         ${attach}
         <div class="reply-actions-row">
           <button type="button" class="reply-heart${reply.hearts >= 3 ? ' is-active' : ''}" data-heart-count="${reply.hearts}" aria-label="${reply.hearts} helpful">${HEART_SVG}<span>${reply.hearts}</span></button>
           <button type="button" class="reply-to-btn" data-reply-to="${reply.id}" data-reply-author="${escapeHtml(reply.author)}">Reply</button>
-          <button type="button" class="report-btn" data-report-target="reply" data-report-id="${reply.id}">Report</button>
+          ${ownActions}
+          ${reportBtn}
         </div>
       </div>
     </div>`;
@@ -1660,6 +1682,195 @@
     };
   }
 
+  function refreshOpenThread(threadId) {
+    const id = threadId || currentThreadId;
+    if (!id) return;
+    if (id === 'user') {
+      renderUserThreadReplies();
+      renderUserThreadPost();
+      return;
+    }
+    if (window.communityIsLiveId && window.communityIsLiveId(id) && window.CommunityAPI) {
+      window.CommunityAPI.getThread(id)
+        .then((t) => {
+          if (t && t.id && window.communityMapThread) {
+            THREAD_DATA[t.id] = window.communityMapThread(t);
+            renderThreadDetail(t.id);
+          }
+        })
+        .catch(() => {
+          if (THREAD_DATA[id]) renderThreadDetail(id);
+        });
+      return;
+    }
+    if (THREAD_DATA[id]) renderThreadDetail(id);
+  }
+
+  function removeReplyLocally(thread, replyId) {
+    if (!thread?.replies) return;
+    const drop = new Set([replyId]);
+    let grew = true;
+    while (grew) {
+      grew = false;
+      thread.replies.forEach((r) => {
+        if (r.parentId && drop.has(r.parentId) && !drop.has(r.id)) {
+          drop.add(r.id);
+          grew = true;
+        }
+      });
+    }
+    thread.replies = thread.replies.filter((r) => !drop.has(r.id));
+  }
+
+  function startReplyEdit(replyId) {
+    const replyEl = document.querySelector(`#threadRepliesWrap .reply[data-reply-id="${replyId}"]`)
+      || document.querySelector(`.thread-detail .reply[data-reply-id="${replyId}"]`);
+    if (!replyEl || replyEl.classList.contains('is-editing')) return;
+    const thread = getActiveThreadState();
+    const reply = thread?.replies?.find((r) => r.id === replyId);
+    if (!reply || !isOwnReply(reply)) return;
+
+    const bodyEl = replyEl.querySelector('.reply-body');
+    const actions = replyEl.querySelector('.reply-actions-row');
+    if (!bodyEl) return;
+
+    replyEl.classList.add('is-editing');
+    const raw = reply.bodyRaw != null ? String(reply.bodyRaw) : '';
+    bodyEl.innerHTML = `
+      <div class="reply-edit-box">
+        <div class="composer-input reply-edit-input" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Edit reply" data-placeholder="Edit your reply…"></div>
+        <div class="reply-edit-actions">
+          <button type="button" class="reply-edit-cancel" data-cancel-edit-reply="${replyId}">Cancel</button>
+          <button type="button" class="reply-edit-save" data-save-edit-reply="${replyId}">Save</button>
+        </div>
+      </div>`;
+    if (actions) actions.hidden = true;
+    const input = bodyEl.querySelector('.reply-edit-input');
+    if (input && window.setInputRaw) window.setInputRaw(input, raw);
+    else if (input) input.textContent = raw;
+    input?.focus();
+  }
+
+  function cancelReplyEdit(replyId) {
+    refreshOpenThread(currentThreadId);
+  }
+
+  function saveReplyEdit(replyId) {
+    const replyEl = document.querySelector(`.reply[data-reply-id="${replyId}"]`);
+    const input = replyEl?.querySelector('.reply-edit-input');
+    const thread = getActiveThreadState();
+    const reply = thread?.replies?.find((r) => r.id === replyId);
+    if (!reply || !input) return;
+
+    const raw = window.getInputRaw ? window.getInputRaw(input) : (input.textContent || '');
+    const prepared = extractInvitesAndMaskBody(raw);
+    const body = String(prepared.body || '').trim();
+    if (!body) {
+      alert('Reply can’t be empty.');
+      return;
+    }
+
+    const applyLocal = () => {
+      reply.bodyRaw = body;
+      reply.body = window.formatPostBody ? window.formatPostBody(body) : escapeHtml(body);
+      reply.editedAt = reply.editedAt || new Date().toISOString();
+      reply.time = reply.time || 'Just now';
+      refreshOpenThread(currentThreadId);
+    };
+
+    if (window.communityIsLiveId && window.communityIsLiveId(replyId) && window.CommunityAPI) {
+      const saveBtn = replyEl.querySelector('[data-save-edit-reply]');
+      if (saveBtn) {
+        saveBtn.disabled = true;
+        saveBtn.textContent = 'Saving…';
+      }
+      window.CommunityAPI.updateReply(replyId, {
+        body,
+        invites: prepared.invites || [],
+      })
+        .then(() => {
+          if (window.communityToast) window.communityToast('Reply updated.', 'success');
+          refreshOpenThread(currentThreadId);
+        })
+        .catch((err) => {
+          if (saveBtn) {
+            saveBtn.disabled = false;
+            saveBtn.textContent = 'Save';
+          }
+          const msg = (err && err.message) || 'Could not update reply.';
+          alert(msg);
+        });
+      return;
+    }
+
+    applyLocal();
+  }
+
+  function deleteOwnReply(replyId) {
+    const thread = getActiveThreadState();
+    const reply = thread?.replies?.find((r) => r.id === replyId);
+    if (!reply || !isOwnReply(reply)) return;
+    if (!confirm('Delete this reply? This can’t be undone.')) return;
+
+    const applyLocal = () => {
+      removeReplyLocally(thread, replyId);
+      refreshOpenThread(currentThreadId);
+      const feedItem = document.querySelector(`.feed-item[data-feed-thread="${currentThreadId}"]`);
+      if (feedItem && thread?.replies) {
+        feedItem.dataset.replies = String(thread.replies.length);
+        const stat = feedItem.querySelector('[data-feed-replies] span');
+        if (stat) stat.textContent = String(thread.replies.length);
+      }
+    };
+
+    if (window.communityIsLiveId && window.communityIsLiveId(replyId) && window.CommunityAPI) {
+      window.CommunityAPI.deleteReply(replyId)
+        .then(() => {
+          if (window.communityToast) window.communityToast('Reply deleted.', 'success');
+          refreshOpenThread(currentThreadId);
+        })
+        .catch((err) => {
+          const msg = (err && err.message) || 'Could not delete reply.';
+          alert(msg);
+        });
+      return;
+    }
+
+    applyLocal();
+  }
+
+  function initOwnReplyActions() {
+    document.addEventListener('click', (e) => {
+      const editBtn = e.target.closest?.('[data-edit-reply]');
+      if (editBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        startReplyEdit(editBtn.getAttribute('data-edit-reply'));
+        return;
+      }
+      const saveBtn = e.target.closest?.('[data-save-edit-reply]');
+      if (saveBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        saveReplyEdit(saveBtn.getAttribute('data-save-edit-reply'));
+        return;
+      }
+      const cancelBtn = e.target.closest?.('[data-cancel-edit-reply]');
+      if (cancelBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        cancelReplyEdit(cancelBtn.getAttribute('data-cancel-edit-reply'));
+        return;
+      }
+      const deleteBtn = e.target.closest?.('[data-delete-reply]');
+      if (deleteBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        deleteOwnReply(deleteBtn.getAttribute('data-delete-reply'));
+      }
+    });
+  }
+
   function initEditPost() {
     document.addEventListener('click', (e) => {
       if (e.target.id !== 'editUserPostBtn') return;
@@ -1787,7 +1998,9 @@
           hearts: 0,
           time: 'Just now',
           parentId: null,
+          bodyRaw: body,
           body: window.formatPostBody ? window.formatPostBody(body) : escapeHtml(body),
+          editedAt: null,
         };
         if (files.length) newReply.attachment = files[0].name;
         thread.replies.unshift(newReply);
@@ -1819,7 +2032,9 @@
           hearts: 0,
           time: 'Just now',
           parentId: null,
+          bodyRaw: body,
           body: window.formatPostBody ? window.formatPostBody(body) : escapeHtml(body),
+          editedAt: null,
         };
         if (files.length) newReply.attachment = files[0].name;
         userThreadState.replies = userThreadState.replies || [];
@@ -1885,6 +2100,7 @@
     patchUpdateThreadReplyCount();
     patchInsertMention();
     initEditPost();
+    initOwnReplyActions();
     initModals();
     initOpenThreadDelegation();
     initMentionClickDelegation();

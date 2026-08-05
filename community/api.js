@@ -98,6 +98,8 @@
     getSchools: function () { return get('/schools'); },
     createThread: function (b) { return send('POST', '/community/threads', b); },
     createReply: function (id, b) { return send('POST', '/community/threads/' + encodeURIComponent(id) + '/replies', b); },
+    updateReply: function (id, b) { return send('PATCH', '/community/replies/' + encodeURIComponent(id), b); },
+    deleteReply: function (id) { return send('DELETE', '/community/replies/' + encodeURIComponent(id)); },
     likeThread: function (id) { return send('POST', '/community/threads/' + encodeURIComponent(id) + '/like'); },
     heartReply: function (id) { return send('POST', '/community/replies/' + encodeURIComponent(id) + '/heart'); },
     saveThread: function (id) { return send('POST', '/community/threads/' + encodeURIComponent(id) + '/save'); },
@@ -210,7 +212,9 @@
       time: relTime(r.createdAt),
       parentId: r.parentId || null,
       attachment: r.attachment ? (r.attachment.label || r.attachment) : undefined,
+      bodyRaw: r.body == null ? '' : String(r.body),
       body: formatBody(r.body),
+      editedAt: r.editedAt || null,
     };
   }
 
