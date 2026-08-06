@@ -792,11 +792,11 @@
 
     const replyItems = replies.length
       ? replies.map((reply) => `
-          <button type="button" class="profile-reply-item" data-open-thread data-thread="${reply.threadId}">
+          <div class="profile-reply-item" role="button" tabindex="0" data-open-thread data-thread="${reply.threadId}">
             <h3>${escapeHtml(reply.threadTitle)}</h3>
             <div class="profile-reply-meta">${reply.hearts} helpful · ${escapeHtml(reply.time)}</div>
             <div class="profile-reply-excerpt reply-body">${profileReplyExcerpt(reply.body)}</div>
-          </button>`).join('')
+          </div>`).join('')
       : '<p class="profile-empty-note">No replies yet.</p>';
 
     const savedItems = getSavedProfileItems();
@@ -2749,14 +2749,25 @@
   }
 
   function initOpenThreadDelegation() {
+    const openFromEl = (opener) => {
+      if (!opener) return;
+      const threadId = opener.dataset.thread || 'nathan';
+      focusFeedThread(threadId, { expand: true, scroll: true });
+    };
     document.body.addEventListener('click', (e) => {
       const opener = e.target.closest('[data-open-thread]');
       if (!opener) return;
       // Feed is the only reading surface — jump to the post in-place.
       e.preventDefault();
       e.stopPropagation();
-      const threadId = opener.dataset.thread || 'nathan';
-      focusFeedThread(threadId, { expand: true, scroll: true });
+      openFromEl(opener);
+    });
+    document.body.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      const opener = e.target.closest?.('[data-open-thread][role="button"]');
+      if (!opener || e.target !== opener) return;
+      e.preventDefault();
+      openFromEl(opener);
     });
   }
 

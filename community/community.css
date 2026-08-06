@@ -859,35 +859,47 @@
 
     .landing-section .reply-body ul,
     .thread-detail .reply-body ul,
-    .feed-item .reply-body ul {
+    .feed-item .reply-body ul,
+    .profile-reply-excerpt ul {
       margin: 4px 0 0 16px;
+      padding: 0;
+      list-style: disc;
     }
 
     .landing-section .reply-body li,
     .thread-detail .reply-body li,
-    .feed-item .reply-body li {
+    .feed-item .reply-body li,
+    .profile-reply-excerpt li {
       margin-bottom: 3px;
     }
 
     .landing-section .reply-body p,
     .thread-detail .reply-body p,
-    .feed-item .reply-body p {
+    .feed-item .reply-body p,
+    .profile-reply-excerpt p {
       margin: 0;
     }
 
     .landing-section .reply-body p + p,
     .landing-section .reply-body p + ul,
+    .landing-section .reply-body ul + p,
     .thread-detail .reply-body p + p,
     .thread-detail .reply-body p + ul,
+    .thread-detail .reply-body ul + p,
     .feed-item .reply-body p + p,
-    .feed-item .reply-body p + ul {
+    .feed-item .reply-body p + ul,
+    .feed-item .reply-body ul + p,
+    .profile-reply-excerpt p + p,
+    .profile-reply-excerpt p + ul,
+    .profile-reply-excerpt ul + p {
       margin-top: 10px;
     }
 
     .landing-section .reply-body a,
     .thread-detail .reply-body a,
     .thread-detail .thread-body a,
-    .feed-item .reply-body a {
+    .feed-item .reply-body a,
+    .profile-reply-excerpt a {
       color: #2563eb;
       text-decoration: underline;
       text-underline-offset: 2px;
@@ -896,6 +908,7 @@
     .landing-section .reply-body strong,
     .thread-detail .reply-body strong,
     .feed-item .reply-body strong,
+    .profile-reply-excerpt strong,
     .feed-body strong,
     .thread-body strong {
       font-weight: 600;
@@ -904,6 +917,7 @@
     .landing-section .reply-body em,
     .thread-detail .reply-body em,
     .feed-item .reply-body em,
+    .profile-reply-excerpt em,
     .feed-body em,
     .thread-body em {
       font-style: italic;
@@ -4139,6 +4153,17 @@
 
     .profile-reply-excerpt .reply-mention {
       font-weight: 500;
+    }
+
+    /* Match chat reply formatting inside profile cards (global * reset zeroes p/ul). */
+    .profile-reply-excerpt ol {
+      margin: 4px 0 0 16px;
+      padding: 0;
+      list-style: decimal;
+    }
+
+    .profile-reply-excerpt ol + p {
+      margin-top: 10px;
     }
 
     .profile-empty-note {
