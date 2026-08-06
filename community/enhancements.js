@@ -360,11 +360,14 @@
     return `<div class="feed-replies">${items}${toggle}</div>`;
   }
 
+  const FEED_REPLY_SEND_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg>';
+
   function renderFeedInlineReply(thread) {
     return `<div class="feed-inline-reply" data-feed-reply-thread="${thread.id}">
       ${selfAvatarHtml('You')}
       <div class="feed-inline-reply-field input-with-gate">
         <div class="composer-input feed-reply-input" contenteditable="false" role="textbox" aria-multiline="true" aria-label="Write a reply" data-placeholder="Write a reply… @ to mention"></div>
+        <button type="button" class="feed-reply-send" aria-label="Send reply">${FEED_REPLY_SEND_SVG}</button>
       </div>
     </div>`;
   }
@@ -1241,6 +1244,14 @@
     });
 
     feedList.addEventListener('click', (e) => {
+      const sendBtn = e.target.closest?.('.feed-reply-send');
+      if (sendBtn && feedList.contains(sendBtn)) {
+        e.preventDefault();
+        e.stopPropagation();
+        const input = sendBtn.closest('.feed-inline-reply-field')?.querySelector('.feed-reply-input');
+        submitFeedInlineReply(input);
+        return;
+      }
       if (e.target.closest('.feed-inline-reply')) e.stopPropagation();
     });
 
