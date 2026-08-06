@@ -411,8 +411,7 @@
           .call(document.querySelectorAll('#composerTags .tag-pill.is-selected'), function (el) {
             return el.getAttribute('data-tag');
           })
-          .filter(Boolean)
-          .slice(0, 2);
+          .filter(Boolean);
         if (bodyEl && window.setInputRaw) window.setInputRaw(bodyEl, prepared.body);
         var result = origPost.apply(this, arguments);
         if (title && title.trim()) {
