@@ -1527,6 +1527,31 @@
       flex-shrink: 0;
     }
 
+    .composer-shell {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .composer-shell > .avatar {
+      /* Sit beside the title input, not the TITLE label */
+      margin-top: 18px;
+      transition: margin-top 420ms var(--composer-ease, cubic-bezier(0.32, 0.72, 0, 1));
+    }
+
+    .composer-opener.is-collapsed .composer-shell {
+      align-items: center;
+    }
+
+    .composer-opener.is-collapsed .composer-shell > .avatar {
+      margin-top: 0;
+    }
+
+    .composer-shell-main {
+      flex: 1;
+      min-width: 0;
+    }
+
     .composer-chrome {
       display: flex;
       align-items: flex-start;
@@ -1543,22 +1568,6 @@
 
     .composer-opener.is-collapsed .composer-chrome-main {
       gap: 0;
-    }
-
-    .composer-title-line {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 0;
-    }
-
-    .composer-title-line .avatar {
-      flex-shrink: 0;
-    }
-
-    .composer-title-line .composer-title-row {
-      flex: 1;
-      min-width: 0;
     }
 
     .composer-title-label-wrap {
