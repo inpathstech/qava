@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../qava-landing.css" />
-  <link rel="stylesheet" href="community.css?v=composer-title-align-1" />
+  <link rel="stylesheet" href="community.css?v=feed-shimmer-1" />
   <link rel="stylesheet" href="chat-marketing.css?v=ex-op-solid-1" />
   <link rel="stylesheet" href="../qava-auth.css" />
 </head>
@@ -356,6 +356,49 @@
               <button type="button" class="feed-filter-reset" id="feedFilterReset">Reset filters</button>
             </div>
           </div>
+          <div class="feed-skel" id="feedSkel" hidden aria-hidden="true">
+            <div class="feed-skel-card">
+              <div class="feed-skel-row">
+                <div class="feed-skel-av shimmer-placeholder"></div>
+                <div class="feed-skel-meta">
+                  <div class="feed-skel-line shimmer-placeholder" style="width:38%"></div>
+                  <div class="feed-skel-line shimmer-placeholder" style="width:22%"></div>
+                </div>
+                <div class="feed-skel-pill shimmer-placeholder"></div>
+              </div>
+              <div class="feed-skel-line shimmer-placeholder feed-skel-title" style="width:68%"></div>
+              <div class="feed-skel-line shimmer-placeholder" style="width:100%"></div>
+              <div class="feed-skel-line shimmer-placeholder" style="width:86%"></div>
+              <div class="feed-skel-line shimmer-placeholder" style="width:42%"></div>
+            </div>
+            <div class="feed-skel-card">
+              <div class="feed-skel-row">
+                <div class="feed-skel-av shimmer-placeholder"></div>
+                <div class="feed-skel-meta">
+                  <div class="feed-skel-line shimmer-placeholder" style="width:44%"></div>
+                  <div class="feed-skel-line shimmer-placeholder" style="width:26%"></div>
+                </div>
+                <div class="feed-skel-pill shimmer-placeholder"></div>
+              </div>
+              <div class="feed-skel-line shimmer-placeholder feed-skel-title" style="width:74%"></div>
+              <div class="feed-skel-line shimmer-placeholder" style="width:96%"></div>
+              <div class="feed-skel-line shimmer-placeholder" style="width:78%"></div>
+            </div>
+            <div class="feed-skel-card">
+              <div class="feed-skel-row">
+                <div class="feed-skel-av shimmer-placeholder"></div>
+                <div class="feed-skel-meta">
+                  <div class="feed-skel-line shimmer-placeholder" style="width:36%"></div>
+                  <div class="feed-skel-line shimmer-placeholder" style="width:20%"></div>
+                </div>
+                <div class="feed-skel-pill shimmer-placeholder"></div>
+              </div>
+              <div class="feed-skel-line shimmer-placeholder feed-skel-title" style="width:62%"></div>
+              <div class="feed-skel-line shimmer-placeholder" style="width:100%"></div>
+              <div class="feed-skel-line shimmer-placeholder" style="width:70%"></div>
+              <div class="feed-skel-line shimmer-placeholder" style="width:48%"></div>
+            </div>
+          </div>
           <div class="feed-list" id="feedList"></div>
         </div>
         </div>
@@ -554,7 +597,7 @@
       var inApp = document.body.classList.contains("embed-app");
       // Product chat scripts only in the app.qava.ai embed. Public page is marketing-only.
       var scripts = inApp
-        ? ["app.js?v=topics-menu-isolate-1", "enhancements.js?v=discussions-pills-more-1", "api.js?v=composer-opener-1", "auth.js?v=avatar-sync-3", "profile-edit.js", "../qava-footer.js?v=footer-logo-40"]
+        ? ["app.js?v=topics-menu-isolate-1", "enhancements.js?v=feed-shimmer-1", "api.js?v=feed-shimmer-1", "auth.js?v=avatar-sync-3", "profile-edit.js", "../qava-footer.js?v=footer-logo-40"]
         : ["chat-examples.js?v=ex-op-solid-1", "../qava-auth.js", "../qava-footer.js?v=footer-logo-40"];
 
       function loadNext(i) {

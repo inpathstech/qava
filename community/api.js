@@ -475,13 +475,34 @@
     }, true);
   }
 
+  function clearFeedLoading() {
+    if (typeof window.communitySetFeedLoading === 'function') {
+      window.communitySetFeedLoading(false);
+    } else {
+      document.body.classList.remove('is-feed-loading');
+      var skel = document.getElementById('feedSkel');
+      if (skel) skel.hidden = true;
+    }
+  }
+
   function boot() {
     wrapThreadOpener();
     wrapProfileOpener();
     wrapWrites();
+    // Safety: never leave the shimmer up if the network hangs.
+    var loadingWatchdog = setTimeout(function () {
+      if (!document.body.classList.contains('is-feed-loading')) return;
+      if (window.initFeedFromData) window.initFeedFromData();
+      clearFeedLoading();
+    }, 8000);
     hydrateFeed()
       .then(function (res) {
-        if (!res || !res.reachable || res.empty) return;
+        if (!res || !res.reachable) {
+          // API unreachable — fall back to bundled mock threads.
+          if (window.initFeedFromData) window.initFeedFromData();
+          return;
+        }
+        if (res.empty) return;
         // Re-open whatever the current page is pointed at, now with live data.
         var params = new URLSearchParams(window.location.search);
         var t = params.get('t');
@@ -490,7 +511,13 @@
         if (t && window.showThread) { window.showThread(t); return; }
         // Feed-only: stay on the discussions list after hydrate.
       })
-      .catch(function () { /* keep mock */ });
+      .catch(function () {
+        if (window.initFeedFromData) window.initFeedFromData();
+      })
+      .then(function () {
+        clearTimeout(loadingWatchdog);
+        clearFeedLoading();
+      });
   }
 
   if (document.readyState === 'complete') {
