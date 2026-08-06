@@ -2730,8 +2730,21 @@
     renderProfilePage(currentProfileMember);
   }
 
+  function setFeedLoading(isLoading) {
+    document.body.classList.toggle('is-feed-loading', !!isLoading);
+    const skel = document.getElementById('feedSkel');
+    if (skel) {
+      skel.hidden = !isLoading;
+      skel.setAttribute('aria-hidden', isLoading ? 'false' : 'true');
+    }
+  }
+
   function init() {
-    initFeedFromData();
+    // In the app embed, wait for api.js hydrate before painting the feed so
+    // members see shimmer instead of a mock-content flash.
+    const deferFeed = document.body.classList.contains('embed-app');
+    if (deferFeed) setFeedLoading(true);
+    else initFeedFromData();
     initMentionTypeahead();
     initFeedInlineReply();
     initFeedInteractions();
@@ -2765,6 +2778,7 @@
   window.THREAD_DATA = THREAD_DATA;
   window.MEMBER_PROFILES = MEMBER_PROFILES;
   window.initFeedFromData = initFeedFromData;
+  window.communitySetFeedLoading = setFeedLoading;
   window.communityGetFeedSort = function () { return feedSort; };
   window.communitySortFeedItems = sortFeedItems;
   window.communityApplyFeedTopicFilters = applyFeedTopicFilters;
