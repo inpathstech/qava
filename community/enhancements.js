@@ -2121,11 +2121,34 @@
     const card = document.getElementById('composerCard');
     if (!card || !card.classList.contains('composer-opener')) return;
 
-    let lastY = window.scrollY || 0;
+    const title = document.getElementById('composerTitle');
+    const body = document.getElementById('composerInput');
+    const sendBtn = document.getElementById('composerCompactSend');
+    let lastY = window.scrollY || document.documentElement.scrollTop || 0;
     // auto: follow scroll · pinned: forced open overlay · collapsed: stay shut after outside click
     let mode = 'auto';
 
-    const atTop = () => (window.scrollY || 0) <= COMPOSER_SCROLL_COLLAPSE_AT;
+    const scrollY = () => window.scrollY || document.documentElement.scrollTop || 0;
+    const atTop = () => scrollY() <= COMPOSER_SCROLL_COLLAPSE_AT;
+
+    const composerReady = () => {
+      const t = (title?.value || '').trim();
+      const b = (body && window.getInputRaw
+        ? window.getInputRaw(body)
+        : (body?.innerText || body?.textContent || '')).trim();
+      return Boolean(t && b);
+    };
+
+    const syncSendEnabled = () => {
+      if (!sendBtn) return;
+      const ready = composerReady();
+      sendBtn.classList.toggle('is-disabled', !ready);
+      sendBtn.setAttribute('aria-disabled', ready ? 'false' : 'true');
+      sendBtn.setAttribute(
+        'aria-label',
+        ready ? 'Post thread' : 'Add a title and body to post',
+      );
+    };
 
     const setExpanded = (expanded) => {
       card.classList.toggle('is-collapsed', !expanded);
@@ -2136,6 +2159,7 @@
           window.closeAllThreadDisplayPanels();
         }
       }
+      syncSendEnabled();
     };
 
     const sync = () => {
@@ -2147,69 +2171,138 @@
     const pinOpen = ({ focusBody } = {}) => {
       mode = 'pinned';
       sync();
-      const title = document.getElementById('composerTitle');
-      const body = document.getElementById('composerInput');
       requestAnimationFrame(() => {
         if (focusBody && body) {
-          body.focus();
+          try { body.focus({ preventScroll: true }); } catch (_) { body.focus(); }
           return;
         }
-        title?.focus();
+        if (title) {
+          try { title.focus({ preventScroll: true }); } catch (_) { title.focus(); }
+        }
       });
     };
 
     const collapseKeepingDraft = () => {
-      if (mode === 'collapsed' || card.classList.contains('is-collapsed')) return;
+      if (mode === 'collapsed' && card.classList.contains('is-collapsed')) return;
       persistComposerDraftQuietly();
-      mode = 'collapsed';
+      mode = atTop() ? 'auto' : 'collapsed';
+      // If still mid-page, stay collapsed; at top, allow auto-expand again.
+      if (!atTop()) mode = 'collapsed';
+      else mode = 'auto';
       sync();
+      title?.blur();
+      body?.blur();
+    };
+
+    const tryPublish = () => {
+      if (!composerReady()) {
+        pinOpen({ focusBody: !(title?.value || '').trim() });
+        return false;
+      }
+      if (typeof window.communityIsPremium === 'function' && !window.communityIsPremium()) {
+        if (typeof window.communityRequireSignIn === 'function') window.communityRequireSignIn();
+        return false;
+      }
+      if (typeof window.publishComposerPost === 'function') {
+        window.publishComposerPost();
+        mode = atTop() ? 'auto' : 'collapsed';
+        sync();
+        return true;
+      }
+      document.getElementById('postBtn')?.click();
+      return true;
     };
 
     window.addEventListener('scroll', () => {
-      const y = window.scrollY || 0;
-      if (mode === 'pinned' && y > lastY && y > COMPOSER_SCROLL_COLLAPSE_AT) {
-        // Scrolling away while pinned keeps the overlay until outside click.
-      } else if (mode === 'auto' && y > lastY && y > COMPOSER_SCROLL_COLLAPSE_AT) {
+      if (mode === 'pinned') {
+        lastY = scrollY();
+        return;
+      }
+      const y = scrollY();
+      if (mode === 'auto' && y > lastY && y > COMPOSER_SCROLL_COLLAPSE_AT) {
         mode = 'collapsed';
       } else if (mode === 'collapsed' && atTop() && y < lastY) {
-        // Stay collapsed until the user opens via send / focus.
-      } else if (mode !== 'pinned' && mode !== 'collapsed' && atTop()) {
+        // Stay collapsed until the user opens via send / focus / typing.
+      } else if (mode !== 'collapsed' && atTop()) {
         mode = 'auto';
       }
       lastY = y;
       sync();
     }, { passive: true });
 
-    card.addEventListener('mousedown', (e) => {
-      if (card.classList.contains('is-collapsed') || mode !== 'pinned') {
-        if (!e.target.closest?.('#composerCompactSend')) {
-          mode = 'pinned';
-          sync();
+    // Click / focus / type in the collapsed opener → expand overlay.
+    const expandFromUi = (e) => {
+      if (!card.classList.contains('is-collapsed') && mode === 'pinned') return;
+      if (e?.target?.closest?.('#composerCompactSend')) return;
+      pinOpen({ focusBody: false });
+    };
+    card.addEventListener('pointerdown', expandFromUi);
+    title?.addEventListener('focus', () => pinOpen({ focusBody: false }));
+    title?.addEventListener('input', () => {
+      pinOpen({ focusBody: false });
+      syncSendEnabled();
+    });
+    title?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        if (!composerReady()) {
+          pinOpen({ focusBody: true });
+          return;
         }
+        tryPublish();
+        return;
+      }
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        collapseKeepingDraft();
+      }
+    });
+    body?.addEventListener('input', syncSendEnabled);
+    body?.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        collapseKeepingDraft();
+        return;
+      }
+      if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        tryPublish();
       }
     });
 
-    document.addEventListener('mousedown', (e) => {
+    document.addEventListener('pointerdown', (e) => {
       if (card.contains(e.target)) return;
-      if (mode === 'pinned' || !card.classList.contains('is-collapsed')) {
-        // Only force-contract when the opener is open as an overlay / expanded.
-        if (mode === 'pinned' || !atTop()) collapseKeepingDraft();
+      if (e.target.closest?.('.mention-dropdown, .composer-topics-menu, .proto-modal, .community-toast')) return;
+      if (mode === 'pinned' || (!card.classList.contains('is-collapsed') && !atTop())) {
+        collapseKeepingDraft();
       }
     });
 
-    const title = document.getElementById('composerTitle');
-    title?.addEventListener('focus', () => {
-      if (mode !== 'pinned') pinOpen({ focusBody: false });
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      if (mode === 'pinned' || !card.classList.contains('is-collapsed')) {
+        collapseKeepingDraft();
+      }
     });
 
-    document.getElementById('composerCompactSend')?.addEventListener('click', (e) => {
+    sendBtn?.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
-      // Expand the full opener so the user can finish body / topics / post.
-      pinOpen({ focusBody: true });
+      if (card.classList.contains('is-collapsed') && !composerReady()) {
+        pinOpen({ focusBody: true });
+        return;
+      }
+      if (!composerReady()) {
+        pinOpen({ focusBody: !(title?.value || '').trim() });
+        return;
+      }
+      tryPublish();
     });
 
+    window.communitySyncComposerSend = syncSendEnabled;
+    window.communityPinComposerOpen = pinOpen;
     sync();
+    syncSendEnabled();
   }
 
   function initDrafts() {

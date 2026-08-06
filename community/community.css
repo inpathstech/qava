@@ -1529,6 +1529,7 @@
     .composer-card.composer-opener.is-pinned-open {
       z-index: 80;
       box-shadow: 0 16px 40px rgba(17, 24, 39, 0.14);
+      background: #fff;
     }
 
     .composer-card.composer-opener.is-collapsed {
@@ -1640,13 +1641,24 @@
       overflow: hidden;
       pointer-events: none;
       transition: opacity 220ms var(--composer-ease, cubic-bezier(0.32, 0.72, 0, 1)),
-        width 420ms var(--composer-ease, cubic-bezier(0.32, 0.72, 0, 1));
+        width 420ms var(--composer-ease, cubic-bezier(0.32, 0.72, 0, 1)),
+        color 160ms ease;
     }
 
-    .composer-opener.is-collapsed .composer-compact-send {
+    .composer-opener.is-collapsed .composer-compact-send,
+    .composer-opener.is-pinned-open .composer-compact-send {
       width: 28px;
       opacity: 1;
       pointer-events: auto;
+    }
+
+    .composer-compact-send.is-disabled {
+      color: #c4c4c4;
+      cursor: default;
+    }
+
+    .composer-compact-send:not(.is-disabled):hover {
+      background: rgba(17, 24, 39, 0.04);
     }
 
     .composer-details {
