@@ -1010,6 +1010,9 @@
     function syncComposerState() {
       syncComposerGate();
       updateWordCount(composerInput, wordCount);
+      if (typeof window.communitySyncComposerSend === 'function') {
+        window.communitySyncComposerSend();
+      }
     }
 
     function syncReplyState() {
@@ -1535,6 +1538,7 @@
     initLandingThreadAnimation();
 
     window.getInputRaw = getInputRaw;
+    window.getInputText = getInputText;
     window.setInputRaw = setInputRaw;
     window.clearInput = clearInput;
     window.formatPostBody = formatPostBody;
