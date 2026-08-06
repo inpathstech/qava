@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../qava-landing.css" />
-  <link rel="stylesheet" href="community.css?v=composer-title-12" />
+  <link rel="stylesheet" href="community.css?v=discussions-pills-more-1" />
   <link rel="stylesheet" href="chat-marketing.css?v=ex-op-solid-1" />
   <link rel="stylesheet" href="../qava-auth.css" />
 </head>
@@ -243,16 +243,18 @@
 
         <div class="composer-card composer-opener" id="composerCard">
           <div class="composer-chrome">
-            <div class="avatar">You</div>
             <div class="composer-chrome-main">
               <div class="composer-title-label-wrap">
                 <label class="composer-field-label" for="composerTitle">Title</label>
               </div>
-              <div class="composer-field-input composer-title-row">
-                <input class="composer-title" id="composerTitle" type="text" maxlength="120" placeholder="Post title" aria-label="Post title" />
-                <button class="composer-compact-send" id="composerCompactSend" type="button" aria-label="Expand composer to post">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg>
-                </button>
+              <div class="composer-title-line">
+                <div class="avatar">You</div>
+                <div class="composer-field-input composer-title-row">
+                  <input class="composer-title" id="composerTitle" type="text" maxlength="120" placeholder="Post title" aria-label="Post title" />
+                  <button class="composer-compact-send" id="composerCompactSend" type="button" aria-label="Expand composer to post">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg>
+                  </button>
+                </div>
               </div>
             </div>
             <div class="composer-top-actions">
@@ -322,28 +324,35 @@
 
         <div class="feed-section-wrap">
           <div class="feed-card">
-          <div class="feed-header">
+          <div class="feed-header is-inline">
             <span class="feed-section-label">Discussions</span>
-            <h2 class="feed-section-title">What members are discussing</h2>
-            <p class="feed-section-body">Read and reply here. Expand replies in place. Reply with Premium.</p>
-          </div>
-          <div class="feed-toolbar">
-            <label>Sort by
-              <div class="feed-sort-wrap" id="feedSortWrap">
-                <button type="button" class="feed-sort-trigger" id="feedSortTrigger" aria-expanded="false" aria-haspopup="listbox">
-                  <span id="feedSortLabel">Most active</span>
-                  <span class="feed-sort-icon" id="feedSortIcon" aria-hidden="true">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-                  </span>
-                </button>
-                <div class="feed-sort-menu" id="feedSortMenu" role="listbox" hidden>
-                  <button type="button" class="feed-sort-option is-selected" data-sort="active">Most active</button>
-                  <button type="button" class="feed-sort-option" data-sort="new">New first</button>
-                  <button type="button" class="feed-sort-option" data-sort="replies">Most replies</button>
-                  <button type="button" class="feed-sort-option" data-sort="likes">Most likes</button>
-                </div>
+            <div class="feed-header-top">
+              <h2 class="feed-section-title">What members are discussing</h2>
+              <div class="feed-toolbar">
+                <label>Sort by
+                  <div class="feed-sort-wrap" id="feedSortWrap">
+                    <button type="button" class="feed-sort-trigger" id="feedSortTrigger" aria-expanded="false" aria-haspopup="listbox">
+                      <span id="feedSortLabel">Most active</span>
+                      <span class="feed-sort-icon" id="feedSortIcon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                      </span>
+                    </button>
+                    <div class="feed-sort-menu" id="feedSortMenu" role="listbox" hidden>
+                      <button type="button" class="feed-sort-option is-selected" data-sort="active">Most active</button>
+                      <button type="button" class="feed-sort-option" data-sort="new">New first</button>
+                      <button type="button" class="feed-sort-option" data-sort="replies">Most replies</button>
+                      <button type="button" class="feed-sort-option" data-sort="likes">Most likes</button>
+                    </div>
+                  </div>
+                </label>
               </div>
-            </label>
+            </div>
+            <p class="feed-section-body">Read and reply here. Expand replies in place. Reply with Premium.</p>
+            <div class="feed-topic-filters" id="feedTopicFilters" aria-label="Filter by topic"></div>
+            <div class="feed-filter-meta" id="feedFilterMeta" hidden>
+              <span class="feed-filter-count" id="feedFilterCount"></span>
+              <button type="button" class="feed-filter-reset" id="feedFilterReset">Reset filters</button>
+            </div>
           </div>
           <div class="feed-list" id="feedList"></div>
         </div>
@@ -543,7 +552,7 @@
       var inApp = document.body.classList.contains("embed-app");
       // Product chat scripts only in the app.qava.ai embed. Public page is marketing-only.
       var scripts = inApp
-        ? ["app.js?v=composer-opener-1", "enhancements.js?v=composer-opener-1", "api.js?v=composer-opener-1", "auth.js?v=avatar-sync-3", "profile-edit.js", "../qava-footer.js?v=footer-logo-40"]
+        ? ["app.js?v=topics-menu-isolate-1", "enhancements.js?v=discussions-pills-more-1", "api.js?v=composer-opener-1", "auth.js?v=avatar-sync-3", "profile-edit.js", "../qava-footer.js?v=footer-logo-40"]
         : ["chat-examples.js?v=ex-op-solid-1", "../qava-auth.js", "../qava-footer.js?v=footer-logo-40"];
 
       function loadNext(i) {

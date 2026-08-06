@@ -180,6 +180,8 @@
   let threadViewedAt = {};
   let feedSort = 'active';
   let selectedTags = [];
+  let feedTopicFilter = [];
+  let feedTopicsExpanded = false;
   let mentionDropdown = null;
   let activeMentionInput = null;
   let pendingExternalInvites = [];
@@ -374,7 +376,8 @@
     const attach = thread.attachments?.length
       ? `<div class="attach-chips">${thread.attachments.map(renderAttachChip).join('')}</div>`
       : '';
-    return `<div class="feed-item${unread ? ' has-unread' : ''}" data-feed-thread="${thread.id}" data-activity="${thread.activityTs}" data-likes="${thread.likes}" data-replies="${replies}" data-status="${thread.status}">
+    const tagAttr = (thread.tags || []).map((t) => escapeHtml(t)).join('|');
+    return `<div class="feed-item${unread ? ' has-unread' : ''}" data-feed-thread="${thread.id}" data-activity="${thread.activityTs}" data-likes="${thread.likes}" data-replies="${replies}" data-status="${thread.status}" data-tags="${tagAttr}">
       <div class="feed-opener">
         <div class="feed-opener-meta-row">
           ${avatarHtml(op, op.name)}
@@ -382,7 +385,7 @@
             <div class="meta-top"><strong>${memberLink(op.name)}</strong>${metaExtra(op.role, op.school)}</div>
             <div class="meta-sub">${thread.status === 'new' ? 'New' : 'Active'}${unread ? ` · <span class="feed-unread">${thread.newReplies} new</span>` : ''}</div>
           </div>
-          ${thread.tags.map((t) => `<span class="feed-tag-pill">${escapeHtml(t)}</span>`).join('')}
+          ${(thread.tags || []).map((t) => `<span class="feed-tag-pill">${escapeHtml(t)}</span>`).join('')}
         </div>
         <h3>${escapeHtml(thread.title)}</h3>
         <div class="feed-body">${thread.body}${attach}</div>
@@ -1259,6 +1262,153 @@
     });
   }
 
+  function getFeedItemTags(el) {
+    const fromAttr = (el?.dataset?.tags || '').split('|').map((t) => t.trim()).filter(Boolean);
+    if (fromAttr.length) return fromAttr;
+    const id = el?.dataset?.feedThread;
+    const thread = id === 'user' ? userThreadState : (id && THREAD_DATA[id]);
+    return thread?.tags || [];
+  }
+
+  function ensureFeedEmptyFilterEl(feedList) {
+    let empty = document.getElementById('feedEmptyFilter');
+    if (empty) return empty;
+    empty = document.createElement('div');
+    empty.id = 'feedEmptyFilter';
+    empty.className = 'feed-empty-filter';
+    empty.hidden = true;
+    empty.textContent = 'No threads match these topics.';
+    feedList?.parentNode?.insertBefore(empty, feedList.nextSibling);
+    return empty;
+  }
+
+  function applyFeedTopicFilters() {
+    const feedList = document.getElementById('feedList');
+    if (!feedList) return;
+    const items = [...feedList.querySelectorAll('.feed-item[data-feed-thread]')];
+    const active = feedTopicFilter;
+    let visible = 0;
+    items.forEach((el) => {
+      const tags = getFeedItemTags(el);
+      const show = !active.length || active.some((t) => tags.includes(t));
+      el.hidden = !show;
+      if (show) visible += 1;
+    });
+
+    const meta = document.getElementById('feedFilterMeta');
+    const countEl = document.getElementById('feedFilterCount');
+    const empty = ensureFeedEmptyFilterEl(feedList);
+    if (meta) meta.hidden = active.length === 0;
+    if (countEl) {
+      countEl.textContent = active.length
+        ? `${visible} thread${visible === 1 ? '' : 's'} · any selected topic`
+        : '';
+    }
+    if (empty) empty.hidden = !(active.length && visible === 0);
+
+    document.querySelectorAll('#feedTopicFilters .feed-topic-pill').forEach((btn) => {
+      btn.classList.toggle('is-selected', active.includes(btn.dataset.topic));
+      btn.setAttribute('aria-pressed', active.includes(btn.dataset.topic) ? 'true' : 'false');
+    });
+  }
+
+  function layoutFeedTopicPills() {
+    const wrap = document.getElementById('feedTopicFilters');
+    if (!wrap) return;
+    const more = wrap.querySelector('.feed-topic-more');
+    const pills = [...wrap.querySelectorAll('.feed-topic-pill')];
+    if (!more || !pills.length) return;
+
+    pills.forEach((p) => { p.hidden = false; });
+    wrap.classList.toggle('is-expanded', feedTopicsExpanded);
+
+    if (feedTopicsExpanded) {
+      more.hidden = false;
+      more.textContent = 'Less';
+      more.setAttribute('aria-expanded', 'true');
+      return;
+    }
+
+    more.hidden = false;
+    more.textContent = 'More';
+    more.setAttribute('aria-expanded', 'false');
+
+    const rowTop = pills[0].offsetTop;
+    let overflow = false;
+    pills.forEach((p) => {
+      if (p.offsetTop > rowTop + 1) {
+        p.hidden = true;
+        overflow = true;
+      }
+    });
+
+    // Keep More on the first line by hiding trailing visible pills if needed.
+    while (more.offsetTop > rowTop + 1) {
+      const visible = pills.filter((p) => !p.hidden);
+      if (!visible.length) break;
+      visible[visible.length - 1].hidden = true;
+      overflow = true;
+    }
+
+    if (!overflow) more.hidden = true;
+  }
+
+  function renderFeedTopicPills() {
+    const wrap = document.getElementById('feedTopicFilters');
+    if (!wrap) return;
+    wrap.classList.toggle('is-expanded', feedTopicsExpanded);
+    wrap.innerHTML = AGENDA_TOPICS.map((topic) => {
+      const on = feedTopicFilter.includes(topic);
+      return `<button type="button" class="feed-topic-pill${on ? ' is-selected' : ''}" data-topic="${escapeHtml(topic)}" aria-pressed="${on ? 'true' : 'false'}">${escapeHtml(topic)}</button>`;
+    }).join('')
+      + `<button type="button" class="feed-topic-more" aria-expanded="${feedTopicsExpanded ? 'true' : 'false'}">${feedTopicsExpanded ? 'Less' : 'More'}</button>`;
+    requestAnimationFrame(() => layoutFeedTopicPills());
+  }
+
+  function initFeedTopicFilters() {
+    const wrap = document.getElementById('feedTopicFilters');
+    const reset = document.getElementById('feedFilterReset');
+    if (!wrap) return;
+    if (wrap.dataset.bound === '1') {
+      renderFeedTopicPills();
+      applyFeedTopicFilters();
+      return;
+    }
+    wrap.dataset.bound = '1';
+    renderFeedTopicPills();
+
+    wrap.addEventListener('click', (e) => {
+      const moreBtn = e.target.closest('.feed-topic-more');
+      if (moreBtn && wrap.contains(moreBtn)) {
+        feedTopicsExpanded = !feedTopicsExpanded;
+        renderFeedTopicPills();
+        applyFeedTopicFilters();
+        return;
+      }
+      const btn = e.target.closest('.feed-topic-pill');
+      if (!btn || !wrap.contains(btn)) return;
+      const topic = btn.dataset.topic;
+      if (!topic) return;
+      if (feedTopicFilter.includes(topic)) {
+        feedTopicFilter = feedTopicFilter.filter((t) => t !== topic);
+      } else {
+        feedTopicFilter = [...feedTopicFilter, topic];
+      }
+      applyFeedTopicFilters();
+    });
+
+    reset?.addEventListener('click', () => {
+      feedTopicFilter = [];
+      applyFeedTopicFilters();
+    });
+
+    window.addEventListener('resize', () => {
+      if (wrap.isConnected) layoutFeedTopicPills();
+    });
+
+    applyFeedTopicFilters();
+  }
+
   function initFeedFromData() {
     const feedList = document.getElementById('feedList');
     if (!feedList) return;
@@ -1269,6 +1419,7 @@
     bindMentionInputs(feedList.querySelectorAll('.feed-reply-input'));
     applyPremiumToFeedReplyInputs();
     if (typeof window.communityPaintSelfAvatars === 'function') window.communityPaintSelfAvatars();
+    applyFeedTopicFilters();
   }
 
   function initFeedInteractions() {
@@ -1821,11 +1972,16 @@
     const menu = document.getElementById('composerTopicsMenu');
     const card = document.getElementById('composerCard');
     if (!trigger || !menu) return;
+    if (isOpen && typeof window.closeAllThreadDisplayPanels === 'function') {
+      window.closeAllThreadDisplayPanels();
+    }
     trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     menu.hidden = !isOpen;
     wrap?.classList.toggle('is-open', isOpen);
     card?.classList.toggle('is-topics-open', isOpen);
   }
+
+  window.setComposerTopicsOpen = setComposerTopicsOpen;
 
   function initTagPicker() {
     const picker = document.getElementById('composerTags');
@@ -1864,11 +2020,14 @@
 
     if (dropdown) {
       const trigger = document.getElementById('composerTopicsTrigger');
+      const wrap = document.getElementById('composerTopicsWrap');
       trigger?.addEventListener('click', (e) => {
+        e.preventDefault();
         e.stopPropagation();
         const open = trigger.getAttribute('aria-expanded') === 'true';
         setComposerTopicsOpen(!open);
       });
+      wrap?.addEventListener('mousedown', (e) => e.stopPropagation());
       document.addEventListener('click', (e) => {
         if (!e.target.closest?.('#composerTopicsWrap')) setComposerTopicsOpen(false);
       });
@@ -2103,6 +2262,7 @@
         const userFeedItem = document.querySelector('.feed-item[data-feed-thread="user"]')
           || document.querySelector('.feed-opener[data-thread="user"]')?.closest('.feed-item');
         if (userFeedItem) {
+          userFeedItem.dataset.tags = selectedTags.join('|');
           userFeedItem.querySelector('h3').textContent = title;
           const bodyEl = userFeedItem.querySelector('.feed-body');
           if (bodyEl) bodyEl.innerHTML = userThreadState.body;
@@ -2133,9 +2293,12 @@
       };
       original();
       localStorage.removeItem('qavaChatDraft');
+      const userFeedItem = document.querySelector('.feed-item[data-feed-thread="user"]');
+      if (userFeedItem) userFeedItem.dataset.tags = (userThreadState?.tags || []).join('|');
       selectedTags = [];
       syncTopicPickerUI();
       renderUserThreadPost();
+      applyFeedTopicFilters();
     };
   }
 
@@ -2577,6 +2740,7 @@
     initTryAskingMenu();
     initDrafts();
     initFeedToolbar();
+    initFeedTopicFilters();
     initLandingCoherence();
     initProfilePage();
     patchShowThread();
@@ -2603,6 +2767,7 @@
   window.initFeedFromData = initFeedFromData;
   window.communityGetFeedSort = function () { return feedSort; };
   window.communitySortFeedItems = sortFeedItems;
+  window.communityApplyFeedTopicFilters = applyFeedTopicFilters;
   window.renderThreadDetail = renderThreadDetail;
   window.openProfilePage = openProfilePage;
   window.renderProfilePage = renderProfilePage;

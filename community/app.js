@@ -146,9 +146,14 @@
         e.stopPropagation();
         const isOpen = !panel.hidden;
         closeAllDisplayPanels();
+        // Topics and display menus share the composer toolbar — never both open.
+        if (typeof window.setComposerTopicsOpen === 'function') {
+          window.setComposerTopicsOpen(false);
+        }
         if (!isOpen) {
           panel.hidden = false;
           trigger.setAttribute('aria-expanded', 'true');
+          document.getElementById('composerCard')?.classList.add('is-display-menu-open');
         }
       });
 
@@ -166,7 +171,10 @@
       document.querySelectorAll('.thread-display-trigger').forEach((btn) => {
         btn.setAttribute('aria-expanded', 'false');
       });
+      document.getElementById('composerCard')?.classList.remove('is-display-menu-open');
     }
+
+    window.closeAllThreadDisplayPanels = closeAllDisplayPanels;
 
     function setThreadDisplayPref(pref, enabled) {
       if (pref === 'small-text') THREAD_DISPLAY_PREFS.smallText = enabled;

@@ -1299,6 +1299,10 @@
       z-index: 3000;
     }
 
+    .thread-display-panel[hidden] {
+      display: none !important;
+    }
+
     /* In the composer toolbar: match the formatting buttons and open rightward,
        overlaying content (the composer-card doesn't clip like the feed-card). */
     .toolbar .thread-display-menu { display: inline-flex; }
@@ -1502,7 +1506,8 @@
       transition: padding 480ms var(--composer-ease);
     }
 
-    .composer-card.composer-opener.is-topics-open {
+    .composer-card.composer-opener.is-topics-open,
+    .composer-card.composer-opener.is-display-menu-open {
       overflow: visible;
     }
 
@@ -1524,7 +1529,7 @@
 
     .composer-chrome {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 10px;
     }
 
@@ -1538,6 +1543,22 @@
 
     .composer-opener.is-collapsed .composer-chrome-main {
       gap: 0;
+    }
+
+    .composer-title-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .composer-title-line .avatar {
+      flex-shrink: 0;
+    }
+
+    .composer-title-line .composer-title-row {
+      flex: 1;
+      min-width: 0;
     }
 
     .composer-title-label-wrap {
@@ -2476,7 +2497,7 @@
 
     .feed-section-title {
       margin: 0 0 5px;
-      font-family: var(--display);
+      font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
       font-size: 20px;
       font-weight: 400;
       line-height: 1.2;
@@ -2492,7 +2513,7 @@
       line-height: 1.45;
     }
 
-    /* Discussions shell: header/toolbar stay framed; threads are separate cards. */
+    /* Discussions shell: header stays framed; threads are separate cards. */
     .feed-section-wrap > .feed-card {
       border: 0;
       background: transparent;
@@ -2502,17 +2523,152 @@
 
     .feed-header {
       border: 1px solid var(--hairline);
-      border-bottom: 0;
-      border-radius: 10px 10px 0 0;
-      background: var(--panel-soft);
+      border-radius: 10px;
+      background: #fff;
     }
 
-    .feed-toolbar {
+    .feed-header.is-inline {
+      padding: 14px 16px 12px;
+      background: #fff;
+    }
+
+    .feed-header-top {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .feed-header.is-inline .feed-section-title {
+      margin: 0;
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .feed-header.is-inline .feed-section-body {
+      margin-top: 6px;
+      margin-bottom: 12px;
+    }
+
+    .feed-header.is-inline .feed-toolbar {
+      border: 0;
+      background: transparent;
+      padding: 0;
+      margin: 0;
+      border-radius: 0;
+    }
+
+    .feed-topic-filters {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .feed-topic-pill {
+      border: 1px solid rgba(17, 24, 39, 0.1);
+      background: #fff;
+      color: #111827;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font: inherit;
+      font-size: 11px;
+      font-weight: 400;
+      line-height: 1.25;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+    }
+
+    .feed-topic-pill[hidden] {
+      display: none !important;
+    }
+
+    .feed-topic-pill:hover {
+      border-color: rgba(17, 24, 39, 0.2);
+    }
+
+    .feed-topic-pill.is-selected {
+      background: #111827;
+      border-color: #111827;
+      color: #fff;
+    }
+
+    .feed-topic-more {
+      border: 0;
+      background: transparent;
+      font: inherit;
+      font-size: 11px;
+      font-weight: 400;
+      color: #6b7280;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      padding: 4px 2px;
+      white-space: nowrap;
+      line-height: 1.25;
+    }
+
+    .feed-topic-more:hover {
+      color: #111827;
+    }
+
+    .feed-topic-more[hidden] {
+      display: none !important;
+    }
+
+    .feed-filter-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .feed-filter-meta[hidden] {
+      display: none !important;
+    }
+
+    .feed-filter-count {
+      font-size: 11px;
+      font-weight: 300;
+      color: #9ca3af;
+    }
+
+    .feed-filter-reset {
+      border: 0;
+      background: transparent;
+      font: inherit;
+      font-size: 11px;
+      color: #6b7280;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      padding: 0;
+    }
+
+    .feed-filter-reset:hover {
+      color: #111827;
+    }
+
+    .feed-empty-filter {
+      padding: 28px 16px;
+      text-align: center;
       border: 1px solid var(--hairline);
-      border-top: 1px solid rgba(17, 24, 39, 0.06);
-      border-radius: 0 0 10px 10px;
-      background: rgba(255, 255, 255, 0.92);
-      margin-bottom: 0;
+      border-radius: 10px;
+      background: var(--panel-soft);
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    .feed-empty-filter[hidden] {
+      display: none !important;
+    }
+
+    .feed-item[hidden] {
+      display: none !important;
     }
 
     .feed-list {
