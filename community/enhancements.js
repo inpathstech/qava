@@ -376,7 +376,11 @@
     const attach = thread.attachments?.length
       ? `<div class="attach-chips">${thread.attachments.map(renderAttachChip).join('')}</div>`
       : '';
-    const tagAttr = (thread.tags || []).map((t) => escapeHtml(t)).join('|');
+    const tags = thread.tags || [];
+    const tagAttr = tags.map((t) => escapeHtml(t)).join('|');
+    const tagsHtml = tags.length
+      ? `<div class="feed-opener-tags">${tags.map((t) => `<span class="feed-tag-pill">${escapeHtml(t)}</span>`).join('')}</div>`
+      : '';
     return `<div class="feed-item${unread ? ' has-unread' : ''}" data-feed-thread="${thread.id}" data-activity="${thread.activityTs}" data-likes="${thread.likes}" data-replies="${replies}" data-status="${thread.status}" data-tags="${tagAttr}">
       <div class="feed-opener">
         <div class="feed-opener-meta-row">
@@ -385,8 +389,8 @@
             <div class="meta-top"><strong>${memberLink(op.name)}</strong>${metaExtra(op.role, op.school)}</div>
             <div class="meta-sub">${thread.status === 'new' ? 'New' : 'Active'}${unread ? ` · <span class="feed-unread">${thread.newReplies} new</span>` : ''}</div>
           </div>
-          ${(thread.tags || []).map((t) => `<span class="feed-tag-pill">${escapeHtml(t)}</span>`).join('')}
         </div>
+        ${tagsHtml}
         <h3>${escapeHtml(thread.title)}</h3>
         <div class="feed-body">${thread.body}${attach}</div>
         ${renderFeedStats(thread)}
@@ -1359,7 +1363,11 @@
     wrap.classList.toggle('is-expanded', feedTopicsExpanded);
     wrap.innerHTML = AGENDA_TOPICS.map((topic) => {
       const on = feedTopicFilter.includes(topic);
-      return `<button type="button" class="feed-topic-pill${on ? ' is-selected' : ''}" data-topic="${escapeHtml(topic)}" aria-pressed="${on ? 'true' : 'false'}">${escapeHtml(topic)}</button>`;
+      const emoji = AGENDA_TOPIC_EMOJI[topic] || '';
+      const emojiSpan = emoji
+        ? `<span class="feed-topic-pill-emoji" aria-hidden="true">${emoji}</span>`
+        : '';
+      return `<button type="button" class="feed-topic-pill${on ? ' is-selected' : ''}" data-topic="${escapeHtml(topic)}" aria-pressed="${on ? 'true' : 'false'}"><span class="feed-topic-pill-label">${escapeHtml(topic)}</span>${emojiSpan}</button>`;
     }).join('')
       + `<button type="button" class="feed-topic-more" aria-expanded="${feedTopicsExpanded ? 'true' : 'false'}">${feedTopicsExpanded ? 'Less' : 'More'}</button>`;
     requestAnimationFrame(() => layoutFeedTopicPills());
@@ -2266,6 +2274,14 @@
           userFeedItem.querySelector('h3').textContent = title;
           const bodyEl = userFeedItem.querySelector('.feed-body');
           if (bodyEl) bodyEl.innerHTML = userThreadState.body;
+          let tagsRow = userFeedItem.querySelector('.feed-opener-tags');
+          if (!tagsRow) {
+            tagsRow = document.createElement('div');
+            tagsRow.className = 'feed-opener-tags';
+            const meta = userFeedItem.querySelector('.feed-opener-meta-row');
+            meta?.insertAdjacentElement('afterend', tagsRow);
+          }
+          tagsRow.innerHTML = selectedTags.map((t) => `<span class="feed-tag-pill">${escapeHtml(t)}</span>`).join('');
         }
         composerTitle.value = '';
         if (window.clearInput) window.clearInput(document.getElementById('composerInput'));
@@ -2294,7 +2310,18 @@
       original();
       localStorage.removeItem('qavaChatDraft');
       const userFeedItem = document.querySelector('.feed-item[data-feed-thread="user"]');
-      if (userFeedItem) userFeedItem.dataset.tags = (userThreadState?.tags || []).join('|');
+      const postedTags = userThreadState?.tags || [];
+      if (userFeedItem) {
+        userFeedItem.dataset.tags = postedTags.join('|');
+        let tagsRow = userFeedItem.querySelector('.feed-opener-tags');
+        if (!tagsRow) {
+          tagsRow = document.createElement('div');
+          tagsRow.className = 'feed-opener-tags';
+          const meta = userFeedItem.querySelector('.feed-opener-meta-row');
+          meta?.insertAdjacentElement('afterend', tagsRow);
+        }
+        tagsRow.innerHTML = postedTags.map((t) => `<span class="feed-tag-pill">${escapeHtml(t)}</span>`).join('');
+      }
       selectedTags = [];
       syncTopicPickerUI();
       renderUserThreadPost();
@@ -2779,6 +2806,7 @@
   window.MEMBER_PROFILES = MEMBER_PROFILES;
   window.initFeedFromData = initFeedFromData;
   window.communitySetFeedLoading = setFeedLoading;
+  window.communityGetSelectedTags = function () { return selectedTags.slice(); };
   window.communityGetFeedSort = function () { return feedSort; };
   window.communitySortFeedItems = sortFeedItems;
   window.communityApplyFeedTopicFilters = applyFeedTopicFilters;
