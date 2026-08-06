@@ -84,7 +84,7 @@
           (state.premium ? menuItem('communityViewProfileBtn', iconView, 'View my profile') : '') +
           (state.premium ? menuItem('communityEditProfileBtn', iconEdit, 'Edit profile') : '') +
           (state.premium ? menuItem('communityManageMembershipBtn', iconMember, 'Manage membership') : '') +
-          (state.premium ? '' : '<a class="community-auth-menu-item" href="../premium/"><span class="community-auth-menu-item-inner">' + iconMember + '<span>Upgrade to Premium</span></span></a>') +
+          (state.premium ? '' : '<a class="community-auth-menu-item" href="https://app.qava.ai/?premium=1"><span class="community-auth-menu-item-inner">' + iconMember + '<span>Upgrade to Premium</span></span></a>') +
           '<div class="community-auth-menu-divider" aria-hidden="true"></div>' +
           menuItem('communitySignOutBtn', iconOut, 'Sign out') +
         '</div>';
@@ -113,7 +113,7 @@
         if (window.qavaAuth && typeof window.qavaAuth.openSubscription === 'function') {
           window.qavaAuth.openSubscription();
         } else {
-          window.location.href = '../premium/';
+          window.location.href = 'https://app.qava.ai/';
         }
       });
       wrap.querySelector('#communitySignOutBtn').addEventListener('click', signOut);
@@ -148,7 +148,7 @@
           '<button type="button" class="community-auth-link" id="communityAuthBack">Use a different email</button>' +
         '</form>' +
         '<div class="community-auth-msg" id="communityAuthMsg" hidden></div>' +
-        '<p class="community-auth-foot">Not a member yet? <a href="../premium/">Join Premium</a></p>' +
+        '<p class="community-auth-foot">Not a member yet? <a href="https://app.qava.ai/?premium=1">Join Premium</a></p>' +
       '</div>';
     document.body.appendChild(modal);
 

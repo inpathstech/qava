@@ -782,7 +782,7 @@
 
 /* ============================================================
    Redesigned subscription modal (scoped to #qava-subscription)
-   Matches the qava.ai/premium signup form: white fields, thin
+   Matches the in-app Premium signup form: white fields, thin
    14px text, visible light border, 7px radii, tighter corners.
    ============================================================ */
 #qava-subscription .qava-auth-modal { border-radius: 10px; }
