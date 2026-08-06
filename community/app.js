@@ -984,6 +984,8 @@
         || getInputText(composerInput).trim()
         || composerAttachmentFiles.length
       );
+      const composerCard = document.getElementById('composerCard');
+      composerCard?.classList.toggle('has-draft', hasDraft);
       composerFields?.classList.toggle('has-draft', hasDraft);
       composerBodyField?.classList.toggle('has-draft', hasDraft);
     }

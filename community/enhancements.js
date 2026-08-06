@@ -28,6 +28,7 @@
     'Catch-all': '\uD83D\uDDC2\uFE0F',
   };
   const AGENDA_TOPICS_VISIBLE = 6;
+  const COMPOSER_SCROLL_COLLAPSE_AT = 40;
 
   const TRY_ASKING_SUGGESTIONS = [
     { label: 'Pitch deck feedback', title: 'Anyone willing to gut-check my pitch deck?', body: 'Happy to share privately — mainly want feedback on the story and financials slide.' },
@@ -1797,34 +1798,145 @@
     });
   }
 
+  function syncTopicPickerUI() {
+    const picker = document.getElementById('composerTags');
+    const label = document.getElementById('composerTopicsLabel');
+    const trigger = document.getElementById('composerTopicsTrigger');
+    picker?.querySelectorAll('.tag-pill').forEach((btn) => {
+      const on = selectedTags.includes(btn.dataset.tag);
+      btn.classList.toggle('is-selected', on);
+      btn.setAttribute('aria-selected', on ? 'true' : 'false');
+      const check = btn.querySelector('.tag-pill-check');
+      if (check) check.textContent = on ? '\u2713' : '';
+    });
+    if (label) {
+      label.textContent = selectedTags.length ? selectedTags.join(', ') : 'Select topics';
+    }
+    trigger?.classList.toggle('has-selection', selectedTags.length > 0);
+  }
+
+  function setComposerTopicsOpen(isOpen) {
+    const wrap = document.getElementById('composerTopicsWrap');
+    const trigger = document.getElementById('composerTopicsTrigger');
+    const menu = document.getElementById('composerTopicsMenu');
+    const card = document.getElementById('composerCard');
+    if (!trigger || !menu) return;
+    trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    menu.hidden = !isOpen;
+    wrap?.classList.toggle('is-open', isOpen);
+    card?.classList.toggle('is-topics-open', isOpen);
+  }
+
   function initTagPicker() {
     const picker = document.getElementById('composerTags');
-    const agenda = document.getElementById('composerAgenda');
-    const moreBtn = document.getElementById('composerTopicsMore');
     if (!picker) return;
 
-    picker.innerHTML = AGENDA_TOPICS.map((tag, i) => {
-      const emoji = AGENDA_TOPIC_EMOJI[tag] || '';
-      const emojiSpan = emoji ? `<span class="tag-pill-emoji" aria-hidden="true">${emoji}</span>` : '';
-      return `<button type="button" class="tag-pill${i >= AGENDA_TOPICS_VISIBLE ? ' is-extra' : ''}" data-tag="${escapeHtml(tag)}">${emojiSpan}${escapeHtml(tag)}</button>`;
-    }).join('');
+    const dropdown = Boolean(document.getElementById('composerTopicsWrap'));
+    const agenda = document.getElementById('composerAgenda');
+    const moreBtn = document.getElementById('composerTopicsMore');
+
+    if (dropdown) {
+      picker.innerHTML = AGENDA_TOPICS.map((tag) => (
+        `<button type="button" class="tag-pill" role="option" data-tag="${escapeHtml(tag)}" aria-selected="false">`
+        + `<span>${escapeHtml(tag)}</span>`
+        + `<span class="tag-pill-check" aria-hidden="true"></span>`
+        + `</button>`
+      )).join('');
+    } else {
+      picker.innerHTML = AGENDA_TOPICS.map((tag, i) => {
+        const emoji = AGENDA_TOPIC_EMOJI[tag] || '';
+        const emojiSpan = emoji ? `<span class="tag-pill-emoji" aria-hidden="true">${emoji}</span>` : '';
+        return `<button type="button" class="tag-pill${i >= AGENDA_TOPICS_VISIBLE ? ' is-extra' : ''}" data-tag="${escapeHtml(tag)}">${emojiSpan}${escapeHtml(tag)}</button>`;
+      }).join('');
+    }
 
     picker.querySelectorAll('.tag-pill').forEach((btn) => {
       btn.addEventListener('click', () => {
         const tag = btn.dataset.tag;
         if (selectedTags.includes(tag)) {
           selectedTags = selectedTags.filter((t) => t !== tag);
-          btn.classList.remove('is-selected');
-        } else if (selectedTags.length < 2) {
+        } else {
           selectedTags.push(tag);
-          btn.classList.add('is-selected');
         }
+        syncTopicPickerUI();
       });
     });
+
+    if (dropdown) {
+      const trigger = document.getElementById('composerTopicsTrigger');
+      trigger?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const open = trigger.getAttribute('aria-expanded') === 'true';
+        setComposerTopicsOpen(!open);
+      });
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest?.('#composerTopicsWrap')) setComposerTopicsOpen(false);
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') setComposerTopicsOpen(false);
+      });
+      syncTopicPickerUI();
+    }
 
     moreBtn?.addEventListener('click', () => {
       agenda?.classList.add('is-expanded');
     });
+  }
+
+  function initComposerCollapse() {
+    const card = document.getElementById('composerCard');
+    if (!card || !card.classList.contains('composer-opener')) return;
+
+    let lastY = window.scrollY || 0;
+    let pinnedOpen = true;
+
+    const atTop = () => (window.scrollY || 0) <= COMPOSER_SCROLL_COLLAPSE_AT;
+
+    const setExpanded = (expanded) => {
+      card.classList.toggle('is-collapsed', !expanded);
+      if (!expanded) setComposerTopicsOpen(false);
+    };
+
+    const sync = () => {
+      setExpanded(atTop() || pinnedOpen);
+    };
+
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY || 0;
+      if (y > lastY && y > COMPOSER_SCROLL_COLLAPSE_AT) pinnedOpen = false;
+      lastY = y;
+      sync();
+    }, { passive: true });
+
+    card.addEventListener('mousedown', () => {
+      if (!atTop()) {
+        pinnedOpen = true;
+        sync();
+      }
+    });
+
+    document.addEventListener('mousedown', (e) => {
+      if (card.contains(e.target)) return;
+      if (!atTop()) {
+        pinnedOpen = false;
+        sync();
+      }
+    });
+
+    const title = document.getElementById('composerTitle');
+    title?.addEventListener('focus', () => {
+      pinnedOpen = true;
+      sync();
+    });
+
+    document.getElementById('composerCompactSend')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      pinnedOpen = true;
+      sync();
+      title?.focus();
+    });
+
+    sync();
   }
 
   function initDrafts() {
@@ -1841,9 +1953,7 @@
         if (composerInput && draft.body && window.setInputRaw) window.setInputRaw(composerInput, draft.body);
         if (draft.tags) {
           selectedTags = draft.tags;
-          document.querySelectorAll('.tag-pill').forEach((btn) => {
-            btn.classList.toggle('is-selected', selectedTags.includes(btn.dataset.tag));
-          });
+          syncTopicPickerUI();
         }
         if (window.syncComposerState) window.syncComposerState();
       } catch (_) {}
@@ -2000,7 +2110,7 @@
         composerTitle.value = '';
         if (window.clearInput) window.clearInput(document.getElementById('composerInput'));
         selectedTags = [];
-        document.querySelectorAll('.tag-pill').forEach((btn) => btn.classList.remove('is-selected'));
+        syncTopicPickerUI();
         if (window.syncComposerState) window.syncComposerState();
         window.__editingUserPost = false;
         if (window.showView) window.showView('chat');
@@ -2024,7 +2134,7 @@
       original();
       localStorage.removeItem('qavaChatDraft');
       selectedTags = [];
-      document.querySelectorAll('.tag-pill').forEach((btn) => btn.classList.remove('is-selected'));
+      syncTopicPickerUI();
       renderUserThreadPost();
     };
   }
@@ -2248,9 +2358,7 @@
       if (body && window.setInputRaw) window.setInputRaw(body, userThreadState.bodyRaw || '');
       if (userThreadState.tags?.length) {
         selectedTags = [...userThreadState.tags];
-        document.querySelectorAll('.tag-pill').forEach((btn) => {
-          btn.classList.toggle('is-selected', selectedTags.includes(btn.dataset.tag));
-        });
+        syncTopicPickerUI();
       }
       window.__editingUserPost = true;
       if (window.showView) window.showView('chat');
@@ -2465,6 +2573,7 @@
     initFeedInlineReply();
     initFeedInteractions();
     initTagPicker();
+    initComposerCollapse();
     initTryAskingMenu();
     initDrafts();
     initFeedToolbar();

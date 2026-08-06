@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../qava-landing.css" />
-  <link rel="stylesheet" href="community.css?v=mention-typeahead-1" />
+  <link rel="stylesheet" href="community.css?v=composer-opener-1" />
   <link rel="stylesheet" href="chat-marketing.css?v=ex-op-solid-1" />
   <link rel="stylesheet" href="../qava-auth.css" />
 </head>
@@ -241,9 +241,20 @@
           <p>Ask for feedback, share what you're working on, and learn from other members.</p>
         </div>
 
-        <div class="composer-card">
-          <div class="composer-top">
+        <div class="composer-card composer-opener" id="composerCard">
+          <div class="composer-chrome">
             <div class="avatar">You</div>
+            <div class="composer-chrome-main">
+              <div class="composer-title-label-wrap">
+                <label class="composer-field-label" for="composerTitle">Title</label>
+              </div>
+              <div class="composer-field-input composer-title-row">
+                <input class="composer-title" id="composerTitle" type="text" maxlength="120" placeholder="Post title" aria-label="Post title" />
+                <button class="composer-compact-send" id="composerCompactSend" type="button" aria-label="Expand composer to post">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg>
+                </button>
+              </div>
+            </div>
             <div class="composer-top-actions">
               <div class="composer-lock" id="composerLockLabel">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -251,59 +262,60 @@
               </div>
             </div>
           </div>
-          <div class="composer-fields" id="composerFields">
-            <div class="composer-field">
-              <label class="composer-field-label" for="composerTitle">Title</label>
-              <div class="composer-field-input">
-                <input class="composer-title" id="composerTitle" type="text" maxlength="120" placeholder="Post title" aria-label="Post title" />
-              </div>
-            </div>
-            <div class="composer-field">
-              <label class="composer-field-label" for="composerInput">Body</label>
-              <div class="composer-field-input input-with-gate" id="composerBodyField">
-                <div class="composer-input" id="composerInput" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Post body" data-placeholder="Add context, links, or details…"></div>
-                <div class="input-gate-prompt" id="composerGatePrompt">
-                  <a href="../premium/">Sign in as a Premium member</a> to post…
+
+          <div class="composer-details">
+            <div class="composer-details-clip">
+              <div class="composer-details-inner">
+                <div class="composer-fields" id="composerFields">
+                  <div class="composer-field">
+                    <label class="composer-field-label" for="composerInput">Body</label>
+                    <div class="composer-field-input input-with-gate" id="composerBodyField">
+                      <div class="composer-input" id="composerInput" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Post body" data-placeholder="Add context, links, or details…"></div>
+                      <div class="input-gate-prompt" id="composerGatePrompt">
+                        <a href="../premium/">Sign in as a Premium member</a> to post…
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="composer-attachments" id="composerAttachments" aria-label="Attached files"></div>
+                <input type="file" id="composerFileInput" hidden multiple />
+                <div class="composer-actions">
+                  <div class="toolbar" aria-label="Formatting">
+                    <button class="tool-btn" type="button" data-tool="bold" aria-label="Bold" title="Bold">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a4 4 0 0 1 0 8H6z"/><path d="M6 12h9a4 4 0 0 1 0 8H6z"/></svg>
+                    </button>
+                    <button class="tool-btn" type="button" data-tool="bullet" aria-label="Bullet list" title="Bullet list">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11"/><path d="M9 12h11"/><path d="M9 18h11"/><circle cx="4" cy="6" r="1" fill="currentColor" stroke="none"/><circle cx="4" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="4" cy="18" r="1" fill="currentColor" stroke="none"/></svg>
+                    </button>
+                    <button class="tool-btn" type="button" data-tool="link" aria-label="Add link" title="Add link">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                    </button>
+                    <button class="tool-btn" type="button" data-tool="mention" aria-label="Mention member" title="Mention member">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"/></svg>
+                    </button>
+                    <div class="composer-topics-wrap" id="composerTopicsWrap">
+                      <button type="button" class="composer-topics-trigger" id="composerTopicsTrigger" aria-expanded="false" aria-haspopup="listbox" title="Agenda or topic">
+                        <span class="composer-topics-icon" aria-hidden="true">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                        </span>
+                        <span class="composer-topics-label" id="composerTopicsLabel">Select topics</span>
+                      </button>
+                      <div class="composer-topics-menu" id="composerTopicsMenu" role="listbox" aria-multiselectable="true" hidden>
+                        <div class="composer-topics-menu-label">Agenda or topic</div>
+                        <div class="composer-tags" id="composerTags" aria-label="Agenda or topic"></div>
+                      </div>
+                    </div>
+                    <button class="tool-btn" type="button" data-tool="attach" aria-label="Attach file" title="Attach file or image">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+                    </button>
+                    <div class="thread-display-menu-slot" data-display-menu-slot></div>
+                  </div>
+                  <div class="composer-footer">
+                    <div class="word-count" id="wordCount">0 / 250 words</div>
+                    <button class="btn btn-primary btn-post" type="button" id="postBtn">Post</button>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="composer-attachments" id="composerAttachments" aria-label="Attached files"></div>
-          <input type="file" id="composerFileInput" hidden multiple />
-          <div class="composer-agenda" id="composerAgenda">
-            <div class="composer-agenda-header">
-              <div class="composer-agenda-header-left">
-                <span class="composer-agenda-label">Agenda or topic</span>
-                <span class="composer-agenda-hint">· Select up to two</span>
-              </div>
-              <div class="word-count" id="wordCount">0 / 250 words</div>
-            </div>
-            <div class="composer-tags-row">
-              <div class="composer-tags" id="composerTags" aria-label="Agenda or topic"></div>
-              <button type="button" class="composer-topics-more" id="composerTopicsMore">Show more</button>
-            </div>
-          </div>
-          <div class="composer-actions">
-            <div class="toolbar" aria-label="Formatting">
-              <button class="tool-btn" type="button" data-tool="bold" aria-label="Bold" title="Bold">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a4 4 0 0 1 0 8H6z"/><path d="M6 12h9a4 4 0 0 1 0 8H6z"/></svg>
-              </button>
-              <button class="tool-btn" type="button" data-tool="bullet" aria-label="Bullet list" title="Bullet list">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11"/><path d="M9 12h11"/><path d="M9 18h11"/><circle cx="4" cy="6" r="1" fill="currentColor" stroke="none"/><circle cx="4" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="4" cy="18" r="1" fill="currentColor" stroke="none"/></svg>
-              </button>
-              <button class="tool-btn" type="button" data-tool="link" aria-label="Add link" title="Add link">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-              </button>
-              <button class="tool-btn" type="button" data-tool="mention" aria-label="Mention member" title="Mention member">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"/></svg>
-              </button>
-              <button class="tool-btn" type="button" data-tool="attach" aria-label="Attach file" title="Attach file or image">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
-              </button>
-              <div class="thread-display-menu-slot" data-display-menu-slot></div>
-            </div>
-            <div class="composer-footer">
-              <button class="btn btn-primary btn-post" type="button" id="postBtn">Post</button>
             </div>
           </div>
         </div>
@@ -531,7 +543,7 @@
       var inApp = document.body.classList.contains("embed-app");
       // Product chat scripts only in the app.qava.ai embed. Public page is marketing-only.
       var scripts = inApp
-        ? ["app.js?v=mention-typeahead-1", "enhancements.js?v=mention-typeahead-1", "api.js?v=mention-typeahead-1", "auth.js?v=avatar-sync-3", "profile-edit.js", "../qava-footer.js?v=footer-logo-40"]
+        ? ["app.js?v=composer-opener-1", "enhancements.js?v=composer-opener-1", "api.js?v=composer-opener-1", "auth.js?v=avatar-sync-3", "profile-edit.js", "../qava-footer.js?v=footer-logo-40"]
         : ["chat-examples.js?v=ex-op-solid-1", "../qava-auth.js", "../qava-footer.js?v=footer-logo-40"];
 
       function loadNext(i) {
