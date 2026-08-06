@@ -10,7 +10,7 @@
   var API = "https://api.qava.ai/api";
   var APP_URL = "https://app.qava.ai/";
   var APP_LOGIN_URL = "https://app.qava.ai/?login=1";
-  var PREMIUM_URL = "https://qava.ai/premium";
+  var PREMIUM_URL = "https://app.qava.ai/?premium=1";
   var COMMUNITY_CHAT = "https://qava.ai/community/chat.html";
 
   var state = { profile: null, access: { loggedIn: false, premium: false } };

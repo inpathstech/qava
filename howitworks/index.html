@@ -1251,7 +1251,7 @@
           );
           if (!qavaHasPremium) {
             const premiumNav = newsletterNav.cloneNode(true);
-            premiumNav.href = "https://qava.ai/premium";
+            premiumNav.href = "https://app.qava.ai/?premium=1";
             const premiumText = premiumNav.querySelector(".nav-text") || premiumNav;
             premiumText.textContent = "Premium";
             newsletterNav.insertAdjacentElement("afterend", premiumNav);
