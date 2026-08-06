@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../qava-landing.css" />
-  <link rel="stylesheet" href="community.css?v=topic-filter-emoji-1" />
+  <link rel="stylesheet" href="community.css?v=opener-tags-tr-1" />
   <link rel="stylesheet" href="chat-marketing.css?v=ex-op-solid-1" />
   <link rel="stylesheet" href="../qava-auth.css" />
 </head>
@@ -405,25 +405,14 @@
 
         <div class="composer-collab-box">
           <div class="composer-collab-left">
-            <p class="composer-collab-heading">Looking for hands-on support?</p>
-            <a class="composer-collab-cta" href="https://app.qava.ai/" target="_blank" rel="noopener noreferrer">Join match-maker for free</a>
+            <div class="composer-collab-copy">
+              <p class="composer-collab-heading">Looking for hands-on support?</p>
+              <p class="composer-collab-sub">Connect with the best in minutes.</p>
+            </div>
+            <a class="composer-collab-cta" href="https://app.qava.ai/create" target="_blank" rel="noopener noreferrer">Post a project, job or internship</a>
           </div>
           <div class="composer-collab-right">
-            <p class="composer-collab-right-heading">Share a listing in minutes</p>
-            <div class="composer-collab-actions">
-              <a class="composer-collab-btn" href="https://qava.app" target="_blank" rel="noopener noreferrer">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 5h12"/><path d="M4 12h10"/><path d="M12 19h8"/></svg>
-                <span>Project</span>
-              </a>
-              <a class="composer-collab-btn" href="https://qava.app" target="_blank" rel="noopener noreferrer">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>
-                <span>Job</span>
-              </a>
-              <a class="composer-collab-btn" href="https://qava.app" target="_blank" rel="noopener noreferrer">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 13v8"/><path d="M12 3v3"/><path d="M2.354 10.354a1.207 1.207 0 0 1 0-1.708l2.06-2.06A2 2 0 0 1 5.828 6h12.344a2 2 0 0 1 1.414.586l2.06 2.06a1.207 1.207 0 0 1 0 1.708l-2.06 2.06a2 2 0 0 1-1.414.586H5.828a2 2 0 0 1-1.414-.586z"/></svg>
-                <span>Internship</span>
-              </a>
-            </div>
+            <img class="composer-collab-art" src="spaceship.png" alt="" width="292" height="100" />
           </div>
         </div>
 
@@ -597,7 +586,7 @@
       var inApp = document.body.classList.contains("embed-app");
       // Product chat scripts only in the app.qava.ai embed. Public page is marketing-only.
       var scripts = inApp
-        ? ["app.js?v=topics-opener-down-1", "enhancements.js?v=topic-filter-emoji-2", "api.js?v=topics-opener-down-1", "auth.js?v=avatar-sync-3", "profile-edit.js", "../qava-footer.js?v=footer-logo-40"]
+        ? ["app.js?v=topics-opener-down-1", "enhancements.js?v=composer-pin-expand-1", "api.js?v=topics-opener-down-1", "auth.js?v=avatar-sync-3", "profile-edit.js", "../qava-footer.js?v=footer-logo-40"]
         : ["chat-examples.js?v=ex-op-solid-1", "../qava-auth.js", "../qava-footer.js?v=footer-logo-40"];
 
       function loadNext(i) {

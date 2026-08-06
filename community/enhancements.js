@@ -1644,11 +1644,48 @@
     }
   }
 
+  function placeCaretInContentEditable(el, offset) {
+    const target = Math.max(0, offset);
+    el.focus();
+    const sel = window.getSelection();
+    if (!sel) return;
+    const range = document.createRange();
+
+    // Walk text nodes so caret lands after "@Name " even when the browser
+    // splits content across nodes.
+    let remaining = target;
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    let node = walker.nextNode();
+    let lastText = null;
+    while (node) {
+      lastText = node;
+      const len = node.textContent.length;
+      if (remaining <= len) {
+        range.setStart(node, remaining);
+        range.collapse(true);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        return;
+      }
+      remaining -= len;
+      node = walker.nextNode();
+    }
+    if (lastText) {
+      range.setStart(lastText, lastText.textContent.length);
+      range.collapse(true);
+    } else {
+      range.selectNodeContents(el);
+      range.collapse(false);
+    }
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+
   function insertMentionToken(input, token) {
     const text = (input.textContent || '').replace(/\u00a0/g, ' ');
     const sel = window.getSelection();
     let caretPos = text.length;
-    if (sel && sel.rangeCount) {
+    if (sel && sel.rangeCount && input.contains(sel.anchorNode)) {
       const range = sel.getRangeAt(0);
       const pre = range.cloneRange();
       pre.selectNodeContents(input);
@@ -1659,8 +1696,9 @@
     const after = text.slice(caretPos);
     const at = before.lastIndexOf('@');
     const newBefore = at >= 0 ? before.slice(0, at) : before;
-    input.textContent = `${newBefore}${token} ${after}`;
-    input.focus();
+    const inserted = `${token} `;
+    input.textContent = `${newBefore}${inserted}${after}`;
+    placeCaretInContentEditable(input, newBefore.length + inserted.length);
     input.dispatchEvent(new Event('input'));
   }
 
@@ -2050,57 +2088,114 @@
     });
   }
 
+  function persistComposerDraftQuietly() {
+    const composerTitle = document.getElementById('composerTitle');
+    const composerInput = document.getElementById('composerInput');
+    if (!composerTitle && !composerInput) return;
+    const title = (composerTitle?.value || '').trim();
+    const body = composerInput && window.getInputRaw ? window.getInputRaw(composerInput) : '';
+    if (!title && !String(body || '').trim() && !selectedTags.length) {
+      localStorage.removeItem('qavaChatDraft');
+      return;
+    }
+    localStorage.setItem('qavaChatDraft', JSON.stringify({
+      title: composerTitle?.value || '',
+      body,
+      tags: selectedTags,
+      savedAt: Date.now(),
+    }));
+  }
+
   function initComposerCollapse() {
     const card = document.getElementById('composerCard');
     if (!card || !card.classList.contains('composer-opener')) return;
 
     let lastY = window.scrollY || 0;
-    let pinnedOpen = true;
+    // auto: follow scroll · pinned: forced open overlay · collapsed: stay shut after outside click
+    let mode = 'auto';
 
     const atTop = () => (window.scrollY || 0) <= COMPOSER_SCROLL_COLLAPSE_AT;
 
     const setExpanded = (expanded) => {
       card.classList.toggle('is-collapsed', !expanded);
-      if (!expanded) setComposerTopicsOpen(false);
+      card.classList.toggle('is-pinned-open', expanded && mode === 'pinned');
+      if (!expanded) {
+        setComposerTopicsOpen(false);
+        if (typeof window.closeAllThreadDisplayPanels === 'function') {
+          window.closeAllThreadDisplayPanels();
+        }
+      }
     };
 
     const sync = () => {
-      setExpanded(atTop() || pinnedOpen);
+      if (mode === 'pinned') setExpanded(true);
+      else if (mode === 'collapsed') setExpanded(false);
+      else setExpanded(atTop());
+    };
+
+    const pinOpen = ({ focusBody } = {}) => {
+      mode = 'pinned';
+      sync();
+      const title = document.getElementById('composerTitle');
+      const body = document.getElementById('composerInput');
+      requestAnimationFrame(() => {
+        if (focusBody && body) {
+          body.focus();
+          return;
+        }
+        title?.focus();
+      });
+    };
+
+    const collapseKeepingDraft = () => {
+      if (mode === 'collapsed' || card.classList.contains('is-collapsed')) return;
+      persistComposerDraftQuietly();
+      mode = 'collapsed';
+      sync();
     };
 
     window.addEventListener('scroll', () => {
       const y = window.scrollY || 0;
-      if (y > lastY && y > COMPOSER_SCROLL_COLLAPSE_AT) pinnedOpen = false;
+      if (mode === 'pinned' && y > lastY && y > COMPOSER_SCROLL_COLLAPSE_AT) {
+        // Scrolling away while pinned keeps the overlay until outside click.
+      } else if (mode === 'auto' && y > lastY && y > COMPOSER_SCROLL_COLLAPSE_AT) {
+        mode = 'collapsed';
+      } else if (mode === 'collapsed' && atTop() && y < lastY) {
+        // Stay collapsed until the user opens via send / focus.
+      } else if (mode !== 'pinned' && mode !== 'collapsed' && atTop()) {
+        mode = 'auto';
+      }
       lastY = y;
       sync();
     }, { passive: true });
 
-    card.addEventListener('mousedown', () => {
-      if (!atTop()) {
-        pinnedOpen = true;
-        sync();
+    card.addEventListener('mousedown', (e) => {
+      if (card.classList.contains('is-collapsed') || mode !== 'pinned') {
+        if (!e.target.closest?.('#composerCompactSend')) {
+          mode = 'pinned';
+          sync();
+        }
       }
     });
 
     document.addEventListener('mousedown', (e) => {
       if (card.contains(e.target)) return;
-      if (!atTop()) {
-        pinnedOpen = false;
-        sync();
+      if (mode === 'pinned' || !card.classList.contains('is-collapsed')) {
+        // Only force-contract when the opener is open as an overlay / expanded.
+        if (mode === 'pinned' || !atTop()) collapseKeepingDraft();
       }
     });
 
     const title = document.getElementById('composerTitle');
     title?.addEventListener('focus', () => {
-      pinnedOpen = true;
-      sync();
+      if (mode !== 'pinned') pinOpen({ focusBody: false });
     });
 
     document.getElementById('composerCompactSend')?.addEventListener('click', (e) => {
       e.preventDefault();
-      pinnedOpen = true;
-      sync();
-      title?.focus();
+      e.stopPropagation();
+      // Expand the full opener so the user can finish body / topics / post.
+      pinOpen({ focusBody: true });
     });
 
     sync();
