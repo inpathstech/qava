@@ -407,11 +407,13 @@
         // Extract invites from the draft *before* inner wraps mask the body.
         var prepared = prepareBodyAndInvites(rawBody);
         // Capture tags before inner wrappers clear the composer selection.
-        var tags = Array.prototype.map
-          .call(document.querySelectorAll('#composerTags .tag-pill.is-selected'), function (el) {
-            return el.getAttribute('data-tag');
-          })
-          .filter(Boolean);
+        var tags = (typeof window.communityGetSelectedTags === 'function'
+          ? window.communityGetSelectedTags()
+          : Array.prototype.map
+            .call(document.querySelectorAll('#composerTags .tag-pill.is-selected'), function (el) {
+              return el.getAttribute('data-tag');
+            })
+            .filter(Boolean));
         if (bodyEl && window.setInputRaw) window.setInputRaw(bodyEl, prepared.body);
         var result = origPost.apply(this, arguments);
         if (title && title.trim()) {

@@ -936,6 +936,13 @@
         feedList.prepend(userFeedItem);
       }
 
+      const postedTags = typeof window.communityGetSelectedTags === 'function'
+        ? window.communityGetSelectedTags()
+        : [];
+      userFeedItem.dataset.tags = postedTags.join('|');
+      const tagsHtml = postedTags.length
+        ? `<div class="feed-opener-tags">${postedTags.map((t) => `<span class="feed-tag-pill">${escapeHtml(t)}</span>`).join('')}</div>`
+        : '';
       const userOpener = userFeedItem.querySelector('.feed-opener');
       userOpener.innerHTML = `
         <div class="feed-opener-meta-row">
@@ -945,6 +952,7 @@
             <div class="meta-sub">New</div>
           </div>
         </div>
+        ${tagsHtml}
         <h3>${escapeHtml(title)}</h3>
         <div class="feed-body">${bodyHtml}</div>
         <div class="feed-stats">

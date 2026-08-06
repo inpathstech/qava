@@ -2206,9 +2206,12 @@
     .composer-topics-menu {
       position: absolute;
       left: 0;
-      bottom: calc(100% + 6px);
+      top: calc(100% + 6px);
+      bottom: auto;
       z-index: 60;
       width: 220px;
+      max-height: min(320px, 50vh);
+      overflow-y: auto;
       background: #fff;
       border: 1px solid rgba(17,24,39,0.1);
       border-radius: 8px;
@@ -2621,6 +2624,9 @@
     }
 
     .feed-topic-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
       border: 1px solid rgba(255, 255, 255, 0.28);
       background: transparent;
       color: #fff;
@@ -2633,6 +2639,11 @@
       cursor: pointer;
       white-space: nowrap;
       transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+    }
+
+    .feed-topic-pill-emoji {
+      font-size: 12px;
+      line-height: 1;
     }
 
     .feed-topic-pill[hidden] {
@@ -2858,7 +2869,7 @@
 
     .feed-inline-reply {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       gap: 12px;
       padding: 10px 12px 12px;
       border-top: 1px solid rgba(17, 24, 39, 0.06);
@@ -2869,6 +2880,8 @@
       width: 28px;
       height: 28px;
       font-size: 11px;
+      flex-shrink: 0;
+      align-self: center;
     }
 
     .feed-inline-reply-field {
@@ -3209,16 +3222,29 @@
 
     .feed-opener-meta-row .meta-lines { flex: 1; min-width: 0; }
 
+    .feed-opener-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 0 0 8px;
+    }
+
+    .feed-opener-tags:empty {
+      display: none;
+    }
+
     .feed-tag-pill {
-      font-size: 9px;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: #6b7280;
-      background: rgba(17,24,39,0.04);
-      border-radius: 4px;
-      padding: 3px 6px;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      text-transform: none;
+      color: #111827;
+      background: #fff;
+      border: 1px solid rgba(17, 24, 39, 0.12);
+      border-radius: 999px;
+      padding: 3px 9px;
       white-space: nowrap;
+      line-height: 1.25;
     }
 
     .feed-stat-time {
