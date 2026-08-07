@@ -341,21 +341,37 @@
       return `@${local.slice(0, 3)}`;
     }
 
-    function formatInlineMarkup(text) {
+    /**
+     * Convert escaped inline markdown (**bold**, _italic_) to HTML tags.
+     * Uses temporary private-use placeholders while replacing; nested markers
+     * (e.g. bold inside italic) must expand placeholders inside tokens so they
+     * never leak as tofu glyphs (U+E000 / U+E001) in posts or replies.
+     */
+    function applyInlineMarkdownTags(escapedText) {
       const tokens = [];
+      const PLACEHOLDER_RE = /\uE000(\d+)\uE001/g;
+      const expandPlaceholders = (value) =>
+        String(value ?? '').replace(PLACEHOLDER_RE, (_, id) => {
+          const token = tokens[Number(id)];
+          return token == null ? '' : expandPlaceholders(token);
+        });
       const stash = (html) => {
         const id = tokens.length;
-        tokens.push(html);
+        tokens.push(expandPlaceholders(html));
         return `\uE000${id}\uE001`;
       };
 
-      let html = escapeHtml(text);
+      let html = String(escapedText ?? '');
       // Combined markers first so nested bold+italic survives.
       html = html.replace(/\*\*_([^_\n]+?)_\*\*/g, (_, inner) => stash(`<strong><em>${inner}</em></strong>`));
       html = html.replace(/_\*\*(.+?)\*\*_/g, (_, inner) => stash(`<em><strong>${inner}</strong></em>`));
       html = html.replace(/\*\*(.+?)\*\*/g, (_, inner) => stash(`<strong>${inner}</strong>`));
       html = html.replace(/_([^_\n]+?)_/g, (_, inner) => stash(`<em>${inner}</em>`));
-      html = html.replace(/\uE000(\d+)\uE001/g, (_, id) => tokens[Number(id)] || '');
+      return expandPlaceholders(html);
+    }
+
+    function formatInlineMarkup(text) {
+      let html = applyInlineMarkdownTags(escapeHtml(text));
 
       html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, url) => {
         const safeUrl = escapeHtml(url);
@@ -494,18 +510,7 @@
     }
 
     function inlineMarkdownToEditableHtml(text) {
-      const tokens = [];
-      const stash = (html) => {
-        const id = tokens.length;
-        tokens.push(html);
-        return `\uE000${id}\uE001`;
-      };
-      let html = escapeHtml(text);
-      html = html.replace(/\*\*_([^_\n]+?)_\*\*/g, (_, inner) => stash(`<strong><em>${inner}</em></strong>`));
-      html = html.replace(/_\*\*(.+?)\*\*_/g, (_, inner) => stash(`<em><strong>${inner}</strong></em>`));
-      html = html.replace(/\*\*(.+?)\*\*/g, (_, inner) => stash(`<strong>${inner}</strong>`));
-      html = html.replace(/_([^_\n]+?)_/g, (_, inner) => stash(`<em>${inner}</em>`));
-      html = html.replace(/\uE000(\d+)\uE001/g, (_, id) => tokens[Number(id)] || '');
+      let html = applyInlineMarkdownTags(escapeHtml(text));
       html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, url) => {
         const safeUrl = escapeHtml(sanitizeLinkUrl(url) || url);
         return `<a href="${safeUrl}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)}</a>`;
