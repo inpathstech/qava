@@ -1,6 +1,6 @@
 (function () {
-  var API = "https://api.qava.ai/api";
-  var PREMIUM_URL = "https://app.qava.ai/?premium=1";
+  var API = "https://api.theclubnyc.com/api";
+  var PREMIUM_URL = "https://app.theclubnyc.com/?premium=1";
   var DL_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>';
   var LOCK_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
 
@@ -77,7 +77,7 @@
   }
 
   // Always route downloads through the gated backend endpoint. It checks the
-  // premium session (cookie sent automatically to api.qava.ai) and 302-redirects
+  // premium session (cookie sent automatically to api.theclubnyc.com) and 302-redirects
   // to a short-lived presigned URL — the file location is never exposed here.
   function downloadUrl(templateName, formatKey, slugOverride) {
     if (!FORMATS[formatKey]) return "#";
@@ -212,8 +212,8 @@
   window.setQavaAccessCookies = function () {
     var maxAge = 365 * 24 * 60 * 60;
     var secure = location.protocol === "https:" ? "; Secure" : "";
-    document.cookie = "qava_premium=1; path=/; domain=.qava.ai; max-age=" + maxAge + "; SameSite=Lax" + secure;
-    document.cookie = "qava_logged_in=1; path=/; domain=.qava.ai; max-age=" + maxAge + "; SameSite=Lax" + secure;
+    document.cookie = "qava_premium=1; path=/; domain=.theclubnyc.com; max-age=" + maxAge + "; SameSite=Lax" + secure;
+    document.cookie = "qava_logged_in=1; path=/; domain=.theclubnyc.com; max-age=" + maxAge + "; SameSite=Lax" + secure;
   };
 
   if (document.readyState === "loading") {

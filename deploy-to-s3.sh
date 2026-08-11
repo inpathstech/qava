@@ -41,5 +41,5 @@ if [ ! -z "$CLOUDFRONT_DISTRIBUTION_ID" ]; then
         --region $REGION
 fi
 
-echo "✅ Deployment complete! Your site should be live at https://qava.ai"
+echo "✅ Deployment complete! Your site should be live at https://www.theclubnyc.com"
 echo "📝 Note: DNS changes may take a few minutes to propagate"

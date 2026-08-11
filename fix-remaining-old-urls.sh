@@ -17,7 +17,7 @@ for file in "${FILES_TO_FIX[@]}"; do
         echo "Fixing URLs in $file..."
         
         # Replace all instances of the old URL with the new one
-        sed -i '' 's|https://qava.ai/why-qava|https://qava.ai/whyqava|g' "$file"
+        sed -i '' 's|https://www.theclubnyc.com/why-qava|https://www.theclubnyc.com/whyqava|g' "$file"
         
         echo "Updated $file"
     else

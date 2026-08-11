@@ -17,7 +17,7 @@ for file in "${HTML_FILES[@]}"; do
         echo "Updating why-qava URLs in $file..."
         
         # Replace all instances of why-qava with whyqava
-        sed -i '' 's|https://qava.ai/why-qava|https://qava.ai/whyqava|g' "$file"
+        sed -i '' 's|https://www.theclubnyc.com/why-qava|https://www.theclubnyc.com/whyqava|g' "$file"
         
         echo "Updated $file"
     else

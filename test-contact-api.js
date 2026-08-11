@@ -15,7 +15,7 @@ const testData = {
 console.log("🧪 Testing Contact Requests API");
 console.log("=================================");
 
-console.log("\n📡 API Endpoint: POST https://api.qava.ai/admin/contact-requests");
+console.log("\n📡 API Endpoint: POST https://api.theclubnyc.com/admin/contact-requests");
 console.log("\n📦 Test Data:");
 console.log(JSON.stringify(testData, null, 2));
 
@@ -33,18 +33,18 @@ console.log(JSON.stringify({
 }, null, 2));
 
 console.log("\n✅ Test Commands:");
-console.log("curl -X POST https://api.qava.ai/admin/contact-requests \\");
+console.log("curl -X POST https://api.theclubnyc.com/admin/contact-requests \\");
 console.log("  -H 'Content-Type: application/json' \\");
 console.log("  -d '" + JSON.stringify(testData) + "'");
 
 console.log("\n📊 Get All Contact Requests:");
-console.log("curl https://api.qava.ai/admin/contact-requests");
+console.log("curl https://api.theclubnyc.com/admin/contact-requests");
 
 console.log("\n📈 Get Statistics:");
-console.log("curl https://api.qava.ai/admin/contact-requests/stats");
+console.log("curl https://api.theclubnyc.com/admin/contact-requests/stats");
 
 console.log("\n🎯 Demo Form Integration:");
-console.log("The demo form at https://qava.ai/demo will now submit to this endpoint");
+console.log("The demo form at https://www.theclubnyc.com/demo will now submit to this endpoint");
 console.log("and display success/error messages to users.");
 
 console.log("\n🚀 Ready for Deployment!");

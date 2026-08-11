@@ -3,7 +3,7 @@
   "Aliases": {
     "Quantity": 1,
     "Items": [
-      "qava.ai"
+      "www.theclubnyc.com"
     ]
   },
   "DefaultRootObject": "",
@@ -101,7 +101,7 @@
   "CustomErrorResponses": {
     "Quantity": 0
   },
-  "Comment": "Qava.ai website distribution",
+  "Comment": "www.theclubnyc.com website distribution",
   "Logging": {
     "Enabled": false,
     "IncludeCookies": false,

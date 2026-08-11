@@ -78,11 +78,11 @@
   }
 
   // Thin-line plus / minus icons — used for all expandable controls so the
-  // editor matches the Qava.ai / Notion visual language (no native triangles).
+  // editor matches the www.theclubnyc.com / Notion visual language (no native triangles).
   var ICON_PLUS = '<svg class="pe-ico pe-ico-plus" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
   var ICON_MINUS = '<svg class="pe-ico pe-ico-minus" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M5 12h14"/></svg>';
   var ICON_TRASH = '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
-  // Matches the qava.ai homepage calculator checkmark.
+  // Matches the www.theclubnyc.com homepage calculator checkmark.
   var ICON_CHECK = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8L6.5 11.5L13 4.5" stroke="#111111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
   var modal = null;

@@ -31,7 +31,7 @@
     const userThreadPost = document.getElementById('userThreadPost');
     const userThreadTitle = document.getElementById('userThreadTitle');
     const userThreadBody = document.getElementById('userThreadBody');
-    const PREMIUM_URL = 'https://app.qava.ai/?login=1';
+    const PREMIUM_URL = 'https://app.theclubnyc.com/?login=1';
     const composerLockLabel = document.getElementById('composerLockLabel');
     const replyLockLabel = document.getElementById('replyLockLabel');
     const composerAttachmentFiles = [];

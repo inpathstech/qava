@@ -29,7 +29,7 @@
       background-repeat: repeat;
     }
 
-    /* App shell embed (app.qava.ai/community iframe) — no mini nav.
+    /* App shell embed (app.theclubnyc.com/community iframe) — no mini nav.
        Keep the page transparent so the parent shell’s dotted bg shows in the
        side margins; those margins are inside this document so wheel-scroll
        still moves the chat. */
@@ -243,7 +243,7 @@
     .view { display: none; }
     .view.is-active { display: block; }
 
-    /* Landing hero (from qava.ai homepage) */
+    /* Landing hero (from www.theclubnyc.com homepage) */
     .feature-cards-section {
       background: transparent;
       padding: 56px 0 8px;
@@ -2751,7 +2751,7 @@
       display: none !important;
     }
 
-    /* Feed cold-load shimmer (matches app.qava.ai shimmer-placeholder) */
+    /* Feed cold-load shimmer (matches app.theclubnyc.com shimmer-placeholder) */
     @keyframes shimmer {
       0% { background-position: -200% 0; }
       100% { background-position: 200% 0; }
@@ -4508,7 +4508,7 @@
       min-width: 0;
     }
     .pe-ms-placeholder { font-size: 14px; font-weight: 300; color: #9ca3af; }
-    /* Matches the app.qava.ai signup chips: small, light-gray, no border. */
+    /* Matches the app.theclubnyc.com signup chips: small, light-gray, no border. */
     .pe-ms-tag {
       display: inline-flex;
       align-items: center;
@@ -4838,7 +4838,7 @@
       font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .4px;
       color: #92400e; background: #fef3c7; padding: 2px 6px; border-radius: 6px;
     }
-    /* Match app.qava.ai Header profile dropdown */
+    /* Match app.theclubnyc.com Header profile dropdown */
     .community-auth-menu {
       position: absolute;
       top: calc(100% + 8px);

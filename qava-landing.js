@@ -70,7 +70,7 @@
           (link.textContent || "").trim().toLowerCase() === "pricing"
         );
         pricingNavLinks.forEach((link) => {
-          link.href = "https://qava.ai/pricing";
+          link.href = "https://www.theclubnyc.com/pricing";
         });
 
         const navRenames = [
@@ -97,7 +97,7 @@
           (a.textContent || "").trim().toLowerCase() === "newsletter"
         );
         newsletterNavLinks.forEach((link) => {
-          link.href = "https://qava.ai/newsletter";
+          link.href = "https://www.theclubnyc.com/newsletter";
           link.classList.add("newsletter");
         });
 
@@ -146,7 +146,7 @@
           return t === "how qava works" || t === "how it works";
         });
         if (howItWorksNav) {
-          howItWorksNav.href = "https://qava.ai/howitworks";
+          howItWorksNav.href = "https://www.theclubnyc.com/howitworks";
         }
 
         const howItWorksNavText = Array.from(doc.querySelectorAll(".auth-item .nav-text, .mobile-nav-item")).find((item) => {
@@ -170,7 +170,7 @@
           if (!doc.getElementById("qava-ai-toolset-cta")) {
             const aiToolsetCta = doc.createElement("a");
             aiToolsetCta.id = "qava-ai-toolset-cta";
-            aiToolsetCta.href = "https://qava.ai/templates";
+            aiToolsetCta.href = "https://www.theclubnyc.com/templates";
             aiToolsetCta.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.983 21.186a1 1 0 0 1-1.966 0 10 10 0 0 0-8.203-8.203 1 1 0 0 1 0-1.966 10 10 0 0 0 8.203-8.203 1 1 0 0 1 1.966 0 10 10 0 0 0 8.203 8.203 1 1 0 0 1 0 1.966 10 10 0 0 0-8.203 8.203"/></svg><span class="qava-blog-shimmer">Templates</span>';
             const primaryCta = ctaButtonsRow.querySelector(".cta-button-primary") || ctaButtonsRow.querySelector("a");
             if (primaryCta) {
@@ -182,7 +182,7 @@
 
           const existingAiCta = doc.getElementById("qava-ai-toolset-cta");
           if (existingAiCta) {
-            existingAiCta.href = "https://qava.ai/templates";
+            existingAiCta.href = "https://www.theclubnyc.com/templates";
           }
 
           // "How it works" links navigate directly to the standalone
@@ -214,7 +214,7 @@
             blogRow.className = "qava-blog-row";
             const blogReadArrow = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
             blogRow.innerHTML = `
-              <a class="qava-blog-card" href="https://qava.ai/therisegroup">
+              <a class="qava-blog-card" href="https://www.theclubnyc.com/therisegroup">
                 <img class="qava-blog-thumb" src="./qava-blog-1.png" alt="" />
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
@@ -226,7 +226,7 @@
                   </div>
                 </div>
               </a>
-              <a class="qava-blog-card" href="https://qava.ai/liquidskateboard">
+              <a class="qava-blog-card" href="https://www.theclubnyc.com/liquidskateboard">
                 <img class="qava-blog-thumb" src="./liquidskateboard-card.png" alt="" />
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
@@ -238,7 +238,7 @@
                   </div>
                 </div>
               </a>
-              <a class="qava-blog-card" href="https://qava.ai/5-to-9">
+              <a class="qava-blog-card" href="https://www.theclubnyc.com/5-to-9">
                 <img class="qava-blog-thumb" src="./5to9-card.png" alt="Building your future after hours" />
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
@@ -250,7 +250,7 @@
                   </div>
                 </div>
               </a>
-              <a class="qava-blog-card" href="https://qava.ai/attentioncapital">
+              <a class="qava-blog-card" href="https://www.theclubnyc.com/attentioncapital">
                 <img class="qava-blog-thumb" src="./anti-fund.png" alt="Anti Fund" />
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
@@ -262,7 +262,7 @@
                   </div>
                 </div>
               </a>
-              <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/the-alignment-trap">
+              <a class="qava-blog-card qava-blog-hidden" href="https://www.theclubnyc.com/the-alignment-trap">
                 <img class="qava-blog-thumb" src="./alignment-trap-card.png" alt="The False Alignment Trap" />
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
@@ -274,7 +274,7 @@
                   </div>
                 </div>
               </a>
-              <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/noonesark">
+              <a class="qava-blog-card qava-blog-hidden" href="https://www.theclubnyc.com/noonesark">
                 <img class="qava-blog-thumb" src="./qava-blog-3.png" alt="" />
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
@@ -286,7 +286,7 @@
                   </div>
                 </div>
               </a>
-              <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/five-minutes-and-a-manual">
+              <a class="qava-blog-card qava-blog-hidden" href="https://www.theclubnyc.com/five-minutes-and-a-manual">
                 <img class="qava-blog-thumb" src="./five-minutes-manual-card.png" alt="Five Minutes and a Manual" />
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
@@ -298,7 +298,7 @@
                   </div>
                 </div>
               </a>
-              <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/mmento">
+              <a class="qava-blog-card qava-blog-hidden" href="https://www.theclubnyc.com/mmento">
                 <img class="qava-blog-thumb" src="./Kristina%20Boxer%20Profile%20Photo.png" alt="Kristina Boxer" />
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
@@ -310,7 +310,7 @@
                   </div>
                 </div>
               </a>
-              <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/cab-driver-vs-changemaker">
+              <a class="qava-blog-card qava-blog-hidden" href="https://www.theclubnyc.com/cab-driver-vs-changemaker">
                 <img class="qava-blog-thumb" src="./cab-driver-changemaker-card.png" alt="Cab Driver vs. Changemaker" />
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
@@ -322,7 +322,7 @@
                   </div>
                 </div>
               </a>
-              <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/lumi">
+              <a class="qava-blog-card qava-blog-hidden" href="https://www.theclubnyc.com/lumi">
                 <img class="qava-blog-thumb" src="./Lumi/Family.jpg" alt="Lumi" />
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
@@ -334,7 +334,7 @@
                   </div>
                 </div>
               </a>
-              <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/the-portfolio-career">
+              <a class="qava-blog-card qava-blog-hidden" href="https://www.theclubnyc.com/the-portfolio-career">
                 <img class="qava-blog-thumb" src="./portfolio-career-card.png" alt="The Portfolio Career" />
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
@@ -346,7 +346,7 @@
                   </div>
                 </div>
               </a>
-              <a class="qava-blog-card qava-blog-hidden" href="https://qava.ai/roam">
+              <a class="qava-blog-card qava-blog-hidden" href="https://www.theclubnyc.com/roam">
                 <img class="qava-blog-thumb" src="./Roam/Hand%20Holding%20Bottle.jpg" alt="Roam" />
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
@@ -1880,7 +1880,7 @@
                 <div class="qava-calc-header">
                   <h2 class="qava-calc-title">More value. More control.</h2>
                   <p class="qava-calc-sub">On-demand talent to fill gaps or start on the right foot.</p>
-                  <a class="qava-calc-pricing" href="https://qava.ai/pricing">See pricing plans ${arrowSvg}</a>
+                  <a class="qava-calc-pricing" href="https://www.theclubnyc.com/pricing">See pricing plans ${arrowSvg}</a>
                 </div>
                 <div class="qava-calc-body">
                 <div class="qava-calc-panel">

@@ -41,4 +41,4 @@ jobs:
           --paths "/*"
           
     - name: Deploy complete
-      run: echo "Website deployed successfully to qava.ai!"
+      run: echo "Website deployed successfully to www.theclubnyc.com!"

@@ -1,10 +1,10 @@
-# DNS Setup Guide for qava.ai
+# DNS Setup Guide for www.theclubnyc.com
 
 ## Overview
-This guide will help you configure your GoDaddy DNS settings to point qava.ai to your new AWS S3/CloudFront deployment, replacing your Webflow site.
+This guide will help you configure your GoDaddy DNS settings to point www.theclubnyc.com to your new AWS S3/CloudFront deployment, replacing your Webflow site.
 
 ## Prerequisites
-- GoDaddy account with qava.ai domain
+- GoDaddy account with www.theclubnyc.com domain
 - AWS S3 bucket configured for static website hosting
 - CloudFront distribution (optional but recommended for performance)
 
@@ -52,15 +52,15 @@ This guide will help you configure your GoDaddy DNS settings to point qava.ai to
    - Error Pages: Create custom error response for 403/404 → 200 with `/index.html`
 
 2. **Configure Custom Domain**:
-   - Add `qava.ai` and `www.qava.ai` as alternate domain names
-   - Request SSL certificate for `*.qava.ai` and `qava.ai`
+   - Add `www.theclubnyc.com` and `www.theclubnyc.com` as alternate domain names
+   - Request SSL certificate for `*.theclubnyc.com` and `www.theclubnyc.com`
 
 ## Step 3: Configure GoDaddy DNS
 
 ### Option A: Point to CloudFront (Recommended)
 1. Log into GoDaddy
 2. Go to "My Products" → "DNS"
-3. Find qava.ai and click "DNS"
+3. Find www.theclubnyc.com and click "DNS"
 4. Update these records:
 
    **A Record (Root Domain)**:
@@ -98,13 +98,13 @@ This guide will help you configure your GoDaddy DNS settings to point qava.ai to
 
 1. **Test DNS Propagation**:
    ```bash
-   nslookup qava.ai
-   dig qava.ai
+   nslookup www.theclubnyc.com
+   dig www.theclubnyc.com
    ```
 
 2. **Test Website Access**:
-   - Visit https://qava.ai
-   - Visit https://www.qava.ai
+   - Visit https://www.theclubnyc.com
+   - Visit https://www.theclubnyc.com
    - Check that both redirect to HTTPS
 
 3. **Test Performance**:

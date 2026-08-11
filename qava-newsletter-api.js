@@ -1,5 +1,5 @@
 (function () {
-  const NEWSLETTER_API_URL = "https://api.qava.ai/admin/newsletter-subscribe";
+  const NEWSLETTER_API_URL = "https://api.theclubnyc.com/admin/newsletter-subscribe";
 
   function normalizePayload(payload) {
     const firstName = (payload.firstName || "").trim();
