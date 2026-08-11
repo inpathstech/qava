@@ -27,7 +27,7 @@ Replace the existing footer in each page with this exact structure:
     <div class="footer-container">
         <div class="footer-content">
             <div class="footer-logo">
-                <a href="https://qava.ai/">
+                <a href="https://www.theclubnyc.com/">
                     <img src="qava-logo.svg" alt="Qava" class="footer-logo-img" />
                 </a>
             </div>
@@ -35,20 +35,20 @@ Replace the existing footer in each page with this exact structure:
                 <div class="footer-column">
                     <h4 class="footer-heading">Welcome</h4>
                     <ul class="footer-link-list">
-                        <li><a href="https://app.qava.ai/" class="footer-link">Create Listing</a></li>
-                        <li><a href="https://app.qava.ai/" class="footer-link">Search Listings</a></li>
-                        <li><a href="https://qava.ai/clienthowitworks" class="footer-link">How It Works for Clients</a></li>
-                        <li><a href="https://qava.ai/talenthowitworks" class="footer-link">How It Works for Talent</a></li>
-                        <li><a href="https://qava.ai/why-qava" class="footer-link">Why Qava</a></li>
+                        <li><a href="https://app.theclubnyc.com/" class="footer-link">Create Listing</a></li>
+                        <li><a href="https://app.theclubnyc.com/" class="footer-link">Search Listings</a></li>
+                        <li><a href="https://www.theclubnyc.com/clienthowitworks" class="footer-link">How It Works for Clients</a></li>
+                        <li><a href="https://www.theclubnyc.com/talenthowitworks" class="footer-link">How It Works for Talent</a></li>
+                        <li><a href="https://www.theclubnyc.com/why-qava" class="footer-link">Why Qava</a></li>
                         <li><span class="footer-link disabled-link">What's New</span></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h4 class="footer-heading">Get Started</h4>
                     <ul class="footer-link-list">
-                        <li><a href="https://qava.ai/request-demo" class="footer-link">Request a Demo</a></li>
-                        <li><a href="https://app.qava.ai/" class="footer-link">Sign Up</a></li>
-                        <li><a href="https://app.qava.ai/" class="footer-link">Log In</a></li>
+                        <li><a href="https://www.theclubnyc.com/request-demo" class="footer-link">Request a Demo</a></li>
+                        <li><a href="https://app.theclubnyc.com/" class="footer-link">Sign Up</a></li>
+                        <li><a href="https://app.theclubnyc.com/" class="footer-link">Log In</a></li>
                         <li><span class="footer-link disabled-link">AI Prompts</span></li>
                         <li><span class="footer-link disabled-link">Project Templates</span></li>
                         <li><span class="footer-link disabled-link">Application Tips</span></li>
@@ -57,7 +57,7 @@ Replace the existing footer in each page with this exact structure:
                 <div class="footer-column">
                     <h4 class="footer-heading">Resources</h4>
                     <ul class="footer-link-list">
-                        <li><a href="https://qava.ai/pricing" class="footer-link">Pricing</a></li>
+                        <li><a href="https://www.theclubnyc.com/pricing" class="footer-link">Pricing</a></li>
                         <li><span class="footer-link disabled-link">About Us</span></li>
                         <li><span class="footer-link disabled-link">Careers</span></li>
                         <li><span class="footer-link disabled-link">Media Kit</span></li>

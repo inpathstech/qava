@@ -14,7 +14,7 @@
 > - ⚡ Moving fast without hiring — get hands-on help exactly when you need it
 > - 🚀 Turning ideas into real outcomes through focused, project-based work
 > 
-> [Why can't I just use AI?](https://qava.ai/aialoneisnotenough)
+> [Why can't I just use AI?](https://www.theclubnyc.com/aialoneisnotenough)
 
 #### Question 1: Where are you starting from?
 
@@ -82,7 +82,7 @@
 > - 🎯 Clarifying your go-to-market strategy so traction and funding conversations convert
 > - ⚡ Getting on-demand support fast without paying consultant-level fees
 > 
-> [Why can't I just use AI?](https://qava.ai/aialoneisnotenough)
+> [Why can't I just use AI?](https://www.theclubnyc.com/aialoneisnotenough)
 
 #### Question 1: What's your primary goal?
 
@@ -135,7 +135,7 @@
 > - 📊 Improve visibility and decision-making without building a large internal team
 > - 💸 Get high-quality strategy support at a fraction of typical consulting costs
 > 
-> [Why can't I just use AI?](https://qava.ai/aialoneisnotenough)
+> [Why can't I just use AI?](https://www.theclubnyc.com/aialoneisnotenough)
 
 #### Question 1: What feels hardest right now?
 
@@ -191,7 +191,7 @@
 > - 🎯 Focus on the metrics that actually matter to performance and growth
 > - ⚡ Move quickly and cost-effectively without heavy analytics builds
 > 
-> [Why can't I just use AI?](https://qava.ai/aialoneisnotenough)
+> [Why can't I just use AI?](https://www.theclubnyc.com/aialoneisnotenough)
 
 #### Question 1: What do you want better visibility into?
 

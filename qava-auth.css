@@ -95,7 +95,7 @@
   display: block;
 }
 .qava-member-chip-name { display: none; }
-/* Match app.qava.ai Header profile dropdown */
+/* Match app.theclubnyc.com Header profile dropdown */
 .qava-member-chip-menu {
   position: absolute;
   top: calc(100% + 8px);

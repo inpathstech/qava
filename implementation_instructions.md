@@ -61,11 +61,11 @@ python manage.py migrate
    ```
 
 2. **Test the API endpoint:**
-   - Your demo form should now submit to: `https://api.qava.ai/admin/contact-requests/`
+   - Your demo form should now submit to: `https://api.theclubnyc.com/admin/contact-requests/`
    - Test with a tool like Postman or curl
 
 3. **Check the admin interface:**
-   - Go to: `https://api.qava.ai/admin/`
+   - Go to: `https://api.theclubnyc.com/admin/`
    - You should see "Contact Requests" in the admin sidebar
    - Click on it to view submitted requests
 

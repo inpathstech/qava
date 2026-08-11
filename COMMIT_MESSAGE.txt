@@ -1,7 +1,7 @@
 Restore correct website version and update Create Listing links to /guest
 
 - Restored all HTML pages from commit 00e2c2d (before navbar changes that overwrote content)
-- Updated all "Create Listing" links across site to point to https://app.qava.ai/guest
+- Updated all "Create Listing" links across site to point to https://app.theclubnyc.com/guest
 - Updated shared-navbar.html and shared-footer.html  
 - Updated all individual page navbars and footers
 - Preserved all recent content changes and improvements

@@ -21,7 +21,7 @@ for page in "${MAIN_PAGES[@]}"; do
         echo "Fixing URLs in $page..."
         
         # Replace all instances of why-qava with whyqava
-        sed -i '' 's|https://qava.ai/why-qava|https://qava.ai/whyqava|g' "$page"
+        sed -i '' 's|https://www.theclubnyc.com/why-qava|https://www.theclubnyc.com/whyqava|g' "$page"
         sed -i '' 's|href="why-qava"|href="whyqava"|g' "$page"
         
         echo "Updated $page"

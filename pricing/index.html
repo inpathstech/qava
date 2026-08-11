@@ -750,7 +750,7 @@
               <img class="qava-nav-logo-face qava-nav-logo-back" src="/the-club-logo-light.png" alt="">
             </div>
           `;
-          logoLink.href = "https://qava.ai/";
+          logoLink.href = "https://www.theclubnyc.com/";
           logoLink.innerHTML = "";
           logoLink.appendChild(flip);
 
@@ -772,14 +772,14 @@
           (a.textContent || "").trim().toLowerCase() === "newsletter"
         );
         if (newsletterNav) {
-          newsletterNav.href = "https://qava.ai/newsletter";
+          newsletterNav.href = "https://www.theclubnyc.com/newsletter";
           const qavaNavRow = newsletterNav.parentElement;
           const qavaHasPremium = qavaNavRow && Array.from(qavaNavRow.querySelectorAll("a.nav-item")).some(
             (a) => (a.textContent || "").trim().toLowerCase() === "premium"
           );
           if (!qavaHasPremium) {
             const premiumNav = newsletterNav.cloneNode(true);
-            premiumNav.href = "https://app.qava.ai/?premium=1";
+            premiumNav.href = "https://app.theclubnyc.com/?premium=1";
             const premiumText = premiumNav.querySelector(".nav-text") || premiumNav;
             premiumText.textContent = "Premium";
             newsletterNav.insertAdjacentElement("afterend", premiumNav);
@@ -798,7 +798,7 @@
         if (howItWorksNavText) {
           howItWorksNavText.textContent = "How it works";
           const hiwLink = howItWorksNavText.closest("a");
-          if (hiwLink) hiwLink.href = "https://qava.ai/howitworks";
+          if (hiwLink) hiwLink.href = "https://www.theclubnyc.com/howitworks";
         }
 
         frameDoc.querySelectorAll(".testimonial-section").forEach((el) => el.remove());

@@ -712,5 +712,5 @@ export const authLinks = [
 
 **Document Version:** 1.0  
 **Last Updated:** January 6, 2025  
-**Source:** index.html from Qava.ai
+**Source:** index.html from www.theclubnyc.com
 

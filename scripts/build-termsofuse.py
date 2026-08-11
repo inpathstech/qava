@@ -6,13 +6,13 @@ import re
 from pathlib import Path
 
 CONTENT = r"""
-These Terms of Use govern your access to and use of QAVA.ai, including our website, applications, platform, marketplace, communications, tools, content, software, artificial intelligence features, and related services.
+These Terms of Use govern your access to and use of www.theclubnyc.com, including our website, applications, platform, marketplace, communications, tools, content, software, artificial intelligence features, and related services.
 
-By accessing or using QAVA.ai, you agree to these Terms. If you do not agree, you may not access or use QAVA.ai.
+By accessing or using www.theclubnyc.com, you agree to these Terms. If you do not agree, you may not access or use www.theclubnyc.com.
 
 1. About QAVA
 
-QAVA.ai, together with its owners, officers, directors, employees, contractors, advisors, affiliates, agents, successors, and assigns, is referred to in these Terms as "QAVA," "we," "us," or "our."
+www.theclubnyc.com, together with its owners, officers, directors, employees, contractors, advisors, affiliates, agents, successors, and assigns, is referred to in these Terms as "QAVA," "we," "us," or "our."
 
 QAVA is a marketplace and technology platform that helps connect companies, founders, startups, nonprofits, institutions, project sponsors, and other organizations with students, graduates, professionals, operators, advisors, consultants, and other talent.
 
@@ -544,7 +544,7 @@ QAVA's failure to enforce any provision does not waive our right to enforce it l
 
 Questions about these Terms may be sent to:
 
-QAVA.ai
+www.theclubnyc.com
 Email: legal@qava.ai
 """
 

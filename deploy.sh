@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Deployment script for qava.ai landing page
+# Deployment script for www.theclubnyc.com landing page
 # This script stages, commits, and pushes all updated files
 
-echo "🚀 Deploying qava.ai landing page updates..."
+echo "🚀 Deploying www.theclubnyc.com landing page updates..."
 echo ""
 
 # Check if we're in the right directory
@@ -43,7 +43,7 @@ git commit -m "Updated landing page and navigation
 - Added navbar loader script (load-navbar.js)
 - Updated all page navigation links (pricing, why-qava, etc.)
 - Fixed 'Request a demo' links to point to /demo
-- Updated 'Join for free' and 'Login' links to app.qava.ai
+- Updated 'Join for free' and 'Login' links to app.theclubnyc.com
 - Added deployment documentation"
 
 if [ $? -eq 0 ]; then
@@ -65,7 +65,7 @@ if [ $? -eq 0 ]; then
             echo "🎉 Next steps:"
             echo "   1. Check your hosting provider dashboard"
             echo "   2. Verify the deployment completed"
-            echo "   3. Test the live site at https://qava.ai/"
+            echo "   3. Test the live site at https://www.theclubnyc.com/"
             echo "   4. Check all navigation links work"
             echo ""
         else

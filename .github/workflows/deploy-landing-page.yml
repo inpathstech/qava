@@ -155,4 +155,4 @@ jobs:
     - name: Deploy complete
       run: |
         echo "✅ Qava landing page deployed successfully!"
-        echo "🌐 Your site is live at: https://qava.ai"
+        echo "🌐 Your site is live at: https://www.theclubnyc.com"

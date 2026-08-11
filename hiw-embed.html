@@ -1094,14 +1094,14 @@
           (a.textContent || "").trim().toLowerCase() === "newsletter"
         );
         if (newsletterNav) {
-          newsletterNav.href = "https://qava.ai/newsletter";
+          newsletterNav.href = "https://www.theclubnyc.com/newsletter";
           const qavaNavRow = newsletterNav.parentElement;
           const qavaHasPremium = qavaNavRow && Array.from(qavaNavRow.querySelectorAll("a.nav-item")).some(
             (a) => (a.textContent || "").trim().toLowerCase() === "premium"
           );
           if (!qavaHasPremium) {
             const premiumNav = newsletterNav.cloneNode(true);
-            premiumNav.href = "https://app.qava.ai/?premium=1";
+            premiumNav.href = "https://app.theclubnyc.com/?premium=1";
             const premiumText = premiumNav.querySelector(".nav-text") || premiumNav;
             premiumText.textContent = "Premium";
             newsletterNav.insertAdjacentElement("afterend", premiumNav);
@@ -1433,7 +1433,7 @@
                 </div>
                 <div class="qava-hiw-q-nav">
                   <button type="button" class="qava-hiw-back">Back</button>
-                  <a href="https://app.qava.ai/" class="qava-hiw-join">Join for free</a>
+                  <a href="https://app.theclubnyc.com/" class="qava-hiw-join">Join for free</a>
                 </div>
               `;
 

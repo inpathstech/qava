@@ -19,9 +19,9 @@ Your new landing page requires these files to be uploaded:
 
 ## 🚀 Deployment Options
 
-### Option 1: Using qava.ai Hosting (Recommended)
+### Option 1: Using www.theclubnyc.com Hosting (Recommended)
 
-If you're deploying to https://qava.ai/, you likely have one of these setups:
+If you're deploying to https://www.theclubnyc.com/, you likely have one of these setups:
 
 **A. Static Site Hosting (Netlify, Vercel, GitHub Pages, etc.):**
 1. Connect your repository to the hosting service
@@ -109,16 +109,16 @@ Your deployment should maintain this structure:
 After deployment, check these items:
 
 ### 1. Navigation Links
-- [ ] "Create Listing" → https://app.qava.ai/
-- [ ] "Search Listings" → https://app.qava.ai/
+- [ ] "Create Listing" → https://app.theclubnyc.com/
+- [ ] "Search Listings" → https://app.theclubnyc.com/
 - [ ] "How It Works" dropdown works
-  - [ ] "For Clients" → https://qava.ai/clienthowitworks
-  - [ ] "For Talent" → https://qava.ai/talenthowitworks
-- [ ] "Why Qava" → https://qava.ai/whyqava
-- [ ] "Pricing" → https://qava.ai/pricing
-- [ ] "Request a demo" → https://qava.ai/demo
-- [ ] "Log in" → https://app.qava.ai/
-- [ ] "Join for free" → https://app.qava.ai/
+  - [ ] "For Clients" → https://www.theclubnyc.com/clienthowitworks
+  - [ ] "For Talent" → https://www.theclubnyc.com/talenthowitworks
+- [ ] "Why Qava" → https://www.theclubnyc.com/whyqava
+- [ ] "Pricing" → https://www.theclubnyc.com/pricing
+- [ ] "Request a demo" → https://www.theclubnyc.com/demo
+- [ ] "Log in" → https://app.theclubnyc.com/
+- [ ] "Join for free" → https://app.theclubnyc.com/
 
 ### 2. Visual Elements
 - [ ] Qava logo displays correctly
@@ -147,8 +147,8 @@ After deployment, check these items:
 
 ### Issue: Navigation links don't work
 **Solution:** Ensure URLs are correct:
-- External links use full URLs (https://qava.ai/...)
-- App links use https://app.qava.ai/
+- External links use full URLs (https://www.theclubnyc.com/...)
+- App links use https://app.theclubnyc.com/
 
 ### Issue: Mobile menu doesn't open
 **Solution:** Check that JavaScript is enabled and the mobile menu script is loading

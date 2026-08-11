@@ -21,7 +21,7 @@ IF YOU DO NOT AGREE TO THIS AGREEMENT, YOU MUST NOT ACCESS OR USE THE PLATFORM.
 
 1. INTRODUCTION
 
-This User Agreement ("Agreement") governs your access to and use of the QAVA platform, including all websites, applications, software, communications tools, artificial intelligence tools, databases, content, features, services, marketplaces, APIs, integrations, and related technologies made available by QAVA.ai ("QAVA," "we," "us," or "our").
+This User Agreement ("Agreement") governs your access to and use of the QAVA platform, including all websites, applications, software, communications tools, artificial intelligence tools, databases, content, features, services, marketplaces, APIs, integrations, and related technologies made available by www.theclubnyc.com ("QAVA," "we," "us," or "our").
 
 For purposes of this Agreement, "Platform" means the entirety of the QAVA ecosystem and all related services, whether accessed through a website, mobile device, application, API, integration, email communication, messaging system, or any other means.
 

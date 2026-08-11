@@ -6,7 +6,7 @@ from django.utils import timezone
 
 class ContactRequest(models.Model):
     """
-    Model to store contact requests from the demo form at qava.ai/demo
+    Model to store contact requests from the demo form at www.theclubnyc.com/demo
     """
     
     # Form fields from demo.html

@@ -1,7 +1,7 @@
 # Pricing Page Hero Section Specifications
 
 ## 📋 Overview
-Complete specifications for the hero section on the Pricing page at [https://qava.ai/pricing](https://qava.ai/pricing)
+Complete specifications for the hero section on the Pricing page at [https://www.theclubnyc.com/pricing](https://www.theclubnyc.com/pricing)
 
 ---
 
@@ -335,6 +335,6 @@ Title Bottom Margin: 16px
 
 **Document Version:** 1.0  
 **Last Updated:** January 6, 2025  
-**Source:** pricing.html from Qava.ai  
-**Reference URL:** https://qava.ai/pricing
+**Source:** pricing.html from www.theclubnyc.com  
+**Reference URL:** https://www.theclubnyc.com/pricing
 

@@ -22,7 +22,7 @@
     if (window.QAVA_API_BASE) return String(window.QAVA_API_BASE);
     var meta = document.querySelector('meta[name="qava-api-base"]');
     if (meta && meta.content) return meta.content;
-    return 'https://api.qava.ai/api';
+    return 'https://api.theclubnyc.com/api';
   }
 
   var API_BASE = resolveBase().replace(/\/+$/, '');

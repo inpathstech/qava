@@ -49,16 +49,16 @@ All the following files have been updated with the latest navigation bar links:
 All pages now have consistent navigation with the following links:
 
 **Desktop Navigation:**
-- Create Listing → https://app.qava.ai/
-- Search Listings → https://app.qava.ai/
+- Create Listing → https://app.theclubnyc.com/
+- Search Listings → https://app.theclubnyc.com/
 - How It Works (dropdown):
-  - For Clients 🚀 → https://qava.ai/clienthowitworks
-  - For Talent 👩‍💻 → https://qava.ai/talenthowitworks
-- Why Qava → https://qava.ai/whyqava
-- Pricing → https://qava.ai/pricing
-- Request a demo → https://qava.ai/demo ✨ (UPDATED)
-- Log in → https://app.qava.ai/
-- Join for free → https://app.qava.ai/
+  - For Clients 🚀 → https://www.theclubnyc.com/clienthowitworks
+  - For Talent 👩‍💻 → https://www.theclubnyc.com/talenthowitworks
+- Why Qava → https://www.theclubnyc.com/whyqava
+- Pricing → https://www.theclubnyc.com/pricing
+- Request a demo → https://www.theclubnyc.com/demo ✨ (UPDATED)
+- Log in → https://app.theclubnyc.com/
+- Join for free → https://app.theclubnyc.com/
 
 **Mobile Navigation:**
 Same structure as desktop with responsive hamburger menu.
@@ -81,7 +81,7 @@ To use the shared navbar in new pages:
 
 - All pages maintain their existing CSS styles for the navbar
 - The navbar is fully responsive with mobile menu support
-- All "Request a demo" links now correctly point to https://qava.ai/demo instead of /request-demo
+- All "Request a demo" links now correctly point to https://www.theclubnyc.com/demo instead of /request-demo
 - Footer links were also updated where applicable
 
 

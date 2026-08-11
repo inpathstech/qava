@@ -40,7 +40,7 @@ git push origin main
 
 If you're using FTP/SFTP to upload files:
 
-1. Connect to your web server (qava.ai)
+1. Connect to your web server (www.theclubnyc.com)
 2. Navigate to your public_html or www directory
 3. Upload these files (maintaining folder structure):
    - `index.html`
@@ -71,9 +71,9 @@ If you're using FTP/SFTP to upload files:
 - Fully responsive mobile design
 
 ### 🔗 Updated Navigation (All Pages):
-- ✅ "Request a demo" → https://qava.ai/demo
-- ✅ "Join for free" → https://app.qava.ai/
-- ✅ "Log in" → https://app.qava.ai/
+- ✅ "Request a demo" → https://www.theclubnyc.com/demo
+- ✅ "Join for free" → https://app.theclubnyc.com/
+- ✅ "Log in" → https://app.theclubnyc.com/
 - ✅ Consistent navigation across all pages
 
 ## ✅ Pre-Flight Checklist
@@ -90,7 +90,7 @@ Before you deploy, make sure:
 
 Once deployed, verify these work:
 
-1. **Visit https://qava.ai/** - Page loads correctly
+1. **Visit https://www.theclubnyc.com/** - Page loads correctly
 2. **Click navigation links** - All links work
 3. **Test mobile** - Open on phone or resize browser
 4. **Check images** - All logos and images display

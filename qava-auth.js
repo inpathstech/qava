@@ -7,11 +7,11 @@
 (function () {
   "use strict";
 
-  var API = "https://api.qava.ai/api";
-  var APP_URL = "https://app.qava.ai/";
-  var APP_LOGIN_URL = "https://app.qava.ai/?login=1";
-  var PREMIUM_URL = "https://app.qava.ai/?premium=1";
-  var COMMUNITY_CHAT = "https://qava.ai/community/chat.html";
+  var API = "https://api.theclubnyc.com/api";
+  var APP_URL = "https://app.theclubnyc.com/";
+  var APP_LOGIN_URL = "https://app.theclubnyc.com/?login=1";
+  var PREMIUM_URL = "https://app.theclubnyc.com/?premium=1";
+  var COMMUNITY_CHAT = "https://www.theclubnyc.com/community/chat.html";
 
   var state = { profile: null, access: { loggedIn: false, premium: false } };
 
@@ -66,7 +66,7 @@
   var LOCK = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
   var LOCK_OPEN = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>';
   var KEY_ROUND = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/></svg>';
-  /* Menu icons match app.qava.ai Header profile dropdown (stroke-width 1). */
+  /* Menu icons match app.theclubnyc.com Header profile dropdown (stroke-width 1). */
   var ICON_VIEW_PROFILE = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';
   var ICON_EDIT_PROFILE = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.051 12.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.866l-1.156-1.153a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"/><path d="M8 15H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/></svg>';
   var ICON_MEMBERSHIP = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>';
@@ -778,7 +778,7 @@
   }
 
   function renderLandingNavState(/* signedIn */) {
-    // Marketing pages stay Log in → app.qava.ai only (no Premium profile menu).
+    // Marketing pages stay Log in → app.theclubnyc.com only (no Premium profile menu).
     renderLandingNavPending();
   }
 
@@ -807,7 +807,7 @@
           var existing = loginLink.getAttribute("href") || "";
           if (/[?&](login=1|login=true|mode=login)\b/i.test(existing)) {
             appHref = existing;
-          } else if (/^https?:\/\/(www\.)?app\.qava\.ai\/?$/i.test(existing) || existing === APP_URL) {
+          } else if (/^https?:\/\/(www\.)?app\.theclubnyc\.com\/?$/i.test(existing) || existing === APP_URL) {
             appHref = APP_LOGIN_URL;
           } else {
             appHref = existing;

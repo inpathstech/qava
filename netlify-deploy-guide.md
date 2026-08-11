@@ -1,4 +1,4 @@
-# Netlify Deployment Guide for qava.ai
+# Netlify Deployment Guide for www.theclubnyc.com
 
 ## Overview
 This guide provides an alternative deployment method using Netlify, which is simpler than AWS but still professional and reliable.
@@ -46,11 +46,11 @@ This guide provides an alternative deployment method using Netlify, which is sim
 1. **In Netlify Dashboard**:
    - Go to "Domain settings"
    - Click "Add custom domain"
-   - Enter `qava.ai`
+   - Enter `www.theclubnyc.com`
 
 2. **Configure DNS in GoDaddy**:
    - Log into GoDaddy
-   - Go to DNS management for qava.ai
+   - Go to DNS management for www.theclubnyc.com
    - Add these records:
 
    **A Record**:
@@ -119,7 +119,7 @@ This guide provides an alternative deployment method using Netlify, which is sim
    - Test thoroughly
 
 3. **Update DNS**:
-   - Point qava.ai to Netlify
+   - Point www.theclubnyc.com to Netlify
    - Wait for propagation
    - Verify SSL certificate
 

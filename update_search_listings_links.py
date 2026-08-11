@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Update all 'Search Listings' links across HTML files to point to https://app.qava.ai/projects
+Update all 'Search Listings' links across HTML files to point to https://app.theclubnyc.com/projects
 """
 import re
 from pathlib import Path
@@ -28,28 +28,28 @@ def update_search_listings_links(file_path):
         # Pattern 1: Desktop nav "Search Listings" link
         content = re.sub(
             r'<a href="https://app\.qava\.ai/" class="nav-item search-listings">',
-            r'<a href="https://app.qava.ai/projects" class="nav-item search-listings">',
+            r'<a href="https://app.theclubnyc.com/projects" class="nav-item search-listings">',
             content
         )
         
         # Pattern 2: Mobile nav "Search Listings" link
         content = re.sub(
             r'<a href="https://app\.qava\.ai/" class="mobile-nav-item">\s*<div class="nav-text">Search Listings</div>',
-            r'<a href="https://app.qava.ai/projects" class="mobile-nav-item">\n            <div class="nav-text">Search Listings</div>',
+            r'<a href="https://app.theclubnyc.com/projects" class="mobile-nav-item">\n            <div class="nav-text">Search Listings</div>',
             content
         )
         
         # Pattern 3: Footer "Search Listings" link
         content = re.sub(
             r'<li><a href="https://app\.qava\.ai/" class="footer-link">Search Listings</a></li>',
-            r'<li><a href="https://app.qava.ai/projects" class="footer-link">Search Listings</a></li>',
+            r'<li><a href="https://app.theclubnyc.com/projects" class="footer-link">Search Listings</a></li>',
             content
         )
         
         # Pattern 4: Selection boxes "Search" buttons (if they exist)
         content = re.sub(
             r'<a href="#" class="selection-link">Search',
-            r'<a href="https://app.qava.ai/projects" class="selection-link">Search',
+            r'<a href="https://app.theclubnyc.com/projects" class="selection-link">Search',
             content
         )
         

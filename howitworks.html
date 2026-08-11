@@ -49,7 +49,7 @@
     }
 
     /* Dotted background on the shell so the footer reads as a contained
-       white box over dots, matching every other qava.ai page. */
+       white box over dots, matching every other www.theclubnyc.com page. */
     #qava-hiw-shell-dots {
       position: fixed;
       inset: 0;
@@ -70,7 +70,7 @@
     }
 
     /* Footer styling comes entirely from qava-footer.js (applyQavaFooter),
-       the exact same source as the qava.ai landing page, so the two stay
+       the exact same source as the www.theclubnyc.com landing page, so the two stay
        identical. Only shell-specific concerns (dots, embed hiding, layering)
        are handled above. */
   </style>
@@ -1172,7 +1172,7 @@
         let scheduleIframeHeight = () => {};
 
         // The navbar/footer links live inside this iframe. Without a top-level
-        // target they navigate the frame itself (e.g. loading qava.ai inside the
+        // target they navigate the frame itself (e.g. loading www.theclubnyc.com inside the
         // frame, which can't be framed and shows a blank page). Force every link
         // to break out and navigate the whole window.
         if (!frameDoc.querySelector("base[data-qava-top-target]")) {
@@ -1244,14 +1244,14 @@
           (a.textContent || "").trim().toLowerCase() === "newsletter"
         );
         if (newsletterNav) {
-          newsletterNav.href = "https://qava.ai/newsletter";
+          newsletterNav.href = "https://www.theclubnyc.com/newsletter";
           const qavaNavRow = newsletterNav.parentElement;
           const qavaHasPremium = qavaNavRow && Array.from(qavaNavRow.querySelectorAll("a.nav-item")).some(
             (a) => (a.textContent || "").trim().toLowerCase() === "premium"
           );
           if (!qavaHasPremium) {
             const premiumNav = newsletterNav.cloneNode(true);
-            premiumNav.href = "https://app.qava.ai/?premium=1";
+            premiumNav.href = "https://app.theclubnyc.com/?premium=1";
             const premiumText = premiumNav.querySelector(".nav-text") || premiumNav;
             premiumText.textContent = "Premium";
             newsletterNav.insertAdjacentElement("afterend", premiumNav);
@@ -1277,7 +1277,7 @@
             else if (t === "create listing") label.textContent = "Create listing";
             else if (t === "pricing") a.remove();
             else if (t === "about") {
-              a.href = "https://qava.ai/newsletter";
+              a.href = "https://www.theclubnyc.com/newsletter";
               label.textContent = "Newsletter";
             } else if (t === "how qava works" || t === "how it works") {
               a.remove();
@@ -1285,8 +1285,8 @@
           });
           mobileMenu.querySelectorAll(".mobile-dropdown-item").forEach((a) => {
             const h = a.getAttribute("href") || "";
-            if (h.includes("client-how-it-works")) a.href = "https://qava.ai/clienthowitworks";
-            if (h.includes("talent-how-it-works")) a.href = "https://qava.ai/talenthowitworks";
+            if (h.includes("client-how-it-works")) a.href = "https://www.theclubnyc.com/clienthowitworks";
+            if (h.includes("talent-how-it-works")) a.href = "https://www.theclubnyc.com/talenthowitworks";
           });
         }
 
@@ -1621,7 +1621,7 @@
                 <div class="qava-hiw-more" hidden>
                   <div class="qava-hiw-more-text">${f.tellMore}</div>
                   <div class="qava-hiw-more-nav">
-                    <a href="https://app.qava.ai/" class="qava-hiw-join">Join for free</a>
+                    <a href="https://app.theclubnyc.com/" class="qava-hiw-join">Join for free</a>
                   </div>
                 </div>
               `;
