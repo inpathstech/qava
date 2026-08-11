@@ -314,12 +314,19 @@
       aspect-ratio: 1;
       flex: 0 0 auto;
       overflow: visible;
+    }
+
+    .fw-shop-geo-shadow {
       filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.28));
     }
 
-    .fw-shop-geo path,
-    .fw-shop-geo line,
-    .fw-shop-geo circle {
+    /* Only style painted geometry — never mask/clipPath contents in <defs> */
+    .fw-shop-geo > path,
+    .fw-shop-geo > line,
+    .fw-shop-geo > circle,
+    .fw-shop-geo > g path,
+    .fw-shop-geo > g line,
+    .fw-shop-geo > g circle {
       fill: none;
       stroke: #fff;
       stroke-width: 1.5;
@@ -328,26 +335,12 @@
       vector-effect: non-scaling-stroke;
     }
 
-    .fw-shop-geo .fw-shop-geo-fill {
+    .fw-shop-geo > .fw-shop-geo-fill,
+    .fw-shop-geo > g > .fw-shop-geo-fill {
       fill: #fff;
       stroke: none;
     }
 
-    /* Punch overlapping strokes through solid white fills so the painting shows */
-    .fw-shop-geo .fw-shop-geo-on-fill {
-      mix-blend-mode: destination-out;
-    }
-
-    .fw-shop-geo .fw-shop-geo-on-fill circle,
-    .fw-shop-geo .fw-shop-geo-on-fill path,
-    .fw-shop-geo .fw-shop-geo-on-fill line {
-      fill: none;
-      stroke: #000;
-      stroke-width: 1.5;
-      stroke-linecap: square;
-      stroke-linejoin: miter;
-      vector-effect: non-scaling-stroke;
-    }
 
     .fw-shop-card .img-wrap img {
       display: block;
@@ -1226,7 +1219,7 @@
           <div class="img-wrap">
             <div class="fw-shop-ph fw-shop-ph--project" aria-hidden="true">
               <div class="fw-shop-ph-inner">
-                <svg class="fw-shop-geo" viewBox="0 0 80 80" aria-hidden="true">
+                <svg class="fw-shop-geo fw-shop-geo-shadow" viewBox="0 0 80 80" aria-hidden="true">
                   <!-- Fill: quarter-circle toward center (not the outer corner wedge) -->
                   <path class="fw-shop-geo-fill" d="M8 40 A32 32 0 0 1 40 72 L40 40 Z"/>
                   <!-- Outer: circle with squared bottom-left; r=32, center 40,40 (on dot grid) -->
@@ -1255,23 +1248,49 @@
               <div class="fw-shop-ph-inner">
                 <svg class="fw-shop-geo" viewBox="0 0 80 80" aria-hidden="true">
                   <defs>
-                    <clipPath id="fw-job-clip-right">
+                    <clipPath id="fw-job-outside-right" clipPathUnits="userSpaceOnUse">
+                      <path
+                        fill-rule="evenodd"
+                        d="M0 0H80V80H0Z M56 40m-16 0a16 16 0 1 0 32 0a16 16 0 1 0-32 0"
+                      />
+                    </clipPath>
+                    <clipPath id="fw-job-inside-right" clipPathUnits="userSpaceOnUse">
                       <circle cx="56" cy="40" r="16"/>
                     </clipPath>
+                    <!-- Luminance mask: white = keep fill, black = transparent cutout -->
+                    <mask
+                      id="fw-job-fill-mask"
+                      maskUnits="userSpaceOnUse"
+                      x="0"
+                      y="0"
+                      width="80"
+                      height="80"
+                      style="mask-type:luminance"
+                    >
+                      <rect x="0" y="0" width="80" height="80" style="fill:#000;stroke:none"/>
+                      <circle cx="56" cy="40" r="16" style="fill:#fff;stroke:none"/>
+                      <g
+                        clip-path="url(#fw-job-inside-right)"
+                        style="fill:none;stroke:#000;stroke-width:2;stroke-linecap:square;stroke-linejoin:miter"
+                      >
+                        <circle cx="40" cy="24" r="16"/>
+                        <circle cx="40" cy="56" r="16"/>
+                        <circle cx="24" cy="40" r="16"/>
+                      </g>
+                    </mask>
                   </defs>
-                  <!-- Outlined circles -->
-                  <circle cx="40" cy="24" r="16"/>
-                  <circle cx="40" cy="56" r="16"/>
-                  <circle cx="24" cy="40" r="16"/>
-                  <!-- Solid right circle; overlapping arcs punch through to the painting -->
-                  <g style="isolation: isolate">
-                    <circle class="fw-shop-geo-fill" cx="56" cy="40" r="16"/>
-                    <g class="fw-shop-geo-on-fill" clip-path="url(#fw-job-clip-right)">
-                      <circle cx="40" cy="24" r="16"/>
-                      <circle cx="40" cy="56" r="16"/>
-                      <circle cx="24" cy="40" r="16"/>
-                    </g>
+                  <g class="fw-shop-geo-shadow" clip-path="url(#fw-job-outside-right)">
+                    <circle cx="40" cy="24" r="16"/>
+                    <circle cx="40" cy="56" r="16"/>
+                    <circle cx="24" cy="40" r="16"/>
                   </g>
+                  <circle
+                    class="fw-shop-geo-fill fw-shop-geo-shadow"
+                    cx="56"
+                    cy="40"
+                    r="16"
+                    mask="url(#fw-job-fill-mask)"
+                  />
                 </svg>
               </div>
             </div>
@@ -1290,7 +1309,7 @@
           <div class="img-wrap">
             <div class="fw-shop-ph fw-shop-ph--internship" aria-hidden="true">
               <div class="fw-shop-ph-inner">
-                <svg class="fw-shop-geo" viewBox="0 0 80 80" aria-hidden="true">
+                <svg class="fw-shop-geo fw-shop-geo-shadow" viewBox="0 0 80 80" aria-hidden="true">
                   <!-- Small center fill in the open void -->
                   <circle class="fw-shop-geo-fill" cx="40" cy="40" r="4"/>
                   <!-- 8 double-line spokes; open center; tips on 4-dot radius -->
