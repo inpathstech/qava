@@ -269,15 +269,31 @@
       isolation: isolate;
     }
 
-    /* Placeholder visual — gray frame, inner margin, black dots */
+    /* Listing-type art — create-listing oil paintings + white geometry */
     .fw-shop-ph {
       display: block;
       width: 100%;
       aspect-ratio: 16 / 10;
       border-radius: 6px;
-      background: #f3f4f6;
+      background-color: #1a2330;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
       padding: 28px;
       box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .fw-shop-ph--project {
+      background-image: url("./wave-barrel.jpg");
+    }
+
+    .fw-shop-ph--job {
+      background-image: url("./ocean.jpg");
+    }
+
+    .fw-shop-ph--internship {
+      background-image: url("./sandy-trail.jpg");
     }
 
     .fw-shop-ph-inner {
@@ -286,35 +302,26 @@
       border: 0;
       border-radius: 0;
       box-sizing: border-box;
-      background-color: #f3f4f6;
-      background-image: radial-gradient(circle, #111 0.55px, transparent 0.7px);
-      background-size: 8px 8px;
-      background-position: 0 0;
-    }
-
-    /* Shop marks — snapped to centered dot grid */
-    .fw-shop-ph--project .fw-shop-ph-inner,
-    .fw-shop-ph--job .fw-shop-ph-inner,
-    .fw-shop-ph--internship .fw-shop-ph-inner {
+      background: transparent;
       display: flex;
       align-items: center;
       justify-content: center;
-      background-position: center center;
     }
 
     .fw-shop-geo {
-      width: min(148px, 72%);  /* fill more of the pitch height */
+      width: min(148px, 72%);
       height: auto;
       aspect-ratio: 1;
       flex: 0 0 auto;
       overflow: visible;
+      filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.28));
     }
 
     .fw-shop-geo path,
     .fw-shop-geo line,
     .fw-shop-geo circle {
       fill: none;
-      stroke: #111;
+      stroke: #fff;
       stroke-width: 1.5;
       stroke-linecap: square;
       stroke-linejoin: miter;
@@ -322,15 +329,20 @@
     }
 
     .fw-shop-geo .fw-shop-geo-fill {
-      fill: #111;
+      fill: #fff;
       stroke: none;
+    }
+
+    /* Punch overlapping strokes through solid white fills so the painting shows */
+    .fw-shop-geo .fw-shop-geo-on-fill {
+      mix-blend-mode: destination-out;
     }
 
     .fw-shop-geo .fw-shop-geo-on-fill circle,
     .fw-shop-geo .fw-shop-geo-on-fill path,
     .fw-shop-geo .fw-shop-geo-on-fill line {
       fill: none;
-      stroke: #f3f4f6; /* match How it works / pitch background */
+      stroke: #000;
       stroke-width: 1.5;
       stroke-linecap: square;
       stroke-linejoin: miter;
@@ -1247,17 +1259,18 @@
                       <circle cx="56" cy="40" r="16"/>
                     </clipPath>
                   </defs>
-                  <!-- Right circle: fill only, no border -->
-                  <circle class="fw-shop-geo-fill" cx="56" cy="40" r="16"/>
                   <!-- Outlined circles -->
                   <circle cx="40" cy="24" r="16"/>
                   <circle cx="40" cy="56" r="16"/>
                   <circle cx="24" cy="40" r="16"/>
-                  <!-- Grey stroke sections where lines cross the black fill -->
-                  <g class="fw-shop-geo-on-fill" clip-path="url(#fw-job-clip-right)">
-                    <circle cx="40" cy="24" r="16"/>
-                    <circle cx="40" cy="56" r="16"/>
-                    <circle cx="24" cy="40" r="16"/>
+                  <!-- Solid right circle; overlapping arcs punch through to the painting -->
+                  <g style="isolation: isolate">
+                    <circle class="fw-shop-geo-fill" cx="56" cy="40" r="16"/>
+                    <g class="fw-shop-geo-on-fill" clip-path="url(#fw-job-clip-right)">
+                      <circle cx="40" cy="24" r="16"/>
+                      <circle cx="40" cy="56" r="16"/>
+                      <circle cx="24" cy="40" r="16"/>
+                    </g>
                   </g>
                 </svg>
               </div>
