@@ -194,13 +194,13 @@ body {
 .header-container .logo img,
 .header-container .header-logo img,
 .qava-nav-logo-face {
-  width: 106px !important;
-  height: 24px !important;
+  width: 80px !important;
+  height: 18px !important;
   display: block !important;
   border-radius: 4px !important;
 }
 
-.qava-nav-logo-flip { width: 106px; height: 24px; perspective: 700px; }
+.qava-nav-logo-flip { width: 80px; height: 18px; perspective: 700px; }
 
 .qava-nav-logo-inner {
   width: 100%;
