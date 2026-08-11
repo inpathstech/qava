@@ -32,7 +32,7 @@
     </div>
     <div class="header-center">
       <nav class="navigation">
-        <a href="chat" class="nav-item is-active"><span class="nav-text">Chat</span></a>
+        <a href="chat" class="nav-item is-active"><span class="nav-text">Club Room</span></a>
         <a href="https://qava.ai/templates" class="nav-item"><span class="nav-text">Templates</span></a>
         <a href="https://qava.ai/find/" class="nav-item"><span class="nav-text">Find Work</span></a>
         <a href="https://app.qava.ai/guest" class="nav-item"><span class="nav-text">Find Talent</span></a>
@@ -597,8 +597,8 @@
       var inApp = document.body.classList.contains("embed-app");
       // Product chat scripts only in the app.qava.ai embed. Public page is marketing-only.
       var scripts = inApp
-        ? ["app.js?v=composer-expand-1", "enhancements.js?v=composer-expand-1", "api.js?v=topics-opener-down-1", "auth.js?v=avatar-sync-3", "profile-edit.js", "../qava-footer.js?v=footer-club-wordmark-1"]
-        : ["chat-examples.js?v=ex-op-solid-1", "../qava-auth.js", "../qava-footer.js?v=footer-club-wordmark-1"];
+        ? ["app.js?v=composer-expand-1", "enhancements.js?v=composer-expand-1", "api.js?v=topics-opener-down-1", "auth.js?v=avatar-sync-3", "profile-edit.js", "../qava-footer.js?v=footer-club-room-1"]
+        : ["chat-examples.js?v=ex-op-solid-1", "../qava-auth.js", "../qava-footer.js?v=footer-club-room-1"];
 
       function loadNext(i) {
         if (i >= scripts.length) {
