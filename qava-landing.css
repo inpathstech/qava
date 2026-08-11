@@ -5410,8 +5410,8 @@
         .header-container .logo img,
         .header-container .header-logo img,
         .qava-nav-logo-face {
-          width: 24px !important;
-          height: 24px !important;
+          width: 28px !important;
+          height: 28px !important;
           display: block !important;
           border-radius: 6px !important;
           box-shadow: none !important;
@@ -5419,8 +5419,8 @@
         }
 
         .qava-nav-logo-flip {
-          width: 24px;
-          height: 24px;
+          width: 28px;
+          height: 28px;
           perspective: 700px;
         }
 
