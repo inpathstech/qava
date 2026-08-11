@@ -5347,7 +5347,8 @@
             border-radius: 4px !important;
         }
 
-        .qava-nav-logo-flip { width: 80px; height: 18px; perspective: 700px; }
+        .qava-nav-logo-flip { width: 80px; height: 18px; perspective: 700px;
+    overflow: visible;}
 
         .qava-nav-logo-inner {
             width: 100%;
@@ -5357,7 +5358,7 @@
             transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
         }
 
-        .qava-nav-logo-inner.is-flipped { transform: rotateY(180deg); }
+        .qava-nav-logo-inner.is-flipped{ transform: rotateX(180deg); }
 
         .qava-nav-logo-face {
             position: absolute;
@@ -5367,7 +5368,7 @@
         }
 
         .qava-nav-logo-front { object-fit: contain !important; border-radius: 4px; }
-        .qava-nav-logo-back { object-fit: contain !important; transform: rotateY(180deg); }
+        .qava-nav-logo-back{ object-fit: contain !important; transform: rotateX(180deg); }
 
         .feature-cards-header {
             font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif !important;

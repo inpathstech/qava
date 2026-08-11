@@ -227,9 +227,10 @@
       border-radius: 4px;
     }
 
-    .qava-nav-logo-back { object-fit: contain; }
+    .qava-nav-logo-back{ object-fit: contain; }
 
-    .qava-nav-logo-flip { width: 80px; height: 18px; perspective: 600px; }
+    .qava-nav-logo-flip { width: 80px; height: 18px; perspective: 600px;
+    overflow: visible;}
 
     .qava-nav-logo-inner {
       width: 100%;
@@ -239,7 +240,7 @@
       transition: transform 0.6s ease;
     }
 
-    .qava-nav-logo-inner.is-flipped { transform: rotateY(180deg); }
+    .qava-nav-logo-inner.is-flipped{ transform: rotateX(180deg); }
 
     .qava-nav-logo-face {
       position: absolute;
@@ -247,7 +248,7 @@
       backface-visibility: hidden;
     }
 
-    .qava-nav-logo-back { transform: rotateY(180deg); }
+    .qava-nav-logo-back{ transform: rotateX(180deg); }
 
     .hamburger-menu {
       display: none;
