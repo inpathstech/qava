@@ -12,8 +12,8 @@
           doc.head.appendChild(fontLink);
         }
 
-        const logoLink = doc.querySelector(".header-logo .logo a, .logo a");
-        const logoImg = logoLink && logoLink.querySelector("img");
+        const logoLink = doc.querySelector(".header-logo .logo a, .logo a, .header-logo > a");
+        const logoImg = logoLink && logoLink.querySelector("img:not(.qava-nav-logo-face)");
         if (logoLink && logoImg && !doc.getElementById("qava-nav-logo-flip")) {
           const originalSrc = logoImg.getAttribute("src") || "qava-logo.svg";
           const flip = doc.createElement("div");
@@ -29,13 +29,9 @@
           logoLink.appendChild(flip);
 
           const inner = flip.querySelector(".qava-nav-logo-inner");
-          const flipWin = window;
-          if (flipWin.__qavaNavLogoFlipTimer) clearInterval(flipWin.__qavaNavLogoFlipTimer);
-          let flipped = false;
-          flipWin.__qavaNavLogoFlipTimer = setInterval(() => {
-            flipped = !flipped;
-            inner.classList.toggle("is-flipped", flipped);
-          }, 5000);
+          if (typeof window.qavaStartNavLogoFlip === "function") {
+            window.qavaStartNavLogoFlip(inner);
+          }
         }
 
         const existingBaseLayer = doc.getElementById("qava-dot-base");

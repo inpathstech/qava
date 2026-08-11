@@ -186,7 +186,11 @@
             transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
         }
 
-        .qava-nav-logo-inner.is-flipped{ transform: rotateX(180deg); }
+        .qava-nav-logo-inner.is-flipped,
+        .qava-nav-logo-inner.is-flip-up { transform: rotateX(180deg); }
+        .qava-nav-logo-inner.is-flip-down { transform: rotateX(-180deg); }
+        .qava-nav-logo-inner.is-flip-left { transform: rotateY(-180deg); }
+        .qava-nav-logo-inner.is-flip-right { transform: rotateY(180deg); }
 
         .qava-nav-logo-face {
             position: absolute;
@@ -197,10 +201,16 @@
 
         .qava-nav-logo-front { object-fit: contain; border-radius: 4px; }
 
-        .qava-nav-logo-back{
+        .qava-nav-logo-back,
+.qava-nav-logo-back.is-axis-x{
             object-fit: contain;
             transform: rotateX(180deg);
         }
+
+.qava-nav-logo-back.is-axis-y {
+  object-fit: contain;
+  transform: rotateY(180deg);
+}
 
         .hamburger-menu {
             display: none;
@@ -672,7 +682,8 @@
     <!-- Footer Section -->
     <footer class="footer-section"></footer>
 
-    <script src="./qava-footer.js"></script>
+    <script src="/qava-nav-logo-flip.js?v=multi-1"></script>
+<script src="./qava-footer.js"></script>
     <script src="/qava-auth.js"></script>
     <script>
         if (typeof window.applyQavaFooter === "function") {
@@ -680,17 +691,6 @@
         }
 
         // Nav logo flip
-        (function () {
-            const inner = document.getElementById("qava-nav-logo-inner");
-            if (inner) {
-                let flipped = false;
-                setInterval(() => {
-                    flipped = !flipped;
-                    inner.classList.toggle("is-flipped", flipped);
-                }, 5000);
-            }
-        })();
-
         // Form submission handling
         document.getElementById('demoForm').addEventListener('submit', function(e) {
             e.preventDefault();

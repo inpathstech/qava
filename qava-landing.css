@@ -5429,9 +5429,11 @@
           transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
         }
 
-        .qava-nav-logo-inner.is-flipped{
-          transform: rotateX(180deg);
-        }
+        .qava-nav-logo-inner.is-flipped,
+        .qava-nav-logo-inner.is-flip-up { transform: rotateX(180deg); }
+        .qava-nav-logo-inner.is-flip-down { transform: rotateX(-180deg); }
+        .qava-nav-logo-inner.is-flip-left { transform: rotateY(-180deg); }
+        .qava-nav-logo-inner.is-flip-right { transform: rotateY(180deg); }
 
         .qava-nav-logo-face {
           position: absolute;
@@ -5445,10 +5447,17 @@
           border-radius: 4px;
         }
 
-        .qava-nav-logo-back{
+        .qava-nav-logo-back,
+        .qava-nav-logo-back.is-axis-x {
           object-fit: contain !important;
           border-radius: 4px;
           transform: rotateX(180deg);
+        }
+
+        .qava-nav-logo-back.is-axis-y {
+          object-fit: contain !important;
+          border-radius: 4px;
+          transform: rotateY(180deg);
         }
 
         div[style*="width: 280px"][style*="height: 1px"][style*="#E5E5E5"] {

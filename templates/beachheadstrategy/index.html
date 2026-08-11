@@ -233,7 +233,11 @@
             transition: transform 0.6s ease;
         }
 
-        .qava-nav-logo-inner.is-flipped{ transform: rotateX(180deg); }
+        .qava-nav-logo-inner.is-flipped,
+        .qava-nav-logo-inner.is-flip-up { transform: rotateX(180deg); }
+        .qava-nav-logo-inner.is-flip-down { transform: rotateX(-180deg); }
+        .qava-nav-logo-inner.is-flip-left { transform: rotateY(-180deg); }
+        .qava-nav-logo-inner.is-flip-right { transform: rotateY(180deg); }
 
         .qava-nav-logo-face {
             position: absolute;
@@ -241,7 +245,13 @@
             backface-visibility: hidden;
         }
 
-        .qava-nav-logo-back{ transform: rotateX(180deg); object-fit: contain; }
+        .qava-nav-logo-back,
+.qava-nav-logo-back.is-axis-x{ transform: rotateX(180deg); object-fit: contain; }
+
+.qava-nav-logo-back.is-axis-y {
+  object-fit: contain;
+  transform: rotateY(180deg);
+}
 
         .hamburger-menu {
             display: none;
@@ -479,7 +489,8 @@
 
   <script src="/qava-footer.js"></script>
   <script src="/qava-template-preview.js"></script>
-  <script src="/qava-template-downloads.js"></script>
+  <script src="/qava-nav-logo-flip.js?v=multi-1"></script>
+<script src="/qava-template-downloads.js"></script>
   <script src="/qava-auth.js"></script>
   <script>
     (function () {
@@ -489,15 +500,7 @@
       if (typeof window.applyQavaTemplateDownloads === "function") {
         window.applyQavaTemplateDownloads(document);
       }
-      var inner = document.getElementById("qava-nav-logo-inner");
-      if (inner) {
-        var flipped = false;
-        setInterval(function () {
-          flipped = !flipped;
-          inner.classList.toggle("is-flipped", flipped);
-        }, 5000);
-      }
-    })();
+      })();
   </script>
 </body>
 </html>

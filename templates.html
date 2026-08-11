@@ -341,7 +341,8 @@
   <footer class="footer-section"></footer>
 
   <script src="qava-footer.js?v=footer-club-wordmark-1"></script>
-  <script>
+  <script src="/qava-nav-logo-flip.js?v=multi-1"></script>
+<script>
     function toggleMobileMenu() {
       var mobileMenu = document.getElementById("mobileMenu");
       if (!mobileMenu) return;
@@ -364,14 +365,6 @@
     (function () {
       if (typeof window.applyQavaFooter === "function") {
         window.applyQavaFooter(document);
-      }
-      var inner = document.getElementById("qava-nav-logo-inner");
-      if (inner) {
-        var flipped = false;
-        setInterval(function () {
-          flipped = !flipped;
-          inner.classList.toggle("is-flipped", flipped);
-        }, 5000);
       }
     })();
   </script>

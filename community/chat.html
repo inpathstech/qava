@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../qava-landing.css" />
-  <link rel="stylesheet" href="community.css?v=composer-expand-1" />
+  <link rel="stylesheet" href="community.css?v=club-nav-1" />
   <link rel="stylesheet" href="chat-marketing.css?v=ex-op-solid-1" />
   <link rel="stylesheet" href="../qava-auth.css" />
 </head>
@@ -17,7 +17,18 @@
 
   <header class="header-container" data-qava-nav="landing">
     <div class="header-logo">
-      <a href="https://qava.ai/"><img src="../qava-logo.svg" alt="Qava" /></a>
+      <div class="logo-container">
+        <div class="logo">
+          <a href="https://qava.ai/">
+            <div class="qava-nav-logo-flip" id="qava-nav-logo-flip">
+              <div class="qava-nav-logo-inner" id="qava-nav-logo-inner">
+                <img class="qava-nav-logo-face qava-nav-logo-front" src="/the-club-logo-light.png" alt="The Club">
+                <img class="qava-nav-logo-face qava-nav-logo-back" src="/the-club-logo-light.png" alt="">
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
     </div>
     <div class="header-center">
       <nav class="navigation">
@@ -605,5 +616,6 @@
       loadNext(0);
     })();
   </script>
+<script src="../qava-nav-logo-flip.js?v=multi-1"></script>
 </body>
 </html>
