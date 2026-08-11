@@ -22,7 +22,7 @@
        the rest of the hero content rather than overflowing to the right. */
     .hero-content > .landing-section {
       width: 100%;
-      margin: 44px auto 8px;
+      margin: 56px auto 8px;
     }
 
     .landing-section-head {
