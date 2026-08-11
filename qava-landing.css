@@ -5444,12 +5444,13 @@
         }
 
         .qava-nav-logo-front {
-          object-fit: contain !important;
-          background: transparent;
+          object-fit: cover !important;
+          border-radius: 6px;
         }
 
         .qava-nav-logo-back {
           object-fit: cover !important;
+          border-radius: 6px;
           transform: rotateY(180deg);
         }
 

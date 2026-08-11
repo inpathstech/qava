@@ -225,10 +225,7 @@ body {
   -webkit-backface-visibility: hidden;
 }
 
-.qava-nav-logo-front {
-  object-fit: contain !important;
-  background: transparent;
-}
+.qava-nav-logo-front { object-fit: cover !important; border-radius: 6px; }
 
 .qava-nav-logo-back {
   object-fit: cover !important;

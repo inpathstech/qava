@@ -21,8 +21,8 @@
           flip.className = "qava-nav-logo-flip";
           flip.innerHTML = `
             <div class="qava-nav-logo-inner" id="qava-nav-logo-inner">
-              <img class="qava-nav-logo-face qava-nav-logo-front" src="${originalSrc}" alt="Qava">
-              <img class="qava-nav-logo-face qava-nav-logo-back" src="./qava-hero-arrow-2.png" alt="">
+              <img class="qava-nav-logo-face qava-nav-logo-front" src="/the-club-logo-light.png" alt="The Club">
+              <img class="qava-nav-logo-face qava-nav-logo-back" src="/the-club-logo-dark.png" alt="">
             </div>
           `;
           logoLink.innerHTML = "";
