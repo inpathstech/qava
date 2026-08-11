@@ -24,6 +24,18 @@ FE `NEXT_PUBLIC_BASE_URL`: `https://api.theclubnyc.com`
 
 The deploy IAM user `qava-deployment-user` **cannot** `acm:RequestCertificate`. Request the ACM cert with an admin AWS user (us-east-1 for CloudFront).
 
+
+## ⚠️ Sequencing note (important)
+
+GitHub Pages supports **one** custom domain. Do this order:
+
+1. Add GoDaddy DNS for `www` → `inpathstech.github.io` (and app/api records below).
+2. Wait until `dig www.theclubnyc.com` shows GitHub Pages IPs (`185.199.*`).
+3. Then set repo `CNAME` to `www.theclubnyc.com` and Pages custom domain to `www.theclubnyc.com`.
+4. Add GoDaddy **permanent forwarding** from `qava.ai` / `www.qava.ai` → `https://www.theclubnyc.com`.
+
+Until step 1–2 are done, keep Pages on `qava.ai` so the marketing site does not 404.
+
 ## Stage 0 — GoDaddy DNS (theclubnyc.com)
 
 On GoDaddy for **theclubnyc.com**, choose **Connect an existing site** (not Website Builder). Add:
