@@ -67,7 +67,7 @@
         const heroSubheader = doc.querySelector(".feature-cards-subheader");
         if (heroSubheader) {
           heroSubheader.classList.add("qava-hero-subheader");
-          heroSubheader.innerHTML = '<span class="qava-sub-line">Secure funding, drive growth, and more</span> <span class="qava-sub-line">with top experts, graduates and students.</span>';
+          heroSubheader.innerHTML = '<span class="qava-sub-line">The club to test ideas,</span> <span class="qava-sub-line">secure funding, drive growth, and more.</span>';
         }
 
         const pricingNavLinks = Array.from(doc.querySelectorAll("a.nav-item, .mobile-nav-item, .footer-link")).filter((link) =>
