@@ -3,17 +3,17 @@
     <div class="footer-container">
       <div class="footer-content">
         <div class="footer-logo">
-          <a href="https://www.theclubnyc.com/"><img src="https://www.theclubnyc.com/the-club-logo-light.png" alt="The Club" class="footer-logo-img" width="100" height="22" decoding="async" /></a>
+          <a href="https://theclubnyc.com/"><img src="/the-club-logo-light.png" alt="The Club" class="footer-logo-img" width="100" height="22" decoding="async" /></a>
         </div>
         <div class="footer-links">
           <div class="footer-column">
             <h4 class="footer-heading">Welcome</h4>
             <ul class="footer-link-list">
               <li><a href="https://app.theclubnyc.com/guest" class="footer-link">Create listing</a></li>
-              <li><a href="https://www.theclubnyc.com/find/" class="footer-link">Find work</a></li>
-              <li><a href="https://www.theclubnyc.com/community/chat" class="footer-link">Club Room</a></li>
-              <li><a href="https://www.theclubnyc.com/howitworks" class="footer-link">How it works</a></li>
-              <li><a href="https://www.theclubnyc.com/newsletter" class="footer-link">Newsletter</a></li>
+              <li><a href="https://theclubnyc.com/find/" class="footer-link">Find work</a></li>
+              <li><a href="https://theclubnyc.com/community/chat" class="footer-link">Club Room</a></li>
+              <li><a href="https://theclubnyc.com/howitworks" class="footer-link">How it works</a></li>
+              <li><a href="https://theclubnyc.com/newsletter" class="footer-link">Newsletter</a></li>
               <li><a href="https://app.theclubnyc.com/?premium=1" class="footer-link">Premium</a></li>
             </ul>
           </div>
@@ -27,15 +27,15 @@
           <div class="footer-column">
             <h4 class="footer-heading">Resources</h4>
             <ul class="footer-link-list">
-              <li><a href="https://www.theclubnyc.com/request-demo" class="footer-link">Request a demo</a></li>
-              <li><a href="https://www.theclubnyc.com/pricing" class="footer-link">Pricing</a></li>
-              <li><a href="https://www.theclubnyc.com/successstories" class="footer-link">Success stories</a></li>
-              <li><a href="https://www.theclubnyc.com/termsofuse" class="footer-link">Terms of Use</a></li>
-              <li><a href="https://www.theclubnyc.com/termsofuse" class="footer-link">California privacy notice</a></li>
-              <li><a href="https://www.theclubnyc.com/useragreement" class="footer-link">User Agreement</a></li>
+              <li><a href="https://theclubnyc.com/request-demo" class="footer-link">Request a demo</a></li>
+              <li><a href="https://theclubnyc.com/pricing" class="footer-link">Pricing</a></li>
+              <li><a href="https://theclubnyc.com/successstories" class="footer-link">Success stories</a></li>
+              <li><a href="https://theclubnyc.com/termsofuse" class="footer-link">Terms of Use</a></li>
+              <li><a href="https://theclubnyc.com/termsofuse" class="footer-link">California privacy notice</a></li>
+              <li><a href="https://theclubnyc.com/useragreement" class="footer-link">User Agreement</a></li>
             </ul>
           </div>
-          <div class="footer-copyright">© 2026 qava</div>
+          <div class="footer-copyright">© 2026 The Club</div>
         </div>
       </div>
     </div>
