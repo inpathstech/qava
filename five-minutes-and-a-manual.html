@@ -241,7 +241,11 @@
       transition: transform 0.6s ease;
     }
 
-    .qava-nav-logo-inner.is-flipped{ transform: rotateX(180deg); }
+    .qava-nav-logo-inner.is-flipped,
+        .qava-nav-logo-inner.is-flip-up { transform: rotateX(180deg); }
+        .qava-nav-logo-inner.is-flip-down { transform: rotateX(-180deg); }
+        .qava-nav-logo-inner.is-flip-left { transform: rotateY(-180deg); }
+        .qava-nav-logo-inner.is-flip-right { transform: rotateY(180deg); }
 
     .qava-nav-logo-face {
       position: absolute;
@@ -249,7 +253,12 @@
       backface-visibility: hidden;
     }
 
-    .qava-nav-logo-back{ transform: rotateX(180deg); }
+    .qava-nav-logo-back,
+.qava-nav-logo-back.is-axis-x{ transform: rotateX(180deg); }
+
+.qava-nav-logo-back.is-axis-y {
+  transform: rotateY(180deg);
+}
 
     .hamburger-menu {
       display: none;
@@ -1144,19 +1153,11 @@
   <footer class="footer-section"></footer>
 
   <script src="./qava-footer.js"></script>
-  <script>
+  <script src="/qava-nav-logo-flip.js?v=multi-1"></script>
+<script>
     (function () {
       if (typeof window.applyQavaFooter === "function") {
         window.applyQavaFooter(document);
-      }
-
-      const inner = document.getElementById("qava-nav-logo-inner");
-      if (inner) {
-        let flipped = false;
-        setInterval(() => {
-          flipped = !flipped;
-          inner.classList.toggle("is-flipped", flipped);
-        }, 5000);
       }
 
       document.querySelectorAll('.qa-question').forEach((questionEl) => {

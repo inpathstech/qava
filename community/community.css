@@ -140,7 +140,12 @@
 
     .header-container > * { position: relative; z-index: 1; }
 
-    .header-logo img { display: block; width: 24px; height: 24px; border-radius: 6px; }
+    .header-logo img:not(.qava-nav-logo-face) {
+      display: block;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+    }
 
     .header-center { display: flex; flex: 1; margin-left: 40px; }
 

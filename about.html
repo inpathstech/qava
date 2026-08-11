@@ -439,7 +439,8 @@
     })();
   </script>
   <script src="qava-footer.js"></script>
-  <script>
+  <script src="/qava-nav-logo-flip.js?v=multi-1"></script>
+<script>
     function toggleMobileMenu() {
       const mobileMenu = document.getElementById("mobileMenu");
       mobileMenu.classList.toggle("active");
@@ -461,14 +462,6 @@
     (function () {
       if (typeof window.applyQavaFooter === "function") {
         window.applyQavaFooter(document);
-      }
-      var inner = document.getElementById("qava-nav-logo-inner");
-      if (inner) {
-        var flipped = false;
-        setInterval(function () {
-          flipped = !flipped;
-          inner.classList.toggle("is-flipped", flipped);
-        }, 5000);
       }
     })();
   </script>

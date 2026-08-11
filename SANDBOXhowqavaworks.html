@@ -178,9 +178,11 @@
           transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
         }
 
-        .qava-nav-logo-inner.is-flipped{
-          transform: rotateX(180deg);
-        }
+        .qava-nav-logo-inner.is-flipped,
+        .qava-nav-logo-inner.is-flip-up { transform: rotateX(180deg); }
+        .qava-nav-logo-inner.is-flip-down { transform: rotateX(-180deg); }
+        .qava-nav-logo-inner.is-flip-left { transform: rotateY(-180deg); }
+        .qava-nav-logo-inner.is-flip-right { transform: rotateY(180deg); }
 
         .qava-nav-logo-face {
           position: absolute;
@@ -191,10 +193,16 @@
 
         .qava-nav-logo-front { object-fit: contain !important; border-radius: 4px; }
 
-        .qava-nav-logo-back{
+        .qava-nav-logo-back,
+.qava-nav-logo-back.is-axis-x{
           object-fit: contain !important;
           transform: rotateX(180deg);
         }
+
+.qava-nav-logo-back.is-axis-y {
+  object-fit: contain;
+  transform: rotateY(180deg);
+}
 
         .header-container .nav-item,
         .header-container .auth-item {
@@ -1001,14 +1009,10 @@
           logoLink.appendChild(flip);
 
           const inner = flip.querySelector(".qava-nav-logo-inner");
-          const flipWin = frameDoc.defaultView;
-          if (flipWin.__qavaNavLogoFlipTimer) clearInterval(flipWin.__qavaNavLogoFlipTimer);
-          let flipped = false;
-          flipWin.__qavaNavLogoFlipTimer = setInterval(() => {
-            flipped = !flipped;
-            inner.classList.toggle("is-flipped", flipped);
-          }, 5000);
-        }
+          if (typeof window.qavaStartNavLogoFlip === "function") {
+            window.qavaStartNavLogoFlip(inner);
+          }
+}
 
         if (!frameDoc.getElementById("qava-dot-base-fixed")) {
           const fixedDotLayer = frameDoc.createElement("div");
@@ -1452,5 +1456,6 @@
       attachSandboxEnhancements();
     })();
   </script>
+<script src="/qava-nav-logo-flip.js?v=multi-1"></script>
 </body>
 </html>
