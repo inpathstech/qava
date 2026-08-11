@@ -444,15 +444,17 @@
     });
   }
 
+  /** Reply with the most stars (hearts); null when none have any. */
   function getBestAnswerId(thread) {
     if (!thread?.replies?.length) return null;
     const visible = thread.replies.filter((r) => !hiddenContent.has(r.id) && !blockedMembers.has(r.author));
     if (!visible.length) return null;
-    return visible.reduce((best, reply) => {
+    const top = visible.reduce((best, reply) => {
       if (reply.hearts > best.hearts) return reply;
       if (reply.hearts === best.hearts && thread.replies.indexOf(reply) < thread.replies.indexOf(best)) return reply;
       return best;
-    }).id;
+    });
+    return (top.hearts || 0) > 0 ? top.id : null;
   }
 
   function updateBestAnswerBadges(thread) {
@@ -468,7 +470,7 @@
       if (!meta) return;
       meta.querySelector('.best-answer-badge')?.remove();
       if (isBest) {
-        meta.insertAdjacentHTML('beforeend', ' · <span class="best-answer-badge">Best answer</span>');
+        meta.insertAdjacentHTML('beforeend', ' · <span class="best-answer-badge">Most stars</span>');
       }
     });
   }
@@ -552,7 +554,7 @@
     return `<div class="reply${nested}${best}" data-reply-id="${reply.id}" data-parent-id="${reply.parentId || ''}">
       ${avatar}
       <div>
-        <div class="reply-meta"><strong>${memberLink(reply.author)}</strong>${metaExtra(p.role, p.school)}${isBest ? ' · <span class="best-answer-badge">Best answer</span>' : ''}</div>
+        <div class="reply-meta"><strong>${memberLink(reply.author)}</strong>${metaExtra(p.role, p.school)}${isBest ? ' · <span class="best-answer-badge">Most stars</span>' : ''}</div>
         <div class="reply-body">${reply.body} <span class="reply-time">${escapeHtml(reply.time)}${edited}</span></div>
         ${attach}
         <div class="reply-actions-row">
