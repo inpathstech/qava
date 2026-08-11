@@ -74,12 +74,17 @@
         });
 
         const navRenames = [
+          { match: "chat", label: "Club Room" },
           { match: "create listing", label: "Create listing" },
           { match: "search listings", label: "Find work" }
         ];
-        Array.from(doc.querySelectorAll(".navigation .nav-item .nav-text, .navigation .nav-item")).forEach((el) => {
+        Array.from(doc.querySelectorAll(
+          ".navigation .nav-item .nav-text, .navigation .nav-item, .mobile-nav-item .nav-text, .mobile-nav-item"
+        )).forEach((el) => {
           const textNode = el.classList.contains("nav-text") ? el : el.querySelector(".nav-text");
           const target = textNode || el;
+          // Only rename leaf text nodes / simple labels — skip containers with nested structure beyond .nav-text
+          if (!textNode && el.querySelector("div, span, img, svg")) return;
           const current = (target.textContent || "").trim().toLowerCase();
           const rename = navRenames.find((r) => r.match === current);
           if (rename) {

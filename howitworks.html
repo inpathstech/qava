@@ -1158,6 +1158,7 @@
       `;
 
       const NAV_RENAMES = [
+        { match: "chat", label: "Club Room" },
         { match: "create listing", label: "Create listing" },
         { match: "search listings", label: "Find work" },
         { match: "about", label: "Newsletter" }
@@ -1271,7 +1272,8 @@
           Array.from(mobileMenu.querySelectorAll("a.mobile-nav-item")).forEach((a) => {
             const label = a.querySelector(".nav-text") || a;
             const t = (a.textContent || "").trim().toLowerCase();
-            if (t === "search listings") label.textContent = "Find work";
+            if (t === "chat") label.textContent = "Club Room";
+            else if (t === "search listings") label.textContent = "Find work";
             else if (t === "create listing") label.textContent = "Create listing";
             else if (t === "pricing") a.remove();
             else if (t === "about") {

@@ -11,6 +11,7 @@
             <ul class="footer-link-list">
               <li><a href="https://app.qava.ai/guest" class="footer-link">Create listing</a></li>
               <li><a href="https://qava.ai/find/" class="footer-link">Find work</a></li>
+              <li><a href="https://qava.ai/community/chat" class="footer-link">Club Room</a></li>
               <li><a href="https://qava.ai/howitworks" class="footer-link">How it works</a></li>
               <li><a href="https://qava.ai/newsletter" class="footer-link">Newsletter</a></li>
               <li><a href="https://app.qava.ai/?premium=1" class="footer-link">Premium</a></li>
@@ -180,7 +181,7 @@
     if (existing) existing.remove();
     const style = doc.createElement("style");
     style.id = "qava-footer-style";
-    style.setAttribute("data-qava-footer-css", "footer-club-wordmark-1");
+    style.setAttribute("data-qava-footer-css", "footer-club-room-1");
     style.textContent = FOOTER_CSS;
     doc.head.appendChild(style);
   }
