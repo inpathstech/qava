@@ -3,7 +3,7 @@
     <div class="footer-container">
       <div class="footer-content">
         <div class="footer-logo">
-          <a href="https://qava.ai/"><img src="https://qava.ai/qava-logo.svg" alt="Qava" class="footer-logo-img" width="40" height="40" decoding="async" /></a>
+          <a href="https://qava.ai/"><img src="https://qava.ai/the-club-logo-light.png" alt="The Club" class="footer-logo-img" width="100" height="22" decoding="async" /></a>
         </div>
         <div class="footer-links">
           <div class="footer-column">
@@ -75,19 +75,20 @@
     }
     .footer-section .footer-logo a {
       display: inline-block;
-      width: 40px;
-      height: 40px;
+      width: 100px;
+      height: 22px;
       overflow: hidden;
       line-height: 0;
     }
     .footer-section .footer-logo-img {
-      width: 40px !important;
-      height: 40px !important;
-      max-width: 40px !important;
-      max-height: 40px !important;
+      width: 100px !important;
+      height: 22px !important;
+      max-width: 100px !important;
+      max-height: 22px !important;
       object-fit: contain;
       cursor: pointer;
       display: block;
+      border-radius: 4px;
     }
     .footer-section .footer-links {
       display: grid;
@@ -179,7 +180,7 @@
     if (existing) existing.remove();
     const style = doc.createElement("style");
     style.id = "qava-footer-style";
-    style.setAttribute("data-qava-footer-css", "footer-logo-40");
+    style.setAttribute("data-qava-footer-css", "footer-club-wordmark-1");
     style.textContent = FOOTER_CSS;
     doc.head.appendChild(style);
   }

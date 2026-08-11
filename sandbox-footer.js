@@ -3,7 +3,7 @@
     <div class="footer-container">
       <div class="footer-content">
         <div class="footer-logo">
-          <a href="/SANDBOXindex.html"><img src="qava-logo.svg" alt="Qava" class="footer-logo-img" /></a>
+          <a href="/SANDBOXindex.html"><img src="/the-club-logo-light.png" alt="The Club" class="footer-logo-img" width="100" height="22" /></a>
         </div>
         <div class="footer-links">
           <div class="footer-column">
