@@ -221,7 +221,7 @@
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
                   <div class="qava-blog-tag">The Creator Economy</div>
-                  <div class="qava-blog-title">She Modeled the Numbers. Then She Hit Them.</div>
+                  <div class="qava-blog-title">She Modeled the Numbers.<br>Then She Hit Them.</div>
                   <div class="qava-blog-more">
                     <div class="qava-blog-excerpt">How Emma Burke turned a spreadsheet into a $1M creator agency.</div>
                     <span class="qava-blog-read">Read ${blogReadArrow}</span>
