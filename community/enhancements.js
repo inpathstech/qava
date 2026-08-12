@@ -183,7 +183,6 @@
   let feedSort = 'active';
   let selectedTags = [];
   let feedTopicFilter = [];
-  let feedTopicsExpanded = false;
   let mentionDropdown = null;
   let activeMentionInput = null;
   let pendingExternalInvites = [];
@@ -1520,51 +1519,9 @@
     });
   }
 
-  function layoutFeedTopicPills() {
-    const wrap = document.getElementById('feedTopicFilters');
-    if (!wrap) return;
-    const more = wrap.querySelector('.feed-topic-more');
-    const pills = [...wrap.querySelectorAll('.feed-topic-pill')];
-    if (!more || !pills.length) return;
-
-    pills.forEach((p) => { p.hidden = false; });
-    wrap.classList.toggle('is-expanded', feedTopicsExpanded);
-
-    if (feedTopicsExpanded) {
-      more.hidden = false;
-      more.textContent = 'Less';
-      more.setAttribute('aria-expanded', 'true');
-      return;
-    }
-
-    more.hidden = false;
-    more.textContent = 'More';
-    more.setAttribute('aria-expanded', 'false');
-
-    const rowTop = pills[0].offsetTop;
-    let overflow = false;
-    pills.forEach((p) => {
-      if (p.offsetTop > rowTop + 1) {
-        p.hidden = true;
-        overflow = true;
-      }
-    });
-
-    // Keep More on the first line by hiding trailing visible pills if needed.
-    while (more.offsetTop > rowTop + 1) {
-      const visible = pills.filter((p) => !p.hidden);
-      if (!visible.length) break;
-      visible[visible.length - 1].hidden = true;
-      overflow = true;
-    }
-
-    if (!overflow) more.hidden = true;
-  }
-
   function renderFeedTopicPills() {
     const wrap = document.getElementById('feedTopicFilters');
     if (!wrap) return;
-    wrap.classList.toggle('is-expanded', feedTopicsExpanded);
     wrap.innerHTML = AGENDA_TOPICS.map((topic) => {
       const on = feedTopicFilter.includes(topic);
       const emoji = AGENDA_TOPIC_EMOJI[topic] || '';
@@ -1572,9 +1529,7 @@
         ? `<span class="feed-topic-pill-emoji" aria-hidden="true">${emoji}</span>`
         : '';
       return `<button type="button" class="feed-topic-pill${on ? ' is-selected' : ''}" data-topic="${escapeHtml(topic)}" aria-pressed="${on ? 'true' : 'false'}"><span class="feed-topic-pill-label">${escapeHtml(topic)}</span>${emojiSpan}</button>`;
-    }).join('')
-      + `<button type="button" class="feed-topic-more" aria-expanded="${feedTopicsExpanded ? 'true' : 'false'}">${feedTopicsExpanded ? 'Less' : 'More'}</button>`;
-    requestAnimationFrame(() => layoutFeedTopicPills());
+    }).join('');
   }
 
   function initFeedTopicFilters() {
@@ -1590,13 +1545,6 @@
     renderFeedTopicPills();
 
     wrap.addEventListener('click', (e) => {
-      const moreBtn = e.target.closest('.feed-topic-more');
-      if (moreBtn && wrap.contains(moreBtn)) {
-        feedTopicsExpanded = !feedTopicsExpanded;
-        renderFeedTopicPills();
-        applyFeedTopicFilters();
-        return;
-      }
       const btn = e.target.closest('.feed-topic-pill');
       if (!btn || !wrap.contains(btn)) return;
       const topic = btn.dataset.topic;
@@ -1612,10 +1560,6 @@
     reset?.addEventListener('click', () => {
       feedTopicFilter = [];
       applyFeedTopicFilters();
-    });
-
-    window.addEventListener('resize', () => {
-      if (wrap.isConnected) layoutFeedTopicPills();
     });
 
     applyFeedTopicFilters();
