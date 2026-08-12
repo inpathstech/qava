@@ -2560,10 +2560,32 @@
     }
 
     .feed-header.is-inline {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
       padding: 14px 16px 12px;
-      background: #111827;
+      background: #111827 url("discussions-ocean.jpg") center / cover no-repeat;
       border-color: #111827;
       color: #fff;
+    }
+
+    .feed-header.is-inline::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        105deg,
+        rgba(17, 24, 39, 0.82) 0%,
+        rgba(17, 24, 39, 0.62) 48%,
+        rgba(17, 24, 39, 0.48) 100%
+      );
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .feed-header.is-inline > * {
+      position: relative;
+      z-index: 1;
     }
 
     .feed-header-top {
@@ -2575,7 +2597,7 @@
     }
 
     .feed-header.is-inline .feed-section-label {
-      color: #9ca3af;
+      color: #d1d5db;
     }
 
     .feed-header.is-inline .feed-section-title {
@@ -2588,7 +2610,7 @@
     .feed-header.is-inline .feed-section-body {
       margin-top: 6px;
       margin-bottom: 12px;
-      color: #9ca3af;
+      color: #e5e7eb;
     }
 
     .feed-header.is-inline .feed-toolbar {
@@ -2600,7 +2622,7 @@
     }
 
     .feed-header.is-inline .feed-toolbar label {
-      color: #9ca3af;
+      color: #d1d5db;
     }
 
     .feed-header.is-inline .feed-sort-trigger {
@@ -2687,7 +2709,7 @@
       font: inherit;
       font-size: 11px;
       font-weight: 400;
-      color: #9ca3af;
+      color: #d1d5db;
       cursor: pointer;
       text-decoration: underline;
       text-underline-offset: 2px;
@@ -2720,7 +2742,7 @@
     .feed-filter-count {
       font-size: 11px;
       font-weight: 300;
-      color: #9ca3af;
+      color: #d1d5db;
     }
 
     .feed-filter-reset {
@@ -2728,7 +2750,7 @@
       background: transparent;
       font: inherit;
       font-size: 11px;
-      color: #d1d5db;
+      color: #e5e7eb;
       cursor: pointer;
       text-decoration: underline;
       text-underline-offset: 2px;
