@@ -392,22 +392,30 @@
     return `<button type="button" class="feed-expand-toggle" data-toggle-expand="${thread.id}" aria-label="${expanded ? 'Collapse replies' : 'Expand replies'}" title="${expanded ? 'Collapse replies' : 'Expand replies'}">${expanded ? MINIMIZE_SVG : MAXIMIZE_SVG}</button>`;
   }
 
+  function renderFeedAttach(thread) {
+    return thread.attachments?.length
+      ? `<div class="attach-chips">${thread.attachments.map(renderAttachChip).join('')}</div>`
+      : '';
+  }
+
+  function renderFeedDiscussionInner(thread) {
+    return `${renderFeedJoin(thread)}${renderFeedReplies(thread)}`;
+  }
+
   function renderFeedItem(thread) {
     const op = thread.op;
     const replies = getThreadReplyCount(thread);
     const expanded = expandedReplies.has(thread.id);
     const unread = thread.newReplies > 0 && threadViewedAt[thread.id] !== thread.activityTs;
-    const attach = thread.attachments?.length
-      ? `<div class="attach-chips">${thread.attachments.map(renderAttachChip).join('')}</div>`
-      : '';
+    const attach = renderFeedAttach(thread);
     const tags = thread.tags || [];
     const tagAttr = tags.map((t) => escapeHtml(t)).join('|');
     const tagsHtml = tags.length
       ? `<div class="feed-opener-tags">${tags.map((t) => `<span class="feed-tag-pill">${escapeHtml(t)}</span>`).join('')}</div>`
       : '';
-    const bodyBlock = expanded
-      ? `<div class="feed-body">${thread.body}${attach}</div>`
-      : `<p class="feed-excerpt">${escapeHtml(excerptFromHtml(thread.body))}</p>`;
+    const discussion = expanded
+      ? `<div class="feed-discussion">${renderFeedDiscussionInner(thread)}</div>`
+      : `<div class="feed-discussion" data-feed-discussion-empty="1"></div>`;
     return `<div class="feed-item${expanded ? ' is-expanded' : ''}${unread ? ' has-unread' : ''}" data-feed-thread="${thread.id}" data-activity="${thread.activityTs}" data-likes="${thread.likes}" data-replies="${replies}" data-status="${thread.status}" data-tags="${tagAttr}">
       ${renderFeedExpandToggle(thread, expanded)}
       <div class="feed-opener">
@@ -420,11 +428,104 @@
         </div>
         ${tagsHtml}
         <h3>${escapeHtml(thread.title)}</h3>
-        ${bodyBlock}
+        <div class="feed-excerpt-clip">
+          <div class="feed-excerpt-clip-inner">
+            <p class="feed-excerpt">${escapeHtml(excerptFromHtml(thread.body))}</p>
+          </div>
+        </div>
+        <div class="feed-body-clip">
+          <div class="feed-body-clip-inner">
+            <div class="feed-body">${thread.body}${attach}</div>
+          </div>
+        </div>
         ${renderFeedStats(thread)}
       </div>
-      ${expanded ? `<div class="feed-discussion">${renderFeedJoin(thread)}${renderFeedReplies(thread)}</div>` : ''}
+      <div class="feed-discussion-wrap">
+        <div class="feed-discussion-clip-inner">
+          ${discussion}
+        </div>
+      </div>
     </div>`;
+  }
+
+  const FEED_EXPAND_MS = 400;
+  const feedExpandTimers = new Map();
+
+  function prefersReducedMotion() {
+    return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  }
+
+  function syncFeedExpandToggle(item, thread, expanded) {
+    const btn = item?.querySelector?.('[data-toggle-expand]');
+    if (!btn) return;
+    btn.setAttribute('aria-label', expanded ? 'Collapse replies' : 'Expand replies');
+    btn.title = expanded ? 'Collapse replies' : 'Expand replies';
+    btn.innerHTML = expanded ? MINIMIZE_SVG : MAXIMIZE_SVG;
+  }
+
+  function bindFeedItemInteractive(root) {
+    if (!root) return;
+    bindDynamicHandlers();
+    root.querySelectorAll('.reply-heart').forEach((btn) => bindReplyHeartEnhanced(btn));
+    bindMentionInputs(root.querySelectorAll('.feed-reply-input'));
+    applyPremiumToFeedReplyInputs();
+    if (typeof window.communityPaintSelfAvatars === 'function') window.communityPaintSelfAvatars();
+    syncComposerAvatars();
+  }
+
+  function ensureFeedDiscussionContent(item, thread) {
+    const discussion = item.querySelector('.feed-discussion');
+    if (!discussion) return;
+    if (discussion.dataset.feedDiscussionEmpty === '1' || !discussion.querySelector('.feed-join, .feed-replies')) {
+      discussion.innerHTML = renderFeedDiscussionInner(thread);
+      delete discussion.dataset.feedDiscussionEmpty;
+      bindFeedItemInteractive(discussion);
+    }
+  }
+
+  function setFeedItemExpanded(threadId, expand, opts = {}) {
+    const animate = opts.animate !== false && !prefersReducedMotion();
+    const thread = getThreadById(threadId);
+    const item = document.querySelector(`.feed-item[data-feed-thread="${threadId}"]`);
+    if (!thread || !item) return;
+
+    const prevTimer = feedExpandTimers.get(threadId);
+    if (prevTimer) {
+      clearTimeout(prevTimer);
+      feedExpandTimers.delete(threadId);
+    }
+
+    currentThreadId = threadId;
+    window.__currentThreadId = threadId;
+
+    if (expand) {
+      expandedReplies.add(threadId);
+      ensureFeedDiscussionContent(item, thread);
+      syncFeedExpandToggle(item, thread, true);
+      if (!animate) {
+        item.classList.add('is-expanded');
+        return;
+      }
+      if (item.classList.contains('is-expanded')) return;
+      // Ensure we start from the collapsed grid state, then open.
+      item.classList.remove('is-expanded');
+      void item.offsetHeight;
+      requestAnimationFrame(() => {
+        item.classList.add('is-expanded');
+      });
+      return;
+    }
+
+    expandedReplies.delete(threadId);
+    syncFeedExpandToggle(item, thread, false);
+    if (!item.classList.contains('is-expanded')) return;
+    item.classList.remove('is-expanded');
+    if (!animate) return;
+    const timer = setTimeout(() => {
+      feedExpandTimers.delete(threadId);
+      // Keep panel markup for a snappy re-open; content stays until next full refresh.
+    }, FEED_EXPAND_MS);
+    feedExpandTimers.set(threadId, timer);
   }
 
   function feedSortMetrics(el) {
@@ -722,22 +823,25 @@
           currentThreadId = feedItem.dataset.feedThread;
           window.__currentThreadId = currentThreadId;
           if (!expandedReplies.has(currentThreadId)) {
-            expandedReplies.add(currentThreadId);
-            refreshFeedItem(currentThreadId);
+            setFeedItemExpanded(currentThreadId, true);
           }
         }
         const nextItem = feedItem?.dataset?.feedThread
           ? document.querySelector(`.feed-item[data-feed-thread="${feedItem.dataset.feedThread}"]`)
           : feedItem;
-        const join = nextItem?.querySelector('.feed-join');
-        join?.classList.add('is-open');
-        const replyInput = nextItem?.querySelector('.feed-reply-input') || document.getElementById('replyInput');
-        if (!replyInput) return;
-        replyInput.focus();
-        if (window.clearInput) window.clearInput(replyInput);
-        else replyInput.innerHTML = '';
-        document.execCommand('insertText', false, `@${author} `);
-        syncFeedReplySend(replyInput);
+        const openJoin = () => {
+          const join = nextItem?.querySelector('.feed-join');
+          join?.classList.add('is-open');
+          const replyInput = nextItem?.querySelector('.feed-reply-input') || document.getElementById('replyInput');
+          if (!replyInput) return;
+          replyInput.focus();
+          if (window.clearInput) window.clearInput(replyInput);
+          else replyInput.innerHTML = '';
+          document.execCommand('insertText', false, `@${author} `);
+          syncFeedReplySend(replyInput);
+        };
+        // Wait a beat so the slide can open before focusing the composer.
+        setTimeout(openJoin, prefersReducedMotion() ? 0 : 80);
       };
     });
     document.querySelectorAll('[data-invite-member]').forEach((btn) => {
@@ -1168,12 +1272,7 @@
     if (!next) return;
     feedItem.replaceWith(next);
     syncThreadLikeUi(threadId);
-    bindDynamicHandlers();
-    next.querySelectorAll('.reply-heart').forEach((btn) => bindReplyHeartEnhanced(btn));
-    bindMentionInputs(next.querySelectorAll('.feed-reply-input'));
-    applyPremiumToFeedReplyInputs();
-    if (typeof window.communityPaintSelfAvatars === 'function') window.communityPaintSelfAvatars();
-    syncComposerAvatars();
+    bindFeedItemInteractive(next);
   }
 
   function refreshFeedItemReplies(threadId) {
@@ -1188,8 +1287,14 @@
       if (userThreadState) {
         userThreadState.id = 'user';
         if (!userThreadState.activityTs) userThreadState.activityTs = userThreadState.postedAt || Date.now();
-        if (opts.expand !== false) expandedReplies.add('user');
-        refreshFeedItem('user');
+        if (!document.querySelector('.feed-item[data-feed-thread="user"]')) {
+          if (opts.expand !== false) expandedReplies.add('user');
+          // Item may be created by publish flow; refresh if present after.
+        } else if (opts.expand !== false) {
+          setFeedItemExpanded('user', true, { animate: opts.animate !== false });
+        } else {
+          refreshFeedItem('user');
+        }
       }
       const userEl = document.querySelector('.feed-item[data-feed-thread="user"]')
         || document.querySelector('.feed-opener[data-thread="user"]')?.closest('.feed-item');
@@ -1200,20 +1305,23 @@
       }
       return;
     }
-    if (opts.expand !== false) expandedReplies.add(threadId);
     currentThreadId = threadId;
     window.__currentThreadId = threadId;
     const thread = THREAD_DATA[threadId];
-    if (thread) {
-      threadViewedAt[threadId] = thread.activityTs;
-      refreshFeedItem(threadId);
-    }
+    if (thread) threadViewedAt[threadId] = thread.activityTs;
     const el = document.querySelector(`.feed-item[data-feed-thread="${threadId}"]`);
     el?.classList.remove('has-unread');
-    if (opts.scroll !== false) el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (opts.expand !== false) {
+      if (el) setFeedItemExpanded(threadId, true, { animate: opts.animate !== false });
+      else {
+        expandedReplies.add(threadId);
+      }
+    }
+    const focused = document.querySelector(`.feed-item[data-feed-thread="${threadId}"]`);
+    if (opts.scroll !== false) focused?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     if (opts.focusReply) {
-      el?.querySelector('.feed-join')?.classList.add('is-open');
-      el?.querySelector('.feed-reply-input')?.focus();
+      focused?.querySelector('.feed-join')?.classList.add('is-open');
+      focused?.querySelector('.feed-reply-input')?.focus();
     }
   }
 
@@ -1545,11 +1653,7 @@
         e.stopPropagation();
         const id = toggleExpand.dataset.toggleExpand;
         if (!id) return;
-        if (expandedReplies.has(id)) expandedReplies.delete(id);
-        else expandedReplies.add(id);
-        currentThreadId = id;
-        window.__currentThreadId = id;
-        refreshFeedItem(id);
+        setFeedItemExpanded(id, !expandedReplies.has(id));
         return;
       }
 
@@ -1560,10 +1664,7 @@
         if (!id) return;
         e.preventDefault();
         e.stopPropagation();
-        expandedReplies.add(id);
-        currentThreadId = id;
-        window.__currentThreadId = id;
-        refreshFeedItem(id);
+        setFeedItemExpanded(id, true);
         return;
       }
 
@@ -1586,10 +1687,7 @@
         e.stopPropagation();
         const id = expandBtn.dataset.expandReplies;
         if (!id) return;
-        expandedReplies.add(id);
-        currentThreadId = id;
-        window.__currentThreadId = id;
-        refreshFeedItem(id);
+        setFeedItemExpanded(id, true);
         return;
       }
 
@@ -1599,8 +1697,7 @@
         e.stopPropagation();
         const id = collapseBtn.dataset.collapseReplies;
         if (!id) return;
-        expandedReplies.delete(id);
-        refreshFeedItem(id);
+        setFeedItemExpanded(id, false);
       }
     });
   }

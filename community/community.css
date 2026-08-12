@@ -1791,9 +1791,9 @@
       width: 100%;
       border: 0;
       padding: 8px 10px;
-      font-family: inherit;
-      font-size: 12px;
-      line-height: 1.4;
+      font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+      font-size: 13px;
+      line-height: 1.5;
       font-weight: 300;
       letter-spacing: 0;
       color: #111827;
@@ -1823,9 +1823,9 @@
     }
 
     .composer-title::placeholder {
-      font-family: inherit;
-      font-size: 12px;
-      line-height: 1.4;
+      font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+      font-size: 13px;
+      line-height: 1.5;
       letter-spacing: 0;
     }
 
@@ -2969,9 +2969,58 @@
       padding-right: min(48%, 11rem);
     }
 
+    .feed-excerpt-clip,
+    .feed-body-clip,
+    .feed-discussion-wrap {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.38s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    .feed-excerpt-clip {
+      grid-template-rows: 1fr;
+    }
+
+    .feed-item.is-expanded .feed-excerpt-clip {
+      grid-template-rows: 0fr;
+    }
+
+    .feed-item.is-expanded .feed-body-clip,
+    .feed-item.is-expanded .feed-discussion-wrap {
+      grid-template-rows: 1fr;
+    }
+
+    .feed-excerpt-clip-inner,
+    .feed-body-clip-inner,
+    .feed-discussion-clip-inner {
+      overflow: hidden;
+      min-height: 0;
+    }
+
+    .feed-body-clip-inner,
+    .feed-discussion-clip-inner {
+      opacity: 0;
+      transition: opacity 0.28s ease;
+    }
+
+    .feed-item.is-expanded .feed-body-clip-inner,
+    .feed-item.is-expanded .feed-discussion-clip-inner {
+      opacity: 1;
+    }
+
     .feed-discussion {
       border-top: 1px solid rgba(17, 24, 39, 0.06);
       background: #fff;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .feed-excerpt-clip,
+      .feed-body-clip,
+      .feed-discussion-wrap,
+      .feed-body-clip-inner,
+      .feed-discussion-clip-inner {
+        transition: none;
+      }
     }
 
     .feed-join {
@@ -3157,6 +3206,11 @@
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
+      margin: 0 0 10px;
+    }
+
+    .feed-body-clip .feed-body {
+      margin-top: 0;
     }
 
     .feed-body {
