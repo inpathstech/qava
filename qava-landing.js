@@ -218,10 +218,11 @@
                 <img class="qava-blog-thumb" src="./qava-blog-1.png" alt="" />
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
-                  <div class="qava-blog-tag">Creator economy</div>
-                  <div class="qava-blog-title">How an Agency Climbed to the Top of Its Field</div>
+                  <div class="qava-blog-tag">The Creator economy</div>
+                  <div class="qava-blog-title">A Career Pivot Too Good To Be True</div>
+                  <div class="qava-blog-dek">How an Agency Climbed to the Top of Its Field</div>
                   <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">How an ambitious agency climbed to the top of its field.</div>
+                    <div class="qava-blog-excerpt">NYC's newest agency is leaving its mark</div>
                     <span class="qava-blog-read">Read ${blogReadArrow}</span>
                   </div>
                 </div>
