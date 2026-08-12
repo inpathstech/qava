@@ -217,14 +217,14 @@
             const blogReadArrow = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
             blogRow.innerHTML = `
               <a class="qava-blog-card" href="https://www.theclubnyc.com/therisegroup">
-                <img class="qava-blog-thumb" src="./qava-blog-1.png" alt="" />
+                <img class="qava-blog-thumb" src="./qava-blog-1.png" alt="Emma Burke on stage in conversation at a creator economy event" />
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
-                  <div class="qava-blog-tag">The Creator economy</div>
-                  <div class="qava-blog-title">A Career Pivot Too Good To Be True</div>
-                  <div class="qava-blog-dek">How an Agency Climbed to the Top of Its Field</div>
+                  <div class="qava-blog-tag">The Creator Economy</div>
+                  <div class="qava-blog-title">She Modeled the Numbers. Then She Hit Them.</div>
+                  <div class="qava-blog-dek">How Emma Burke turned a spreadsheet into a $1M creator agency.</div>
                   <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">NYC's newest agency is leaving its mark</div>
+                    <div class="qava-blog-excerpt">The Rise Group cleared seven figures in year one — and is on pace to double.</div>
                     <span class="qava-blog-read">Read ${blogReadArrow}</span>
                   </div>
                 </div>
