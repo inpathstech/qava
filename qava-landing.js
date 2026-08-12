@@ -209,6 +209,8 @@
           }
 
           if (showcaseBox && !doc.getElementById("qava-blog-row")) {
+            const blogStack = doc.createElement("div");
+            blogStack.className = "qava-blog-stack";
             const blogRow = doc.createElement("div");
             blogRow.id = "qava-blog-row";
             blogRow.className = "qava-blog-row";
@@ -360,26 +362,43 @@
                 </div>
               </a>
             `;
-            ctaButtonsRow.insertAdjacentElement("afterend", blogRow);
+            ctaButtonsRow.insertAdjacentElement("afterend", blogStack);
+            blogStack.appendChild(blogRow);
+
+            const hiddenCards = Array.from(blogRow.querySelectorAll(".qava-blog-hidden"));
+            let blogExtra = null;
+            if (hiddenCards.length) {
+              blogExtra = doc.createElement("div");
+              blogExtra.className = "qava-blog-extra";
+              blogExtra.setAttribute("aria-hidden", "true");
+              const extraInner = doc.createElement("div");
+              extraInner.className = "qava-blog-extra-inner";
+              hiddenCards.forEach((card) => extraInner.appendChild(card));
+              blogExtra.appendChild(extraInner);
+              blogStack.appendChild(blogExtra);
+            }
 
             const blogActions = doc.createElement("div");
             blogActions.className = "qava-blog-actions";
 
-            if (blogRow.querySelector(".qava-blog-hidden")) {
+            if (blogExtra) {
               const moreBtn = doc.createElement("button");
               moreBtn.type = "button";
               moreBtn.className = "qava-blog-actbtn qava-blog-morebtn";
               moreBtn.textContent = "Show more";
+              moreBtn.setAttribute("aria-expanded", "false");
               moreBtn.addEventListener("click", () => {
-                const expanded = blogRow.classList.toggle("qava-blog-expanded");
+                const expanded = blogExtra.classList.toggle("is-open");
+                blogExtra.setAttribute("aria-hidden", expanded ? "false" : "true");
+                moreBtn.setAttribute("aria-expanded", expanded ? "true" : "false");
                 moreBtn.textContent = expanded ? "Show less" : "Show more";
               });
               blogActions.appendChild(moreBtn);
             }
 
-            blogRow.insertAdjacentElement("afterend", blogActions);
+            blogStack.insertAdjacentElement("afterend", blogActions);
 
-            blogRow.querySelectorAll(".qava-blog-card").forEach((card) => {
+            blogStack.querySelectorAll(".qava-blog-card").forEach((card) => {
               const thumb = card.querySelector(".qava-blog-thumb");
               if (!thumb) {
                 card.classList.add("is-loaded");
