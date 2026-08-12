@@ -1509,7 +1509,7 @@
     if (meta) meta.hidden = active.length === 0;
     if (countEl) {
       countEl.textContent = active.length
-        ? `${visible} thread${visible === 1 ? '' : 's'} · any selected topic`
+        ? `${visible} thread${visible === 1 ? '' : 's'}`
         : '';
     }
     if (empty) empty.hidden = !(active.length && visible === 0);
