@@ -367,7 +367,7 @@
       ${selfAvatarHtml('You')}
       <div class="feed-inline-reply-field input-with-gate">
         <div class="composer-input feed-reply-input" contenteditable="false" role="textbox" aria-multiline="true" aria-label="Write a reply" data-placeholder="Write a reply… @ to mention"></div>
-        <button type="button" class="feed-reply-send" aria-label="Send reply">${FEED_REPLY_SEND_SVG}</button>
+        <button type="button" class="feed-reply-send is-disabled" aria-label="Write a reply to send" aria-disabled="true">${FEED_REPLY_SEND_SVG}</button>
       </div>
     </div>`;
   }
@@ -1086,6 +1086,26 @@
     setReportCategoryOpen(false);
   }
 
+  function feedReplyHasSendableText(input) {
+    if (!input) return false;
+    const raw = (window.getInputRaw ? window.getInputRaw(input) : (input.textContent || '')).trim();
+    return Boolean(raw);
+  }
+
+  function syncFeedReplySend(input) {
+    if (!input) return;
+    const sendBtn = input.closest('.feed-inline-reply-field')?.querySelector('.feed-reply-send');
+    if (!sendBtn) return;
+    const ready = feedReplyHasSendableText(input);
+    sendBtn.classList.toggle('is-disabled', !ready);
+    sendBtn.setAttribute('aria-disabled', ready ? 'false' : 'true');
+    sendBtn.setAttribute('aria-label', ready ? 'Send reply' : 'Write a reply to send');
+  }
+
+  function syncAllFeedReplySends(root = document) {
+    root.querySelectorAll?.('.feed-reply-input')?.forEach((input) => syncFeedReplySend(input));
+  }
+
   function applyPremiumToFeedReplyInputs() {
     const enabled = typeof window.communityIsPremium === 'function'
       ? !!window.communityIsPremium()
@@ -1098,6 +1118,7 @@
         input.dataset.mentionBound = '';
         bindMentionInput(input);
       }
+      syncFeedReplySend(input);
     });
   }
 
@@ -1188,6 +1209,7 @@
     refreshFeedItemReplies(threadId);
     if (window.clearInput) window.clearInput(input);
     else input.innerHTML = '';
+    syncFeedReplySend(input);
     bindMentionInputs(document.querySelectorAll('.feed-reply-input'));
     applyPremiumToFeedReplyInputs();
     if (typeof window.communityPaintSelfAvatars === 'function') window.communityPaintSelfAvatars();
@@ -1233,6 +1255,12 @@
       ? !!window.communityIsPremium()
       : !!(window.communityGetAuthState?.()?.premium));
 
+    feedList.addEventListener('input', (e) => {
+      const input = e.target.closest?.('.feed-reply-input');
+      if (!input || !feedList.contains(input)) return;
+      syncFeedReplySend(input);
+    });
+
     feedList.addEventListener('keydown', (e) => {
       const input = e.target.closest?.('.feed-reply-input');
       if (!input || !feedList.contains(input)) return;
@@ -1248,6 +1276,9 @@
       if (sendBtn && feedList.contains(sendBtn)) {
         e.preventDefault();
         e.stopPropagation();
+        if (sendBtn.classList.contains('is-disabled') || sendBtn.getAttribute('aria-disabled') === 'true') {
+          return;
+        }
         const input = sendBtn.closest('.feed-inline-reply-field')?.querySelector('.feed-reply-input');
         submitFeedInlineReply(input);
         return;
@@ -1275,6 +1306,8 @@
         if (typeof window.communityRequireSignIn === 'function') window.communityRequireSignIn();
       }
     });
+
+    syncAllFeedReplySends(feedList);
   }
 
   function getFeedItemTags(el) {
