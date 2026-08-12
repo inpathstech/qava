@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../qava-landing.css" />
-  <link rel="stylesheet" href="community.css?v=discussions-ocean-1" />
+  <link rel="stylesheet" href="community.css?v=feed-expand-1" />
   <link rel="stylesheet" href="chat-marketing.css?v=ex-op-solid-1" />
   <link rel="stylesheet" href="../qava-auth.css" />
 </head>
@@ -312,7 +312,7 @@
                             <span class="composer-topics-icon" aria-hidden="true">
                               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
                             </span>
-                            <span class="composer-topics-label" id="composerTopicsLabel">Select topics</span>
+                            <span class="composer-topics-label" id="composerTopicsLabel">Select topic(s)</span>
                           </button>
                           <div class="composer-topics-menu" id="composerTopicsMenu" role="listbox" aria-multiselectable="true" hidden>
                             <div class="composer-topics-menu-label">Agenda or topic</div>
@@ -342,26 +342,8 @@
             <span class="feed-section-label">Discussions</span>
             <div class="feed-header-top">
               <h2 class="feed-section-title">What members are discussing</h2>
-              <div class="feed-toolbar">
-                <label>Sort by
-                  <div class="feed-sort-wrap" id="feedSortWrap">
-                    <button type="button" class="feed-sort-trigger" id="feedSortTrigger" aria-expanded="false" aria-haspopup="listbox">
-                      <span id="feedSortLabel">Most active</span>
-                      <span class="feed-sort-icon" id="feedSortIcon" aria-hidden="true">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-                      </span>
-                    </button>
-                    <div class="feed-sort-menu" id="feedSortMenu" role="listbox" hidden>
-                      <button type="button" class="feed-sort-option is-selected" data-sort="active">Most active</button>
-                      <button type="button" class="feed-sort-option" data-sort="new">New first</button>
-                      <button type="button" class="feed-sort-option" data-sort="replies">Most replies</button>
-                      <button type="button" class="feed-sort-option" data-sort="likes">Most likes</button>
-                    </div>
-                  </div>
-                </label>
-              </div>
             </div>
-            <p class="feed-section-body">Read and reply here. Expand replies in place. Reply with Premium.</p>
+            <p class="feed-section-body">Hover a thread to expand replies, then join the conversation in place.</p>
             <div class="feed-topic-filters" id="feedTopicFilters" aria-label="Filter by topic"></div>
             <div class="feed-filter-meta" id="feedFilterMeta" hidden>
               <span class="feed-filter-count" id="feedFilterCount"></span>
@@ -595,7 +577,7 @@
       var inApp = document.body.classList.contains("embed-app");
       // Product chat scripts only in the app.theclubnyc.com embed. Public page is marketing-only.
       var scripts = inApp
-        ? ["app.js?v=reply-send-idle-1", "enhancements.js?v=reply-send-idle-1", "api.js?v=topics-opener-down-1", "auth.js?v=avatar-sync-3", "profile-edit.js", "../qava-footer.js?v=footer-club-room-1"]
+        ? ["app.js?v=feed-expand-1", "enhancements.js?v=feed-expand-1", "api.js?v=topics-opener-down-1", "auth.js?v=avatar-sync-3", "profile-edit.js", "../qava-footer.js?v=footer-club-room-1"]
         : ["chat-examples.js?v=ex-op-solid-1", "../qava-auth.js", "../qava-footer.js?v=footer-club-room-1"];
 
       function loadNext(i) {

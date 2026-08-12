@@ -2,12 +2,14 @@
  * Community Chat prototype enhancements
  */
 (function () {
-  const HEART_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>';
+  const HEART_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>';
   const BRIDGE_ARROW_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="thread-bridge-icon" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>';
   const REPLY_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
   const DOC_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>';
   const TOGGLE_PLUS_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>';
   const TOGGLE_MINUS_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>';
+  const MAXIMIZE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="m21 3-7 7"/><path d="m3 21 7-7"/><path d="M9 21H3v-6"/></svg>';
+  const MINIMIZE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 10 7-7"/><path d="M20 10h-6V4"/><path d="m3 21 7-7"/><path d="M4 14h6v6"/></svg>';
   const AGENDA_TOPICS = [
     'Fundraising', 'Go-to-market', 'Product', 'Hiring', 'Pricing', 'Operations',
     'Career', 'Mindset', 'Leadership', 'Innovation', 'Technology', 'Catch-all',
@@ -186,7 +188,7 @@
   let activeMentionInput = null;
   let pendingExternalInvites = [];
   const EDIT_WINDOW_MS = 15 * 60 * 1000;
-  const FEED_REPLY_PREVIEW = 2;
+  const POPULAR_BADGE_HTML = ' · <span class="best-answer-badge">Popular</span>';
 
   function syncThreadLikeUi(threadId) {
     const thread = THREAD_DATA[threadId] || (threadId === 'user' ? userThreadState : null);
@@ -306,7 +308,7 @@
   }
 
   function syncComposerAvatars() {
-    document.querySelectorAll('.composer-card .avatar, #replyComposer .avatar, .composer-top > .avatar, .reply-box .avatar, .feed-inline-reply .avatar, #userThreadPost .avatar').forEach((el) => {
+    document.querySelectorAll('.composer-card .avatar, #replyComposer .avatar, .composer-top > .avatar, .reply-box .avatar, .feed-inline-reply .avatar, .feed-join-pill .avatar, #userThreadPost .avatar').forEach((el) => {
       const auth = (typeof window.communityGetAuthState === 'function' && window.communityGetAuthState()) || {};
       const profile = auth.profile || null;
       if (profile && profile.photo) {
@@ -344,20 +346,22 @@
       </div>`;
   }
 
+  function excerptFromHtml(html) {
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html || '';
+    const text = (tmp.textContent || '').replace(/\s+/g, ' ').trim();
+    if (!text) return '';
+    return text.length > 140 ? `${text.slice(0, 140)}…` : text;
+  }
+
   function renderFeedReplies(thread) {
     const visible = (thread.replies || []).filter((r) => !hiddenContent.has(r.id) && !blockedMembers.has(r.author));
-    const expanded = expandedReplies.has(thread.id);
-    const shown = expanded ? visible : visible.slice(0, FEED_REPLY_PREVIEW);
-    const more = visible.length - shown.length;
-    const bestId = getBestAnswerId(thread);
-    const items = shown.map((r) => renderReply(thread, r, r.id === bestId)).join('');
-    let toggle = '';
-    if (!expanded && more > 0) {
-      toggle = `<button type="button" class="feed-replies-more" data-expand-replies="${thread.id}">+${more} more ${more === 1 ? 'reply' : 'replies'}</button>`;
-    } else if (expanded && visible.length > FEED_REPLY_PREVIEW) {
-      toggle = `<button type="button" class="feed-replies-more" data-collapse-replies="${thread.id}">Show fewer replies</button>`;
+    if (!visible.length) {
+      return `<div class="feed-replies"><p class="feed-replies-empty">No replies yet — be the first.</p></div>`;
     }
-    return `<div class="feed-replies">${items}${toggle}</div>`;
+    const popularId = getBestAnswerId(thread);
+    const items = visible.map((r) => renderReply(thread, r, r.id === popularId)).join('');
+    return `<div class="feed-replies">${items}</div>`;
   }
 
   const FEED_REPLY_SEND_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg>';
@@ -372,9 +376,26 @@
     </div>`;
   }
 
+  function renderFeedJoin(thread) {
+    return `<div class="feed-join" data-feed-join="${thread.id}">
+      <button type="button" class="feed-join-pill" data-feed-join-pill="${thread.id}">
+        ${selfAvatarHtml('You')}
+        <span>Join the conversation</span>
+      </button>
+      <div class="feed-join-expanded">
+        ${renderFeedInlineReply(thread)}
+      </div>
+    </div>`;
+  }
+
+  function renderFeedExpandToggle(thread, expanded) {
+    return `<button type="button" class="feed-expand-toggle" data-toggle-expand="${thread.id}" aria-label="${expanded ? 'Collapse replies' : 'Expand replies'}" title="${expanded ? 'Collapse replies' : 'Expand replies'}">${expanded ? MINIMIZE_SVG : MAXIMIZE_SVG}</button>`;
+  }
+
   function renderFeedItem(thread) {
     const op = thread.op;
     const replies = getThreadReplyCount(thread);
+    const expanded = expandedReplies.has(thread.id);
     const unread = thread.newReplies > 0 && threadViewedAt[thread.id] !== thread.activityTs;
     const attach = thread.attachments?.length
       ? `<div class="attach-chips">${thread.attachments.map(renderAttachChip).join('')}</div>`
@@ -384,7 +405,11 @@
     const tagsHtml = tags.length
       ? `<div class="feed-opener-tags">${tags.map((t) => `<span class="feed-tag-pill">${escapeHtml(t)}</span>`).join('')}</div>`
       : '';
-    return `<div class="feed-item${unread ? ' has-unread' : ''}" data-feed-thread="${thread.id}" data-activity="${thread.activityTs}" data-likes="${thread.likes}" data-replies="${replies}" data-status="${thread.status}" data-tags="${tagAttr}">
+    const bodyBlock = expanded
+      ? `<div class="feed-body">${thread.body}${attach}</div>`
+      : `<p class="feed-excerpt">${escapeHtml(excerptFromHtml(thread.body))}</p>`;
+    return `<div class="feed-item${expanded ? ' is-expanded' : ''}${unread ? ' has-unread' : ''}" data-feed-thread="${thread.id}" data-activity="${thread.activityTs}" data-likes="${thread.likes}" data-replies="${replies}" data-status="${thread.status}" data-tags="${tagAttr}">
+      ${renderFeedExpandToggle(thread, expanded)}
       <div class="feed-opener">
         <div class="feed-opener-meta-row">
           ${avatarHtml(op, op.name)}
@@ -395,11 +420,10 @@
         </div>
         ${tagsHtml}
         <h3>${escapeHtml(thread.title)}</h3>
-        <div class="feed-body">${thread.body}${attach}</div>
+        ${bodyBlock}
         ${renderFeedStats(thread)}
       </div>
-      ${renderFeedReplies(thread)}
-      ${renderFeedInlineReply(thread)}
+      ${expanded ? `<div class="feed-discussion">${renderFeedJoin(thread)}${renderFeedReplies(thread)}</div>` : ''}
     </div>`;
   }
 
@@ -468,7 +492,7 @@
       if (!meta) return;
       meta.querySelector('.best-answer-badge')?.remove();
       if (isBest) {
-        meta.insertAdjacentHTML('beforeend', ' · <span class="best-answer-badge">Best answer</span>');
+        meta.insertAdjacentHTML('beforeend', POPULAR_BADGE_HTML);
       }
     });
   }
@@ -536,7 +560,6 @@
     const p = reply.author === 'You'
       ? ((typeof window.communityGetAuthState === 'function' && window.communityGetAuthState().profile) || { initials: 'You', role: '', school: '' })
       : (MEMBER_PROFILES[reply.author] || { initials: '??', role: '', school: '' });
-    const nested = reply.parentId ? ' is-nested' : '';
     const best = isBest ? ' is-best-answer' : '';
     const attach = reply.attachment ? `<div class="attach-chips">${renderAttachChip(reply.attachment)}</div>` : '';
     const avatar = reply.author === 'You' ? selfAvatarHtml('You') : avatarHtml(p, reply.author);
@@ -549,10 +572,10 @@
     const reportBtn = own
       ? ''
       : `<button type="button" class="report-btn" data-report-target="reply" data-report-id="${reply.id}">Report</button>`;
-    return `<div class="reply${nested}${best}" data-reply-id="${reply.id}" data-parent-id="${reply.parentId || ''}">
+    return `<div class="reply${best}" data-reply-id="${reply.id}" data-parent-id="${reply.parentId || ''}">
       ${avatar}
       <div>
-        <div class="reply-meta"><strong>${memberLink(reply.author)}</strong>${metaExtra(p.role, p.school)}${isBest ? ' · <span class="best-answer-badge">Best answer</span>' : ''}</div>
+        <div class="reply-meta"><strong>${memberLink(reply.author)}</strong>${metaExtra(p.role, p.school)}${isBest ? POPULAR_BADGE_HTML : ''}</div>
         <div class="reply-body">${reply.body} <span class="reply-time">${escapeHtml(reply.time)}${edited}</span></div>
         ${attach}
         <div class="reply-actions-row">
@@ -695,14 +718,26 @@
       btn.onclick = () => {
         const author = btn.dataset.replyAuthor;
         const feedItem = btn.closest('[data-feed-thread]');
-        const replyInput = feedItem?.querySelector('.feed-reply-input') || document.getElementById('replyInput');
-        if (!replyInput) return;
         if (feedItem?.dataset?.feedThread) {
           currentThreadId = feedItem.dataset.feedThread;
           window.__currentThreadId = currentThreadId;
+          if (!expandedReplies.has(currentThreadId)) {
+            expandedReplies.add(currentThreadId);
+            refreshFeedItem(currentThreadId);
+          }
         }
+        const nextItem = feedItem?.dataset?.feedThread
+          ? document.querySelector(`.feed-item[data-feed-thread="${feedItem.dataset.feedThread}"]`)
+          : feedItem;
+        const join = nextItem?.querySelector('.feed-join');
+        join?.classList.add('is-open');
+        const replyInput = nextItem?.querySelector('.feed-reply-input') || document.getElementById('replyInput');
+        if (!replyInput) return;
         replyInput.focus();
+        if (window.clearInput) window.clearInput(replyInput);
+        else replyInput.innerHTML = '';
         document.execCommand('insertText', false, `@${author} `);
+        syncFeedReplySend(replyInput);
       };
     });
     document.querySelectorAll('[data-invite-member]').forEach((btn) => {
@@ -1122,33 +1157,47 @@
     });
   }
 
-  function refreshFeedItemReplies(threadId) {
+  function refreshFeedItem(threadId) {
     const thread = getThreadById(threadId);
     const feedItem = document.querySelector(`.feed-item[data-feed-thread="${threadId}"]`);
     if (!thread || !feedItem) return;
-    const count = getThreadReplyCount(thread);
-    feedItem.dataset.replies = String(count);
-    feedItem.dataset.activity = String(thread.activityTs || Date.now());
+    const html = renderFeedItem(thread);
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html.trim();
+    const next = tmp.firstElementChild;
+    if (!next) return;
+    feedItem.replaceWith(next);
     syncThreadLikeUi(threadId);
-    const stat = feedItem.querySelector('[data-feed-replies] span');
-    if (stat) stat.textContent = String(count);
-    feedItem.querySelector('.feed-replies')?.remove();
-    const opener = feedItem.querySelector('.feed-opener');
-    if (opener) opener.insertAdjacentHTML('afterend', renderFeedReplies(thread));
     bindDynamicHandlers();
-    feedItem.querySelectorAll('.reply-heart').forEach((btn) => bindReplyHeartEnhanced(btn));
-    bindMentionInputs(feedItem.querySelectorAll('.feed-reply-input'));
+    next.querySelectorAll('.reply-heart').forEach((btn) => bindReplyHeartEnhanced(btn));
+    bindMentionInputs(next.querySelectorAll('.feed-reply-input'));
     applyPremiumToFeedReplyInputs();
+    if (typeof window.communityPaintSelfAvatars === 'function') window.communityPaintSelfAvatars();
+    syncComposerAvatars();
+  }
+
+  function refreshFeedItemReplies(threadId) {
+    refreshFeedItem(threadId);
   }
 
   function focusFeedThread(threadId, opts = {}) {
     if (window.showView) window.showView('chat');
     if (!threadId || threadId === 'user') {
+      currentThreadId = 'user';
+      window.__currentThreadId = 'user';
+      if (userThreadState) {
+        userThreadState.id = 'user';
+        if (!userThreadState.activityTs) userThreadState.activityTs = userThreadState.postedAt || Date.now();
+        if (opts.expand !== false) expandedReplies.add('user');
+        refreshFeedItem('user');
+      }
       const userEl = document.querySelector('.feed-item[data-feed-thread="user"]')
         || document.querySelector('.feed-opener[data-thread="user"]')?.closest('.feed-item');
       if (opts.scroll !== false) userEl?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      currentThreadId = 'user';
-      window.__currentThreadId = 'user';
+      if (opts.focusReply) {
+        userEl?.querySelector('.feed-join')?.classList.add('is-open');
+        userEl?.querySelector('.feed-reply-input')?.focus();
+      }
       return;
     }
     if (opts.expand !== false) expandedReplies.add(threadId);
@@ -1157,12 +1206,15 @@
     const thread = THREAD_DATA[threadId];
     if (thread) {
       threadViewedAt[threadId] = thread.activityTs;
-      refreshFeedItemReplies(threadId);
+      refreshFeedItem(threadId);
     }
     const el = document.querySelector(`.feed-item[data-feed-thread="${threadId}"]`);
     el?.classList.remove('has-unread');
     if (opts.scroll !== false) el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    if (opts.focusReply) el?.querySelector('.feed-reply-input')?.focus();
+    if (opts.focusReply) {
+      el?.querySelector('.feed-join')?.classList.add('is-open');
+      el?.querySelector('.feed-reply-input')?.focus();
+    }
   }
 
   function submitFeedInlineReply(input) {
@@ -1283,11 +1335,11 @@
         submitFeedInlineReply(input);
         return;
       }
-      if (e.target.closest('.feed-inline-reply')) e.stopPropagation();
+      if (e.target.closest('.feed-inline-reply, .feed-join, .feed-discussion')) e.stopPropagation();
     });
 
     feedList.addEventListener('pointerdown', (e) => {
-      const inline = e.target.closest('.feed-inline-reply');
+      const inline = e.target.closest('.feed-inline-reply, .feed-join');
       if (!inline || !feedList.contains(inline)) return;
       e.stopPropagation();
       const input = e.target.closest?.('.feed-reply-input');
@@ -1487,6 +1539,47 @@
         return;
       }
 
+      const toggleExpand = e.target.closest?.('[data-toggle-expand]');
+      if (toggleExpand) {
+        e.preventDefault();
+        e.stopPropagation();
+        const id = toggleExpand.dataset.toggleExpand;
+        if (!id) return;
+        if (expandedReplies.has(id)) expandedReplies.delete(id);
+        else expandedReplies.add(id);
+        currentThreadId = id;
+        window.__currentThreadId = id;
+        refreshFeedItem(id);
+        return;
+      }
+
+      const replyStat = e.target.closest?.('[data-feed-replies]');
+      if (replyStat) {
+        const item = replyStat.closest?.('[data-feed-thread]');
+        const id = item?.dataset?.feedThread;
+        if (!id) return;
+        e.preventDefault();
+        e.stopPropagation();
+        expandedReplies.add(id);
+        currentThreadId = id;
+        window.__currentThreadId = id;
+        refreshFeedItem(id);
+        return;
+      }
+
+      const joinPill = e.target.closest?.('[data-feed-join-pill]');
+      if (joinPill) {
+        e.preventDefault();
+        e.stopPropagation();
+        const id = joinPill.dataset.feedJoinPill;
+        const join = document.querySelector(`.feed-join[data-feed-join="${id}"]`);
+        join?.classList.add('is-open');
+        const input = join?.querySelector('.feed-reply-input');
+        input?.focus();
+        return;
+      }
+
+      // Legacy more/fewer controls (if present in older markup)
       const expandBtn = e.target.closest?.('[data-expand-replies]');
       if (expandBtn) {
         e.preventDefault();
@@ -1496,7 +1589,7 @@
         expandedReplies.add(id);
         currentThreadId = id;
         window.__currentThreadId = id;
-        refreshFeedItemReplies(id);
+        refreshFeedItem(id);
         return;
       }
 
@@ -1507,7 +1600,7 @@
         const id = collapseBtn.dataset.collapseReplies;
         if (!id) return;
         expandedReplies.delete(id);
-        refreshFeedItemReplies(id);
+        refreshFeedItem(id);
       }
     });
   }
@@ -2051,7 +2144,7 @@
       if (check) check.textContent = on ? '\u2713' : '';
     });
     if (label) {
-      label.textContent = selectedTags.length ? selectedTags.join(', ') : 'Select topics';
+      label.textContent = selectedTags.length ? selectedTags.join(', ') : 'Select topic(s)';
     }
     trigger?.classList.toggle('has-selection', selectedTags.length > 0);
   }
@@ -2494,27 +2587,12 @@
           window.__editingUserPost = false;
           return;
         }
+        userThreadState.id = 'user';
         userThreadState.title = title;
         userThreadState.bodyRaw = bodyRaw;
         userThreadState.body = window.formatPostBody ? window.formatPostBody(bodyRaw) : bodyRaw;
         userThreadState.tags = [...selectedTags];
         renderUserThreadPost();
-        const userFeedItem = document.querySelector('.feed-item[data-feed-thread="user"]')
-          || document.querySelector('.feed-opener[data-thread="user"]')?.closest('.feed-item');
-        if (userFeedItem) {
-          userFeedItem.dataset.tags = selectedTags.join('|');
-          userFeedItem.querySelector('h3').textContent = title;
-          const bodyEl = userFeedItem.querySelector('.feed-body');
-          if (bodyEl) bodyEl.innerHTML = userThreadState.body;
-          let tagsRow = userFeedItem.querySelector('.feed-opener-tags');
-          if (!tagsRow) {
-            tagsRow = document.createElement('div');
-            tagsRow.className = 'feed-opener-tags';
-            const meta = userFeedItem.querySelector('.feed-opener-meta-row');
-            meta?.insertAdjacentElement('afterend', tagsRow);
-          }
-          tagsRow.innerHTML = selectedTags.map((t) => `<span class="feed-tag-pill">${escapeHtml(t)}</span>`).join('');
-        }
         composerTitle.value = '';
         if (window.clearInput) window.clearInput(document.getElementById('composerInput'));
         selectedTags = [];
@@ -2522,38 +2600,30 @@
         if (window.syncComposerState) window.syncComposerState();
         window.__editingUserPost = false;
         if (window.showView) window.showView('chat');
-        focusFeedThread('user', { scroll: true });
+        focusFeedThread('user', { expand: true, scroll: true });
         return;
       }
 
       userThreadState = {
+        id: 'user',
         op: { name: 'You', initials: 'You', role: '', school: '' },
         title,
         body: window.formatPostBody ? window.formatPostBody(bodyRaw) : bodyRaw,
         bodyRaw,
         time: 'Just now',
         postedAt: Date.now(),
+        activityTs: Date.now(),
         tags: [...selectedTags],
         attachments: [],
         replies: [],
         likes: 0,
+        newReplies: 0,
         status: 'new',
       };
       original();
       localStorage.removeItem('qavaChatDraft');
-      const userFeedItem = document.querySelector('.feed-item[data-feed-thread="user"]');
-      const postedTags = userThreadState?.tags || [];
-      if (userFeedItem) {
-        userFeedItem.dataset.tags = postedTags.join('|');
-        let tagsRow = userFeedItem.querySelector('.feed-opener-tags');
-        if (!tagsRow) {
-          tagsRow = document.createElement('div');
-          tagsRow.className = 'feed-opener-tags';
-          const meta = userFeedItem.querySelector('.feed-opener-meta-row');
-          meta?.insertAdjacentElement('afterend', tagsRow);
-        }
-        tagsRow.innerHTML = postedTags.map((t) => `<span class="feed-tag-pill">${escapeHtml(t)}</span>`).join('');
-      }
+      expandedReplies.add('user');
+      refreshFeedItem('user');
       selectedTags = [];
       syncTopicPickerUI();
       renderUserThreadPost();
