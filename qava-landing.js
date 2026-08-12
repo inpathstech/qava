@@ -222,9 +222,8 @@
                 <div class="qava-blog-glass">
                   <div class="qava-blog-tag">The Creator Economy</div>
                   <div class="qava-blog-title">She Modeled the Numbers. Then She Hit Them.</div>
-                  <div class="qava-blog-dek">How Emma Burke turned a spreadsheet into a $1M creator agency.</div>
                   <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">The Rise Group cleared seven figures in year one — and is on pace to double.</div>
+                    <div class="qava-blog-excerpt">How Emma Burke turned a spreadsheet into a $1M creator agency.</div>
                     <span class="qava-blog-read">Read ${blogReadArrow}</span>
                   </div>
                 </div>
