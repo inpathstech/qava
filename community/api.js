@@ -485,6 +485,9 @@
       var skel = document.getElementById('feedSkel');
       if (skel) skel.hidden = true;
     }
+    if (typeof window.communityMarkBootPart === 'function') {
+      window.communityMarkBootPart('feed');
+    }
   }
 
   function boot() {

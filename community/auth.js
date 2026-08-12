@@ -448,29 +448,25 @@
     }
   });
 
-  function notifyParentReady() {
-    try {
-      if (window.parent && window.parent !== window) {
-        window.parent.postMessage(
-          { type: 'qava-community-ready' },
-          'https://app.theclubnyc.com'
-        );
-      }
-    } catch (e) {}
+  function markAuthBootDone() {
+    if (typeof window.communityMarkBootPart === 'function') {
+      window.communityMarkBootPart('auth');
+    }
   }
 
-  // Listener is live — parent can push avatar ASAP (also retries on ready).
-  notifyParentReady();
-
   function boot() {
-    refreshAuth();
+    // Resolve Premium before revealing UI / notifying the parent shell.
+    Promise.resolve(refreshAuth())
+      .catch(function () { /* stay locked */ })
+      .then(function () {
+        markAuthBootDone();
+      });
     // After Premium access resolves, honor deep links once.
     var tries = 0;
     var timer = setInterval(function () {
       tries += 1;
       if (consumeProfileQuery() || tries > 40) clearInterval(timer);
     }, 150);
-    notifyParentReady();
   }
   if (document.readyState === 'complete') boot();
   else window.addEventListener('load', boot);

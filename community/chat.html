@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../qava-landing.css" />
-  <link rel="stylesheet" href="community.css?v=feed-expand-slide-3" />
+  <link rel="stylesheet" href="community.css?v=community-boot-2" />
   <link rel="stylesheet" href="chat-marketing.css?v=ex-op-solid-1" />
   <link rel="stylesheet" href="../qava-auth.css" />
 </head>
@@ -561,15 +561,39 @@
           params.get("app") === "1" ||
           framed;
         if (inApp) {
-          document.body.classList.add("embed-app");
-          document.documentElement.classList.add("community-embed");
+          document.body.classList.add("embed-app", "is-community-booting");
+          document.documentElement.classList.add("community-embed", "is-community-booting");
         }
       } catch (e) {
         if (window.self !== window.top) {
-          document.body.classList.add("embed-app");
-          document.documentElement.classList.add("community-embed");
+          document.body.classList.add("embed-app", "is-community-booting");
+          document.documentElement.classList.add("community-embed", "is-community-booting");
         }
       }
+
+      // Parent keeps its own shimmer until auth + feed both mark ready.
+      var boot = { auth: false, feed: false, notified: false };
+      window.communityMarkBootPart = function (part) {
+        if (!document.body.classList.contains("embed-app")) return;
+        if (part === "auth" || part === "feed") boot[part] = true;
+        if (!boot.auth || !boot.feed || boot.notified) return;
+        boot.notified = true;
+        document.documentElement.classList.remove("is-community-booting");
+        document.body.classList.remove("is-community-booting");
+        try {
+          if (window.parent && window.parent !== window) {
+            window.parent.postMessage(
+              { type: "qava-community-ready" },
+              "https://app.theclubnyc.com"
+            );
+          }
+        } catch (err) { /* ignore */ }
+      };
+      // Safety: never leave the embed blank if a boot step hangs.
+      setTimeout(function () {
+        window.communityMarkBootPart("auth");
+        window.communityMarkBootPart("feed");
+      }, 10000);
     })();
   </script>
   <script>
@@ -577,7 +601,7 @@
       var inApp = document.body.classList.contains("embed-app");
       // Product chat scripts only in the app.theclubnyc.com embed. Public page is marketing-only.
       var scripts = inApp
-        ? ["app.js?v=feed-expand-1", "enhancements.js?v=feed-expand-slide-1", "api.js?v=topics-opener-down-1", "auth.js?v=avatar-sync-3", "profile-edit.js", "../qava-footer.js?v=footer-club-room-1"]
+        ? ["app.js?v=feed-expand-1", "enhancements.js?v=feed-expand-slide-1", "api.js?v=community-boot-1", "auth.js?v=community-boot-1", "profile-edit.js", "../qava-footer.js?v=footer-club-room-1"]
         : ["chat-examples.js?v=ex-op-solid-1", "../qava-auth.js", "../qava-footer.js?v=footer-club-room-1"];
 
       function loadNext(i) {
