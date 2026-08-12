@@ -792,51 +792,6 @@
             box-shadow: none;
         }
 
-        /* Secondary button - How it works (matches hero) */
-        .story-cta .cta-button.secondary {
-            padding: 6px 12px;
-            background: transparent;
-            border: none;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: inherit;
-            height: 27.6px;
-            text-decoration: none;
-            color: #000000;
-            font-size: 13px;
-            font-weight: 300;
-            white-space: nowrap;
-            position: relative;
-        }
-
-        .story-cta .cta-button.secondary::after {
-            content: '';
-            position: absolute;
-            bottom: 4px;
-            left: 12px;
-            right: 12px;
-            height: 1px;
-            background-color: #000000;
-            transform: scaleX(0);
-            transition: transform 0.2s ease;
-        }
-
-        .story-cta .cta-button.secondary:hover::after {
-            transform: scaleX(1);
-        }
-
-        .story-cta .cta-button.secondary:visited {
-            color: #000000;
-        }
-
-        .story-cta .cta-button.secondary:active {
-            color: #000000;
-        }
-
-        
     /* RESPONSIVE */
 
         @media (max-width: 768px) {
@@ -1266,7 +1221,6 @@
             <p style="font-weight: 300;"><a href="https://www.therisegrp.com/" target="_blank" rel="noopener">The Rise Group</a> grew because Emma built with a plan, not a hope.</p>
             <div class="story-cta-actions">
                 <a href="https://app.theclubnyc.com/" class="cta-button primary">Join for free</a>
-                <a href="https://www.theclubnyc.com/howitworks" class="cta-button secondary">How it works</a>
             </div>
         </div>
     </main>
