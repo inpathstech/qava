@@ -347,7 +347,9 @@
       margin: 24px 0 48px;
     }
 
-    .story-meta-col { flex: 1; min-width: 240px; }
+    .story-meta-col { flex: 1; min-width: 0; }
+
+    .story-meta-col:first-child { flex: 1.7; }
 
     .story-meta-divider {
       width: 1px;
@@ -371,19 +373,21 @@
 
     .story-people {
       display: flex;
-      flex-wrap: wrap;
-      gap: 32px;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 16px;
     }
 
     .story-person {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 10px;
+      min-width: 0;
     }
 
     .story-person-avatar {
-      width: 56px;
-      height: 56px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       overflow: hidden;
       background: #e5e7eb;
@@ -1104,7 +1108,7 @@
                         </div>
                         <div>
                             <div class="story-person-name">Reed Langridge</div>
-                            <div class="story-person-role">Founder, Qava</div>
+                            <div class="story-person-role">Founder, The Club</div>
                         </div>
                     </div>
                 </div>
