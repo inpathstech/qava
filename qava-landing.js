@@ -246,8 +246,8 @@
                 <div class="qava-blog-glass">
                   <div class="qava-blog-tag">Productivity</div>
                   <div class="qava-blog-title">Your 9-to-5 Pays the Bills.<br>Your 5-to-9 Builds Your Future.</div>
+                  <div class="qava-blog-dek">Five things the research says actually work after 7pm — and one famous idea that doesn't.</div>
                   <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">Most people think they're falling behind because of their job. They're not.</div>
                     <span class="qava-blog-read">Read ${blogReadArrow}</span>
                   </div>
                 </div>
