@@ -328,10 +328,10 @@
                 <img class="qava-blog-thumb" src="./Lumi/Family.jpg" alt="Lumi" />
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
-                  <div class="qava-blog-tag">Health tech</div>
-                  <div class="qava-blog-title">The AI Startup Bringing Real-Time Support to Neurodiverse Families</div>
+                  <div class="qava-blog-tag">Health Tech</div>
+                  <div class="qava-blog-title">The Meltdown Doesn't Wait<br>for the Appointment</div>
+                  <div class="qava-blog-dek">Lumi is built for the time between sessions, where life happens.</div>
                   <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">Real-time, science-backed support for neurodiverse households.</div>
                     <span class="qava-blog-read">Read ${blogReadArrow}</span>
                   </div>
                 </div>
