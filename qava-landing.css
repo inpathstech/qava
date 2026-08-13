@@ -1962,8 +1962,9 @@
           position: relative;
           display: block;
           aspect-ratio: 1 / 1;
-          background: #1a1a1a;
+          background: #ffffff;
           border: none;
+          outline: none;
           border-radius: 8px;
           overflow: hidden;
           box-shadow: 0 6px 20px rgba(15, 23, 42, 0.12);
@@ -1993,6 +1994,7 @@
 
         .qava-blog-card.is-loaded::before {
           opacity: 0;
+          visibility: hidden;
           animation: none;
         }
 
@@ -2010,6 +2012,8 @@
           display: block;
           z-index: 0;
           opacity: 0;
+          border-radius: inherit;
+          transform: scale(1.02);
           transition: opacity 0.5s ease;
         }
 
