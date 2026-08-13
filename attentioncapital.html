@@ -3,7 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Attention K | The Club</title>
+  <title>Attention Has Become More Valuable Than Capital | The Club</title>
+  <meta name="description" content="Capital is everywhere. Attention is scarce. What the unlikely rise of Anti Fund reveals about where business is heading — and why your audience is becoming the real moat." />
+  <meta property="og:title" content="Attention Has Become More Valuable Than Capital | The Club" />
+  <meta property="og:description" content="Capital is everywhere. Attention is scarce. What the unlikely rise of Anti Fund reveals about where business is heading — and why your audience is becoming the real moat." />
   <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -348,7 +351,9 @@
       margin: 24px 0 48px;
     }
 
-    .story-meta-col { flex: 1; min-width: 240px; }
+    .story-meta-col { flex: 1; min-width: 0; }
+
+    .story-meta-col:first-child { flex: 1.7; }
 
     .story-meta-divider {
       width: 1px;
@@ -372,19 +377,21 @@
 
     .story-people {
       display: flex;
-      flex-wrap: wrap;
-      gap: 32px;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 16px;
     }
 
     .story-person {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 10px;
+      min-width: 0;
     }
 
     .story-person-avatar {
-      width: 56px;
-      height: 56px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       overflow: hidden;
       background: #e5e7eb;
@@ -423,8 +430,12 @@
 
         .story-wrapper {
             max-width: 760px;
-            margin: 0 auto;
-            padding: 56px 24px 90px;
+            width: calc(100% - 48px);
+            margin: 24px auto 48px;
+            padding: 56px 40px 90px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-sizing: border-box;
         }
 
         .story-header {
@@ -440,6 +451,10 @@
             font-weight: 400;
             line-height: 1.1;
             letter-spacing: -0.02em;
+        }
+
+        .story-title-line {
+            display: block;
         }
 
         .story-subtitle {
@@ -506,7 +521,7 @@
         .story-hero {
             width: 100%;
             margin: 32px 0 40px;
-            border-radius: 12px;
+            border-radius: 4px;
             overflow: hidden;
         }
 
@@ -586,11 +601,12 @@
         }
  
         .story-section h2 {
-            font-size: 24px;
-            font-weight: 600;
+            font-family: var(--display);
+            font-size: 28px;
+            font-weight: 400;
             margin: 0 0 24px !important;
             padding-top: 28px !important;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.02em;
             color: #000000;
             border-top: 1px solid #e0e0e0 !important;
         }
@@ -636,8 +652,8 @@
         }
 
         .qa-question .highlight {
-            background: linear-gradient(180deg, transparent 60%, rgba(15, 98, 254, 0.1) 60%);
-            padding: 0 4px;
+            background: none;
+            padding: 0;
             display: inline;
         }
 
@@ -684,7 +700,7 @@
 
         .story-media img {
             width: 100%;
-            border-radius: 16px;
+            border-radius: 4px;
             display: block;
         }
 
@@ -723,8 +739,10 @@
         }
 
         .story-cta h3 {
+            font-family: var(--display);
             font-size: 24px;
-            font-weight: 600;
+            font-weight: 400;
+            letter-spacing: -0.02em;
             margin-bottom: 16px;
         }
 
@@ -826,7 +844,9 @@
 
         @media (max-width: 768px) {
             .story-wrapper {
+                width: calc(100% - 32px);
                 padding: 40px 24px 80px;
+                margin: 16px auto 40px;
             }
 
             .story-categories {
@@ -1072,13 +1092,36 @@
 
 <main class="story-wrapper">
         <header class="story-header">
-            <div class="story-categories">
-                <span class="story-category-pill">Venture Capital</span>
-            </div>
-            <h1 class="story-title">Attention Has Become More Valuable Than Capital</h1>
+            <h1 class="story-title"><span class="story-title-line">Attention Has Become</span><span class="story-title-line">More Valuable Than Capital</span></h1>
             <p class="story-subtitle" style="color: #666666;">Capital is everywhere. Attention is scarce. What the unlikely rise of Anti Fund reveals about where business is heading — and why your audience is becoming the real moat.</p>
-            <p style="margin-top: 6px; font-size: 14px; font-weight: 400; color: #6b7280;">By Qava Team</p>
         </header>
+
+        <section class="story-meta">
+            <div class="story-meta-col">
+                <h3>Behind the Story</h3>
+                <div class="story-people">
+                    <div class="story-person">
+                        <div class="story-person-avatar">
+                            <img src="Reed%20Langridge%20Profile.jpg" alt="Reed Langridge" loading="lazy" />
+                        </div>
+                        <div>
+                            <div class="story-person-name">Reed Langridge</div>
+                            <div class="story-person-role">Founder, The Club</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="story-meta-divider" aria-hidden="true"></div>
+            <div class="story-meta-col">
+                <h3>Focus Areas</h3>
+                <div class="story-focus-items">
+                    <div>Venture Capital 💰</div>
+                    <div>Distribution 📡</div>
+                    <div>Narrative 📖</div>
+                    <div>Audience 🎯</div>
+                </div>
+            </div>
+        </section>
 
         <figure class="story-hero">
             <img src="anti-fund.png" alt="Geoffrey Woo and Jake Paul, co-founders of Anti Fund" loading="lazy">
@@ -1092,133 +1135,145 @@
 
         <nav class="story-toc" aria-label="Table of contents">
             <ul>
-                <li><a href="#bottleneck"><span class="index">1.</span><span>Capital Is No Longer the Bottleneck</span></a></li>
-                <li><a href="#unlikely-story"><span class="index">2.</span><span>The Most Unlikely Story in Venture Capital</span></a></li>
-                <li><a href="#two-leverages"><span class="index">3.</span><span>Two Forms of Leverage</span></a></li>
-                <li><a href="#technology-alone"><span class="index">4.</span><span>Why Technology Alone Has Never Been Enough</span></a></li>
-                <li><a href="#trust-at-scale"><span class="index">5.</span><span>Attention Is Trust at Scale</span></a></li>
-                <li><a href="#narrative"><span class="index">6.</span><span>Narrative Is Strategy</span></a></li>
-                <li><a href="#real-lesson"><span class="index">7.</span><span>The Real Lesson from Anti Fund</span></a></li>
+                <li><a href="#bottleneck"><span class="index">1.</span><span>Capital is no longer the bottleneck</span></a></li>
+                <li><a href="#unlikely-story"><span class="index">2.</span><span>The most unlikely story in venture capital</span></a></li>
+                <li><a href="#two-leverages"><span class="index">3.</span><span>Two forms of leverage</span></a></li>
+                <li><a href="#technology-alone"><span class="index">4.</span><span>Why technology alone has never been enough</span></a></li>
+                <li><a href="#trust-at-scale"><span class="index">5.</span><span>Attention is trust at scale</span></a></li>
+                <li><a href="#narrative"><span class="index">6.</span><span>Narrative is strategy</span></a></li>
+                <li><a href="#real-lesson"><span class="index">7.</span><span>The real lesson from Anti Fund</span></a></li>
             </ul>
         </nav>
 
         <section class="story-section" id="bottleneck">
-            <h2>Capital Is No Longer the Bottleneck</h2>
-            <p>Capital is everywhere.</p>
-            <p>The largest venture capital firms are sitting on mountains of cash. Angel investors can deploy capital from their phones. Family offices, sovereign wealth funds, private equity firms, hedge funds, and corporate venture groups are all searching for opportunities. If you are a talented founder building something genuinely interesting, there is no shortage of people willing to write a cheque.</p>
-            <p>The bottleneck has moved.</p>
-            <blockquote>What is scarce now is attention.</blockquote>
+            <h2>Capital is no longer the bottleneck</h2>
+            <div class="qa-block">
+                <p class="qa-answer">Capital is everywhere.</p>
+                <p class="qa-answer">The largest venture capital firms are sitting on mountains of cash. Angel investors can deploy capital from their phones. Family offices, sovereign wealth funds, private equity firms, hedge funds, and corporate venture groups are all searching for opportunities. If you are a talented founder building something genuinely interesting, there is no shortage of people willing to write a cheque.</p>
+                <p class="qa-answer">The bottleneck has moved.</p>
+                <blockquote>What is scarce now is attention.</blockquote>
+            </div>
         </section>
 
         <section class="story-section" id="unlikely-story">
-            <h2>The Most Unlikely Story in Venture Capital</h2>
-            <p>That is why one of the most fascinating stories in venture capital over the past few years isn't about a legendary Silicon Valley investor or a Stanford professor. It is about Jake Paul.</p>
-            <p>On the surface, it makes no sense.</p>
-            <p>Jake Paul became famous making videos on the internet. He built an audience through entertainment, controversy, and an uncanny understanding of how to capture attention. Millions followed him. Millions criticised him. But almost nobody would have predicted that the same person would go on to build one of the most enviable venture portfolios in technology.</p>
-            <p>Yet today, Anti Fund has exposure to companies that most investors would do almost anything to access. OpenAI. SpaceX. Anduril. Ramp. Cognition.</p>
-            <p>The question is not whether Jake Paul is a good investor.</p>
-            <p>The question is how someone who built his reputation in entertainment gained access to opportunities that many of the world's most sophisticated investors never see.</p>
-            <p>The answer reveals something important about where business is heading.</p>
+            <h2>The most unlikely story in venture capital</h2>
+            <div class="qa-block">
+                <p class="qa-answer">That is why one of the most fascinating stories in venture capital over the past few years isn't about a legendary Silicon Valley investor or a Stanford professor. It is about Jake Paul.</p>
+                <p class="qa-answer">On the surface, it makes no sense.</p>
+                <p class="qa-answer">Jake Paul became famous making videos on the internet. He built an audience through entertainment, controversy, and an uncanny understanding of how to capture attention. Millions followed him. Millions criticised him. But almost nobody would have predicted that the same person would go on to build one of the most enviable venture portfolios in technology.</p>
+                <p class="qa-answer">Yet today, Anti Fund has exposure to companies that most investors would do almost anything to access. OpenAI. SpaceX. Anduril. Ramp. Cognition.</p>
+                <p class="qa-answer">The question is not whether Jake Paul is a good investor.</p>
+                <p class="qa-answer">The question is how someone who built his reputation in entertainment gained access to opportunities that many of the world's most sophisticated investors never see.</p>
+                <p class="qa-answer">The answer reveals something important about where business is heading.</p>
+            </div>
         </section>
 
         <section class="story-section" id="two-leverages">
-            <h2>Two Forms of Leverage</h2>
-            <p>Most people tell the Anti Fund story incorrectly because they assume it is a celebrity story.</p>
-            <p>It isn't.</p>
-            <p>It is a story about leverage.</p>
-            <p>More specifically, it is a story about combining two forms of leverage that are becoming increasingly powerful in the modern economy.</p>
-            <p>The first is technical capability.</p>
-            <p>The second is audience.</p>
-            <p>On one side of Anti Fund sits Geoffrey Woo, a Stanford-trained computer scientist, founder, operator, and investor. Before Anti Fund, Woo had already built and sold companies, earned credibility in technical circles, and developed a reputation for understanding products, engineering, and venture investing at a deep level.</p>
-            <p>On the other side sits Jake Paul.</p>
-            <p>Where Geoffrey understands technology, Jake understands attention.<br>
-            Where Geoffrey understands product, Jake understands distribution.<br>
-            Where Geoffrey understands how to build, Jake understands how to make people care.</p>
-            <p>Separately, each is valuable.</p>
-            <p>Together, they represent something increasingly difficult to compete against.</p>
+            <h2>Two forms of leverage</h2>
+            <div class="qa-block">
+                <p class="qa-answer">Most people tell the Anti Fund story incorrectly because they assume it is a celebrity story.</p>
+                <p class="qa-answer">It isn't.</p>
+                <p class="qa-answer">It is a story about leverage.</p>
+                <p class="qa-answer">More specifically, it is a story about combining two forms of leverage that are becoming increasingly powerful in the modern economy.</p>
+                <p class="qa-answer">The first is technical capability.</p>
+                <p class="qa-answer">The second is audience.</p>
+                <p class="qa-answer">On one side of Anti Fund sits Geoffrey Woo, a Stanford-trained computer scientist, founder, operator, and investor. Before Anti Fund, Woo had already built and sold companies, earned credibility in technical circles, and developed a reputation for understanding products, engineering, and venture investing at a deep level.</p>
+                <p class="qa-answer">On the other side sits Jake Paul.</p>
+                <p class="qa-answer">Where Geoffrey understands technology, Jake understands attention.<br>
+                Where Geoffrey understands product, Jake understands distribution.<br>
+                Where Geoffrey understands how to build, Jake understands how to make people care.</p>
+                <p class="qa-answer">Separately, each is valuable.</p>
+                <p class="qa-answer">Together, they represent something increasingly difficult to compete against.</p>
+            </div>
         </section>
 
         <section class="story-section" id="technology-alone">
-            <h2>Why Technology Alone Has Never Been Enough</h2>
-            <p>For decades, Silicon Valley worshipped technical capability above all else. The best founders were engineers. The strongest companies had the best products. The assumption was that superior technology would eventually win.</p>
-            <p>There is truth in that.</p>
-            <p>Technology matters.<br>
-            Product matters.<br>
-            Execution matters.</p>
-            <p>But technology alone has never been enough.</p>
-            <p>History is littered with examples of superior products losing to superior stories.</p>
-            <p>The reality is that the market does not reward what is best. The market rewards what is understood.</p>
-            <p>A breakthrough innovation that nobody notices has little value.</p>
-            <p>A founder who cannot communicate their vision struggles to attract customers, talent, media attention, and investors.</p>
-            <p>The best technology in the world cannot create momentum if nobody understands why it matters.</p>
+            <h2>Why technology alone has never been enough</h2>
+            <div class="qa-block">
+                <p class="qa-answer">For decades, Silicon Valley worshipped technical capability above all else. The best founders were engineers. The strongest companies had the best products. The assumption was that superior technology would eventually win.</p>
+                <p class="qa-answer">There is truth in that.</p>
+                <p class="qa-answer">Technology matters.<br>
+                Product matters.<br>
+                Execution matters.</p>
+                <p class="qa-answer">But technology alone has never been enough.</p>
+                <p class="qa-answer">History is littered with examples of superior products losing to superior stories.</p>
+                <p class="qa-answer">The reality is that the market does not reward what is best. The market rewards what is understood.</p>
+                <p class="qa-answer">A breakthrough innovation that nobody notices has little value.</p>
+                <p class="qa-answer">A founder who cannot communicate their vision struggles to attract customers, talent, media attention, and investors.</p>
+                <p class="qa-answer">The best technology in the world cannot create momentum if nobody understands why it matters.</p>
+            </div>
         </section>
 
         <section class="story-section" id="trust-at-scale">
-            <h2>Attention Is Trust at Scale</h2>
-            <p>This is where attention becomes so powerful.</p>
-            <p>Most people think of attention as vanity. Followers. Likes. Views. Subscribers.</p>
-            <p>They mistake the scorecard for the asset.</p>
-            <p>The real asset is trust.</p>
-            <blockquote>Attention is simply trust at scale.</blockquote>
-            <p>When people trust you, they listen. When they listen, you gain distribution. When you have distribution, you can launch products faster, recruit better people, raise capital more efficiently, and recover more quickly when things go wrong.</p>
-            <p>An audience is not merely a collection of followers.</p>
-            <p>It is a distribution network that belongs to you.</p>
-            <p>And unlike capital, which can be copied, distribution is surprisingly difficult to replicate.</p>
-            <p>This is why some venture capital firms have begun recruiting creators, writers, podcasters, and audience builders. It is why founders spend more time developing personal brands. It is why newsletters, communities, podcasts, YouTube channels, and social media followings have become strategic assets rather than marketing side projects.</p>
-            <p>The smartest people in technology have realised something that much of corporate America has not.</p>
-            <p>The world is drowning in products.</p>
-            <p>What it lacks is attention.</p>
+            <h2>Attention is trust at scale</h2>
+            <div class="qa-block">
+                <p class="qa-answer">This is where attention becomes so powerful.</p>
+                <p class="qa-answer">Most people think of attention as vanity. Followers. Likes. Views. Subscribers.</p>
+                <p class="qa-answer">They mistake the scorecard for the asset.</p>
+                <p class="qa-answer">The real asset is trust.</p>
+                <blockquote>Attention is simply trust at scale.</blockquote>
+                <p class="qa-answer">When people trust you, they listen. When they listen, you gain distribution. When you have distribution, you can launch products faster, recruit better people, raise capital more efficiently, and recover more quickly when things go wrong.</p>
+                <p class="qa-answer">An audience is not merely a collection of followers.</p>
+                <p class="qa-answer">It is a distribution network that belongs to you.</p>
+                <p class="qa-answer">And unlike capital, which can be copied, distribution is surprisingly difficult to replicate.</p>
+                <p class="qa-answer">This is why some venture capital firms have begun recruiting creators, writers, podcasters, and audience builders. It is why founders spend more time developing personal brands. It is why newsletters, communities, podcasts, YouTube channels, and social media followings have become strategic assets rather than marketing side projects.</p>
+                <p class="qa-answer">The smartest people in technology have realised something that much of corporate America has not.</p>
+                <p class="qa-answer">The world is drowning in products.</p>
+                <p class="qa-answer">What it lacks is attention.</p>
+            </div>
         </section>
 
         <section class="story-section" id="narrative">
-            <h2>Narrative Is Strategy</h2>
-            <p>Every day thousands of startups launch. Many are technically impressive. Many are solving meaningful problems. Many are built by talented teams.</p>
-            <p>Most will never be noticed.</p>
-            <p>Not because they are bad.</p>
-            <p>Because nobody is paying attention.</p>
-            <p>In that environment, narrative becomes a competitive advantage.</p>
-            <p>Narrative helps people understand what is changing.<br>
-            Narrative helps people understand why now matters.<br>
-            Narrative helps people understand why they should care.</p>
-            <p>Founders often dismiss storytelling as something soft. Something secondary. Something that belongs to marketing departments.</p>
-            <p>That is a mistake.</p>
-            <blockquote>Storytelling is not decoration. It is strategy.</blockquote>
-            <p>The ability to clearly articulate a vision may be one of the most important skills an entrepreneur can develop.</p>
-            <p>Because the truth is that customers do not buy products.</p>
-            <p>They buy stories about themselves.</p>
-            <p>Employees do not join companies.<br>
-            They join missions.</p>
-            <p>Investors do not fund spreadsheets.<br>
-            They fund narratives about the future.</p>
-            <p>The best founders understand this instinctively.</p>
-            <p>They know that technology creates possibility, but narrative creates belief.</p>
-            <p>And belief changes behaviour.</p>
+            <h2>Narrative is strategy</h2>
+            <div class="qa-block">
+                <p class="qa-answer">Every day thousands of startups launch. Many are technically impressive. Many are solving meaningful problems. Many are built by talented teams.</p>
+                <p class="qa-answer">Most will never be noticed.</p>
+                <p class="qa-answer">Not because they are bad.</p>
+                <p class="qa-answer">Because nobody is paying attention.</p>
+                <p class="qa-answer">In that environment, narrative becomes a competitive advantage.</p>
+                <p class="qa-answer">Narrative helps people understand what is changing.<br>
+                Narrative helps people understand why now matters.<br>
+                Narrative helps people understand why they should care.</p>
+                <p class="qa-answer">Founders often dismiss storytelling as something soft. Something secondary. Something that belongs to marketing departments.</p>
+                <p class="qa-answer">That is a mistake.</p>
+                <blockquote>Storytelling is not decoration. It is strategy.</blockquote>
+                <p class="qa-answer">The ability to clearly articulate a vision may be one of the most important skills an entrepreneur can develop.</p>
+                <p class="qa-answer">Because the truth is that customers do not buy products.</p>
+                <p class="qa-answer">They buy stories about themselves.</p>
+                <p class="qa-answer">Employees do not join companies.<br>
+                They join missions.</p>
+                <p class="qa-answer">Investors do not fund spreadsheets.<br>
+                They fund narratives about the future.</p>
+                <p class="qa-answer">The best founders understand this instinctively.</p>
+                <p class="qa-answer">They know that technology creates possibility, but narrative creates belief.</p>
+                <p class="qa-answer">And belief changes behaviour.</p>
+            </div>
         </section>
 
         <section class="story-section" id="real-lesson">
-            <h2>The Real Lesson from Anti Fund</h2>
-            <p>That may be the most important lesson from Anti Fund.</p>
-            <p>Not that a YouTuber became a venture capitalist.</p>
-            <p>Not that a boxer built a portfolio that includes some of the most sought-after companies in the world.</p>
-            <p>The real lesson is that the economy is changing.</p>
-            <p>The old world rewarded those who controlled capital.</p>
-            <p>The new world increasingly rewards those who control attention.</p>
-            <p>The winners of the next decade will not necessarily be the people with the most money.</p>
-            <p>Nor will they necessarily be the people with the best technology.</p>
-            <p>They will be the people who can combine capability with distribution.</p>
-            <p>People who can build something meaningful and then convince the world that it matters.</p>
-            <p>Because in an age where capital is abundant and technology is increasingly accessible, attention has become the scarce resource.</p>
-            <p>And scarcity creates power.</p>
-            <blockquote>Your audience is no longer a by-product of success. Increasingly, it is the moat itself.</blockquote>
+            <h2>The real lesson from Anti Fund</h2>
+            <div class="qa-block">
+                <p class="qa-answer">That may be the most important lesson from Anti Fund.</p>
+                <p class="qa-answer">Not that a YouTuber became a venture capitalist.</p>
+                <p class="qa-answer">Not that a boxer built a portfolio that includes some of the most sought-after companies in the world.</p>
+                <p class="qa-answer">The real lesson is that the economy is changing.</p>
+                <p class="qa-answer">The old world rewarded those who controlled capital.</p>
+                <p class="qa-answer">The new world increasingly rewards those who control attention.</p>
+                <p class="qa-answer">The winners of the next decade will not necessarily be the people with the most money.</p>
+                <p class="qa-answer">Nor will they necessarily be the people with the best technology.</p>
+                <p class="qa-answer">They will be the people who can combine capability with distribution.</p>
+                <p class="qa-answer">People who can build something meaningful and then convince the world that it matters.</p>
+                <p class="qa-answer">Because in an age where capital is abundant and technology is increasingly accessible, attention has become the scarce resource.</p>
+                <p class="qa-answer">And scarcity creates power.</p>
+                <blockquote>Your audience is no longer a by-product of success. Increasingly, it is the moat itself.</blockquote>
+            </div>
         </section>
 
         <div class="story-cta">
             <h3>Build something worth paying attention to.</h3>
             <p style="font-weight: 300;">In an economy where capital is abundant, distribution is the advantage.</p>
-            <p style="font-weight: 300;">Start your journey today with Qava.</p>
             <div class="story-cta-actions">
                 <a href="https://app.theclubnyc.com/" class="cta-button primary">Join for free</a>
-                <a href="https://www.theclubnyc.com/howitworks" class="cta-button secondary">How Qava Works</a>
             </div>
         </div>
     </main>
@@ -1232,12 +1287,6 @@
       if (typeof window.applyQavaFooter === "function") {
         window.applyQavaFooter(document);
       }
-
-      document.querySelectorAll('.qa-question').forEach((questionEl) => {
-        if (!questionEl.querySelector('.highlight')) {
-          questionEl.innerHTML = `<span class="highlight">${questionEl.innerHTML}</span>`;
-        }
-      });
     })();
   </script>
   <script src="/qava-auth.js"></script>
