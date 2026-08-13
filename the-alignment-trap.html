@@ -438,6 +438,29 @@
             box-sizing: border-box;
         }
 
+        .story-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: "Inter", sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            color: #6b7280;
+            text-decoration: none;
+            margin: 0 0 28px;
+            width: fit-content;
+            transition: color 0.2s ease;
+        }
+
+        .story-back:visited {
+            color: #6b7280;
+        }
+
+        .story-back:hover,
+        .story-back:focus-visible {
+            color: #000000;
+        }
+
         .story-header {
             display: flex;
             flex-direction: column;
@@ -1128,6 +1151,7 @@
   </header>
 
 <main class="story-wrapper">
+        <a class="story-back" href="https://www.theclubnyc.com/">&larr; Back</a>
         <header class="story-header">
             <h1 class="story-title">The False Alignment Trap</h1>
             <p class="story-subtitle" style="color: #666666;">Most change efforts don't fail on execution. They fail because the people at the top believe they agree on why, what, and how to change — when they quietly don't. Here's how false alignment takes hold, what it costs you, and how to reach the kind of agreement that actually holds.</p>

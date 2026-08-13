@@ -438,6 +438,29 @@
             box-sizing: border-box;
         }
 
+        .story-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: "Inter", sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            color: #6b7280;
+            text-decoration: none;
+            margin: 0 0 28px;
+            width: fit-content;
+            transition: color 0.2s ease;
+        }
+
+        .story-back:visited {
+            color: #6b7280;
+        }
+
+        .story-back:hover,
+        .story-back:focus-visible {
+            color: #000000;
+        }
+
         .story-header {
             display: flex;
             flex-direction: column;
@@ -1128,6 +1151,7 @@
   </header>
 
 <main class="story-wrapper">
+        <a class="story-back" href="https://www.theclubnyc.com/">&larr; Back</a>
         <header class="story-header">
             <h1 class="story-title">Five Minutes and a Manual</h1>
             <p class="story-subtitle" style="color: #666666;">During my MBA they put us in a cockpit simulator with a manual we couldn't finish and a plane we couldn't fly. It wasn't really about the plane. It was about what happens to your judgement — and your communication — the moment the stakes climb and the clock runs.</p>
