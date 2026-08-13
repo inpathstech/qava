@@ -233,9 +233,9 @@
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
                   <div class="qava-blog-tag">Product</div>
-                  <div class="qava-blog-title">Finding Flow On and Off the Board</div>
+                  <div class="qava-blog-title">Something Real<br>Under My Feet</div>
+                  <div class="qava-blog-dek">How Alexis Chabat built the most original board in a $4B market.</div>
                   <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">The story behind an electric board built around natural motion.</div>
                     <span class="qava-blog-read">Read ${blogReadArrow}</span>
                   </div>
                 </div>
