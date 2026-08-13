@@ -348,7 +348,9 @@
       margin: 24px 0 48px;
     }
 
-    .story-meta-col { flex: 1; min-width: 240px; }
+    .story-meta-col { flex: 1; min-width: 0; }
+
+    .story-meta-col:first-child { flex: 1.7; }
 
     .story-meta-divider {
       width: 1px;
@@ -372,19 +374,21 @@
 
     .story-people {
       display: flex;
-      flex-wrap: wrap;
-      gap: 32px;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 16px;
     }
 
     .story-person {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 10px;
+      min-width: 0;
     }
 
     .story-person-avatar {
-      width: 56px;
-      height: 56px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       overflow: hidden;
       background: #e5e7eb;
@@ -423,8 +427,12 @@
 
         .story-wrapper {
             max-width: 760px;
-            margin: 0 auto;
-            padding: 56px 24px 90px;
+            width: calc(100% - 48px);
+            margin: 24px auto 48px;
+            padding: 56px 40px 90px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-sizing: border-box;
         }
 
         .story-header {
@@ -506,7 +514,7 @@
         .story-hero {
             width: 100%;
             margin: 32px 0 40px;
-            border-radius: 12px;
+            border-radius: 4px;
             overflow: hidden;
         }
 
@@ -586,11 +594,12 @@
         }
  
         .story-section h2 {
-            font-size: 24px;
-            font-weight: 600;
+            font-family: var(--display);
+            font-size: 28px;
+            font-weight: 400;
             margin: 0 0 24px !important;
             padding-top: 28px !important;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.02em;
             color: #000000;
             border-top: 1px solid #e0e0e0 !important;
         }
@@ -684,7 +693,7 @@
 
         .story-media img {
             width: 100%;
-            border-radius: 16px;
+            border-radius: 4px;
             display: block;
         }
 
@@ -723,8 +732,10 @@
         }
 
         .story-cta h3 {
+            font-family: var(--display);
             font-size: 24px;
-            font-weight: 600;
+            font-weight: 400;
+            letter-spacing: -0.02em;
             margin-bottom: 16px;
         }
 
@@ -777,56 +788,13 @@
             box-shadow: none;
         }
 
-        /* Secondary button - How Qava Works (matches hero) */
-        .story-cta .cta-button.secondary {
-            padding: 6px 12px;
-            background: transparent;
-            border: none;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: inherit;
-            height: 27.6px;
-            text-decoration: none;
-            color: #000000;
-            font-size: 13px;
-            font-weight: 300;
-            white-space: nowrap;
-            position: relative;
-        }
-
-        .story-cta .cta-button.secondary::after {
-            content: '';
-            position: absolute;
-            bottom: 4px;
-            left: 12px;
-            right: 12px;
-            height: 1px;
-            background-color: #000000;
-            transform: scaleX(0);
-            transition: transform 0.2s ease;
-        }
-
-        .story-cta .cta-button.secondary:hover::after {
-            transform: scaleX(1);
-        }
-
-        .story-cta .cta-button.secondary:visited {
-            color: #000000;
-        }
-
-        .story-cta .cta-button.secondary:active {
-            color: #000000;
-        }
-
-        
     /* RESPONSIVE */
 
         @media (max-width: 768px) {
             .story-wrapper {
+                width: calc(100% - 32px);
                 padding: 40px 24px 80px;
+                margin: 16px auto 40px;
             }
 
             .story-categories {
@@ -861,7 +829,7 @@
 
             .story-hero {
                 margin: 24px 0 32px;
-                border-radius: 8px;
+                border-radius: 4px;
             }
 
             .story-intro,
@@ -908,7 +876,7 @@
             }
 
             .story-media img {
-                border-radius: 12px;
+                border-radius: 4px;
             }
 
             .story-cta {
@@ -960,7 +928,9 @@
 
         @media (max-width: 480px) {
             .story-wrapper {
-                padding: 32px 24px 70px;
+                width: calc(100% - 24px);
+                padding: 32px 20px 70px;
+                margin: 12px auto 32px;
             }
 
             .story-title {
@@ -1099,7 +1069,7 @@
                         </div>
                         <div>
                             <div class="story-person-name">Reed Langridge</div>
-                            <div class="story-person-role">Founder, Qava</div>
+                            <div class="story-person-role">Founder, The Club</div>
                         </div>
                     </div>
                 </div>
@@ -1603,10 +1573,8 @@
         <div class="story-cta">
             <h3>Turn ideas into something.</h3>
             <p style="font-weight: 300;">Liquid Skateboard continues to scale because Alexis built smart.</p>
-            <p style="font-weight: 300;">Start your journey today with Qava.</p>
             <div class="story-cta-actions">
                 <a href="https://app.theclubnyc.com/" class="cta-button primary">Join for free</a>
-                <a href="https://www.theclubnyc.com/howitworks" class="cta-button secondary">How Qava Works</a>
             </div>
         </div>
     </main>
