@@ -234,8 +234,8 @@
                 <div class="qava-blog-glass">
                   <div class="qava-blog-tag">Product</div>
                   <div class="qava-blog-title">Something Real<br>Under My Feet</div>
-                  <div class="qava-blog-dek">How Alexis Chabat built the most original board in a $4B market.</div>
                   <div class="qava-blog-more">
+                    <div class="qava-blog-excerpt">How Alexis Chabat built the most original board in a $4B market.</div>
                     <span class="qava-blog-read">Read ${blogReadArrow}</span>
                   </div>
                 </div>
@@ -246,8 +246,8 @@
                 <div class="qava-blog-glass">
                   <div class="qava-blog-tag">Productivity</div>
                   <div class="qava-blog-title">Your 9-to-5 Pays the Bills.<br>Your 5-to-9 Builds Your Future.</div>
-                  <div class="qava-blog-dek">Five things the research says actually work after 7pm — and one famous idea that doesn't.</div>
                   <div class="qava-blog-more">
+                    <div class="qava-blog-excerpt">Five things the research says actually work after 7pm — and one famous idea that doesn't.</div>
                     <span class="qava-blog-read">Read ${blogReadArrow}</span>
                   </div>
                 </div>
@@ -258,8 +258,8 @@
                 <div class="qava-blog-glass">
                   <div class="qava-blog-tag">Venture Capital</div>
                   <div class="qava-blog-title">Fame Gets You in the Room.<br>Capital Gets You the Deal.</div>
-                  <div class="qava-blog-dek">What Anti Fund's $180M actually reveals about attention as leverage.</div>
                   <div class="qava-blog-more">
+                    <div class="qava-blog-excerpt">What Anti Fund's $180M actually reveals about attention as leverage.</div>
                     <span class="qava-blog-read">Read ${blogReadArrow}</span>
                   </div>
                 </div>
@@ -330,8 +330,8 @@
                 <div class="qava-blog-glass">
                   <div class="qava-blog-tag">Health Tech</div>
                   <div class="qava-blog-title">The Meltdown Doesn't Wait<br>for the Appointment</div>
-                  <div class="qava-blog-dek">Lumi is built for the time between sessions, where life happens.</div>
                   <div class="qava-blog-more">
+                    <div class="qava-blog-excerpt">Lumi is built for the time between sessions, where life happens.</div>
                     <span class="qava-blog-read">Read ${blogReadArrow}</span>
                   </div>
                 </div>
