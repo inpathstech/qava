@@ -257,9 +257,9 @@
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
                   <div class="qava-blog-tag">Venture Capital</div>
-                  <div class="qava-blog-title">Attention Has Become<br>More Valuable Than Capital</div>
+                  <div class="qava-blog-title">Fame Gets You in the Room.<br>Capital Gets You the Deal.</div>
+                  <div class="qava-blog-dek">What Anti Fund's $180M actually reveals about attention as leverage.</div>
                   <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">Why distribution, not money, is becoming the real moat.</div>
                     <span class="qava-blog-read">Read ${blogReadArrow}</span>
                   </div>
                 </div>
