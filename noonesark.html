@@ -438,6 +438,29 @@
             box-sizing: border-box;
         }
 
+        .story-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: "Inter", sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            color: #6b7280;
+            text-decoration: none;
+            margin: 0 0 28px;
+            width: fit-content;
+            transition: color 0.2s ease;
+        }
+
+        .story-back:visited {
+            color: #6b7280;
+        }
+
+        .story-back:hover,
+        .story-back:focus-visible {
+            color: #000000;
+        }
+
         .story-header {
             display: flex;
             flex-direction: column;
@@ -1173,6 +1196,7 @@
   </header>
 
 <main class="story-wrapper">
+        <a class="story-back" href="https://www.theclubnyc.com/">&larr; Back</a>
         <header class="story-header">
             <img src="No One's Ark/NOA logo files-39-1.png" alt="No One's Ark" style="max-width: 120px; margin-bottom: 6px;" loading="lazy">
             <h1 class="story-title"><span class="story-title-line">Pirates for the Planet</span><span class="story-title-line">The Story of No One's Ark</span></h1>
