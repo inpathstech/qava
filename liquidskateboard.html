@@ -461,6 +461,77 @@
             color: #000000;
         }
 
+        .story-pager {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 32px;
+            margin-top: 48px;
+            padding-top: 28px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .story-pager-link {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-width: 46%;
+            color: #6b7280;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .story-pager-prev {
+            text-align: left;
+            align-items: flex-start;
+        }
+
+        .story-pager-next {
+            margin-left: auto;
+            text-align: right;
+            align-items: flex-end;
+        }
+
+        .story-pager-link:visited {
+            color: #6b7280;
+        }
+
+        .story-pager-link:hover,
+        .story-pager-link:focus-visible {
+            color: #000000;
+        }
+
+        .story-pager-label {
+            font-family: "Inter", sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .story-pager-title {
+            font-family: var(--display);
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+
+        @media (max-width: 640px) {
+            .story-pager {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .story-pager-link {
+                max-width: 100%;
+            }
+
+            .story-pager-next {
+                margin-left: 0;
+            }
+        }
+
         .story-header {
             display: flex;
             flex-direction: column;
@@ -1819,6 +1890,16 @@
                 <a href="https://app.theclubnyc.com/" class="cta-button primary">Join for free</a>
             </div>
         </div>
+            <nav class="story-pager" aria-label="More stories">
+            <a class="story-pager-link story-pager-prev" href="https://www.theclubnyc.com/therisegroup">
+                <span class="story-pager-label">Previous</span>
+                <span class="story-pager-title">She Modeled the Numbers.<br>Then She Hit Them.</span>
+            </a>
+            <a class="story-pager-link story-pager-next" href="https://www.theclubnyc.com/5-to-9">
+                <span class="story-pager-label">Next</span>
+                <span class="story-pager-title">Your 9-to-5 Pays the Bills.<br>Your 5-to-9 Builds Your Future.</span>
+            </a>
+        </nav>
     </main>
 
   <footer class="footer-section"></footer>
