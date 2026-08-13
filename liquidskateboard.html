@@ -3,7 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Liquid Skateboards | The Club</title>
+  <title>He Made It Slower on Purpose | The Club</title>
+  <meta name="description" content="Every electric skateboard on the market competes on speed, range, and power. Alexis Chabat built the one that competes on feel — and it meant leaving things out." />
+  <meta property="og:title" content="He Made It Slower on Purpose | The Club" />
+  <meta property="og:description" content="Every electric skateboard on the market competes on speed, range, and power. Alexis Chabat built the one that competes on feel — and it meant leaving things out." />
   <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -450,12 +453,24 @@
             letter-spacing: -0.02em;
         }
 
+        .story-title-line {
+            display: block;
+        }
+
         .story-subtitle {
             font-size: 20px;
             font-weight: 300;
             color: #4a4a4a;
             line-height: 1.5;
             margin-bottom: 0;
+        }
+
+        .story-kicker {
+            font-size: 13px;
+            font-weight: 300;
+            font-style: italic;
+            color: #6b7280;
+            margin: 0;
         }
 
         .story-categories {
@@ -662,6 +677,33 @@
             margin-bottom: 0;
         }
 
+        .story-section ul {
+            margin: 8px 0 20px;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .story-section ul li {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 8px;
+            padding-left: 1.15em;
+            position: relative;
+        }
+
+        .story-section ul li::before {
+            content: "–";
+            position: absolute;
+            left: 0;
+        }
+
+        .story-section ul li strong {
+            font-weight: 500;
+            color: #111111;
+        }
+
         /* Pull quotes - centered with breathing room */
         blockquote {
             margin: 36px auto !important;
@@ -786,6 +828,46 @@
             border-color: #000000;
             transform: none;
             box-shadow: none;
+        }
+
+        .story-cta .cta-button.secondary {
+            padding: 6px 12px;
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            height: 27.6px;
+            text-decoration: none;
+            color: #000000;
+            font-size: 13px;
+            font-weight: 300;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .story-cta .cta-button.secondary::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 12px;
+            right: 12px;
+            height: 1px;
+            background-color: #000000;
+            transform: scaleX(0);
+            transition: transform 0.2s ease;
+        }
+
+        .story-cta .cta-button.secondary:hover::after {
+            transform: scaleX(1);
+        }
+
+        .story-cta .cta-button.secondary:visited,
+        .story-cta .cta-button.secondary:active {
+            color: #000000;
         }
 
     /* RESPONSIVE */
@@ -1045,8 +1127,9 @@
 <main class="story-wrapper">
         <header class="story-header">
             <img src="liquid-skateboard-images/liquid-logo.png" alt="Liquid Skateboard" style="max-width: 80px; margin-bottom: 6px;" loading="lazy">
-            <h1 class="story-title">Alexis Built One of the Most Original E-Skateboards—Now He's Taking It Global</h1>
-            <p class="story-subtitle" style="color: #666666;">After perfecting the board and closing out a successful Kickstarter, Alexis is now shifting his focus to scaling production and expanding globally. I recently rode the board with him in Copenhagen—yes, it lives up to the hype—and heard about the rollout he's planning.</p>
+            <h1 class="story-title"><span class="story-title-line">He Made It Slower</span><span class="story-title-line">on Purpose</span></h1>
+            <p class="story-subtitle" style="color: #666666;">Every electric skateboard on the market competes on speed, range, and power. Alexis Chabat built the one that competes on feel — and it meant leaving things out.</p>
+            <p class="story-kicker">Product · Copenhagen</p>
         </header>
 
         <!-- Insights / Use cases section -->
@@ -1079,9 +1162,9 @@
                 <h3>Focus Areas</h3>
                 <div class="story-focus-items">
                     <div>Product Design 🛠️</div>
+                    <div>Manufacturing 🏭</div>
                     <div>Go-To-Market 🚀</div>
                     <div>Global Distribution 🌍</div>
-                    <div>Partnership Strategy 🤝</div>
                 </div>
             </div>
         </section>
@@ -1098,49 +1181,47 @@
         </figure>
 
         <section class="story-intro">
-            <p style="background-color: #f5f5f5; padding: 20px; border-radius: 8px; border: none; margin-bottom: 20px;">We share stories of partners who turn ambition into action—hoping to inspire others or offer the practical know-how to do the same. This month, we spotlight Alexis, the Founder of Liquid Skateboard, based in Copenhagen.</p>
-            <p>What began as a passion project has become the most authentic electric skateboard in the <span style="font-weight: 700;">$4B+ market</span> growing at <span style="font-weight: 700;">12.1% CAGR</span>. Along the way, Alexis has stayed loyal to the experience of riding a traditional skateboard—bringing in technology only where it enhanced the natural feeling of cruising. Recently, I had the chance to ride his board with him in Copenhagen, and the experience was unlike anything else.</p>
-            <p>Here's how Alexis went from prototype to production—and now sets his sights on the world.</p>
+            <p>The spec sheet for a Liquid Skateboard looks like a loss.</p>
+            <p>About 22 km/h top speed. Roughly 12 km of real-world range. Meepo, Backfire, Exway, Evolve — every established player in a market worth $4.1B and growing 12.1% a year — will beat those numbers, and they'll beat them loudly, because that's the axis the whole category races on.</p>
+            <p>Alexis capped them anyway. Not because he couldn't build faster. Because he'd ridden the faster boards and found they'd traded away the only thing he actually wanted.</p>
         </section>
 
         <nav class="story-toc" aria-label="Table of contents">
             <ul>
-                <li><a href="#the-beginning"><span class="index">1.</span><span>The Beginning</span></a></li>
-                <li><a href="#the-industry"><span class="index">2.</span><span>Qava's Industry Analysis</span></a></li>
-                <li><a href="#building-the-best"><span class="index">3.</span><span>Dialing In Performance</span></a></li>
-                <li><a href="#scaling-production"><span class="index">4.</span><span>Scaling Up</span></a></li>
-                <li><a href="#going-global"><span class="index">5.</span><span>Going Global</span></a></li>
+                <li><a href="#what-was-missing"><span class="index">1.</span><span>What was missing</span></a></li>
+                <li><a href="#the-market"><span class="index">2.</span><span>The market he was betting against</span></a></li>
+                <li><a href="#good-every-time"><span class="index">3.</span><span>Good once, then good every time</span></a></li>
+                <li><a href="#the-unglamorous-middle"><span class="index">4.</span><span>The unglamorous middle</span></a></li>
+                <li><a href="#what-comes-next"><span class="index">5.</span><span>What comes next</span></a></li>
             </ul>
         </nav>
 
-        <section class="story-section" id="the-beginning">
-            <h2>The Beginning</h2>
+        <section class="story-section" id="what-was-missing">
+            <h2>What was missing</h2>
             <div class="qa-block">
-                <p class="qa-answer">After years of riding regular boards and testing nearly every electric skateboard on the market, Alexis kept running into the same issues: a remote that felt unnatural, going from 0 to full speed without pushing (which felt like cheating), and having his feet glued onto the board. These things took away the freedom that makes skateboarding feel alive.</p>
-                
-                <p class="qa-answer">So Alexis started building his own prototypes. Dozens of experiments later, he found the right mix of power delivery and board behavior that matched the feeling he had been chasing for years.</p>
-                
-                <p class="qa-answer">From that point on, friends asked to borrow his boards and strangers got curious—and that's when he realized this could become something real. A board he would actually want to ride every day, and maybe others would too.</p>
-                
+                <p class="qa-answer">Alexis had been skating for years before he started testing electric boards. He tested nearly all of them. And the same three complaints kept surfacing:</p>
+                <p class="qa-answer">The remote felt unnatural — a device between him and the board.</p>
+                <p class="qa-answer">Acceleration from a standstill, no push required, felt like cheating.</p>
+                <p class="qa-answer">And his feet were effectively glued in place, locked into a stance rather than moving with the ride.</p>
+                <p class="qa-answer">Individually, minor. Together, they described something specific: these were vehicles that happened to be shaped like skateboards. The technology hadn't enhanced the ride. It had replaced it.</p>
                 <blockquote class="story-quote">
                     <p>I just wanted something<br>that felt real under my feet.</p>
                 </blockquote>
-                
-            <div class="story-media">
+                <p class="qa-answer">That sentence is the entire product brief, and it's worth noticing what kind of brief it is. It isn't a feature request. It's a description of a feeling — which is much harder to build toward, because you can't verify it in a lab. You have to go ride.</p>
+                <p class="qa-answer">So he did. Dozens of prototypes, each one a test of a single question: does this still feel like skateboarding? Power delivery, board flex, weight distribution, how the motor behaves when you push off. Most of the work was tuning things down rather than up.</p>
+                <p class="qa-answer">Then friends started asking to borrow the boards. Strangers started asking what it was. That's the signal that turns a personal project into a company — not a market study, but people wanting the thing out of your hands.</p>
+                <div class="story-media">
                     <img src="liquid-skateboard-images/Liquid Draw.png" alt="Liquid Skateboard design sketches" loading="lazy">
-                <p class="story-media-caption">Early design iterations</p>
+                    <p class="story-media-caption">Early design iterations</p>
                 </div>
             </div>
         </section>
 
-        <section class="story-section" id="the-industry">
-            <h2>Qava's Industry Analysis</h2>
+        <section class="story-section" id="the-market">
+            <h2>The market he was betting against</h2>
             <div class="qa-block">
-                <p class="qa-answer">Alexis never wanted to study detailed market charts or industry data. He didn't need to. His perspective came from something more real: watching how people moved through cities, how skaters actually rode, and what he wished existed, but couldn't find.</p>
-                
-                <p class="qa-answer">He saw that skateboarding surged during COVID and later cooled off, but one thing never changed — the need for simple, intuitive, urban mobility. People will always want a way to move that feels natural, lightweight, and free. Most electric skateboards deliver power and features, but not the feeling.</p>
-                
-                <p class="qa-answer">When the Qava team later reviewed findings from a REANIN industry report, the data simply confirmed Alexis' instincts had been on point.</p>
+                <p class="qa-answer">Alexis didn't build from a market report. He built from what he could see on the street: how people actually move through cities, how skaters actually ride, what he wanted and couldn't buy.</p>
+                <p class="qa-answer">But it's worth understanding the field he stepped into, because it makes the choice sharper.</p>
                 
                 <!-- Market Overview Section -->
                 <div style="background: #fafafa; border-radius: 16px; padding: 32px 32px; margin: 40px 0;">
@@ -1271,57 +1352,61 @@
                     <!-- Source Citation -->
                     <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #e5e7eb; margin-bottom: -8px;">
                         <p style="margin: 0; font-size: 11px; color: #9ca3af; font-style: italic; text-align: center;">
-                            Source: <a href="https://www.reanin.com/reports/electric-skateboard-market?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer" style="color: #6b7280; text-decoration: underline;">ReAnIn Electric Skateboard Market Report</a>, 2025
+                            Source: <a href="https://www.reanin.com/reports/electric-skateboard-market" target="_blank" rel="noopener noreferrer" style="color: #6b7280; text-decoration: underline;">ReAnIn Electric Skateboard Market Report</a>, 2025, study period 2025–2031.
                         </p>
                     </div>
                 </div>
-                
+                <p class="qa-answer">Two things stand out.</p>
+                <p class="qa-answer"><strong>The category is fragmented.</strong> No one owns it. In a consolidated market, a small entrant competing on feel gets crushed by distribution. In a fragmented one, a genuinely different product has room to find its riders.</p>
+                <p class="qa-answer"><strong>Everyone is racing on the same axis.</strong> Scan the competitive set and the marketing is nearly interchangeable: top speed, watt-hours, hill grade, range. When every competitor optimizes the same variable, that variable stops being a differentiator and becomes table stakes — and the unclaimed ground is wherever nobody is looking.</p>
+                <p class="qa-answer">Skateboarding surged during COVID and cooled afterward. What didn't change is the underlying want: a way to move through a city that's light, simple, and free. Most electric boards deliver power. Very few deliver that.</p>
+                <p class="qa-answer">Alexis's instinct got there first. The data just agreed with him.</p>
             </div>
         </section>
 
-        <section class="story-section" id="building-the-best">
-            <h2>Dialing In Performance</h2>
+        <section class="story-section" id="good-every-time">
+            <h2>Good once, then good every time</h2>
             <div class="qa-block">
-                <p class="qa-answer">Before Liquid could reach more riders, Alexis had to turn a working prototype into something that wasn't just awesome to ride, but could also be built reliably at scale. That meant shifting to the essential work of building a real manufacturing capability.</p>
-                
-                <p class="qa-answer">The year following his successful Kickstarter, Alexis set up his manufacturing processes, developed new tools from scratch, tested suppliers, refined assembly methods, and learned every step of the supply chain from the inside out. Every adjustment, every new fixture, every batch test got the board closer to being repeatable — not just good once, but good every time.</p>
-                
-                <p class="qa-answer">It wasn't about chasing extreme specs, but about getting the fundamentals right. Over time, the board settled into consistent, reliable performance:</p>
-                
-                <ul style="margin-left: 20px; margin-top: 10px; margin-bottom: 10px; list-style-type: none; padding-left: 0;">
-                    <li class="qa-answer" style="margin-bottom: 4px; line-height: 1.4;">⚡️ ~22 km/h (~13.5mph) top speed</li>
-                    <li class="qa-answer" style="margin-bottom: 4px; line-height: 1.4;">🔋 ~12 km (~7.5 miles) of real-world range</li>
-                    <li class="qa-answer" style="margin-bottom: 4px; line-height: 1.4;">🪶 Lightweight build that was easy to carry; and</li>
-                    <li class="qa-answer" style="margin-bottom: 4px; line-height: 1.4;">🛹 A ride that felt natural and similar to traditional skateboarding.</li>
+                <p class="qa-answer">A prototype that feels perfect under one person's feet is a demo. A product is a board that feels that way under the thousandth rider's feet, built by people who weren't in the room when you figured it out.</p>
+                <p class="qa-answer">That gap is where most hardware projects quietly end.</p>
+                <p class="qa-answer">After the Kickstarter closed, Alexis spent the following year on the unglamorous half of the work: setting up manufacturing processes, building tooling from scratch, testing suppliers, refining assembly methods, learning the supply chain from the inside. Every new fixture and batch test moved the board from <em>good once</em> toward <em>good every time</em>.</p>
+                <p class="qa-answer">The performance he settled on:</p>
+                <ul>
+                    <li><strong>~22 km/h</strong> (~13.7 mph) top speed</li>
+                    <li><strong>~12 km</strong> (~7.5 miles) real-world range</li>
+                    <li><strong>Light enough to carry</strong> without thinking about it</li>
+                    <li><strong>A ride that behaves like a traditional board</strong></li>
                 </ul>
-                
-                <p class="qa-answer" style="margin-top: 16px;">Reviews didn't appear overnight. But they did start coming in after the first 200 Kickstarter boards had shipped — real riders putting the board through real-world use, confirming that the work behind the scenes had paid off.</p>
-                
-                <!-- YouTube Video Link with Thumbnail -->
+                <p class="qa-answer">Read that list next to any competitor's and Liquid loses three out of four. That's the point. Each number is a deliberate ceiling, chosen because raising it would have cost weight, or bulk, or the specific responsiveness that makes the board feel like a board.</p>
+                <p class="qa-answer">Dieter Rams built a career on four words — <em>less, but better</em>. The older version of the idea, from Saint-Exupéry, is that a design reaches perfection not when there's nothing left to add, but when there's nothing left to take away. Both are easy to quote and brutally hard to practice, because subtraction doesn't demo well. Nobody puts <em>what we left out</em> on the box.</p>
+                <p class="qa-answer">The verdict came in slowly, the way real verdicts do. The first 200 Kickstarter boards shipped. Riders put them through actual daily use. The reviews followed.</p>
                 <a href="https://youtu.be/PBC4kkjS3P0?t=900" target="_blank" rel="noopener noreferrer" style="display: block; margin: 24px 0; text-decoration: none;">
-                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; cursor: pointer;">
-                        <img 
-                            src="liquid-skateboard-images/liquid-skateboard-video-thumbnail.png" 
+                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 4px; cursor: pointer;">
+                        <img
+                            src="liquid-skateboard-images/liquid-skateboard-video-thumbnail.png"
                             alt="Watch Liquid Skateboard Review on YouTube"
-                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 12px;"
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 4px;"
                             loading="lazy"
                         />
                         <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 68px; height: 48px; background-color: rgba(0, 0, 0, 0.8); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
                                 <path d="M8 5v14l11-7z"/>
                             </svg>
-            </div>
-            </div>
+                        </div>
+                    </div>
                 </a>
-                <p class="story-media-caption">Liquid Skateboard review on YouTube</p>
+                <p class="story-media-caption"><a href="https://youtu.be/PBC4kkjS3P0?t=900" target="_blank" rel="noopener noreferrer">Watch the Liquid Skateboard review →</a></p>
+                <div class="story-media">
+                    <img src="liquid-skateboard-images/Liquid Skateboard Specs.jpeg" alt="Liquid Skateboard components and parts" loading="lazy">
+                    <p class="story-media-caption">Components and materials</p>
+                </div>
             </div>
         </section>
 
-        <section class="story-section" id="scaling-production">
-            <h2>Scaling Up</h2>
+        <section class="story-section" id="the-unglamorous-middle">
+            <h2>The unglamorous middle</h2>
             <div class="qa-block">
-                <p class="qa-answer">Moving from research and development into true scale is one of the hardest steps in any hardware journey. Alexis had the engineering locked in, but bringing an electric skateboard to the world requires more than a great product—it requires the operational backbone to build it consistently, move it reliably, and get it into the hands of riders across different markets.</p>
-                <p class="qa-answer">Scaling up meant shifting from hands-on craftsmanship to a dynamic system of suppliers, manufacturing partners, logistics networks, and retail channels. It's a completely different capability: standardizing parts, formalizing processes, qualifying vendors, planning inventory, coordinating freight, meeting certifications, and building partnerships that can support growth without compromising the feel of the board.</p>
+                <p class="qa-answer">The honest version of this chapter is that going from a working prototype to a repeatable product is the least photogenic work in hardware, and the reason most great prototypes never become products. Alexis had the engineering. What scaling demanded was a different capability entirely — suppliers, tooling, quality gates, freight, certifications — none of which is skateboarding.</p>
                 
                 <!-- Production Flow Diagram -->
                 <div style="background: #fafafa; border: none; border-radius: 12px; padding: 32px 24px; margin: 32px -150px; max-width: none;">
@@ -1551,30 +1636,27 @@
                 </script>
             
             <div class="story-media">
-                    <img src="liquid-skateboard-images/Liquid Skateboard Specs.jpeg" alt="Liquid Skateboard components and parts" loading="lazy">
-                <p class="story-media-caption">Liquid components & materials</p>
+                    <img src="liquid-skateboard-images/Liquid Production.webp" alt="Liquid Skateboard production" loading="lazy">
+                <p class="story-media-caption">Preparing for scale</p>
                 </div>
             </div>
         </section>
 
-        <section class="story-section" id="going-global">
-            <h2>Going Global</h2>
+        <section class="story-section" id="what-comes-next">
+            <h2>What comes next</h2>
             <div class="qa-block">
-                <p class="qa-answer">Going global is one of the most exciting steps a company can take—but it's also one of the most complex. New markets introduce new regulations, new logistics paths, new testing standards, and entirely new expectations from customers. What worked at home rarely works the same way abroad, and the gaps become obvious fast.</p>
-                <p class="qa-answer">But complexity isn't the enemy—it's the gateway. Each new region opens up fresh demand, new types of customers, and distribution channels that simply don't exist in a single-market model. For hardware, especially, global expansion can transform a niche product into a category-defining one.</p>
-                <p class="qa-answer">The key is having the right systems in place. When your manufacturing, distribution, and retail foundations are structured for scale, the complexity stops being a burden and becomes an advantage. With the right partners and infrastructure, going global isn't chaos—it's a massive multiplier for growth.</p>
-            <div class="story-media">
-                    <img src="liquid-skateboard-images/Liquid Production.webp" alt="Liquid Skateboard production" loading="lazy">
-                <p class="story-media-caption">Preparing for scale</p>
-            </div>
+                <p class="qa-answer">There's a version of this story where the lesson is <em>believe in yourself</em> — and that version would be useless, because it gives the reader nothing to do.</p>
+                <p class="qa-answer">The usable lesson is narrower. Alexis spent four years defending a feeling against a spec sheet, and the discipline that took wasn't confidence. It was the willingness to look worse on paper in exchange for being better in the hand, over and over, in a market where nobody was scoring that column.</p>
+                <p class="qa-answer">Most products are built by adding until the deadline. A few are built by removing until only the thing that mattered is left. The second kind is harder to market and much harder to forget.</p>
             </div>
         </section>
 
         <div class="story-cta">
             <h3>Turn ideas into something.</h3>
-            <p style="font-weight: 300;">Liquid Skateboard continues to scale because Alexis built smart.</p>
+            <p style="font-weight: 300;">Liquid Skateboard scaled because Alexis knew exactly what he refused to compromise.</p>
             <div class="story-cta-actions">
                 <a href="https://app.theclubnyc.com/" class="cta-button primary">Join for free</a>
+                <a href="https://www.theclubnyc.com/howitworks" class="cta-button secondary">How The Club works</a>
             </div>
         </div>
     </main>
