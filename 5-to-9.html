@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Your 9-to-5 Pays the Bills. Your 5-to-9 Builds Your Future. | The Club</title>
-  <meta name="description" content="Most people think they're falling behind because of their job. They're not. They're falling behind because the hours they control are spent maintaining today instead of building tomorrow." />
+  <meta name="description" content="Five things the research says actually work after 7pm — and one famous idea that doesn't." />
   <meta property="og:title" content="Your 9-to-5 Pays the Bills. Your 5-to-9 Builds Your Future. | The Club" />
-  <meta property="og:description" content="Most people think they're falling behind because of their job. They're not. They're falling behind because the hours they control are spent maintaining today instead of building tomorrow." />
+  <meta property="og:description" content="Five things the research says actually work after 7pm — and one famous idea that doesn't." />
   <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -612,10 +612,16 @@
         }
 
         .story-section h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 16px;
+            font-family: var(--display);
+            font-size: 22px;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin: 32px 0 16px;
             color: #111;
+        }
+
+        .story-section h3:first-of-type {
+            margin-top: 8px;
         }
 
         /* All paragraphs - consistent spacing */
@@ -667,6 +673,37 @@
 
         .qa-answer:last-child {
             margin-bottom: 0;
+        }
+
+        .story-section ul {
+            margin: 8px 0 20px;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .story-section ul li {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 8px;
+            padding-left: 1.15em;
+            position: relative;
+        }
+
+        .story-section ul li::before {
+            content: "–";
+            position: absolute;
+            left: 0;
+        }
+
+        .story-section ul li a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .story-section ul li a:hover {
+            text-decoration: underline;
         }
 
         /* Pull quotes - centered with breathing room */
@@ -1093,7 +1130,7 @@
 <main class="story-wrapper">
         <header class="story-header">
             <h1 class="story-title"><span class="story-title-line">Your 9-to-5 Pays the Bills.</span><span class="story-title-line">Your 5-to-9 Builds Your Future.</span></h1>
-            <p class="story-subtitle" style="color: #666666;">Most people think they're falling behind because of their job. They're not. They're falling behind because the hours they control are spent maintaining today instead of building tomorrow. Here's how to reclaim the four hours that quietly determine who you become.</p>
+            <p class="story-subtitle" style="color: #666666;">Most people think they're falling behind because of their job. They're not. They're falling behind because the hours they control get spent maintaining today instead of building tomorrow. Here's what the evidence says about reclaiming them.</p>
         </header>
 
         <section class="story-meta">
@@ -1116,9 +1153,9 @@
                 <h3>Focus Areas</h3>
                 <div class="story-focus-items">
                     <div>Productivity ⚡</div>
-                    <div>Decision Fatigue 🧠</div>
+                    <div>Habits 🔁</div>
+                    <div>Behavioral Science 🧪</div>
                     <div>After Hours 🌙</div>
-                    <div>Career Growth 📈</div>
                 </div>
             </div>
         </section>
@@ -1127,54 +1164,107 @@
             <img src="5to9-card.png" alt="Building your future after hours" loading="lazy">
         </figure>
 
+        <nav class="story-toc" aria-label="Table of contents">
+            <ul>
+                <li><a href="#future"><span class="index">1.</span><span>Your future isn't built between nine and five</span></a></li>
+                <li><a href="#easiest-hours"><span class="index">2.</span><span>Which is why they're the easiest hours to lose</span></a></li>
+                <li><a href="#what-actually-works"><span class="index">3.</span><span>What actually works</span></a></li>
+                <li><a href="#the-actual-advantage"><span class="index">4.</span><span>The actual advantage</span></a></li>
+            </ul>
+        </nav>
+
         <section class="story-section" id="future">
-            <h2>Your Future Isn't Built Between Nine and Five</h2>
+            <h2>Your future isn't built between nine and five</h2>
             <div class="qa-block">
-                <p class="qa-answer">Most ambitious people believe they know what's holding them back.</p>
-                <p class="qa-answer">It's the demanding job. The endless meetings. The overflowing inbox. The commute. The constant feeling that there's simply not enough time left in the day to build the life they actually want.</p>
-                <p class="qa-answer">They tell themselves that once work settles down, everything else will begin. They'll finally learn that new skill, launch the side business, write the book, train for the marathon, spend more time with the people they love, or take control of their health.</p>
-                <p class="qa-answer">The problem is that work rarely settles down.</p>
-                <p class="qa-answer">In fact, the opposite usually happens. As careers progress, responsibilities grow. Promotions bring larger teams, bigger decisions, and higher expectations. Waiting for life to create space is a strategy that quietly keeps people exactly where they are.</p>
-                <p class="qa-answer">The truth is that your nine-to-five isn't designed to change your future.</p>
+                <p class="qa-answer">Most ambitious people believe they know what's holding them back. The demanding job. The endless meetings. The overflowing inbox. The commute. The persistent sense that there simply isn't time left to build the life they actually want.</p>
+                <p class="qa-answer">So they wait. Once work settles down, they'll learn the skill, launch the thing, write the book, train for the race, take their health seriously.</p>
+                <p class="qa-answer">Work rarely settles down. Careers tend to move the other way — promotions bring larger teams, bigger decisions, higher expectations. Waiting for life to create space is a strategy that quietly keeps people exactly where they are.</p>
+                <p class="qa-answer">Your nine-to-five isn't designed to change your future.</p>
                 <blockquote>It's designed to maintain your present.</blockquote>
-                <p class="qa-answer">Your job pays the mortgage. It covers the rent. It funds holidays, groceries, and school fees. It provides stability. There's nothing wrong with that. Stable work creates opportunity, and meaningful careers can be deeply fulfilling.</p>
-                <p class="qa-answer">But if you think about the people you admire — the founder who built a company from scratch, the executive who became an industry expert, the consultant who wrote the book everyone recommends, or the athlete who somehow found time to train while working full-time — you'll notice something they all have in common.</p>
-                <p class="qa-answer">Very few of them built those identities during office hours.</p>
-                <p class="qa-answer">They built them afterwards.</p>
-                <p class="qa-answer">Your evenings are where your future quietly takes shape.</p>
-                <p class="qa-answer">They're where ideas become businesses. Where books get written one chapter at a time. Where qualifications are earned. Where relationships deepen. Where healthy habits become part of who you are rather than something you're always trying to start next Monday.</p>
-                <p class="qa-answer">No single evening changes your life.</p>
-                <p class="qa-answer">Hundreds of ordinary evenings do.</p>
-                <p class="qa-answer">That's why those few hours after work matter far more than most of us realise.</p>
-                <p class="qa-answer">Unfortunately, they're also the easiest hours to lose.</p>
-                <p class="qa-answer">After spending an entire day making decisions, solving problems, and responding to other people's priorities, we arrive home mentally exhausted. We promise ourselves that tonight will be different. Tonight we'll exercise. Tonight we'll make progress on that side project. Tonight we'll finally pick up the book gathering dust on the bedside table.</p>
-                <p class="qa-answer">Instead, we sit down for "just five minutes."</p>
-                <p class="qa-answer">Five minutes becomes forty-five.</p>
-                <p class="qa-answer">One episode becomes four.</p>
-                <p class="qa-answer">One quick scroll through social media somehow becomes an entire evening.</p>
-                <p class="qa-answer">We head to bed frustrated, quietly promising ourselves that tomorrow will be different.</p>
-                <p class="qa-answer">Tomorrow almost never is.</p>
-                <p class="qa-answer">This isn't because we're lazy.</p>
-                <p class="qa-answer">It's because we're human.</p>
-                <p class="qa-answer">Researchers have spent decades studying what psychologists call <strong>decision fatigue</strong>. Social psychologist <strong>Dr. Roy Baumeister</strong> found that every decision we make throughout the day draws from a limited pool of mental energy. By the evening, after making hundreds of large and small decisions, our ability to exercise self-control naturally declines. While researchers continue to debate exactly how decision fatigue works, anyone who's found themselves eating takeaway instead of cooking or scrolling instead of studying after a long day has experienced the phenomenon firsthand.</p>
-                <p class="qa-answer">The important point isn't whether your willpower disappears completely.</p>
-                <p class="qa-answer">It's that your brain starts looking for the path of least resistance.</p>
-                <p class="qa-answer">Unfortunately, modern technology is exceptionally good at providing one.</p>
-                <p class="qa-answer">Streaming services, social media platforms, news feeds and endless notifications are designed to capture attention precisely when our brains are least equipped to resist them.</p>
-                <p class="qa-answer">That's why relying on motivation is such a fragile strategy.</p>
-                <p class="qa-answer">Motivation is unpredictable.</p>
-                <blockquote>Systems are dependable.</blockquote>
-                <p class="qa-answer">And that's where real change begins.</p>
+                <p class="qa-answer">Your job pays the mortgage, covers the rent, funds the holidays and the groceries and the school fees. It provides stability, and there is nothing wrong with that. Stable work creates optionality, and plenty of careers are deeply fulfilling on their own terms.</p>
+                <p class="qa-answer">But think about the people you admire — the founder who built something from nothing, the executive who became the person everyone calls, the consultant who wrote the book, the amateur who somehow trains seriously while working full-time.</p>
+                <p class="qa-answer">Very few of them built those identities during office hours. They built them afterwards.</p>
+                <p class="qa-answer">Evenings are where ideas become businesses, where books get written a chapter at a time, where qualifications are earned and relationships deepen and habits stop being something you're always restarting next Monday.</p>
+                <p class="qa-answer">No single evening changes your life. Hundreds of ordinary ones do.</p>
+            </div>
+        </section>
+
+        <section class="story-section" id="easiest-hours">
+            <h2>Which is why they're the easiest hours to lose</h2>
+            <div class="qa-block">
+                <p class="qa-answer">After a day spent making decisions and absorbing other people's priorities, you get home depleted. You promise yourself tonight is different. Tonight you'll train, or write, or open the book that's been on the nightstand for a month.</p>
+                <p class="qa-answer">Instead you sit down for five minutes. Five becomes forty-five. One episode becomes four. A quick scroll becomes the entire evening. You go to bed frustrated and promise yourself tomorrow.</p>
+                <p class="qa-answer">Tomorrow is usually the same.</p>
+                <p class="qa-answer">This is where most articles like this one reach for ego depletion — the idea, popularized by Roy Baumeister, that willpower is a finite fuel tank that empties over the course of a day.</p>
+                <p class="qa-answer">It's worth knowing that this theory is in serious trouble.</p>
+                <p class="qa-answer">A registered replication across 23 laboratories found the effect close to zero. Notably, all but one of those labs had predicted beforehand that they would find it — this wasn't a group of skeptics setting out to debunk. Michael Inzlicht, who spent two decades researching self-control, tried repeatedly to reproduce the effect in his own lab, failed every time, and concluded it was a mirage. The debate hasn't fully closed, and some researchers argue the replication used weak manipulations. But "willpower is a tank that runs empty" is not settled science, and building your evening strategy on it is building on sand.</p>
+                <p class="qa-answer">Which is fine, because the more useful finding was always somewhere else.</p>
+                <p class="qa-answer">The problem isn't that you ran out of willpower. It's that you arrived at 7pm with an undecided evening.</p>
+                <p class="qa-answer">An unplanned evening is a decision you have to make while tired, in a room engineered by companies whose entire business is making the default option irresistible. You will lose that negotiation most nights, and you'll lose it whether or not any fuel tank exists.</p>
+                <p class="qa-answer">The fix isn't more resolve. It's removing the decision.</p>
+            </div>
+        </section>
+
+        <section class="story-section" id="what-actually-works">
+            <h2>What actually works</h2>
+            <div class="qa-block">
+                <p class="qa-answer">Here is the part the motivational version of this article always skips.</p>
+                <h3>1. Write if-then plans, not intentions</h3>
+                <p class="qa-answer">"I'll work on the side project this week" is a goal intention. Decades of research show goal intentions are weak predictors of behavior.</p>
+                <p class="qa-answer">What works far better is an implementation intention — an if-then plan naming the exact when, where, and how: If it's Tuesday and the dishes are done, then I open the laptop at the kitchen table for 30 minutes.</p>
+                <p class="qa-answer">Across 94 independent tests, implementation intentions produced a medium-to-large effect on goal attainment (d = 0.65), with a comparable effect on preventing people from getting derailed once they'd started. A 2024 meta-analysis extended this to 642 independent tests. It is one of the most replicated findings in behavioral science — which is precisely what ego depletion is not.</p>
+                <p class="qa-answer">The mechanism is mundane and that's why it works. You're not summoning discipline at 7pm. You made the decision on Sunday, when you had capacity, and left your tired self with nothing to decide.</p>
+                <blockquote>Motivation is a feeling. An if-then plan is a decision you already made.</blockquote>
+                <h3>2. Attach it to something that already happens</h3>
+                <p class="qa-answer">Notice the structure above: if the dishes are done. Not at 7pm.</p>
+                <p class="qa-answer">The trigger should be an event that reliably occurs, not a time you have to remember. Existing routines are the most underused infrastructure in anyone's evening — the commute ending, the dinner plates going in, the kids going down. Each one is a cue that already fires without effort.</p>
+                <p class="qa-answer">Consistency of context is what the habit research keeps pointing to. The same behavior, in the same setting, after the same cue.</p>
+                <h3>3. Expect sixty-six days, not twenty-one</h3>
+                <p class="qa-answer">The "21 days to form a habit" rule is folklore. It traces to a 1960 book by a plastic surgeon observing how long patients took to adjust to seeing a new face in the mirror. It was never a study of habit formation.</p>
+                <p class="qa-answer">The real number, from Lally's University College London study tracking 96 people: a median of 66 days to reach automaticity — with a range from 18 to 254 days depending on the behavior and the person.</p>
+                <p class="qa-answer">Two implications, and the second matters more.</p>
+                <p class="qa-answer">First, most people quit during the window where difficulty is still normal. Three weeks in, it's supposed to feel like effort.</p>
+                <p class="qa-answer">Second — and this is the finding worth taping to your wall — missing a single day did not materially affect habit formation. The curve absorbs it. The story that one missed evening means you've broken the streak and may as well restart Monday isn't supported by the data. It's just the story that makes people quit.</p>
+                <h3>4. Shrink the unit until it's almost embarrassing</h3>
+                <p class="qa-answer">Lally's participants who succeeded mostly did so with simple behaviors. Complex ones took longer and failed more often.</p>
+                <p class="qa-answer">So make the committed action smaller than your ambition. Not "work on the business" — open the file and write one paragraph. Not "train" — put on the shoes and walk to the end of the road.</p>
+                <p class="qa-answer">The small version is the one that survives the bad Tuesday, and the bad Tuesdays are what determine outcomes over a year. On good nights you'll do more anyway. You just won't have promised to.</p>
+                <h3>5. Be honest that it isn't four hours</h3>
+                <p class="qa-answer">The name is a useful slogan and a bad estimate.</p>
+                <p class="qa-answer">Between commuting, dinner, children, admin, and the basic human need to be a person rather than a project, almost nobody has four uninterrupted evening hours. Planning as though you do guarantees you'll fail against your own target and read that as a character flaw.</p>
+                <p class="qa-answer">Most people have somewhere between forty-five minutes and ninety, three or four nights a week.</p>
+                <p class="qa-answer">That's not a disappointment. Ninety minutes, four nights a week, is about 300 hours a year. Roughly two months of full-time work, applied to something you chose. Almost nobody who built the thing you admire had more than that.</p>
+            </div>
+        </section>
+
+        <section class="story-section" id="the-actual-advantage">
+            <h2>The actual advantage</h2>
+            <div class="qa-block">
+                <p class="qa-answer">None of this requires becoming a different person. That's the point — every strategy that requires becoming a different person eventually fails, because you have to keep being that person on the nights you're tired, sick, or fed up.</p>
+                <p class="qa-answer">What it requires is deciding once, in advance, when you have the capacity to decide well. Then letting a cue do the work your motivation can't be relied on to do.</p>
+                <blockquote>Motivation is a feeling that visits. Systems are what you fall back to when it doesn't.</blockquote>
+                <p class="qa-answer">Hundreds of ordinary evenings. That's the whole mechanism, and it's available tonight.</p>
             </div>
         </section>
 
         <div class="story-cta">
             <h3>Your 5-to-9 starts today.</h3>
-            <p style="font-weight: 300;">The hours you control are where your future quietly takes shape.</p>
+            <p style="font-weight: 300;">Start building something that matters with The Club.</p>
             <div class="story-cta-actions">
                 <a href="https://app.theclubnyc.com/" class="cta-button primary">Join for free</a>
+                <a href="https://www.theclubnyc.com/howitworks" class="cta-button secondary">How The Club works</a>
             </div>
         </div>
+
+        <section class="story-section" id="sources">
+            <h2>Sources</h2>
+            <ul>
+                <li><a href="https://doi.org/10.1177/1745691616652873" target="_blank" rel="noopener">Hagger et al. (2016), Multilab Registered Replication of the Ego-Depletion Effect</a></li>
+                <li><a href="https://michaelinzlicht.com/getting-better/2016/2/29/the-collapse-of-ego-depletion" target="_blank" rel="noopener">Inzlicht, The Collapse of Ego Depletion</a></li>
+                <li><a href="https://doi.org/10.1016/S0065-2601(06)38002-1" target="_blank" rel="noopener">Gollwitzer &amp; Sheeran (2006), Implementation Intentions and Goal Achievement</a></li>
+                <li><a href="https://doi.org/10.1002/ejsp.674" target="_blank" rel="noopener">Lally et al. (2010), How are habits formed: Modelling habit formation in the real world</a></li>
+            </ul>
+        </section>
     </main>
 
   <footer class="footer-section"></footer>
