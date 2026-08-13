@@ -704,6 +704,213 @@
             color: #111111;
         }
 
+        .story-market {
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 36px 28px 28px;
+            margin: 40px 0;
+        }
+
+        .story-market .story-market-title {
+            font-family: var(--display);
+            font-size: 24px;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            color: #111111;
+            text-align: center;
+            margin: 0 0 6px;
+        }
+
+        .story-market .story-market-sub {
+            font-size: 13px;
+            font-weight: 300;
+            color: #6b6b6b;
+            text-align: center;
+            margin: 0 0 32px;
+        }
+
+        .story-market-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .story-market-card {
+            background: transparent;
+            border: 1px solid #111111;
+            border-radius: 0;
+            padding: 20px 22px;
+        }
+
+        .story-market-card h4 {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            font-weight: 400;
+            color: #111111;
+            margin-bottom: 18px;
+        }
+
+        .story-market-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 10px 0;
+            border-bottom: 1px solid #111111;
+        }
+
+        .story-market-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .story-market-row dt {
+            font-size: 13px;
+            font-weight: 300;
+            color: #6b6b6b;
+        }
+
+        .story-market-row dd {
+            font-size: 14px;
+            font-weight: 400;
+            color: #111111;
+            margin: 0;
+        }
+
+        .story-market-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 48px;
+            height: 248px;
+            padding-top: 8px;
+        }
+
+        .story-market-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            height: 100%;
+        }
+
+        .story-market-col-value {
+            font-size: 13px;
+            font-weight: 400;
+            color: #111111;
+            margin-bottom: 8px;
+        }
+
+        .story-market-bar {
+            width: 44px;
+            border: 1px solid #111111;
+            background: transparent;
+            box-sizing: border-box;
+        }
+
+        .story-market-col-label {
+            font-size: 12px;
+            font-weight: 300;
+            color: #6b6b6b;
+            margin-top: 8px;
+        }
+
+        .story-market-structure {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .story-market-meter {
+            position: relative;
+            width: 28px;
+            height: 220px;
+            border: 1px solid #111111;
+            box-sizing: border-box;
+            flex-shrink: 0;
+        }
+
+        .story-market-meter-tick {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 0;
+            border-top: 1px solid #111111;
+        }
+
+        .story-market-meter-mark {
+            position: absolute;
+            left: -7px;
+            right: -7px;
+            bottom: 15%;
+            height: 0;
+            border-top: 1px solid #111111;
+        }
+
+        .story-market-structure-labels {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 220px;
+        }
+
+        .story-market-structure-labels strong {
+            display: block;
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #111111;
+            margin-bottom: 2px;
+        }
+
+        .story-market-structure-labels span {
+            font-size: 11px;
+            font-weight: 300;
+            color: #6b6b6b;
+            line-height: 1.4;
+        }
+
+        .story-market-players {
+            display: grid;
+            gap: 10px;
+        }
+
+        .story-market-player {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 300;
+            color: #111111;
+        }
+
+        .story-market-player i {
+            width: 7px;
+            height: 7px;
+            border: 1px solid #111111;
+            border-radius: 50%;
+            box-sizing: border-box;
+            flex-shrink: 0;
+            font-style: normal;
+        }
+
+        .story-market .story-market-source {
+            margin: 20px 0 0;
+            padding-top: 14px;
+            border-top: 1px solid #111111;
+            font-size: 11px;
+            font-style: italic;
+            color: #6b6b6b;
+            text-align: center;
+        }
+
+        .story-market-source a {
+            color: inherit;
+            text-decoration: underline;
+        }
+
         /* Pull quotes - centered with breathing room */
         blockquote {
             margin: 36px auto !important;
@@ -1224,137 +1431,95 @@
                 <p class="qa-answer">But it's worth understanding the field he stepped into, because it makes the choice sharper.</p>
                 
                 <!-- Market Overview Section -->
-                <div style="background: #fafafa; border-radius: 16px; padding: 32px 32px; margin: 40px 0;">
-                    <!-- Header -->
-                    <div style="text-align: center; margin-bottom: 24px;">
-                        <h3 style="font-size: 24px; font-weight: 600; color: #111827; margin-bottom: 8px;">Electric Skateboard Market</h3>
-                        <p style="font-size: 14px; color: #6b7280;">Global market size, growth rate, and structure</p>
-            </div>
-                    
-                    <!-- First Row: Market Summary and Bar Chart -->
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 24px;">
-                        
-                        <!-- Market Summary Card -->
-                        <div style="background: white; border: 1px solid #e5e7eb; border-radius: 16px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-                            <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #6b7280; font-weight: 600; margin-bottom: 20px;">Market Summary</h4>
-                            
-                            <dl style="margin: 0;">
-                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f3f4f6;">
-                                    <dt style="font-size: 13px; color: #6b7280;">Study period</dt>
-                                    <dd style="font-size: 14px; font-weight: 600; color: #111827; margin: 0;">2025–2031</dd>
-            </div>
-                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f3f4f6;">
-                                    <dt style="font-size: 13px; color: #6b7280;">Base year</dt>
-                                    <dd style="font-size: 14px; font-weight: 600; color: #111827; margin: 0;">2024</dd>
-            </div>
-                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f3f4f6;">
-                                    <dt style="font-size: 13px; color: #6b7280;">CAGR</dt>
-                                    <dd style="font-size: 14px; font-weight: 600; color: #111827; margin: 0;">12.1%</dd>
+                <div class="story-market">
+                    <h3 class="story-market-title">Electric Skateboard Market</h3>
+                    <p class="story-market-sub">Global market size, growth rate, and structure</p>
+
+                    <div class="story-market-grid">
+                        <div class="story-market-card">
+                            <h4>Market Summary</h4>
+                            <dl>
+                                <div class="story-market-row">
+                                    <dt>Study period</dt>
+                                    <dd>2025–2031</dd>
                                 </div>
-                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f3f4f6;">
-                                    <dt style="font-size: 13px; color: #6b7280;">Market size 2024</dt>
-                                    <dd style="font-size: 14px; font-weight: 600; color: #111827; margin: 0;">$4,094.56M</dd>
+                                <div class="story-market-row">
+                                    <dt>Base year</dt>
+                                    <dd>2024</dd>
                                 </div>
-                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0;">
-                                    <dt style="font-size: 13px; color: #6b7280;">Market size 2031</dt>
-                                    <dd style="font-size: 14px; font-weight: 600; color: #111827; margin: 0;">$9,108.49M</dd>
+                                <div class="story-market-row">
+                                    <dt>CAGR</dt>
+                                    <dd>12.1%</dd>
+                                </div>
+                                <div class="story-market-row">
+                                    <dt>Market size 2024</dt>
+                                    <dd>$4,094.56M</dd>
+                                </div>
+                                <div class="story-market-row">
+                                    <dt>Market size 2031</dt>
+                                    <dd>$9,108.49M</dd>
                                 </div>
                             </dl>
                         </div>
-                        
-                        <!-- Bar Chart Card -->
-                        <div style="background: white; border: 1px solid #e5e7eb; border-radius: 16px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; flex-direction: column;">
-                            <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #6b7280; font-weight: 600; margin-bottom: 0;">Market Growth</h4>
-                            
-                            <div style="display: flex; align-items: flex-end; justify-content: center; gap: 40px; height: 200px; flex: 1;">
-                                <!-- 2024 Bar -->
-                                <div style="display: flex; flex-direction: column; align-items: center;">
-                                    <div style="font-size: 13px; font-weight: 600; color: #111827; margin-bottom: 8px;">$4.1B</div>
-                                    <div style="background: #e5e7eb; width: 60px; height: 90px; border-radius: 6px 6px 0 0;"></div>
-                                    <div style="font-size: 12px; color: #6b7280; margin-top: 8px;">2024</div>
-            </div>
-                                
-                                <!-- 2031 Bar -->
-                                <div style="display: flex; flex-direction: column; align-items: center;">
-                                    <div style="font-size: 13px; font-weight: 600; color: #111827; margin-bottom: 8px;">$9.1B</div>
-                                    <div style="background: #0F62FE; width: 60px; height: 200px; border-radius: 6px 6px 0 0;"></div>
-                                    <div style="font-size: 12px; color: #6b7280; margin-top: 8px;">2031</div>
-            </div>
-                </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Second Row: Market Structure and Major Players -->
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 32px;">
-                        
-                        <!-- Market Structure Card -->
-                        <div style="background: white; border: 1px solid #e5e7eb; border-radius: 16px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-                            <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #6b7280; font-weight: 600; margin-bottom: 24px;">Market Structure</h4>
-                            
-                            <!-- Concentration Bar -->
-                            <div style="display: flex; gap: 16px; align-items: center;">
-                                <div style="position: relative; width: 40px; height: 220px;">
-                                    <div style="width: 100%; height: 100%; background: linear-gradient(to bottom, #B45454, #f59e0b, #10b981); border-radius: 8px; position: relative;">
-                                        <!-- Marker -->
-                                        <div style="position: absolute; left: 50%; bottom: 15%; transform: translate(-50%, 50%); width: 60px;">
-                                            <div style="width: 100%; height: 3px; background: #111827; box-shadow: 0 2px 8px rgba(0,0,0,0.2);"></div>
-                                        </div>
-                                    </div>
-            </div>
-            
-                                <!-- Labels with Definitions -->
-                                <div style="display: flex; flex-direction: column; justify-content: space-between; height: 220px;">
-                                    <div>
-                                        <div style="font-size: 10px; color: #111827; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; margin-bottom: 2px;">Consolidated</div>
-                                        <div style="font-size: 11px; color: #374151; line-height: 1.4;">Few dominant players control the market</div>
-                                    </div>
-                                    <div>
-                                        <div style="font-size: 10px; color: #111827; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; margin-bottom: 2px;">Balanced</div>
-                                        <div style="font-size: 11px; color: #374151; line-height: 1.4;">Mix of large and small competitors</div>
-                                    </div>
-                                    <div>
-                                        <div style="font-size: 10px; color: #111827; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; margin-bottom: 2px;">Fragmented</div>
-                                        <div style="font-size: 11px; color: #374151; line-height: 1.4;">Highly competitive without dominant players</div>
-                                    </div>
+
+                        <div class="story-market-card">
+                            <h4>Market Growth</h4>
+                            <div class="story-market-chart">
+                                <div class="story-market-col">
+                                    <div class="story-market-col-value">$4.1B</div>
+                                    <div class="story-market-bar" style="height: 72px;"></div>
+                                    <div class="story-market-col-label">2024</div>
                                 </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Major Players Card -->
-                        <div style="background: white; border: 1px solid #e5e7eb; border-radius: 16px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-                            <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #6b7280; font-weight: 600; margin-bottom: 20px;">Major Players</h4>
-                            
-                            <div style="display: grid; grid-template-columns: 1fr; gap: 4px;">
-                                <div style="display: flex; align-items: center; gap: 8px;">
-                                    <span style="color: #111827; font-size: 8px;">●</span>
-                                    <span style="font-size: 13px; color: #374151; font-weight: 300;">Meepo</span>
-                                </div>
-                                <div style="display: flex; align-items: center; gap: 8px;">
-                                    <span style="color: #111827; font-size: 8px;">●</span>
-                                    <span style="font-size: 13px; color: #374151; font-weight: 300;">Backfire</span>
-                                </div>
-                                <div style="display: flex; align-items: center; gap: 8px;">
-                                    <span style="color: #111827; font-size: 8px;">●</span>
-                                    <span style="font-size: 13px; color: #374151; font-weight: 300;">Exway</span>
-                                </div>
-                                <div style="display: flex; align-items: center; gap: 8px;">
-                                    <span style="color: #111827; font-size: 8px;">●</span>
-                                    <span style="font-size: 13px; color: #374151; font-weight: 300;">Propel</span>
-                                </div>
-                                <div style="display: flex; align-items: center; gap: 8px;">
-                                    <span style="color: #111827; font-size: 8px;">●</span>
-                                    <span style="font-size: 13px; color: #374151; font-weight: 300;">Evolve</span>
+                                <div class="story-market-col">
+                                    <div class="story-market-col-value">$9.1B</div>
+                                    <div class="story-market-bar" style="height: 160px;"></div>
+                                    <div class="story-market-col-label">2031</div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Source Citation -->
-                    <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #e5e7eb; margin-bottom: -8px;">
-                        <p style="margin: 0; font-size: 11px; color: #9ca3af; font-style: italic; text-align: center;">
-                            Source: <a href="https://www.reanin.com/reports/electric-skateboard-market" target="_blank" rel="noopener noreferrer" style="color: #6b7280; text-decoration: underline;">ReAnIn Electric Skateboard Market Report</a>, 2025, study period 2025–2031.
-                        </p>
+
+                    <div class="story-market-grid">
+                        <div class="story-market-card">
+                            <h4>Market Structure</h4>
+                            <div class="story-market-structure">
+                                <div class="story-market-meter" aria-hidden="true">
+                                    <div class="story-market-meter-tick" style="top: 33.33%;"></div>
+                                    <div class="story-market-meter-tick" style="top: 66.66%;"></div>
+                                    <div class="story-market-meter-mark"></div>
+                                </div>
+                                <div class="story-market-structure-labels">
+                                    <div>
+                                        <strong>Consolidated</strong>
+                                        <span>Few dominant players control the market</span>
+                                    </div>
+                                    <div>
+                                        <strong>Balanced</strong>
+                                        <span>Mix of large and small competitors</span>
+                                    </div>
+                                    <div>
+                                        <strong>Fragmented</strong>
+                                        <span>Highly competitive without dominant players</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="story-market-card">
+                            <h4>Major Players</h4>
+                            <div class="story-market-players">
+                                <div class="story-market-player"><i></i>Meepo</div>
+                                <div class="story-market-player"><i></i>Backfire</div>
+                                <div class="story-market-player"><i></i>Exway</div>
+                                <div class="story-market-player"><i></i>Propel</div>
+                                <div class="story-market-player"><i></i>Evolve</div>
+                            </div>
+                        </div>
                     </div>
+
+                    <p class="story-market-source">
+                        Source: <a href="https://www.reanin.com/reports/electric-skateboard-market" target="_blank" rel="noopener noreferrer">ReAnIn Electric Skateboard Market Report</a>, 2025, study period 2025–2031.
+                    </p>
                 </div>
                 <p class="qa-answer">Two things stand out.</p>
                 <p class="qa-answer"><strong>The category is fragmented.</strong> No one owns it. In a consolidated market, a small entrant competing on feel gets crushed by distribution. In a fragmented one, a genuinely different product has room to find its riders.</p>
