@@ -304,10 +304,10 @@
                 <img class="qava-blog-thumb" src="./Kristina%20Boxer%20Profile%20Photo.png" alt="Kristina Boxer" />
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
-                  <div class="qava-blog-tag">Consumer tech</div>
-                  <div class="qava-blog-title">Showing up when it matters</div>
+                  <div class="qava-blog-tag">Consumer Tech</div>
+                  <div class="qava-blog-title">The Dates We Don't Put<br>on Our Calendars</div>
                   <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">How one founder built a smarter system for remembering what matters.</div>
+                    <div class="qava-blog-excerpt">Birthdays, anniversaries, and the ones no one thinks to write down.</div>
                     <span class="qava-blog-read">Read ${blogReadArrow}</span>
                   </div>
                 </div>
