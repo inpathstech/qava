@@ -4,6 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cab Driver vs. Changemaker | The Club</title>
+  <meta name="description" content="The posture that separates the reliable from the indispensable." />
+  <meta property="og:title" content="Cab Driver vs. Changemaker | The Club" />
+  <meta property="og:description" content="The posture that separates the reliable from the indispensable." />
   <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -348,7 +351,9 @@
       margin: 24px 0 48px;
     }
 
-    .story-meta-col { flex: 1; min-width: 240px; }
+    .story-meta-col { flex: 1; min-width: 0; }
+
+    .story-meta-col:first-child { flex: 1.7; }
 
     .story-meta-divider {
       width: 1px;
@@ -372,19 +377,21 @@
 
     .story-people {
       display: flex;
-      flex-wrap: wrap;
-      gap: 32px;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 16px;
     }
 
     .story-person {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 10px;
+      min-width: 0;
     }
 
     .story-person-avatar {
-      width: 56px;
-      height: 56px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       overflow: hidden;
       background: #e5e7eb;
@@ -423,8 +430,12 @@
 
         .story-wrapper {
             max-width: 760px;
-            margin: 0 auto;
-            padding: 56px 24px 90px;
+            width: calc(100% - 48px);
+            margin: 24px auto 48px;
+            padding: 56px 40px 90px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-sizing: border-box;
         }
 
         .story-header {
@@ -440,6 +451,10 @@
             font-weight: 400;
             line-height: 1.1;
             letter-spacing: -0.02em;
+        }
+
+        .story-title-line {
+            display: block;
         }
 
         .story-subtitle {
@@ -506,7 +521,7 @@
         .story-hero {
             width: 100%;
             margin: 32px 0 40px;
-            border-radius: 12px;
+            border-radius: 4px;
             overflow: hidden;
         }
 
@@ -586,20 +601,27 @@
         }
  
         .story-section h2 {
-            font-size: 24px;
-            font-weight: 600;
+            font-family: var(--display);
+            font-size: 28px;
+            font-weight: 400;
             margin: 0 0 24px !important;
             padding-top: 28px !important;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.02em;
             color: #000000;
             border-top: 1px solid #e0e0e0 !important;
         }
 
         .story-section h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 16px;
+            font-family: var(--display);
+            font-size: 22px;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin: 32px 0 16px;
             color: #111;
+        }
+
+        .story-section h3:first-of-type {
+            margin-top: 8px;
         }
 
         /* All paragraphs - consistent spacing */
@@ -636,8 +658,8 @@
         }
 
         .qa-question .highlight {
-            background: linear-gradient(180deg, transparent 60%, rgba(15, 98, 254, 0.1) 60%);
-            padding: 0 4px;
+            background: none;
+            padding: 0;
             display: inline;
         }
 
@@ -651,6 +673,37 @@
 
         .qa-answer:last-child {
             margin-bottom: 0;
+        }
+
+        .story-section ul {
+            margin: 8px 0 20px;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .story-section ul li {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 8px;
+            padding-left: 1.15em;
+            position: relative;
+        }
+
+        .story-section ul li::before {
+            content: "–";
+            position: absolute;
+            left: 0;
+        }
+
+        .story-section ul li a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .story-section ul li a:hover {
+            text-decoration: underline;
         }
 
         /* Pull quotes - centered with breathing room */
@@ -684,7 +737,7 @@
 
         .story-media img {
             width: 100%;
-            border-radius: 16px;
+            border-radius: 4px;
             display: block;
         }
 
@@ -723,8 +776,10 @@
         }
 
         .story-cta h3 {
+            font-family: var(--display);
             font-size: 24px;
-            font-weight: 600;
+            font-weight: 400;
+            letter-spacing: -0.02em;
             margin-bottom: 16px;
         }
 
@@ -826,7 +881,9 @@
 
         @media (max-width: 768px) {
             .story-wrapper {
+                width: calc(100% - 32px);
                 padding: 40px 24px 80px;
+                margin: 16px auto 40px;
             }
 
             .story-categories {
@@ -1072,13 +1129,36 @@
 
 <main class="story-wrapper">
         <header class="story-header">
-            <div class="story-categories">
-                <span class="story-category-pill">Leadership</span>
-            </div>
             <h1 class="story-title">Cab Driver vs. Changemaker</h1>
             <p class="story-subtitle" style="color: #666666;">When you show up for a client, a company, or a problem — are you showing up as a cab driver or a changemaker? It sounds too simple to matter. It quietly separates the people who stay "reliable" from the ones who become indispensable.</p>
-            <p style="margin-top: 6px; font-size: 14px; font-weight: 400; color: #6b7280;">By Qava Team</p>
         </header>
+
+        <section class="story-meta">
+            <div class="story-meta-col">
+                <h3>Behind the Story</h3>
+                <div class="story-people">
+                    <div class="story-person">
+                        <div class="story-person-avatar">
+                            <img src="Reed%20Langridge%20Profile.jpg" alt="Reed Langridge" loading="lazy" />
+                        </div>
+                        <div>
+                            <div class="story-person-name">Reed Langridge</div>
+                            <div class="story-person-role">Founder, The Club</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="story-meta-divider" aria-hidden="true"></div>
+            <div class="story-meta-col">
+                <h3>Focus Areas</h3>
+                <div class="story-focus-items">
+                    <div>Leadership 🧭</div>
+                    <div>Ownership 🎯</div>
+                    <div>Entrepreneurship 🚀</div>
+                    <div>Client Work 🤝</div>
+                </div>
+            </div>
+        </section>
 
         <figure class="story-hero">
             <img src="cab-driver-changemaker-card.png" alt="Yellow taxis lined up on a busy city street at dusk" loading="lazy">
@@ -1129,7 +1209,7 @@
         <div class="story-cta">
             <h3>Be the changemaker.</h3>
             <p style="font-weight: 300;">The best work comes from people who own the problem and the solution.</p>
-            <p style="font-weight: 300;">Find them, or become one, with Qava.</p>
+            <p style="font-weight: 300;">Find them, or become one, with The Club.</p>
             <div class="story-cta-actions">
                 <a href="https://app.theclubnyc.com/" class="cta-button primary">Join for free</a>
             </div>
