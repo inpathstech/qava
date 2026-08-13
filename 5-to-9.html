@@ -3,7 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>5-9 | The Club</title>
+  <title>Your 9-to-5 Pays the Bills. Your 5-to-9 Builds Your Future. | The Club</title>
+  <meta name="description" content="Most people think they're falling behind because of their job. They're not. They're falling behind because the hours they control are spent maintaining today instead of building tomorrow." />
+  <meta property="og:title" content="Your 9-to-5 Pays the Bills. Your 5-to-9 Builds Your Future. | The Club" />
+  <meta property="og:description" content="Most people think they're falling behind because of their job. They're not. They're falling behind because the hours they control are spent maintaining today instead of building tomorrow." />
   <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -348,7 +351,9 @@
       margin: 24px 0 48px;
     }
 
-    .story-meta-col { flex: 1; min-width: 240px; }
+    .story-meta-col { flex: 1; min-width: 0; }
+
+    .story-meta-col:first-child { flex: 1.7; }
 
     .story-meta-divider {
       width: 1px;
@@ -372,19 +377,21 @@
 
     .story-people {
       display: flex;
-      flex-wrap: wrap;
-      gap: 32px;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 16px;
     }
 
     .story-person {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 10px;
+      min-width: 0;
     }
 
     .story-person-avatar {
-      width: 56px;
-      height: 56px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       overflow: hidden;
       background: #e5e7eb;
@@ -423,8 +430,12 @@
 
         .story-wrapper {
             max-width: 760px;
-            margin: 0 auto;
-            padding: 56px 24px 90px;
+            width: calc(100% - 48px);
+            margin: 24px auto 48px;
+            padding: 56px 40px 90px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-sizing: border-box;
         }
 
         .story-header {
@@ -440,6 +451,10 @@
             font-weight: 400;
             line-height: 1.1;
             letter-spacing: -0.02em;
+        }
+
+        .story-title-line {
+            display: block;
         }
 
         .story-subtitle {
@@ -506,7 +521,7 @@
         .story-hero {
             width: 100%;
             margin: 32px 0 40px;
-            border-radius: 12px;
+            border-radius: 4px;
             overflow: hidden;
         }
 
@@ -586,11 +601,12 @@
         }
  
         .story-section h2 {
-            font-size: 24px;
-            font-weight: 600;
+            font-family: var(--display);
+            font-size: 28px;
+            font-weight: 400;
             margin: 0 0 24px !important;
             padding-top: 28px !important;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.02em;
             color: #000000;
             border-top: 1px solid #e0e0e0 !important;
         }
@@ -636,8 +652,8 @@
         }
 
         .qa-question .highlight {
-            background: linear-gradient(180deg, transparent 60%, rgba(15, 98, 254, 0.1) 60%);
-            padding: 0 4px;
+            background: none;
+            padding: 0;
             display: inline;
         }
 
@@ -684,7 +700,7 @@
 
         .story-media img {
             width: 100%;
-            border-radius: 16px;
+            border-radius: 4px;
             display: block;
         }
 
@@ -723,8 +739,10 @@
         }
 
         .story-cta h3 {
+            font-family: var(--display);
             font-size: 24px;
-            font-weight: 600;
+            font-weight: 400;
+            letter-spacing: -0.02em;
             margin-bottom: 16px;
         }
 
@@ -826,7 +844,9 @@
 
         @media (max-width: 768px) {
             .story-wrapper {
+                width: calc(100% - 32px);
                 padding: 40px 24px 80px;
+                margin: 16px auto 40px;
             }
 
             .story-categories {
@@ -1072,13 +1092,36 @@
 
 <main class="story-wrapper">
         <header class="story-header">
-            <div class="story-categories">
-                <span class="story-category-pill">Productivity</span>
-            </div>
-            <h1 class="story-title">Your 9-to-5 Pays the Bills. Your 5-to-9 Builds Your Future.</h1>
+            <h1 class="story-title"><span class="story-title-line">Your 9-to-5 Pays the Bills.</span><span class="story-title-line">Your 5-to-9 Builds Your Future.</span></h1>
             <p class="story-subtitle" style="color: #666666;">Most people think they're falling behind because of their job. They're not. They're falling behind because the hours they control are spent maintaining today instead of building tomorrow. Here's how to reclaim the four hours that quietly determine who you become.</p>
-            <p style="margin-top: 6px; font-size: 14px; font-weight: 400; color: #6b7280;">By Qava Team</p>
         </header>
+
+        <section class="story-meta">
+            <div class="story-meta-col">
+                <h3>Behind the Story</h3>
+                <div class="story-people">
+                    <div class="story-person">
+                        <div class="story-person-avatar">
+                            <img src="Reed%20Langridge%20Profile.jpg" alt="Reed Langridge" loading="lazy" />
+                        </div>
+                        <div>
+                            <div class="story-person-name">Reed Langridge</div>
+                            <div class="story-person-role">Founder, The Club</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="story-meta-divider" aria-hidden="true"></div>
+            <div class="story-meta-col">
+                <h3>Focus Areas</h3>
+                <div class="story-focus-items">
+                    <div>Productivity ⚡</div>
+                    <div>Decision Fatigue 🧠</div>
+                    <div>After Hours 🌙</div>
+                    <div>Career Growth 📈</div>
+                </div>
+            </div>
+        </section>
 
         <figure class="story-hero">
             <img src="5to9-card.png" alt="Building your future after hours" loading="lazy">
@@ -1086,50 +1129,50 @@
 
         <section class="story-section" id="future">
             <h2>Your Future Isn't Built Between Nine and Five</h2>
-            <p>Most ambitious people believe they know what's holding them back.</p>
-            <p>It's the demanding job. The endless meetings. The overflowing inbox. The commute. The constant feeling that there's simply not enough time left in the day to build the life they actually want.</p>
-            <p>They tell themselves that once work settles down, everything else will begin. They'll finally learn that new skill, launch the side business, write the book, train for the marathon, spend more time with the people they love, or take control of their health.</p>
-            <p>The problem is that work rarely settles down.</p>
-            <p>In fact, the opposite usually happens. As careers progress, responsibilities grow. Promotions bring larger teams, bigger decisions, and higher expectations. Waiting for life to create space is a strategy that quietly keeps people exactly where they are.</p>
-            <p>The truth is that your nine-to-five isn't designed to change your future.</p>
-            <blockquote>It's designed to maintain your present.</blockquote>
-            <p>Your job pays the mortgage. It covers the rent. It funds holidays, groceries, and school fees. It provides stability. There's nothing wrong with that. Stable work creates opportunity, and meaningful careers can be deeply fulfilling.</p>
-            <p>But if you think about the people you admire — the founder who built a company from scratch, the executive who became an industry expert, the consultant who wrote the book everyone recommends, or the athlete who somehow found time to train while working full-time — you'll notice something they all have in common.</p>
-            <p>Very few of them built those identities during office hours.</p>
-            <p>They built them afterwards.</p>
-            <p>Your evenings are where your future quietly takes shape.</p>
-            <p>They're where ideas become businesses. Where books get written one chapter at a time. Where qualifications are earned. Where relationships deepen. Where healthy habits become part of who you are rather than something you're always trying to start next Monday.</p>
-            <p>No single evening changes your life.</p>
-            <p>Hundreds of ordinary evenings do.</p>
-            <p>That's why those few hours after work matter far more than most of us realise.</p>
-            <p>Unfortunately, they're also the easiest hours to lose.</p>
-            <p>After spending an entire day making decisions, solving problems, and responding to other people's priorities, we arrive home mentally exhausted. We promise ourselves that tonight will be different. Tonight we'll exercise. Tonight we'll make progress on that side project. Tonight we'll finally pick up the book gathering dust on the bedside table.</p>
-            <p>Instead, we sit down for "just five minutes."</p>
-            <p>Five minutes becomes forty-five.</p>
-            <p>One episode becomes four.</p>
-            <p>One quick scroll through social media somehow becomes an entire evening.</p>
-            <p>We head to bed frustrated, quietly promising ourselves that tomorrow will be different.</p>
-            <p>Tomorrow almost never is.</p>
-            <p>This isn't because we're lazy.</p>
-            <p>It's because we're human.</p>
-            <p>Researchers have spent decades studying what psychologists call <strong>decision fatigue</strong>. Social psychologist <strong>Dr. Roy Baumeister</strong> found that every decision we make throughout the day draws from a limited pool of mental energy. By the evening, after making hundreds of large and small decisions, our ability to exercise self-control naturally declines. While researchers continue to debate exactly how decision fatigue works, anyone who's found themselves eating takeaway instead of cooking or scrolling instead of studying after a long day has experienced the phenomenon firsthand.</p>
-            <p>The important point isn't whether your willpower disappears completely.</p>
-            <p>It's that your brain starts looking for the path of least resistance.</p>
-            <p>Unfortunately, modern technology is exceptionally good at providing one.</p>
-            <p>Streaming services, social media platforms, news feeds and endless notifications are designed to capture attention precisely when our brains are least equipped to resist them.</p>
-            <p>That's why relying on motivation is such a fragile strategy.</p>
-            <p>Motivation is unpredictable.</p>
-            <blockquote>Systems are dependable.</blockquote>
-            <p>And that's where real change begins.</p>
+            <div class="qa-block">
+                <p class="qa-answer">Most ambitious people believe they know what's holding them back.</p>
+                <p class="qa-answer">It's the demanding job. The endless meetings. The overflowing inbox. The commute. The constant feeling that there's simply not enough time left in the day to build the life they actually want.</p>
+                <p class="qa-answer">They tell themselves that once work settles down, everything else will begin. They'll finally learn that new skill, launch the side business, write the book, train for the marathon, spend more time with the people they love, or take control of their health.</p>
+                <p class="qa-answer">The problem is that work rarely settles down.</p>
+                <p class="qa-answer">In fact, the opposite usually happens. As careers progress, responsibilities grow. Promotions bring larger teams, bigger decisions, and higher expectations. Waiting for life to create space is a strategy that quietly keeps people exactly where they are.</p>
+                <p class="qa-answer">The truth is that your nine-to-five isn't designed to change your future.</p>
+                <blockquote>It's designed to maintain your present.</blockquote>
+                <p class="qa-answer">Your job pays the mortgage. It covers the rent. It funds holidays, groceries, and school fees. It provides stability. There's nothing wrong with that. Stable work creates opportunity, and meaningful careers can be deeply fulfilling.</p>
+                <p class="qa-answer">But if you think about the people you admire — the founder who built a company from scratch, the executive who became an industry expert, the consultant who wrote the book everyone recommends, or the athlete who somehow found time to train while working full-time — you'll notice something they all have in common.</p>
+                <p class="qa-answer">Very few of them built those identities during office hours.</p>
+                <p class="qa-answer">They built them afterwards.</p>
+                <p class="qa-answer">Your evenings are where your future quietly takes shape.</p>
+                <p class="qa-answer">They're where ideas become businesses. Where books get written one chapter at a time. Where qualifications are earned. Where relationships deepen. Where healthy habits become part of who you are rather than something you're always trying to start next Monday.</p>
+                <p class="qa-answer">No single evening changes your life.</p>
+                <p class="qa-answer">Hundreds of ordinary evenings do.</p>
+                <p class="qa-answer">That's why those few hours after work matter far more than most of us realise.</p>
+                <p class="qa-answer">Unfortunately, they're also the easiest hours to lose.</p>
+                <p class="qa-answer">After spending an entire day making decisions, solving problems, and responding to other people's priorities, we arrive home mentally exhausted. We promise ourselves that tonight will be different. Tonight we'll exercise. Tonight we'll make progress on that side project. Tonight we'll finally pick up the book gathering dust on the bedside table.</p>
+                <p class="qa-answer">Instead, we sit down for "just five minutes."</p>
+                <p class="qa-answer">Five minutes becomes forty-five.</p>
+                <p class="qa-answer">One episode becomes four.</p>
+                <p class="qa-answer">One quick scroll through social media somehow becomes an entire evening.</p>
+                <p class="qa-answer">We head to bed frustrated, quietly promising ourselves that tomorrow will be different.</p>
+                <p class="qa-answer">Tomorrow almost never is.</p>
+                <p class="qa-answer">This isn't because we're lazy.</p>
+                <p class="qa-answer">It's because we're human.</p>
+                <p class="qa-answer">Researchers have spent decades studying what psychologists call <strong>decision fatigue</strong>. Social psychologist <strong>Dr. Roy Baumeister</strong> found that every decision we make throughout the day draws from a limited pool of mental energy. By the evening, after making hundreds of large and small decisions, our ability to exercise self-control naturally declines. While researchers continue to debate exactly how decision fatigue works, anyone who's found themselves eating takeaway instead of cooking or scrolling instead of studying after a long day has experienced the phenomenon firsthand.</p>
+                <p class="qa-answer">The important point isn't whether your willpower disappears completely.</p>
+                <p class="qa-answer">It's that your brain starts looking for the path of least resistance.</p>
+                <p class="qa-answer">Unfortunately, modern technology is exceptionally good at providing one.</p>
+                <p class="qa-answer">Streaming services, social media platforms, news feeds and endless notifications are designed to capture attention precisely when our brains are least equipped to resist them.</p>
+                <p class="qa-answer">That's why relying on motivation is such a fragile strategy.</p>
+                <p class="qa-answer">Motivation is unpredictable.</p>
+                <blockquote>Systems are dependable.</blockquote>
+                <p class="qa-answer">And that's where real change begins.</p>
+            </div>
         </section>
 
         <div class="story-cta">
             <h3>Your 5-to-9 starts today.</h3>
             <p style="font-weight: 300;">The hours you control are where your future quietly takes shape.</p>
-            <p style="font-weight: 300;">Start building something that matters with Qava.</p>
             <div class="story-cta-actions">
                 <a href="https://app.theclubnyc.com/" class="cta-button primary">Join for free</a>
-                <a href="https://www.theclubnyc.com/howitworks" class="cta-button secondary">How Qava Works</a>
             </div>
         </div>
     </main>
@@ -1143,12 +1186,6 @@
       if (typeof window.applyQavaFooter === "function") {
         window.applyQavaFooter(document);
       }
-
-      document.querySelectorAll('.qa-question').forEach((questionEl) => {
-        if (!questionEl.querySelector('.highlight')) {
-          questionEl.innerHTML = `<span class="highlight">${questionEl.innerHTML}</span>`;
-        }
-      });
     })();
   </script>
   <script src="/qava-auth.js"></script>
