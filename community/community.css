@@ -1799,8 +1799,8 @@
       width: 100%;
       border: 0;
       padding: 8px 10px;
-      font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
-      font-size: 14px;
+      font: inherit;
+      font-size: 13px;
       line-height: 1.5;
       font-weight: 300;
       letter-spacing: 0;
@@ -1831,8 +1831,8 @@
     }
 
     .composer-title::placeholder {
-      font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
-      font-size: 14px;
+      font-family: inherit;
+      font-size: 13px;
       line-height: 1.5;
       letter-spacing: 0;
     }
@@ -5049,27 +5049,29 @@
 
     /* Empty feed state (API reachable, no live threads yet) */
     .feed-empty {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 10px;
-      padding: 56px 24px;
-      color: var(--muted);
-    }
-    .feed-empty-icon {
-      width: 46px;
-      height: 46px;
-      display: grid;
-      place-items: center;
-      border-radius: 14px;
-      background: var(--panel-soft);
+      display: block;
+      padding: 28px 20px;
       border: 1px solid var(--hairline);
-      color: var(--ink);
+      border-radius: 12px;
+      background: #fff;
     }
-    .feed-empty-icon svg { width: 22px; height: 22px; }
-    .feed-empty h3 { font-size: 17px; font-weight: 600; color: var(--ink); }
-    .feed-empty p { font-size: 14px; font-weight: 300; max-width: 340px; }
+    .feed-empty h3 {
+      margin: 0 0 6px;
+      font-family: var(--display);
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      color: #111827;
+    }
+    .feed-empty p {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.45;
+      color: #9ca3af;
+      max-width: 360px;
+    }
 
     /* Header auth control */
     .community-auth-control { display: inline-flex; align-items: center; }

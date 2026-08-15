@@ -291,11 +291,8 @@
     if (!feedList) return;
     feedList.innerHTML =
       '<div class="feed-empty" role="status">' +
-        '<div class="feed-empty-icon" aria-hidden="true">' +
-          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>' +
-        '</div>' +
-        '<h3>No discussions yet</h3>' +
-        '<p>Be the first to start a conversation with the community.</p>' +
+        '<h3>No posts yet</h3>' +
+        '<p>Be the first to start a conversation.</p>' +
       '</div>';
   }
   window.communityRenderEmptyFeed = renderEmptyFeed;

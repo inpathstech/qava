@@ -941,6 +941,7 @@
             </div>
           </div>
         `;
+        feedList.querySelector('.feed-empty')?.remove();
         feedList.prepend(userFeedItem);
       }
 

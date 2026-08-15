@@ -1275,11 +1275,11 @@
       width: 100%;
       border: 0;
       padding: 10px 12px;
-      font-family: var(--display);
-      font-size: 15px;
-      line-height: 1.25;
-      font-weight: 400;
-      letter-spacing: -0.01em;
+      font: inherit;
+      font-size: 13px;
+      line-height: 1.5;
+      font-weight: 300;
+      letter-spacing: 0;
       color: #111827;
       background: transparent;
       outline: none;
@@ -1308,9 +1308,9 @@
 
     .composer-title::placeholder {
       font-family: inherit;
-      font-size: 15px;
-      line-height: 1.25;
-      letter-spacing: -0.01em;
+      font-size: 13px;
+      line-height: 1.5;
+      letter-spacing: 0;
     }
 
     .composer-input::placeholder {

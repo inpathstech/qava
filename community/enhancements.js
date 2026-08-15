@@ -1747,7 +1747,7 @@
         ? `${visible} thread${visible === 1 ? '' : 's'}`
         : '';
     }
-    if (empty) empty.hidden = !(active.length && visible === 0);
+    if (empty) empty.hidden = !(active.length && visible === 0 && !feedList.querySelector('.feed-empty'));
 
     document.querySelectorAll('#feedTopicFilters .feed-topic-pill').forEach((btn) => {
       btn.classList.toggle('is-selected', active.includes(btn.dataset.topic));
@@ -1804,7 +1804,17 @@
   function initFeedFromData() {
     const feedList = document.getElementById('feedList');
     if (!feedList) return;
-    feedList.innerHTML = Object.values(THREAD_DATA).map(renderFeedItem).join('');
+    const threads = Object.values(THREAD_DATA);
+    if (!threads.length) {
+      if (typeof window.communityRenderEmptyFeed === 'function') {
+        window.communityRenderEmptyFeed();
+      } else {
+        feedList.innerHTML =
+          '<div class="feed-empty" role="status"><h3>No posts yet</h3><p>Be the first to start a conversation.</p></div>';
+      }
+      return;
+    }
+    feedList.innerHTML = threads.map(renderFeedItem).join('');
     sortFeedItems();
     bindDynamicHandlers();
     feedList.querySelectorAll('.reply-heart').forEach((btn) => bindReplyHeartEnhanced(btn));
