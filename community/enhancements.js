@@ -946,7 +946,7 @@
             <h3>${escapeHtml(item.title)}</h3>
             <div class="profile-thread-meta">${escapeHtml(item.meta)}</div>
           </button>`).join('')
-      : '<p class="profile-empty-note">Nothing saved yet. Save a thread opener from Chat to find it here.</p>';
+      : '<p class="profile-empty-note">Nothing saved yet. Save a thread opener from Club Room to find it here.</p>';
 
     const posStyle = p.photoPosition ? ` style="object-position:${escapeHtml(p.photoPosition)}"` : '';
     const avatarInner = p.photo
@@ -1005,7 +1005,7 @@
           <div class="profile-stat"><strong>${savedCount}</strong><span>Saves</span></div>
         </div>
         <section class="profile-section">
-          <span class="profile-section-label">Recent in Chat</span>
+          <span class="profile-section-label">Recent in Club Room</span>
           <div class="profile-thread-list">${threadItems}</div>
         </section>
         <section class="profile-section">
