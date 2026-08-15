@@ -366,6 +366,7 @@
       html = html.replace(/\*\*_([^_\n]+?)_\*\*/g, (_, inner) => stash(`<strong><em>${inner}</em></strong>`));
       html = html.replace(/_\*\*(.+?)\*\*_/g, (_, inner) => stash(`<em><strong>${inner}</strong></em>`));
       html = html.replace(/\*\*(.+?)\*\*/g, (_, inner) => stash(`<strong>${inner}</strong>`));
+      html = html.replace(/__(.+?)__/g, (_, inner) => stash(`<u>${inner}</u>`));
       html = html.replace(/_([^_\n]+?)_/g, (_, inner) => stash(`<em>${inner}</em>`));
       return expandPlaceholders(html);
     }
@@ -439,6 +440,7 @@
         .replace(/\*\*_([^_]+?)_\*\*/g, '$1')
         .replace(/_\*\*(.+?)\*\*_/g, '$1')
         .replace(/\*\*(.+?)\*\*/g, '$1')
+        .replace(/__(.+?)__/g, '$1')
         .replace(/_([^_\n]+?)_/g, '$1')
         .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
         .replace(/^\s*[-*]\s+/gm, '')
