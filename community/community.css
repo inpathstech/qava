@@ -1799,8 +1799,8 @@
       width: 100%;
       border: 0;
       padding: 8px 10px;
-      font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
-      font-size: 14px;
+      font: inherit;
+      font-size: 13px;
       line-height: 1.5;
       font-weight: 300;
       letter-spacing: 0;
@@ -1831,8 +1831,8 @@
     }
 
     .composer-title::placeholder {
-      font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
-      font-size: 14px;
+      font-family: inherit;
+      font-size: 13px;
       line-height: 1.5;
       letter-spacing: 0;
     }
