@@ -95,6 +95,9 @@ jobs:
           --content-type "text/html" \
           --cache-control "max-age=3600"
 
+        aws s3 rm s3://${{ secrets.S3_BUCKET_NAME }}/terms.html || true
+        aws s3 rm s3://${{ secrets.S3_BUCKET_NAME }}/terms || true
+
         aws s3 cp useragreement.html s3://${{ secrets.S3_BUCKET_NAME }}/useragreement.html \
           --content-type "text/html" \
           --cache-control "max-age=3600"
