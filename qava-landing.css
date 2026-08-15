@@ -5164,6 +5164,7 @@
           font-weight: 300 !important;
           color: #6b6b6b !important;
           line-height: 1.4 !important;
+          padding: 0 4px !important;
         }
 
         /* Keep nav-link spacing consistent at every desktop width
