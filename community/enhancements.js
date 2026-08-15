@@ -2426,8 +2426,6 @@
       const on = selectedTags.includes(btn.dataset.tag);
       btn.classList.toggle('is-selected', on);
       btn.setAttribute('aria-selected', on ? 'true' : 'false');
-      const check = btn.querySelector('.tag-pill-check');
-      if (check) check.textContent = on ? '\u2713' : '';
     });
     if (label) {
       label.textContent = selectedTags.length ? selectedTags.join(', ') : 'Select topic(s)';
@@ -2464,7 +2462,7 @@
       picker.innerHTML = AGENDA_TOPICS.map((tag) => (
         `<button type="button" class="tag-pill" role="option" data-tag="${escapeHtml(tag)}" aria-selected="false">`
         + `<span>${escapeHtml(tag)}</span>`
-        + `<span class="tag-pill-check" aria-hidden="true"></span>`
+        + `<span class="tag-pill-check" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>`
         + `</button>`
       )).join('');
     } else {
