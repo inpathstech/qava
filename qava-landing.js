@@ -1249,7 +1249,7 @@
                       <section class="qava-create-section">
                         <h4 class="qava-create-heading">And I'd like to —</h4>
                         <div class="qava-create-checklist">
-                          <label class="qava-create-check"><input type="checkbox" class="qava-box-check" checked disabled><span>Use Qava AI to write my first draft</span></label>
+                          <label class="qava-create-check"><input type="checkbox" class="qava-box-check" checked disabled><span>Use The Club AI to write my first draft</span></label>
                           <label class="qava-create-check"><input type="checkbox" class="qava-box-check" disabled><span>Write it on my own</span></label>
                 </div>
                       </section>
@@ -2028,9 +2028,9 @@
               }
 
               const stories = [
-                { quote: "Qava has saved me valuable time, and I get to work with a diverse pool of fresh, bright perspectives on targeted problems.", logo: "./Testimonial%20company%20logos/mmento%20logo.svg", h: 22, name: "Founder &amp; CEO" },
+                { quote: "The Club has saved me valuable time, and I get to work with a diverse pool of fresh, bright perspectives on targeted problems.", logo: "./Testimonial%20company%20logos/mmento%20logo.svg", h: 22, name: "Founder &amp; CEO" },
                 { quote: "We streamlined our internal workflows and accelerated our entire sales cycle using a handful of incredible interns and AI.", logo: "./Testimonial%20company%20logos/Boon.svg", crop: true, name: "Chief Revenue Officer" },
-                { quote: "I used Qava to set up our P&amp;L with charts showing where our revenue is growing and how our expenses are trending.", logo: "./Testimonial%20company%20logos/The%20Rise%20Group%20Square%20Logo.svg", h: 26, name: "CEO" },
+                { quote: "I used The Club to set up our P&amp;L with charts showing where our revenue is growing and how our expenses are trending.", logo: "./Testimonial%20company%20logos/The%20Rise%20Group%20Square%20Logo.svg", h: 26, name: "CEO" },
                 { quote: "Working with startups gave me hands-on experience that no case study could match. I helped build go-to-market strategies that actually launched products.", logo: "./Landing%20Page%20Trusted%20by/Kellogg.png", h: 32, name: "Kellogg School of Management", sub: "Class of 2024" },
                 { quote: "I helped real companies raise capital. I built investor-ready pitch decks and financial models. This experience accelerated my career by 10 years.", logo: "./Landing%20Page%20Trusted%20by/Wharton.png", h: 32, name: "The Wharton School", sub: "Class of 2023" },
                 { quote: "I worked on real, high-impact strategic projects for ambitious growing companies that I will stay in touch with for years to come.", logo: "./Testimonial%20images/Columbia%20Business%20School%20Logo%202.png", h: 32, name: "Columbia Business School", sub: "Class of 2024" }
@@ -2041,7 +2041,7 @@
               storiesSection.className = "qava-stories-section";
               storiesSection.innerHTML = `
                 <h2 class="qava-stories-title">Trusted by doers.</h2>
-                <p class="qava-stories-sub">98% of users would strongly recommend Qava.</p>
+                <p class="qava-stories-sub">98% of users would strongly recommend The Club.</p>
                 <div class="qava-stories-grid">
                   ${stories.map((s) => `
                     <div class="qava-story-card">
@@ -2083,15 +2083,15 @@
 
               const faqPlus = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>';
               const faqs = [
-                { q: `What is Qava?`, a: `Qava connects startups, enterprises, and non-profits with business school and graduate-level talent to complete short-term, high-impact projects that move businesses forward — from building financial models to crafting go-to-market strategies. It also provides hiring managers the ability to hire full-time roles, part-time roles, and internships.` },
-                { q: `Who is Qava for?`, a: `Anyone serious about finding high-quality talent — and for ambitious professionals who want real-world experience that advances their careers.` },
+                { q: `What is The Club?`, a: `The Club connects startups, enterprises, and non-profits with business school and graduate-level talent to complete short-term, high-impact projects that move businesses forward — from building financial models to crafting go-to-market strategies. It also provides hiring managers the ability to hire full-time roles, part-time roles, and internships.` },
+                { q: `Who is The Club for?`, a: `Anyone serious about finding high-quality talent — and for ambitious professionals who want real-world experience that advances their careers.` },
                 { q: `What types of projects can I post?`, a: `You can post projects in strategy, marketing, finance, operations, fundraising, or research — or create a custom project tailored to your business goals. Common examples include:<br><br>💼 Business plan or investor deck creation<br>📊 Financial modeling and valuation<br>🔍 Market and competitor analysis<br>🗺️ Customer journey mapping<br>💰 Grant or funding applications` },
-                { q: `How does Qava find the right talent?`, a: `Our AI-powered matching system reviews your project goals and pairs you with candidates who have relevant skills, experience, and industry expertise — many from top business schools around the world. We also partner directly with consulting clubs at leading universities to help you find the perfect match.` },
+                { q: `How does The Club find the right talent?`, a: `Our AI-powered matching system reviews your project goals and pairs you with candidates who have relevant skills, experience, and industry expertise — many from top business schools around the world. We also partner directly with consulting clubs at leading universities to help you find the perfect match.` },
                 { q: `What does it cost to post a project?`, a: `Project listings start from $49 for basic visibility, with upgrade options for featured placement or faster matching.` },
-                { q: `What makes Qava different from Upwork or LinkedIn?`, a: `Three important differences set Qava apart:<br><br><strong>Quality</strong><br>Unlike Upwork, which often connects you with low-cost offshore freelancers, Qava connects you with high-caliber talent from top business schools that bring local market knowledge, the latest academic insights, access to premium research tools, and local contacts.<br><br><strong>Visibility</strong><br>Unlike LinkedIn, which serves every profession and job type, Qava is purpose-built for strategic, MBA-level work. That means your projects stand out to the right audience — not buried among thousands of listings.<br><br><strong>On-demand and cost-efficient</strong><br>With Qava, you only pay for what you need, when you need it. No retainers. No long-term contracts. Just flexible access to top-tier talent and simple, affordable project listings that make scaling smarter — not more expensive.` },
-                { q: `Can I use Qava if I'm not an MBA student?`, a: `Yes. While Qava was founded for MBAs and advanced degree holders, we also welcome experienced professionals and independent consultants with strong business or technical expertise.` },
-                { q: `How do payments work?`, a: `Qava makes payments seamless and secure. Once the project is complete, funds are released to the talent based on your agreed terms — giving both sides confidence and clarity.` },
-                { q: `Is Qava available globally?`, a: `Yes. Qava operates internationally, matching clients and talent across time zones. Projects can be remote or in-person depending on your preferences.` },
+                { q: `What makes The Club different from Upwork or LinkedIn?`, a: `Three important differences set The Club apart:<br><br><strong>Quality</strong><br>Unlike Upwork, which often connects you with low-cost offshore freelancers, The Club connects you with high-caliber talent from top business schools that bring local market knowledge, the latest academic insights, access to premium research tools, and local contacts.<br><br><strong>Visibility</strong><br>Unlike LinkedIn, which serves every profession and job type, The Club is purpose-built for strategic, MBA-level work. That means your projects stand out to the right audience — not buried among thousands of listings.<br><br><strong>On-demand and cost-efficient</strong><br>With The Club, you only pay for what you need, when you need it. No retainers. No long-term contracts. Just flexible access to top-tier talent and simple, affordable project listings that make scaling smarter — not more expensive.` },
+                { q: `Can I use The Club if I'm not an MBA student?`, a: `Yes. While The Club NYC was founded for MBAs and advanced degree holders, we also welcome experienced professionals and independent consultants with strong business or technical expertise.` },
+                { q: `How do payments work?`, a: `The Club makes payments seamless and secure. Once the project is complete, funds are released to the talent based on your agreed terms — giving both sides confidence and clarity.` },
+                { q: `Is The Club available globally?`, a: `Yes. The Club NYC operates internationally, matching clients and talent across time zones. Projects can be remote or in-person depending on your preferences.` },
                 { q: `How do I get started?`, a: `If you're a company, sign in and click Create Listing to share what you need help with. Our AI-powered process makes it simple — even if you're not yet sure what kind of support you need.<br><br>If you're talent, sign in and click Search Listings to explore live opportunities and start building your profile.` }
               ];
 

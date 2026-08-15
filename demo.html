@@ -17,7 +17,7 @@
             --muted: #6B6B6B;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        *, *::before, *::after { box-sizing: border-box; }
 
         html, body {
             font-family: "Inter", sans-serif;
@@ -31,6 +31,14 @@
         }
 
         a { color: inherit; }
+
+        /* Match homepage nav link padding — qava-landing.css does not set this,
+           and a page-level reset must not collapse the 4px text inset. */
+        .header-container .navigation .nav-item .nav-text,
+        .header-container .auth-item .nav-text,
+        .header-container .qava-premium-nav-btn .nav-text {
+            padding: 0 4px !important;
+        }
 
         /* DEMO REQUEST SECTION STYLES */
         .demo-request-section {
@@ -443,7 +451,7 @@
         </div>
         <div class="header-right">
             <div class="auth-section">
-                <a href="https://app.theclubnyc.com/" class="qava-premium-nav-btn" data-qava-premium-nav aria-label="Log in"><span class="nav-text">Log in</span></a>
+                <a href="https://app.theclubnyc.com/?login=1" class="qava-premium-nav-btn" data-qava-premium-nav aria-label="Log in"><span class="nav-text">Log in</span></a>
                 <a href="https://app.theclubnyc.com/" class="join-button">
                     <div class="join-text">Get Started</div>
                 </a>
@@ -473,7 +481,7 @@
         <a href="https://www.theclubnyc.com/about" class="mobile-nav-item">
             <div class="nav-text">About</div>
         </a>
-        <a href="https://app.theclubnyc.com/" class="mobile-nav-item qava-premium-nav-btn" data-qava-premium-nav aria-label="Log in"><span class="nav-text">Log in</span></a>
+        <a href="https://app.theclubnyc.com/?login=1" class="mobile-nav-item qava-premium-nav-btn" data-qava-premium-nav aria-label="Log in"><span class="nav-text">Log in</span></a>
         <a href="https://app.theclubnyc.com/" class="join-button mobile-menu-join-button">
             <div class="join-text">Get Started</div>
         </a>
@@ -483,7 +491,7 @@
         <div class="demo-card">
             <div class="demo-content">
                 <h1 class="demo-title">Contact our<br>demo team</h1>
-                <p class="demo-subtitle">Let's explore how Club can work for you</p>
+                <p class="demo-subtitle">Let's explore how The Club can work for you</p>
                 <div class="demo-benefits">
                     <div class="benefit-item">
                         <span class="benefit-icon" style="font-size: 20px;">🚀</span>
