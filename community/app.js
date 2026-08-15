@@ -1546,6 +1546,10 @@
     window.getInputText = getInputText;
     window.setInputRaw = setInputRaw;
     window.clearInput = clearInput;
+    window.applyBold = applyBold;
+    window.insertInputBullet = insertInputBullet;
+    window.insertInputLink = insertInputLink;
+    window.insertInputMention = insertInputMention;
     window.formatPostBody = formatPostBody;
     window.formatReplyBody = formatReplyBody;
     window.showView = showView;

@@ -185,6 +185,7 @@
   let feedTopicFilter = [];
   let mentionDropdown = null;
   let activeMentionInput = null;
+  const feedJoinAttachments = new Map();
   let pendingExternalInvites = [];
   const EDIT_WINDOW_MS = 15 * 60 * 1000;
   const POPULAR_BADGE_HTML = ' · <span class="best-answer-badge">Popular</span>';
@@ -364,27 +365,180 @@
   }
 
   const FEED_REPLY_SEND_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg>';
+  const FEED_JOIN_TOOLBAR_HTML = `
+      <div class="toolbar" aria-label="Formatting">
+        <button class="tool-btn" type="button" data-tool="bold" disabled aria-label="Bold" title="Bold">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a4 4 0 0 1 0 8H6z"/><path d="M6 12h9a4 4 0 0 1 0 8H6z"/></svg>
+        </button>
+        <button class="tool-btn" type="button" data-tool="bullet" disabled aria-label="Bullet list" title="Bullet list">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11"/><path d="M9 12h11"/><path d="M9 18h11"/><circle cx="4" cy="6" r="1" fill="currentColor" stroke="none"/><circle cx="4" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="4" cy="18" r="1" fill="currentColor" stroke="none"/></svg>
+        </button>
+        <button class="tool-btn" type="button" data-tool="link" disabled aria-label="Add link" title="Add link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        </button>
+        <button class="tool-btn" type="button" data-tool="mention" disabled aria-label="Mention member" title="Mention member">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"/></svg>
+        </button>
+        <button class="tool-btn" type="button" data-tool="attach" disabled aria-label="Attach file" title="Attach file or image">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+        </button>
+      </div>`;
+
+  function renderFeedJoinAttachments(threadId) {
+    const files = feedJoinAttachments.get(threadId) || [];
+    if (!files.length) return '';
+    return files.map((file, index) => `
+      <span class="composer-attach-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+        ${escapeHtml(file.name)}
+        <button class="composer-attach-remove" type="button" data-remove-join-attachment="${index}" aria-label="Remove ${escapeHtml(file.name)}">×</button>
+      </span>
+    `).join('');
+  }
+
+  function renderFeedJoinAttachChipsHtml(threadId) {
+    const files = feedJoinAttachments.get(threadId) || [];
+    if (!files.length) return '';
+    const chips = files.map((file) => `
+      <span class="attach-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+        ${escapeHtml(file.name)}
+      </span>
+    `).join('');
+    return `<div class="attach-chips">${chips}</div>`;
+  }
+
+  function renderFeedJoinAttachmentsRow(join) {
+    const threadId = join?.dataset?.feedJoin;
+    const row = join?.querySelector('.feed-join-attachments');
+    if (!row || !threadId) return;
+    row.innerHTML = renderFeedJoinAttachments(threadId);
+  }
+
+  function countFeedReplyWords(input) {
+    const text = (window.getInputText ? window.getInputText(input) : (input?.textContent || '')).replace(/\u00a0/g, ' ');
+    const trimmed = text.trim();
+    return trimmed ? trimmed.split(/\s+/).length : 0;
+  }
+
+  function syncFeedJoinComposer(join) {
+    const input = join?.querySelector('.feed-reply-input');
+    if (!input) return;
+    const count = countFeedReplyWords(input);
+    const label = join.querySelector('.feed-join-word-count');
+    if (label) {
+      label.textContent = `${count} / 250 words`;
+      label.classList.toggle('is-over', count > 250);
+    }
+    const premium = typeof window.communityIsPremium === 'function' && !!window.communityIsPremium();
+    const ready = feedReplyHasSendableText(input) && count <= 250;
+    const replyBtn = join.querySelector('.feed-join-reply');
+    if (replyBtn) {
+      replyBtn.disabled = !premium || !ready;
+      replyBtn.classList.toggle('is-disabled', !premium || !ready);
+    }
+    join.querySelectorAll('[data-tool]').forEach((btn) => {
+      btn.disabled = !premium;
+    });
+  }
+
+  function runFeedJoinTool(input, action, onChange) {
+    if (!input) return;
+    if (action === 'bold') {
+      if (window.applyBold) window.applyBold(input, onChange);
+      else {
+        input.focus();
+        document.execCommand('bold', false, null);
+        onChange();
+      }
+      return;
+    }
+    if (action === 'bullet') {
+      if (window.insertInputBullet) window.insertInputBullet(input, onChange);
+      else {
+        input.focus();
+        document.execCommand('insertUnorderedList', false, null);
+        onChange();
+      }
+      return;
+    }
+    if (action === 'link') {
+      if (window.insertInputLink) window.insertInputLink(input, onChange);
+      return;
+    }
+    if (action === 'mention') {
+      if (window.insertInputMention) {
+        window.insertInputMention(input, onChange);
+        return;
+      }
+      input.focus();
+      document.execCommand('insertText', false, '@');
+      if (window.showMentionDropdown) window.showMentionDropdown(input);
+      onChange();
+    }
+  }
 
   function renderFeedInlineReply(thread) {
-    return `<div class="feed-inline-reply" data-feed-reply-thread="${thread.id}">
-      ${selfAvatarHtml('You')}
-      <div class="feed-inline-reply-field input-with-gate">
-        <div class="composer-input feed-reply-input" contenteditable="false" role="textbox" aria-multiline="true" aria-label="Write a reply" data-placeholder="Write a reply… @ to mention"></div>
-        <button type="button" class="feed-reply-send is-disabled" aria-label="Write a reply to send" aria-disabled="true">${FEED_REPLY_SEND_SVG}</button>
+    return `<div class="feed-inline-reply feed-join-composer" data-feed-reply-thread="${thread.id}">
+      <div class="feed-join-composer-row">
+        ${selfAvatarHtml('You')}
+        <div class="feed-inline-reply-field input-with-gate">
+          <div class="composer-input feed-reply-input" contenteditable="false" role="textbox" aria-multiline="true" aria-label="Write a reply" data-placeholder="Write a reply… @ to mention"></div>
+        </div>
+      </div>
+      <div class="composer-attachments feed-join-attachments" aria-label="Attached files">${renderFeedJoinAttachments(thread.id)}</div>
+      <input type="file" class="feed-join-file" hidden multiple />
+      <div class="composer-actions">
+        ${FEED_JOIN_TOOLBAR_HTML}
+        <div class="composer-footer">
+          <div class="word-count feed-join-word-count">0 / 250 words</div>
+          <button class="btn btn-primary btn-post feed-join-reply is-disabled" type="button" disabled>Reply</button>
+        </div>
       </div>
     </div>`;
   }
 
   function renderFeedJoin(thread) {
     return `<div class="feed-join" data-feed-join="${thread.id}">
-      <button type="button" class="feed-join-pill" data-feed-join-pill="${thread.id}">
-        ${selfAvatarHtml('You')}
-        <span>Join the conversation</span>
-      </button>
+      <div class="feed-join-pill-slot">
+        <button type="button" class="feed-join-pill" data-feed-join-pill="${thread.id}" aria-expanded="false">
+          ${selfAvatarHtml('You')}
+          <span>Join the conversation</span>
+        </button>
+      </div>
       <div class="feed-join-expanded">
-        ${renderFeedInlineReply(thread)}
+        <div class="feed-join-expanded-inner">
+          ${renderFeedInlineReply(thread)}
+        </div>
       </div>
     </div>`;
+  }
+
+  function setFeedJoinOpen(join, open) {
+    if (!join) return;
+    if (open) {
+      document.querySelectorAll('.feed-join.is-open').forEach((el) => {
+        if (el !== join) setFeedJoinOpen(el, false);
+      });
+    }
+    join.classList.toggle('is-open', !!open);
+    join.querySelector('[data-feed-join-pill]')?.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (!open) {
+      join.querySelector('.feed-reply-input')?.blur();
+      return;
+    }
+    const input = join.querySelector('.feed-reply-input');
+    syncFeedJoinComposer(join);
+    requestAnimationFrame(() => {
+      try { input?.focus({ preventScroll: true }); } catch (_) { input?.focus(); }
+    });
+  }
+
+  function collapseFeedJoins(except) {
+    document.querySelectorAll('.feed-join.is-open').forEach((el) => {
+      if (except && (el === except || el.contains(except))) return;
+      setFeedJoinOpen(el, false);
+    });
   }
 
   function renderFeedExpandToggle(thread, expanded) {
@@ -830,7 +984,7 @@
           : feedItem;
         const openJoin = () => {
           const join = nextItem?.querySelector('.feed-join');
-          join?.classList.add('is-open');
+          setFeedJoinOpen(join, true);
           const replyInput = nextItem?.querySelector('.feed-reply-input') || document.getElementById('replyInput');
           if (!replyInput) return;
           replyInput.focus();
@@ -1257,6 +1411,8 @@
         bindMentionInput(input);
       }
       syncFeedReplySend(input);
+      const join = input.closest('.feed-join');
+      if (join) syncFeedJoinComposer(join);
     });
   }
 
@@ -1299,8 +1455,7 @@
         || document.querySelector('.feed-opener[data-thread="user"]')?.closest('.feed-item');
       if (opts.scroll !== false) userEl?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       if (opts.focusReply) {
-        userEl?.querySelector('.feed-join')?.classList.add('is-open');
-        userEl?.querySelector('.feed-reply-input')?.focus();
+        setFeedJoinOpen(userEl?.querySelector('.feed-join'), true);
       }
       return;
     }
@@ -1319,8 +1474,7 @@
     const focused = document.querySelector(`.feed-item[data-feed-thread="${threadId}"]`);
     if (opts.scroll !== false) focused?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     if (opts.focusReply) {
-      focused?.querySelector('.feed-join')?.classList.add('is-open');
-      focused?.querySelector('.feed-reply-input')?.focus();
+      setFeedJoinOpen(focused?.querySelector('.feed-join'), true);
     }
   }
 
@@ -1336,6 +1490,16 @@
 
     const raw = (window.getInputRaw ? window.getInputRaw(input) : (input.textContent || '')).trim();
     if (!raw) return;
+    if (countFeedReplyWords(input) > 250) {
+      if (window.communityNotice) {
+        window.communityNotice({
+          title: 'Reply is too long',
+          body: 'Replies are limited to 250 words.',
+          confirmLabel: 'OK',
+        });
+      }
+      return;
+    }
 
     const prepared = extractInvitesAndMaskBody(raw);
     const publishBody = prepared.body.trim();
@@ -1348,7 +1512,8 @@
 
     const auth = (typeof window.communityGetAuthState === 'function' && window.communityGetAuthState()) || {};
     const author = auth.handle || 'You';
-    const bodyHtml = window.formatPostBody ? window.formatPostBody(publishBody) : escapeHtml(publishBody);
+    const bodyHtml = (window.formatPostBody ? window.formatPostBody(publishBody) : escapeHtml(publishBody))
+      + renderFeedJoinAttachChipsHtml(threadId);
 
     thread.replies = thread.replies || [];
     thread.replies.unshift({
@@ -1365,6 +1530,7 @@
     thread.status = thread.status === 'new' ? 'new' : 'active';
     expandedReplies.add(threadId);
 
+    feedJoinAttachments.delete(threadId);
     refreshFeedItemReplies(threadId);
     if (window.clearInput) window.clearInput(input);
     else input.innerHTML = '';
@@ -1418,6 +1584,8 @@
       const input = e.target.closest?.('.feed-reply-input');
       if (!input || !feedList.contains(input)) return;
       syncFeedReplySend(input);
+      const join = input.closest('.feed-join');
+      if (join) syncFeedJoinComposer(join);
     });
 
     feedList.addEventListener('keydown', (e) => {
@@ -1431,6 +1599,58 @@
     });
 
     feedList.addEventListener('click', (e) => {
+      const joinPill = e.target.closest?.('[data-feed-join-pill]');
+      if (joinPill && feedList.contains(joinPill)) {
+        e.preventDefault();
+        e.stopPropagation();
+        const join = joinPill.closest('.feed-join');
+        setFeedJoinOpen(join, true);
+        return;
+      }
+      const toolBtn = e.target.closest?.('.feed-join [data-tool]');
+      if (toolBtn && feedList.contains(toolBtn)) {
+        e.preventDefault();
+        e.stopPropagation();
+        const join = toolBtn.closest('.feed-join');
+        const input = join?.querySelector('.feed-reply-input');
+        if (!isPremiumEnabled()) {
+          if (typeof window.communityRequireSignIn === 'function') window.communityRequireSignIn();
+          return;
+        }
+        if (toolBtn.dataset.tool === 'attach') {
+          join?.querySelector('.feed-join-file')?.click();
+          return;
+        }
+        runFeedJoinTool(input, toolBtn.dataset.tool, () => {
+          syncFeedReplySend(input);
+          if (join) syncFeedJoinComposer(join);
+        });
+        return;
+      }
+      const removeAttach = e.target.closest?.('[data-remove-join-attachment]');
+      if (removeAttach && feedList.contains(removeAttach)) {
+        e.preventDefault();
+        e.stopPropagation();
+        const join = removeAttach.closest('.feed-join');
+        const threadId = join?.dataset?.feedJoin;
+        const files = threadId ? feedJoinAttachments.get(threadId) : null;
+        if (files) {
+          files.splice(Number(removeAttach.dataset.removeJoinAttachment), 1);
+          if (!files.length) feedJoinAttachments.delete(threadId);
+          else feedJoinAttachments.set(threadId, files);
+          renderFeedJoinAttachmentsRow(join);
+        }
+        return;
+      }
+      const replyBtn = e.target.closest?.('.feed-join-reply');
+      if (replyBtn && feedList.contains(replyBtn)) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (replyBtn.disabled || replyBtn.classList.contains('is-disabled')) return;
+        const input = replyBtn.closest('.feed-join')?.querySelector('.feed-reply-input');
+        submitFeedInlineReply(input);
+        return;
+      }
       const sendBtn = e.target.closest?.('.feed-reply-send');
       if (sendBtn && feedList.contains(sendBtn)) {
         e.preventDefault();
@@ -1449,11 +1669,27 @@
       const inline = e.target.closest('.feed-inline-reply, .feed-join');
       if (!inline || !feedList.contains(inline)) return;
       e.stopPropagation();
+      if (e.target.closest?.('.feed-join [data-tool], .feed-join-reply')) {
+        e.preventDefault();
+      }
       const input = e.target.closest?.('.feed-reply-input');
       if (input && !isPremiumEnabled()) {
         e.preventDefault();
         if (typeof window.communityRequireSignIn === 'function') window.communityRequireSignIn();
       }
+    });
+
+    feedList.addEventListener('change', (e) => {
+      const fileInput = e.target.closest?.('.feed-join-file');
+      if (!fileInput || !feedList.contains(fileInput)) return;
+      const join = fileInput.closest('.feed-join');
+      const threadId = join?.dataset?.feedJoin;
+      if (!threadId) return;
+      const next = feedJoinAttachments.get(threadId) || [];
+      Array.from(fileInput.files || []).forEach((file) => next.push(file));
+      fileInput.value = '';
+      feedJoinAttachments.set(threadId, next);
+      renderFeedJoinAttachmentsRow(join);
     });
 
     feedList.addEventListener('focusin', (e) => {
@@ -1616,11 +1852,9 @@
       if (joinPill) {
         e.preventDefault();
         e.stopPropagation();
-        const id = joinPill.dataset.feedJoinPill;
-        const join = document.querySelector(`.feed-join[data-feed-join="${id}"]`);
-        join?.classList.add('is-open');
-        const input = join?.querySelector('.feed-reply-input');
-        input?.focus();
+        const join = joinPill.closest('.feed-join')
+          || document.querySelector(`.feed-join[data-feed-join="${joinPill.dataset.feedJoinPill}"]`);
+        setFeedJoinOpen(join, true);
         return;
       }
 
@@ -1643,6 +1877,17 @@
         if (!id) return;
         setFeedItemExpanded(id, false);
       }
+    });
+
+    document.addEventListener('pointerdown', (e) => {
+      if (e.target.closest?.('.feed-join.is-open, .mention-dropdown, .proto-modal, .community-toast')) return;
+      collapseFeedJoins();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      if (mentionDropdown && !mentionDropdown.hidden) return;
+      collapseFeedJoins();
     });
   }
 
