@@ -2304,19 +2304,28 @@
       width: 14px;
       height: 14px;
       border-radius: 3px;
-      border: 1px solid rgba(17,24,39,0.1);
+      border: 1px solid #111827;
       background: #fff;
-      color: #fff;
-      font-size: 10px;
+      color: #111827;
       display: grid;
       place-items: center;
       flex-shrink: 0;
       line-height: 1;
     }
 
+    .composer-topics-menu .tag-pill-check svg {
+      width: 10px;
+      height: 10px;
+      opacity: 0;
+    }
+
     .composer-topics-menu .tag-pill.is-selected .tag-pill-check {
       border-color: #111827;
-      background: #111827;
+      background: #fff;
+    }
+
+    .composer-topics-menu .tag-pill.is-selected .tag-pill-check svg {
+      opacity: 1;
     }
 
     .composer-footer {
