@@ -1846,7 +1846,7 @@
 
   function setFeedTopicFilter(topic) {
     if (!topic || topic === 'all') feedTopicFilter = [];
-    else feedTopicFilter = [topic];
+    else feedTopicFilter = [topic === 'Other' ? 'Catch-all' : topic];
     applyFeedTopicFilters();
   }
 
@@ -3660,6 +3660,11 @@
     initDrafts();
     initFeedToolbar();
     initFeedTopicFilters();
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const tag = params.get('tag') || params.get('topic');
+      if (tag && !params.get('t')) setFeedTopicFilter(tag);
+    } catch (e) { /* ignore */ }
     initLandingCoherence();
     initProfilePage();
     patchShowThread();
@@ -3684,6 +3689,8 @@
   window.THREAD_DATA = THREAD_DATA;
   window.MEMBER_PROFILES = MEMBER_PROFILES;
   window.initFeedFromData = initFeedFromData;
+  window.setFeedTopicFilter = setFeedTopicFilter;
+  window.communitySetFeedTopicFilter = setFeedTopicFilter;
   window.communitySetFeedLoading = setFeedLoading;
   window.communityGetSelectedTags = function () { return selectedTags.slice(); };
   window.communityGetFeedSort = function () { return feedSort; };
