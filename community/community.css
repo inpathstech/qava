@@ -1607,6 +1607,15 @@
     html.community-embed .composer-card.composer-opener {
       top: 12px;
     }
+    /* Keep deep-linked feed items clear of the sticky Start a thread bar. */
+    html.community-embed,
+    body.embed-app {
+      scroll-padding-top: 76px;
+    }
+    body.embed-app .feed-item[data-feed-thread],
+    html.community-embed .feed-item[data-feed-thread] {
+      scroll-margin-top: 76px;
+    }
 
     .composer-card .avatar {
       width: 24px;
