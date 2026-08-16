@@ -105,7 +105,7 @@
     html.community-embed .chat-page,
     html.community-embed .thread-page,
     html.community-embed .profile-page {
-      padding-top: 16px;
+      padding-top: 32px;
     }
 
     /* Hide gated/composer flashes until auth + feed are ready (parent shimmer covers). */
@@ -5434,7 +5434,7 @@
     }
     body.embed-app .club-sidenav,
     html.community-embed .club-sidenav {
-      top: 16px;
+      top: 32px;
     }
     .club-sidenav-link {
       display: block;
