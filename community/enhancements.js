@@ -1809,6 +1809,19 @@
     return empty;
   }
 
+  function normalizeTopicTag(topic) {
+    if (!topic || topic === 'all') return '';
+    let raw = String(topic).trim();
+    if (raw === 'Other') raw = 'Catch-all';
+    const lower = raw.toLowerCase();
+    const match = AGENDA_TOPICS.find((t) => t.toLowerCase() === lower);
+    return match || raw;
+  }
+
+  function tagEquals(a, b) {
+    return String(a || '').trim().toLowerCase() === String(b || '').trim().toLowerCase();
+  }
+
   function applyFeedTopicFilters() {
     const feedList = document.getElementById('feedList');
     if (!feedList) return;
@@ -1817,7 +1830,7 @@
     let visible = 0;
     items.forEach((el) => {
       const tags = getFeedItemTags(el);
-      const show = !active.length || active.some((t) => tags.includes(t));
+      const show = !active.length || active.some((t) => tags.some((x) => tagEquals(x, t)));
       el.hidden = !show;
       if (show) visible += 1;
     });
@@ -1834,12 +1847,13 @@
     if (empty) empty.hidden = !(active.length && visible === 0 && !feedList.querySelector('.feed-empty'));
 
     document.querySelectorAll('#feedTopicFilters .feed-topic-pill').forEach((btn) => {
-      btn.classList.toggle('is-selected', active.includes(btn.dataset.topic));
-      btn.setAttribute('aria-pressed', active.includes(btn.dataset.topic) ? 'true' : 'false');
+      const on = active.some((t) => tagEquals(t, btn.dataset.topic));
+      btn.classList.toggle('is-selected', on);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
     });
     document.querySelectorAll('#clubSidenav [data-filter]').forEach((btn) => {
       const filter = btn.dataset.filter;
-      const on = filter === 'all' ? active.length === 0 : active.includes(filter);
+      const on = filter === 'all' ? active.length === 0 : active.some((t) => tagEquals(t, filter));
       btn.classList.toggle('is-active', on);
     });
   }
@@ -1864,10 +1878,16 @@
     ].join('');
   }
 
-  function setFeedTopicFilter(topic) {
-    if (!topic || topic === 'all') feedTopicFilter = [];
-    else feedTopicFilter = [topic === 'Other' ? 'Catch-all' : topic];
+  function setFeedTopicFilter(topic, opts) {
+    const next = normalizeTopicTag(topic);
+    const prev = feedTopicFilter[0] || '';
+    const same = tagEquals(prev, next);
+    feedTopicFilter = next ? [next] : [];
     applyFeedTopicFilters();
+    renderFeedTopicPills();
+    if (opts && opts.refetch && !same && typeof window.communityHydrateFeed === 'function') {
+      window.communityHydrateFeed({ tag: next }).catch(() => {});
+    }
   }
 
   function initFeedTopicFilters() {
@@ -1887,16 +1907,16 @@
     wrap?.addEventListener('click', (e) => {
       const btn = e.target.closest('.feed-topic-pill');
       if (!btn || !wrap.contains(btn)) return;
-      setFeedTopicFilter(btn.dataset.topic);
+      setFeedTopicFilter(btn.dataset.topic, { refetch: true });
     });
     nav?.addEventListener('click', (e) => {
       const btn = e.target.closest('[data-filter]');
       if (!btn || !nav.contains(btn)) return;
-      setFeedTopicFilter(btn.dataset.filter);
+      setFeedTopicFilter(btn.dataset.filter, { refetch: true });
     });
 
     reset?.addEventListener('click', () => {
-      setFeedTopicFilter('all');
+      setFeedTopicFilter('all', { refetch: true });
     });
 
     applyFeedTopicFilters();
@@ -3712,6 +3732,7 @@
   window.scrollFeedItemIntoView = scrollFeedItemIntoView;
   window.setFeedTopicFilter = setFeedTopicFilter;
   window.communitySetFeedTopicFilter = setFeedTopicFilter;
+  window.communityGetFeedTopicFilter = function () { return feedTopicFilter.slice(); };
   window.communitySetFeedLoading = setFeedLoading;
   window.communityGetSelectedTags = function () { return selectedTags.slice(); };
   window.communityGetFeedSort = function () { return feedSort; };
