@@ -334,6 +334,10 @@
     return thread.replies?.length || 0;
   }
 
+  function topicDisplayName(topic) {
+    return topic === 'Catch-all' ? 'Other' : topic;
+  }
+
   function renderFeedStats(thread) {
     const liked = likedThreads.has(thread.id);
     const likes = thread.likes || 0;
@@ -342,7 +346,7 @@
       <div class="feed-stats">
         <button type="button" class="feed-stat feed-like-btn${liked ? ' is-active' : ''}" data-feed-like="${thread.id}" aria-label="${likes} like${likes === 1 ? '' : 's'}" aria-pressed="${liked ? 'true' : 'false'}">${HEART_SVG}<span>${likes}</span></button>
         <span class="feed-stat" data-feed-replies aria-label="${replies} replies">${REPLY_SVG}<span>${replies}</span></span>
-        <span class="feed-stat-time">${escapeHtml(thread.time || '')}</span>
+        <button type="button" class="feed-stat feed-reply-open" data-open-feed-reply="${thread.id}">Reply</button>
       </div>`;
   }
 
@@ -369,6 +373,12 @@
       <div class="toolbar" aria-label="Formatting">
         <button class="tool-btn" type="button" data-tool="bold" disabled aria-label="Bold" title="Bold">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a4 4 0 0 1 0 8H6z"/><path d="M6 12h9a4 4 0 0 1 0 8H6z"/></svg>
+        </button>
+        <button class="tool-btn" type="button" data-tool="italic" disabled aria-label="Italic" title="Italic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 4h-9"/><path d="M14 20H5"/><path d="m15 4-6 16"/></svg>
+        </button>
+        <button class="tool-btn" type="button" data-tool="underline" disabled aria-label="Underline" title="Underline">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v6a6 6 0 0 0 12 0V4"/><path d="M4 20h16"/></svg>
         </button>
         <button class="tool-btn" type="button" data-tool="bullet" disabled aria-label="Bullet list" title="Bullet list">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11"/><path d="M9 12h11"/><path d="M9 18h11"/><circle cx="4" cy="6" r="1" fill="currentColor" stroke="none"/><circle cx="4" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="4" cy="18" r="1" fill="currentColor" stroke="none"/></svg>
@@ -444,13 +454,10 @@
 
   function runFeedJoinTool(input, action, onChange) {
     if (!input) return;
-    if (action === 'bold') {
-      if (window.applyBold) window.applyBold(input, onChange);
-      else {
-        input.focus();
-        document.execCommand('bold', false, null);
-        onChange();
-      }
+    if (action === 'bold' || action === 'italic' || action === 'underline') {
+      input.focus();
+      document.execCommand(action, false, null);
+      onChange();
       return;
     }
     if (action === 'bullet') {
@@ -483,7 +490,7 @@
       <div class="feed-join-composer-row">
         ${selfAvatarHtml('You')}
         <div class="feed-inline-reply-field input-with-gate">
-          <div class="composer-input feed-reply-input" contenteditable="false" role="textbox" aria-multiline="true" aria-label="Write a reply" data-placeholder="Write a reply… @ to mention"></div>
+          <div class="composer-input feed-reply-input" contenteditable="false" role="textbox" aria-multiline="true" aria-label="Write a reply" data-placeholder="Reply"></div>
         </div>
       </div>
       <div class="composer-attachments feed-join-attachments" aria-label="Attached files">${renderFeedJoinAttachments(thread.id)}</div>
@@ -500,14 +507,8 @@
 
   function renderFeedJoin(thread) {
     return `<div class="feed-join" data-feed-join="${thread.id}">
-      <div class="feed-join-pill-slot">
-        <button type="button" class="feed-join-pill" data-feed-join-pill="${thread.id}" aria-expanded="false">
-          ${selfAvatarHtml('You')}
-          <span>Join the conversation</span>
-        </button>
-      </div>
-      <div class="feed-join-expanded">
-        <div class="feed-join-expanded-inner">
+      <div class="feed-join-slide">
+        <div class="feed-join-slide-inner">
           ${renderFeedInlineReply(thread)}
         </div>
       </div>
@@ -522,6 +523,7 @@
       });
     }
     join.classList.toggle('is-open', !!open);
+    join.closest('.feed-item')?.classList.toggle('is-replying', !!open);
     join.querySelector('[data-feed-join-pill]')?.setAttribute('aria-expanded', open ? 'true' : 'false');
     if (!open) {
       join.querySelector('.feed-reply-input')?.blur();
@@ -537,6 +539,8 @@
   function collapseFeedJoins(except) {
     document.querySelectorAll('.feed-join.is-open').forEach((el) => {
       if (except && (el === except || el.contains(except))) return;
+      const input = el.querySelector('.feed-reply-input');
+      if (input && typeof feedReplyHasSendableText === 'function' && feedReplyHasSendableText(input)) return;
       setFeedJoinOpen(el, false);
     });
   }
@@ -552,7 +556,7 @@
   }
 
   function renderFeedDiscussionInner(thread) {
-    return `${renderFeedJoin(thread)}${renderFeedReplies(thread)}`;
+    return `${renderFeedReplies(thread)}`;
   }
 
   function renderFeedItem(thread) {
@@ -564,7 +568,7 @@
     const tags = thread.tags || [];
     const tagAttr = tags.map((t) => escapeHtml(t)).join('|');
     const tagsHtml = tags.length
-      ? `<div class="feed-opener-tags">${tags.map((t) => `<span class="feed-tag-pill">${escapeHtml(t)}</span>`).join('')}</div>`
+      ? `<div class="feed-opener-tags">${tags.map((t) => `<span class="feed-tag-pill">${escapeHtml(topicDisplayName(t))}</span>`).join('')}</div>`
       : '';
     const discussion = expanded
       ? `<div class="feed-discussion">${renderFeedDiscussionInner(thread)}</div>`
@@ -575,8 +579,8 @@
         <div class="feed-opener-meta-row">
           ${avatarHtml(op, op.name)}
           <div class="meta-lines">
-            <div class="meta-top"><strong>${memberLink(op.name)}</strong>${metaExtra(op.role, op.school)}</div>
-            <div class="meta-sub">${thread.status === 'new' ? 'New' : 'Active'}${unread ? ` · <span class="feed-unread">${thread.newReplies} new</span>` : ''}</div>
+            <div class="meta-top"><strong>${memberLink(op.name)}</strong>${metaExtra(op.role, op.school)}<span class="feed-byline-dot">·</span><time>${escapeHtml(thread.time || '')}</time></div>
+            ${unread ? `<div class="meta-sub"><span class="feed-unread">${thread.newReplies} new</span></div>` : ''}
           </div>
         </div>
         ${tagsHtml}
@@ -598,6 +602,7 @@
           ${discussion}
         </div>
       </div>
+      ${renderFeedJoin(thread)}
     </div>`;
   }
 
@@ -629,7 +634,7 @@
   function ensureFeedDiscussionContent(item, thread) {
     const discussion = item.querySelector('.feed-discussion');
     if (!discussion) return;
-    if (discussion.dataset.feedDiscussionEmpty === '1' || !discussion.querySelector('.feed-join, .feed-replies')) {
+    if (discussion.dataset.feedDiscussionEmpty === '1' || !discussion.querySelector('.feed-replies')) {
       discussion.innerHTML = renderFeedDiscussionInner(thread);
       delete discussion.dataset.feedDiscussionEmpty;
       bindFeedItemInteractive(discussion);
@@ -849,7 +854,7 @@
     const replyCount = userThreadState.replies?.length || 0;
     const canEdit = userThreadState.postedAt && (Date.now() - userThreadState.postedAt) < EDIT_WINDOW_MS;
     const editBtn = canEdit ? '<button type="button" class="thread-edit-btn" id="editUserPostBtn">Edit</button>' : '';
-    const tags = userThreadState.tags?.map((t) => `<span class="thread-tag${t === userThreadState.tags[0] ? ' is-primary' : ''}">${escapeHtml(t)}</span>`).join('') || '';
+    const tags = userThreadState.tags?.map((t) => `<span class="thread-tag${t === userThreadState.tags[0] ? ' is-primary' : ''}">${escapeHtml(topicDisplayName(t))}</span>`).join('') || '';
     userPost.className = 'thread-post is-op';
     userPost.innerHTML = `
       <div class="thread-meta">
@@ -917,7 +922,7 @@
           <div class="meta-top"><strong>${memberLink(op.name)}</strong>${metaExtra(op.role, op.school)}</div>
           <div class="meta-sub">${escapeHtml(thread.time)} · ${replyCount} ${replyCount === 1 ? 'reply' : 'replies'}</div>
         </div>
-        <div class="thread-tags">${thread.tags.map((t) => `<span class="thread-tag${t === thread.tags[0] ? ' is-primary' : ''}">${escapeHtml(t)}</span>`).join('')}</div>
+        <div class="thread-tags">${thread.tags.map((t) => `<span class="thread-tag${t === thread.tags[0] ? ' is-primary' : ''}">${escapeHtml(topicDisplayName(t))}</span>`).join('')}</div>
       </div>
       <h3 class="thread-title">${escapeHtml(thread.title)}</h3>
       <div class="thread-body">${thread.body}
@@ -1699,7 +1704,10 @@
         e.preventDefault();
         input.blur();
         if (typeof window.communityRequireSignIn === 'function') window.communityRequireSignIn();
+        return;
       }
+      const join = input.closest('.feed-join');
+      if (join) setFeedJoinOpen(join, true);
     });
 
     syncAllFeedReplySends(feedList);
@@ -1753,49 +1761,66 @@
       btn.classList.toggle('is-selected', active.includes(btn.dataset.topic));
       btn.setAttribute('aria-pressed', active.includes(btn.dataset.topic) ? 'true' : 'false');
     });
+    document.querySelectorAll('#clubSidenav [data-filter]').forEach((btn) => {
+      const filter = btn.dataset.filter;
+      const on = filter === 'all' ? active.length === 0 : active.includes(filter);
+      btn.classList.toggle('is-active', on);
+    });
   }
 
   function renderFeedTopicPills() {
     const wrap = document.getElementById('feedTopicFilters');
-    if (!wrap) return;
-    wrap.innerHTML = AGENDA_TOPICS.map((topic) => {
-      const on = feedTopicFilter.includes(topic);
-      const emoji = AGENDA_TOPIC_EMOJI[topic] || '';
-      const emojiSpan = emoji
-        ? `<span class="feed-topic-pill-emoji" aria-hidden="true">${emoji}</span>`
-        : '';
-      return `<button type="button" class="feed-topic-pill${on ? ' is-selected' : ''}" data-topic="${escapeHtml(topic)}" aria-pressed="${on ? 'true' : 'false'}"><span class="feed-topic-pill-label">${escapeHtml(topic)}</span>${emojiSpan}</button>`;
-    }).join('');
+    if (wrap) {
+      wrap.innerHTML = AGENDA_TOPICS.map((topic) => {
+        const on = feedTopicFilter.includes(topic);
+        return `<button type="button" class="feed-topic-pill${on ? ' is-selected' : ''}" data-topic="${escapeHtml(topic)}" aria-pressed="${on ? 'true' : 'false'}"><span class="feed-topic-pill-label">${escapeHtml(topicDisplayName(topic))}</span></button>`;
+      }).join('');
+    }
+    const nav = document.getElementById('clubSidenav');
+    if (!nav) return;
+    const allOn = feedTopicFilter.length === 0;
+    nav.innerHTML = [
+      `<button type="button" class="club-sidenav-link${allOn ? ' is-active' : ''}" data-filter="all">All</button>`,
+      ...AGENDA_TOPICS.map((topic) => {
+        const on = feedTopicFilter.includes(topic);
+        return `<button type="button" class="club-sidenav-link${on ? ' is-active' : ''}" data-filter="${escapeHtml(topic)}">${escapeHtml(topicDisplayName(topic))}</button>`;
+      }),
+    ].join('');
+  }
+
+  function setFeedTopicFilter(topic) {
+    if (!topic || topic === 'all') feedTopicFilter = [];
+    else feedTopicFilter = [topic];
+    applyFeedTopicFilters();
   }
 
   function initFeedTopicFilters() {
     const wrap = document.getElementById('feedTopicFilters');
+    const nav = document.getElementById('clubSidenav');
     const reset = document.getElementById('feedFilterReset');
-    if (!wrap) return;
-    if (wrap.dataset.bound === '1') {
+    if (!wrap && !nav) return;
+    if ((wrap || nav).dataset.bound === '1') {
       renderFeedTopicPills();
       applyFeedTopicFilters();
       return;
     }
-    wrap.dataset.bound = '1';
+    if (wrap) wrap.dataset.bound = '1';
+    if (nav) nav.dataset.bound = '1';
     renderFeedTopicPills();
 
-    wrap.addEventListener('click', (e) => {
+    wrap?.addEventListener('click', (e) => {
       const btn = e.target.closest('.feed-topic-pill');
       if (!btn || !wrap.contains(btn)) return;
-      const topic = btn.dataset.topic;
-      if (!topic) return;
-      if (feedTopicFilter.includes(topic)) {
-        feedTopicFilter = feedTopicFilter.filter((t) => t !== topic);
-      } else {
-        feedTopicFilter = [...feedTopicFilter, topic];
-      }
-      applyFeedTopicFilters();
+      setFeedTopicFilter(btn.dataset.topic);
+    });
+    nav?.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-filter]');
+      if (!btn || !nav.contains(btn)) return;
+      setFeedTopicFilter(btn.dataset.filter);
     });
 
     reset?.addEventListener('click', () => {
-      feedTopicFilter = [];
-      applyFeedTopicFilters();
+      setFeedTopicFilter('all');
     });
 
     applyFeedTopicFilters();
@@ -1847,14 +1872,19 @@
         return;
       }
 
-      const replyStat = e.target.closest?.('[data-feed-replies]');
+      const replyStat = e.target.closest?.('[data-feed-replies], [data-open-feed-reply]');
       if (replyStat) {
         const item = replyStat.closest?.('[data-feed-thread]');
-        const id = item?.dataset?.feedThread;
+        const id = item?.dataset?.feedThread || replyStat.dataset.openFeedReply;
         if (!id) return;
         e.preventDefault();
         e.stopPropagation();
-        setFeedItemExpanded(id, true);
+        if (replyStat.hasAttribute('data-feed-replies')) {
+          setFeedItemExpanded(id, true);
+        }
+        const nextItem = document.querySelector(`.feed-item[data-feed-thread="${id}"]`);
+        const join = nextItem?.querySelector('.feed-join');
+        if (join) setFeedJoinOpen(join, true);
         return;
       }
 
@@ -2438,7 +2468,7 @@
       btn.setAttribute('aria-selected', on ? 'true' : 'false');
     });
     if (label) {
-      label.textContent = selectedTags.length ? selectedTags.join(', ') : 'Select topic(s)';
+      label.textContent = selectedTags.length ? selectedTags.map(topicDisplayName).join(', ') : 'Select topic(s)';
     }
     trigger?.classList.toggle('has-selection', selectedTags.length > 0);
   }
@@ -2471,7 +2501,7 @@
     if (dropdown) {
       picker.innerHTML = AGENDA_TOPICS.map((tag) => (
         `<button type="button" class="tag-pill" role="option" data-tag="${escapeHtml(tag)}" aria-selected="false">`
-        + `<span>${escapeHtml(tag)}</span>`
+        + `<span>${escapeHtml(topicDisplayName(tag))}</span>`
         + `<span class="tag-pill-check" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>`
         + `</button>`
       )).join('');
@@ -2479,7 +2509,7 @@
       picker.innerHTML = AGENDA_TOPICS.map((tag, i) => {
         const emoji = AGENDA_TOPIC_EMOJI[tag] || '';
         const emojiSpan = emoji ? `<span class="tag-pill-emoji" aria-hidden="true">${emoji}</span>` : '';
-        return `<button type="button" class="tag-pill${i >= AGENDA_TOPICS_VISIBLE ? ' is-extra' : ''}" data-tag="${escapeHtml(tag)}">${emojiSpan}${escapeHtml(tag)}</button>`;
+        return `<button type="button" class="tag-pill${i >= AGENDA_TOPICS_VISIBLE ? ' is-extra' : ''}" data-tag="${escapeHtml(tag)}">${emojiSpan}${escapeHtml(topicDisplayName(tag))}</button>`;
       }).join('');
     }
 
@@ -2546,7 +2576,7 @@
     const sendBtn = document.getElementById('composerCompactSend');
     let lastY = window.scrollY || document.documentElement.scrollTop || 0;
     // auto: follow scroll · pinned: forced open overlay · collapsed: stay shut after outside click
-    let mode = 'auto';
+    let mode = 'collapsed';
 
     const scrollY = () => window.scrollY || document.documentElement.scrollTop || 0;
     const atTop = () => scrollY() <= COMPOSER_SCROLL_COLLAPSE_AT;

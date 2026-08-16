@@ -5351,3 +5351,303 @@
     .community-toast.is-visible { opacity: 1; transform: translateX(-50%) translateY(0); }
     .community-toast.is-error { background: #991b1b; }
     .community-toast.is-success { background: #065f46; }
+
+    /* —— Club Room v3: Frameworks-style topic rail + hover reply —— */
+    .club-room-layout {
+      display: flex;
+      align-items: flex-start;
+      gap: 40px;
+      width: min(900px, calc(100% - 40px));
+      margin: 20px auto 96px;
+    }
+    .club-room-layout .chat-page {
+      flex: 1;
+      min-width: 0;
+      width: auto;
+      margin: 0;
+    }
+    body.embed-app .club-room-layout,
+    html.community-embed .club-room-layout {
+      margin-top: 0;
+    }
+    body.pref-thread-full-width .club-room-layout {
+      width: min(1100px, calc(100vw - 48px));
+    }
+    .club-sidenav {
+      position: sticky;
+      top: 88px;
+      flex: 0 0 148px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+      padding-top: 8px;
+    }
+    body.embed-app .club-sidenav,
+    html.community-embed .club-sidenav {
+      top: 16px;
+    }
+    .club-sidenav-link {
+      display: block;
+      width: fit-content;
+      max-width: 100%;
+      padding: 5px 0;
+      border: 0;
+      background: none;
+      text-align: left;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.3;
+      color: #9ca3af;
+      cursor: pointer;
+      transition: color 0.15s ease;
+    }
+    .club-sidenav-link:hover { color: #111827; }
+    .club-sidenav-link.is-active {
+      color: #111827;
+      font-weight: 500;
+    }
+
+    .club-room-layout .feed-header.is-inline {
+      display: none;
+    }
+    .club-room-layout .feed-list {
+      padding-top: 0;
+    }
+    .club-room-layout .feed-item {
+      padding: 0;
+    }
+    .club-room-layout .feed-item:hover,
+    .club-room-layout .feed-item.is-expanded:hover,
+    .club-room-layout .feed-item:hover .feed-opener,
+    .club-room-layout .feed-item.is-expanded .feed-opener,
+    .club-room-layout .feed-item.is-expanded:hover .feed-opener {
+      background: #fff;
+    }
+    .club-room-layout .feed-item + .feed-item {
+      border-top: 0;
+    }
+    .club-room-layout .feed-opener {
+      padding: 12px 14px 8px;
+    }
+    .club-room-layout .feed-opener-tags {
+      top: 10px;
+      right: 44px;
+    }
+    .club-room-layout .feed-expand-toggle {
+      top: 8px;
+      right: 8px;
+    }
+    .club-room-layout .feed-tag-pill {
+      font-size: 11px;
+      color: #6b7280;
+    }
+    .club-room-layout .feed-opener-meta-row {
+      padding-right: 108px;
+      margin-bottom: 6px;
+    }
+    .club-room-layout .feed-item .meta-top {
+      font-size: 12px;
+      font-weight: 300;
+      color: #6b7280;
+    }
+    .club-room-layout .feed-item .meta-top strong {
+      font-weight: 500;
+      color: #111827;
+    }
+    .club-room-layout .feed-byline-dot {
+      margin: 0 5px;
+      color: #9ca3af;
+    }
+    .club-room-layout .feed-item .meta-top time {
+      color: #9ca3af;
+      font-weight: 300;
+    }
+    .club-room-layout .feed-opener h3 {
+      margin: 0 0 6px;
+    }
+    .club-room-layout .feed-body p + p,
+    .club-room-layout .feed-item .reply-body p + p {
+      margin-top: 10px;
+    }
+    .club-room-layout .feed-stats {
+      margin-top: 10px;
+      font-size: 12px;
+      font-weight: 300;
+    }
+    .club-room-layout .feed-reply-open {
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #6b7280;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 300;
+      cursor: pointer;
+    }
+    .club-room-layout .feed-reply-open:hover { color: #111827; }
+
+    .club-room-layout .composer-card.composer-opener {
+      background: #fff;
+    }
+    .club-room-layout .composer-idle {
+      display: none;
+      align-items: center;
+      width: 100%;
+      border: 0;
+      background: transparent;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 300;
+      color: #9ca3af;
+      cursor: text;
+    }
+    .club-room-layout .composer-opener.is-collapsed .composer-idle { display: flex; }
+    .club-room-layout .composer-opener.is-collapsed .composer-chrome,
+    .club-room-layout .composer-opener.is-collapsed .composer-details {
+      display: none;
+    }
+    .club-room-layout .composer-opener.is-collapsed .composer-shell > .avatar {
+      margin-top: 0;
+    }
+    .club-room-layout .composer-opener:not(.is-collapsed) .composer-idle { display: none; }
+    .club-room-layout .composer-field-label,
+    .club-room-layout .composer-title-label-wrap {
+      display: none;
+    }
+    .club-room-layout .composer-field-input {
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+    }
+    .club-room-layout .composer-field-input:focus-within {
+      border-color: transparent;
+    }
+    .club-room-layout .composer-title {
+      font-family: var(--display);
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.2;
+      padding: 0 0 8px;
+    }
+    .club-room-layout .composer-input {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.45;
+    }
+    .club-room-layout .composer-shell > .avatar {
+      margin-top: 2px;
+    }
+
+    .club-room-layout .feed-join {
+      padding: 0 14px;
+    }
+    .club-room-layout .feed-join-slide {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 420ms cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .club-room-layout .feed-item:hover .feed-join-slide,
+    .club-room-layout .feed-item.is-replying .feed-join-slide,
+    .club-room-layout .feed-join.is-open .feed-join-slide {
+      grid-template-rows: 1fr;
+    }
+    .club-room-layout .feed-join-slide-inner {
+      overflow: hidden;
+      min-height: 0;
+    }
+    .club-room-layout .feed-join-slide-inner > * {
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: opacity 280ms ease, transform 420ms cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .club-room-layout .feed-item:hover .feed-join-slide-inner > *,
+    .club-room-layout .feed-item.is-replying .feed-join-slide-inner > *,
+    .club-room-layout .feed-join.is-open .feed-join-slide-inner > * {
+      opacity: 1;
+      transform: none;
+    }
+    .club-room-layout .feed-item.is-replying .feed-join-slide-inner {
+      overflow: visible;
+    }
+    .club-room-layout .feed-inline-reply.feed-join-composer {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      align-items: start;
+      column-gap: 10px;
+      padding: 10px 0 8px;
+      border-top: 1px solid var(--hairline);
+    }
+    .club-room-layout .feed-item:not(:hover):not(.is-replying) .feed-join:not(.is-open) .feed-inline-reply.feed-join-composer {
+      border-top-color: transparent;
+    }
+    .club-room-layout .feed-join-composer-row {
+      display: contents;
+    }
+    .club-room-layout .feed-join-composer .avatar {
+      width: 22px;
+      height: 22px;
+      margin-top: 4px;
+    }
+    .club-room-layout .feed-join-attachments,
+    .club-room-layout .feed-join-composer .composer-actions {
+      grid-column: 1 / -1;
+      padding-left: 0;
+    }
+    .club-room-layout .feed-join-composer .composer-actions {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 280ms cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .club-room-layout .feed-join.is-open .composer-actions {
+      grid-template-rows: 1fr;
+    }
+    .club-room-layout .feed-join-composer .toolbar,
+    .club-room-layout .feed-join-composer .composer-footer {
+      overflow: hidden;
+      min-height: 0;
+    }
+    .club-room-layout .feed-join.is-open .composer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 6px;
+    }
+    .club-room-layout .feed-discussion-wrap {
+      padding: 0 14px;
+    }
+    .club-room-layout .feed-item .reply {
+      padding: 8px 0 18px;
+    }
+    .club-room-layout .feed-item .reply:last-child {
+      border-bottom: 0;
+    }
+    .club-room-layout .feed-replies-empty {
+      display: none;
+    }
+    .club-room-layout .feed-item .reply-actions-row {
+      margin-top: 10px;
+    }
+
+    @media (max-width: 860px) {
+      .club-room-layout {
+        flex-direction: column;
+        gap: 16px;
+        width: calc(100vw - 32px);
+      }
+      .club-sidenav {
+        position: static;
+        flex: none;
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 4px 16px;
+        padding-top: 0;
+      }
+    }
