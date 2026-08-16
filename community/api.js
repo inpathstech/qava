@@ -363,7 +363,12 @@
     window.showThread = function (threadId) {
       if (isLiveId(threadId)) {
         API.getThread(threadId)
-          .then(function (t) { if (t && t.id && window.THREAD_DATA) window.THREAD_DATA[t.id] = mapThread(t); })
+          .then(function (t) {
+            if (t && t.id && window.THREAD_DATA) {
+              window.THREAD_DATA[t.id] = mapThread(t);
+              if (window.initFeedFromData) window.initFeedFromData();
+            }
+          })
           .catch(function () {})
           .then(function () { original.call(window, threadId); });
         return;
@@ -514,6 +519,11 @@
         var m = params.get('m');
         if (m && window.openProfilePage) { window.openProfilePage(m); return; }
         if (t && window.showThread) { window.showThread(t); return; }
+        var tag = params.get('tag') || params.get('topic');
+        if (tag && typeof window.setFeedTopicFilter === 'function') {
+          window.setFeedTopicFilter(tag === 'Other' ? 'Catch-all' : tag);
+          return;
+        }
         // Feed-only: stay on the discussions list after hydrate.
       })
       .catch(function () {
@@ -524,6 +534,50 @@
         clearFeedLoading();
       });
   }
+
+  function isAppShellOrigin(origin) {
+    return origin === 'https://app.theclubnyc.com'
+      || /^https?:\/\/localhost(?::\d+)?$/.test(origin)
+      || /^https?:\/\/127\.0\.0\.1(?::\d+)?$/.test(origin);
+  }
+
+  function setEmbedScrollLocked(locked) {
+    var html = document.documentElement;
+    var body = document.body;
+    if (locked) {
+      html.classList.add('is-embed-scroll-locked');
+      body.classList.add('is-embed-scroll-locked');
+      html.style.overflow = 'hidden';
+      body.style.overflow = 'hidden';
+    } else {
+      html.classList.remove('is-embed-scroll-locked');
+      body.classList.remove('is-embed-scroll-locked');
+      html.style.overflow = '';
+      body.style.overflow = '';
+    }
+  }
+
+  window.addEventListener('message', function (event) {
+    if (!isAppShellOrigin(event.origin)) return;
+    var data = event.data;
+    if (!data || typeof data !== 'object') return;
+    if (data.type === 'qava-open-thread' && data.threadId) {
+      if (typeof window.showThread === 'function') {
+        window.showThread(String(data.threadId));
+      }
+      return;
+    }
+    if (data.type === 'qava-filter-topic' && data.tag) {
+      var tag = String(data.tag);
+      if (typeof window.setFeedTopicFilter === 'function') {
+        window.setFeedTopicFilter(tag === 'Other' ? 'Catch-all' : tag);
+      }
+      return;
+    }
+    if (data.type === 'qava-community-scroll-lock') {
+      setEmbedScrollLocked(!!data.locked);
+    }
+  });
 
   if (document.readyState === 'complete') {
     boot();
