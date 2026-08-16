@@ -1,0 +1,53 @@
+/* Same left→right Mexican-wave pulse as the app dotted ground. */
+#qava-dot-base-fixed::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(17, 24, 39, 0.32) 1px, transparent 1.35px);
+  background-size: 20px 20px;
+  background-repeat: repeat;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.2) 38%,
+    #000 50%,
+    rgba(0, 0, 0, 0.2) 62%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.2) 38%,
+    #000 50%,
+    rgba(0, 0, 0, 0.2) 62%,
+    transparent 100%
+  );
+  -webkit-mask-size: 55% 100%;
+  mask-size: 55% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  animation: qava-dot-mexican-wave 4.2s ease-in-out infinite;
+}
+
+@keyframes qava-dot-mexican-wave {
+  0% {
+    -webkit-mask-position: -50% 0;
+    mask-position: -50% 0;
+  }
+  100% {
+    -webkit-mask-position: 150% 0;
+    mask-position: 150% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #qava-dot-base-fixed::after {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+html.community-embed #qava-dot-base-fixed::after,
+body.embed-app #qava-dot-base-fixed::after {
+  display: none;
+}
