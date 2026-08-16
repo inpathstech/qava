@@ -115,7 +115,12 @@
       const selector = threadId === 'user'
         ? '.feed-item[data-feed-thread="user"]'
         : `.feed-item[data-feed-thread="${threadId}"]`;
-      document.querySelector(selector)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const target = document.querySelector(selector);
+      if (typeof window.scrollFeedItemIntoView === 'function') {
+        window.scrollFeedItemIntoView(target);
+      } else {
+        target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
 
     const THREAD_DISPLAY_PREFS = {

@@ -1492,6 +1492,26 @@
     refreshFeedItem(threadId);
   }
 
+  function composerScrollOffset() {
+    const composer = document.getElementById('composerCard');
+    if (!composer) return 16;
+    const top = parseFloat(window.getComputedStyle(composer).top);
+    const stickyTop = Number.isFinite(top) ? Math.max(0, top) : 0;
+    return stickyTop + composer.offsetHeight + 12;
+  }
+
+  function scrollFeedItemIntoView(el) {
+    if (!el) return;
+    const run = () => {
+      const offset = composerScrollOffset();
+      document.documentElement.style.scrollPaddingTop = offset + 'px';
+      el.style.scrollMarginTop = offset + 'px';
+      const y = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+    };
+    requestAnimationFrame(() => requestAnimationFrame(run));
+  }
+
   function focusFeedThread(threadId, opts = {}) {
     if (window.showView) window.showView('chat');
     if (!threadId || threadId === 'user') {
@@ -1511,7 +1531,7 @@
       }
       const userEl = document.querySelector('.feed-item[data-feed-thread="user"]')
         || document.querySelector('.feed-opener[data-thread="user"]')?.closest('.feed-item');
-      if (opts.scroll !== false) userEl?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (opts.scroll !== false) scrollFeedItemIntoView(userEl);
       if (opts.focusReply) {
         setFeedJoinOpen(userEl?.querySelector('.feed-join'), true);
       }
@@ -1530,7 +1550,7 @@
       }
     }
     const focused = document.querySelector(`.feed-item[data-feed-thread="${threadId}"]`);
-    if (opts.scroll !== false) focused?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (opts.scroll !== false) scrollFeedItemIntoView(focused);
     if (opts.focusReply) {
       setFeedJoinOpen(focused?.querySelector('.feed-join'), true);
     }
@@ -3689,6 +3709,7 @@
   window.THREAD_DATA = THREAD_DATA;
   window.MEMBER_PROFILES = MEMBER_PROFILES;
   window.initFeedFromData = initFeedFromData;
+  window.scrollFeedItemIntoView = scrollFeedItemIntoView;
   window.setFeedTopicFilter = setFeedTopicFilter;
   window.communitySetFeedTopicFilter = setFeedTopicFilter;
   window.communitySetFeedLoading = setFeedLoading;
