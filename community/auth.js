@@ -292,6 +292,9 @@
                     if (typeof window.communitySyncComposerAvatars === 'function') {
                       window.communitySyncComposerAvatars();
                     }
+                    if (typeof window.initFeedFromData === 'function') {
+                      window.initFeedFromData();
+                    }
                   }
                 })
                 .catch(function () {});
