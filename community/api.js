@@ -309,21 +309,58 @@
     return 'active';
   }
 
+  function resolveFeedTag(opts) {
+    if (opts && Object.prototype.hasOwnProperty.call(opts, 'tag')) {
+      var explicit = String(opts.tag || '').trim();
+      return explicit === 'Other' ? 'Catch-all' : explicit;
+    }
+    if (typeof window.communityGetFeedTopicFilter === 'function') {
+      var current = window.communityGetFeedTopicFilter();
+      if (current && current.length) return current[0];
+    }
+    try {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('t')) return '';
+      var fromUrl = (params.get('tag') || params.get('topic') || '').trim();
+      return fromUrl === 'Other' ? 'Catch-all' : fromUrl;
+    } catch (e) {
+      return '';
+    }
+  }
+
+  function applyHydratedTopicFilter(tag) {
+    if (!tag || typeof window.setFeedTopicFilter !== 'function') return;
+    window.setFeedTopicFilter(tag, { refetch: false });
+  }
+
   // Returns { reachable, empty }. reachable=false means the API could not be
   // reached (network/CORS/down) — callers should keep the bundled mock content.
+  var hydrateGen = 0;
   async function hydrateFeed(opts) {
     var uiSort = (opts && opts.sort)
       || (typeof window.communityGetFeedSort === 'function' && window.communityGetFeedSort())
       || 'active';
+    var tag = resolveFeedTag(opts);
+    var gen = ++hydrateGen;
     var list;
     try {
-      list = await API.listThreads({ sort: apiSortParam(uiSort) });
+      var query = { sort: apiSortParam(uiSort) };
+      if (tag) query.tag = tag;
+      list = await API.listThreads(query);
     } catch (e) {
       return { reachable: false, empty: false };
     }
+    if (gen !== hydrateGen) return { reachable: true, empty: false, stale: true };
 
     var items = (list && list.items) || [];
     if (!items.length) {
+      if (tag) {
+        replaceThreadData({});
+        var feedList = document.getElementById('feedList');
+        if (feedList) feedList.innerHTML = '';
+        applyHydratedTopicFilter(tag);
+        return { reachable: true, empty: true };
+      }
       renderEmptyFeed();
       return { reachable: true, empty: true };
     }
@@ -344,12 +381,21 @@
       }
     });
     if (!Object.keys(built).length) {
+      if (tag) {
+        replaceThreadData({});
+        var emptyList = document.getElementById('feedList');
+        if (emptyList) emptyList.innerHTML = '';
+        applyHydratedTopicFilter(tag);
+        return { reachable: true, empty: true };
+      }
       renderEmptyFeed();
       return { reachable: true, empty: true };
     }
 
+    if (gen !== hydrateGen) return { reachable: true, empty: false, stale: true };
     replaceThreadData(built);
     if (window.initFeedFromData) window.initFeedFromData();
+    applyHydratedTopicFilter(tag);
     return { reachable: true, empty: false };
   }
   window.communityHydrateFeed = hydrateFeed;
@@ -521,7 +567,7 @@
         if (t && window.showThread) { window.showThread(t); return; }
         var tag = params.get('tag') || params.get('topic');
         if (tag && typeof window.setFeedTopicFilter === 'function') {
-          window.setFeedTopicFilter(tag === 'Other' ? 'Catch-all' : tag);
+          window.setFeedTopicFilter(tag === 'Other' ? 'Catch-all' : tag, { refetch: false });
           return;
         }
         // Feed-only: stay on the discussions list after hydrate.
@@ -570,7 +616,7 @@
     if (data.type === 'qava-filter-topic' && data.tag) {
       var tag = String(data.tag);
       if (typeof window.setFeedTopicFilter === 'function') {
-        window.setFeedTopicFilter(tag === 'Other' ? 'Catch-all' : tag);
+        window.setFeedTopicFilter(tag === 'Other' ? 'Catch-all' : tag, { refetch: true });
       }
       return;
     }

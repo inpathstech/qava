@@ -2953,6 +2953,10 @@
       transition: background 0.15s ease;
     }
 
+    .feed-item[hidden] {
+      display: none !important;
+    }
+
     .feed-item:hover {
       background: #fafafa;
     }
