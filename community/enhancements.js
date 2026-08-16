@@ -347,6 +347,9 @@
         <button type="button" class="feed-stat feed-like-btn${liked ? ' is-active' : ''}" data-feed-like="${thread.id}" aria-label="${likes} like${likes === 1 ? '' : 's'}" aria-pressed="${liked ? 'true' : 'false'}">${HEART_SVG}<span>${likes}</span></button>
         <span class="feed-stat" data-feed-replies aria-label="${replies} replies">${REPLY_SVG}<span>${replies}</span></span>
         <button type="button" class="feed-stat feed-reply-open" data-open-feed-reply="${thread.id}">Reply</button>
+        ${isOwnThread(thread) ? `
+        <button type="button" class="feed-stat feed-opener-edit-btn" data-edit-thread="${thread.id}">Edit</button>
+        <button type="button" class="feed-stat feed-opener-delete-btn" data-delete-thread="${thread.id}">Delete</button>` : ''}
       </div>`;
   }
 
@@ -768,7 +771,7 @@
     const feedId = replyEl?.closest('[data-feed-thread]')?.dataset?.feedThread;
     const threadId = feedId || currentThreadId;
     const thread = getThreadById(threadId);
-    const reply = thread?.replies?.find((r) => r.id === replyId) || null;
+    const reply = thread?.replies?.find((r) => String(r.id) === String(replyId)) || null;
     return { replyEl, threadId, thread, reply };
   }
 
@@ -801,6 +804,28 @@
       if (reply) reply.hearts = count;
       updateBestAnswerBadges(thread);
     });
+  }
+
+  function replyPlainText(reply) {
+    if (!reply) return '';
+    if (reply.bodyRaw != null && String(reply.bodyRaw).trim()) return String(reply.bodyRaw);
+    const tmp = document.createElement('div');
+    tmp.innerHTML = reply.body || '';
+    tmp.querySelectorAll('.reply-time, .reply-edited').forEach((el) => el.remove());
+    return (tmp.textContent || '').replace(/\s+\n/g, '\n').trim();
+  }
+
+  function isOwnThread(thread) {
+    if (!thread?.op) return false;
+    if (thread.id === 'user' || thread.op.name === 'You') return true;
+    const self = getSelfHandle();
+    return !!(self && thread.op.name && self.toLowerCase() === String(thread.op.name).toLowerCase());
+  }
+
+  function threadPlainText(thread) {
+    if (!thread) return '';
+    if (thread.bodyRaw != null && String(thread.bodyRaw).trim()) return String(thread.bodyRaw);
+    return replyPlainText({ body: thread.body });
   }
 
   function isOwnReply(reply) {
@@ -971,6 +996,34 @@
         btn.classList.toggle('is-active', savedThreads.has(id));
         btn.textContent = savedThreads.has(id) ? 'Saved' : 'Save';
         refreshProfileIfVisible();
+      };
+    });
+    document.querySelectorAll('[data-edit-thread]').forEach((btn) => {
+      btn.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        startThreadEdit(btn.getAttribute('data-edit-thread'));
+      };
+    });
+    document.querySelectorAll('[data-delete-thread]').forEach((btn) => {
+      btn.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        deleteOwnThread(btn.getAttribute('data-delete-thread'));
+      };
+    });
+    document.querySelectorAll('[data-edit-reply]').forEach((btn) => {
+      btn.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        startReplyEdit(btn.getAttribute('data-edit-reply'));
+      };
+    });
+    document.querySelectorAll('[data-delete-reply]').forEach((btn) => {
+      btn.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        deleteOwnReply(btn.getAttribute('data-delete-reply'));
       };
     });
     document.querySelectorAll('[data-reply-to]').forEach((btn) => {
@@ -1665,6 +1718,9 @@
         }
         const input = sendBtn.closest('.feed-inline-reply-field')?.querySelector('.feed-reply-input');
         submitFeedInlineReply(input);
+        return;
+      }
+      if (e.target.closest('[data-edit-reply], [data-delete-reply], [data-save-edit-reply], [data-cancel-edit-reply], [data-edit-thread], [data-delete-thread], [data-save-edit-thread], [data-cancel-edit-thread]')) {
         return;
       }
       if (e.target.closest('.feed-inline-reply, .feed-join, .feed-discussion')) e.stopPropagation();
@@ -2994,10 +3050,167 @@
     thread.replies = thread.replies.filter((r) => !drop.has(r.id));
   }
 
+  function startThreadEdit(threadId) {
+    const thread = getThreadById(threadId);
+    const item = document.querySelector(`.feed-item[data-feed-thread="${threadId}"]`);
+    const opener = item?.querySelector('.feed-opener');
+    if (!item || !opener || item.classList.contains('is-editing')) return;
+    if (thread && !isOwnThread(thread)) return;
+
+    item.classList.add('is-editing');
+    const titleEl = opener.querySelector('h3');
+    const excerpt = opener.querySelector('.feed-excerpt-clip');
+    const bodyClip = opener.querySelector('.feed-body-clip');
+    const stats = opener.querySelector('.feed-stats');
+    const title = thread?.title || titleEl?.textContent || '';
+    const raw = thread ? threadPlainText(thread) : '';
+
+    if (titleEl) titleEl.hidden = true;
+    if (excerpt) excerpt.hidden = true;
+    if (bodyClip) bodyClip.hidden = true;
+    if (stats) stats.hidden = true;
+
+    const box = document.createElement('div');
+    box.className = 'feed-opener-edit';
+    box.innerHTML = `
+      <input class="feed-opener-edit-title" type="text" maxlength="300" aria-label="Edit title" value="">
+      <div class="composer-input feed-opener-edit-body" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Edit post" data-placeholder="Edit your post…"></div>
+      <div class="reply-edit-actions">
+        <button type="button" class="reply-edit-cancel" data-cancel-edit-thread="${threadId}">Cancel</button>
+        <button type="button" class="reply-edit-save" data-save-edit-thread="${threadId}">Save</button>
+      </div>`;
+    if (stats) stats.before(box);
+    else opener.appendChild(box);
+
+    const titleInput = box.querySelector('.feed-opener-edit-title');
+    const bodyInput = box.querySelector('.feed-opener-edit-body');
+    if (titleInput) titleInput.value = title;
+    if (bodyInput && window.setInputRaw) window.setInputRaw(bodyInput, raw);
+    else if (bodyInput) bodyInput.textContent = raw;
+    titleInput?.focus();
+  }
+
+  function cancelThreadEdit(threadId) {
+    refreshFeedItem(threadId);
+  }
+
+  function saveThreadEdit(threadId) {
+    const thread = getThreadById(threadId);
+    const item = document.querySelector(`.feed-item[data-feed-thread="${threadId}"]`);
+    const titleInput = item?.querySelector('.feed-opener-edit-title');
+    const bodyInput = item?.querySelector('.feed-opener-edit-body');
+    if (!titleInput || !bodyInput) return;
+
+    const title = String(titleInput.value || '').trim();
+    const raw = window.getInputRaw ? window.getInputRaw(bodyInput) : (bodyInput.textContent || '');
+    const prepared = extractInvitesAndMaskBody(raw);
+    const body = String(prepared.body || '').trim();
+    if (title.length < 4) {
+      showCommunityNotice({
+        title: 'Add a title',
+        body: 'Titles need at least 4 characters.',
+        confirmLabel: 'OK',
+      });
+      return;
+    }
+    if (!body) {
+      showCommunityNotice({
+        title: 'Post can’t be empty',
+        body: 'Add a bit of text before saving your edit.',
+        confirmLabel: 'OK',
+      });
+      return;
+    }
+
+    const applyLocal = (target) => {
+      if (!target) return;
+      target.title = title;
+      target.bodyRaw = body;
+      target.body = window.formatPostBody ? window.formatPostBody(body) : escapeHtml(body);
+      refreshFeedItem(threadId);
+    };
+
+    if (window.communityIsLiveId && window.communityIsLiveId(threadId) && window.CommunityAPI) {
+      const saveBtn = item.querySelector('[data-save-edit-thread]');
+      if (saveBtn) {
+        saveBtn.disabled = true;
+        saveBtn.textContent = 'Saving…';
+      }
+      window.CommunityAPI.updateThread(threadId, {
+        title,
+        body,
+        invites: prepared.invites || [],
+        tags: thread?.tags || [],
+      })
+        .then((t) => {
+          if (t && t.id && window.communityMapThread) {
+            THREAD_DATA[t.id] = window.communityMapThread(t);
+          } else {
+            applyLocal(thread);
+          }
+          if (window.communityToast) window.communityToast('Post updated.', 'success');
+          refreshFeedItem(t?.id || threadId);
+        })
+        .catch((err) => {
+          if (saveBtn) {
+            saveBtn.disabled = false;
+            saveBtn.textContent = 'Save';
+          }
+          showCommunityNotice({
+            title: 'Couldn’t update post',
+            body: (err && err.message) || 'Could not update post.',
+            confirmLabel: 'OK',
+          });
+        });
+      return;
+    }
+
+    applyLocal(thread);
+  }
+
+  function removeThreadLocally(threadId) {
+    if (threadId === 'user') userThreadState = null;
+    if (THREAD_DATA[threadId]) delete THREAD_DATA[threadId];
+    expandedReplies.delete(threadId);
+    document.querySelector(`.feed-item[data-feed-thread="${threadId}"]`)?.remove();
+  }
+
+  function deleteOwnThread(threadId) {
+    const thread = getThreadById(threadId);
+    if (thread && !isOwnThread(thread)) return;
+    if (!thread && !(window.communityIsLiveId && window.communityIsLiveId(threadId))) return;
+    showCommunityConfirm({
+      title: 'Delete thread?',
+      body: 'This can’t be undone.',
+      confirmLabel: 'Delete',
+      cancelLabel: 'Cancel',
+    }).then((ok) => {
+      if (!ok) return;
+
+      if (window.communityIsLiveId && window.communityIsLiveId(threadId) && window.CommunityAPI) {
+        window.CommunityAPI.deleteThread(threadId)
+          .then(() => {
+            if (window.communityToast) window.communityToast('Thread deleted.', 'success');
+            removeThreadLocally(threadId);
+          })
+          .catch((err) => {
+            showCommunityNotice({
+              title: 'Couldn’t delete thread',
+              body: (err && err.message) || 'Could not delete thread.',
+              confirmLabel: 'OK',
+            });
+          });
+        return;
+      }
+
+      removeThreadLocally(threadId);
+    });
+  }
+
   function startReplyEdit(replyId) {
     const { replyEl, threadId, reply } = resolveReplyContext(replyId);
     if (!replyEl || replyEl.classList.contains('is-editing')) return;
-    if (!reply || !isOwnReply(reply)) return;
+    if (reply && !isOwnReply(reply)) return;
     currentThreadId = threadId;
     window.__currentThreadId = threadId;
 
@@ -3006,7 +3219,7 @@
     if (!bodyEl) return;
 
     replyEl.classList.add('is-editing');
-    const raw = reply.bodyRaw != null ? String(reply.bodyRaw) : '';
+    const raw = reply ? replyPlainText(reply) : replyPlainText({ body: bodyEl.innerHTML });
     bodyEl.innerHTML = `
       <div class="reply-edit-box">
         <div class="composer-input reply-edit-input" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Edit reply" data-placeholder="Edit your reply…"></div>
@@ -3088,7 +3301,8 @@
 
   function deleteOwnReply(replyId) {
     const { threadId, thread, reply } = resolveReplyContext(replyId);
-    if (!reply || !isOwnReply(reply)) return;
+    if (reply && !isOwnReply(reply)) return;
+    if (!reply && !(window.communityIsLiveId && window.communityIsLiveId(replyId))) return;
     showCommunityConfirm({
       title: 'Delete reply?',
       body: 'This can’t be undone.',
@@ -3153,6 +3367,34 @@
         e.preventDefault();
         e.stopPropagation();
         deleteOwnReply(deleteBtn.getAttribute('data-delete-reply'));
+        return;
+      }
+      const editThreadBtn = e.target.closest?.('[data-edit-thread]');
+      if (editThreadBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        startThreadEdit(editThreadBtn.getAttribute('data-edit-thread'));
+        return;
+      }
+      const saveThreadBtn = e.target.closest?.('[data-save-edit-thread]');
+      if (saveThreadBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        saveThreadEdit(saveThreadBtn.getAttribute('data-save-edit-thread'));
+        return;
+      }
+      const cancelThreadBtn = e.target.closest?.('[data-cancel-edit-thread]');
+      if (cancelThreadBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        cancelThreadEdit(cancelThreadBtn.getAttribute('data-cancel-edit-thread'));
+        return;
+      }
+      const deleteThreadBtn = e.target.closest?.('[data-delete-thread]');
+      if (deleteThreadBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        deleteOwnThread(deleteThreadBtn.getAttribute('data-delete-thread'));
       }
     });
   }

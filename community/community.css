@@ -3373,13 +3373,20 @@
       line-height: 1;
     }
 
-    button.feed-like-btn {
+    button.feed-like-btn,
+    .feed-opener-edit-btn,
+    .feed-opener-delete-btn {
       padding: 0;
       border: 0;
       background: transparent;
       color: inherit;
       font: inherit;
       cursor: pointer;
+    }
+
+    .feed-opener-edit-btn:hover,
+    .feed-opener-delete-btn:hover {
+      color: #111827;
     }
 
     .feed-stat svg {
@@ -3692,13 +3699,52 @@
       color: #111827;
     }
 
-    .reply-delete-btn:hover {
-      color: #D35050;
-    }
-
     .reply-edited {
       color: #9A9A9A;
       font-weight: 300;
+    }
+
+    .feed-opener-edit {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+      margin: 6px 0 8px;
+    }
+
+    .feed-opener-edit-title {
+      width: 100%;
+      border: 1px solid #E0E0E0;
+      border-radius: 6px;
+      background: #fff;
+      padding: 8px 10px;
+      font-family: var(--display);
+      font-size: 18px;
+      line-height: 1.2;
+      font-weight: 400;
+      color: #111827;
+    }
+
+    .feed-opener-edit-title:focus {
+      outline: none;
+      border-color: #111111;
+    }
+
+    .feed-opener-edit-body {
+      min-height: 72px;
+      padding: 8px 10px;
+      border: 1px solid #E0E0E0;
+      border-radius: 6px;
+      background: #fff;
+      font-size: 13px;
+      line-height: 1.45;
+      font-weight: 300;
+      color: #4b5563;
+    }
+
+    .feed-opener-edit-body:focus {
+      outline: none;
+      border-color: #111111;
     }
 
     .reply-edit-box {
@@ -5467,6 +5513,25 @@
     .club-room-layout .feed-opener h3 {
       margin: 0 0 6px;
     }
+    .club-room-layout .feed-excerpt-clip,
+    .club-room-layout .feed-body-clip {
+      transition: grid-template-rows 420ms cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .club-room-layout .feed-item:hover:not(.is-expanded) .feed-excerpt-clip,
+    .club-room-layout .feed-item.is-replying:not(.is-expanded) .feed-excerpt-clip,
+    .club-room-layout .feed-item.is-editing:not(.is-expanded) .feed-excerpt-clip {
+      grid-template-rows: 0fr;
+    }
+    .club-room-layout .feed-item:hover:not(.is-expanded) .feed-body-clip,
+    .club-room-layout .feed-item.is-replying:not(.is-expanded) .feed-body-clip,
+    .club-room-layout .feed-item.is-editing:not(.is-expanded) .feed-body-clip {
+      grid-template-rows: 1fr;
+    }
+    .club-room-layout .feed-item:hover:not(.is-expanded) .feed-body-clip-inner,
+    .club-room-layout .feed-item.is-replying:not(.is-expanded) .feed-body-clip-inner,
+    .club-room-layout .feed-item.is-editing:not(.is-expanded) .feed-body-clip-inner {
+      opacity: 1;
+    }
     .club-room-layout .feed-body p + p,
     .club-room-layout .feed-item .reply-body p + p {
       margin-top: 10px;
@@ -5476,7 +5541,9 @@
       font-size: 12px;
       font-weight: 300;
     }
-    .club-room-layout .feed-reply-open {
+    .club-room-layout .feed-reply-open,
+    .club-room-layout .feed-opener-edit-btn,
+    .club-room-layout .feed-opener-delete-btn {
       padding: 0;
       border: 0;
       background: transparent;
@@ -5486,7 +5553,9 @@
       font-weight: 300;
       cursor: pointer;
     }
-    .club-room-layout .feed-reply-open:hover { color: #111827; }
+    .club-room-layout .feed-reply-open:hover,
+    .club-room-layout .feed-opener-edit-btn:hover,
+    .club-room-layout .feed-opener-delete-btn:hover { color: #111827; }
 
     .club-room-layout .composer-card.composer-opener {
       background: #fff;
@@ -5580,10 +5649,7 @@
       align-items: start;
       column-gap: 10px;
       padding: 10px 0 8px;
-      border-top: 1px solid var(--hairline);
-    }
-    .club-room-layout .feed-item:not(:hover):not(.is-replying) .feed-join:not(.is-open) .feed-inline-reply.feed-join-composer {
-      border-top-color: transparent;
+      border-top: 0;
     }
     .club-room-layout .feed-join-composer-row {
       display: contents;
@@ -5613,11 +5679,31 @@
     }
     .club-room-layout .feed-join.is-open .composer-actions {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
       margin-top: 6px;
+    }
+    .club-room-layout .feed-join-composer .toolbar {
+      flex: 1;
+      min-width: 0;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+    .club-room-layout .feed-join-composer .tool-btn {
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+    .club-room-layout .feed-join-composer .tool-btn:hover:not(:disabled) {
+      border: 0;
+      background: rgba(17, 24, 39, 0.04);
+    }
+    .club-room-layout .feed-join-composer .composer-footer {
+      margin-left: auto;
+      flex-shrink: 0;
     }
     .club-room-layout .feed-discussion-wrap {
       padding: 0 14px;
