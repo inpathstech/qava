@@ -2197,8 +2197,10 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
+      width: 100%;
+      box-sizing: border-box;
       margin-top: 8px;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
     }
 
     .toolbar {
@@ -2386,6 +2388,7 @@
       align-items: center;
       gap: 10px;
       margin-left: auto;
+      flex: 0 0 auto;
     }
 
     .word-count {
@@ -5640,7 +5643,9 @@
       opacity: 1;
       transform: none;
     }
-    .club-room-layout .feed-item.is-replying .feed-join-slide-inner {
+    .club-room-layout .feed-item:hover .feed-join-slide-inner,
+    .club-room-layout .feed-item.is-replying .feed-join-slide-inner,
+    .club-room-layout .feed-join.is-open .feed-join-slide-inner {
       overflow: visible;
     }
     .club-room-layout .feed-inline-reply.feed-join-composer {
@@ -5661,32 +5666,20 @@
     }
     .club-room-layout .feed-join-attachments,
     .club-room-layout .feed-join-composer .composer-actions {
-      grid-column: 1 / -1;
+      grid-column: 2;
       padding-left: 0;
     }
     .club-room-layout .feed-join-composer .composer-actions {
-      display: grid;
-      grid-template-rows: 0fr;
-      transition: grid-template-rows 280ms cubic-bezier(0.32, 0.72, 0, 1);
-    }
-    .club-room-layout .feed-join.is-open .composer-actions {
-      grid-template-rows: 1fr;
-    }
-    .club-room-layout .feed-join-composer .toolbar,
-    .club-room-layout .feed-join-composer .composer-footer {
-      overflow: hidden;
-      min-height: 0;
-    }
-    .club-room-layout .feed-join.is-open .composer-actions {
       display: flex;
       flex-wrap: nowrap;
       align-items: center;
       justify-content: space-between;
+      width: 100%;
       gap: 10px;
       margin-top: 6px;
     }
     .club-room-layout .feed-join-composer .toolbar {
-      flex: 1;
+      flex: 1 1 auto;
       min-width: 0;
       border: 0;
       background: transparent;
@@ -5703,7 +5696,7 @@
     }
     .club-room-layout .feed-join-composer .composer-footer {
       margin-left: auto;
-      flex-shrink: 0;
+      flex: 0 0 auto;
     }
     .club-room-layout .feed-discussion-wrap {
       padding: 0 14px;
