@@ -1511,7 +1511,9 @@
   function composerScrollOffset() {
     const composer = document.getElementById('composerCard');
     if (!composer) return 16;
-    const top = parseFloat(window.getComputedStyle(composer).top);
+    const style = window.getComputedStyle(composer);
+    if (style.position !== 'sticky' && style.position !== 'fixed') return 16;
+    const top = parseFloat(style.top);
     const stickyTop = Number.isFinite(top) ? Math.max(0, top) : 0;
     return stickyTop + composer.offsetHeight + 12;
   }
