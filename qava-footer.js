@@ -11,6 +11,7 @@
             <ul class="footer-link-list">
               <li><a href="https://app.theclubnyc.com/guest" class="footer-link">Create listing</a></li>
               <li><a href="https://theclubnyc.com/find/" class="footer-link">Find work</a></li>
+              <li><a href="https://theclubnyc.com/templates" class="footer-link">How To</a></li>
               <li><a href="https://theclubnyc.com/community/chat" class="footer-link">Club Room</a></li>
               <li><a href="https://theclubnyc.com/howitworks" class="footer-link">How it works</a></li>
               <li><a href="https://theclubnyc.com/newsletter" class="footer-link">Newsletter</a></li>
