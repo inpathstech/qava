@@ -5431,6 +5431,11 @@
     body.embed-app .club-room-layout,
     html.community-embed .club-room-layout {
       margin-top: 0;
+      padding-top: 32px;
+    }
+    body.embed-app .club-room-layout .chat-page,
+    html.community-embed .club-room-layout .chat-page {
+      padding-top: 0;
     }
     body.pref-thread-full-width .club-room-layout {
       width: min(1100px, calc(100vw - 48px));
@@ -5460,15 +5465,19 @@
       border: 0;
       background: none;
       text-align: left;
-      font: inherit;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 13px;
       font-weight: 400;
       line-height: 1.3;
       color: #9ca3af;
       cursor: pointer;
-      transition: color 0.15s ease;
+      -webkit-font-smoothing: antialiased;
+      transition: color 0.15s ease, font-weight 0.15s ease;
     }
-    .club-sidenav-link:hover { color: #111827; }
+    .club-sidenav-link:hover {
+      color: #111827;
+      font-weight: 500;
+    }
     .club-sidenav-link.is-active {
       color: #111827;
       font-weight: 500;
