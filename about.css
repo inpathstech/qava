@@ -15,6 +15,10 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: var(--ui);
   font-weight: 300;
@@ -106,6 +110,8 @@ body {
   vertical-align: baseline;
   justify-items: start;
   overflow: hidden;
+  padding-bottom: 0.28em;
+  margin-bottom: -0.28em;
 }
 
 .av2-rotate > span {
@@ -289,15 +295,16 @@ body {
   margin: 0 0 4px;
 }
 
+.av2-story p.av2-sign-name,
 .av2-sign-name {
   font-family: 'Jonathan', cursive;
-  font-size: 36px;
+  font-size: 56px;
   font-weight: 400;
   letter-spacing: 0;
   text-transform: none;
-  line-height: 1.2;
+  line-height: 1.15;
   color: var(--ink);
-  margin: 0 0 2px;
+  margin: 8px 0 2px;
 }
 
 .av2-founder-cred,
@@ -309,7 +316,7 @@ body {
   margin: 0;
 }
 
-.av2-story p {
+.av2-story p:not(.av2-sign-name):not(.av2-sign-role) {
   font-size: 16px;
   font-weight: 300;
   line-height: 1.7;
@@ -355,6 +362,46 @@ body {
 .av2-sign { margin-top: 28px; }
 
 /* Beliefs / membership */
+.av2-belief-intro {
+  text-align: center;
+}
+
+.av2-belief-intro .av2-h2 {
+  margin-bottom: 10px;
+}
+
+.av2-belief-intro .av2-lede {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#what-i-believe .av2-wrap {
+  position: relative;
+}
+
+.av2-belief-rays {
+  position: absolute;
+  inset: 0;
+  height: auto;
+  margin: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.av2-belief-rays svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.av2-belief-rays line {
+  stroke: rgba(17, 24, 39, 0.22);
+  stroke-width: 1;
+  stroke-linecap: square;
+  fill: none;
+}
+
 .av2-beliefs,
 .av2-parts {
   display: grid;
@@ -363,8 +410,14 @@ body {
   margin-top: 36px;
 }
 
+.av2-beliefs {
+  position: relative;
+  z-index: 1;
+  margin-top: 96px;
+}
+
 .av2-belief {
-  padding-top: 0;
+  text-align: center;
 }
 
 .av2-belief-icon {
@@ -372,7 +425,12 @@ body {
   width: 24px;
   height: 24px;
   color: var(--ink);
-  margin: 0 0 14px;
+  margin: 0 auto 20px;
+}
+
+.av2-belief-icon.is-hill {
+  width: 18px;
+  height: 18px;
 }
 
 .av2-belief h3,
@@ -428,7 +486,7 @@ body {
   font-weight: 300;
   line-height: 1.25;
   color: var(--ink);
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .av2-card-list svg {
@@ -438,9 +496,35 @@ body {
   color: var(--ink);
 }
 
+#the-membership {
+  background: #000;
+  box-shadow: 0 0 0 100vmax #000;
+  clip-path: inset(0 -100vmax);
+  scroll-margin-top: 96px;
+}
+
+#the-membership .av2-h2 {
+  color: #fff;
+}
+
+#the-membership .av2-lede {
+  color: #9ca3af;
+}
+
+#the-membership .av2-card {
+  background: #fff;
+  border-radius: 4px;
+  padding: 24px;
+}
+
+#the-membership .av2-card .av2-label {
+  color: var(--soft);
+}
+
 /* How it works */
 .av2-toggle {
   display: inline-flex;
+  flex-wrap: wrap;
   gap: 8px;
   margin: 28px 0 36px;
 }
@@ -502,7 +586,24 @@ body {
   color: var(--soft);
 }
 
-.av2-hiw-col .av2-btn { margin-top: 22px; }
+.av2-hiw-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.av2-btn.is-text {
+  background: none;
+  border: 0;
+  padding: 8px 0;
+  color: var(--soft);
+}
+
+.av2-btn.is-text:hover {
+  color: var(--ink);
+}
 
 /* Proof */
 .av2-stats {
@@ -539,6 +640,7 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   .av2-stat-num.is-pop { animation: none; }
   .av2-rotate > span { transition: none !important; opacity: 0; transform: none; }
   .av2-rotate > span.is-on,
@@ -569,7 +671,7 @@ body {
   margin: 0 0 10px;
 }
 
-.av2-story-card p {
+.av2-story-card p:not(.av2-label) {
   font-size: 13px;
   font-weight: 300;
   line-height: 1.6;
@@ -592,4 +694,5 @@ body {
   }
   .av2-portrait { max-width: 220px; }
   .av2-section { padding: 64px 0; }
+  .av2-belief-rays line:not(:nth-child(2)) { display: none; }
 }
