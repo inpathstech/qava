@@ -5742,4 +5742,309 @@
         gap: 4px 16px;
         padding-top: 0;
       }
+      .club-sidenav-rule {
+        width: 100%;
+        height: 0;
+        margin: 0;
+      }
+    }
+
+    .club-sidenav-rule {
+      width: 24px;
+      height: 1px;
+      background: rgba(17, 24, 39, 0.08);
+      margin: 8px 0;
+    }
+
+    .club-room-layout .feed-save-btn {
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #6b7280;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 300;
+      cursor: pointer;
+    }
+    .club-room-layout .feed-save-btn:hover,
+    .club-room-layout .feed-save-btn.is-active { color: #111827; }
+
+    body:not(.embed-app) .composer-kinds,
+    body:not(.embed-app) .composer-poll {
+      display: none !important;
+    }
+
+    .composer-kinds {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 10px;
+    }
+    .composer-kind {
+      border: 0;
+      background: transparent;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 300;
+      color: #9ca3af;
+      cursor: pointer;
+    }
+    .composer-kind:hover { color: #111827; }
+    .composer-kind.is-on {
+      color: #111827;
+      background: #f3f4f6;
+      font-weight: 400;
+    }
+
+    .composer-poll[hidden] { display: none !important; }
+    .composer-poll-options {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin: 6px 0 2px;
+    }
+    .composer-poll-row {
+      display: grid;
+      grid-template-columns: 12px 1fr;
+      align-items: center;
+      gap: 8px;
+    }
+    .composer-poll-mark {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 1px solid rgba(17, 24, 39, 0.22);
+      background: #fff;
+    }
+    .composer-poll.is-multi .composer-poll-mark { border-radius: 3px; }
+    .composer-poll-input {
+      width: 100%;
+      border: 0;
+      border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+      background: transparent;
+      outline: none;
+      padding: 4px 0;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 300;
+      color: #111827;
+    }
+    .composer-poll-input::placeholder { color: #9ca3af; }
+    .composer-poll-add {
+      border: 0;
+      background: transparent;
+      padding: 2px 0 0;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 300;
+      color: #9ca3af;
+      cursor: pointer;
+      text-align: left;
+    }
+    .composer-poll-add:hover { color: #111827; }
+    .composer-poll-meta {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      flex-wrap: nowrap;
+      gap: 12px;
+      margin-top: 12px;
+      font-size: 12px;
+      font-weight: 300;
+      color: #6b7280;
+      white-space: nowrap;
+    }
+    .composer-choice-switch {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      padding: 1px;
+      border-radius: 6px;
+      background: #f3f4f6;
+      white-space: nowrap;
+    }
+    .composer-choice-switch button {
+      border: 0;
+      background: transparent;
+      padding: 3px 7px;
+      border-radius: 5px;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 300;
+      color: #6b7280;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .composer-choice-switch button.is-on {
+      background: #fff;
+      color: #111827;
+      font-weight: 400;
+    }
+    .composer-close-dial {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      min-width: 0;
+    }
+    .composer-close-track {
+      position: relative;
+      flex: 1;
+      min-width: 72px;
+      max-width: 140px;
+      height: 18px;
+    }
+    .composer-close-rail,
+    .composer-close-fill {
+      position: absolute;
+      left: 0;
+      top: 8px;
+      height: 2px;
+      border-radius: 999px;
+    }
+    .composer-close-rail {
+      right: 0;
+      background: #f3f4f6;
+    }
+    .composer-close-fill {
+      width: 0;
+      background: #111827;
+    }
+    .composer-close-thumb {
+      position: absolute;
+      top: 4px;
+      left: 0;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #fff;
+      border: 1.5px solid #111827;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+    .composer-close-track input[type="range"] {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      margin: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+    .composer-close-label {
+      min-width: 64px;
+      color: #111827;
+      font-size: 12px;
+      font-weight: 300;
+    }
+
+    .composer-card.is-poll-mode [data-tool="attach"],
+    .composer-card.is-poll-mode #composerAttachments {
+      display: none;
+    }
+
+    .feed-poll {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin: 12px 0 2px;
+    }
+    .feed-poll.is-compact {
+      gap: 4px;
+      margin: 8px 0 2px;
+    }
+    .poll-choice {
+      position: relative;
+      display: grid;
+      grid-template-columns: 14px 1fr auto;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      min-height: 36px;
+      padding: 8px 10px;
+      border: 1px solid rgba(17, 24, 39, 0.08);
+      border-radius: 6px;
+      background: #fff;
+      overflow: hidden;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 300;
+      color: #111827;
+      text-align: left;
+      cursor: pointer;
+    }
+    .feed-poll.is-compact .poll-choice {
+      grid-template-columns: 12px 1fr auto;
+      min-height: 28px;
+      padding: 5px 8px;
+      gap: 8px;
+      font-size: 12px;
+    }
+    .poll-choice:hover { border-color: rgba(17, 24, 39, 0.16); }
+    .feed-poll.is-voted .poll-choice,
+    .feed-poll.is-closed .poll-choice { cursor: default; }
+    .poll-choice-fill {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 0;
+      background: #f3f4f6;
+      z-index: 0;
+      transition: width 420ms cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .feed-poll.is-voted .poll-choice-fill,
+    .feed-poll.is-closed .poll-choice-fill { width: var(--pct, 0%); }
+    .poll-choice.is-mine .poll-choice-fill { background: #e5e7eb; }
+    .poll-choice-mark,
+    .poll-choice-label,
+    .poll-choice-pct {
+      position: relative;
+      z-index: 1;
+    }
+    .poll-choice-mark {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1px solid rgba(17, 24, 39, 0.22);
+      background: #fff;
+      display: grid;
+      place-items: center;
+      color: #fff;
+    }
+    .feed-poll.is-compact .poll-choice-mark { width: 12px; height: 12px; }
+    .feed-poll.is-multi .poll-choice-mark { border-radius: 3px; }
+    .poll-choice-mark svg {
+      width: 10px;
+      height: 10px;
+      opacity: 0;
+    }
+    .feed-poll:not(.is-multi) .poll-choice-mark svg { display: none; }
+    .poll-choice.is-mine .poll-choice-mark {
+      border-color: #111827;
+      background: #111827;
+    }
+    .feed-poll.is-multi .poll-choice.is-mine .poll-choice-mark svg { opacity: 1; }
+    .poll-choice-pct {
+      font-size: 12px;
+      font-weight: 400;
+      color: #6b7280;
+      opacity: 0;
+      min-width: 32px;
+      text-align: right;
+    }
+    .feed-poll.is-voted .poll-choice-pct,
+    .feed-poll.is-closed .poll-choice-pct { opacity: 1; }
+    .poll-foot {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+      font-size: 12px;
+      font-weight: 300;
+      color: #9ca3af;
+    }
+    .feed-poll.is-compact .poll-foot { margin-top: 6px; }
+    .poll-foot-dot { color: #d1d5db; }
+
+    .thread-post .feed-poll {
+      margin: 8px 0 4px;
     }

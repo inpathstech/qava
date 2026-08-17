@@ -240,6 +240,8 @@
       attachments: (t.attachments || []).map(function (a) { return a && a.label ? a.label : a; }),
       bestAnswerId: t.bestAnswerId || null,
       replies: (t.replies || []).map(mapReply),
+      kind: t.kind === 'poll' || t.poll ? 'poll' : 'thread',
+      poll: t.poll || null,
     };
   }
 
@@ -282,6 +284,7 @@
       TD[k] = map[k];
       if (map[k].op && map[k].op.name) mergeMember(map[k].op.name, map[k].op);
     });
+    if (window.QavaPolls) window.QavaPolls.mergeIntoThreadData(TD);
   }
 
   // Render a genuine empty state into the feed once we know the API is reachable
@@ -289,6 +292,13 @@
   function renderEmptyFeed() {
     if (window.THREAD_DATA) {
       Object.keys(window.THREAD_DATA).forEach(function (k) { delete window.THREAD_DATA[k]; });
+    }
+    if (window.QavaPolls && window.THREAD_DATA) {
+      window.QavaPolls.mergeIntoThreadData(window.THREAD_DATA);
+    }
+    if (window.THREAD_DATA && Object.keys(window.THREAD_DATA).length && window.initFeedFromData) {
+      window.initFeedFromData();
+      return;
     }
     var feedList = document.getElementById('feedList');
     if (!feedList) return;
@@ -356,8 +366,7 @@
     if (!items.length) {
       if (tag) {
         replaceThreadData({});
-        var feedList = document.getElementById('feedList');
-        if (feedList) feedList.innerHTML = '';
+        if (window.initFeedFromData) window.initFeedFromData();
         applyHydratedTopicFilter(tag);
         return { reachable: true, empty: true };
       }
@@ -383,8 +392,7 @@
     if (!Object.keys(built).length) {
       if (tag) {
         replaceThreadData({});
-        var emptyList = document.getElementById('feedList');
-        if (emptyList) emptyList.innerHTML = '';
+        if (window.initFeedFromData) window.initFeedFromData();
         applyHydratedTopicFilter(tag);
         return { reachable: true, empty: true };
       }
@@ -466,7 +474,9 @@
             })
             .filter(Boolean));
         if (bodyEl && window.setInputRaw) window.setInputRaw(bodyEl, prepared.body);
+        var isPoll = window.QavaPolls && window.QavaPolls.getKind() === 'poll';
         var result = origPost.apply(this, arguments);
+        if (isPoll) return result;
         if (title && title.trim()) {
           var payload = { title: title.trim(), body: prepared.body || '' };
           if (prepared.invites && prepared.invites.length) payload.invites = prepared.invites;

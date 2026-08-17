@@ -1142,17 +1142,23 @@
     });
 
     postBtn.addEventListener('click', () => {
+      const isPoll = window.QavaPolls && window.QavaPolls.getKind() === 'poll';
       const hasDraft = Boolean(
         composerTitle.value.trim()
         || getInputText(composerInput).trim()
         || composerAttachmentFiles.length
+        || (isPoll && window.QavaPolls.canPost())
       );
       if (!premiumToggle.checked) {
         if (hasDraft) requireSignIn();
         return;
       }
       const words = updateWordCount(composerInput, wordCount);
-      if (!composerTitle.value.trim() || !getInputText(composerInput).trim()) return;
+      if (isPoll) {
+        if (!window.QavaPolls.canPost()) return;
+      } else if (!composerTitle.value.trim() || !getInputText(composerInput).trim()) {
+        return;
+      }
       if (words > 250) {
         if (window.communityNotice) {
           window.communityNotice({

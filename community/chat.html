@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../qava-landing.css" />
-  <link rel="stylesheet" href="community.css?v=topic-filter-1" />
+  <link rel="stylesheet" href="community.css?v=polls-1" />
   <link rel="stylesheet" href="chat-marketing.css?v=ex-op-solid-1" />
   <link rel="stylesheet" href="../qava-auth.css" />
 </head>
@@ -262,6 +262,10 @@
               <button type="button" class="composer-idle" id="composerIdle">Start a thread…</button>
               <div class="composer-chrome">
                 <div class="composer-chrome-main">
+                  <div class="composer-kinds" id="composerKinds" role="tablist" aria-label="Post type">
+                    <button type="button" class="composer-kind is-on" data-composer-kind="thread" aria-pressed="true">Thread</button>
+                    <button type="button" class="composer-kind" data-composer-kind="poll" aria-pressed="false">Poll</button>
+                  </div>
                   <div class="composer-title-label-wrap">
                     <label class="composer-field-label" for="composerTitle">Title</label>
                   </div>
@@ -290,6 +294,25 @@
                           <div class="composer-input" id="composerInput" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Post body" data-placeholder="Add context, links, or details…"></div>
                           <div class="input-gate-prompt" id="composerGatePrompt">
                             <a href="https://app.theclubnyc.com/?login=1">Sign in as a Premium member</a> to post…
+                          </div>
+                        </div>
+                      </div>
+                      <div class="composer-poll" id="composerPoll" hidden>
+                        <div class="composer-poll-options" id="composerPollOptions"></div>
+                        <button type="button" class="composer-poll-add" id="composerPollAdd">Add an option</button>
+                        <div class="composer-poll-meta">
+                          <div class="composer-choice-switch" id="composerPollChoice" role="group" aria-label="Vote type">
+                            <button type="button" class="is-on" data-poll-choice="single" aria-pressed="true">Single choice</button>
+                            <button type="button" data-poll-choice="multi" aria-pressed="false">Multi-choice</button>
+                          </div>
+                          <div class="composer-close-dial">
+                            <div class="composer-close-track">
+                              <div class="composer-close-rail"></div>
+                              <div class="composer-close-fill" id="composerPollCloseFill"></div>
+                              <input type="range" id="composerPollClose" min="7" max="90" step="1" value="7" aria-label="Poll closes in" />
+                              <div class="composer-close-thumb" id="composerPollCloseThumb"></div>
+                            </div>
+                            <span class="composer-close-label" id="composerPollCloseLabel">7 days</span>
                           </div>
                         </div>
                       </div>
@@ -604,7 +627,7 @@
       var inApp = document.body.classList.contains("embed-app");
       // Product chat scripts only in the app.theclubnyc.com embed. Public page is marketing-only.
       var scripts = inApp
-        ? ["app.js?v=scroll-composer-1", "enhancements.js?v=topic-filter-1", "api.js?v=topic-filter-1", "auth.js?v=community-boot-2", "profile-edit.js", "../qava-footer.js?v=footer-club-room-1"]
+        ? ["app.js?v=polls-1", "enhancements.js?v=polls-1", "polls.js?v=1", "api.js?v=polls-1", "auth.js?v=community-boot-2", "profile-edit.js", "../qava-footer.js?v=footer-club-room-1"]
         : ["chat-examples.js?v=ex-op-solid-1", "../qava-auth.js", "../qava-footer.js?v=footer-club-room-1"];
 
       function loadNext(i) {
