@@ -351,7 +351,8 @@
         <button type="button" class="feed-stat feed-reply-open" data-open-feed-reply="${thread.id}">Reply</button>
         <button type="button" class="feed-stat feed-save-btn${savedThreads.has(thread.id) ? ' is-active' : ''}" data-thread-save="${thread.id}">${savedThreads.has(thread.id) ? 'Saved' : 'Save'}</button>
         ${isOwnThread(thread) && !thread.poll ? `
-        <button type="button" class="feed-stat feed-opener-edit-btn" data-edit-thread="${thread.id}">Edit</button>
+        <button type="button" class="feed-stat feed-opener-edit-btn" data-edit-thread="${thread.id}">Edit</button>` : ''}
+        ${isOwnThread(thread) ? `
         <button type="button" class="feed-stat feed-opener-delete-btn" data-delete-thread="${thread.id}">Delete</button>` : ''}
       </div>`;
   }
@@ -3269,6 +3270,9 @@
   function removeThreadLocally(threadId) {
     if (threadId === 'user') userThreadState = null;
     if (THREAD_DATA[threadId]) delete THREAD_DATA[threadId];
+    if (window.QavaPolls && typeof window.QavaPolls.remove === 'function') {
+      window.QavaPolls.remove(threadId);
+    }
     expandedReplies.delete(threadId);
     document.querySelector(`.feed-item[data-feed-thread="${threadId}"]`)?.remove();
   }
@@ -3278,7 +3282,7 @@
     if (thread && !isOwnThread(thread)) return;
     if (!thread && !(window.communityIsLiveId && window.communityIsLiveId(threadId))) return;
     showCommunityConfirm({
-      title: 'Delete thread?',
+      title: thread?.poll ? 'Delete poll?' : 'Delete thread?',
       body: 'This can’t be undone.',
       confirmLabel: 'Delete',
       cancelLabel: 'Cancel',

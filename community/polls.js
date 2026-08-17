@@ -1,6 +1,6 @@
 /**
- * Club Room polls — frontend-only until the community API grows a poll type.
- * Demo + locally posted polls live in THREAD_DATA and survive feed hydrate.
+ * Club Room polls. Live UUID threads persist through CommunityAPI; demo and
+ * local-only polls stay in THREAD_DATA / localStorage as a fallback.
  */
 (function () {
   const STORAGE_KEY = 'qava.community.clientPolls';
@@ -74,7 +74,18 @@
         kind: 'poll',
         poll: thread.poll,
         local: !!thread.local,
+        bot: !!thread.bot,
       };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+    } catch { /* quota / private mode */ }
+  }
+
+  function remove(threadId) {
+    if (!threadId) return;
+    try {
+      const all = loadSavedPolls();
+      if (!all[threadId]) return;
+      delete all[threadId];
       localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
     } catch { /* quota / private mode */ }
   }
@@ -157,22 +168,36 @@
     };
   }
 
+  function isLiveId(id) {
+    if (window.communityIsLiveId) return window.communityIsLiveId(id);
+    return typeof id === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+  }
+
+  function hasLiveThreads(map) {
+    return Object.keys(map || {}).some((id) => isLiveId(id));
+  }
+
   function mergeIntoThreadData(map) {
     if (!map) return;
     ensureAmeliaProfile();
     const saved = loadSavedPolls();
-    demoPolls().forEach((demo) => {
-      map[demo.id] = saved[demo.id] ? Object.assign(clone(demo), saved[demo.id], {
-        replies: (saved[demo.id].replies && saved[demo.id].replies.length)
-          ? saved[demo.id].replies
-          : demo.replies,
-        op: saved[demo.id].op || demo.op,
-      }) : clone(demo);
-    });
+    const live = hasLiveThreads(map);
+    if (!live) {
+      demoPolls().forEach((demo) => {
+        map[demo.id] = saved[demo.id] ? Object.assign(clone(demo), saved[demo.id], {
+          replies: (saved[demo.id].replies && saved[demo.id].replies.length)
+            ? saved[demo.id].replies
+            : demo.replies,
+          op: saved[demo.id].op || demo.op,
+        }) : clone(demo);
+      });
+    }
     Object.keys(saved).forEach((id) => {
       if (map[id]) return;
       const row = saved[id];
       if (!row || !row.poll) return;
+      if (isLiveId(id)) return;
+      if (live && (id === 'poll-spend' || id === 'poll-cut')) return;
       map[id] = Object.assign({
         status: 'new',
         likes: 0,
@@ -250,6 +275,7 @@
   function vote(threadId, optionId) {
     const thread = getThread(threadId);
     if (!thread || !thread.poll || isClosed(thread.poll)) return;
+    const snapshot = clone(thread.poll);
     const poll = thread.poll;
     const option = (poll.options || []).find((opt) => opt.id === optionId);
     if (!option) return;
@@ -272,8 +298,28 @@
       mine.push(optionId);
     }
     poll.votedIds = mine;
-    persistPoll(thread);
     refreshThread(threadId);
+    const api = window.CommunityAPI;
+    if (api && api.votePoll && isLiveId(threadId)) {
+      api.votePoll(threadId, { optionId: optionId })
+        .then((res) => {
+          if (res && res.poll) thread.poll = res.poll;
+          refreshThread(threadId);
+        })
+        .catch((e) => {
+          thread.poll = snapshot;
+          refreshThread(threadId);
+          const status = e && e.status;
+          if (status === 401) {
+            if (window.communityToast) window.communityToast('Please sign in to vote.', 'error');
+            if (window.communityRequireSignIn) window.communityRequireSignIn();
+          } else if (window.communityToast) {
+            window.communityToast((e && e.message) || 'Could not save that vote.', 'error');
+          }
+        });
+      return;
+    }
+    persistPoll(thread);
   }
 
   function getKind() {
@@ -303,20 +349,26 @@
     syncComposerUi();
   }
 
-  function publish() {
-    const title = (document.getElementById('composerTitle')?.value || '').trim();
-    const options = optionValues();
-    if (!title || options.length < 2) return false;
+  function finishPublish(id, message) {
     const bodyEl = document.getElementById('composerInput');
-    const raw = window.getInputRaw && bodyEl ? window.getInputRaw(bodyEl) : '';
-    const bodyRaw = raw ? String(raw).trim() : '';
+    if (bodyEl && window.clearInput) window.clearInput(bodyEl);
+    const titleEl = document.getElementById('composerTitle');
+    if (titleEl) titleEl.value = '';
+    resetComposer();
+    if (typeof window.syncComposerState === 'function') window.syncComposerState();
+    document.getElementById('feedList')?.querySelector('.feed-empty')?.remove();
+    if (typeof window.initFeedFromData === 'function') window.initFeedFromData();
+    if (typeof window.scrollFeedItemIntoView === 'function') {
+      const item = document.querySelector(`.feed-item[data-feed-thread="${id}"]`);
+      window.scrollFeedItemIntoView(item);
+    }
+    if (window.communityToast) window.communityToast(message, 'success');
+  }
+
+  function localPollThread(title, bodyRaw, tags, options) {
     const handle = (typeof window.getSelfHandle === 'function' && window.getSelfHandle()) || 'You';
-    const tags = typeof window.communityGetSelectedTags === 'function'
-      ? window.communityGetSelectedTags()
-      : [];
-    const id = `local-poll-${Date.now()}`;
-    const thread = {
-      id,
+    return {
+      id: `local-poll-${Date.now()}`,
       status: 'new',
       time: 'Just now',
       activityTs: Date.now(),
@@ -338,21 +390,61 @@
         options: options.map((label, i) => ({ id: `opt-${i + 1}`, label, count: 0 })),
       },
     };
+  }
+
+  function insertLocalPoll(thread, message) {
     if (!window.THREAD_DATA) window.THREAD_DATA = {};
-    window.THREAD_DATA[id] = thread;
+    window.THREAD_DATA[thread.id] = thread;
     persistPoll(thread);
-    if (bodyEl && window.clearInput) window.clearInput(bodyEl);
-    const titleEl = document.getElementById('composerTitle');
-    if (titleEl) titleEl.value = '';
-    resetComposer();
-    if (typeof window.syncComposerState === 'function') window.syncComposerState();
-    document.getElementById('feedList')?.querySelector('.feed-empty')?.remove();
-    if (typeof window.initFeedFromData === 'function') window.initFeedFromData();
-    if (typeof window.scrollFeedItemIntoView === 'function') {
-      const item = document.querySelector(`.feed-item[data-feed-thread="${id}"]`);
-      window.scrollFeedItemIntoView(item);
+    finishPublish(thread.id, message || 'Poll posted in this session.');
+  }
+
+  function publish() {
+    const title = (document.getElementById('composerTitle')?.value || '').trim();
+    const options = optionValues();
+    if (!title || options.length < 2) return false;
+    const bodyEl = document.getElementById('composerInput');
+    const raw = window.getInputRaw && bodyEl ? window.getInputRaw(bodyEl) : '';
+    const bodyRaw = raw ? String(raw).trim() : '';
+    const tags = typeof window.communityGetSelectedTags === 'function'
+      ? window.communityGetSelectedTags()
+      : [];
+    const payload = {
+      title,
+      body: bodyRaw,
+      tags: tags.slice(),
+      kind: 'poll',
+      poll: {
+        choice: choiceMode,
+        closeDays: closeDays,
+        options: options.map((label) => ({ label })),
+      },
+    };
+    const api = window.CommunityAPI;
+    if (api && api.createThread) {
+      api.createThread(payload)
+        .then((created) => {
+          const mapped = window.communityMapThread ? window.communityMapThread(created) : created;
+          if (!window.THREAD_DATA) window.THREAD_DATA = {};
+          window.THREAD_DATA[mapped.id] = mapped;
+          finishPublish(mapped.id, 'Poll posted to the community.');
+        })
+        .catch((e) => {
+          const status = e && e.status;
+          if (status === 401) {
+            if (window.communityToast) window.communityToast('Please sign in to your Premium account to post.', 'error');
+            if (window.communityRequireSignIn) window.communityRequireSignIn();
+            return;
+          }
+          if (status === 403) {
+            if (window.communityToast) window.communityToast((e && e.message) || 'Posting is available to Premium members.', 'error');
+            return;
+          }
+          insertLocalPoll(localPollThread(title, bodyRaw, tags, options));
+        });
+      return true;
     }
-    if (window.communityToast) window.communityToast('Poll posted in this session.', 'success');
+    insertLocalPoll(localPollThread(title, bodyRaw, tags, options));
     return true;
   }
 
@@ -458,6 +550,7 @@
     render,
     vote,
     publish,
+    remove,
     canPost,
     getKind,
     setKind,
@@ -465,9 +558,13 @@
     isPollThread: function (thread) { return !!(thread && thread.poll); },
   };
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initComposer);
-  } else {
+  function boot() {
     initComposer();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
   }
 })();

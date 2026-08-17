@@ -102,6 +102,7 @@
     createReply: function (id, b) { return send('POST', '/community/threads/' + encodeURIComponent(id) + '/replies', b); },
     updateReply: function (id, b) { return send('PATCH', '/community/replies/' + encodeURIComponent(id), b); },
     deleteReply: function (id) { return send('DELETE', '/community/replies/' + encodeURIComponent(id)); },
+    votePoll: function (id, b) { return send('POST', '/community/threads/' + encodeURIComponent(id) + '/poll/vote', b); },
     likeThread: function (id) { return send('POST', '/community/threads/' + encodeURIComponent(id) + '/like'); },
     heartReply: function (id) { return send('POST', '/community/replies/' + encodeURIComponent(id) + '/heart'); },
     saveThread: function (id) { return send('POST', '/community/threads/' + encodeURIComponent(id) + '/save'); },
