@@ -5574,7 +5574,11 @@
     .club-room-layout .feed-opener-delete-btn:hover { color: #111827; }
 
     .club-room-layout .composer-card.composer-opener {
-      background: #fff;
+      background: #fafafa;
+      border-color: rgba(17, 24, 39, 0.1);
+    }
+    .club-room-layout .composer-card.composer-opener.is-pinned-open {
+      background: #fafafa;
     }
     .club-room-layout .composer-idle {
       display: none;
@@ -5605,19 +5609,34 @@
       display: none;
     }
     .club-room-layout .composer-field-input {
-      border: 0;
-      border-radius: 0;
-      background: transparent;
+      border: 1px solid rgba(17, 24, 39, 0.1);
+      border-radius: 8px;
+      background: #fff;
     }
     .club-room-layout .composer-field-input:focus-within {
-      border-color: transparent;
+      border-color: #111827;
+    }
+    .club-room-layout .composer-title-row {
+      margin-top: 2px;
+    }
+    .club-room-layout .composer-fields {
+      margin-top: 10px;
     }
     .club-room-layout .composer-title {
       font-family: var(--display);
       font-size: 18px;
       font-weight: 400;
       line-height: 1.2;
-      padding: 0 0 8px;
+      padding: 8px 10px;
+    }
+    .club-room-layout .composer-title::placeholder,
+    .club-room-layout .composer-title::-webkit-input-placeholder {
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.45;
+      letter-spacing: 0;
+      color: #9ca3af;
     }
     .club-room-layout .composer-input {
       font-size: 13px;
