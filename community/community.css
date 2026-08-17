@@ -5438,12 +5438,15 @@
     .club-sidenav {
       position: sticky;
       top: 88px;
-      flex: 0 0 148px;
+      flex: 0 0 168px;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       gap: 2px;
-      padding-top: 8px;
+      padding: 10px 12px;
+      border: 1px solid rgba(17, 24, 39, 0.1);
+      border-radius: 10px;
+      background: #fff;
     }
     body.embed-app .club-sidenav,
     html.community-embed .club-sidenav {
@@ -5759,7 +5762,7 @@
         flex-direction: row;
         flex-wrap: wrap;
         gap: 4px 16px;
-        padding-top: 0;
+        padding: 10px 12px;
       }
       .club-sidenav-rule {
         width: 100%;
