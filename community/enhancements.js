@@ -57,6 +57,7 @@
     David: { initials: 'DV', role: 'Founder', school: 'Series A', bio: 'Series A operator with experience in finance and GTM hiring.', helpful: 7, listings: 1 },
     Elena: { initials: 'EV', role: 'Founder', school: 'Fintech', bio: 'Fintech founder interested in partnerships and investor comms.', helpful: 6, listings: 0 },
     Sophie: { initials: 'SP', role: 'Founder', school: 'Seed stage', bio: 'Seed founder iterating on investor updates and angel relations.', helpful: 5, listings: 1 },
+    Amelia: { initials: 'AM', role: 'Founder', school: 'Seed stage', bio: 'Seed-stage founder weighing hires against paid demand.', helpful: 8, listings: 0 },
   };
 
   const THREAD_DATA = {
@@ -183,6 +184,7 @@
   let feedSort = 'active';
   let selectedTags = [];
   let feedTopicFilter = [];
+  let feedKindFilter = '';
   let mentionDropdown = null;
   let activeMentionInput = null;
   const feedJoinAttachments = new Map();
@@ -347,7 +349,8 @@
         <button type="button" class="feed-stat feed-like-btn${liked ? ' is-active' : ''}" data-feed-like="${thread.id}" aria-label="${likes} like${likes === 1 ? '' : 's'}" aria-pressed="${liked ? 'true' : 'false'}">${HEART_SVG}<span>${likes}</span></button>
         <span class="feed-stat" data-feed-replies aria-label="${replies} replies">${REPLY_SVG}<span>${replies}</span></span>
         <button type="button" class="feed-stat feed-reply-open" data-open-feed-reply="${thread.id}">Reply</button>
-        ${isOwnThread(thread) ? `
+        <button type="button" class="feed-stat feed-save-btn${savedThreads.has(thread.id) ? ' is-active' : ''}" data-thread-save="${thread.id}">${savedThreads.has(thread.id) ? 'Saved' : 'Save'}</button>
+        ${isOwnThread(thread) && !thread.poll ? `
         <button type="button" class="feed-stat feed-opener-edit-btn" data-edit-thread="${thread.id}">Edit</button>
         <button type="button" class="feed-stat feed-opener-delete-btn" data-delete-thread="${thread.id}">Delete</button>` : ''}
       </div>`;
@@ -573,10 +576,28 @@
     const tagsHtml = tags.length
       ? `<div class="feed-opener-tags">${tags.map((t) => `<span class="feed-tag-pill">${escapeHtml(topicDisplayName(t))}</span>`).join('')}</div>`
       : '';
+    const excerpt = excerptFromHtml(thread.body);
+    const pollHtml = thread.poll && window.QavaPolls
+      ? window.QavaPolls.render(thread, { compact: true })
+      : '';
+    const excerptHtml = excerpt
+      ? `<div class="feed-excerpt-clip">
+          <div class="feed-excerpt-clip-inner">
+            <p class="feed-excerpt">${escapeHtml(excerpt)}</p>
+          </div>
+        </div>`
+      : '';
+    const bodyHtml = excerpt || attach
+      ? `<div class="feed-body-clip">
+          <div class="feed-body-clip-inner">
+            <div class="feed-body">${thread.body || ''}${attach}</div>
+          </div>
+        </div>`
+      : '';
     const discussion = expanded
       ? `<div class="feed-discussion">${renderFeedDiscussionInner(thread)}</div>`
       : `<div class="feed-discussion" data-feed-discussion-empty="1"></div>`;
-    return `<div class="feed-item${expanded ? ' is-expanded' : ''}${unread ? ' has-unread' : ''}" data-feed-thread="${thread.id}" data-activity="${thread.activityTs}" data-likes="${thread.likes}" data-replies="${replies}" data-status="${thread.status}" data-tags="${tagAttr}">
+    return `<div class="feed-item${expanded ? ' is-expanded' : ''}${unread ? ' has-unread' : ''}${thread.poll ? ' is-poll' : ''}" data-feed-thread="${thread.id}" data-kind="${thread.poll ? 'poll' : 'thread'}" data-activity="${thread.activityTs}" data-likes="${thread.likes}" data-replies="${replies}" data-status="${thread.status}" data-tags="${tagAttr}">
       ${renderFeedExpandToggle(thread, expanded)}
       <div class="feed-opener">
         <div class="feed-opener-meta-row">
@@ -588,16 +609,9 @@
         </div>
         ${tagsHtml}
         <h3>${escapeHtml(thread.title)}</h3>
-        <div class="feed-excerpt-clip">
-          <div class="feed-excerpt-clip-inner">
-            <p class="feed-excerpt">${escapeHtml(excerptFromHtml(thread.body))}</p>
-          </div>
-        </div>
-        <div class="feed-body-clip">
-          <div class="feed-body-clip-inner">
-            <div class="feed-body">${thread.body}${attach}</div>
-          </div>
-        </div>
+        ${excerptHtml}
+        ${bodyHtml}
+        ${pollHtml}
         ${renderFeedStats(thread)}
       </div>
       <div class="feed-discussion-wrap">
@@ -950,9 +964,10 @@
         <div class="thread-tags">${thread.tags.map((t) => `<span class="thread-tag${t === thread.tags[0] ? ' is-primary' : ''}">${escapeHtml(topicDisplayName(t))}</span>`).join('')}</div>
       </div>
       <h3 class="thread-title">${escapeHtml(thread.title)}</h3>
-      <div class="thread-body">${thread.body}
+      <div class="thread-body">${thread.body || ''}
         ${thread.attachments?.length ? `<div class="attach-chips">${thread.attachments.map(renderAttachChip).join('')}</div>` : ''}
       </div>
+      ${thread.poll && window.QavaPolls ? window.QavaPolls.render(thread, { compact: true }) : ''}
       <div class="thread-op-actions" id="threadOpActionsInner">
         <button type="button" class="thread-op-heart${likedThreads.has(threadId) ? ' is-active' : ''}" data-thread-like="${threadId}">${HEART_SVG}<span>${thread.likes || 0}</span></button>
         <button type="button" class="thread-action-btn${savedThreads.has(threadId) ? ' is-active' : ''}" data-thread-save="${threadId}">${savedThreads.has(threadId) ? 'Saved' : 'Save'}</button>
@@ -1830,7 +1845,10 @@
     let visible = 0;
     items.forEach((el) => {
       const tags = getFeedItemTags(el);
-      const show = !active.length || active.some((t) => tags.some((x) => tagEquals(x, t)));
+      const isPoll = el.dataset.kind === 'poll';
+      const show = feedKindFilter === 'polls'
+        ? isPoll
+        : (!active.length || active.some((t) => tags.some((x) => tagEquals(x, t))));
       el.hidden = !show;
       if (show) visible += 1;
     });
@@ -1838,13 +1856,15 @@
     const meta = document.getElementById('feedFilterMeta');
     const countEl = document.getElementById('feedFilterCount');
     const empty = ensureFeedEmptyFilterEl(feedList);
-    if (meta) meta.hidden = active.length === 0;
+    const filtering = active.length > 0 || feedKindFilter === 'polls';
+    if (meta) meta.hidden = !filtering;
     if (countEl) {
-      countEl.textContent = active.length
-        ? `${visible} thread${visible === 1 ? '' : 's'}`
+      const noun = feedKindFilter === 'polls' ? 'poll' : 'thread';
+      countEl.textContent = filtering
+        ? `${visible} ${noun}${visible === 1 ? '' : 's'}`
         : '';
     }
-    if (empty) empty.hidden = !(active.length && visible === 0 && !feedList.querySelector('.feed-empty'));
+    if (empty) empty.hidden = !(filtering && visible === 0 && !feedList.querySelector('.feed-empty'));
 
     document.querySelectorAll('#feedTopicFilters .feed-topic-pill').forEach((btn) => {
       const on = active.some((t) => tagEquals(t, btn.dataset.topic));
@@ -1853,7 +1873,11 @@
     });
     document.querySelectorAll('#clubSidenav [data-filter]').forEach((btn) => {
       const filter = btn.dataset.filter;
-      const on = filter === 'all' ? active.length === 0 : active.some((t) => tagEquals(t, filter));
+      const on = filter === 'all'
+        ? active.length === 0 && feedKindFilter !== 'polls'
+        : filter === 'polls'
+          ? feedKindFilter === 'polls'
+          : active.some((t) => tagEquals(t, filter));
       btn.classList.toggle('is-active', on);
     });
   }
@@ -1868,9 +1892,11 @@
     }
     const nav = document.getElementById('clubSidenav');
     if (!nav) return;
-    const allOn = feedTopicFilter.length === 0;
+    const allOn = feedTopicFilter.length === 0 && feedKindFilter !== 'polls';
     nav.innerHTML = [
       `<button type="button" class="club-sidenav-link${allOn ? ' is-active' : ''}" data-filter="all">All</button>`,
+      `<button type="button" class="club-sidenav-link${feedKindFilter === 'polls' ? ' is-active' : ''}" data-filter="polls">Polls</button>`,
+      `<div class="club-sidenav-rule" aria-hidden="true"></div>`,
       ...AGENDA_TOPICS.map((topic) => {
         const on = feedTopicFilter.includes(topic);
         return `<button type="button" class="club-sidenav-link${on ? ' is-active' : ''}" data-filter="${escapeHtml(topic)}">${escapeHtml(topicDisplayName(topic))}</button>`;
@@ -1879,9 +1905,18 @@
   }
 
   function setFeedTopicFilter(topic, opts) {
+    const raw = String(topic || '').trim().toLowerCase();
+    if (raw === 'polls') {
+      feedKindFilter = 'polls';
+      feedTopicFilter = [];
+      applyFeedTopicFilters();
+      renderFeedTopicPills();
+      return;
+    }
     const next = normalizeTopicTag(topic);
     const prev = feedTopicFilter[0] || '';
-    const same = tagEquals(prev, next);
+    const same = tagEquals(prev, next) && feedKindFilter !== 'polls';
+    feedKindFilter = '';
     feedTopicFilter = next ? [next] : [];
     applyFeedTopicFilters();
     renderFeedTopicPills();
@@ -1925,6 +1960,7 @@
   function initFeedFromData() {
     const feedList = document.getElementById('feedList');
     if (!feedList) return;
+    if (window.QavaPolls) window.QavaPolls.mergeIntoThreadData(THREAD_DATA);
     const threads = Object.values(THREAD_DATA);
     if (!threads.length) {
       if (typeof window.communityRenderEmptyFeed === 'function') {
@@ -1950,6 +1986,19 @@
     document.body.dataset.feedInteractionsBound = '1';
 
     document.body.addEventListener('click', (e) => {
+      const pollOpt = e.target.closest?.('[data-poll-option]');
+      if (pollOpt) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (window.QavaPolls) window.QavaPolls.vote(pollOpt.dataset.pollThread, pollOpt.dataset.pollOption);
+        return;
+      }
+
+      if (e.target.closest?.('[data-thread-save]')) {
+        e.stopPropagation();
+        return;
+      }
+
       const likeBtn = e.target.closest?.('[data-feed-like]');
       if (likeBtn) {
         e.preventDefault();
@@ -2678,6 +2727,9 @@
     const atTop = () => scrollY() <= COMPOSER_SCROLL_COLLAPSE_AT;
 
     const composerReady = () => {
+      if (window.QavaPolls && window.QavaPolls.getKind() === 'poll') {
+        return window.QavaPolls.canPost();
+      }
       const t = (title?.value || '').trim();
       const b = (body && window.getInputRaw
         ? window.getInputRaw(body)
@@ -2690,9 +2742,12 @@
       const ready = composerReady();
       sendBtn.classList.toggle('is-disabled', !ready);
       sendBtn.setAttribute('aria-disabled', ready ? 'false' : 'true');
+      const pollMode = window.QavaPolls && window.QavaPolls.getKind() === 'poll';
       sendBtn.setAttribute(
         'aria-label',
-        ready ? 'Post thread' : 'Add a title and body to post',
+        ready
+          ? (pollMode ? 'Post poll' : 'Post thread')
+          : (pollMode ? 'Add a question and two options to post' : 'Add a title and body to post'),
       );
     };
 
@@ -2988,6 +3043,9 @@
     if (!window.publishComposerPost) return;
     const original = window.publishComposerPost;
     window.publishComposerPost = function () {
+      if (window.QavaPolls && window.QavaPolls.getKind() === 'poll') {
+        return window.QavaPolls.publish();
+      }
       const title = document.getElementById('composerTitle')?.value.trim();
       const composerEl = document.getElementById('composerInput');
       const raw = window.getInputRaw && composerEl ? window.getInputRaw(composerEl) : '';
@@ -3703,7 +3761,9 @@
     try {
       const params = new URLSearchParams(window.location.search);
       const tag = params.get('tag') || params.get('topic');
-      if (tag && !params.get('t')) setFeedTopicFilter(tag);
+      const kind = params.get('kind');
+      if (kind === 'poll') setFeedTopicFilter('polls');
+      else if (tag && !params.get('t')) setFeedTopicFilter(tag);
     } catch (e) { /* ignore */ }
     initLandingCoherence();
     initProfilePage();
@@ -3733,6 +3793,7 @@
   window.setFeedTopicFilter = setFeedTopicFilter;
   window.communitySetFeedTopicFilter = setFeedTopicFilter;
   window.communityGetFeedTopicFilter = function () { return feedTopicFilter.slice(); };
+  window.communityRefreshFeedItem = refreshFeedItem;
   window.communitySetFeedLoading = setFeedLoading;
   window.communityGetSelectedTags = function () { return selectedTags.slice(); };
   window.communityGetFeedSort = function () { return feedSort; };
