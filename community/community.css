@@ -3027,7 +3027,7 @@
     }
 
     .feed-opener-meta-row {
-      padding-right: 36px;
+      padding-right: 0;
     }
 
     .feed-opener:has(.feed-opener-tags) .feed-opener-meta-row {
@@ -3413,21 +3413,20 @@
       fill: none;
     }
 
-    .feed-stat span {
+    .feed-stat > span:not(.actor-tip-box) {
       display: block;
       line-height: 12px;
       transform: translateY(0.5px);
     }
 
-    .actor-tip[data-tip] {
+    .actor-tip {
       position: relative;
     }
-    .actor-tip[data-tip]::after {
-      content: attr(data-tip);
+    .actor-tip-box {
       position: absolute;
       bottom: calc(100% + 7px);
-      left: 50%;
-      transform: translateX(-50%) translateY(2px);
+      left: 0;
+      transform: translateY(2px);
       padding: 4px 7px;
       border-radius: 4px;
       background: #111111;
@@ -3435,35 +3434,27 @@
       font-family: Inter, sans-serif;
       font-size: 11px;
       font-weight: 400;
-      line-height: 1.25;
+      line-height: 1.35;
       letter-spacing: 0.01em;
       white-space: nowrap;
+      text-align: left;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.12s ease, transform 0.12s ease;
       z-index: 20;
     }
-    .actor-tip[data-tip]::before {
+    .actor-tip-box::after {
       content: "";
       position: absolute;
-      bottom: calc(100% + 3px);
-      left: 50%;
-      transform: translateX(-50%);
+      top: 100%;
+      left: 10px;
       border: 4px solid transparent;
       border-top-color: #111111;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.12s ease;
-      z-index: 20;
     }
-    .actor-tip[data-tip]:hover::after,
-    .actor-tip[data-tip]:focus-visible::after {
+    .actor-tip:hover .actor-tip-box,
+    .actor-tip:focus-visible .actor-tip-box {
       opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-    .actor-tip[data-tip]:hover::before,
-    .actor-tip[data-tip]:focus-visible::before {
-      opacity: 1;
+      transform: translateY(0);
     }
 
     .feed-item .avatar {
@@ -3676,7 +3667,7 @@
     .feed-opener-tags {
       position: absolute;
       top: 14px;
-      right: 44px;
+      right: 14px;
       display: flex;
       flex-wrap: wrap;
       justify-content: flex-end;
@@ -5556,19 +5547,18 @@
       padding: 12px 14px 8px;
     }
     .club-room-layout .feed-opener-tags {
-      top: 10px;
-      right: 44px;
+      top: 12px;
+      right: 14px;
     }
     .club-room-layout .feed-expand-toggle {
-      top: 8px;
-      right: 8px;
+      display: none;
     }
     .club-room-layout .feed-tag-pill {
       font-size: 11px;
       color: #6b7280;
     }
     .club-room-layout .feed-opener-meta-row {
-      padding-right: 108px;
+      padding-right: min(48%, 11rem);
       margin-bottom: 6px;
     }
     .club-room-layout .feed-item .meta-top {

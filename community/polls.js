@@ -238,11 +238,15 @@
         <span class="poll-choice-pct">${pct}%</span>
       </button>`;
     }).join('');
-    const voters = Array.isArray(poll.votedBy) ? poll.votedBy.filter(Boolean) : [];
+    const voters = [];
+    (Array.isArray(poll.votedBy) ? poll.votedBy : []).forEach((name) => {
+      const handle = String(name || '').trim();
+      if (handle && voters.indexOf(handle) === -1) voters.push(handle);
+    });
     const voteTip = voters.length
-      ? ` data-tip="${escapeAttr(voters.join(' · '))}"`
+      ? `<span class="actor-tip-box" role="tooltip">${voters.map(escapeHtml).join('<br>')}</span>`
       : '';
-    const footBits = [`<span class="poll-votes actor-tip"${voteTip}>${total} vote${total === 1 ? '' : 's'}</span>`];
+    const footBits = [`<span class="poll-votes actor-tip">${total} vote${total === 1 ? '' : 's'}${voteTip}</span>`];
     if (votedIds.length) footBits.push('<span class="poll-foot-dot">·</span><span>You voted</span>');
     footBits.push(`<span class="poll-foot-dot">·</span><span>${escapeHtml(daysLeftLabel(poll.closesAt))}</span>`);
     return `<div class="feed-poll${voted ? ' is-voted' : ''}${multi ? ' is-multi' : ''}${compact ? ' is-compact' : ''}${closed ? ' is-closed' : ''}" data-poll="${escapeAttr(thread.id)}">
