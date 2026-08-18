@@ -5541,7 +5541,6 @@
     .club-room-layout .feed-item {
       padding: 0;
       border: 1px solid rgba(17, 24, 39, 0.1);
-      overflow: visible;
     }
     .club-room-layout .feed-item:hover,
     .club-room-layout .feed-item.is-expanded:hover {
