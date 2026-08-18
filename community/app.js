@@ -955,7 +955,7 @@
         : [];
       userFeedItem.dataset.tags = postedTags.join('|');
       const tagsHtml = postedTags.length
-        ? `<div class="feed-opener-tags">${postedTags.map((t) => `<span class="feed-tag-pill">${escapeHtml(t)}</span>`).join('')}</div>`
+        ? `<div class="feed-opener-tags">${postedTags.map((t) => `<span class="feed-tag-pill">${typeof window.communityTopicPillInner === 'function' ? window.communityTopicPillInner(t) : escapeHtml(t)}</span>`).join('')}</div>`
         : '';
       const userOpener = userFeedItem.querySelector('.feed-opener');
       userOpener.innerHTML = `
