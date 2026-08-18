@@ -2334,6 +2334,18 @@
       gap: 2px;
     }
 
+    .composer-topics-menu .tag-pill-text {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .composer-topics-menu .tag-pill-text .topic-icon {
+      width: 15px;
+      height: 15px;
+    }
+
     .composer-topics-menu .tag-pill {
       width: 100%;
       display: flex;
@@ -3682,6 +3694,9 @@
     }
 
     .feed-tag-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
       font-size: 10px;
       font-weight: 400;
       letter-spacing: 0.01em;
@@ -3693,6 +3708,20 @@
       padding: 3px 9px;
       white-space: nowrap;
       line-height: 1.25;
+    }
+
+    .topic-icon {
+      display: inline-flex;
+      width: 12px;
+      height: 12px;
+      flex-shrink: 0;
+      color: currentColor;
+    }
+
+    .topic-icon svg {
+      display: block;
+      width: 100%;
+      height: 100%;
     }
 
     .feed-stat-time {
@@ -5556,6 +5585,11 @@
     .club-room-layout .feed-tag-pill {
       font-size: 11px;
       color: #6b7280;
+    }
+
+    .club-room-layout .feed-tag-pill .topic-icon {
+      width: 12px;
+      height: 12px;
     }
     .club-room-layout .feed-opener-meta-row {
       padding-right: min(48%, 11rem);
