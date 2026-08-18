@@ -362,12 +362,31 @@
   // Returns { reachable, empty }. reachable=false means the API could not be
   // reached (network/CORS/down) — callers should keep the bundled mock content.
   var hydrateGen = 0;
+  function snapshotLocalSavedThreads() {
+    var out = typeof window.communityGetSavedThreadSnapshots === 'function'
+      ? window.communityGetSavedThreadSnapshots()
+      : {};
+    Object.keys(out).forEach(function (id) {
+      if (out[id]) out[id].saved = true;
+    });
+    return out;
+  }
+
+  function mergeLocalSavedThreads(built, snapshot) {
+    Object.keys(snapshot || {}).forEach(function (id) {
+      if (!built[id]) built[id] = snapshot[id];
+      if (built[id]) built[id].saved = true;
+    });
+    return built;
+  }
+
   async function hydrateFeed(opts) {
     var uiSort = (opts && opts.sort)
       || (typeof window.communityGetFeedSort === 'function' && window.communityGetFeedSort())
       || 'active';
     var saved = resolveFeedSaved(opts);
     var tag = saved ? '' : resolveFeedTag(opts);
+    var localSaved = saved ? snapshotLocalSavedThreads() : {};
     var gen = ++hydrateGen;
     var list;
     try {
@@ -383,14 +402,15 @@
     var items = (list && list.items) || [];
     if (!items.length) {
       if (tag || saved) {
-        replaceThreadData({});
+        var emptyMerged = saved ? mergeLocalSavedThreads({}, localSaved) : {};
+        replaceThreadData(emptyMerged);
         if (window.initFeedFromData) window.initFeedFromData();
         if (saved && typeof window.setFeedTopicFilter === 'function') {
           window.setFeedTopicFilter('saved', { refetch: false });
         } else {
           applyHydratedTopicFilter(tag);
         }
-        return { reachable: true, empty: true };
+        return { reachable: true, empty: !Object.keys(emptyMerged).length };
       }
       renderEmptyFeed();
       return { reachable: true, empty: true };
@@ -413,20 +433,22 @@
     });
     if (!Object.keys(built).length) {
       if (tag || saved) {
-        replaceThreadData({});
+        var failedMerged = saved ? mergeLocalSavedThreads({}, localSaved) : {};
+        replaceThreadData(failedMerged);
         if (window.initFeedFromData) window.initFeedFromData();
         if (saved && typeof window.setFeedTopicFilter === 'function') {
           window.setFeedTopicFilter('saved', { refetch: false });
         } else {
           applyHydratedTopicFilter(tag);
         }
-        return { reachable: true, empty: true };
+        return { reachable: true, empty: !Object.keys(failedMerged).length };
       }
       renderEmptyFeed();
       return { reachable: true, empty: true };
     }
 
     if (gen !== hydrateGen) return { reachable: true, empty: false, stale: true };
+    if (saved) mergeLocalSavedThreads(built, localSaved);
     replaceThreadData(built);
     if (window.initFeedFromData) window.initFeedFromData();
     if (saved && typeof window.setFeedTopicFilter === 'function') {

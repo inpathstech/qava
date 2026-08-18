@@ -175,6 +175,14 @@
     } catch { /* ignore quota / private mode */ }
   }
   let savedThreads = loadSavedThreadIds();
+  const savedThreadSnapshots = {};
+  function rememberSavedThread(threadId) {
+    const thread = THREAD_DATA[threadId] || (threadId === 'user' ? userThreadState : null);
+    if (thread) savedThreadSnapshots[threadId] = thread;
+  }
+  function forgetSavedThread(threadId) {
+    delete savedThreadSnapshots[threadId];
+  }
   const LIKED_THREADS_KEY = 'qava.community.likedThreads';
   function loadLikedThreadIds() {
     try {
@@ -290,8 +298,13 @@
   function toggleThreadSave(threadId) {
     if (!threadId) return;
     const wasSaved = savedThreads.has(threadId);
-    if (wasSaved) savedThreads.delete(threadId);
-    else savedThreads.add(threadId);
+    if (wasSaved) {
+      savedThreads.delete(threadId);
+      forgetSavedThread(threadId);
+    } else {
+      savedThreads.add(threadId);
+      rememberSavedThread(threadId);
+    }
     persistSavedThreads();
     syncThreadSaveUi(threadId);
 
@@ -302,14 +315,24 @@
     api.saveThread(threadId)
       .then((res) => {
         if (!res || typeof res.saved !== 'boolean') return;
-        if (res.saved) savedThreads.add(threadId);
-        else savedThreads.delete(threadId);
+        if (res.saved) {
+          savedThreads.add(threadId);
+          rememberSavedThread(threadId);
+        } else {
+          savedThreads.delete(threadId);
+          forgetSavedThread(threadId);
+        }
         persistSavedThreads();
         syncThreadSaveUi(threadId);
       })
       .catch((err) => {
-        if (wasSaved) savedThreads.add(threadId);
-        else savedThreads.delete(threadId);
+        if (wasSaved) {
+          savedThreads.add(threadId);
+          rememberSavedThread(threadId);
+        } else {
+          savedThreads.delete(threadId);
+          forgetSavedThread(threadId);
+        }
         persistSavedThreads();
         syncThreadSaveUi(threadId);
         const status = err && err.status;
@@ -2004,7 +2027,9 @@
       syncFeedLocation(raw, '');
       if (opts && opts.refetch && typeof window.communityHydrateFeed === 'function') {
         if (raw === 'saved') {
-          window.communityHydrateFeed({ saved: true, tag: '' }).catch(() => {});
+          if (hadTopic || prevKind === 'polls') {
+            window.communityHydrateFeed({ saved: true, tag: '' }).catch(() => {});
+          }
         } else if (prevKind === 'saved' || hadTopic) {
           window.communityHydrateFeed({ tag: '', saved: false }).catch(() => {});
         }
@@ -2078,8 +2103,10 @@
     }
     threads.forEach((thread) => {
       if (!thread || !thread.id) return;
-      if (thread.saved === true) savedThreads.add(thread.id);
-      else if (thread.saved === false) savedThreads.delete(thread.id);
+      if (thread.saved === true) {
+        savedThreads.add(thread.id);
+        savedThreadSnapshots[thread.id] = thread;
+      }
     });
     persistSavedThreads();
     feedList.innerHTML = threads.map(renderFeedItem).join('');
@@ -3909,6 +3936,15 @@
   window.communitySetFeedTopicFilter = setFeedTopicFilter;
   window.communityGetFeedTopicFilter = function () { return feedTopicFilter.slice(); };
   window.communityGetFeedKindFilter = function () { return feedKindFilter; };
+  window.communityGetSavedThreadIds = function () { return [...savedThreads]; };
+  window.communityGetSavedThreadSnapshots = function () {
+    const out = {};
+    savedThreads.forEach((id) => {
+      const thread = savedThreadSnapshots[id] || THREAD_DATA[id];
+      if (thread) out[id] = thread;
+    });
+    return out;
+  };
   window.communityRefreshFeedItem = refreshFeedItem;
   window.communitySetFeedLoading = setFeedLoading;
   window.communityGetSelectedTags = function () { return selectedTags.slice(); };

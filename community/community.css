@@ -2949,7 +2949,7 @@
       border-radius: 10px;
       background: #ffffff;
       overflow: hidden;
-      transition: background 0.15s ease;
+      transition: background 0.15s ease, border-color 0.15s ease;
     }
 
     .feed-item[hidden] {
@@ -2958,6 +2958,7 @@
 
     .feed-item:hover {
       background: #fafafa;
+      border-color: #111827;
     }
 
     .feed-item.is-expanded:hover {
@@ -5492,16 +5493,17 @@
     }
     .club-room-layout .feed-item {
       padding: 0;
+      border: 1px solid rgba(17, 24, 39, 0.1);
     }
     .club-room-layout .feed-item:hover,
-    .club-room-layout .feed-item.is-expanded:hover,
+    .club-room-layout .feed-item.is-expanded:hover {
+      border-color: #111827;
+      background: #fff;
+    }
     .club-room-layout .feed-item:hover .feed-opener,
     .club-room-layout .feed-item.is-expanded .feed-opener,
     .club-room-layout .feed-item.is-expanded:hover .feed-opener {
       background: #fff;
-    }
-    .club-room-layout .feed-item + .feed-item {
-      border-top: 0;
     }
     .club-room-layout .feed-opener {
       padding: 12px 14px 8px;
