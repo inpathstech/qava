@@ -232,6 +232,8 @@
       time: relTime(t.activityTs),
       activityTs: t.activityTs ? Date.parse(t.activityTs) : Date.now(),
       likes: t.likes || 0,
+      likedBy: Array.isArray(t.likedBy) ? t.likedBy.slice() : [],
+      commentedBy: Array.isArray(t.commentedBy) ? t.commentedBy.slice() : [],
       newReplies: 0,
       tags: t.tags || [],
       op: op,
