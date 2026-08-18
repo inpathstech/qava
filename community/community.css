@@ -3419,6 +3419,53 @@
       transform: translateY(0.5px);
     }
 
+    .actor-tip[data-tip] {
+      position: relative;
+    }
+    .actor-tip[data-tip]::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: calc(100% + 7px);
+      left: 50%;
+      transform: translateX(-50%) translateY(2px);
+      padding: 4px 7px;
+      border-radius: 4px;
+      background: #111111;
+      color: #fff;
+      font-family: Inter, sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      line-height: 1.25;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.12s ease, transform 0.12s ease;
+      z-index: 20;
+    }
+    .actor-tip[data-tip]::before {
+      content: "";
+      position: absolute;
+      bottom: calc(100% + 3px);
+      left: 50%;
+      transform: translateX(-50%);
+      border: 4px solid transparent;
+      border-top-color: #111111;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.12s ease;
+      z-index: 20;
+    }
+    .actor-tip[data-tip]:hover::after,
+    .actor-tip[data-tip]:focus-visible::after {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .actor-tip[data-tip]:hover::before,
+    .actor-tip[data-tip]:focus-visible::before {
+      opacity: 1;
+    }
+
     .feed-item .avatar {
       width: 26px;
       height: 26px;
@@ -5494,6 +5541,7 @@
     .club-room-layout .feed-item {
       padding: 0;
       border: 1px solid rgba(17, 24, 39, 0.1);
+      overflow: visible;
     }
     .club-room-layout .feed-item:hover,
     .club-room-layout .feed-item.is-expanded:hover {
@@ -5741,8 +5789,15 @@
     .club-room-layout .feed-discussion-wrap {
       padding: 0 14px;
     }
+    .club-room-layout .feed-replies {
+      padding-left: 0;
+      padding-right: 0;
+    }
     .club-room-layout .feed-item .reply {
       padding: 8px 0 18px;
+    }
+    .club-room-layout .feed-discussion .reply:first-child {
+      border-top: 0;
     }
     .club-room-layout .feed-item .reply:last-child {
       border-bottom: 0;
@@ -6069,6 +6124,9 @@
       font-size: 12px;
       font-weight: 300;
       color: #9ca3af;
+    }
+    .poll-votes {
+      cursor: default;
     }
     .feed-poll.is-compact .poll-foot { margin-top: 6px; }
     .poll-foot-dot { color: #d1d5db; }

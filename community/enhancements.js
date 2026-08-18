@@ -225,6 +225,7 @@
       btn.classList.toggle('is-active', liked);
       btn.setAttribute('aria-pressed', liked ? 'true' : 'false');
       btn.setAttribute('aria-label', `${likes} like${likes === 1 ? '' : 's'}`);
+      setActorTip(btn, thread && thread.likedBy);
     });
     const feedItem = document.querySelector(`.feed-item[data-feed-thread="${threadId}"]`);
     if (feedItem) feedItem.dataset.likes = String(likes);
@@ -239,12 +240,19 @@
     const thread = threadStateForLike(threadId);
     const wasLiked = likedThreads.has(threadId);
 
+    const me = selfHandle();
     if (wasLiked) {
       likedThreads.delete(threadId);
-      if (thread) thread.likes = Math.max(0, (thread.likes || 0) - 1);
+      if (thread) {
+        thread.likes = Math.max(0, (thread.likes || 0) - 1);
+        thread.likedBy = removeHandle(thread.likedBy, me);
+      }
     } else {
       likedThreads.add(threadId);
-      if (thread) thread.likes = (thread.likes || 0) + 1;
+      if (thread) {
+        thread.likes = (thread.likes || 0) + 1;
+        thread.likedBy = addHandle(thread.likedBy, me);
+      }
     }
     persistLikedThreads();
     syncThreadLikeUi(threadId);
@@ -267,10 +275,16 @@
         const live = threadStateForLike(threadId);
         if (wasLiked) {
           likedThreads.add(threadId);
-          if (live) live.likes = (live.likes || 0) + 1;
+          if (live) {
+            live.likes = (live.likes || 0) + 1;
+            live.likedBy = addHandle(live.likedBy, me);
+          }
         } else {
           likedThreads.delete(threadId);
-          if (live) live.likes = Math.max(0, (live.likes || 0) - 1);
+          if (live) {
+            live.likes = Math.max(0, (live.likes || 0) - 1);
+            live.likedBy = removeHandle(live.likedBy, me);
+          }
         }
         persistLikedThreads();
         syncThreadLikeUi(threadId);
@@ -352,6 +366,53 @@
       .replace(/"/g, '&quot;');
   }
 
+  function uniqueHandles(names) {
+    const out = [];
+    (names || []).forEach((name) => {
+      const handle = String(name || '').trim();
+      if (handle && out.indexOf(handle) === -1) out.push(handle);
+    });
+    return out;
+  }
+
+  function selfHandle() {
+    const auth = typeof window.communityGetAuthState === 'function' && window.communityGetAuthState();
+    return (auth && auth.handle) || '';
+  }
+
+  function addHandle(list, name) {
+    const next = uniqueHandles(list);
+    if (name && next.indexOf(name) === -1) next.push(name);
+    return next;
+  }
+
+  function removeHandle(list, name) {
+    return uniqueHandles(list).filter((handle) => handle !== name);
+  }
+
+  function actorTipAttr(names) {
+    const unique = uniqueHandles(names);
+    if (!unique.length) return '';
+    return ` data-tip="${escapeHtml(unique.join(' · '))}"`;
+  }
+
+  function setActorTip(el, names) {
+    if (!el) return;
+    const unique = uniqueHandles(names);
+    if (unique.length) el.setAttribute('data-tip', unique.join(' · '));
+    else el.removeAttribute('data-tip');
+  }
+
+  function commenterHandles(thread) {
+    const names = uniqueHandles(thread && thread.commentedBy);
+    (thread && thread.replies || []).forEach((reply) => {
+      if (reply && reply.author && names.indexOf(reply.author) === -1) {
+        names.push(reply.author);
+      }
+    });
+    return names;
+  }
+
   function memberDisplayName(name) {
     // Public identity is the unique username (handle key), not legal name.
     return name || '';
@@ -430,8 +491,8 @@
     const replies = getThreadReplyCount(thread);
     return `
       <div class="feed-stats">
-        <button type="button" class="feed-stat feed-like-btn${liked ? ' is-active' : ''}" data-feed-like="${thread.id}" aria-label="${likes} like${likes === 1 ? '' : 's'}" aria-pressed="${liked ? 'true' : 'false'}">${HEART_SVG}<span>${likes}</span></button>
-        <span class="feed-stat" data-feed-replies aria-label="${replies} replies">${REPLY_SVG}<span>${replies}</span></span>
+        <button type="button" class="feed-stat actor-tip feed-like-btn${liked ? ' is-active' : ''}" data-feed-like="${thread.id}" aria-label="${likes} like${likes === 1 ? '' : 's'}" aria-pressed="${liked ? 'true' : 'false'}"${actorTipAttr(thread.likedBy)}>${HEART_SVG}<span>${likes}</span></button>
+        <span class="feed-stat actor-tip" data-feed-replies aria-label="${replies} replies"${actorTipAttr(commenterHandles(thread))}>${REPLY_SVG}<span>${replies}</span></span>
         <button type="button" class="feed-stat feed-reply-open" data-open-feed-reply="${thread.id}">Reply</button>
         <button type="button" class="feed-stat feed-save-btn${savedThreads.has(thread.id) ? ' is-active' : ''}" data-thread-save="${thread.id}">${savedThreads.has(thread.id) ? 'Saved' : 'Save'}</button>
         ${isOwnThread(thread) && !thread.poll ? `
@@ -1054,7 +1115,7 @@
       </div>
       ${thread.poll && window.QavaPolls ? window.QavaPolls.render(thread, { compact: true }) : ''}
       <div class="thread-op-actions" id="threadOpActionsInner">
-        <button type="button" class="thread-op-heart${likedThreads.has(threadId) ? ' is-active' : ''}" data-thread-like="${threadId}">${HEART_SVG}<span>${thread.likes || 0}</span></button>
+        <button type="button" class="thread-op-heart actor-tip${likedThreads.has(threadId) ? ' is-active' : ''}" data-thread-like="${threadId}"${actorTipAttr(thread.likedBy)}>${HEART_SVG}<span>${thread.likes || 0}</span></button>
         <button type="button" class="thread-action-btn${savedThreads.has(threadId) ? ' is-active' : ''}" data-thread-save="${threadId}">${savedThreads.has(threadId) ? 'Saved' : 'Save'}</button>
         <button type="button" class="report-btn" data-report-target="thread" data-report-id="${threadId}">Report</button>
       </div>`;

@@ -238,7 +238,11 @@
         <span class="poll-choice-pct">${pct}%</span>
       </button>`;
     }).join('');
-    const footBits = [`<span>${total} vote${total === 1 ? '' : 's'}</span>`];
+    const voters = Array.isArray(poll.votedBy) ? poll.votedBy.filter(Boolean) : [];
+    const voteTip = voters.length
+      ? ` data-tip="${escapeAttr(voters.join(' · '))}"`
+      : '';
+    const footBits = [`<span class="poll-votes actor-tip"${voteTip}>${total} vote${total === 1 ? '' : 's'}</span>`];
     if (votedIds.length) footBits.push('<span class="poll-foot-dot">·</span><span>You voted</span>');
     footBits.push(`<span class="poll-foot-dot">·</span><span>${escapeHtml(daysLeftLabel(poll.closesAt))}</span>`);
     return `<div class="feed-poll${voted ? ' is-voted' : ''}${multi ? ' is-multi' : ''}${compact ? ' is-compact' : ''}${closed ? ' is-closed' : ''}" data-poll="${escapeAttr(thread.id)}">
@@ -298,12 +302,26 @@
       mine.push(optionId);
     }
     poll.votedIds = mine;
+    const me = (typeof window.communityGetAuthState === 'function' && window.communityGetAuthState()?.handle) || '';
+    if (me) {
+      const names = Array.isArray(poll.votedBy) ? poll.votedBy.slice() : [];
+      const idx = names.indexOf(me);
+      if (mine.length && idx === -1) names.push(me);
+      if (!mine.length && idx !== -1) names.splice(idx, 1);
+      poll.votedBy = names;
+    }
     refreshThread(threadId);
     const api = window.CommunityAPI;
     if (api && api.votePoll && isLiveId(threadId)) {
       api.votePoll(threadId, { optionId: optionId })
         .then((res) => {
-          if (res && res.poll) thread.poll = res.poll;
+          if (res && res.poll) {
+            const prevVoters = thread.poll && thread.poll.votedBy;
+            thread.poll = res.poll;
+            if (!Array.isArray(thread.poll.votedBy) && prevVoters) {
+              thread.poll.votedBy = prevVoters;
+            }
+          }
           refreshThread(threadId);
         })
         .catch((e) => {
