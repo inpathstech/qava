@@ -2366,6 +2366,8 @@
 
     .composer-topics-menu .tag-pill:hover {
       background: transparent;
+      color: #111827;
+      font-weight: 500;
     }
 
     .composer-topics-menu .tag-pill.is-selected {
@@ -2373,6 +2375,10 @@
       color: #111827;
       font-weight: 400;
       border: 0;
+    }
+
+    .composer-topics-menu .tag-pill.is-selected:hover {
+      font-weight: 500;
     }
 
     .composer-topics-menu .tag-pill-check {
@@ -2392,6 +2398,7 @@
       width: 10px;
       height: 10px;
       opacity: 0;
+      stroke-width: 2;
     }
 
     .composer-topics-menu .tag-pill.is-selected .tag-pill-check {
@@ -4051,6 +4058,8 @@
 
     .composer-topics-menu .tag-pill:hover {
       background: transparent;
+      color: #111827;
+      font-weight: 500;
     }
 
     .composer-topics-menu .tag-pill.is-selected {
@@ -4058,6 +4067,10 @@
       border: 0;
       color: #111827;
       font-weight: 400;
+    }
+
+    .composer-topics-menu .tag-pill.is-selected:hover {
+      font-weight: 500;
     }
 
     .composer-draft-row {
