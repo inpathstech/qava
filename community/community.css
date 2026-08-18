@@ -2358,20 +2358,20 @@
       padding: 8px 10px;
       font: inherit;
       font-size: 13px;
-      font-weight: 400;
-      color: #111827;
+      font-weight: 300;
+      color: #6b7280;
       cursor: pointer;
       text-align: left;
     }
 
     .composer-topics-menu .tag-pill:hover {
-      background: rgba(17,24,39,0.04);
+      background: transparent;
     }
 
     .composer-topics-menu .tag-pill.is-selected {
-      background: #fafafa;
+      background: transparent;
       color: #111827;
-      font-weight: 500;
+      font-weight: 400;
       border: 0;
     }
 
@@ -2379,9 +2379,9 @@
       width: 14px;
       height: 14px;
       border-radius: 3px;
-      border: 1px solid #111827;
+      border: 1px solid currentColor;
       background: #fff;
-      color: #111827;
+      color: inherit;
       display: grid;
       place-items: center;
       flex-shrink: 0;
@@ -4044,20 +4044,20 @@
       background: transparent;
       padding: 8px 10px;
       font-size: 13px;
-      font-weight: 400;
-      color: #111827;
+      font-weight: 300;
+      color: #6b7280;
       text-align: left;
     }
 
     .composer-topics-menu .tag-pill:hover {
-      background: rgba(17,24,39,0.04);
+      background: transparent;
     }
 
     .composer-topics-menu .tag-pill.is-selected {
-      background: #fafafa;
+      background: transparent;
       border: 0;
       color: #111827;
-      font-weight: 500;
+      font-weight: 400;
     }
 
     .composer-draft-row {
