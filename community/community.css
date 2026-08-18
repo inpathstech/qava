@@ -5418,8 +5418,11 @@
       display: flex;
       align-items: flex-start;
       gap: 40px;
-      width: min(900px, calc(100% - 40px));
+      width: min(980px, calc(100% - 40px));
       margin: 20px auto 96px;
+      padding: 32px 40px 56px;
+      background: #fff;
+      box-sizing: border-box;
     }
     .club-room-layout .chat-page {
       flex: 1;
@@ -5429,28 +5432,27 @@
     }
     body.embed-app .club-room-layout,
     html.community-embed .club-room-layout {
-      margin-top: 0;
-      padding-top: 32px;
+      margin: 24px auto 48px;
+      min-height: calc(100vh - 72px - 48px);
     }
     body.embed-app .club-room-layout .chat-page,
     html.community-embed .club-room-layout .chat-page {
       padding-top: 0;
     }
     body.pref-thread-full-width .club-room-layout {
-      width: min(1100px, calc(100vw - 48px));
+      width: min(1180px, calc(100vw - 48px));
     }
     .club-sidenav {
       position: sticky;
       top: 88px;
-      flex: 0 0 168px;
+      flex: 0 0 148px;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       gap: 2px;
-      padding: 10px 12px;
-      border: 1px solid rgba(17, 24, 39, 0.1);
-      border-radius: 10px;
-      background: #fff;
+      padding: 2px 0 0;
+      border: 0;
+      background: transparent;
     }
     body.embed-app .club-sidenav,
     html.community-embed .club-sidenav {
@@ -5754,7 +5756,8 @@
       .club-room-layout {
         flex-direction: column;
         gap: 16px;
-        width: calc(100vw - 32px);
+        width: calc(100vw - 24px);
+        padding: 24px 16px 40px;
       }
       .club-sidenav {
         position: static;
@@ -5763,7 +5766,7 @@
         flex-direction: row;
         flex-wrap: wrap;
         gap: 4px 16px;
-        padding: 10px 12px;
+        padding: 0;
       }
       .club-sidenav-rule {
         width: 100%;
