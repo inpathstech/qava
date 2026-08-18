@@ -2304,7 +2304,7 @@
       left: 0;
       top: calc(100% + 6px);
       bottom: auto;
-      z-index: 60;
+      z-index: 80;
       width: 220px;
       max-height: min(320px, 50vh);
       overflow-y: auto;
@@ -5616,11 +5616,16 @@
     .club-room-layout .feed-opener-delete-btn:hover { color: #111827; }
 
     .club-room-layout .composer-card.composer-opener {
-      position: static;
+      position: relative;
       top: auto;
-      z-index: auto;
+      z-index: 40;
       background: #fafafa;
       border-color: rgba(17, 24, 39, 0.1);
+    }
+    .club-room-layout .composer-card.composer-opener.is-topics-open,
+    .club-room-layout .composer-card.composer-opener.is-display-menu-open {
+      z-index: 80;
+      overflow: visible;
     }
     .club-room-layout .composer-card.composer-opener.is-pinned-open {
       background: #fafafa;
