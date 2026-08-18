@@ -243,6 +243,7 @@
       replies: (t.replies || []).map(mapReply),
       kind: t.kind === 'poll' || t.poll ? 'poll' : 'thread',
       poll: t.poll || null,
+      saved: !!t.saved,
     };
   }
 
@@ -320,6 +321,20 @@
     return 'active';
   }
 
+  function resolveFeedSaved(opts) {
+    if (opts && Object.prototype.hasOwnProperty.call(opts, 'saved')) {
+      return !!opts.saved;
+    }
+    if (typeof window.communityGetFeedKindFilter === 'function') {
+      return window.communityGetFeedKindFilter() === 'saved';
+    }
+    try {
+      return new URLSearchParams(window.location.search).get('kind') === 'saved';
+    } catch (e) {
+      return false;
+    }
+  }
+
   function resolveFeedTag(opts) {
     if (opts && Object.prototype.hasOwnProperty.call(opts, 'tag')) {
       var explicit = String(opts.tag || '').trim();
@@ -351,12 +366,14 @@
     var uiSort = (opts && opts.sort)
       || (typeof window.communityGetFeedSort === 'function' && window.communityGetFeedSort())
       || 'active';
-    var tag = resolveFeedTag(opts);
+    var saved = resolveFeedSaved(opts);
+    var tag = saved ? '' : resolveFeedTag(opts);
     var gen = ++hydrateGen;
     var list;
     try {
       var query = { sort: apiSortParam(uiSort) };
-      if (tag) query.tag = tag;
+      if (saved) query.saved = '1';
+      else if (tag) query.tag = tag;
       list = await API.listThreads(query);
     } catch (e) {
       return { reachable: false, empty: false };
@@ -365,10 +382,14 @@
 
     var items = (list && list.items) || [];
     if (!items.length) {
-      if (tag) {
+      if (tag || saved) {
         replaceThreadData({});
         if (window.initFeedFromData) window.initFeedFromData();
-        applyHydratedTopicFilter(tag);
+        if (saved && typeof window.setFeedTopicFilter === 'function') {
+          window.setFeedTopicFilter('saved', { refetch: false });
+        } else {
+          applyHydratedTopicFilter(tag);
+        }
         return { reachable: true, empty: true };
       }
       renderEmptyFeed();
@@ -391,10 +412,14 @@
       }
     });
     if (!Object.keys(built).length) {
-      if (tag) {
+      if (tag || saved) {
         replaceThreadData({});
         if (window.initFeedFromData) window.initFeedFromData();
-        applyHydratedTopicFilter(tag);
+        if (saved && typeof window.setFeedTopicFilter === 'function') {
+          window.setFeedTopicFilter('saved', { refetch: false });
+        } else {
+          applyHydratedTopicFilter(tag);
+        }
         return { reachable: true, empty: true };
       }
       renderEmptyFeed();
@@ -404,7 +429,11 @@
     if (gen !== hydrateGen) return { reachable: true, empty: false, stale: true };
     replaceThreadData(built);
     if (window.initFeedFromData) window.initFeedFromData();
-    applyHydratedTopicFilter(tag);
+    if (saved && typeof window.setFeedTopicFilter === 'function') {
+      window.setFeedTopicFilter('saved', { refetch: false });
+    } else {
+      applyHydratedTopicFilter(tag);
+    }
     return { reachable: true, empty: false };
   }
   window.communityHydrateFeed = hydrateFeed;
@@ -576,7 +605,16 @@
         var m = params.get('m');
         if (m && window.openProfilePage) { window.openProfilePage(m); return; }
         if (t && window.showThread) { window.showThread(t); return; }
+        var kind = params.get('kind');
         var tag = params.get('tag') || params.get('topic');
+        if (kind === 'saved' && typeof window.setFeedTopicFilter === 'function') {
+          window.setFeedTopicFilter('saved', { refetch: false });
+          return;
+        }
+        if (kind === 'poll' && typeof window.setFeedTopicFilter === 'function') {
+          window.setFeedTopicFilter('polls', { refetch: false });
+          return;
+        }
         if (tag && typeof window.setFeedTopicFilter === 'function') {
           window.setFeedTopicFilter(tag === 'Other' ? 'Catch-all' : tag, { refetch: false });
           return;

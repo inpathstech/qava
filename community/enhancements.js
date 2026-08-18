@@ -159,7 +159,22 @@
 
   let currentThreadId = 'nathan';
   let userThreadState = null;
-  let savedThreads = new Set();
+  const SAVED_THREADS_KEY = 'qava.community.savedThreads';
+  function loadSavedThreadIds() {
+    try {
+      const raw = sessionStorage.getItem(SAVED_THREADS_KEY);
+      const arr = raw ? JSON.parse(raw) : [];
+      return new Set(Array.isArray(arr) ? arr.map(String) : []);
+    } catch {
+      return new Set();
+    }
+  }
+  function persistSavedThreads() {
+    try {
+      sessionStorage.setItem(SAVED_THREADS_KEY, JSON.stringify([...savedThreads]));
+    } catch { /* ignore quota / private mode */ }
+  }
+  let savedThreads = loadSavedThreadIds();
   const LIKED_THREADS_KEY = 'qava.community.likedThreads';
   function loadLikedThreadIds() {
     try {
@@ -256,6 +271,52 @@
           window.communityRequireSignIn();
         } else if (window.communityToast) {
           window.communityToast((err && err.message) || 'Could not save that like.', 'error');
+        }
+      });
+  }
+
+  function syncThreadSaveUi(threadId) {
+    const saved = savedThreads.has(threadId);
+    const thread = THREAD_DATA[threadId] || (threadId === 'user' ? userThreadState : null);
+    if (thread) thread.saved = saved;
+    document.querySelectorAll(`[data-thread-save="${threadId}"]`).forEach((btn) => {
+      btn.classList.toggle('is-active', saved);
+      btn.textContent = saved ? 'Saved' : 'Save';
+    });
+    if (feedKindFilter === 'saved') applyFeedTopicFilters();
+    refreshProfileIfVisible();
+  }
+
+  function toggleThreadSave(threadId) {
+    if (!threadId) return;
+    const wasSaved = savedThreads.has(threadId);
+    if (wasSaved) savedThreads.delete(threadId);
+    else savedThreads.add(threadId);
+    persistSavedThreads();
+    syncThreadSaveUi(threadId);
+
+    const isLive = typeof window.communityIsLiveId === 'function' && window.communityIsLiveId(threadId);
+    const api = window.CommunityAPI;
+    if (!isLive || !api?.saveThread) return;
+
+    api.saveThread(threadId)
+      .then((res) => {
+        if (!res || typeof res.saved !== 'boolean') return;
+        if (res.saved) savedThreads.add(threadId);
+        else savedThreads.delete(threadId);
+        persistSavedThreads();
+        syncThreadSaveUi(threadId);
+      })
+      .catch((err) => {
+        if (wasSaved) savedThreads.add(threadId);
+        else savedThreads.delete(threadId);
+        persistSavedThreads();
+        syncThreadSaveUi(threadId);
+        const status = err && err.status;
+        if (status === 401 && typeof window.communityRequireSignIn === 'function') {
+          window.communityRequireSignIn();
+        } else if (window.communityToast) {
+          window.communityToast((err && err.message) || 'Could not save that just now.', 'error');
         }
       });
   }
@@ -1006,13 +1067,7 @@
       btn.onclick = () => toggleThreadLike(btn.dataset.threadLike);
     });
     document.querySelectorAll('[data-thread-save]').forEach((btn) => {
-      btn.onclick = () => {
-        const id = btn.dataset.threadSave;
-        if (savedThreads.has(id)) savedThreads.delete(id); else savedThreads.add(id);
-        btn.classList.toggle('is-active', savedThreads.has(id));
-        btn.textContent = savedThreads.has(id) ? 'Saved' : 'Save';
-        refreshProfileIfVisible();
-      };
+      btn.onclick = () => toggleThreadSave(btn.dataset.threadSave);
     });
     document.querySelectorAll('[data-edit-thread]').forEach((btn) => {
       btn.onclick = (e) => {
@@ -1849,9 +1904,12 @@
     items.forEach((el) => {
       const tags = getFeedItemTags(el);
       const isPoll = el.dataset.kind === 'poll';
+      const id = el.dataset.feedThread;
       const show = feedKindFilter === 'polls'
         ? isPoll
-        : (!active.length || active.some((t) => tags.some((x) => tagEquals(x, t))));
+        : feedKindFilter === 'saved'
+          ? savedThreads.has(id)
+          : (!active.length || active.some((t) => tags.some((x) => tagEquals(x, t))));
       el.hidden = !show;
       if (show) visible += 1;
     });
@@ -1859,15 +1917,24 @@
     const meta = document.getElementById('feedFilterMeta');
     const countEl = document.getElementById('feedFilterCount');
     const empty = ensureFeedEmptyFilterEl(feedList);
-    const filtering = active.length > 0 || feedKindFilter === 'polls';
+    const filtering = active.length > 0 || feedKindFilter === 'polls' || feedKindFilter === 'saved';
     if (meta) meta.hidden = !filtering;
     if (countEl) {
-      const noun = feedKindFilter === 'polls' ? 'poll' : 'thread';
+      const noun = feedKindFilter === 'polls'
+        ? 'poll'
+        : feedKindFilter === 'saved'
+          ? 'saved item'
+          : 'thread';
       countEl.textContent = filtering
         ? `${visible} ${noun}${visible === 1 ? '' : 's'}`
         : '';
     }
-    if (empty) empty.hidden = !(filtering && visible === 0 && !feedList.querySelector('.feed-empty'));
+    if (empty) {
+      empty.textContent = feedKindFilter === 'saved'
+        ? 'Nothing saved yet. Save a thread or poll to find it here.'
+        : 'No threads match these topics.';
+      empty.hidden = !(filtering && visible === 0 && !feedList.querySelector('.feed-empty'));
+    }
 
     document.querySelectorAll('#feedTopicFilters .feed-topic-pill').forEach((btn) => {
       const on = active.some((t) => tagEquals(t, btn.dataset.topic));
@@ -1877,9 +1944,9 @@
     document.querySelectorAll('#clubSidenav [data-filter]').forEach((btn) => {
       const filter = btn.dataset.filter;
       const on = filter === 'all'
-        ? active.length === 0 && feedKindFilter !== 'polls'
-        : filter === 'polls'
-          ? feedKindFilter === 'polls'
+        ? active.length === 0 && !feedKindFilter
+        : filter === 'polls' || filter === 'saved'
+          ? feedKindFilter === filter
           : active.some((t) => tagEquals(t, filter));
       btn.classList.toggle('is-active', on);
     });
@@ -1895,10 +1962,11 @@
     }
     const nav = document.getElementById('clubSidenav');
     if (!nav) return;
-    const allOn = feedTopicFilter.length === 0 && feedKindFilter !== 'polls';
+    const allOn = feedTopicFilter.length === 0 && !feedKindFilter;
     nav.innerHTML = [
       `<button type="button" class="club-sidenav-link${allOn ? ' is-active' : ''}" data-filter="all">All</button>`,
       `<button type="button" class="club-sidenav-link${feedKindFilter === 'polls' ? ' is-active' : ''}" data-filter="polls">Polls</button>`,
+      `<button type="button" class="club-sidenav-link${feedKindFilter === 'saved' ? ' is-active' : ''}" data-filter="saved">Saved</button>`,
       `<div class="club-sidenav-rule" aria-hidden="true"></div>`,
       ...AGENDA_TOPICS.map((topic) => {
         const on = feedTopicFilter.includes(topic);
@@ -1909,22 +1977,31 @@
 
   function setFeedTopicFilter(topic, opts) {
     const raw = String(topic || '').trim().toLowerCase();
-    if (raw === 'polls') {
-      feedKindFilter = 'polls';
+    if (raw === 'polls' || raw === 'saved') {
+      const prevKind = feedKindFilter;
+      feedKindFilter = raw;
       feedTopicFilter = [];
       applyFeedTopicFilters();
       renderFeedTopicPills();
+      if (opts && opts.refetch && typeof window.communityHydrateFeed === 'function') {
+        if (raw === 'saved') {
+          window.communityHydrateFeed({ saved: true, tag: '' }).catch(() => {});
+        } else if (prevKind === 'saved') {
+          window.communityHydrateFeed({ tag: '', saved: false }).catch(() => {});
+        }
+      }
       return;
     }
     const next = normalizeTopicTag(topic);
     const prev = feedTopicFilter[0] || '';
-    const same = tagEquals(prev, next) && feedKindFilter !== 'polls';
+    const leavingSaved = feedKindFilter === 'saved';
+    const same = tagEquals(prev, next) && !feedKindFilter;
     feedKindFilter = '';
     feedTopicFilter = next ? [next] : [];
     applyFeedTopicFilters();
     renderFeedTopicPills();
-    if (opts && opts.refetch && !same && typeof window.communityHydrateFeed === 'function') {
-      window.communityHydrateFeed({ tag: next }).catch(() => {});
+    if (opts && opts.refetch && (!same || leavingSaved) && typeof window.communityHydrateFeed === 'function') {
+      window.communityHydrateFeed({ tag: next, saved: false }).catch(() => {});
     }
   }
 
@@ -1966,6 +2043,11 @@
     if (window.QavaPolls) window.QavaPolls.mergeIntoThreadData(THREAD_DATA);
     const threads = Object.values(THREAD_DATA);
     if (!threads.length) {
+      if (feedKindFilter || feedTopicFilter.length) {
+        feedList.innerHTML = '';
+        applyFeedTopicFilters();
+        return;
+      }
       if (typeof window.communityRenderEmptyFeed === 'function') {
         window.communityRenderEmptyFeed();
       } else {
@@ -1974,6 +2056,12 @@
       }
       return;
     }
+    threads.forEach((thread) => {
+      if (!thread || !thread.id) return;
+      if (thread.saved === true) savedThreads.add(thread.id);
+      else if (thread.saved === false) savedThreads.delete(thread.id);
+    });
+    persistSavedThreads();
     feedList.innerHTML = threads.map(renderFeedItem).join('');
     sortFeedItems();
     bindDynamicHandlers();
@@ -3769,6 +3857,7 @@
       const tag = params.get('tag') || params.get('topic');
       const kind = params.get('kind');
       if (kind === 'poll') setFeedTopicFilter('polls');
+      else if (kind === 'saved') setFeedTopicFilter('saved');
       else if (tag && !params.get('t')) setFeedTopicFilter(tag);
     } catch (e) { /* ignore */ }
     initLandingCoherence();
@@ -3799,6 +3888,7 @@
   window.setFeedTopicFilter = setFeedTopicFilter;
   window.communitySetFeedTopicFilter = setFeedTopicFilter;
   window.communityGetFeedTopicFilter = function () { return feedTopicFilter.slice(); };
+  window.communityGetFeedKindFilter = function () { return feedKindFilter; };
   window.communityRefreshFeedItem = refreshFeedItem;
   window.communitySetFeedLoading = setFeedLoading;
   window.communityGetSelectedTags = function () { return selectedTags.slice(); };
