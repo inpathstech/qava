@@ -1932,7 +1932,9 @@
     if (empty) {
       empty.textContent = feedKindFilter === 'saved'
         ? 'Nothing saved yet. Save a thread or poll to find it here.'
-        : 'No threads match these topics.';
+        : feedKindFilter === 'polls'
+          ? 'No polls yet.'
+          : 'No threads match these topics.';
       empty.hidden = !(filtering && visible === 0 && !feedList.querySelector('.feed-empty'));
     }
 
@@ -1975,18 +1977,35 @@
     ].join('');
   }
 
+  function syncFeedLocation(kind, tag) {
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.delete('tag');
+      url.searchParams.delete('topic');
+      url.searchParams.delete('kind');
+      if (kind === 'polls') url.searchParams.set('kind', 'poll');
+      else if (kind === 'saved') url.searchParams.set('kind', 'saved');
+      else if (tag) url.searchParams.set('tag', tag);
+      const next = `${url.pathname}${url.search}${url.hash}`;
+      const current = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+      if (next !== current) window.history.replaceState({}, '', next);
+    } catch (e) { /* ignore */ }
+  }
+
   function setFeedTopicFilter(topic, opts) {
     const raw = String(topic || '').trim().toLowerCase();
     if (raw === 'polls' || raw === 'saved') {
       const prevKind = feedKindFilter;
+      const hadTopic = feedTopicFilter.length > 0;
       feedKindFilter = raw;
       feedTopicFilter = [];
       applyFeedTopicFilters();
       renderFeedTopicPills();
+      syncFeedLocation(raw, '');
       if (opts && opts.refetch && typeof window.communityHydrateFeed === 'function') {
         if (raw === 'saved') {
           window.communityHydrateFeed({ saved: true, tag: '' }).catch(() => {});
-        } else if (prevKind === 'saved') {
+        } else if (prevKind === 'saved' || hadTopic) {
           window.communityHydrateFeed({ tag: '', saved: false }).catch(() => {});
         }
       }
@@ -2000,6 +2019,7 @@
     feedTopicFilter = next ? [next] : [];
     applyFeedTopicFilters();
     renderFeedTopicPills();
+    syncFeedLocation('', next);
     if (opts && opts.refetch && (!same || leavingSaved) && typeof window.communityHydrateFeed === 'function') {
       window.communityHydrateFeed({ tag: next, saved: false }).catch(() => {});
     }
