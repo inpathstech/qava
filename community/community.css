@@ -5556,7 +5556,7 @@
       display: none;
     }
     .club-room-layout .feed-list {
-      padding-top: 0;
+      padding-top: 16px;
     }
     .club-room-layout .feed-item {
       padding: 0;
