@@ -110,18 +110,31 @@ body {
   vertical-align: baseline;
   justify-items: start;
   overflow: hidden;
-  padding-bottom: 0.28em;
-  margin-bottom: -0.28em;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
 }
 
 .av2-rotate > span {
   grid-area: 1 / 1;
   opacity: 0;
-  will-change: transform, opacity;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(0.65em);
+  transition: opacity 0.35s ease, transform 0.35s ease, visibility 0s linear 0.35s;
 }
 
 .av2-rotate > span.is-on {
   opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0s;
+}
+
+.av2-rotate > span.is-leave {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-0.65em);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s;
 }
 
 .av2-hero-copy {
@@ -642,9 +655,9 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .av2-stat-num.is-pop { animation: none; }
-  .av2-rotate > span { transition: none !important; opacity: 0; transform: none; }
+  .av2-rotate > span { transition: none !important; opacity: 0; visibility: hidden; transform: none; }
   .av2-rotate > span.is-on,
-  .av2-rotate > span:first-child { opacity: 1; }
+  .av2-rotate > span:first-child { opacity: 1; visibility: visible; }
   .av2-bar-track.is-swap .av2-bar { transition: none; }
 }
 
