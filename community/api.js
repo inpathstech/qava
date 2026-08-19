@@ -99,6 +99,11 @@
     createThread: function (b) { return send('POST', '/community/threads', b); },
     updateThread: function (id, b) { return send('PATCH', '/community/threads/' + encodeURIComponent(id), b); },
     deleteThread: function (id) { return send('DELETE', '/community/threads/' + encodeURIComponent(id)); },
+    uploadAttachment: function (file) {
+      var fd = new FormData();
+      fd.append('file', file, file && file.name ? file.name : 'attachment');
+      return sendForm('POST', '/community/attachments', fd);
+    },
     createReply: function (id, b) { return send('POST', '/community/threads/' + encodeURIComponent(id) + '/replies', b); },
     updateReply: function (id, b) { return send('PATCH', '/community/replies/' + encodeURIComponent(id), b); },
     deleteReply: function (id) { return send('DELETE', '/community/replies/' + encodeURIComponent(id)); },
@@ -118,10 +123,20 @@
   };
   window.CommunityAPI = API;
   window.communityIsLiveId = isLiveId;
-  window.communityCreateReply = function (id, body, invites) {
-    var payload = { body: body };
+  window.communityCreateReply = function (id, body, invites, attachment) {
+    var payload = { body: body || '' };
     if (invites && invites.length) payload.invites = invites;
+    if (attachment && attachment.label) payload.attachment = attachment;
     return API.createReply(id, payload);
+  };
+  window.communityUploadAttachment = function (file) {
+    if (!API.uploadAttachment) {
+      return Promise.reject(new Error('Could not attach that file.'));
+    }
+    return API.uploadAttachment(file).then(function (res) {
+      if (!res || !res.label) throw new Error('Could not attach that file.');
+      return { label: res.label, url: res.url || '' };
+    });
   };
 
   // ---- Lightweight toast (write feedback) -----------------------------------
@@ -216,7 +231,14 @@
       hearts: r.hearts || 0,
       time: relTime(r.createdAt),
       parentId: r.parentId || null,
-      attachment: r.attachment ? (r.attachment.label || r.attachment) : undefined,
+      attachment: r.attachment
+        ? (typeof r.attachment === 'string'
+            ? r.attachment
+            : {
+                label: r.attachment.label || r.attachment.name || 'Attachment',
+                url: r.attachment.url || '',
+              })
+        : undefined,
       bodyRaw: r.body == null ? '' : String(r.body),
       body: formatBody(r.body),
       editedAt: r.editedAt || null,
@@ -556,25 +578,43 @@
         var prepared = prepareBodyAndInvites(raw);
         if (replyEl && window.setInputRaw) window.setInputRaw(replyEl, prepared.body);
         var tid = window.currentThreadId ? window.currentThreadId() : null;
-        var result = origReply.apply(this, arguments);
-        if (isLiveId(tid) && prepared.body && prepared.body.trim()) {
-          var payload = { body: prepared.body };
-          if (prepared.invites && prepared.invites.length) payload.invites = prepared.invites;
-          API.createReply(tid, payload)
-            .then(function () {
-              toast('Reply posted.', 'success');
-              // Re-fetch the open thread so the persisted reply is shown.
-              return API.getThread(tid);
-            })
-            .then(function (t) {
-              if (t && t.id && window.THREAD_DATA) {
-                window.THREAD_DATA[t.id] = mapThread(t);
-                if (window.initFeedFromData) window.initFeedFromData();
-              }
-            })
-            .catch(handleWriteError);
+        var files = (window.replyAttachmentFiles || []).slice();
+        var args = arguments;
+
+        function persistReply(attachment) {
+          var result = origReply.apply(this, args);
+          if (isLiveId(tid) && ((prepared.body && prepared.body.trim()) || attachment)) {
+            var payload = { body: prepared.body || '' };
+            if (prepared.invites && prepared.invites.length) payload.invites = prepared.invites;
+            if (attachment && attachment.label) payload.attachment = attachment;
+            API.createReply(tid, payload)
+              .then(function () {
+                toast('Reply posted.', 'success');
+                return API.getThread(tid);
+              })
+              .then(function (t) {
+                if (t && t.id && window.THREAD_DATA) {
+                  window.THREAD_DATA[t.id] = mapThread(t);
+                  if (window.initFeedFromData) window.initFeedFromData();
+                }
+              })
+              .catch(handleWriteError);
+          }
+          return result;
         }
-        return result;
+
+        if (isLiveId(tid) && files.length && API.uploadAttachment) {
+          API.uploadAttachment(files[0])
+            .then(function (res) {
+              if (!res || !res.label) throw new Error('Could not attach that file.');
+              persistReply({ label: res.label, url: res.url || '' });
+            })
+            .catch(function (e) {
+              toast((e && e.message) || 'Could not attach that file. Your reply was not posted.', 'error');
+            });
+          return;
+        }
+        return persistReply(files[0] ? { label: files[0].name } : null);
       };
     }
 

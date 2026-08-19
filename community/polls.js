@@ -13,6 +13,7 @@
   let choiceMode = 'single';
   let closeDays = CLOSE_MIN;
   let optionCount = 2;
+  const voteQueue = Object.create(null);
 
   function dayMs(n) {
     return n * 24 * 60 * 60 * 1000;
@@ -272,7 +273,9 @@
   }
 
   function refreshThread(threadId) {
-    if (typeof window.communityRefreshFeedItem === 'function') {
+    if (typeof window.communityRefreshFeedPoll === 'function') {
+      window.communityRefreshFeedPoll(threadId);
+    } else if (typeof window.communityRefreshFeedItem === 'function') {
       window.communityRefreshFeedItem(threadId);
     }
     if (window.__currentThreadId === threadId && typeof window.renderThreadDetail === 'function') {
@@ -317,31 +320,75 @@
     refreshThread(threadId);
     const api = window.CommunityAPI;
     if (api && api.votePoll && isLiveId(threadId)) {
-      api.votePoll(threadId, { optionId: optionId })
-        .then((res) => {
-          if (res && res.poll) {
-            const prevVoters = thread.poll && thread.poll.votedBy;
-            thread.poll = res.poll;
-            if (!Array.isArray(thread.poll.votedBy) && prevVoters) {
-              thread.poll.votedBy = prevVoters;
-            }
-          }
-          refreshThread(threadId);
-        })
-        .catch((e) => {
-          thread.poll = snapshot;
-          refreshThread(threadId);
-          const status = e && e.status;
-          if (status === 401) {
-            if (window.communityToast) window.communityToast('Please sign in to vote.', 'error');
-            if (window.communityRequireSignIn) window.communityRequireSignIn();
-          } else if (window.communityToast) {
-            window.communityToast((e && e.message) || 'Could not save that vote.', 'error');
-          }
-        });
+      sendVote(threadId, optionId, snapshot);
       return;
     }
     persistPoll(thread);
+  }
+
+  function voteErrorMessage(err) {
+    const raw = err && err.message ? String(err.message) : '';
+    if (!raw || /prisma|invocation|record to delete/i.test(raw)) {
+      return 'Could not save that vote.';
+    }
+    return raw;
+  }
+
+  function sendVote(threadId, optionId, snapshot) {
+    const api = window.CommunityAPI;
+    if (!api || !api.votePoll) return;
+    const slot = voteQueue[threadId] || (voteQueue[threadId] = {
+      inflight: false,
+      next: null,
+      snapshot: null,
+    });
+    if (slot.inflight) {
+      slot.next = optionId;
+      return;
+    }
+    slot.inflight = true;
+    if (!slot.snapshot) slot.snapshot = snapshot;
+    api.votePoll(threadId, { optionId: optionId })
+      .then((res) => {
+        if (slot.next) return;
+        const live = getThread(threadId);
+        if (!live) return;
+        if (res && res.poll) {
+          const prevVoters = live.poll && live.poll.votedBy;
+          live.poll = res.poll;
+          if (!Array.isArray(live.poll.votedBy) && prevVoters) {
+            live.poll.votedBy = prevVoters;
+          }
+        }
+        refreshThread(threadId);
+        slot.snapshot = null;
+      })
+      .catch((e) => {
+        if (slot.next) return;
+        const live = getThread(threadId);
+        if (live && slot.snapshot) {
+          live.poll = slot.snapshot;
+          refreshThread(threadId);
+        }
+        const status = e && e.status;
+        if (status === 401) {
+          if (window.communityToast) window.communityToast('Please sign in to vote.', 'error');
+          if (window.communityRequireSignIn) window.communityRequireSignIn();
+        } else if (window.communityToast) {
+          window.communityToast(voteErrorMessage(e), 'error');
+        }
+        slot.snapshot = null;
+      })
+      .finally(() => {
+        slot.inflight = false;
+        const queued = slot.next;
+        slot.next = null;
+        if (queued) {
+          sendVote(threadId, queued, slot.snapshot);
+          return;
+        }
+        delete voteQueue[threadId];
+      });
   }
 
   function getKind() {
