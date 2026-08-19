@@ -295,6 +295,9 @@
       educations: profile.educations || existing.educations || [],
       helpful: profile.helpful != null ? profile.helpful : (existing.helpful || 0),
       listings: profile.listings != null ? profile.listings : (existing.listings || 0),
+      savedThreads: Array.isArray(profile.savedThreads)
+        ? profile.savedThreads
+        : existing.savedThreads,
     };
   }
   window.communityMergeMember = mergeMember;
@@ -513,7 +516,11 @@
     var original = window.openProfilePage;
     window.openProfilePage = function (name) {
       API.getMember(name)
-        .then(function (m) { if (m && m.name) mergeMember(m.name, m); })
+        .then(function (m) {
+          if (!m || !m.name) return;
+          mergeMember(m.name, m);
+          if (name && String(name) !== String(m.name)) mergeMember(name, m);
+        })
         .catch(function () {})
         .then(function () { original.call(window, name); });
     };
