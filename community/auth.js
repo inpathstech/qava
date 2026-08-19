@@ -135,7 +135,7 @@
           '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>' +
         '</button>' +
         '<h2 id="communityAuthTitle">Sign in to post</h2>' +
-        '<p class="community-auth-sub">Use the email tied to your Qava Premium membership — we\u2019ll email you a one-time code.</p>' +
+        '<p class="community-auth-sub">Use the email tied to your Club membership — we\u2019ll email you a one-time code.</p>' +
         '<form id="communityAuthEmailStep" class="community-auth-form">' +
           '<label for="communityAuthEmail">Email</label>' +
           '<input id="communityAuthEmail" type="email" autocomplete="email" required placeholder="you@example.com" />' +
