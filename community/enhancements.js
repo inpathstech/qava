@@ -1161,7 +1161,7 @@
     if (bridgeActions) {
       bridgeActions.hidden = false;
       bridgeActions.innerHTML = `
-        <a class="thread-bridge-label" href="https://qava.app" target="_blank" rel="noopener noreferrer">
+        <a class="thread-bridge-label" href="https://app.theclubnyc.com/" target="_blank" rel="noopener noreferrer">
           Create a project, job, or internship ${BRIDGE_ARROW_SVG}
         </a>`;
     }
