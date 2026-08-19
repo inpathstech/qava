@@ -251,7 +251,8 @@
     return {
       id: t.id,
       status: t.status === 'new' ? 'new' : 'active',
-      time: relTime(t.activityTs),
+      time: relTime(t.createdAt || t.activityTs),
+      postedAt: t.createdAt ? Date.parse(t.createdAt) : 0,
       activityTs: t.activityTs ? Date.parse(t.activityTs) : Date.now(),
       likes: t.likes || 0,
       likedBy: Array.isArray(t.likedBy) ? t.likedBy.slice() : [],
