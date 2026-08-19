@@ -223,6 +223,9 @@
   let selectedTags = [];
   let feedTopicFilter = [];
   let feedKindFilter = '';
+  let feedFilterPending = false;
+  let feedSwitchDir = 'down';
+  let feedSwapGen = 0;
   let mentionDropdown = null;
   let activeMentionInput = null;
   const feedJoinAttachments = new Map();
@@ -1310,17 +1313,52 @@
     return body.replace(/<span class="reply-time">[\s\S]*?<\/span>/g, '').trim();
   }
 
-  function getSavedItemCount() {
-    return savedThreads.size;
+  function profileRelTime(value) {
+    if (!value) return '';
+    const t = typeof value === 'number' ? value : Date.parse(value);
+    if (Number.isNaN(t)) return '';
+    const diff = Math.max(0, Date.now() - t);
+    const mins = Math.floor(diff / 60000);
+    if (mins < 1) return 'just now';
+    if (mins < 60) return `${mins} min ago`;
+    const hrs = Math.floor(mins / 60);
+    if (hrs < 24) return hrs === 1 ? '1 hour ago' : `${hrs} hours ago`;
+    const days = Math.floor(hrs / 24);
+    if (days < 7) return days === 1 ? '1 day ago' : `${days} days ago`;
+    return new Date(t).toLocaleDateString();
   }
 
-  function getSavedProfileItems() {
+  function getSavedItemCount(name) {
+    const items = getSavedProfileItems(name);
+    return items.length;
+  }
+
+  function getSavedProfileItems(name) {
+    const profile = MEMBER_PROFILES[name] || {};
+    if (Array.isArray(profile.savedThreads)) {
+      return profile.savedThreads.map((item) => {
+        const likes = item.likes || 0;
+        const replies = item.replyCount || 0;
+        const time = profileRelTime(item.activityTs);
+        return {
+          type: item.kind === 'poll' ? 'poll' : 'thread',
+          threadId: item.id,
+          title: item.title || '',
+          meta: `${likes} likes · ${replies} replies${time ? ` · ${time}` : ''}`,
+          sortTs: typeof item.activityTs === 'number'
+            ? item.activityTs
+            : (Date.parse(item.activityTs) || 0),
+        };
+      }).sort((a, b) => b.sortTs - a.sortTs);
+    }
+    const self = getSelfHandle();
+    if (!self || !tagEquals(name, self)) return [];
     const items = [];
     savedThreads.forEach((threadId) => {
       const thread = THREAD_DATA[threadId];
       if (!thread) return;
       items.push({
-        type: 'thread',
+        type: thread.poll || thread.kind === 'poll' ? 'poll' : 'thread',
         threadId,
         title: thread.title,
         meta: `${thread.likes} likes · ${getThreadReplyCount(thread)} replies · ${thread.time}`,
@@ -1363,16 +1401,19 @@
           </div>`).join('')
       : '<p class="profile-empty-note">No replies yet.</p>';
 
-    const savedItems = getSavedProfileItems();
-    const savedCount = getSavedItemCount();
+    const savedItems = getSavedProfileItems(name);
+    const savedCount = getSavedItemCount(name);
+    const savedEmpty = tagEquals(name, getSelfHandle())
+      ? 'Nothing saved yet. Save a thread opener from Club Room to find it here.'
+      : 'Nothing saved yet.';
     const savedItemsHtml = savedItems.length
       ? savedItems.map((item) => `
           <button type="button" class="profile-saved-item profile-thread-item" data-open-thread data-thread="${item.threadId}">
-            <div class="profile-saved-type">Thread</div>
+            <div class="profile-saved-type">${item.type === 'poll' ? 'Poll' : 'Thread'}</div>
             <h3>${escapeHtml(item.title)}</h3>
             <div class="profile-thread-meta">${escapeHtml(item.meta)}</div>
           </button>`).join('')
-      : '<p class="profile-empty-note">Nothing saved yet. Save a thread opener from Club Room to find it here.</p>';
+      : `<p class="profile-empty-note">${savedEmpty}</p>`;
 
     const posStyle = p.photoPosition ? ` style="object-position:${escapeHtml(p.photoPosition)}"` : '';
     const avatarInner = p.photo
@@ -2124,9 +2165,95 @@
     return String(a || '').trim().toLowerCase() === String(b || '').trim().toLowerCase();
   }
 
+  function feedNavKey() {
+    if (feedKindFilter) return feedKindFilter;
+    return feedTopicFilter[0] || 'all';
+  }
+
+  function feedNavIndex(key) {
+    const order = ['all', 'polls', 'saved', ...AGENDA_TOPICS];
+    const i = order.findIndex((item) => tagEquals(item, key));
+    return i < 0 ? 0 : i;
+  }
+
+  function beginFeedSwitch(nextKey) {
+    feedSwitchDir = feedNavIndex(nextKey) >= feedNavIndex(feedNavKey()) ? 'down' : 'up';
+    feedFilterPending = true;
+    document.body.classList.add('is-feed-switching');
+    const empty = document.getElementById('feedEmptyFilter');
+    if (empty) empty.hidden = true;
+  }
+
+  function endFeedSwitch() {
+    feedFilterPending = false;
+    document.body.classList.remove('is-feed-switching');
+  }
+
+  function replaceFeedListHtml(feedList, html, afterPaint) {
+    const gen = ++feedSwapGen;
+    let painted = false;
+    const paintNow = (withInAnim) => {
+      if (painted || gen !== feedSwapGen) return;
+      painted = true;
+      feedList.classList.remove('is-feed-out');
+      feedList.innerHTML = html;
+      endFeedSwitch();
+      if (afterPaint) afterPaint();
+      if (!withInAnim || prefersReducedMotion()) {
+        feedList.classList.remove('is-feed-in');
+        delete feedList.dataset.feedDir;
+        return;
+      }
+      feedList.dataset.feedDir = feedSwitchDir;
+      feedList.classList.add('is-feed-in');
+      const clear = () => {
+        if (gen !== feedSwapGen) return;
+        feedList.classList.remove('is-feed-in');
+        delete feedList.dataset.feedDir;
+      };
+      const onInEnd = (e) => {
+        if (e.target !== feedList) return;
+        feedList.removeEventListener('animationend', onInEnd);
+        clear();
+      };
+      feedList.addEventListener('animationend', onInEnd);
+      window.setTimeout(clear, 320);
+    };
+
+    if (!feedFilterPending || prefersReducedMotion()) {
+      paintNow(false);
+      return;
+    }
+
+    feedList.dataset.feedDir = feedSwitchDir;
+    feedList.classList.add('is-feed-out');
+    const swap = () => paintNow(true);
+    const onOutEnd = (e) => {
+      if (e.target !== feedList) return;
+      feedList.removeEventListener('animationend', onOutEnd);
+      swap();
+    };
+    feedList.addEventListener('animationend', onOutEnd);
+    window.setTimeout(swap, 180);
+  }
+
   function applyFeedTopicFilters() {
     const feedList = document.getElementById('feedList');
     if (!feedList) return;
+    if (feedFilterPending) {
+      const empty = document.getElementById('feedEmptyFilter');
+      if (empty) empty.hidden = true;
+      document.querySelectorAll('#clubSidenav [data-filter]').forEach((btn) => {
+        const filter = btn.dataset.filter;
+        const on = filter === 'all'
+          ? feedTopicFilter.length === 0 && !feedKindFilter
+          : filter === 'polls' || filter === 'saved'
+            ? feedKindFilter === filter
+            : feedTopicFilter.some((t) => tagEquals(t, filter));
+        btn.classList.toggle('is-active', on);
+      });
+      return;
+    }
     const items = [...feedList.querySelectorAll('.feed-item[data-feed-thread]')];
     const active = feedTopicFilter;
     let visible = 0;
@@ -2221,39 +2348,59 @@
     } catch (e) { /* ignore */ }
   }
 
+  function hydrateFeedTopic(query) {
+    window.communityHydrateFeed(query)
+      .then((res) => {
+        if (res && res.stale) return;
+        if (res && res.reachable === false) {
+          endFeedSwitch();
+          applyFeedTopicFilters();
+        }
+      })
+      .catch(() => {
+        endFeedSwitch();
+        applyFeedTopicFilters();
+      });
+  }
+
   function setFeedTopicFilter(topic, opts) {
     const raw = String(topic || '').trim().toLowerCase();
+    const canHydrate = !!(opts && opts.refetch && typeof window.communityHydrateFeed === 'function');
     if (raw === 'polls' || raw === 'saved') {
       const prevKind = feedKindFilter;
       const hadTopic = feedTopicFilter.length > 0;
+      const shouldHydrate = canHydrate && (
+        raw === 'saved'
+          ? (hadTopic || prevKind === 'polls')
+          : (prevKind === 'saved' || hadTopic)
+      );
+      if (shouldHydrate) beginFeedSwitch(raw);
       feedKindFilter = raw;
       feedTopicFilter = [];
-      applyFeedTopicFilters();
       renderFeedTopicPills();
       syncFeedLocation(raw, '');
-      if (opts && opts.refetch && typeof window.communityHydrateFeed === 'function') {
-        if (raw === 'saved') {
-          if (hadTopic || prevKind === 'polls') {
-            window.communityHydrateFeed({ saved: true, tag: '' }).catch(() => {});
-          }
-        } else if (prevKind === 'saved' || hadTopic) {
-          window.communityHydrateFeed({ tag: '', saved: false }).catch(() => {});
-        }
+      if (shouldHydrate) {
+        hydrateFeedTopic(raw === 'saved' ? { saved: true, tag: '' } : { tag: '', saved: false });
+        return;
       }
+      applyFeedTopicFilters();
       return;
     }
     const next = normalizeTopicTag(topic);
     const prev = feedTopicFilter[0] || '';
     const leavingSaved = feedKindFilter === 'saved';
     const same = tagEquals(prev, next) && !feedKindFilter;
+    const shouldHydrate = canHydrate && (!same || leavingSaved);
+    if (shouldHydrate) beginFeedSwitch(next || 'all');
     feedKindFilter = '';
     feedTopicFilter = next ? [next] : [];
-    applyFeedTopicFilters();
     renderFeedTopicPills();
     syncFeedLocation('', next);
-    if (opts && opts.refetch && (!same || leavingSaved) && typeof window.communityHydrateFeed === 'function') {
-      window.communityHydrateFeed({ tag: next, saved: false }).catch(() => {});
+    if (shouldHydrate) {
+      hydrateFeedTopic({ tag: next, saved: false });
+      return;
     }
+    applyFeedTopicFilters();
   }
 
   function initFeedTopicFilters() {
@@ -2288,6 +2435,16 @@
     applyFeedTopicFilters();
   }
 
+  function bindPaintedFeed(feedList) {
+    sortFeedItems();
+    bindDynamicHandlers();
+    feedList.querySelectorAll('.reply-heart').forEach((btn) => bindReplyHeartEnhanced(btn));
+    bindMentionInputs(feedList.querySelectorAll('.feed-reply-input'));
+    applyPremiumToFeedReplyInputs();
+    if (typeof window.communityPaintSelfAvatars === 'function') window.communityPaintSelfAvatars();
+    applyFeedTopicFilters();
+  }
+
   function initFeedFromData() {
     const feedList = document.getElementById('feedList');
     if (!feedList) return;
@@ -2295,10 +2452,10 @@
     const threads = Object.values(THREAD_DATA);
     if (!threads.length) {
       if (feedKindFilter || feedTopicFilter.length) {
-        feedList.innerHTML = '';
-        applyFeedTopicFilters();
+        replaceFeedListHtml(feedList, '', () => applyFeedTopicFilters());
         return;
       }
+      endFeedSwitch();
       if (typeof window.communityRenderEmptyFeed === 'function') {
         window.communityRenderEmptyFeed();
       } else {
@@ -2315,14 +2472,7 @@
       }
     });
     persistSavedThreads();
-    feedList.innerHTML = threads.map(renderFeedItem).join('');
-    sortFeedItems();
-    bindDynamicHandlers();
-    feedList.querySelectorAll('.reply-heart').forEach((btn) => bindReplyHeartEnhanced(btn));
-    bindMentionInputs(feedList.querySelectorAll('.feed-reply-input'));
-    applyPremiumToFeedReplyInputs();
-    if (typeof window.communityPaintSelfAvatars === 'function') window.communityPaintSelfAvatars();
-    applyFeedTopicFilters();
+    replaceFeedListHtml(feedList, threads.map(renderFeedItem).join(''), () => bindPaintedFeed(feedList));
   }
 
   function initFeedInteractions() {
