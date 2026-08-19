@@ -28,7 +28,7 @@
           <div class="footer-column">
             <h4 class="footer-heading">Resources</h4>
             <ul class="footer-link-list">
-              <li><a href="https://theclubnyc.com/request-demo" class="footer-link">Request a demo</a></li>
+              <li><a href="https://theclubnyc.com/demo" class="footer-link">Request a demo</a></li>
               <li><a href="https://theclubnyc.com/pricing" class="footer-link">Pricing</a></li>
               <li><a href="https://theclubnyc.com/successstories" class="footer-link">Success stories</a></li>
               <li><a href="https://theclubnyc.com/termsofuse" class="footer-link">Terms of Use</a></li>
@@ -182,7 +182,7 @@
     if (existing) existing.remove();
     const style = doc.createElement("style");
     style.id = "qava-footer-style";
-    style.setAttribute("data-qava-footer-css", "footer-club-room-1");
+    style.setAttribute("data-qava-footer-css", "footer-demo-1");
     style.textContent = FOOTER_CSS;
     doc.head.appendChild(style);
   }

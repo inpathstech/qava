@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="qava-landing.css" />
   <link rel="stylesheet" href="community/landing-community.css" />
   <link rel="stylesheet" href="qava-auth.css" />
-  <link rel="stylesheet" href="about.css?v=36" />
+  <link rel="stylesheet" href="about.css?v=37" />
 </head>
 <body>
   <div id="qava-dot-base-fixed" aria-hidden="true"></div>
@@ -612,55 +612,37 @@
 
     (function () {
       const root = document.querySelector(".av2-rotate");
-      if (!root) return;
-      const words = Array.from(root.querySelectorAll("span"));
+      if (!root || root.dataset.rotateBound === "1") return;
+      const words = Array.from(root.querySelectorAll(":scope > span"));
       if (words.length < 2) return;
+      root.dataset.rotateBound = "1";
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-      const ease = "0.5s cubic-bezier(0.22, 1, 0.36, 1)";
-      const dirs = {
-        up: { out: "translateY(-0.55em)", inn: "translateY(0.55em)" },
-        down: { out: "translateY(0.55em)", inn: "translateY(-0.55em)" },
-        left: { out: "translateX(-0.7em)", inn: "translateX(0.7em)" },
-        right: { out: "translateX(0.7em)", inn: "translateX(-0.7em)" }
-      };
-      const names = Object.keys(dirs);
-      let index = 0;
-      let lastDir = "";
+      words.forEach((word, i) => {
+        word.style.cssText = "";
+        word.classList.toggle("is-on", i === 0);
+        word.classList.remove("is-leave");
+      });
 
-      const pickDir = () => {
-        const pool = names.filter((name) => name !== lastDir);
-        return pool[Math.floor(Math.random() * pool.length)];
-      };
+      let index = 0;
+      let busy = false;
 
       const swap = () => {
-        const dir = pickDir();
-        lastDir = dir;
+        if (busy) return;
+        busy = true;
         const current = words[index];
         const next = words[(index + 1) % words.length];
-
-        current.style.transition = "opacity " + ease + ", transform " + ease;
-        current.style.opacity = "0";
-        current.style.transform = dirs[dir].out;
         current.classList.remove("is-on");
-
-        next.style.transition = "none";
-        next.style.opacity = "0";
-        next.style.transform = dirs[dir].inn;
-
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            next.style.transition = "opacity " + ease + ", transform " + ease;
-            next.style.opacity = "1";
-            next.style.transform = "none";
-            next.classList.add("is-on");
-          });
-        });
-
-        index = (index + 1) % words.length;
+        current.classList.add("is-leave");
+        window.setTimeout(() => {
+          current.classList.remove("is-leave");
+          next.classList.add("is-on");
+          index = (index + 1) % words.length;
+          busy = false;
+        }, 320);
       };
 
-      window.setInterval(swap, 2500);
+      window.setInterval(swap, 2600);
     })();
   </script>
   <script src="qava-landing.js"></script>
