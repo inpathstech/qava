@@ -241,7 +241,7 @@
       btn.classList.toggle('is-active', liked);
       btn.setAttribute('aria-pressed', liked ? 'true' : 'false');
       btn.setAttribute('aria-label', `${likes} like${likes === 1 ? '' : 's'}`);
-      setActorTip(btn, thread && thread.likedBy);
+      setActorTip(btn.closest('.actor-tip') || btn, thread && thread.likedBy);
     });
     const feedItem = document.querySelector(`.feed-item[data-feed-thread="${threadId}"]`);
     if (feedItem) feedItem.dataset.likes = String(likes);
@@ -406,10 +406,22 @@
     return uniqueHandles(list).filter((handle) => handle !== name);
   }
 
+  function memberProfileHref(name) {
+    const handle = String(name || '').trim();
+    if (!handle) return '#';
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.set('m', handle);
+      return `${url.pathname}${url.search}${url.hash}`;
+    } catch {
+      return `?m=${encodeURIComponent(handle)}`;
+    }
+  }
+
   function actorTipHtml(names) {
     const unique = uniqueHandles(names);
     if (!unique.length) return '';
-    return `<span class="actor-tip-box" role="tooltip">${unique.map(escapeHtml).join('<br>')}</span>`;
+    return `<span class="actor-tip-box" role="tooltip">${unique.map(memberLink).join('<br>')}</span>`;
   }
 
   function setActorTip(el, names) {
@@ -437,7 +449,8 @@
 
   function memberLink(name) {
     const label = memberDisplayName(name);
-    return `<button type="button" class="member-link" data-member="${escapeHtml(name)}">${escapeHtml(label)}</button>`;
+    if (!label) return '';
+    return `<a class="member-link" href="${escapeHtml(memberProfileHref(name))}" data-member="${escapeHtml(name)}">${escapeHtml(label)}</a>`;
   }
 
   // Byline suffix that skips empty parts so we never render an empty " ·  · "
@@ -534,7 +547,7 @@
     const replies = getThreadReplyCount(thread);
     return `
       <div class="feed-stats">
-        <button type="button" class="feed-stat actor-tip feed-like-btn${liked ? ' is-active' : ''}" data-feed-like="${thread.id}" aria-label="${likes} like${likes === 1 ? '' : 's'}" aria-pressed="${liked ? 'true' : 'false'}">${HEART_SVG}<span>${likes}</span>${actorTipHtml(thread.likedBy)}</button>
+        <span class="actor-tip feed-stat-tip"><button type="button" class="feed-stat feed-like-btn${liked ? ' is-active' : ''}" data-feed-like="${thread.id}" aria-label="${likes} like${likes === 1 ? '' : 's'}" aria-pressed="${liked ? 'true' : 'false'}">${HEART_SVG}<span>${likes}</span></button>${actorTipHtml(thread.likedBy)}</span>
         <span class="feed-stat actor-tip" data-feed-replies aria-label="${replies} replies">${REPLY_SVG}<span>${replies}</span>${actorTipHtml(commenterHandles(thread))}</span>
         <button type="button" class="feed-stat feed-reply-open" data-open-feed-reply="${thread.id}">Reply</button>
         <button type="button" class="feed-stat feed-save-btn${savedThreads.has(thread.id) ? ' is-active' : ''}" data-thread-save="${thread.id}">${savedThreads.has(thread.id) ? 'Saved' : 'Save'}</button>
@@ -1161,7 +1174,7 @@
       </div>
       ${thread.poll && window.QavaPolls ? window.QavaPolls.render(thread, { compact: true }) : ''}
       <div class="thread-op-actions" id="threadOpActionsInner">
-        <button type="button" class="thread-op-heart actor-tip${likedThreads.has(threadId) ? ' is-active' : ''}" data-thread-like="${threadId}">${HEART_SVG}<span>${thread.likes || 0}</span>${actorTipHtml(thread.likedBy)}</button>
+        <span class="actor-tip feed-stat-tip"><button type="button" class="thread-op-heart${likedThreads.has(threadId) ? ' is-active' : ''}" data-thread-like="${threadId}">${HEART_SVG}<span>${thread.likes || 0}</span></button>${actorTipHtml(thread.likedBy)}</span>
         <button type="button" class="thread-action-btn${savedThreads.has(threadId) ? ' is-active' : ''}" data-thread-save="${threadId}">${savedThreads.has(threadId) ? 'Saved' : 'Save'}</button>
         <button type="button" class="report-btn" data-report-target="thread" data-report-id="${threadId}">Report</button>
       </div>`;
@@ -2317,6 +2330,15 @@
     document.body.dataset.feedInteractionsBound = '1';
 
     document.body.addEventListener('click', (e) => {
+      const profileLink = e.target.closest?.('.member-link');
+      if (profileLink) {
+        e.preventDefault();
+        e.stopPropagation();
+        const handle = (profileLink.dataset.member || profileLink.textContent || '').trim();
+        if (handle) openProfilePage(handle);
+        return;
+      }
+
       const pollOpt = e.target.closest?.('[data-poll-option]');
       if (pollOpt) {
         e.preventDefault();
@@ -4146,6 +4168,7 @@
   window.communitySortFeedItems = sortFeedItems;
   window.communityApplyFeedTopicFilters = applyFeedTopicFilters;
   window.renderThreadDetail = renderThreadDetail;
+  window.communityMemberLink = memberLink;
   window.openProfilePage = openProfilePage;
   window.renderProfilePage = renderProfilePage;
   window.getProfileMember = getProfileMember;

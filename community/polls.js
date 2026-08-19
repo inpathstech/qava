@@ -245,7 +245,11 @@
       if (handle && voters.indexOf(handle) === -1) voters.push(handle);
     });
     const voteTip = voters.length
-      ? `<span class="actor-tip-box" role="tooltip">${voters.map(escapeHtml).join('<br>')}</span>`
+      ? `<span class="actor-tip-box" role="tooltip">${voters.map((name) => (
+        typeof window.communityMemberLink === 'function'
+          ? window.communityMemberLink(name)
+          : escapeHtml(name)
+      )).join('<br>')}</span>`
       : '';
     const footBits = [`<span class="poll-votes actor-tip">${total} vote${total === 1 ? '' : 's'}${voteTip}</span>`];
     if (votedIds.length) footBits.push('<span class="poll-foot-dot">·</span><span>You voted</span>');
