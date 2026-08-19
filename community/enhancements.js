@@ -226,6 +226,7 @@
   let mentionDropdown = null;
   let activeMentionInput = null;
   const feedJoinAttachments = new Map();
+  const feedJoinSubmitting = new Set();
   let pendingExternalInvites = [];
   const EDIT_WINDOW_MS = 15 * 60 * 1000;
   const POPULAR_BADGE_HTML = ' · <span class="best-answer-badge">Popular</span>';
@@ -489,8 +490,22 @@
   window.communitySelfAvatarHtml = selfAvatarHtml;
   window.communitySyncComposerAvatars = syncComposerAvatars;
 
-  function renderAttachChip(label) {
-    return `<span class="attach-chip">${DOC_SVG} ${escapeHtml(label)}</span>`;
+  function attachMeta(value) {
+    if (!value) return null;
+    if (typeof value === 'string') return { label: value, url: '' };
+    const label = value.label || value.name || '';
+    if (!label) return null;
+    return { label: String(label), url: value.url || '' };
+  }
+
+  function renderAttachChip(value) {
+    const meta = attachMeta(value);
+    if (!meta) return '';
+    const inner = `${DOC_SVG} ${escapeHtml(meta.label)}`;
+    if (meta.url && /^https:\/\//i.test(meta.url)) {
+      return `<a class="attach-chip" href="${escapeHtml(meta.url)}" target="_blank" rel="noopener noreferrer">${inner}</a>`;
+    }
+    return `<span class="attach-chip">${inner}</span>`;
   }
 
   function getThreadReplyCount(thread) {
@@ -621,11 +636,15 @@
       label.classList.toggle('is-over', count > 250);
     }
     const premium = typeof window.communityIsPremium === 'function' && !!window.communityIsPremium();
-    const ready = feedReplyHasSendableText(input) && count <= 250;
+    const threadId = join.dataset.feedJoin;
+    const hasFiles = !!(threadId && (feedJoinAttachments.get(threadId) || []).length);
+    const busy = !!(threadId && feedJoinSubmitting.has(threadId));
+    const ready = (feedReplyHasSendableText(input) || hasFiles) && count <= 250;
     const replyBtn = join.querySelector('.feed-join-reply');
     if (replyBtn) {
-      replyBtn.disabled = !premium || !ready;
-      replyBtn.classList.toggle('is-disabled', !premium || !ready);
+      replyBtn.disabled = !premium || !ready || busy;
+      replyBtn.classList.toggle('is-disabled', !premium || !ready || busy);
+      replyBtn.textContent = busy ? 'Posting…' : 'Reply';
     }
     join.querySelectorAll('[data-tool]').forEach((btn) => {
       btn.disabled = !premium;
@@ -1656,6 +1675,31 @@
     });
   }
 
+  function refreshFeedPoll(threadId) {
+    const thread = getThreadById(threadId);
+    const feedItem = document.querySelector(`.feed-item[data-feed-thread="${threadId}"]`);
+    if (!thread || !feedItem || !window.QavaPolls) return false;
+    const html = thread.poll ? window.QavaPolls.render(thread, { compact: true }) : '';
+    const existing = feedItem.querySelector('.feed-poll');
+    if (!html) {
+      existing?.remove();
+      return true;
+    }
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html.trim();
+    const next = tmp.firstElementChild;
+    if (!next) return false;
+    if (existing) {
+      existing.replaceWith(next);
+    } else {
+      const opener = feedItem.querySelector('.feed-opener');
+      const stats = opener?.querySelector('.feed-stats');
+      if (stats) stats.before(next);
+      else opener?.appendChild(next);
+    }
+    return true;
+  }
+
   function refreshFeedItem(threadId) {
     const thread = getThreadById(threadId);
     const feedItem = document.querySelector(`.feed-item[data-feed-thread="${threadId}"]`);
@@ -1665,7 +1709,19 @@
     tmp.innerHTML = html.trim();
     const next = tmp.firstElementChild;
     if (!next) return;
+    const prevJoin = feedItem.querySelector('.feed-join');
+    const keepReply = !!(prevJoin && (
+      prevJoin.classList.contains('is-open') ||
+      feedItem.classList.contains('is-replying') ||
+      feedItem.matches(':hover')
+    ));
     feedItem.replaceWith(next);
+    if (keepReply && prevJoin) {
+      const freshJoin = next.querySelector('.feed-join');
+      if (freshJoin) freshJoin.replaceWith(prevJoin);
+      next.classList.add('is-replying');
+      prevJoin.classList.add('is-open');
+    }
     syncThreadLikeUi(threadId);
     bindFeedItemInteractive(next);
   }
@@ -1750,8 +1806,15 @@
       return;
     }
 
+    const wrap = input.closest('[data-feed-reply-thread]');
+    const threadId = wrap?.dataset?.feedReplyThread || input.closest('[data-feed-thread]')?.dataset?.feedThread;
+    const thread = threadId ? THREAD_DATA[threadId] : null;
+    if (!thread) return;
+    if (feedJoinSubmitting.has(threadId)) return;
+
+    const files = (feedJoinAttachments.get(threadId) || []).slice();
     const raw = (window.getInputRaw ? window.getInputRaw(input) : (input.textContent || '')).trim();
-    if (!raw) return;
+    if (!raw && !files.length) return;
     if (countFeedReplyWords(input) > 250) {
       if (window.communityNotice) {
         window.communityNotice({
@@ -1765,45 +1828,55 @@
 
     const prepared = extractInvitesAndMaskBody(raw);
     const publishBody = prepared.body.trim();
-    if (!publishBody) return;
+    if (!publishBody && !files.length) return;
 
-    const wrap = input.closest('[data-feed-reply-thread]');
-    const threadId = wrap?.dataset?.feedReplyThread || input.closest('[data-feed-thread]')?.dataset?.feedThread;
-    const thread = threadId ? THREAD_DATA[threadId] : null;
-    if (!thread) return;
+    const live = typeof window.communityIsLiveId === 'function' && window.communityIsLiveId(threadId)
+      && typeof window.communityCreateReply === 'function';
+    const join = input.closest('.feed-join');
 
-    const auth = (typeof window.communityGetAuthState === 'function' && window.communityGetAuthState()) || {};
-    const author = auth.handle || 'You';
-    const bodyHtml = (window.formatPostBody ? window.formatPostBody(publishBody) : escapeHtml(publishBody))
-      + renderFeedJoinAttachChipsHtml(threadId);
+    function markBusy(busy) {
+      if (busy) feedJoinSubmitting.add(threadId);
+      else feedJoinSubmitting.delete(threadId);
+      if (join) syncFeedJoinComposer(join);
+    }
 
-    thread.replies = thread.replies || [];
-    thread.replies.unshift({
-      id: `${threadId}-r${Date.now()}`,
-      author,
-      hearts: 0,
-      time: 'Just now',
-      parentId: null,
-      bodyRaw: publishBody,
-      body: bodyHtml,
-      editedAt: null,
-    });
-    thread.activityTs = Date.now();
-    thread.status = thread.status === 'new' ? 'new' : 'active';
-    expandedReplies.add(threadId);
+    function publishLocal(attachment) {
+      const auth = (typeof window.communityGetAuthState === 'function' && window.communityGetAuthState()) || {};
+      const author = auth.handle || 'You';
+      const bodyHtml = window.formatPostBody ? window.formatPostBody(publishBody) : escapeHtml(publishBody);
+      thread.replies = thread.replies || [];
+      thread.replies.unshift({
+        id: `${threadId}-r${Date.now()}`,
+        author,
+        hearts: 0,
+        time: 'Just now',
+        parentId: null,
+        bodyRaw: publishBody,
+        body: bodyHtml,
+        attachment: attachment || (files[0] ? files[0].name : undefined),
+        editedAt: null,
+      });
+      thread.activityTs = Date.now();
+      thread.status = thread.status === 'new' ? 'new' : 'active';
+      expandedReplies.add(threadId);
 
-    feedJoinAttachments.delete(threadId);
-    refreshFeedItemReplies(threadId);
-    if (window.clearInput) window.clearInput(input);
-    else input.innerHTML = '';
-    syncFeedReplySend(input);
-    bindMentionInputs(document.querySelectorAll('.feed-reply-input'));
-    applyPremiumToFeedReplyInputs();
-    if (typeof window.communityPaintSelfAvatars === 'function') window.communityPaintSelfAvatars();
+      feedJoinAttachments.delete(threadId);
+      refreshFeedItemReplies(threadId);
+      if (window.clearInput) window.clearInput(input);
+      else input.innerHTML = '';
+      syncFeedReplySend(input);
+      bindMentionInputs(document.querySelectorAll('.feed-reply-input'));
+      applyPremiumToFeedReplyInputs();
+      if (typeof window.communityPaintSelfAvatars === 'function') window.communityPaintSelfAvatars();
+    }
 
-    if (typeof window.communityIsLiveId === 'function' && window.communityIsLiveId(threadId)
-        && typeof window.communityCreateReply === 'function') {
-      window.communityCreateReply(threadId, publishBody, prepared.invites)
+    function persistReply(attachment) {
+      publishLocal(attachment);
+      if (!live) {
+        markBusy(false);
+        return;
+      }
+      window.communityCreateReply(threadId, publishBody, prepared.invites, attachment)
         .then(() => {
           if (window.communityToast) window.communityToast('Reply posted.', 'success');
           const api = window.CommunityAPI;
@@ -1829,8 +1902,38 @@
           } else if (window.communityToast) {
             window.communityToast('Could not save that just now. Please try again.', 'error');
           }
-        });
+        })
+        .finally(() => markBusy(false));
     }
+
+    if (live && files.length) {
+      const upload = window.communityUploadAttachment || window.CommunityAPI?.uploadAttachment;
+      if (!upload) {
+        if (window.communityToast) window.communityToast('Could not attach that file. Your reply was not posted.', 'error');
+        return;
+      }
+      markBusy(true);
+      Promise.resolve(upload(files[0]))
+        .then((res) => {
+          if (!res || !res.label) throw new Error('Could not attach that file.');
+          persistReply({ label: res.label, url: res.url || '' });
+        })
+        .catch((e) => {
+          markBusy(false);
+          const msg = (e && e.message) ? String(e.message) : '';
+          if (window.communityToast) {
+            window.communityToast(
+              (!msg || /prisma|invocation|http /i.test(msg))
+                ? 'Could not attach that file. Your reply was not posted.'
+                : msg,
+              'error',
+            );
+          }
+        });
+      return;
+    }
+
+    persistReply(files[0] ? { label: files[0].name } : null);
   }
 
   function initFeedInlineReply() {
@@ -1901,6 +2004,7 @@
           if (!files.length) feedJoinAttachments.delete(threadId);
           else feedJoinAttachments.set(threadId, files);
           renderFeedJoinAttachmentsRow(join);
+          syncFeedJoinComposer(join);
         }
         return;
       }
@@ -1955,6 +2059,7 @@
       fileInput.value = '';
       feedJoinAttachments.set(threadId, next);
       renderFeedJoinAttachmentsRow(join);
+      syncFeedJoinComposer(join);
     });
 
     feedList.addEventListener('focusin', (e) => {
@@ -4034,6 +4139,7 @@
     return out;
   };
   window.communityRefreshFeedItem = refreshFeedItem;
+  window.communityRefreshFeedPoll = refreshFeedPoll;
   window.communitySetFeedLoading = setFeedLoading;
   window.communityGetSelectedTags = function () { return selectedTags.slice(); };
   window.communityGetFeedSort = function () { return feedSort; };
