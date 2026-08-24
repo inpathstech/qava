@@ -4,6 +4,13 @@
     const win = window;
     if (!doc.head || !doc.documentElement) return;
 
+        const menuIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu-icon lucide-menu" aria-hidden="true"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>';
+        doc.querySelectorAll(".hamburger-menu").forEach((btn) => {
+          if (btn.querySelector("svg.lucide-menu")) return;
+          btn.innerHTML = menuIcon;
+          if (!btn.getAttribute("aria-label")) btn.setAttribute("aria-label", "Open menu");
+        });
+
         if (!doc.getElementById("qava-sandbox-canela-link")) {
           const fontLink = doc.createElement("link");
           fontLink.id = "qava-sandbox-canela-link";

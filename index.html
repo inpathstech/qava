@@ -28,7 +28,7 @@
     <script>document.documentElement.classList.add('qava-pending');</script>
     <!-- Fetch the design stylesheet as early and high-priority as possible so the
          page spends the least possible time hidden behind the anti-FOUC guard. -->
-    <link rel="preload" as="style" href="qava-landing.css?v=7">
+    <link rel="preload" as="style" href="qava-landing.css?v=10">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -282,7 +282,7 @@
         .join-text {
             color: #1163FE;
             font-size: 13px;
-            font-weight: 400;
+            font-weight: 300;
             line-height: 1.2;
             white-space: nowrap;
         }
@@ -368,13 +368,12 @@
             background-color: rgba(55, 53, 47, 0.08);
         }
 
-        .hamburger-line {
-            width: 18px;
-            height: 2px;
-            background-color: #000000;
-            margin: 2px 0;
-            transition: 0.2s ease;
-            border-radius: 1px;
+        .hamburger-menu svg {
+            display: block;
+            width: 24px;
+            height: 24px;
+            color: #000000;
+            flex-shrink: 0;
         }
 
         .mobile-menu {
@@ -657,7 +656,7 @@
         .hero-join-text {
             color: #1163FE;
             font-size: 13px;
-            font-weight: 400;
+            font-weight: 300;
             line-height: 1.2;
             white-space: nowrap;
         }
@@ -2077,7 +2076,7 @@
         .cta-button {
             font-family: 'Inter', sans-serif;
             font-size: 13px;
-            font-weight: 500;
+            font-weight: 300;
             padding: 4px 12px;
             border-radius: 6px;
             text-decoration: none;
@@ -2884,8 +2883,12 @@
             }
 
             .matching-cta-buttons {
-                flex-direction: column;
-                gap: 12px;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: center;
+                align-items: center;
+                gap: 8px;
             }
 
             .cta-button {
@@ -5415,7 +5418,7 @@
     </style>
     <!-- Do NOT call __qavaReveal from stylesheet onload — CSS finishes before
          qava-landing.js rebuilds the page, which re-exposes the legacy hero. -->
-    <link rel="stylesheet" href="qava-landing.css?v=7" />
+    <link rel="stylesheet" href="qava-landing.css?v=10" />
     <link rel="stylesheet" href="community/landing-community.css" />
     <link rel="stylesheet" href="qava-auth.css" />
     <script>
@@ -5485,10 +5488,8 @@
             </div>
             
             <!-- Hamburger Menu Button -->
-            <div class="hamburger-menu" onclick="toggleMobileMenu()">
-                <div class="hamburger-line"></div>
-                <div class="hamburger-line"></div>
-                <div class="hamburger-line"></div>
+            <div class="hamburger-menu" onclick="toggleMobileMenu()" role="button" aria-label="Open menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu-icon lucide-menu" aria-hidden="true"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
             </div>
         </div>
     </div>
@@ -11998,7 +11999,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
       }
     })();
     </script>
-    <script src="qava-landing.js?v=how-to-1"></script>
+    <script src="qava-landing.js?v=menu-1"></script>
     <script src="qava-auth.js?v=login-1"></script>
     <script src="community/landing-community.js"></script>
 </body>

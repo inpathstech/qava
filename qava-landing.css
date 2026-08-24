@@ -2352,11 +2352,20 @@
           }
 
           .matching-cta-buttons {
+            display: flex !important;
             flex-direction: row !important;
             flex-wrap: nowrap !important;
-            gap: 12px !important;
+            gap: 8px !important;
             justify-content: center !important;
             align-items: center !important;
+          }
+
+          .matching-cta-buttons .cta-button,
+          .matching-cta-buttons #qava-ai-toolset-cta {
+            width: auto !important;
+            max-width: none !important;
+            flex: 0 0 auto !important;
+            margin-left: 0 !important;
           }
 
           .qava-showcase-toggle {
@@ -5122,6 +5131,7 @@
           background: #2b2b2b !important;
           border-color: #2b2b2b !important;
           color: #ffffff !important;
+          font-weight: 300 !important;
           transform: none !important;
           transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease !important;
           box-shadow: none !important;
@@ -5130,6 +5140,7 @@
         .join-button .join-text,
         .cta-button.cta-button-primary .cta-button-text {
           color: #ffffff !important;
+          font-weight: 300 !important;
         }
 
         .join-button:hover,
@@ -5144,6 +5155,14 @@
         .join-button:hover .join-text,
         .cta-button.cta-button-primary:hover .cta-button-text {
           color: #ffffff !important;
+        }
+
+        .matching-cta-buttons {
+          display: flex !important;
+          flex-direction: row !important;
+          flex-wrap: nowrap !important;
+          justify-content: center !important;
+          align-items: center !important;
         }
 
         #qava-ai-toolset-cta {
@@ -5164,6 +5183,23 @@
           align-items: center;
           gap: 6px;
           transition: color 0.15s ease !important;
+        }
+
+        /* Phones in portrait and landscape: keep Get Started + How To on one row. */
+        @media (max-width: 1024px), (orientation: landscape) and (max-height: 500px) {
+          .matching-cta-buttons {
+            flex-direction: row !important;
+            flex-wrap: nowrap !important;
+            gap: 8px !important;
+          }
+
+          .matching-cta-buttons .cta-button,
+          .matching-cta-buttons #qava-ai-toolset-cta {
+            width: auto !important;
+            max-width: none !important;
+            flex: 0 0 auto !important;
+            margin-left: 0 !important;
+          }
         }
 
         #qava-ai-toolset-cta svg {
@@ -5379,7 +5415,7 @@
         .header-container .join-button .join-text {
           font-family: "Inter", sans-serif !important;
           font-size: 13px !important;
-          font-weight: 400 !important;
+          font-weight: 300 !important;
           line-height: 1.2 !important;
           white-space: nowrap !important;
         }
@@ -5402,11 +5438,13 @@
           background-color: rgba(55, 53, 47, 0.08);
         }
 
-        .header-container .hamburger-line {
-          width: 18px;
-          height: 2px;
-          background-color: #000000;
-          margin: 2px 0;
+        .header-container .hamburger-menu svg,
+        .hamburger-menu svg {
+          display: block;
+          width: 24px;
+          height: 24px;
+          color: #000000;
+          flex-shrink: 0;
         }
 
         .mobile-menu {
