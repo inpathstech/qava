@@ -248,6 +248,7 @@
     });
     const feedItem = document.querySelector(`.feed-item[data-feed-thread="${threadId}"]`);
     if (feedItem) feedItem.dataset.likes = String(likes);
+    if (feedKindFilter === 'history') applyFeedTopicFilters();
   }
 
   function threadStateForLike(threadId) {
@@ -324,7 +325,7 @@
       btn.classList.toggle('is-active', saved);
       btn.textContent = saved ? 'Saved' : 'Save';
     });
-    if (feedKindFilter === 'saved') applyFeedTopicFilters();
+    if (feedKindFilter === 'saved' || feedKindFilter === 'history') applyFeedTopicFilters();
     refreshProfileIfVisible();
   }
 
@@ -1025,6 +1026,7 @@
       countEl.textContent = String(count);
       if (reply) reply.hearts = count;
       updateBestAnswerBadges(thread);
+      if (feedKindFilter === 'history') applyFeedTopicFilters();
     });
   }
 
@@ -2165,13 +2167,30 @@
     return String(a || '').trim().toLowerCase() === String(b || '').trim().toLowerCase();
   }
 
+  function isFeedKindValue(value) {
+    return value === 'polls' || value === 'saved' || value === 'history';
+  }
+
+  function threadIsHistory(id, thread) {
+    const tid = String(id || '');
+    if (likedThreads.has(tid)) return true;
+    const me = selfHandle();
+    const replies = thread?.replies || [];
+    if (replies.some((reply) => likedReplies.has(String(reply.id)))) return true;
+    if (!me) return false;
+    if (thread?.op?.name === me) return true;
+    if (uniqueHandles(thread?.likedBy).includes(me)) return true;
+    if (uniqueHandles(thread?.commentedBy).includes(me)) return true;
+    return replies.some((reply) => reply.author === me);
+  }
+
   function feedNavKey() {
     if (feedKindFilter) return feedKindFilter;
     return feedTopicFilter[0] || 'all';
   }
 
   function feedNavIndex(key) {
-    const order = ['all', 'polls', 'saved', ...AGENDA_TOPICS];
+    const order = ['all', 'polls', 'saved', 'history', ...AGENDA_TOPICS];
     const i = order.findIndex((item) => tagEquals(item, key));
     return i < 0 ? 0 : i;
   }
@@ -2247,7 +2266,7 @@
         const filter = btn.dataset.filter;
         const on = filter === 'all'
           ? feedTopicFilter.length === 0 && !feedKindFilter
-          : filter === 'polls' || filter === 'saved'
+          : isFeedKindValue(filter)
             ? feedKindFilter === filter
             : feedTopicFilter.some((t) => tagEquals(t, filter));
         btn.classList.toggle('is-active', on);
@@ -2265,7 +2284,9 @@
         ? isPoll
         : feedKindFilter === 'saved'
           ? savedThreads.has(id)
-          : (!active.length || active.some((t) => tags.some((x) => tagEquals(x, t))));
+          : feedKindFilter === 'history'
+            ? threadIsHistory(id, THREAD_DATA[id] || getThreadById(id))
+            : (!active.length || active.some((t) => tags.some((x) => tagEquals(x, t))));
       el.hidden = !show;
       if (show) visible += 1;
     });
@@ -2273,14 +2294,16 @@
     const meta = document.getElementById('feedFilterMeta');
     const countEl = document.getElementById('feedFilterCount');
     const empty = ensureFeedEmptyFilterEl(feedList);
-    const filtering = active.length > 0 || feedKindFilter === 'polls' || feedKindFilter === 'saved';
+    const filtering = active.length > 0 || isFeedKindValue(feedKindFilter);
     if (meta) meta.hidden = !filtering;
     if (countEl) {
       const noun = feedKindFilter === 'polls'
         ? 'poll'
         : feedKindFilter === 'saved'
           ? 'saved item'
-          : 'thread';
+          : feedKindFilter === 'history'
+            ? 'item'
+            : 'thread';
       countEl.textContent = filtering
         ? `${visible} ${noun}${visible === 1 ? '' : 's'}`
         : '';
@@ -2288,9 +2311,11 @@
     if (empty) {
       empty.textContent = feedKindFilter === 'saved'
         ? 'Nothing saved yet. Save a thread or poll to find it here.'
-        : feedKindFilter === 'polls'
-          ? 'No polls yet.'
-          : 'No threads match these topics.';
+        : feedKindFilter === 'history'
+          ? 'Nothing in history yet. Start a thread, reply, or like something to see it here.'
+          : feedKindFilter === 'polls'
+            ? 'No polls yet.'
+            : 'No threads match these topics.';
       empty.hidden = !(filtering && visible === 0 && !feedList.querySelector('.feed-empty'));
     }
 
@@ -2303,7 +2328,7 @@
       const filter = btn.dataset.filter;
       const on = filter === 'all'
         ? active.length === 0 && !feedKindFilter
-        : filter === 'polls' || filter === 'saved'
+        : isFeedKindValue(filter)
           ? feedKindFilter === filter
           : active.some((t) => tagEquals(t, filter));
       btn.classList.toggle('is-active', on);
@@ -2325,6 +2350,7 @@
       `<button type="button" class="club-sidenav-link${allOn ? ' is-active' : ''}" data-filter="all">All</button>`,
       `<button type="button" class="club-sidenav-link${feedKindFilter === 'polls' ? ' is-active' : ''}" data-filter="polls">Polls</button>`,
       `<button type="button" class="club-sidenav-link${feedKindFilter === 'saved' ? ' is-active' : ''}" data-filter="saved">Saved</button>`,
+      `<button type="button" class="club-sidenav-link${feedKindFilter === 'history' ? ' is-active' : ''}" data-filter="history">History</button>`,
       `<div class="club-sidenav-rule" aria-hidden="true"></div>`,
       ...AGENDA_TOPICS.map((topic) => {
         const on = feedTopicFilter.includes(topic);
@@ -2341,6 +2367,7 @@
       url.searchParams.delete('kind');
       if (kind === 'polls') url.searchParams.set('kind', 'poll');
       else if (kind === 'saved') url.searchParams.set('kind', 'saved');
+      else if (kind === 'history') url.searchParams.set('kind', 'history');
       else if (tag) url.searchParams.set('tag', tag);
       const next = `${url.pathname}${url.search}${url.hash}`;
       const current = `${window.location.pathname}${window.location.search}${window.location.hash}`;
@@ -2366,13 +2393,13 @@
   function setFeedTopicFilter(topic, opts) {
     const raw = String(topic || '').trim().toLowerCase();
     const canHydrate = !!(opts && opts.refetch && typeof window.communityHydrateFeed === 'function');
-    if (raw === 'polls' || raw === 'saved') {
+    if (isFeedKindValue(raw)) {
       const prevKind = feedKindFilter;
       const hadTopic = feedTopicFilter.length > 0;
       const shouldHydrate = canHydrate && (
-        raw === 'saved'
-          ? (hadTopic || prevKind === 'polls')
-          : (prevKind === 'saved' || hadTopic)
+        raw === 'saved' || raw === 'history'
+          ? prevKind !== raw
+          : (prevKind === 'saved' || prevKind === 'history' || hadTopic)
       );
       if (shouldHydrate) beginFeedSwitch(raw);
       feedKindFilter = raw;
@@ -2380,7 +2407,13 @@
       renderFeedTopicPills();
       syncFeedLocation(raw, '');
       if (shouldHydrate) {
-        hydrateFeedTopic(raw === 'saved' ? { saved: true, tag: '' } : { tag: '', saved: false });
+        hydrateFeedTopic(
+          raw === 'saved'
+            ? { saved: true, history: false, tag: '' }
+            : raw === 'history'
+              ? { history: true, saved: false, tag: '' }
+              : { tag: '', saved: false, history: false },
+        );
         return;
       }
       applyFeedTopicFilters();
@@ -2388,16 +2421,16 @@
     }
     const next = normalizeTopicTag(topic);
     const prev = feedTopicFilter[0] || '';
-    const leavingSaved = feedKindFilter === 'saved';
+    const leavingKind = feedKindFilter === 'saved' || feedKindFilter === 'history';
     const same = tagEquals(prev, next) && !feedKindFilter;
-    const shouldHydrate = canHydrate && (!same || leavingSaved);
+    const shouldHydrate = canHydrate && (!same || leavingKind);
     if (shouldHydrate) beginFeedSwitch(next || 'all');
     feedKindFilter = '';
     feedTopicFilter = next ? [next] : [];
     renderFeedTopicPills();
     syncFeedLocation('', next);
     if (shouldHydrate) {
-      hydrateFeedTopic({ tag: next, saved: false });
+      hydrateFeedTopic({ tag: next, saved: false, history: false });
       return;
     }
     applyFeedTopicFilters();
@@ -4270,6 +4303,7 @@
       const kind = params.get('kind');
       if (kind === 'poll') setFeedTopicFilter('polls');
       else if (kind === 'saved') setFeedTopicFilter('saved');
+      else if (kind === 'history') setFeedTopicFilter('history');
       else if (tag && !params.get('t')) setFeedTopicFilter(tag);
     } catch (e) { /* ignore */ }
     initLandingCoherence();
@@ -4310,6 +4344,7 @@
     });
     return out;
   };
+  window.communityThreadIsHistory = threadIsHistory;
   window.communityRefreshFeedItem = refreshFeedItem;
   window.communityRefreshFeedPoll = refreshFeedPoll;
   window.communitySetFeedLoading = setFeedLoading;
