@@ -702,21 +702,21 @@
 
   function renderFeedInlineReply(thread) {
     return `<div class="feed-inline-reply feed-join-composer" data-feed-reply-thread="${thread.id}">
-      <div class="feed-join-composer-row">
-        ${selfAvatarHtml('You')}
+      ${selfAvatarHtml('You')}
+      <div class="feed-join-chrome">
         <div class="feed-inline-reply-field input-with-gate">
-          <div class="composer-input feed-reply-input" contenteditable="false" role="textbox" aria-multiline="true" aria-label="Write a reply" data-placeholder="Reply"></div>
+          <div class="composer-input feed-reply-input" contenteditable="false" role="textbox" aria-multiline="true" aria-label="Write a reply" data-placeholder="Write a reply… @ to mention"></div>
+        </div>
+        <div class="composer-attachments feed-join-attachments" aria-label="Attached files">${renderFeedJoinAttachments(thread.id)}</div>
+        <div class="composer-actions">
+          ${FEED_JOIN_TOOLBAR_HTML}
+          <div class="composer-footer">
+            <div class="word-count feed-join-word-count">0 / 250 words</div>
+            <button class="btn btn-primary btn-post feed-join-reply is-disabled" type="button" disabled>Reply</button>
+          </div>
         </div>
       </div>
-      <div class="composer-attachments feed-join-attachments" aria-label="Attached files">${renderFeedJoinAttachments(thread.id)}</div>
       <input type="file" class="feed-join-file" hidden multiple />
-      <div class="composer-actions">
-        ${FEED_JOIN_TOOLBAR_HTML}
-        <div class="composer-footer">
-          <div class="word-count feed-join-word-count">0 / 250 words</div>
-          <button class="btn btn-primary btn-post feed-join-reply is-disabled" type="button" disabled>Reply</button>
-        </div>
-      </div>
     </div>`;
   }
 
@@ -1080,7 +1080,7 @@
       : `<button type="button" class="report-btn" data-report-target="reply" data-report-id="${reply.id}">Report</button>`;
     return `<div class="reply${best}" data-reply-id="${reply.id}" data-parent-id="${reply.parentId || ''}">
       ${avatar}
-      <div>
+      <div class="reply-main">
         <div class="reply-meta"><strong>${memberLink(reply.author)}</strong>${metaExtra(p.role, p.school)}${isBest ? POPULAR_BADGE_HTML : ''}</div>
         <div class="reply-body">${reply.body} <span class="reply-time">${escapeHtml(reply.time)}${edited}</span></div>
         ${attach}

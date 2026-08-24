@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../qava-landing.css" />
-  <link rel="stylesheet" href="community.css?v=dot-wave-1" />
+  <link rel="stylesheet" href="community.css?v=reply-composer-1" />
   <link rel="stylesheet" href="../qava-auth.css" />
 </head>
 <body>
@@ -227,22 +227,20 @@
 
         <div class="reply-box-sticky-wrap">
         <div class="reply-box">
-
-          <div class="composer-top">
-            <div class="avatar">You</div>
-            <div class="composer-lock" id="replyLockLabel">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              Premium required
-            </div>
+          <div class="composer-lock" id="replyLockLabel">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Premium required
           </div>
+          <div class="reply-box-row">
+            <div class="avatar">You</div>
+            <div class="reply-box-chrome">
           <div class="input-with-gate" id="replyInputField">
-            <div class="composer-input" id="replyInput" contenteditable="false" role="textbox" aria-multiline="true" aria-label="Reply" data-placeholder="Write a reply…"></div>
+            <div class="composer-input" id="replyInput" contenteditable="false" role="textbox" aria-multiline="true" aria-label="Reply" data-placeholder="Write a reply… @ to mention"></div>
             <div class="input-gate-prompt" id="replyGatePrompt">
               <a href="https://app.theclubnyc.com/?login=1">Sign in as a Premium member</a> to reply…
             </div>
           </div>
           <div class="composer-attachments" id="replyAttachments" aria-label="Attached files"></div>
-          <input type="file" id="replyFileInput" hidden multiple />
           <div class="composer-actions">
             <div class="toolbar" aria-label="Formatting">
               <button class="tool-btn" type="button" data-tool="bold" disabled aria-label="Bold" title="Bold">
@@ -266,6 +264,9 @@
               <button class="btn btn-primary btn-post" type="button" id="replyBtn">Reply</button>
             </div>
           </div>
+            </div>
+          </div>
+          <input type="file" id="replyFileInput" hidden multiple />
         </div>
         </div>
       </div>
