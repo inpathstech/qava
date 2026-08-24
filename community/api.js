@@ -363,6 +363,20 @@
     }
   }
 
+  function resolveFeedHistory(opts) {
+    if (opts && Object.prototype.hasOwnProperty.call(opts, 'history')) {
+      return !!opts.history;
+    }
+    if (typeof window.communityGetFeedKindFilter === 'function') {
+      return window.communityGetFeedKindFilter() === 'history';
+    }
+    try {
+      return new URLSearchParams(window.location.search).get('kind') === 'history';
+    } catch (e) {
+      return false;
+    }
+  }
+
   function resolveFeedTag(opts) {
     if (opts && Object.prototype.hasOwnProperty.call(opts, 'tag')) {
       var explicit = String(opts.tag || '').trim();
@@ -400,10 +414,30 @@
     return out;
   }
 
+  function snapshotLocalHistoryThreads() {
+    var data = window.THREAD_DATA || {};
+    var out = {};
+    Object.keys(data).forEach(function (id) {
+      if (!isLiveId(id) && id !== 'user') return;
+      if (typeof window.communityThreadIsHistory === 'function'
+        && window.communityThreadIsHistory(id, data[id])) {
+        out[id] = data[id];
+      }
+    });
+    return out;
+  }
+
   function mergeLocalSavedThreads(built, snapshot) {
     Object.keys(snapshot || {}).forEach(function (id) {
       if (!built[id]) built[id] = snapshot[id];
       if (built[id]) built[id].saved = true;
+    });
+    return built;
+  }
+
+  function mergeLocalHistoryThreads(built, snapshot) {
+    Object.keys(snapshot || {}).forEach(function (id) {
+      if (!built[id]) built[id] = snapshot[id];
     });
     return built;
   }
@@ -413,13 +447,20 @@
       || (typeof window.communityGetFeedSort === 'function' && window.communityGetFeedSort())
       || 'active';
     var saved = resolveFeedSaved(opts);
-    var tag = saved ? '' : resolveFeedTag(opts);
-    var localSaved = saved ? snapshotLocalSavedThreads() : {};
+    var history = !saved && resolveFeedHistory(opts);
+    var kindFilter = saved ? 'saved' : history ? 'history' : '';
+    var tag = kindFilter ? '' : resolveFeedTag(opts);
+    var localKind = saved
+      ? snapshotLocalSavedThreads()
+      : history
+        ? snapshotLocalHistoryThreads()
+        : {};
     var gen = ++hydrateGen;
     var list;
     try {
       var query = { sort: apiSortParam(uiSort) };
       if (saved) query.saved = '1';
+      else if (history) query.history = '1';
       else if (tag) query.tag = tag;
       list = await API.listThreads(query);
     } catch (e) {
@@ -429,12 +470,16 @@
 
     var items = (list && list.items) || [];
     if (!items.length) {
-      if (tag || saved) {
-        var emptyMerged = saved ? mergeLocalSavedThreads({}, localSaved) : {};
+      if (tag || kindFilter) {
+        var emptyMerged = kindFilter
+          ? (saved
+            ? mergeLocalSavedThreads({}, localKind)
+            : mergeLocalHistoryThreads({}, localKind))
+          : {};
         replaceThreadData(emptyMerged);
         if (window.initFeedFromData) window.initFeedFromData();
-        if (saved && typeof window.setFeedTopicFilter === 'function') {
-          window.setFeedTopicFilter('saved', { refetch: false });
+        if (kindFilter && typeof window.setFeedTopicFilter === 'function') {
+          window.setFeedTopicFilter(kindFilter, { refetch: false });
         } else {
           applyHydratedTopicFilter(tag);
         }
@@ -460,12 +505,16 @@
       }
     });
     if (!Object.keys(built).length) {
-      if (tag || saved) {
-        var failedMerged = saved ? mergeLocalSavedThreads({}, localSaved) : {};
+      if (tag || kindFilter) {
+        var failedMerged = kindFilter
+          ? (saved
+            ? mergeLocalSavedThreads({}, localKind)
+            : mergeLocalHistoryThreads({}, localKind))
+          : {};
         replaceThreadData(failedMerged);
         if (window.initFeedFromData) window.initFeedFromData();
-        if (saved && typeof window.setFeedTopicFilter === 'function') {
-          window.setFeedTopicFilter('saved', { refetch: false });
+        if (kindFilter && typeof window.setFeedTopicFilter === 'function') {
+          window.setFeedTopicFilter(kindFilter, { refetch: false });
         } else {
           applyHydratedTopicFilter(tag);
         }
@@ -476,11 +525,12 @@
     }
 
     if (gen !== hydrateGen) return { reachable: true, empty: false, stale: true };
-    if (saved) mergeLocalSavedThreads(built, localSaved);
+    if (saved) mergeLocalSavedThreads(built, localKind);
+    else if (history) mergeLocalHistoryThreads(built, localKind);
     replaceThreadData(built);
     if (window.initFeedFromData) window.initFeedFromData();
-    if (saved && typeof window.setFeedTopicFilter === 'function') {
-      window.setFeedTopicFilter('saved', { refetch: false });
+    if (kindFilter && typeof window.setFeedTopicFilter === 'function') {
+      window.setFeedTopicFilter(kindFilter, { refetch: false });
     } else {
       applyHydratedTopicFilter(tag);
     }
@@ -681,6 +731,10 @@
         var tag = params.get('tag') || params.get('topic');
         if (kind === 'saved' && typeof window.setFeedTopicFilter === 'function') {
           window.setFeedTopicFilter('saved', { refetch: false });
+          return;
+        }
+        if (kind === 'history' && typeof window.setFeedTopicFilter === 'function') {
+          window.setFeedTopicFilter('history', { refetch: false });
           return;
         }
         if (kind === 'poll' && typeof window.setFeedTopicFilter === 'function') {
