@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Join | The Club</title>
+  <link rel="canonical" href="https://app.theclubnyc.com/?premium=1" />
+  <script>
+    (function () {
+      var dest = new URL("https://app.theclubnyc.com/");
+      dest.searchParams.set("premium", "1");
+      var src = new URL(window.location.href);
+      src.searchParams.forEach(function (value, key) {
+        if (key !== "premium") dest.searchParams.set(key, value);
+      });
+      location.replace(dest.toString());
+    })();
+  </script>
+</head>
+<body>
+  <p><a href="https://app.theclubnyc.com/?premium=1">Continue to join The Club</a></p>
+</body>
+</html>
