@@ -561,11 +561,25 @@
     };
   }
 
+  function postProfileToParent(handle) {
+    if (!document.body.classList.contains('embed-app')) return false;
+    if (!window.parent || window.parent === window) return false;
+    var name = String(handle || '').replace(/^@/, '').trim();
+    if (!name) return false;
+    try {
+      window.parent.postMessage({ type: 'qava-open-profile', handle: name }, '*');
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   function wrapProfileOpener() {
     if (typeof window.openProfilePage !== 'function' || window.__communityProfileWrapped) return;
     window.__communityProfileWrapped = true;
     var original = window.openProfilePage;
     window.openProfilePage = function (name) {
+      if (postProfileToParent(name)) return;
       API.getMember(name)
         .then(function (m) {
           if (!m || !m.name) return;
