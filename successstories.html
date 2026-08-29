@@ -24,7 +24,7 @@
     .ss-page {
       width: min(960px, calc(100vw - 32px));
       margin: 48px auto 0;
-      padding: 0 0 24px;
+      padding: 0 0 48px;
       box-sizing: border-box;
     }
 
@@ -55,166 +55,159 @@
     .ss-grid-wrap {
       width: 100%;
       margin: 0;
-      background: #f4f4f5;
-      border-radius: 8px;
-      box-shadow: 0 1px 3px rgba(17, 24, 39, 0.04);
-      padding: 32px;
+      background: #ffffff;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      padding: 0;
       box-sizing: border-box;
     }
 
     .ss-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
+      gap: 14px;
     }
 
     .ss-card {
       display: flex;
       flex-direction: column;
-      background: #ffffff;
-      border: 1px solid rgba(17, 24, 39, 0.06);
-      border-radius: 8px;
+      align-items: stretch;
+      padding: 0;
+      border: 0;
+      border-radius: 4px;
+      background: transparent;
       overflow: hidden;
-      box-shadow: 0 1px 6px rgba(15, 23, 42, 0.06);
       text-align: left;
       text-decoration: none;
       color: inherit;
       cursor: pointer;
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      min-height: 0;
+      box-shadow: none;
     }
 
-    .ss-card:hover {
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
-      transform: translateY(-2px);
+    .ss-card:hover,
+    .ss-card:focus-visible {
+      background: transparent;
+      box-shadow: none;
+      outline: none;
     }
 
-    .ss-thumb-wrap {
+    .ss-art {
+      position: relative;
       display: block;
       width: 100%;
-      aspect-ratio: 16 / 10;
+      aspect-ratio: 4 / 5;
+      border-radius: 4px;
       overflow: hidden;
-      background: linear-gradient(135deg, rgba(15, 23, 42, 0.06), rgba(15, 23, 42, 0.02));
+      background: #1a1917;
     }
 
     .ss-thumb {
+      display: block;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: block;
     }
 
-    .ss-body {
-      padding: 16px 18px 18px;
-      flex: 1 1 auto;
+    .ss-art video.ss-thumb {
+      position: absolute;
+      inset: 0;
+    }
+
+    .ss-scrim {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(
+        180deg,
+        rgba(20, 18, 16, 0) 38%,
+        rgba(20, 18, 16, 0.62) 100%
+      );
+      transition: background 0.25s ease;
+    }
+
+    .ss-card:hover .ss-scrim,
+    .ss-card:focus-visible .ss-scrim {
+      background: linear-gradient(
+        180deg,
+        rgba(20, 18, 16, 0) 28%,
+        rgba(20, 18, 16, 0.72) 100%
+      );
+    }
+
+    .ss-copy {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 2;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      align-items: flex-start;
+      padding: 14px 12px 12px;
+      width: 100%;
+      box-sizing: border-box;
+      transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .ss-card:hover .ss-copy,
+    .ss-card:focus-visible .ss-copy {
+      transform: translateY(-2px);
+    }
+
+    .ss-label {
+      display: block;
+      font-family: "Inter", sans-serif;
+      font-size: 10.5px;
+      font-weight: 300;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.82);
+      line-height: 1.2;
+      margin: 0 0 4px;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.30);
     }
 
     .ss-title {
-      font-family: "Inter", sans-serif;
+      display: block;
+      font-family: var(--display);
+      font-size: 18px;
       font-weight: 400;
-      font-size: 15px;
-      color: #111827;
+      letter-spacing: -0.01em;
+      line-height: 1.18;
+      color: #fff;
+      margin: 0;
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+    }
+
+    .ss-sub {
+      display: block;
+      font-family: "Inter", sans-serif;
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, 0.85);
       line-height: 1.35;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .ss-excerpt {
-      font-family: "Inter", sans-serif;
-      font-size: 13px;
       font-weight: 300;
-      color: var(--muted);
-      line-height: 1.5;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .ss-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-      margin-top: 2px;
-    }
-
-    .ss-pill {
-      border: 1px solid rgba(17, 24, 39, 0.08);
-      border-radius: 999px;
-      padding: 1px 8px;
-      background: #f4f4f5;
-      font-family: "Inter", sans-serif;
-      font-size: 11px;
-      font-weight: 400;
-      color: #6b6b6b;
-      white-space: nowrap;
-    }
-
-    .ss-foot {
-      margin-top: auto;
-      padding-top: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .ss-read {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-family: "Inter", sans-serif;
-      font-size: 12px;
-      font-weight: 600;
-      color: #111827;
-    }
-
-    .ss-read svg {
-      width: 14px;
-      height: 14px;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.30);
+      max-height: 0;
+      margin-top: 0;
       opacity: 0;
-      transition: transform 0.2s ease, opacity 0.2s ease;
+      overflow: hidden;
+      transform: translateY(8px);
+      transition:
+        max-height 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.22s ease,
+        transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+        margin-top 0.28s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    .ss-card:hover .ss-read svg {
+    .ss-card:hover .ss-sub,
+    .ss-card:focus-visible .ss-sub {
+      max-height: 4.2em;
+      margin-top: 6px;
       opacity: 1;
-      transform: translateX(3px);
-    }
-
-    .ss-logo {
-      height: 20px;
-      width: auto;
-      max-width: 100px;
-      object-fit: contain;
-      object-position: right center;
-      flex-shrink: 0;
-      opacity: 0.9;
-    }
-
-    .ss-cta {
-      text-align: center;
-      margin: 40px 0 8px;
-    }
-
-    .ss-cta a {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-family: "Inter", sans-serif;
-      font-size: 14px;
-      font-weight: 300;
-      color: #111827;
-      text-decoration: none;
-      transition: color 0.2s ease;
-    }
-
-    .ss-cta a:hover {
-      color: #000000;
-      text-decoration: underline;
+      transform: translateY(0);
     }
 
     @media (prefers-reduced-motion: no-preference) {
@@ -229,17 +222,34 @@
         opacity: 1;
         transform: translateY(0);
       }
+    }
 
-      .ss-card.ss-reveal.is-visible:hover {
-        transform: translateY(-2px);
+    @media (prefers-reduced-motion: reduce) {
+      .ss-copy,
+      .ss-sub,
+      .ss-scrim {
+        transition: none;
+      }
+      .ss-card:hover .ss-copy,
+      .ss-card:focus-visible .ss-copy {
+        transform: none;
       }
     }
 
     @media (max-width: 860px) {
       .ss-page { width: calc(100vw - 32px); }
       .ss-grid { grid-template-columns: 1fr; }
-      .ss-grid-wrap { padding: 20px; }
+      .ss-art { aspect-ratio: 16 / 10; }
     }
+
+
+    .hamburger-line {
+      width: 18px;
+      height: 1.5px;
+      background: #111;
+      border-radius: 1px;
+    }
+    .header-container .hamburger-menu { gap: 5px; }
   </style>
 </head>
 <body>
@@ -263,32 +273,19 @@
 
     <div class="header-center">
       <div class="navigation">
-        <a href="https://www.theclubnyc.com/community/chat" class="nav-item chat">
-          <div class="nav-text">Club Room</div>
-        </a>
-        <a href="https://www.theclubnyc.com/templates" class="nav-item templates">
-          <div class="nav-text">How To</div>
-        </a>
-        <a href="https://www.theclubnyc.com/find/" class="nav-item search-listings">
-          <div class="nav-text">Find Work</div>
-        </a>
-        <a href="https://app.theclubnyc.com/guest" class="nav-item create-listing">
-          <div class="nav-text">Find Talent</div>
-        </a>
-        <a href="https://www.theclubnyc.com/about" class="nav-item about">
-          <div class="nav-text">About</div>
-        </a>
+        <a href="https://www.theclubnyc.com/community/chat" class="nav-item chat"><div class="nav-text">Club Room</div></a>
+        <a href="https://www.theclubnyc.com/templates" class="nav-item templates"><div class="nav-text">How To</div></a>
+        <a href="https://www.theclubnyc.com/find/" class="nav-item search-listings"><div class="nav-text">Find Work</div></a>
+        <a href="https://app.theclubnyc.com/guest" class="nav-item create-listing"><div class="nav-text">Find Talent</div></a>
+        <a href="https://www.theclubnyc.com/about" class="nav-item about"><div class="nav-text">About</div></a>
       </div>
     </div>
 
     <div class="header-right">
       <div class="auth-section">
         <a href="https://app.theclubnyc.com/" class="qava-premium-nav-btn" data-qava-premium-nav aria-label="Log in"><span class="nav-text">Log in</span></a>
-        <a href="https://app.theclubnyc.com/" class="join-button">
-          <div class="join-text">Get Started</div>
-        </a>
+        <a href="https://app.theclubnyc.com/" class="join-button"><div class="join-text">Get Started</div></a>
       </div>
-
       <div class="hamburger-menu" onclick="toggleMobileMenu()">
         <div class="hamburger-line"></div>
         <div class="hamburger-line"></div>
@@ -299,25 +296,13 @@
 
   <div class="mobile-menu" id="mobileMenu">
     <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
-    <a href="https://www.theclubnyc.com/community/chat" class="mobile-nav-item">
-      <div class="nav-text">Club Room</div>
-    </a>
-    <a href="https://www.theclubnyc.com/templates" class="mobile-nav-item">
-      <div class="nav-text">How To</div>
-    </a>
-    <a href="https://www.theclubnyc.com/find/" class="mobile-nav-item">
-      <div class="nav-text">Find Work</div>
-    </a>
-    <a href="https://app.theclubnyc.com/guest" class="mobile-nav-item">
-      <div class="nav-text">Find Talent</div>
-    </a>
-    <a href="https://www.theclubnyc.com/about" class="mobile-nav-item">
-      <div class="nav-text">About</div>
-    </a>
+    <a href="https://www.theclubnyc.com/community/chat" class="mobile-nav-item"><div class="nav-text">Club Room</div></a>
+    <a href="https://www.theclubnyc.com/templates" class="mobile-nav-item"><div class="nav-text">How To</div></a>
+    <a href="https://www.theclubnyc.com/find/" class="mobile-nav-item"><div class="nav-text">Find Work</div></a>
+    <a href="https://app.theclubnyc.com/guest" class="mobile-nav-item"><div class="nav-text">Find Talent</div></a>
+    <a href="https://www.theclubnyc.com/about" class="mobile-nav-item"><div class="nav-text">About</div></a>
     <a href="https://app.theclubnyc.com/" class="mobile-nav-item qava-premium-nav-btn" data-qava-premium-nav aria-label="Log in"><span class="nav-text">Log in</span></a>
-    <a href="https://app.theclubnyc.com/" class="join-button mobile-menu-join-button">
-      <div class="join-text">Get Started</div>
-    </a>
+    <a href="https://app.theclubnyc.com/" class="join-button mobile-menu-join-button"><div class="join-text">Get Started</div></a>
   </div>
 
   <main class="ss-page" aria-label="Success stories">
@@ -328,127 +313,93 @@
 
     <section class="ss-grid-wrap" id="ss-stories">
       <div class="ss-grid">
-        <a href="https://www.theclubnyc.com/noonesark" class="ss-card ss-reveal">
-          <span class="ss-thumb-wrap">
-            <img src="No One's Ark/Ark Clip.webp" alt="No One's Ark" class="ss-thumb" loading="lazy">
-          </span>
-          <span class="ss-body">
-            <span class="ss-title">The Story of No One's Ark—and the Strategic Projects Powering Their Mission</span>
-            <span class="ss-excerpt">Some ideas arrive quietly. Others show up with a 270-ton retired ferry, a pirate brigade, and a vision bold enough to rewrite the future of one of New York City's most polluted waterways.</span>
-            <span class="ss-pills">
-              <span class="ss-pill">Non-Profit 🌳</span>
-              <span class="ss-pill">Fundraising 💰</span>
-              <span class="ss-pill">Financial Roadmap 📊</span>
+        <a href="https://www.theclubnyc.com/strategicdoer" class="ss-card ss-reveal">
+          <span class="ss-art">
+            <img src="strategic-doer.jpg" alt="Sailboat on open water" class="ss-thumb" loading="lazy">
+            <span class="ss-scrim" aria-hidden="true"></span>
+            <span class="ss-copy">
+              <span class="ss-label">Essay</span>
+              <strong class="ss-title">The Rise of the Strategic Doer</strong>
+              <span class="ss-sub">The diminishing gap between idea and done.</span>
             </span>
-            <span class="ss-foot">
-              <span class="ss-read">Read the full story<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-              <img src="No One's Ark/University_of_Pittsburgh_seal.svg" alt="University of Pittsburgh" class="ss-logo" loading="lazy">
+          </span>
+        </a>
+
+        <a href="https://www.theclubnyc.com/noonesark" class="ss-card ss-reveal">
+          <span class="ss-art">
+            <img src="No One's Ark/Ark Clip.webp" alt="No One's Ark" class="ss-thumb" loading="lazy">
+            <span class="ss-scrim" aria-hidden="true"></span>
+            <span class="ss-copy">
+              <span class="ss-label">Non-Profit</span>
+              <strong class="ss-title">The Story of No One's Ark—and the Strategic Projects Powering Their Mission</strong>
+              <span class="ss-sub">Some ideas arrive quietly. Others show up with a 270-ton retired ferry, a pirate brigade, and a vision bold enough to rewrite the future of one of New York City's most polluted waterways.</span>
             </span>
           </span>
         </a>
 
         <a href="https://www.theclubnyc.com/therisegroup" class="ss-card ss-reveal">
-          <span class="ss-thumb-wrap">
+          <span class="ss-art">
             <img src="Emma-Burke-6.jpg" alt="Emma Burke" class="ss-thumb" loading="lazy">
-          </span>
-          <span class="ss-body">
-            <span class="ss-title">She Modeled the Numbers. Then She Hit Them.</span>
-            <span class="ss-excerpt">How Emma Burke turned a spreadsheet into a $1M creator agency — with a financial roadmap built through The Club.</span>
-            <span class="ss-pills">
-              <span class="ss-pill">Female Founder 👩‍💼</span>
-              <span class="ss-pill">Brand Strategy 📣</span>
-              <span class="ss-pill">Financial Roadmap 📊</span>
-            </span>
-            <span class="ss-foot">
-              <span class="ss-read">Read the full story<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-              <img src="StJohns_logo.png" alt="St. John's University" class="ss-logo" loading="lazy">
+            <span class="ss-scrim" aria-hidden="true"></span>
+            <span class="ss-copy">
+              <span class="ss-label">The Creator Economy</span>
+              <strong class="ss-title">She Modeled the Numbers. Then She Hit Them.</strong>
+              <span class="ss-sub">How Emma Burke turned a spreadsheet into a $1M creator agency — with a financial roadmap built through The Club.</span>
             </span>
           </span>
         </a>
 
         <a href="https://www.theclubnyc.com/liquidskateboard" class="ss-card ss-reveal">
-          <span class="ss-thumb-wrap">
+          <span class="ss-art">
             <video class="ss-thumb" autoplay loop muted playsinline>
               <source src="https://liquidskateboard.b-cdn.net/Video%20-%20Web%20Aug%202025/1_GLOABL_VERTICAL_LOW.mp4" type="video/mp4">
             </video>
-          </span>
-          <span class="ss-body">
-            <span class="ss-title">Something Real Under My Feet</span>
-            <span class="ss-excerpt">How Alexis Chabat built the most original board in a $4B market.</span>
-            <span class="ss-pills">
-              <span class="ss-pill">Go-To-Market 🚀</span>
-              <span class="ss-pill">Global Distribution 🌍</span>
-              <span class="ss-pill">Growth Strategy 📈</span>
-            </span>
-            <span class="ss-foot">
-              <span class="ss-read">Read the full story<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-              <img src="liquid-skateboard-images/Logo_Polytech_Annecy_Chambery.svg" alt="Polytech Annecy-Chambéry" class="ss-logo" loading="lazy">
+            <span class="ss-scrim" aria-hidden="true"></span>
+            <span class="ss-copy">
+              <span class="ss-label">Product</span>
+              <strong class="ss-title">Something Real Under My Feet</strong>
+              <span class="ss-sub">How Alexis Chabat built the most original board in a $4B market.</span>
             </span>
           </span>
         </a>
 
         <a href="https://www.theclubnyc.com/mmento" class="ss-card ss-reveal">
-          <span class="ss-thumb-wrap">
+          <span class="ss-art">
             <img src="Kristina%20Boxer%20Profile%20Photo.png" alt="Kristina Boxer" class="ss-thumb" loading="lazy">
-          </span>
-          <span class="ss-body">
-            <span class="ss-title">The Dates We Don't Put on Our Calendars</span>
-            <span class="ss-excerpt">Birthdays, anniversaries, and the ones no one thinks to write down.</span>
-            <span class="ss-pills">
-              <span class="ss-pill">Consumer Tech 📱</span>
-              <span class="ss-pill">Gift-Giving 🎁</span>
-              <span class="ss-pill">Bootstrapped 🌱</span>
-            </span>
-            <span class="ss-foot">
-              <span class="ss-read">Read the full story<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-              <img src="Testimonial%20company%20logos/mmento%20logo.svg" alt="mmento" class="ss-logo" loading="lazy">
+            <span class="ss-scrim" aria-hidden="true"></span>
+            <span class="ss-copy">
+              <span class="ss-label">Consumer Tech</span>
+              <strong class="ss-title">The Dates We Don't Put on Our Calendars</strong>
+              <span class="ss-sub">Birthdays, anniversaries, and the ones no one thinks to write down.</span>
             </span>
           </span>
         </a>
 
         <a href="https://www.theclubnyc.com/roam" class="ss-card ss-reveal">
-          <span class="ss-thumb-wrap">
+          <span class="ss-art">
             <img src="Roam/Hand%20Holding%20Bottle.jpg" alt="Roam portable carbonation bottle" class="ss-thumb" loading="lazy">
-          </span>
-          <span class="ss-body">
-            <span class="ss-title">Reimagining Hydration &amp; Sustainability for a World on the Move</span>
-            <span class="ss-excerpt">How Roam is revolutionizing portable carbonation with SodaTop™—bringing premium, sustainable hydration to every moment of life on the move.</span>
-            <span class="ss-pills">
-              <span class="ss-pill">Consumer Goods 🥤</span>
-              <span class="ss-pill">Product Design 🎨</span>
-              <span class="ss-pill">Sustainability ♻️</span>
-            </span>
-            <span class="ss-foot">
-              <span class="ss-read">Read the full story<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-              <img src="Roam/berkeley_haas_logo.jpg" alt="UC Berkeley Haas School of Business" class="ss-logo" loading="lazy">
+            <span class="ss-scrim" aria-hidden="true"></span>
+            <span class="ss-copy">
+              <span class="ss-label">Consumer Goods</span>
+              <strong class="ss-title">Reimagining Hydration &amp; Sustainability for a World on the Move</strong>
+              <span class="ss-sub">How Roam is revolutionizing portable carbonation with SodaTop™—bringing premium, sustainable hydration to every moment of life on the move.</span>
             </span>
           </span>
         </a>
 
         <a href="https://www.theclubnyc.com/lumi" class="ss-card ss-reveal">
-          <span class="ss-thumb-wrap">
+          <span class="ss-art">
             <img src="Lumi/Family.jpg" alt="Neurodiverse family" class="ss-thumb" loading="lazy">
-          </span>
-          <span class="ss-body">
-            <span class="ss-title">The Meltdown Doesn't Wait for the Appointment</span>
-            <span class="ss-excerpt">Lumi is built for the time between sessions, where life happens.</span>
-            <span class="ss-pills">
-              <span class="ss-pill">Parenting Tech 👪</span>
-              <span class="ss-pill">Neurodiversity 🧠</span>
-              <span class="ss-pill">AI Coaching 🤖</span>
-            </span>
-            <span class="ss-foot">
-              <span class="ss-read">Read the full story<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-              <img src="Lumi/Lumi%20Logo.png" alt="Lumi" class="ss-logo" loading="lazy">
+            <span class="ss-scrim" aria-hidden="true"></span>
+            <span class="ss-copy">
+              <span class="ss-label">Parenting Tech</span>
+              <strong class="ss-title">The Meltdown Doesn't Wait for the Appointment</strong>
+              <span class="ss-sub">Lumi is built for the time between sessions, where life happens.</span>
             </span>
           </span>
         </a>
       </div>
     </section>
-
-    <div class="ss-cta">
-      <a href="https://app.theclubnyc.com/">Log in to read more →</a>
-    </div>
   </main>
 
   <footer class="footer-section"></footer>
@@ -513,6 +464,7 @@
         observer.disconnect();
       }
     })();
+
   </script>
   <script src="/qava-auth.js"></script>
 </body>
