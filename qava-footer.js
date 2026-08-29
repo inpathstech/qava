@@ -30,7 +30,7 @@
             <ul class="footer-link-list">
               <li><a href="https://theclubnyc.com/demo" class="footer-link">Request a demo</a></li>
               <li><a href="https://theclubnyc.com/pricing" class="footer-link">Pricing</a></li>
-              <li><a href="https://theclubnyc.com/successstories" class="footer-link">Success stories</a></li>
+              <li><a href="https://theclubnyc.com/blog" class="footer-link">Blog</a></li>
               <li><a href="https://theclubnyc.com/termsofuse" class="footer-link">Terms of Use</a></li>
               <li><a href="https://theclubnyc.com/termsofuse" class="footer-link">California privacy notice</a></li>
               <li><a href="https://theclubnyc.com/useragreement" class="footer-link">User Agreement</a></li>
