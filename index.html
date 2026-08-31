@@ -28,12 +28,7 @@
     <script>document.documentElement.classList.add('qava-pending');</script>
     <!-- Fetch the design stylesheet as early and high-priority as possible so the
          page spends the least possible time hidden behind the anti-FOUC guard. -->
-    <link rel="preload" as="style" href="qava-landing.css?v=11">
-    <link rel="preload" as="image" href="./Roam/roam-card-poster.jpg" fetchpriority="high">
-    <link rel="preload" as="image" href="./pete-pareo-card-poster.jpg" fetchpriority="high">
-    <link rel="preload" as="video" href="./Roam/roam-card.mp4" type="video/mp4">
-    <link rel="preload" as="video" href="./pete-pareo-card.mp4" type="video/mp4">
-
+    <link rel="preload" as="style" href="qava-landing.css?v=10">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -5423,7 +5418,7 @@
     </style>
     <!-- Do NOT call __qavaReveal from stylesheet onload — CSS finishes before
          qava-landing.js rebuilds the page, which re-exposes the legacy hero. -->
-    <link rel="stylesheet" href="qava-landing.css?v=11" />
+    <link rel="stylesheet" href="qava-landing.css?v=10" />
     <link rel="stylesheet" href="community/landing-community.css" />
     <link rel="stylesheet" href="qava-auth.css" />
     <script>
@@ -5477,10 +5472,7 @@
                 <a href="https://app.theclubnyc.com/guest" class="nav-item create-listing">
                     <div class="nav-text">Find Talent</div>
                 </a>
-                <a href="https://www.theclubnyc.com/blog" class="nav-item blog">
-          <div class="nav-text">Blog</div>
-        </a>
-        <a href="https://www.theclubnyc.com/about" class="nav-item about">
+                <a href="https://www.theclubnyc.com/about" class="nav-item about">
                     <div class="nav-text">About</div>
                 </a>
             </div>
@@ -5517,10 +5509,7 @@
         <a href="https://app.theclubnyc.com/guest" class="mobile-nav-item">
             <div class="nav-text">Find Talent</div>
         </a>
-        <a href="https://www.theclubnyc.com/blog" class="mobile-nav-item">
-      <div class="nav-text">Blog</div>
-    </a>
-    <a href="https://www.theclubnyc.com/about" class="mobile-nav-item">
+        <a href="https://www.theclubnyc.com/about" class="mobile-nav-item">
             <div class="nav-text">About</div>
         </a>
         <a href="https://app.theclubnyc.com/?login=1" class="mobile-nav-item qava-premium-nav-btn" data-qava-premium-nav aria-label="Log in"><span class="nav-text">Log in</span></a>
@@ -5930,7 +5919,7 @@
                             </video>
                         </a>
                         <div class="in-focus-content">
-                            <h3 class="in-focus-blog-title">I just wanted something that felt real</h3>
+                            <h3 class="in-focus-blog-title">Something Real Under My Feet</h3>
                             <p class="in-focus-subtitle">How Alexis Chabat built the most original board in a $4B market.</p>
                             <div class="in-focus-badges">
                                 <div class="in-focus-pill"><span>Go-To-Market 🚀</span></div>
@@ -7189,512 +7178,1023 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
     </div>
   </template>
 
-    <div class="landing-section" data-landing-preview style="display:none">
-      <div class="landing-section-head">
-        <div class="landing-kicker">Premium community</div>
-        <h2 class="landing-title">Get real answers.</h2>
-        <p class="landing-sub">
-          A private space for members to post questions, share thoughts, and grow.
-        </p>
-      </div>
+        <!-- Club Room landing preview (relocated by community/landing-community.js) -->
+    <div class="landing-section" data-landing-preview style="display:none" aria-label="Club Room">
 
-      <div class="landing-thread-wrap">
-        <div class="landing-thread-controls">
-          <button type="button" class="landing-opener-nav" data-opener-prev aria-label="Previous thread">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
-          </button>
-          <button type="button" class="landing-opener-nav" data-opener-next aria-label="Next thread">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-          </button>
-          <div class="thread-display-menu-slot" data-display-menu-slot></div>
-        </div>
-        <div class="landing-thread-shell is-on-nathan-slide" id="landingThreadCard" role="button" tabindex="0" aria-label="View thread: Offshore film sponsorship">
-        <div class="landing-thread-scroll" id="landingThread">
-          <div class="landing-opener-carousel" id="landingOpenerCarousel">
-            <div class="landing-opener-track" id="landingOpenerTrack">
-              <div class="landing-opener-slide is-hero" data-thread="nathan" data-open-thread>
-                <article class="thread-post">
-                  <div class="thread-meta">
-                    <div class="avatar">NT</div>
-                    <div class="meta-lines">
-                      <div class="meta-top"><strong>Nathan</strong> · Filmmaker · MIT Sloan</div>
-                      <div class="meta-sub"><span class="meta-time">2 hours ago</span><span class="meta-reply-count"></span></div>
-                    </div>
-                    <div class="thread-tags">
-                      <span class="thread-tag is-primary">Fundraising</span>
-                    </div>
-                  </div>
-                  <h3 class="thread-title">Offshore film sponsorship — anyone done this before?</h3>
-                  <div class="thread-body">
-                    <p>Hey everyone — does anyone have experience raising brand sponsorship for an offshore film? I've put together a deck and would love a gut check before I start outreach.</p>
-                    <p>Targeting lifestyle + adventure brands first. <strong>$40K gap to close</strong> before we shoot, and we're shooting in <strong>13 weeks</strong> — trying to lock sponsors before we go.</p>
-                    <p>When do sponsors usually want to commit?</p>
-                    <div class="attach-chips">
-                      <span class="attach-chip">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M10 13h4"/><path d="M10 17h4"/></svg>
-                        Sponsorship deck · 12 slides
-                      </span>
-                    </div>
-                  </div>
-                </article>
-                <button type="button" class="thread-replies-toggle" data-replies-toggle data-reply-count="7">Show 7 replies</button>
-                <div class="thread-replies-wrap" data-replies-wrap id="landingThreadReplies">
-                  <div class="reply thread-seq-reply thread-seq-hidden" data-seq-side="right">
-                    <div class="avatar">SC</div>
-                    <div>
-                      <div class="reply-meta"><strong>Sofia</strong> · Creative · NYU Stern</div>
-                      <div class="reply-body">From a brand positioning angle, a one-pager + deck combo worked well. Short summary up front, full deck on request. <span class="reply-time">20 min ago</span></div>
-                      <div class="attach-chips">
-                        <span class="attach-chip">
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-                          Example deck · PDF
-                        </span>
-                      </div>
-                      <button type="button" class="reply-heart is-active" data-heart-count="4" aria-label="4 helpful, most liked">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
-                        <span>4</span>
-                      </button>
-                    </div>
-                  </div>
+    <header class="club-head">
+      <div class="club-kicker">Club Room</div>
+      <h2 class="club-title">Nobody does it all alone.</h2>
+      <p class="club-sub">A chat room specialized in startups, career, side-hustles and making more money</p>
+    </header>
 
-                  <div class="reply thread-seq-reply thread-seq-hidden" data-seq-side="right">
-                    <div class="avatar">AK</div>
-                    <div>
-                      <div class="reply-meta"><strong>Aaron</strong> · MBA Student · Wharton</div>
-                      <div class="reply-body">Building on <span class="reply-mention">@Sofia</span>'s deck approach — <span class="reply-highlight">with a <strong>13-week</strong> shoot and a <strong>$40K gap</strong>, I'd get verbal commitments in the next 4–5 weeks — brands get nervous once production starts without sponsors locked.</span> Did a similar sprint in a GTM class — timeline felt right for this stage. <span class="reply-time">45 min ago</span></div>
-                      <button type="button" class="reply-heart" data-heart-count="3" aria-label="3 helpful">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
-                        <span>3</span>
-                      </button>
-                    </div>
-                  </div>
+    <div class="club-filters" id="clubFilters" role="toolbar" aria-label="Filter by topic">
+      <button type="button" class="club-filter is-active" data-filter="all">All</button>
+      <button type="button" class="club-filter" data-filter="gtm">
+        GTM
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
+      </button>
+      <button type="button" class="club-filter" data-filter="ops">
+        Ops
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+      <button type="button" class="club-filter" data-filter="pricing">
+        Pricing
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </button>
+      <button type="button" class="club-filter" data-filter="fundraising">
+        Fundraising
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+      </button>
+      <button type="button" class="club-filter" data-filter="career">
+        Career
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+      </button>
+    </div>
 
-                  <div class="reply thread-seq-reply thread-seq-hidden" data-seq-side="right">
-                    <div class="avatar">JL</div>
-                    <div>
-                      <div class="reply-meta"><strong>Julia</strong> · Founder · Seed stage</div>
-                      <div class="reply-body">I've run sponsorship outreach for media projects — happy to review your deck tonight. <span class="reply-mention">@Sofia</span>'s one-pager + deck combo is a smart move too. <span class="reply-time">1 hour ago</span></div>
-                      <button type="button" class="reply-heart" data-heart-count="2" aria-label="2 helpful">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
-                        <span>2</span>
-                      </button>
-                    </div>
-                  </div>
-
-                  <div class="reply-more thread-seq-hidden">+4 more replies</div>
+    <div class="quiet-list" id="quietList">
+        <div class="quiet-item" data-cat="gtm" data-featured="true" data-likes="8" data-replies="6">
+          <div class="quiet-row" role="button" tabindex="0" aria-expanded="false">
+            <div class="quiet-av is-photo">JL</div>
+            <div class="quiet-main">
+              <div class="quiet-top">
+                <p class="quiet-meta"><strong>julia</strong> · Founder · Seed stage<span class="dot">·</span><span class="quiet-time">2d ago</span></p>
+                <div class="quiet-tags">
+                  <button type="button" class="quiet-tag" data-filter="gtm">GTM <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></button>
                 </div>
               </div>
-
-              <div class="landing-opener-slide" data-thread="marcus" data-open-thread role="button" tabindex="0" aria-label="View thread: Does this pricing page feel too enterprise?">
-                <article class="thread-post">
-                  <div class="thread-meta">
-                    <div class="avatar">MT</div>
-                    <div class="meta-lines">
-                      <div class="meta-top"><strong>Marcus</strong> · Founder · B2B SaaS</div>
-                      <div class="meta-sub">4 hours ago · 7 replies</div>
-                    </div>
-                    <div class="thread-tags">
-                      <span class="thread-tag">Product</span>
-                    </div>
-                  </div>
-                  <h3 class="thread-title">Does this pricing page feel too enterprise?</h3>
-                  <div class="thread-body">
-                    <p>Building a B2B tool for agencies — worried the tiers read too corporate for our ICP. We want to look credible without scaring away smaller shops.</p>
-                    <p>Three tiers today: <strong>Starter $49</strong>, <strong>Growth $149</strong>, <strong>Enterprise custom</strong>. Most signups stall on the middle tier.</p>
-                    <p>Would love a gut check before I ship — especially on naming and layout.</p>
-                    <div class="attach-chips">
-                      <span class="attach-chip">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-                        Pricing page draft · PNG
-                      </span>
-                      <span class="attach-chip">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 16v-5"/><path d="M12 16V8"/><path d="M17 16v-3"/></svg>
-                        Tier comparison · PDF
-                      </span>
-                    </div>
-                  </div>
-                </article>
-                <button type="button" class="thread-replies-toggle" data-replies-toggle data-reply-count="7">Show 7 replies</button>
-                <div class="thread-replies-wrap" data-replies-wrap>
-                  <div class="reply">
-                    <div class="avatar">JL</div>
-                    <div>
-                      <div class="reply-meta"><strong>Julia</strong> · Consultant · HBS</div>
-                      <div class="reply-body">For agencies, I'd lead with a simple two-tier page and tuck enterprise behind a "Talk to us" CTA. <span class="reply-time">1 hour ago</span></div>
-                      <button type="button" class="reply-heart is-active" data-heart-count="5" aria-label="5 helpful">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
-                        <span>5</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="reply">
-                    <div class="avatar">PR</div>
-                    <div>
-                      <div class="reply-meta"><strong>Priya</strong> · Founder · B2B SaaS</div>
-                      <div class="reply-body">Echoing <span class="reply-mention">@Julia</span>'s two-tier idea — we renamed "Enterprise" to "Studio" and conversion on the middle tier improved. Happy to share the before/after. <span class="reply-time">2 hours ago</span></div>
-                      <button type="button" class="reply-heart" data-heart-count="3" aria-label="3 helpful">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
-                        <span>3</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="reply">
-                    <div class="avatar">NT</div>
-                    <div>
-                      <div class="reply-meta"><strong>Nathan</strong> · Filmmaker · MIT Sloan</div>
-                      <div class="reply-body">Agency buyers scan fast — <span class="reply-mention">@Julia</span>'s two-tier layout would help here. Put one sentence per tier above the fold. <span class="reply-time">3 hours ago</span></div>
-                      <button type="button" class="reply-heart" data-heart-count="2" aria-label="2 helpful">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
-                        <span>2</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="reply">
-                    <div class="avatar">DV</div>
-                    <div>
-                      <div class="reply-meta"><strong>David</strong> · Founder · Series A</div>
-                      <div class="reply-body">Middle-tier stall usually means the jump feels too big — try anchoring Growth to a concrete outcome, not seat count. <span class="reply-time">4 hours ago</span></div>
-                      <button type="button" class="reply-heart" data-heart-count="1" aria-label="1 helpful">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
-                        <span>1</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="reply-more">+3 more replies</div>
-                </div>
+              <h3 class="quiet-title">Best tools for lightweight investor updates?</h3>
+              <div class="quiet-attach">
+                <a class="quiet-attach-chip is-doc" href="#" onclick="return false;">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551"/></svg>
+                  Update template · PDF
+                </a>
               </div>
-
-              <div class="landing-opener-slide" data-open-chat role="button" tabindex="0" aria-label="View thread: Best tools for lightweight investor updates?">
-                <article class="thread-post">
-                  <div class="thread-meta">
-                    <div class="avatar">SP</div>
-                    <div class="meta-lines">
-                      <div class="meta-top"><strong>Sophie</strong> · Founder · Seed stage</div>
-                      <div class="meta-sub">Yesterday · 11 replies</div>
-                    </div>
-                    <div class="thread-tags">
-                      <span class="thread-tag is-primary">Fundraising</span>
-                    </div>
-                  </div>
-                  <h3 class="thread-title">Best tools for lightweight investor updates?</h3>
-                  <div class="thread-body">
-                    <p>Sending monthly updates to a small group of angels. Notion feels heavy — what still looks polished without a full design pass?</p>
-                    <p>Ideally something I can reuse each month with <strong>KPI blocks</strong>, <strong>asks</strong>, and a short narrative section.</p>
-                    <p>Happy to share my current format if useful.</p>
-                    <div class="attach-chips">
-                      <span class="attach-chip">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M10 13h4"/><path d="M10 17h4"/></svg>
-                        Update template · Google Doc
-                      </span>
-                      <span class="attach-chip">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-                        Sample send · PDF
-                      </span>
-                    </div>
-                  </div>
-                </article>
-                <button type="button" class="thread-replies-toggle" data-replies-toggle data-reply-count="11">Show 11 replies</button>
-                <div class="thread-replies-wrap" data-replies-wrap>
-                  <div class="reply">
-                    <div class="avatar">NT</div>
-                    <div>
-                      <div class="reply-meta"><strong>Nathan</strong> · Filmmaker · MIT Sloan</div>
-                      <div class="reply-body">We use a simple Google Doc template with a KPI table up top. Angels love the consistency month to month. <span class="reply-time">3 hours ago</span></div>
-                      <button type="button" class="reply-heart is-active" data-heart-count="6" aria-label="6 helpful">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
-                        <span>6</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="reply">
-                    <div class="avatar">EV</div>
-                    <div>
-                      <div class="reply-meta"><strong>Elena</strong> · Founder · Fintech</div>
-                      <div class="reply-body">Visible.vc felt lightweight enough for us — though <span class="reply-mention">@Nathan</span>'s Google Doc route is even simpler for small angel groups. <span class="reply-time">5 hours ago</span></div>
-                      <button type="button" class="reply-heart" data-heart-count="4" aria-label="4 helpful">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
-                        <span>4</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="reply">
-                    <div class="avatar">JL</div>
-                    <div>
-                      <div class="reply-meta"><strong>Julia</strong> · Consultant · HBS</div>
-                      <div class="reply-body">Keep a one-page "asks" section at the top — angels read that first, every time. <span class="reply-time">6 hours ago</span></div>
-                      <button type="button" class="reply-heart" data-heart-count="3" aria-label="3 helpful">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
-                        <span>3</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="reply">
-                    <div class="avatar">MT</div>
-                    <div>
-                      <div class="reply-meta"><strong>Marcus</strong> · Founder · B2B SaaS</div>
-                      <div class="reply-body">We batch metrics on the 1st and send by the 3rd — same cadence beats fancy tooling. Worth pairing with <span class="reply-mention">@Julia</span>'s asks section up top. <span class="reply-time">8 hours ago</span></div>
-                      <button type="button" class="reply-heart" data-heart-count="2" aria-label="2 helpful">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
-                        <span>2</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="reply-more">+7 more replies</div>
-                </div>
+              <div class="quiet-actions">
+                <span><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 8</span>
+                <span><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 6</span>
+                <span>Reply</span>
+                <span>Save</span>
               </div>
-
-              <div class="landing-opener-slide" data-thread="julia" data-open-thread role="button" tabindex="0" aria-label="View thread: What should a 90-day GTM plan include for a new market?">
-                <article class="thread-post">
-                  <div class="thread-meta">
-                    <div class="avatar">JL</div>
-                    <div class="meta-lines">
-                      <div class="meta-top"><strong>Julia</strong> · Founder · Seed stage</div>
-                      <div class="meta-sub">3 days ago · 7 replies</div>
-                    </div>
-                    <div class="thread-tags">
-                      <span class="thread-tag">GTM</span>
-                    </div>
-                  </div>
-                  <h3 class="thread-title">What should a 90-day GTM plan include for a new market?</h3>
-                  <div class="thread-body">
-                    <p>Expanding into the UK from the US. Three-person team, limited budget — trying to figure out what belongs in the first version vs. what can wait.</p>
-                    <p>My draft covers <strong>ICP refinement</strong>, <strong>channel tests</strong>, and <strong>local partnerships</strong>, but I'm unsure on sequencing.</p>
-                    <p>What would you prioritize in weeks 1–4?</p>
-                    <div class="attach-chips">
-                      <span class="attach-chip">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-                        UK GTM outline · 3 pages
-                      </span>
-                      <span class="attach-chip">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><path d="M7 12h3"/><path d="M14 12h3"/></svg>
-                        Launch timeline · PDF
-                      </span>
-                    </div>
-                  </div>
-                </article>
-                <button type="button" class="thread-replies-toggle" data-replies-toggle data-reply-count="7">Show 7 replies</button>
-                <div class="thread-replies-wrap" data-replies-wrap>
-                  <div class="reply">
-                    <div class="avatar">MT</div>
+            </div>
+          </div>
+          <div class="quiet-panel">
+            <div class="quiet-panel-inner">
+              <div class="quiet-panel-content">
+                <p class="quiet-body">Sending monthly updates to a small group of angels. Notion feels heavy — what still looks polished without a full design pass?</p>
+                <p class="quiet-body">Ideally reusable with KPI blocks, asks, and a short narrative.</p>
+                <div class="quiet-replies">
+                  <div class="quiet-reply">
+                    <div class="quiet-av">MR</div>
                     <div>
-                      <div class="reply-meta"><strong>Marcus</strong> · Founder · B2B SaaS</div>
-                      <div class="reply-body">Weeks 1–4: ICP interviews + one channel test. Save partnerships until you have a repeatable message. <span class="reply-time">1 day ago</span></div>
-                      <button type="button" class="reply-heart is-active" data-heart-count="3" aria-label="3 helpful">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
-                        <span>3</span>
-                      </button>
+                      <div class="quiet-reply-name">marcus <span>· Founder · Seed stage</span></div>
+                      <div class="quiet-reply-text">Plain Google Doc + a one-page metrics table beats Notion for angels. They actually open it.</div>
+                      <div class="quiet-reply-foot"><span>1 day ago</span><span>★ 6 helpful</span></div>
                     </div>
                   </div>
-                  <div class="reply">
-                    <div class="avatar">SC</div>
+                  <div class="quiet-reply">
+                    <div class="quiet-av">SC</div>
                     <div>
-                      <div class="reply-meta"><strong>Sofia</strong> · Creative · NYU Stern</div>
-                      <div class="reply-body">I'd add a local hire or advisor in week 2 — saved us months on messaging in Germany. <span class="reply-time">2 days ago</span></div>
-                      <button type="button" class="reply-heart" data-heart-count="2" aria-label="2 helpful">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
-                        <span>2</span>
-                      </button>
+                      <div class="quiet-reply-name">sofia <span>· Creative · NYU Stern</span></div>
+                      <div class="quiet-reply-text">I reuse a Canva one-pager. Keep the narrative to 6 lines max.</div>
+                      <div class="quiet-reply-foot"><span>18 hrs ago</span><span class="quiet-mark-helpful">☆ Mark helpful</span></div>
                     </div>
                   </div>
-                  <div class="reply">
-                    <div class="avatar">AK</div>
+                  <div class="quiet-reply">
+                    <div class="quiet-av">AK</div>
                     <div>
-                      <div class="reply-meta"><strong>Aaron</strong> · MBA Student · Wharton</div>
-                      <div class="reply-body"><span class="reply-mention">@Marcus</span> is right on one channel — run outbound for 3 weeks before adding a second, otherwise you can't tell what moved. <span class="reply-time">2 days ago</span></div>
-                      <button type="button" class="reply-heart" data-heart-count="2" aria-label="2 helpful">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
-                        <span>2</span>
-                      </button>
+                      <div class="quiet-reply-name">aaron <span>· Student · Wharton</span></div>
+                      <div class="quiet-reply-text">Visible.vc if you want polish — overkill under ~8 angels though.</div>
+                      <div class="quiet-reply-foot"><span>12 hrs ago</span><span class="quiet-mark-helpful">☆ Mark helpful</span></div>
                     </div>
                   </div>
-                  <div class="reply">
-                    <div class="avatar">DV</div>
-                    <div>
-                      <div class="reply-meta"><strong>David</strong> · Founder · Series A</div>
-                      <div class="reply-body">UK buyers respond well to proof from one named logo early — <span class="reply-mention">@Sofia</span>'s local-hire tip helps land that faster than broad channel tests. <span class="reply-time">3 days ago</span></div>
-                      <button type="button" class="reply-heart" data-heart-count="1" aria-label="1 helpful">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
-                        <span>1</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="reply-more">+3 more replies</div>
-                </div>
-              </div>
-
-              <div class="landing-opener-slide" data-thread="aaron" data-open-thread role="button" tabindex="0" aria-label="View thread: Scope for a 6-week financial model + investor deck?">
-                <article class="thread-post">
-                  <div class="thread-meta">
-                    <div class="avatar">AK</div>
-                    <div class="meta-lines">
-                      <div class="meta-top"><strong>Aaron</strong> · MBA Student · Wharton</div>
-                      <div class="meta-sub">5 days ago · 7 replies</div>
-                    </div>
-                    <div class="thread-tags">
-                      <span class="thread-tag">Finance</span>
-                    </div>
-                  </div>
-                  <h3 class="thread-title">Scope for a 6-week financial model + investor deck?</h3>
-                  <div class="thread-body">
-                    <p>Founder reached out for help building a board-ready model. Pre-revenue SaaS, raising a small seed extension.</p>
-                    <p>They're asking for <strong>3-year projections</strong>, <strong>unit economics</strong>, and a <strong>10-slide deck</strong> — all in six weeks.</p>
-                    <p>What deliverables and hours are reasonable for a project like this?</p>
-                    <div class="attach-chips">
-                      <span class="attach-chip">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-                        Model skeleton · Excel
-                      </span>
-                      <span class="attach-chip">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-                        Output checklist · PDF
-                      </span>
-                    </div>
-                  </div>
-                </article>
-                <button type="button" class="thread-replies-toggle" data-replies-toggle data-reply-count="7">Show 7 replies</button>
-                <div class="thread-replies-wrap" data-replies-wrap>
-                  <div class="reply">
-                    <div class="avatar">JL</div>
-                    <div>
-                      <div class="reply-meta"><strong>Julia</strong> · Consultant · HBS</div>
-                      <div class="reply-body">For pre-revenue, I'd scope 25–35 hours: model, sensitivity table, and a tight 8-slide deck. <span class="reply-time">4 days ago</span></div>
-                      <button type="button" class="reply-heart is-active" data-heart-count="2" aria-label="2 helpful">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
-                        <span>2</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="reply">
-                    <div class="avatar">DV</div>
-                    <div>
-                      <div class="reply-meta"><strong>David</strong> · Founder · Series A</div>
-                      <div class="reply-body">Push back on the 10-slide deck unless they're fundraising imminently — <span class="reply-mention">@Julia</span>'s 8-slide cap feels right for pre-revenue. <span class="reply-time">5 days ago</span></div>
-                      <button type="button" class="reply-heart" data-heart-count="1" aria-label="1 helpful">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
-                        <span>1</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="reply">
-                    <div class="avatar">MT</div>
-                    <div>
-                      <div class="reply-meta"><strong>Marcus</strong> · Founder · B2B SaaS</div>
-                      <div class="reply-body">Separate the model build from the deck — founders often conflate them and scope creeps fast. <span class="reply-time">5 days ago</span></div>
-                      <button type="button" class="reply-heart" data-heart-count="2" aria-label="2 helpful">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
-                        <span>2</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="reply">
-                    <div class="avatar">SP</div>
-                    <div>
-                      <div class="reply-meta"><strong>Sophie</strong> · Founder · Seed stage</div>
-                      <div class="reply-body">Assumptions matter more than slide polish at that stage — <span class="reply-mention">@David</span>'s deck-scope pushback is the right instinct. <span class="reply-time">6 days ago</span></div>
-                      <button type="button" class="reply-heart" data-heart-count="1" aria-label="1 helpful">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
-                        <span>1</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="reply-more">+3 more replies</div>
-                </div>
-              </div>
-
-              <div class="landing-opener-slide" data-open-chat role="button" tabindex="0" aria-label="View thread: When should you hire a first ops person?">
-                <article class="thread-post">
-                  <div class="thread-meta">
-                    <div class="avatar">DV</div>
-                    <div class="meta-lines">
-                      <div class="meta-top"><strong>David</strong> · Founder · Series A</div>
-                      <div class="meta-sub">1 week ago · 7 replies</div>
-                    </div>
-                    <div class="thread-tags">
-                      <span class="thread-tag">Operations</span>
-                    </div>
-                  </div>
-                  <h3 class="thread-title">When should you hire a first ops person?</h3>
-                  <div class="thread-body">
-                    <p>Eight-person startup, founders still doing invoicing and vendor stuff. Feels like we're past the scrappy stage but not sure we're ready for a full-time hire.</p>
-                    <p>Tracked about <strong>12 hrs/week</strong> on ops work across the team. Runway is healthy but hiring feels early.</p>
-                    <p>Too early, or time to bring someone in part-time first?</p>
-                    <div class="attach-chips">
-                      <span class="attach-chip">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-                        Ops workload audit · sheet
-                      </span>
-                      <span class="attach-chip">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-                        Hiring scorecard · doc
-                      </span>
-                    </div>
-                  </div>
-                </article>
-                <button type="button" class="thread-replies-toggle" data-replies-toggle data-reply-count="7">Show 7 replies</button>
-                <div class="thread-replies-wrap" data-replies-wrap>
-                  <div class="reply">
-                    <div class="avatar">SP</div>
-                    <div>
-                      <div class="reply-meta"><strong>Sophie</strong> · Founder · Seed stage</div>
-                      <div class="reply-body">We brought in a part-time ops lead at ~10 hrs/week first — full-time came 4 months later. <span class="reply-time">6 days ago</span></div>
-                      <button type="button" class="reply-heart is-active" data-heart-count="3" aria-label="3 helpful">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
-                        <span>3</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="reply">
-                    <div class="avatar">AK</div>
-                    <div>
-                      <div class="reply-meta"><strong>Aaron</strong> · MBA Student · Wharton</div>
-                      <div class="reply-body"><span class="reply-mention">@Sophie</span>'s fractional path is smart — if founders are still doing invoicing weekly, I'd hire now. The drag compounds fast. <span class="reply-time">1 week ago</span></div>
-                      <button type="button" class="reply-heart" data-heart-count="2" aria-label="2 helpful">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
-                        <span>2</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="reply">
-                    <div class="avatar">JL</div>
-                    <div>
-                      <div class="reply-meta"><strong>Julia</strong> · Consultant · HBS</div>
-                      <div class="reply-body">Document the top 5 recurring ops tasks first — makes it easier to scope a fractional hire. <span class="reply-time">1 week ago</span></div>
-                      <button type="button" class="reply-heart" data-heart-count="2" aria-label="2 helpful">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
-                        <span>2</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="reply">
-                    <div class="avatar">EV</div>
-                    <div>
-                      <div class="reply-meta"><strong>Elena</strong> · Founder · Fintech</div>
-                      <div class="reply-body">12 hrs/week across the team is the threshold where we moved to a dedicated ops hire — <span class="reply-mention">@Aaron</span>'s invoicing point is usually the signal you're there. <span class="reply-time">1 week ago</span></div>
-                      <button type="button" class="reply-heart" data-heart-count="1" aria-label="1 helpful">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
-                        <span>1</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="reply-more">+3 more replies</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="landing-thread-pause-indicator" aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></svg>
-        </div>
+
+        <div class="quiet-item" data-cat="ops" data-featured="true" data-likes="4" data-replies="2">
+          <div class="quiet-row" role="button" tabindex="0" aria-expanded="false">
+            <div class="quiet-av is-photo">AM</div>
+            <div class="quiet-main">
+              <div class="quiet-top">
+                <p class="quiet-meta"><strong>amelia</strong> · Founder · Seed stage<span class="dot">·</span><span class="quiet-time">5h ago</span></p>
+                <div class="quiet-tags">
+                  <button type="button" class="quiet-tag" data-filter="ops">Ops <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+                </div>
+              </div>
+              <h3 class="quiet-title">If you had $50k left, where would you spend it first?</h3>
+              <div class="quiet-poll">
+                <div class="quiet-poll-opt is-top" style="--pct: 40%"><span class="quiet-poll-fill"></span><span class="quiet-poll-mark"></span><span class="quiet-poll-label">A first hire</span><span class="quiet-poll-pct">40%</span></div>
+                <div class="quiet-poll-opt" style="--pct: 34%"><span class="quiet-poll-fill"></span><span class="quiet-poll-mark"></span><span class="quiet-poll-label">Paid acquisition</span><span class="quiet-poll-pct">34%</span></div>
+                <div class="quiet-poll-opt" style="--pct: 17%"><span class="quiet-poll-fill"></span><span class="quiet-poll-mark"></span><span class="quiet-poll-label">Runway. Do nothing yet.</span><span class="quiet-poll-pct">17%</span></div>
+                <div class="quiet-poll-opt" style="--pct: 9%"><span class="quiet-poll-fill"></span><span class="quiet-poll-mark"></span><span class="quiet-poll-label">A contractor for one painful week</span><span class="quiet-poll-pct">9%</span></div>
+              </div>
+              <div class="quiet-poll-foot"><span>47 votes</span><span class="dot">·</span><span>5 days left</span></div>
+              <div class="quiet-actions">
+                <span><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 4</span>
+                <span><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 2</span>
+                <span>Reply</span>
+                <span>Save</span>
+              </div>
+            </div>
+          </div>
+          <div class="quiet-panel">
+            <div class="quiet-panel-inner">
+              <div class="quiet-panel-content">
+                <p class="quiet-body">Curious how other seed founders are thinking about the last stretch of runway.</p>
+                <div class="quiet-replies">
+                  <div class="quiet-reply">
+                    <div class="quiet-av">DS</div>
+                    <div>
+                      <div class="quiet-reply-name">dev <span>· Founder · Pre-seed</span></div>
+                      <div class="quiet-reply-text">Voted hire — but only if it’s sales. Building more product won’t save a quiet pipeline.</div>
+                      <div class="quiet-reply-foot"><span>4 hrs ago</span><span class="quiet-mark-helpful">☆ Mark helpful</span></div>
+                    </div>
+                  </div>
+                  <div class="quiet-reply">
+                    <div class="quiet-av">CN</div>
+                    <div>
+                      <div class="quiet-reply-name">cam <span>· Operator · Series B</span></div>
+                      <div class="quiet-reply-text">Paid acquisition only if you already know CAC payback &lt; 4 months.</div>
+                      <div class="quiet-reply-foot"><span>3 hrs ago</span><span>★ 4 helpful</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="thread-premium-bar">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          Read freely · <strong>Reply with Premium</strong>
-        </div>
-      </div>
-      </div>
 
+
+        <div class="quiet-item" data-cat="ops" data-likes="6" data-replies="3">
+          <div class="quiet-row" role="button" tabindex="0" aria-expanded="false">
+            <div class="quiet-av is-photo">TR</div>
+            <div class="quiet-main">
+              <div class="quiet-top">
+                <p class="quiet-meta"><strong>tess</strong> · Founder · Seed stage<span class="dot">·</span><span class="quiet-time">1d ago</span></p>
+                <div class="quiet-tags">
+                  <button type="button" class="quiet-tag" data-filter="ops">Ops <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+                </div>
+              </div>
+              <h3 class="quiet-title">How do you run weekly ops without drowning in Notion?</h3>
+              
+              <div class="quiet-actions">
+                <span><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 6</span>
+                <span><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 3</span>
+                <span>Reply</span>
+                <span>Save</span>
+              </div>
+            </div>
+          </div>
+          <div class="quiet-panel">
+            <div class="quiet-panel-inner">
+              <div class="quiet-panel-content">
+                <p class="quiet-body">Our standups turned into a second product. Looking for a lightweight cadence that still keeps shipping honest.</p>
+                <div class="quiet-replies">
+                  <div class="quiet-reply">
+                    <div class="quiet-av">CN</div>
+                    <div>
+                      <div class="quiet-reply-name">cam <span>· Operator · Series B</span></div>
+                      <div class="quiet-reply-text">One page in Linear: goals, blockers, owners. Kill the Notion wiki until you have 12 people.</div>
+                      <div class="quiet-reply-foot"><span>18 hrs ago</span><span>★ 5 helpful</span></div>
+                    </div>
+                  </div>
+                  <div class="quiet-reply">
+                    <div class="quiet-av">MR</div>
+                    <div>
+                      <div class="quiet-reply-name">marcus <span>· Founder · Seed stage</span></div>
+                      <div class="quiet-reply-text">Async voice note Monday, live 20 minutes Wednesday. Written agendas or it expands forever.</div>
+                      <div class="quiet-reply-foot"><span>14 hrs ago</span><span class="quiet-mark-helpful">☆ Mark helpful</span></div>
+                    </div>
+                  </div>
+                  <div class="quiet-reply">
+                    <div class="quiet-av">EL</div>
+                    <div>
+                      <div class="quiet-reply-name">elena <span>· Operator · Series A</span></div>
+                      <div class="quiet-reply-text">We use a shared “decision log” doc — only decisions, not discussion. Cut meeting time in half.</div>
+                      <div class="quiet-reply-foot"><span>9 hrs ago</span><span>★ 3 helpful</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quiet-item" data-cat="ops" data-likes="5" data-replies="2">
+          <div class="quiet-row" role="button" tabindex="0" aria-expanded="false">
+            <div class="quiet-av is-photo">HX</div>
+            <div class="quiet-main">
+              <div class="quiet-top">
+                <p class="quiet-meta"><strong>hana</strong> · Operator · Series A<span class="dot">·</span><span class="quiet-time">2d ago</span></p>
+                <div class="quiet-tags">
+                  <button type="button" class="quiet-tag" data-filter="ops">Ops <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+                </div>
+              </div>
+              <h3 class="quiet-title">Vendor stack for a 4-person team — what would you cut first?</h3>
+              
+              <div class="quiet-actions">
+                <span><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 5</span>
+                <span><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 2</span>
+                <span>Reply</span>
+                <span>Save</span>
+              </div>
+            </div>
+          </div>
+          <div class="quiet-panel">
+            <div class="quiet-panel-inner">
+              <div class="quiet-panel-content">
+                <p class="quiet-body">Paying for five tools that each do 20% of the job. Curious what seed/Series A teams actually keep.</p>
+                <div class="quiet-replies">
+                  <div class="quiet-reply">
+                    <div class="quiet-av">DS</div>
+                    <div>
+                      <div class="quiet-reply-name">dev <span>· Founder · Pre-seed</span></div>
+                      <div class="quiet-reply-text">Cut analytics until you have retention. Keep email + payments + one source of truth.</div>
+                      <div class="quiet-reply-foot"><span>1d ago</span><span>★ 4 helpful</span></div>
+                    </div>
+                  </div>
+                  <div class="quiet-reply">
+                    <div class="quiet-av">JB</div>
+                    <div>
+                      <div class="quiet-reply-name">jordan <span>· Founder · Pre-seed</span></div>
+                      <div class="quiet-reply-text">If two people aren’t opening it weekly, cancel it. Tool sprawl is a tax on focus.</div>
+                      <div class="quiet-reply-foot"><span>20 hrs ago</span><span class="quiet-mark-helpful">☆ Mark helpful</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quiet-item" data-cat="ops" data-likes="7" data-replies="2">
+          <div class="quiet-row" role="button" tabindex="0" aria-expanded="false">
+            <div class="quiet-av is-photo">CN</div>
+            <div class="quiet-main">
+              <div class="quiet-top">
+                <p class="quiet-meta"><strong>cam</strong> · Operator · Series B<span class="dot">·</span><span class="quiet-time">9h ago</span></p>
+                <div class="quiet-tags">
+                  <button type="button" class="quiet-tag" data-filter="ops">Ops <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+                </div>
+              </div>
+              <h3 class="quiet-title">How do you handle on-call as a 3-person founding team?</h3>
+              <div class="quiet-actions">
+                <span><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 7</span>
+                <span><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 2</span>
+                <span>Reply</span>
+                <span>Save</span>
+              </div>
+            </div>
+          </div>
+          <div class="quiet-panel">
+            <div class="quiet-panel-inner">
+              <div class="quiet-panel-content">
+                <p class="quiet-body">We’re burning out covering nights. Looking for a lightweight rotation that doesn’t pretend we’re a 40-person SRE team.</p>
+                <div class="quiet-replies">
+                  <div class="quiet-reply">
+                    <div class="quiet-av">HX</div>
+                    <div>
+                      <div class="quiet-reply-name">hana <span>· Operator · Series A</span></div>
+                      <div class="quiet-reply-text">Week-on / week-off for the two technical founders. Product owns customer Slack — not infra pages.</div>
+                      <div class="quiet-reply-foot"><span>7 hrs ago</span><span>★ 5 helpful</span></div>
+                    </div>
+                  </div>
+                  <div class="quiet-reply">
+                    <div class="quiet-av">TR</div>
+                    <div>
+                      <div class="quiet-reply-name">tess <span>· Founder · Seed stage</span></div>
+                      <div class="quiet-reply-text">Kill anything that pages after midnight unless revenue is on fire. Most “P0s” were vanity uptime.</div>
+                      <div class="quiet-reply-foot"><span>5 hrs ago</span><span class="quiet-mark-helpful">☆ Mark helpful</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quiet-item" data-cat="gtm" data-likes="3" data-replies="1">
+          <div class="quiet-row" role="button" tabindex="0" aria-expanded="false">
+            <div class="quiet-av is-photo">KS</div>
+            <div class="quiet-main">
+              <div class="quiet-top">
+                <p class="quiet-meta"><strong>kai</strong> · Founder · Seed stage<span class="dot">·</span><span class="quiet-time">3d ago</span></p>
+                <div class="quiet-tags">
+                  <button type="button" class="quiet-tag" data-filter="gtm">GTM <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></button>
+                </div>
+              </div>
+              <h3 class="quiet-title">Cold email vs LinkedIn for first 20 design partners?</h3>
+              <div class="quiet-actions">
+                <span><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 3</span>
+                <span><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 1</span>
+                <span>Reply</span>
+                <span>Save</span>
+              </div>
+            </div>
+          </div>
+          <div class="quiet-panel">
+            <div class="quiet-panel-inner">
+              <div class="quiet-panel-content">
+                <p class="quiet-body">Trying to book 20 design-partner calls this month. Curious what’s converting for other seed teams right now.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quiet-item" data-cat="gtm" data-likes="2" data-replies="0">
+          <div class="quiet-row" role="button" tabindex="0" aria-expanded="false">
+            <div class="quiet-av is-photo">MN</div>
+            <div class="quiet-main">
+              <div class="quiet-top">
+                <p class="quiet-meta"><strong>mira</strong> · Founder · Pre-seed<span class="dot">·</span><span class="quiet-time">4d ago</span></p>
+                <div class="quiet-tags">
+                  <button type="button" class="quiet-tag" data-filter="gtm">GTM <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></button>
+                </div>
+              </div>
+              <h3 class="quiet-title">Is a waitlist page worth it before we have a demo?</h3>
+              <div class="quiet-actions">
+                <span><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 2</span>
+                <span class="quiet-first-reply">Be the first to reply</span>
+                <span>Reply</span>
+                <span>Save</span>
+              </div>
+            </div>
+          </div>
+          <div class="quiet-panel">
+            <div class="quiet-panel-inner">
+              <div class="quiet-panel-content">
+                <p class="quiet-body">We’re pre-demo and debating whether a waitlist collects signal or just vanity numbers.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quiet-item" data-cat="gtm" data-likes="9" data-replies="2">
+          <div class="quiet-row" role="button" tabindex="0" aria-expanded="false">
+            <div class="quiet-av is-photo">JB</div>
+            <div class="quiet-main">
+              <div class="quiet-top">
+                <p class="quiet-meta"><strong>jordan</strong> · Founder · Pre-seed<span class="dot">·</span><span class="quiet-time">6h ago</span></p>
+                <div class="quiet-tags">
+                  <button type="button" class="quiet-tag" data-filter="gtm">GTM <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></button>
+                </div>
+              </div>
+              <h3 class="quiet-title">Where are your first 10 customers actually coming from?</h3>
+              <div class="quiet-poll">
+                <div class="quiet-poll-opt is-top" style="--pct: 42%"><span class="quiet-poll-fill"></span><span class="quiet-poll-mark"></span><span class="quiet-poll-label">Warm intros</span><span class="quiet-poll-pct">42%</span></div>
+                <div class="quiet-poll-opt" style="--pct: 28%"><span class="quiet-poll-fill"></span><span class="quiet-poll-mark"></span><span class="quiet-poll-label">Content / SEO</span><span class="quiet-poll-pct">28%</span></div>
+                <div class="quiet-poll-opt" style="--pct: 18%"><span class="quiet-poll-fill"></span><span class="quiet-poll-mark"></span><span class="quiet-poll-label">Cold outbound</span><span class="quiet-poll-pct">18%</span></div>
+                <div class="quiet-poll-opt" style="--pct: 12%"><span class="quiet-poll-fill"></span><span class="quiet-poll-mark"></span><span class="quiet-poll-label">Communities</span><span class="quiet-poll-pct">12%</span></div>
+              </div>
+              <div class="quiet-poll-foot"><span>64 votes</span><span class="dot">·</span><span>4 days left</span></div>
+              <div class="quiet-actions">
+                <span><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 9</span>
+                <span><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 2</span>
+                <span>Reply</span>
+                <span>Save</span>
+              </div>
+            </div>
+          </div>
+          <div class="quiet-panel">
+            <div class="quiet-panel-inner">
+              <div class="quiet-panel-content">
+                <p class="quiet-body">Trying to stop guessing and put the next two weeks into one channel that compounds.</p>
+                <div class="quiet-replies">
+                  <div class="quiet-reply">
+                    <div class="quiet-av">KS</div>
+                    <div>
+                      <div class="quiet-reply-name">kai <span>· Founder · Seed stage</span></div>
+                      <div class="quiet-reply-text">Warm intros until 10, then double down on whatever got you #6–10. Early channels lie.</div>
+                      <div class="quiet-reply-foot"><span>4 hrs ago</span><span>★ 6 helpful</span></div>
+                    </div>
+                  </div>
+                  <div class="quiet-reply">
+                    <div class="quiet-av">MN</div>
+                    <div>
+                      <div class="quiet-reply-name">mira <span>· Founder · Pre-seed</span></div>
+                      <div class="quiet-reply-text">Communities only worked after we had a sharp before/after. Without proof it was noise.</div>
+                      <div class="quiet-reply-foot"><span>2 hrs ago</span><span class="quiet-mark-helpful">☆ Mark helpful</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quiet-item" data-cat="pricing" data-featured="true" data-likes="5" data-replies="4">
+          <div class="quiet-row" role="button" tabindex="0" aria-expanded="false">
+            <div class="quiet-av is-photo">RP</div>
+            <div class="quiet-main">
+              <div class="quiet-top">
+                <p class="quiet-meta"><strong>riley</strong> · Founder · Seed stage<span class="dot">·</span><span class="quiet-time">1d ago</span></p>
+                <div class="quiet-tags">
+                  <button type="button" class="quiet-tag" data-filter="pricing">Pricing <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></button>
+                </div>
+              </div>
+              <h3 class="quiet-title">Does this pricing page feel too enterprise?</h3>
+              <div class="quiet-attach">
+                <a class="quiet-attach-chip is-doc" href="#" onclick="return false;">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551"/></svg>
+                  Pricing page · PNG
+                </a>
+              </div>
+              <div class="quiet-actions">
+                <span><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 5</span>
+                <span><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 4</span>
+                <span>Reply</span>
+                <span>Save</span>
+              </div>
+            </div>
+          </div>
+          <div class="quiet-panel">
+            <div class="quiet-panel-inner">
+              <div class="quiet-panel-content">
+                <p class="quiet-body">Building a B2B tool for agencies — worried the tiers read too corporate for our ICP. Starter $49 · Growth $149 · Enterprise custom. Most stall on the middle tier.</p>
+                <div class="quiet-replies">
+                  <div class="quiet-reply">
+                    <div class="quiet-av">EL</div>
+                    <div>
+                      <div class="quiet-reply-name">elena <span>· Operator · Series A</span></div>
+                      <div class="quiet-reply-text">Rename Growth → Studio. Enterprise can stay custom — agencies hate feeling small.</div>
+                      <div class="quiet-reply-foot"><span>20 hrs ago</span><span class="quiet-mark-helpful">☆ Mark helpful</span></div>
+                    </div>
+                  </div>
+                  <div class="quiet-reply">
+                    <div class="quiet-av">JB</div>
+                    <div>
+                      <div class="quiet-reply-name">jordan <span>· Founder · Pre-seed</span></div>
+                      <div class="quiet-reply-text">Lead with “most teams start here” on the middle tier. Anchoring fixes the stall.</div>
+                      <div class="quiet-reply-foot"><span>14 hrs ago</span><span>★ 5 helpful</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quiet-item" data-cat="pricing" data-likes="7" data-replies="2">
+          <div class="quiet-row" role="button" tabindex="0" aria-expanded="false">
+            <div class="quiet-av is-photo">OV</div>
+            <div class="quiet-main">
+              <div class="quiet-top">
+                <p class="quiet-meta"><strong>owen</strong> · Founder · Seed stage<span class="dot">·</span><span class="quiet-time">8h ago</span></p>
+                <div class="quiet-tags">
+                  <button type="button" class="quiet-tag" data-filter="pricing">Pricing <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></button>
+                </div>
+              </div>
+              <h3 class="quiet-title">Annual vs monthly — did the discount actually convert?</h3>
+              
+              <div class="quiet-actions">
+                <span><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 7</span>
+                <span><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 2</span>
+                <span>Reply</span>
+                <span>Save</span>
+              </div>
+            </div>
+          </div>
+          <div class="quiet-panel">
+            <div class="quiet-panel-inner">
+              <div class="quiet-panel-content">
+                <p class="quiet-body">Thinking 20% off annual. Half our pipeline stalls on “need to try monthly first.”</p>
+                <div class="quiet-replies">
+                  <div class="quiet-reply">
+                    <div class="quiet-av">EL</div>
+                    <div>
+                      <div class="quiet-reply-name">elena <span>· Operator · Series A</span></div>
+                      <div class="quiet-reply-text">We only won annual after a 14-day trial with a calendar invite to “review ROI.” Discount alone didn’t move it.</div>
+                      <div class="quiet-reply-foot"><span>6 hrs ago</span><span>★ 6 helpful</span></div>
+                    </div>
+                  </div>
+                  <div class="quiet-reply">
+                    <div class="quiet-av">RP</div>
+                    <div>
+                      <div class="quiet-reply-name">riley <span>· Founder · Seed stage</span></div>
+                      <div class="quiet-reply-text">Ship a mid-tier quarterly plan. Agencies hate annual commitment but hate monthly churn optics more.</div>
+                      <div class="quiet-reply-foot"><span>4 hrs ago</span><span class="quiet-mark-helpful">☆ Mark helpful</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quiet-item" data-cat="pricing" data-likes="9" data-replies="3">
+          <div class="quiet-row" role="button" tabindex="0" aria-expanded="false">
+            <div class="quiet-av is-photo">SL</div>
+            <div class="quiet-main">
+              <div class="quiet-top">
+                <p class="quiet-meta"><strong>sam</strong> · Founder · Pre-seed<span class="dot">·</span><span class="quiet-time">2d ago</span></p>
+                <div class="quiet-tags">
+                  <button type="button" class="quiet-tag" data-filter="pricing">Pricing <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></button>
+                </div>
+              </div>
+              <h3 class="quiet-title">When did you stop offering a free tier?</h3>
+              
+              <div class="quiet-actions">
+                <span><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 9</span>
+                <span><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 3</span>
+                <span>Reply</span>
+                <span>Save</span>
+              </div>
+            </div>
+          </div>
+          <div class="quiet-panel">
+            <div class="quiet-panel-inner">
+              <div class="quiet-panel-content">
+                <p class="quiet-body">Free users eat support. Paid conversion is 1.2%. Wondering if freemium is just delaying the hard conversation.</p>
+                <div class="quiet-replies">
+                  <div class="quiet-reply">
+                    <div class="quiet-av">MR</div>
+                    <div>
+                      <div class="quiet-reply-name">marcus <span>· Founder · Seed stage</span></div>
+                      <div class="quiet-reply-text">Killed free at $8k MRR. Kept a 14-day trial. Support tickets dropped 40% in two weeks.</div>
+                      <div class="quiet-reply-foot"><span>1d ago</span><span>★ 7 helpful</span></div>
+                    </div>
+                  </div>
+                  <div class="quiet-reply">
+                    <div class="quiet-av">CN</div>
+                    <div>
+                      <div class="quiet-reply-name">cam <span>· Operator · Series B</span></div>
+                      <div class="quiet-reply-text">Free is fine if it creates a wedge into a buying team. Otherwise it’s a hobbyist trap.</div>
+                      <div class="quiet-reply-foot"><span>22 hrs ago</span><span>★ 2 helpful</span></div>
+                    </div>
+                  </div>
+                  <div class="quiet-reply">
+                    <div class="quiet-av">JB</div>
+                    <div>
+                      <div class="quiet-reply-name">jordan <span>· Founder · Pre-seed</span></div>
+                      <div class="quiet-reply-text">We never launched free — just a demo. Felt scary, closed faster.</div>
+                      <div class="quiet-reply-foot"><span>16 hrs ago</span><span class="quiet-mark-helpful">☆ Mark helpful</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quiet-item" data-cat="pricing" data-likes="6" data-replies="2">
+          <div class="quiet-row" role="button" tabindex="0" aria-expanded="false">
+            <div class="quiet-av is-photo">EL</div>
+            <div class="quiet-main">
+              <div class="quiet-top">
+                <p class="quiet-meta"><strong>elena</strong> · Operator · Series A<span class="dot">·</span><span class="quiet-time">11h ago</span></p>
+                <div class="quiet-tags">
+                  <button type="button" class="quiet-tag" data-filter="pricing">Pricing <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></button>
+                </div>
+              </div>
+              <h3 class="quiet-title">What’s your default discount for annual plans?</h3>
+              <div class="quiet-poll">
+                <div class="quiet-poll-opt is-top" style="--pct: 45%"><span class="quiet-poll-fill"></span><span class="quiet-poll-mark"></span><span class="quiet-poll-label">20% off</span><span class="quiet-poll-pct">45%</span></div>
+                <div class="quiet-poll-opt" style="--pct: 31%"><span class="quiet-poll-fill"></span><span class="quiet-poll-mark"></span><span class="quiet-poll-label">2 months free</span><span class="quiet-poll-pct">31%</span></div>
+                <div class="quiet-poll-opt" style="--pct: 15%"><span class="quiet-poll-fill"></span><span class="quiet-poll-mark"></span><span class="quiet-poll-label">No annual discount</span><span class="quiet-poll-pct">15%</span></div>
+                <div class="quiet-poll-opt" style="--pct: 9%"><span class="quiet-poll-fill"></span><span class="quiet-poll-mark"></span><span class="quiet-poll-label">Something custom</span><span class="quiet-poll-pct">9%</span></div>
+              </div>
+              <div class="quiet-poll-foot"><span>52 votes</span><span class="dot">·</span><span>6 days left</span></div>
+              <div class="quiet-actions">
+                <span><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 6</span>
+                <span><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 2</span>
+                <span>Reply</span>
+                <span>Save</span>
+              </div>
+            </div>
+          </div>
+          <div class="quiet-panel">
+            <div class="quiet-panel-inner">
+              <div class="quiet-panel-content">
+                <p class="quiet-body">Trying to pick a default before sales invents a different deal every call.</p>
+                <div class="quiet-replies">
+                  <div class="quiet-reply">
+                    <div class="quiet-av">OV</div>
+                    <div>
+                      <div class="quiet-reply-name">owen <span>· Founder · Seed stage</span></div>
+                      <div class="quiet-reply-text">20% off is the language buyers already expect. 2 months free confuses finance teams.</div>
+                      <div class="quiet-reply-foot"><span>8 hrs ago</span><span>★ 4 helpful</span></div>
+                    </div>
+                  </div>
+                  <div class="quiet-reply">
+                    <div class="quiet-av">RP</div>
+                    <div>
+                      <div class="quiet-reply-name">riley <span>· Founder · Seed stage</span></div>
+                      <div class="quiet-reply-text">We published 20% and still negotiate to 25% for logos. Default beats chaos.</div>
+                      <div class="quiet-reply-foot"><span>6 hrs ago</span><span class="quiet-mark-helpful">☆ Mark helpful</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quiet-item" data-cat="fundraising" data-featured="true" data-likes="11" data-replies="3">
+          <div class="quiet-row" role="button" tabindex="0" aria-expanded="false">
+            <div class="quiet-av is-photo">AL</div>
+            <div class="quiet-main">
+              <div class="quiet-top">
+                <p class="quiet-meta"><strong>anya</strong> · Founder · Seed stage<span class="dot">·</span><span class="quiet-time">6h ago</span></p>
+                <div class="quiet-tags">
+                  <button type="button" class="quiet-tag" data-filter="fundraising">Fundraising <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></button>
+                </div>
+              </div>
+              <h3 class="quiet-title">Warm intro vs cold — what’s actually working for seed?</h3>
+              <div class="quiet-actions">
+                <span><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 11</span>
+                <span><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 3</span>
+                <span>Reply</span>
+                <span>Save</span>
+              </div>
+            </div>
+          </div>
+          <div class="quiet-panel">
+            <div class="quiet-panel-inner">
+              <div class="quiet-panel-content">
+                <p class="quiet-body">Got 40 cold replies out of 200. Warm intros are slower to land. Trying to decide where to put the next two weeks.</p>
+                <div class="quiet-replies">
+                  <div class="quiet-reply">
+                    <div class="quiet-av">MR</div>
+                    <div>
+                      <div class="quiet-reply-name">marcus <span>· Founder · Seed stage</span></div>
+                      <div class="quiet-reply-text">Warm intros for your top 15. Cold for volume practice. Don’t cold the people you can warm later.</div>
+                      <div class="quiet-reply-foot"><span>5 hrs ago</span><span>★ 8 helpful</span></div>
+                    </div>
+                  </div>
+                  <div class="quiet-reply">
+                    <div class="quiet-av">NT</div>
+                    <div>
+                      <div class="quiet-reply-name">nathan <span>· Creative · MIT Sloan</span></div>
+                      <div class="quiet-reply-text">One crisp ask + a 6-line update beats a deck dump. Sponsors and angels both skim.</div>
+                      <div class="quiet-reply-foot"><span>3 hrs ago</span><span class="quiet-mark-helpful">☆ Mark helpful</span></div>
+                    </div>
+                  </div>
+                  <div class="quiet-reply">
+                    <div class="quiet-av">EL</div>
+                    <div>
+                      <div class="quiet-reply-name">elena <span>· Operator · Series A</span></div>
+                      <div class="quiet-reply-text">Track reply→meeting rate, not open rate. We killed channels under 8% reply.</div>
+                      <div class="quiet-reply-foot"><span>2 hrs ago</span><span>★ 4 helpful</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quiet-item" data-cat="fundraising" data-likes="8" data-replies="2">
+          <div class="quiet-row" role="button" tabindex="0" aria-expanded="false">
+            <div class="quiet-av is-photo">BK</div>
+            <div class="quiet-main">
+              <div class="quiet-top">
+                <p class="quiet-meta"><strong>blake</strong> · Founder · Pre-seed<span class="dot">·</span><span class="quiet-time">3d ago</span></p>
+                <div class="quiet-tags">
+                  <button type="button" class="quiet-tag" data-filter="fundraising">Fundraising <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></button>
+                </div>
+              </div>
+              <h3 class="quiet-title">How long did your last round take from first meeting to wire?</h3>
+              <div class="quiet-actions">
+                <span><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 8</span>
+                <span><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 2</span>
+                <span>Reply</span>
+                <span>Save</span>
+              </div>
+            </div>
+          </div>
+          <div class="quiet-panel">
+            <div class="quiet-panel-inner">
+              <div class="quiet-panel-content">
+                <p class="quiet-body">We’re at week five with two soft yeses. Trying to set expectations with our angels.</p>
+                <div class="quiet-replies">
+                  <div class="quiet-reply">
+                    <div class="quiet-av">CN</div>
+                    <div>
+                      <div class="quiet-reply-name">cam <span>· Operator · Series B</span></div>
+                      <div class="quiet-reply-text">Median for us was 7 weeks. Soft yes without a partner meeting isn’t a yes.</div>
+                      <div class="quiet-reply-foot"><span>2d ago</span><span>★ 5 helpful</span></div>
+                    </div>
+                  </div>
+                  <div class="quiet-reply">
+                    <div class="quiet-av">AL</div>
+                    <div>
+                      <div class="quiet-reply-name">anya <span>· Founder · Seed stage</span></div>
+                      <div class="quiet-reply-text">We put a close date on the update and it forced the fence-sitters. Two wires that week.</div>
+                      <div class="quiet-reply-foot"><span>1d ago</span><span>★ 3 helpful</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quiet-item" data-cat="fundraising" data-likes="5" data-replies="2">
+          <div class="quiet-row" role="button" tabindex="0" aria-expanded="false">
+            <div class="quiet-av is-photo">DS</div>
+            <div class="quiet-main">
+              <div class="quiet-top">
+                <p class="quiet-meta"><strong>dev</strong> · Founder · Pre-seed<span class="dot">·</span><span class="quiet-time">1d ago</span></p>
+                <div class="quiet-tags">
+                  <button type="button" class="quiet-tag" data-filter="fundraising">Fundraising <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></button>
+                </div>
+              </div>
+              <h3 class="quiet-title">When do you share the deck vs just the one-pager?</h3>
+              <div class="quiet-actions">
+                <span><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 5</span>
+                <span><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 2</span>
+                <span>Reply</span>
+                <span>Save</span>
+              </div>
+            </div>
+          </div>
+          <div class="quiet-panel">
+            <div class="quiet-panel-inner">
+              <div class="quiet-panel-content">
+                <p class="quiet-body">Sending full decks cold feels noisy. One-pagers get replies but then they ask for the deck anyway.</p>
+                <div class="quiet-replies">
+                  <div class="quiet-reply">
+                    <div class="quiet-av">AL</div>
+                    <div>
+                      <div class="quiet-reply-name">anya <span>· Founder · Seed stage</span></div>
+                      <div class="quiet-reply-text">One-pager first. Deck only after a reply or a warm intro. Protects your narrative from skim-and-pass.</div>
+                      <div class="quiet-reply-foot"><span>18 hrs ago</span><span>★ 4 helpful</span></div>
+                    </div>
+                  </div>
+                  <div class="quiet-reply">
+                    <div class="quiet-av">BK</div>
+                    <div>
+                      <div class="quiet-reply-name">blake <span>· Founder · Pre-seed</span></div>
+                      <div class="quiet-reply-text">If they asked for a meeting, send the deck 24h before. Cold outreach = one-pager only.</div>
+                      <div class="quiet-reply-foot"><span>12 hrs ago</span><span class="quiet-mark-helpful">☆ Mark helpful</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quiet-item" data-cat="fundraising" data-likes="10" data-replies="2">
+          <div class="quiet-row" role="button" tabindex="0" aria-expanded="false">
+            <div class="quiet-av is-photo">MR</div>
+            <div class="quiet-main">
+              <div class="quiet-top">
+                <p class="quiet-meta"><strong>marcus</strong> · Founder · Seed stage<span class="dot">·</span><span class="quiet-time">4h ago</span></p>
+                <div class="quiet-tags">
+                  <button type="button" class="quiet-tag" data-filter="fundraising">Fundraising <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></button>
+                </div>
+              </div>
+              <h3 class="quiet-title">Would you take a SAFE at an $8M cap right now?</h3>
+              <div class="quiet-poll">
+                <div class="quiet-poll-opt is-top" style="--pct: 48%"><span class="quiet-poll-fill"></span><span class="quiet-poll-mark"></span><span class="quiet-poll-label">Yes, if it’s the right partner</span><span class="quiet-poll-pct">48%</span></div>
+                <div class="quiet-poll-opt" style="--pct: 33%"><span class="quiet-poll-fill"></span><span class="quiet-poll-mark"></span><span class="quiet-poll-label">Only with a lead attached</span><span class="quiet-poll-pct">33%</span></div>
+                <div class="quiet-poll-opt" style="--pct: 19%"><span class="quiet-poll-fill"></span><span class="quiet-poll-mark"></span><span class="quiet-poll-label">No — waiting for better terms</span><span class="quiet-poll-pct">19%</span></div>
+              </div>
+              <div class="quiet-poll-foot"><span>71 votes</span><span class="dot">·</span><span>2 days left</span></div>
+              <div class="quiet-actions">
+                <span><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 10</span>
+                <span><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 2</span>
+                <span>Reply</span>
+                <span>Save</span>
+              </div>
+            </div>
+          </div>
+          <div class="quiet-panel">
+            <div class="quiet-panel-inner">
+              <div class="quiet-panel-content">
+                <p class="quiet-body">Offer is on the table. Cap feels high for our traction — but the partner is excellent.</p>
+                <div class="quiet-replies">
+                  <div class="quiet-reply">
+                    <div class="quiet-av">AL</div>
+                    <div>
+                      <div class="quiet-reply-name">anya <span>· Founder · Seed stage</span></div>
+                      <div class="quiet-reply-text">Partner quality &gt; 15% cap negotiation if they’re actually helpful. Price the help, not just the paper.</div>
+                      <div class="quiet-reply-foot"><span>3 hrs ago</span><span>★ 7 helpful</span></div>
+                    </div>
+                  </div>
+                  <div class="quiet-reply">
+                    <div class="quiet-av">CN</div>
+                    <div>
+                      <div class="quiet-reply-name">cam <span>· Operator · Series B</span></div>
+                      <div class="quiet-reply-text">Only with a lead. Party rounds at soft caps create governance headaches later.</div>
+                      <div class="quiet-reply-foot"><span>2 hrs ago</span><span class="quiet-mark-helpful">☆ Mark helpful</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quiet-item" id="club-example-last" data-cat="career" data-featured="true" data-likes="12" data-replies="2">
+          <div class="quiet-row" role="button" tabindex="0" aria-expanded="false">
+            <div class="quiet-av is-photo">PR</div>
+            <div class="quiet-main">
+              <div class="quiet-top">
+                <p class="quiet-meta"><strong>priya</strong> · Student · Early career<span class="dot">·</span><span class="quiet-time">1d ago</span></p>
+                <div class="quiet-tags">
+                  <button type="button" class="quiet-tag" data-filter="career">Career <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></button>
+                </div>
+              </div>
+              <h3 class="quiet-title">Would you take a 20% pay cut for equity in a pre-seed?</h3>
+              <div class="quiet-poll">
+                <div class="quiet-poll-opt is-top" style="--pct: 58%"><span class="quiet-poll-fill"></span><span class="quiet-poll-mark"></span><span class="quiet-poll-label">Yes, if I believed the founder</span><span class="quiet-poll-pct">58%</span></div>
+                <div class="quiet-poll-opt" style="--pct: 27%"><span class="quiet-poll-fill"></span><span class="quiet-poll-mark"></span><span class="quiet-poll-label">Only with a floor / cash bonus</span><span class="quiet-poll-pct">27%</span></div>
+                <div class="quiet-poll-opt" style="--pct: 15%"><span class="quiet-poll-fill"></span><span class="quiet-poll-mark"></span><span class="quiet-poll-label">No. Pre-seed equity is a story.</span><span class="quiet-poll-pct">15%</span></div>
+              </div>
+              <div class="quiet-poll-foot"><span>89 votes</span><span class="dot">·</span><span>3 days left</span></div>
+              <div class="quiet-actions">
+                <span><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 12</span>
+                <span><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 2</span>
+                <span>Reply</span>
+                <span>Save</span>
+              </div>
+            </div>
+          </div>
+          <div class="quiet-panel">
+            <div class="quiet-panel-inner">
+              <div class="quiet-panel-content">
+                <div class="quiet-replies">
+                  <div class="quiet-reply">
+                    <div class="quiet-av">LZ</div>
+                    <div>
+                      <div class="quiet-reply-name">leo <span>· Founder · Seed stage</span></div>
+                      <div class="quiet-reply-text">Only with a floor. Belief doesn’t pay rent in month 11.</div>
+                      <div class="quiet-reply-foot"><span>12 hrs ago</span><span>★ 7 helpful</span></div>
+                    </div>
+                  </div>
+                  <div class="quiet-reply">
+                    <div class="quiet-av">IY</div>
+                    <div>
+                      <div class="quiet-reply-name">ivy <span>· Student · Columbia</span></div>
+                      <div class="quiet-reply-text">Voted yes if I believed the founder — but I’d still ask for a cash buffer clause.</div>
+                      <div class="quiet-reply-foot"><span>9 hrs ago</span><span class="quiet-mark-helpful">☆ Mark helpful</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quiet-item" data-cat="career" data-likes="14" data-replies="3">
+          <div class="quiet-row" role="button" tabindex="0" aria-expanded="false">
+            <div class="quiet-av is-photo">IY</div>
+            <div class="quiet-main">
+              <div class="quiet-top">
+                <p class="quiet-meta"><strong>ivy</strong> · Student · Columbia<span class="dot">·</span><span class="quiet-time">12h ago</span></p>
+                <div class="quiet-tags">
+                  <button type="button" class="quiet-tag" data-filter="career">Career <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></button>
+                </div>
+              </div>
+              <h3 class="quiet-title">Leaving Big Tech for a seed role — what did you negotiate?</h3>
+              <div class="quiet-actions">
+                <span><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 14</span>
+                <span><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 3</span>
+                <span>Reply</span>
+                <span>Save</span>
+              </div>
+            </div>
+          </div>
+          <div class="quiet-panel">
+            <div class="quiet-panel-inner">
+              <div class="quiet-panel-content">
+                <p class="quiet-body">Offer is 25% below current cash + 0.4% equity. Trying to figure out what’s normal vs. lowball.</p>
+                <div class="quiet-replies">
+                  <div class="quiet-reply">
+                    <div class="quiet-av">PR</div>
+                    <div>
+                      <div class="quiet-reply-name">priya <span>· Student · Early career</span></div>
+                      <div class="quiet-reply-text">I asked for a refresh at 12 months and a signing bonus to bridge the cash gap. They met halfway.</div>
+                      <div class="quiet-reply-foot"><span>10 hrs ago</span><span>★ 6 helpful</span></div>
+                    </div>
+                  </div>
+                  <div class="quiet-reply">
+                    <div class="quiet-av">LZ</div>
+                    <div>
+                      <div class="quiet-reply-name">leo <span>· Founder · Seed stage</span></div>
+                      <div class="quiet-reply-text">0.4% is light for early IC unless it’s a rocket. Push for 0.6–0.8% or more cash.</div>
+                      <div class="quiet-reply-foot"><span>8 hrs ago</span><span>★ 9 helpful</span></div>
+                    </div>
+                  </div>
+                  <div class="quiet-reply">
+                    <div class="quiet-av">AK</div>
+                    <div>
+                      <div class="quiet-reply-name">aaron <span>· Student · Wharton</span></div>
+                      <div class="quiet-reply-text">Get the strike price and dilution story in writing. “0.4%” without that is marketing.</div>
+                      <div class="quiet-reply-foot"><span>6 hrs ago</span><span class="quiet-mark-helpful">☆ Mark helpful</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quiet-item" data-cat="career" data-likes="10" data-replies="2">
+          <div class="quiet-row" role="button" tabindex="0" aria-expanded="false">
+            <div class="quiet-av is-photo">NO</div>
+            <div class="quiet-main">
+              <div class="quiet-top">
+                <p class="quiet-meta"><strong>noah</strong> · Student · NYU Stern<span class="dot">·</span><span class="quiet-time">2d ago</span></p>
+                <div class="quiet-tags">
+                  <button type="button" class="quiet-tag" data-filter="career">Career <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></button>
+                </div>
+              </div>
+              <h3 class="quiet-title">Is an MBA worth it if I’m already at a Series A?</h3>
+              <div class="quiet-actions">
+                <span><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 10</span>
+                <span><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 2</span>
+                <span>Reply</span>
+                <span>Save</span>
+              </div>
+            </div>
+          </div>
+          <div class="quiet-panel">
+            <div class="quiet-panel-inner">
+              <div class="quiet-panel-content">
+                <p class="quiet-body">Admitted with scholarship. Job is going well. Nervous about pausing momentum for a brand.</p>
+                <div class="quiet-replies">
+                  <div class="quiet-reply">
+                    <div class="quiet-av">SC</div>
+                    <div>
+                      <div class="quiet-reply-name">sofia <span>· Creative · NYU Stern</span></div>
+                      <div class="quiet-reply-text">Only if you need the network for a specific jump (PE, founder pivot, geo change). Otherwise stay and ship.</div>
+                      <div class="quiet-reply-foot"><span>1d ago</span><span>★ 7 helpful</span></div>
+                    </div>
+                  </div>
+                  <div class="quiet-reply">
+                    <div class="quiet-av">AK</div>
+                    <div>
+                      <div class="quiet-reply-name">aaron <span>· Student · Wharton</span></div>
+                      <div class="quiet-reply-text">I deferred a year. Best decision — came in with a sharper story and better offers.</div>
+                      <div class="quiet-reply-foot"><span>20 hrs ago</span><span>★ 4 helpful</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quiet-item" data-cat="career" data-likes="8" data-replies="2">
+          <div class="quiet-row" role="button" tabindex="0" aria-expanded="false">
+            <div class="quiet-av is-photo">SC</div>
+            <div class="quiet-main">
+              <div class="quiet-top">
+                <p class="quiet-meta"><strong>sofia</strong> · Creative · NYU Stern<span class="dot">·</span><span class="quiet-time">8h ago</span></p>
+                <div class="quiet-tags">
+                  <button type="button" class="quiet-tag" data-filter="career">Career <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></button>
+                </div>
+              </div>
+              <h3 class="quiet-title">How do you explain a 6-month gap on your resume?</h3>
+              <div class="quiet-actions">
+                <span><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 8</span>
+                <span><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 2</span>
+                <span>Reply</span>
+                <span>Save</span>
+              </div>
+            </div>
+          </div>
+          <div class="quiet-panel">
+            <div class="quiet-panel-inner">
+              <div class="quiet-panel-content">
+                <p class="quiet-body">Took time off after a burnout exit. Interviews keep probing it like it’s a red flag.</p>
+                <div class="quiet-replies">
+                  <div class="quiet-reply">
+                    <div class="quiet-av">IY</div>
+                    <div>
+                      <div class="quiet-reply-name">ivy <span>· Student · Columbia</span></div>
+                      <div class="quiet-reply-text">One sentence, then pivot: “I reset, shipped X freelance, ready to go deep again.” Don’t apologize.</div>
+                      <div class="quiet-reply-foot"><span>6 hrs ago</span><span>★ 6 helpful</span></div>
+                    </div>
+                  </div>
+                  <div class="quiet-reply">
+                    <div class="quiet-av">PR</div>
+                    <div>
+                      <div class="quiet-reply-name">priya <span>· Student · Early career</span></div>
+                      <div class="quiet-reply-text">Put a project on the gap months. Even unpaid. Recruiters want a story of motion, not perfection.</div>
+                      <div class="quiet-reply-foot"><span>4 hrs ago</span><span class="quiet-mark-helpful">☆ Mark helpful</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
+
+    <div class="club-foot">
+      <a class="club-cta" href="#club-example-last" data-club-cta-last>See what founders are asking this week <span>→</span></a>
+    </div>
+  
+    </div>
+
+</div>
 
     <!-- Footer Section (populated by qava-footer.js) -->
     <footer class="footer-section"></footer>
@@ -12010,7 +12510,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
       }
     })();
     </script>
-    <script src="qava-landing.js?v=menu-19"></script>
+    <script src="qava-landing.js?v=menu-1"></script>
     <script src="qava-auth.js?v=login-1"></script>
     <script src="community/landing-community.js"></script>
 </body>
