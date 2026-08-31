@@ -270,7 +270,7 @@
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
                   <div class="qava-blog-tag">Non-Profit</div>
-                  <div class="qava-blog-title">The Story of No One's Ark</div>
+                  <div class="qava-blog-title">Fundraising to restore NYC's most polluted waterway</div>
                   <div class="qava-blog-more">
                     <div class="qava-blog-excerpt">A 270-ton retired ferry, a pirate brigade, and a vision bold enough to rewrite a waterway's future.</div>
                     <span class="qava-blog-read">Read ${blogReadArrow}</span>
