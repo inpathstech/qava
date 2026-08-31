@@ -244,7 +244,7 @@
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
                   <div class="qava-blog-tag">Fashion</div>
-                  <div class="qava-blog-title">Build a World,<br>Not a Product Line</div>
+                  <div class="qava-blog-title">Build a world, a feeling —<br>not a product line</div>
                   <div class="qava-blog-more">
                     <div class="qava-blog-excerpt">Most brands describe a product. A few describe a world.</div>
                     <span class="qava-blog-read">Read ${blogReadArrow}</span>
