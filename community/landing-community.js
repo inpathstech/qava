@@ -206,19 +206,6 @@
         applyFilter(btn.getAttribute('data-filter') || 'all');
       });
     });
-
-    var cta = root.querySelector('[data-club-cta-last]');
-    if (cta) {
-      cta.addEventListener('click', function (e) {
-        e.preventDefault();
-        applyFilter('all');
-        var last = root.querySelector('#club-example-last');
-        if (!last) return;
-        last.hidden = false;
-        if (!last.classList.contains('is-open')) toggleItem(last);
-        last.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      });
-    }
   }
 
   placeLandingPreview(0);
