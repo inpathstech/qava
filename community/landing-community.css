@@ -168,14 +168,6 @@
     .quiet-item.is-open .quiet-row {
       padding-bottom: 2px;
     }
-    .quiet-item:hover {
-      background: var(--panel-solid);
-      border-color: #111827;
-    }
-    .quiet-item.is-open:hover {
-      background: #fff;
-      border-color: rgba(17, 24, 39, 0.14);
-    }
     .quiet-row {
       display: grid;
       grid-template-columns: 26px minmax(0, 1fr);
