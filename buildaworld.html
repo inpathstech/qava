@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Build a World, Not a Product Line | The Club</title>
+  <link rel="canonical" href="https://www.theclubnyc.com/strategicdoer" />
+  <meta property="og:title" content="Build a World, Not a Product Line | The Club" />
+  <meta property="og:description" content="The diminishing gap between idea and done." />
+  <meta property="og:image" content="https://www.theclubnyc.com/strategic-doer.jpg" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <meta name="description" content="Most brands describe a product. A few describe a world. What Pete Pareo gets right about brand strategy." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet" />
+  <style>
+
+
+    :root {
+      --display: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+      --ink: #111827;
+      --muted: #6B6B6B;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      font-family: "Inter", sans-serif;
+      background: #ffffff;
+      color: var(--ink);
+    }
+
+    body {
+      position: relative;
+      min-height: 100vh;
+    }
+
+    #qava-dot-base-fixed {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image: radial-gradient(circle, rgba(17, 24, 39, 0.16) 1px, transparent 1.35px);
+      background-size: 20px 20px;
+      background-repeat: repeat;
+    }
+
+    body > *:not(#qava-dot-base-fixed):not(.header-container) {
+      position: relative;
+      z-index: 1;
+    }
+
+    a { color: inherit; }
+
+    .header-container {
+      width: calc(100% - 22px);
+      margin: 0 auto;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 56px;
+      position: sticky;
+      top: 0;
+      z-index: 1200;
+      background: rgba(255, 255, 255, 0.24);
+      -webkit-backdrop-filter: blur(18px) saturate(150%);
+      backdrop-filter: blur(18px) saturate(150%);
+      border: 0;
+      box-shadow: none;
+      isolation: isolate;
+    }
+
+    .header-container::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      right: 6px;
+      top: 3px;
+      bottom: 3px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.44) 100%);
+      -webkit-backdrop-filter: blur(26px) saturate(165%);
+      backdrop-filter: blur(26px) saturate(165%);
+      box-shadow: 0 10px 24px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .header-container > * { position: relative; z-index: 1; }
+
+    .header-logo, .logo-container, .logo { display: flex; align-items: center; }
+
+    .header-container .logo {
+      background: transparent;
+      padding: 0;
+      border: none;
+      box-shadow: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header-center {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex: 1;
+      margin-left: 40px;
+    }
+
+    .header-right { display: flex; align-items: center; gap: 8px; }
+
+    .navigation { display: flex; align-items: center; gap: 8px; }
+
+    .header-container .nav-item,
+    .header-container .auth-item {
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      border-radius: 0;
+      padding: 0;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      transition: color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .header-container .nav-item .nav-text,
+    .header-container .auth-item .nav-text {
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: #6b6b6b;
+      line-height: 1.4;
+      transition: color 0.2s ease;
+      padding: 0 4px;
+      white-space: nowrap;
+    }
+
+    .header-container .nav-item.newsletter .nav-text {
+      color: #000000;
+    }
+
+    .header-container .nav-item:hover .nav-text,
+    .header-container .auth-item:hover .nav-text {
+      color: #000000;
+    }
+
+    .auth-section { display: flex; align-items: center; gap: 28px; }
+
+    .join-button {
+      padding: 6px 12px;
+      background: #2b2b2b;
+      border: 1px solid #2b2b2b;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: background-color 0.18s ease, border-color 0.18s ease;
+    }
+
+    .join-button:hover {
+      background: #000000;
+      border-color: #000000;
+    }
+
+    .join-text {
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .qava-premium-nav-btn {
+      padding: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transition: color 0.2s ease;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: #6b6b6b;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      line-height: 1.4;
+    }
+
+    .qava-premium-nav-btn .nav-text {
+      color: inherit;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.4;
+    }
+
+    .qava-premium-nav-btn:hover,
+    .qava-premium-nav-btn:hover .nav-text,
+    .qava-premium-nav-btn:focus-visible,
+    .qava-premium-nav-btn:focus-visible .nav-text {
+      color: #000000;
+      background: transparent;
+    }
+
+    .qava-premium-nav-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      margin-top: -1px;
+    }
+
+    .qava-premium-nav-icon svg {
+      width: 15px;
+      height: 15px;
+      display: block;
+    }
+
+    .header-container .logo img,
+    .qava-nav-logo-face {
+      width: 72px;
+      height: 16px;
+      object-fit: contain;
+      display: block;
+      border-radius: 4px;
+    }
+
+    .qava-nav-logo-back{ object-fit: contain; }
+
+    .qava-nav-logo-flip { width: 72px; height: 16px; perspective: 600px;
+    overflow: visible;}
+
+    .qava-nav-logo-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease;
+    }
+
+    .qava-nav-logo-inner.is-flipped,
+        .qava-nav-logo-inner.is-flip-up { transform: rotateX(180deg); }
+        .qava-nav-logo-inner.is-flip-down { transform: rotateX(-180deg); }
+        .qava-nav-logo-inner.is-flip-left { transform: rotateY(-180deg); }
+        .qava-nav-logo-inner.is-flip-right { transform: rotateY(180deg); }
+
+    .qava-nav-logo-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+    }
+
+    .qava-nav-logo-back,
+.qava-nav-logo-back.is-axis-x{ transform: rotateX(180deg); }
+
+.qava-nav-logo-back.is-axis-y {
+  transform: rotateY(180deg);
+}
+
+    .hamburger-menu {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .hamburger-line {
+      width: 20px;
+      height: 2px;
+      background: #111827;
+      border-radius: 1px;
+    }
+
+    
+.footer-section {
+      background: transparent;
+      width: 100%;
+      margin: 0;
+      padding: 48px 0 46px;
+      border-top: 1px solid #EBEBEB;
+    }
+
+    .footer-container {
+      width: min(1040px, calc(100vw - 120px));
+      margin: 0 auto;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+
+    .footer-content { display: flex; flex-wrap: wrap; }
+    .footer-logo { width: 39%; padding: 2px 15px 0 0; margin-bottom: 30px; }
+    .footer-logo-img { width: 40px; height: auto; }
+
+    .footer-links {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      width: 60%;
+      gap: 16px 25px;
+      padding: 0 15px 0 10px;
+    }
+
+    .footer-heading {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: 17px;
+      letter-spacing: -0.012em;
+      color: #000000;
+      margin: 0 0 8px;
+    }
+
+    .footer-link-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .footer-link {
+      font-size: 13px;
+      font-weight: 300;
+      color: #797979;
+      text-decoration: none;
+      line-height: 1.2;
+    }
+
+    .footer-link:hover { text-decoration: underline; }
+
+    .footer-copyright {
+      grid-column: 1 / -1;
+      margin-top: 14px;
+      font-size: 13px;
+      font-weight: 300;
+      color: #797979;
+    }
+
+    
+    html { scroll-behavior: smooth; }
+
+    .story-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 24px;
+      margin: 24px 0 48px;
+    }
+
+    .story-meta-col { flex: 1; min-width: 0; }
+
+    .story-meta-col:first-child { flex: 1.7; }
+
+    .story-meta-divider {
+      width: 1px;
+      background: #e5e7eb;
+      align-self: stretch;
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .story-meta-divider { display: block; margin: 0 8px; }
+    }
+
+    .story-meta h3 {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #6b7280;
+      margin-bottom: 16px;
+    }
+
+    .story-people {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .story-person {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .story-person-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #e5e7eb;
+      flex-shrink: 0;
+    }
+
+    .story-person-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .story-person-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: #111827;
+      white-space: nowrap;
+    }
+
+    .story-person-role {
+      font-size: 12px;
+      font-weight: 300;
+      color: #6b7280;
+      white-space: nowrap;
+    }
+
+    .story-focus-items {
+      font-size: 12px;
+      line-height: 1.6;
+      font-weight: 300;
+      color: #1f2937;
+    }
+
+    /* BLOG POST STYLES */
+
+        .story-wrapper {
+            max-width: 760px;
+            width: calc(100% - 48px);
+            margin: 24px auto 48px;
+            padding: 56px 40px 90px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        .story-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: "Inter", sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            color: #6b7280;
+            text-decoration: none;
+            margin: 0 0 28px;
+            width: fit-content;
+            transition: color 0.2s ease;
+        }
+
+        .story-back:visited {
+            color: #6b7280;
+        }
+
+        .story-back:hover,
+        .story-back:focus-visible {
+            color: #000000;
+        }
+
+        .story-pager {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 32px;
+            margin-top: 48px;
+            padding-top: 28px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .story-pager-link {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-width: 46%;
+            color: #6b7280;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .story-pager-prev {
+            text-align: left;
+            align-items: flex-start;
+        }
+
+        .story-pager-next {
+            margin-left: auto;
+            text-align: right;
+            align-items: flex-end;
+        }
+
+        .story-pager-link:visited {
+            color: #6b7280;
+        }
+
+        .story-pager-link:hover,
+        .story-pager-link:focus-visible {
+            color: #000000;
+        }
+
+        .story-pager-label {
+            font-family: "Inter", sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .story-pager-title {
+            font-family: var(--display);
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+
+        @media (max-width: 640px) {
+            .story-pager {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .story-pager-link {
+                max-width: 100%;
+            }
+
+            .story-pager-next {
+                margin-left: 0;
+            }
+        }
+
+        .story-header {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 0;
+        }
+
+        .story-title {
+            font-family: var(--display);
+            font-size: clamp(32px, 4vw, 42px);
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .story-title-line {
+            display: block;
+        }
+
+        .story-subtitle {
+            font-size: 20px;
+            font-weight: 300;
+            color: #4a4a4a;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        .story-categories {
+            display: flex;
+            gap: 8px;
+            margin: 0 0 20px 0;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .story-category-pill {
+            display: inline-flex;
+            align-items: center;
+            background: transparent;
+            color: #000000;
+            font-size: 11px;
+            font-weight: 400;
+            padding: 2px 4px;
+            border-radius: 0;
+            border: none;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .story-project-badges {
+            display: flex;
+            gap: 8px;
+            margin: 2px 0 3px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .story-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            background: #fafafa;
+            color: #000000;
+            font-size: 11px;
+            font-weight: 400;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-decoration: none;
+        }
+
+        .story-badge-pill span {
+            color: #000000;
+        }
+
+        .story-badge-separator {
+            font-size: 11px;
+            font-weight: 400;
+            color: #000000;
+        }
+
+        .story-hero {
+            width: 100%;
+            margin: 32px 0 40px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .story-hero img {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        /* ===== SPACING SYSTEM - Professional & Consistent ===== */
+        
+        /* Intro section - appears after hero image */
+        .story-intro {
+            padding: 0 !important;
+            margin: 0 0 32px !important;
+        }
+
+        .story-intro p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 16px;
+        }
+
+        .story-intro p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Table of Contents - compact spacing */
+        .story-toc {
+            padding: 0 !important;
+            margin: 32px 0 48px !important;
+        }
+
+        .story-toc ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 0;
+        }
+
+        .story-toc li a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 300;
+            color: #2e2e2e;
+            line-height: 1.65;
+            text-decoration: none;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .story-toc li a:hover {
+            color: #111111;
+            transform: translateX(4px);
+        }
+
+        .story-toc li .index {
+            font-size: 13px;
+            font-weight: 500;
+            color: #6b6b6b;
+            letter-spacing: 0.08em;
+        }
+
+        /* Main content sections */
+        .story-section {
+            padding: 0 !important;
+            margin: 56px 0 0 0 !important;
+        }
+
+        .story-section:first-of-type {
+            margin-top: 0 !important;
+        }
+ 
+        .story-section h2 {
+            font-family: var(--display);
+            font-size: 28px;
+            font-weight: 400;
+            margin: 0 0 24px !important;
+            padding-top: 28px !important;
+            letter-spacing: -0.02em;
+            color: #000000;
+            border-top: 1px solid #e0e0e0 !important;
+        }
+
+        .story-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #111;
+        }
+
+        /* All paragraphs - consistent spacing */
+        .story-wrapper p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 14px;
+        }
+
+        .story-section p,
+        .story-intro p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+        }
+
+        /* Q&A blocks - consistent spacing */
+        .qa-block {
+            margin-bottom: 36px !important;
+        }
+
+        .qa-block:last-child {
+            margin-bottom: 0 !important;
+        }
+
+        .qa-question {
+            font-size: 16px !important;
+            font-weight: 500 !important;
+            margin-bottom: 14px !important;
+            color: #000000 !important;
+        }
+
+        .qa-question .highlight {
+            background: none;
+            padding: 0;
+            display: inline;
+        }
+
+        .qa-answer {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 14px;
+        }
+
+        .qa-answer:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Pull quotes - centered with breathing room */
+        blockquote {
+            margin: 36px auto !important;
+            padding: 0 !important;
+            width: 100%;
+            max-width: 680px;
+            font-size: 16px !important;
+            line-height: 1.65 !important;
+            color: #111111 !important;
+            font-weight: 500 !important;
+            font-style: italic !important;
+            text-align: center;
+            background: transparent;
+            border-radius: 0;
+            white-space: normal;
+            display: block;
+            font-family: 'Inter', sans-serif;
+        }
+
+        blockquote::before {
+            content: "";
+        }
+
+        /* Images with captions */
+        .story-media {
+            margin: 24px 0 28px;
+            text-align: center;
+        }
+
+        .story-media img {
+            width: 100%;
+            border-radius: 4px;
+            display: block;
+        }
+
+        .story-media-caption {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #585858;
+        }
+
+        .story-media-caption a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .story-media-caption a:hover {
+            text-decoration: underline;
+        }
+
+        /* Links within story content */
+        .qa-answer a {
+            color: inherit;
+            text-decoration: none;
+            transition: text-decoration 0.2s ease;
+        }
+
+        .qa-answer a:hover {
+            text-decoration: underline;
+        }
+
+        .story-cta {
+            margin-top: 48px;
+            text-align: center;
+            padding: 32px 48px;
+            border-radius: 14px;
+            background: #fafafa;
+        }
+
+        .story-cta h3 {
+            font-family: var(--display);
+            font-size: 24px;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .story-cta p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #3b3b3b;
+            margin-bottom: 0;
+            font-weight: 300;
+        }
+
+        .story-cta p:first-of-type {
+            margin-bottom: 4px;
+        }
+
+        .story-cta p:last-of-type {
+            margin-bottom: 28px;
+        }
+
+        .story-cta-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .story-cta .cta-button.primary {
+            padding: 6px 12px;
+            background: #2b2b2b;
+            color: #ffffff;
+            border: 1px solid #2b2b2b;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: background-color 0.18s ease, border-color 0.18s ease;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+            height: auto;
+        }
+
+        .story-cta .cta-button.primary:hover {
+            background: #000000;
+            border-color: #000000;
+            transform: none;
+            box-shadow: none;
+        }
+
+    /* RESPONSIVE */
+
+        @media (max-width: 768px) {
+            .story-wrapper {
+                width: calc(100% - 32px);
+                padding: 40px 24px 80px;
+                margin: 16px auto 40px;
+            }
+
+            .story-categories {
+                margin: 0 0 16px;
+                gap: 6px;
+            }
+
+            .story-category-pill {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .story-project-badges {
+                margin: 8px 0 8px;
+                gap: 6px;
+            }
+
+            .story-badge-pill {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .story-title {
+                font-size: 32px;
+                line-height: 1.15;
+            }
+
+            .story-subtitle {
+                font-size: 17px;
+                line-height: 1.45;
+            }
+
+            .story-hero {
+                margin: 24px 0 32px;
+                border-radius: 4px;
+            }
+
+            .story-intro,
+            .story-section {
+                padding: 0;
+            }
+
+            .story-section {
+                margin: 48px 0 0 0 !important;
+            }
+
+            .story-section h2 {
+                font-size: 22px;
+                padding-top: 24px !important;
+                margin-bottom: 20px !important;
+            }
+
+            .story-toc {
+                padding: 0;
+                margin: 28px 0 40px;
+            }
+
+            .story-toc ul {
+                gap: 8px;
+            }
+
+            .story-toc li a {
+                font-size: 15px;
+            }
+
+            .qa-block {
+                margin-bottom: 32px !important;
+            }
+
+            blockquote {
+                margin: 28px auto !important;
+                padding: 0 !important;
+                font-size: 15px !important;
+                line-height: 1.65 !important;
+            }
+
+            .story-media {
+                margin: 20px 0 24px;
+            }
+
+            .story-media img {
+                border-radius: 4px;
+            }
+
+            .story-cta {
+                padding: 32px 24px;
+                margin-top: 40px;
+            }
+
+            .story-cta h3 {
+                font-size: 20px;
+                margin-bottom: 14px;
+            }
+
+            .story-cta p {
+                font-size: 15px;
+                margin-bottom: 24px;
+            }
+
+            .story-cta-actions {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+                align-items: center;
+            }
+
+            .story-cta .cta-button {
+                width: auto;
+                max-width: 280px;
+                min-width: fit-content;
+                padding: 8px 16px;
+            }
+
+            .footer-section {
+                padding: 60px 24px 40px 24px;
+            }
+
+            .footer-logo {
+                width: 100%;
+                padding: 0;
+                margin-bottom: 32px;
+            }
+
+            .footer-links {
+                width: 100%;
+                grid-template-columns: 1fr;
+                padding: 0;
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .story-wrapper {
+                width: calc(100% - 24px);
+                padding: 32px 20px 70px;
+                margin: 12px auto 32px;
+            }
+
+            .story-title {
+                font-size: 28px;
+            }
+
+            .story-subtitle {
+                font-size: 16px;
+            }
+
+            .story-hero {
+                margin: 20px 0 28px;
+            }
+
+            .story-section h2 {
+                font-size: 20px;
+            }
+
+            .story-toc li a {
+                font-size: 14px;
+            }
+
+            .story-wrapper p,
+            .qa-question,
+            .qa-answer {
+                font-size: 15px !important;
+            }
+
+            blockquote {
+                font-size: 15px !important;
+                line-height: 1.65 !important;
+                padding: 0 !important;
+            }
+
+            .story-cta {
+                padding: 28px 20px;
+            }
+
+            .story-cta h3 {
+                font-size: 18px;
+            }
+
+            .story-cta p {
+                font-size: 14px;
+            }
+        }
+    
+
+    @media (max-width: 860px) {
+      .header-center, .auth-section .auth-item { display: none; }
+      .hamburger-menu { display: flex; }
+    }
+
+  
+
+    .story-pull {
+      font-family: var(--display);
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 1.35;
+      letter-spacing: -0.015em;
+      color: #111;
+      margin: 28px 0;
+      padding-left: 16px;
+      border-left: 2px solid #e0e0e0;
+    }
+  
+        .story-hero video,
+        .story-media video {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 4px;
+            background: #111;
+        }
+
+        .story-media-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 24px 0 28px;
+        }
+
+        .story-media-grid img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+            aspect-ratio: 4 / 5;
+            display: block;
+        }
+
+        @media (max-width: 640px) {
+            .story-media-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .story-pull {
+          font-family: var(--display);
+          font-size: 22px;
+          font-weight: 400;
+          line-height: 1.35;
+          letter-spacing: -0.015em;
+          color: #111;
+          margin: 28px 0;
+          padding-left: 16px;
+          border-left: 2px solid #e0e0e0;
+        }
+
+  </style>
+</head>
+<body>
+
+  <div id="qava-dot-base-fixed" aria-hidden="true"></div>
+
+  <div class="header-container" data-qava-nav="landing">
+    <div class="header-logo">
+      <div class="logo-container">
+        <div class="logo">
+          <a href="https://www.theclubnyc.com/">
+            <img src="/the-club-logo-light.png" alt="The Club">
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="header-center">
+      <div class="navigation">
+        <a href="https://www.theclubnyc.com/community/chat" class="nav-item"><div class="nav-text">Club Room</div></a>
+        <a href="https://www.theclubnyc.com/templates" class="nav-item"><div class="nav-text">How To</div></a>
+        <a href="https://www.theclubnyc.com/find/" class="nav-item"><div class="nav-text">Find Work</div></a>
+        <a href="https://app.theclubnyc.com/guest" class="nav-item"><div class="nav-text">Find Talent</div></a>
+        <a href="https://www.theclubnyc.com/blog" class="nav-item blog">
+          <div class="nav-text">Blog</div>
+        </a>
+        <a href="https://www.theclubnyc.com/about" class="nav-item"><div class="nav-text">About</div></a>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="auth-section">
+        <a href="https://app.theclubnyc.com/" class="qava-premium-nav-btn" aria-label="Log in"><span class="nav-text">Log in</span></a>
+        <a href="https://app.theclubnyc.com/" class="join-button"><div class="join-text">Get Started</div></a>
+      </div>
+    </div>
+  </div>
+
+  <main class="story-wrapper">
+    <a class="story-back" href="https://www.theclubnyc.com/blog">&larr; Back</a>
+
+    <header class="story-header">
+      <h1 class="story-title">Build a World, Not a Product Line</h1>
+      <p class="story-subtitle">Most brands describe a product. A few describe a world.</p>
+    </header>
+
+    <figure class="story-hero">
+      <video autoplay muted loop playsinline poster="pete-pareo-towel.webp">
+        <source src="pete-pareo.mp4" type="video/mp4">
+      </video>
+    </figure>
+
+    <section class="story-intro">
+      <p>Go to Pete Pareo's ethos page and try to find a description of the clothes. You won't.</p>
+      <p>What's there instead: fishermen in worn linen, trattoria tables gone smooth with salt and espresso, the morning catch laid out on ice, an old man's card game under an awning, voices carrying late into the night. Somewhere behind all of it, almost incidentally, there are things you can wear.</p>
+      <p>That's the strategy. It's worth stealing.</p>
+      <p>Most brands describe a product. A few describe a world.</p>
+      <p>Pete Pareo is an Australian summer label founded in 2023, and it positions itself between two coastlines — born on the Australian coast, shaped by summers spent across the Mediterranean. That's a place, not a product category. Their own line for it: <em>stories of the Mediterranean, cut for today.</em></p>
+      <p>The difference sounds cosmetic. It isn't. If you describe a product, you compete on the product — cut, fabric, price, whoever makes it cheaper. If you describe a world, you're the only one in it.</p>
+    </section>
+
+    <nav class="story-toc" aria-label="Table of contents">
+      <ul>
+        <li><a href="#specificity"><span class="index">1.</span><span>Specificity is the mechanism</span></a></li>
+        <li><a href="#products"><span class="index">2.</span><span>The world shows up in the products</span></a></li>
+        <li><a href="#commercially-useful"><span class="index">3.</span><span>Why this is commercially useful</span></a></li>
+        <li><a href="#the-cost"><span class="index">4.</span><span>The cost</span></a></li>
+        <li><a href="#what-to-take"><span class="index">5.</span><span>What to take from it</span></a></li>
+      </ul>
+    </nav>
+
+    <section class="story-section" id="specificity">
+      <h2>Specificity is the mechanism</h2>
+      <p>Look at what the details actually are. Not "Mediterranean summer" but espresso cups stacked on a bar. Not "coastal living" but the card game under the awning.</p>
+      <figure class="story-media">
+        <img src="pete-pareo-cards.webp" alt="Older men playing cards at a beach club table under blue-and-white striped umbrellas" loading="lazy">
+      </figure>
+      <p>Vague detail is the tell that a brand was assembled in a meeting. You can't invent the card game. You either sat near it or you didn't, and readers know the difference even when they can't say why. That's what authentic means in practice — not sincerity, not a founder video, just details concrete enough that nobody else could have written them.</p>
+      <figure class="story-media">
+        <img src="pete-pareo-towel.webp" alt="Person wrapped in a black-and-white checkered Pete Pareo towel with a lobster print, standing on a beach" loading="lazy">
+      </figure>
+    </section>
+
+    <section class="story-section" id="products">
+      <h2>The world shows up in the products</h2>
+      <p>Look at the names. Caps: Sardine, Hotel Pescatore, Club, Los Peces. Tees: Negroni, Dolce.</p>
+      <p>None of those describe an item. Each is a fragment of the same place. Someone buying the Hotel Pescatore cap is buying a hotel that may not exist, in a town they've never visited, on a coast they've imagined.</p>
+      <p>The collections work the same way. They're numbered chapters — Chapter 01, then Los Peces, Club di Nuoto, Tutto Passa, La Lenza. Not spring/summer. Chapters, which implies a story still running and gives a customer a reason to check what happened next. The journal follows through: there's a Capri itinerary sitting where most labels would run a product roundup.</p>
+      <div class="story-media-grid">
+        <img src="pete-pareo-beach.webp" alt="Woman in a green bandeau bikini on the sand with a citrus-print cloth tied at the waist" loading="lazy">
+        <img src="pete-pareo-portrait.webp" alt="Portrait of a man in a white tee and backwards cap against a coastal sky" loading="lazy">
+      </div>
+    </section>
+
+    <section class="story-section" id="commercially-useful">
+      <h2>Why this is commercially useful, not just pretty</h2>
+      <p>A world has room in it. Pete Pareo sells pareos, swim, tees, caps, pool towels — a wide range for a young label. In a product-led brand that reads as drift. In a world-led brand every one of those obviously belongs, because they all belong to the same afternoon. The world you build determines what you can credibly sell next, and a good one keeps making room.</p>
+      <p class="story-pull">A world also can't be copied at the item level. Anyone can knock off a cap. Nobody can knock off the reason someone wanted it.</p>
+    </section>
+
+    <section class="story-section" id="the-cost">
+      <h2>The cost</h2>
+      <p>A world is a constraint. Once you've built one you have to refuse everything that doesn't live there, including profitable things. Pete Pareo's stated position is continuity over trends — buy less, buy better, pieces cut to outlast seasons. That's an easy sentence to write and an expensive one to honour when a trend is selling.</p>
+      <p>That discipline is the price of the strategy. Brands that skip it end up with a beautiful about page and a catalogue that argues with it.</p>
+    </section>
+
+    <section class="story-section" id="what-to-take">
+      <h2>What to take from it</h2>
+      <p>If you're building anything with a brand attached, the useful question isn't <em>what do we sell</em>. It's <em>where does this live</em>.</p>
+      <p>Answer that with real detail — a place you've been, an hour of the day, a particular table — and the product decisions get easier, the marketing writes itself, and you stop competing with everyone else selling the same object.</p>
+      <p class="story-pull">Pete Pareo sells summer clothing. What people are buying is the afternoon it belongs to.</p>
+    </section>
+
+    <div class="story-cta">
+      <h3>Build the world. Then ship it.</h3>
+      <p style="font-weight: 300;">The Club is for people turning a point of view into something real — strategy, brand, product, and the work that follows.</p>
+      <div class="story-cta-actions">
+        <a href="https://app.theclubnyc.com/" class="cta-button primary">Join for free</a>
+      </div>
+    </div>
+
+    <nav class="story-pager" aria-label="More stories">
+      <a class="story-pager-link story-pager-next" href="https://www.theclubnyc.com/blog">
+        <span class="story-pager-label">Blog</span>
+        <span class="story-pager-title">More stories</span>
+      </a>
+    </nav>
+  </main>
+
+  <footer class="footer-section"></footer>
+  <script src="qava-footer.js"></script>
+  <script>
+    (function () {
+      if (typeof window.applyQavaFooter === "function") {
+        window.applyQavaFooter(document);
+      }
+    })();
+  </script>
+  <script src="/qava-auth.js"></script>
+</body>
+</html>

@@ -11,6 +11,7 @@ on:
       - '*.jpg'
       - '*.svg'
       - '*.mp4'
+      - '*.webp'
       - 'How it works/**'
       - 'pricing/**'
       - 'premium/**'
@@ -76,6 +77,18 @@ jobs:
           --cache-control "max-age=3600"
 
         aws s3 cp roam.html s3://${{ secrets.S3_BUCKET_NAME }}/roam.html \
+          --content-type "text/html" \
+          --cache-control "max-age=3600"
+
+        aws s3 cp blog.html s3://${{ secrets.S3_BUCKET_NAME }}/blog.html \
+          --content-type "text/html" \
+          --cache-control "max-age=3600"
+
+        aws s3 cp strategicdoer.html s3://${{ secrets.S3_BUCKET_NAME }}/strategicdoer.html \
+          --content-type "text/html" \
+          --cache-control "max-age=3600"
+
+        aws s3 cp buildaworld.html s3://${{ secrets.S3_BUCKET_NAME }}/buildaworld.html \
           --content-type "text/html" \
           --cache-control "max-age=3600"
 
