@@ -5,6 +5,10 @@
   --muted: #6b7280;
   --soft: #9ca3af;
   --line: rgba(17, 24, 39, 0.08);
+  --hover: rgba(55, 53, 47, 0.06);
+  --panel: rgba(55, 53, 47, 0.06);
+  --panel-soft: rgba(55, 53, 47, 0.06);
+  --panel-solid: #f7f6f5;
   width: min(720px, 100%);
   margin: 52px auto 0;
   text-align: center;
@@ -126,25 +130,46 @@
 
 
     .quiet-list {
-      --hover: rgba(55, 53, 47, 0.06);
-      --panel-soft: rgba(55, 53, 47, 0.06);
       display: flex;
       flex-direction: column;
       gap: 8px;
     }
     .quiet-item[hidden] { display: none !important; }
     .quiet-item {
+      width: calc(100% - 48px);
       background: #fff;
       border: 1px solid rgba(17, 24, 39, 0.1);
       border-radius: 10px;
       overflow: hidden;
-      transition: border-color 0.15s ease, background 0.15s ease;
+      opacity: 0;
+      transform: translateY(36px);
+      transition:
+        border-color 0.15s ease,
+        background 0.15s ease,
+        opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .quiet-item.is-shift-left { align-self: flex-start; }
+    .quiet-item.is-shift-right { align-self: flex-end; }
+    .quiet-item.is-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (max-width: 640px) {
+      .quiet-item { width: calc(100% - 28px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .quiet-item {
+        opacity: 1;
+        transform: none;
+        transition: border-color 0.15s ease, background 0.15s ease;
+      }
     }
     .quiet-item.is-open .quiet-row {
       padding-bottom: 2px;
     }
     .quiet-item:hover {
-      background: #fafafa;
+      background: var(--panel-solid);
       border-color: #111827;
     }
     .quiet-item.is-open:hover {
@@ -356,7 +381,7 @@
       padding: 5px 10px 5px 5px;
       border-radius: 8px;
       border: 1px solid rgba(17, 24, 39, 0.14);
-      background: #f3f4f6;
+      background: var(--panel-solid);
       font-size: 12px;
       font-weight: 500;
       color: #111827;
@@ -368,7 +393,7 @@
     }
     .quiet-attach-chip:hover {
       border-color: #111827;
-      background: #eceef2;
+      background: rgba(55, 53, 47, 0.08);
     }
     .quiet-attach-chip svg {
       width: 14px;
@@ -586,7 +611,7 @@
       overflow: hidden;
       flex-shrink: 0;
       margin-top: 2px;
-      background: #e5e7eb;
+      background: var(--panel-solid);
       display: block;
       padding: 0;
       font-size: 0;
