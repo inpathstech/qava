@@ -2412,11 +2412,23 @@
             max-width: calc(100vw - 32px);
             height: auto;
             overflow: visible;
+            /* Avoid transform centering on mobile — it can contain sticky
+               descendants and stop the step cards from pinning while scrolling. */
+            left: auto;
+            transform: none;
+            margin-left: auto;
+            margin-right: auto;
           }
 
           #qava-showcase-dynamic-content {
             width: 100%;
             flex: 1 1 auto;
+          }
+
+          .qava-hiw-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
           }
 
           .qava-hiw-step {
@@ -2430,7 +2442,9 @@
           }
 
           .qava-hiw-step-visual {
-            height: clamp(320px, 90vw, 420px);
+            /* Slightly shorter on phones so stacked headers stay readable
+               while the next card slides up over the previous one. */
+            height: clamp(260px, 72vw, 340px);
           }
 
           .feature-cards-logos {
