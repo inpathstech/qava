@@ -257,7 +257,7 @@
                 </video>
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
-                  <div class="qava-blog-tag">Product</div>
+                  <div class="qava-blog-tag">Product Strategy</div>
                   <div class="qava-blog-title">I just wanted something<br>that felt real</div>
                   <div class="qava-blog-more">
                     <div class="qava-blog-excerpt">How Alexis Chabat built the most original board in a $4B market.</div>
