@@ -40,6 +40,35 @@
   .landing-section .quiet-poll { grid-template-columns: 1fr; }
   .landing-section .quiet-panel-content { padding-left: 16px; }
   .landing-section .quiet-item > .quiet-actions { padding-left: 14px; }
+
+  /* One-line, finger-scrollable topic pills; center threads (no L/R stagger) */
+  .landing-section .club-filters,
+  .club-filters {
+    flex-wrap: nowrap;
+    justify-content: safe center;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    touch-action: pan-x;
+    max-width: 100%;
+    padding: 2px 12px;
+    box-sizing: border-box;
+  }
+  .landing-section .club-filters::-webkit-scrollbar,
+  .club-filters::-webkit-scrollbar {
+    display: none;
+  }
+  .landing-section .club-filter,
+  .club-filter {
+    flex: 0 0 auto;
+  }
+  .landing-section .quiet-item.is-shift-left,
+  .landing-section .quiet-item.is-shift-right,
+  .quiet-item.is-shift-left,
+  .quiet-item.is-shift-right {
+    align-self: center;
+  }
 }
 
 /* Club Room — quiet list (app-aligned) */
@@ -156,7 +185,10 @@
       transform: translateY(0);
     }
     @media (max-width: 640px) {
-      .quiet-item { width: calc(100% - 28px); }
+      .quiet-item {
+        width: min(100%, calc(100% - 28px));
+        align-self: center;
+      }
     }
     @media (prefers-reduced-motion: reduce) {
       .quiet-item {
