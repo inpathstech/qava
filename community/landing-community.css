@@ -553,14 +553,15 @@
       gap: 5px;
       min-width: 0;
       height: 32px;
-      padding: 0 12px;
+      /* Inter x-height reads high in fixed-height pills; bias down optically */
+      padding: 3px 12px 0;
       border-radius: 6px;
       background: #fff;
       color: #111827;
       font-family: Inter, system-ui, sans-serif;
       font-size: 13px;
       font-weight: 300;
-      line-height: 1;
+      line-height: 1.2;
       text-decoration: none;
       border: 1px solid #111827;
       box-sizing: border-box;
@@ -574,7 +575,7 @@
     .club-cta span {
       display: inline-flex;
       align-items: center;
-      line-height: 1;
+      line-height: 1.2;
       opacity: 0.9;
     }
 
