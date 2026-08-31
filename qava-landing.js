@@ -223,20 +223,38 @@
             blogRow.className = "qava-blog-row";
             const blogReadArrow = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
             blogRow.innerHTML = `
-              <a class="qava-blog-card" href="https://www.theclubnyc.com/therisegroup">
-                <img class="qava-blog-thumb" src="./qava-blog-1.png" alt="Emma Burke on stage in conversation at a creator economy event" />
+              <a class="qava-blog-card" href="https://www.theclubnyc.com/roam">
+                <video class="qava-blog-thumb" autoplay loop muted playsinline poster="./Roam/roam-card-poster.jpg">
+                  <source src="./Roam/roam-card.mp4" type="video/mp4">
+                </video>
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
-                  <div class="qava-blog-tag">The Creator Economy</div>
-                  <div class="qava-blog-title">She Modeled the Numbers.<br>Then She Hit Them.</div>
+                  <div class="qava-blog-tag">Consumer Goods</div>
+                  <div class="qava-blog-title">Reimagining Hydration &amp; Sustainability for a World on the Move</div>
                   <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">How Emma Burke turned a spreadsheet into a $1M creator agency.</div>
+                    <div class="qava-blog-excerpt">How Roam is revolutionizing portable carbonation with SodaTop™.</div>
+                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
+                  </div>
+                </div>
+              </a>
+              <a class="qava-blog-card" href="https://www.theclubnyc.com/buildaworld">
+                <video class="qava-blog-thumb" autoplay loop muted playsinline poster="./pete-pareo-towel.webp">
+                  <source src="./pete-pareo.mp4" type="video/mp4">
+                </video>
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
+                  <div class="qava-blog-tag">Fashion</div>
+                  <div class="qava-blog-title">Build a World,<br>Not a Product Line</div>
+                  <div class="qava-blog-more">
+                    <div class="qava-blog-excerpt">Most brands describe a product. A few describe a world.</div>
                     <span class="qava-blog-read">Read ${blogReadArrow}</span>
                   </div>
                 </div>
               </a>
               <a class="qava-blog-card" href="https://www.theclubnyc.com/liquidskateboard">
-                <img class="qava-blog-thumb" src="./liquidskateboard-card.png" alt="" />
+                <video class="qava-blog-thumb" autoplay loop muted playsinline>
+                  <source src="https://liquidskateboard.b-cdn.net/Video%20-%20Web%20Aug%202025/1_GLOABL_VERTICAL_LOW.mp4" type="video/mp4">
+                </video>
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
                   <div class="qava-blog-tag">Product</div>
@@ -247,122 +265,14 @@
                   </div>
                 </div>
               </a>
-              <a class="qava-blog-card" href="https://www.theclubnyc.com/5-to-9">
-                <img class="qava-blog-thumb" src="./5to9-card.png" alt="Building your future after hours" />
+              <a class="qava-blog-card" href="https://www.theclubnyc.com/noonesark">
+                <img class="qava-blog-thumb" src="./No%20One%27s%20Ark/Ark%20Clip.webp" alt="No One's Ark" />
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
-                  <div class="qava-blog-tag">Productivity</div>
-                  <div class="qava-blog-title">Your 9-to-5 Pays the Bills.<br>Your 5-to-9 Builds Your Future.</div>
+                  <div class="qava-blog-tag">Non-Profit</div>
+                  <div class="qava-blog-title">The Story of No One's Ark</div>
                   <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">Five things the research says actually work after 7pm — and one famous idea that doesn't.</div>
-                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
-                  </div>
-                </div>
-              </a>
-              <a class="qava-blog-card" href="https://www.theclubnyc.com/attentioncapital">
-                <img class="qava-blog-thumb" src="./anti-fund.png" alt="Anti Fund" />
-                <div class="qava-blog-scrim"></div>
-                <div class="qava-blog-glass">
-                  <div class="qava-blog-tag">Venture Capital</div>
-                  <div class="qava-blog-title">Fame Gets You in the Room.<br>Capital Gets You the Deal.</div>
-                  <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">What Anti Fund's $180M actually reveals about attention as leverage.</div>
-                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
-                  </div>
-                </div>
-              </a>
-              <a class="qava-blog-card qava-blog-hidden" href="https://www.theclubnyc.com/the-alignment-trap">
-                <img class="qava-blog-thumb" src="./alignment-trap-card.png" alt="The False Alignment Trap" />
-                <div class="qava-blog-scrim"></div>
-                <div class="qava-blog-glass">
-                  <div class="qava-blog-tag">Leadership</div>
-                  <div class="qava-blog-title">The False Alignment Trap</div>
-                  <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">Why most change efforts fail long before execution — and how to fix it.</div>
-                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
-                  </div>
-                </div>
-              </a>
-              <a class="qava-blog-card qava-blog-hidden" href="https://www.theclubnyc.com/noonesark">
-                <img class="qava-blog-thumb" src="./qava-blog-3.png" alt="" />
-                <div class="qava-blog-scrim"></div>
-                <div class="qava-blog-glass">
-                  <div class="qava-blog-tag">Non-profit</div>
-                  <div class="qava-blog-title">Pirates on a Mission to Save the Planet</div>
-                  <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">A bold mission to protect the planet's future.</div>
-                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
-                  </div>
-                </div>
-              </a>
-              <a class="qava-blog-card qava-blog-hidden" href="https://www.theclubnyc.com/five-minutes-and-a-manual">
-                <img class="qava-blog-thumb" src="./five-minutes-manual-card.png" alt="Five Minutes and a Manual" />
-                <div class="qava-blog-scrim"></div>
-                <div class="qava-blog-glass">
-                  <div class="qava-blog-tag">Leadership</div>
-                  <div class="qava-blog-title">Five Minutes and a Manual</div>
-                  <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">A cockpit, a clock, and what pressure does to how we decide and communicate.</div>
-                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
-                  </div>
-                </div>
-              </a>
-              <a class="qava-blog-card qava-blog-hidden" href="https://www.theclubnyc.com/mmento">
-                <img class="qava-blog-thumb" src="./Kristina%20Boxer%20Profile%20Photo.png" alt="Kristina Boxer" />
-                <div class="qava-blog-scrim"></div>
-                <div class="qava-blog-glass">
-                  <div class="qava-blog-tag">Consumer Tech</div>
-                  <div class="qava-blog-title">The Dates We Don't Put<br>on Our Calendars</div>
-                  <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">Birthdays, anniversaries, and the ones no one thinks to write down.</div>
-                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
-                  </div>
-                </div>
-              </a>
-              <a class="qava-blog-card qava-blog-hidden" href="https://www.theclubnyc.com/cab-driver-vs-changemaker">
-                <img class="qava-blog-thumb" src="./cab-driver-changemaker-card.png" alt="Cab Driver vs. Changemaker" />
-                <div class="qava-blog-scrim"></div>
-                <div class="qava-blog-glass">
-                  <div class="qava-blog-tag">Leadership</div>
-                  <div class="qava-blog-title">Cab Driver vs. Changemaker</div>
-                  <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">The posture that separates the reliable from the indispensable.</div>
-                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
-                  </div>
-                </div>
-              </a>
-              <a class="qava-blog-card qava-blog-hidden" href="https://www.theclubnyc.com/lumi">
-                <img class="qava-blog-thumb" src="./Lumi/Family.jpg" alt="Lumi" />
-                <div class="qava-blog-scrim"></div>
-                <div class="qava-blog-glass">
-                  <div class="qava-blog-tag">Health Tech</div>
-                  <div class="qava-blog-title">The Meltdown Doesn't Wait<br>for the Appointment</div>
-                  <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">Lumi is built for the time between sessions, where life happens.</div>
-                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
-                  </div>
-                </div>
-              </a>
-              <a class="qava-blog-card qava-blog-hidden" href="https://www.theclubnyc.com/the-portfolio-career">
-                <img class="qava-blog-thumb" src="./portfolio-career-card.png" alt="The Portfolio Career" />
-                <div class="qava-blog-scrim"></div>
-                <div class="qava-blog-glass">
-                  <div class="qava-blog-tag">Careers</div>
-                  <div class="qava-blog-title">The Portfolio Career</div>
-                  <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">Do your mix of interesting things — the objectives, the routine, the risks.</div>
-                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
-                  </div>
-                </div>
-              </a>
-              <a class="qava-blog-card qava-blog-hidden" href="https://www.theclubnyc.com/roam">
-                <img class="qava-blog-thumb" src="./Roam/Hand%20Holding%20Bottle.jpg" alt="Roam" />
-                <div class="qava-blog-scrim"></div>
-                <div class="qava-blog-glass">
-                  <div class="qava-blog-tag">Sustainability</div>
-                  <div class="qava-blog-title">Reimagining Hydration &amp; Sustainability for a World on the Move</div>
-                  <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">Rethinking hydration and sustainability for a world on the move.</div>
+                    <div class="qava-blog-excerpt">A 270-ton retired ferry, a pirate brigade, and a vision bold enough to rewrite a waterway's future.</div>
                     <span class="qava-blog-read">Read ${blogReadArrow}</span>
                   </div>
                 </div>
@@ -371,37 +281,13 @@
             ctaButtonsRow.insertAdjacentElement("afterend", blogStack);
             blogStack.appendChild(blogRow);
 
-            const hiddenCards = Array.from(blogRow.querySelectorAll(".qava-blog-hidden"));
-            let blogExtra = null;
-            if (hiddenCards.length) {
-              blogExtra = doc.createElement("div");
-              blogExtra.className = "qava-blog-extra";
-              blogExtra.setAttribute("aria-hidden", "true");
-              const extraInner = doc.createElement("div");
-              extraInner.className = "qava-blog-extra-inner";
-              hiddenCards.forEach((card) => extraInner.appendChild(card));
-              blogExtra.appendChild(extraInner);
-              blogStack.appendChild(blogExtra);
-            }
-
             const blogActions = doc.createElement("div");
             blogActions.className = "qava-blog-actions";
-
-            if (blogExtra) {
-              const moreBtn = doc.createElement("button");
-              moreBtn.type = "button";
-              moreBtn.className = "qava-blog-actbtn qava-blog-morebtn";
-              moreBtn.textContent = "Show more";
-              moreBtn.setAttribute("aria-expanded", "false");
-              moreBtn.addEventListener("click", () => {
-                const expanded = blogExtra.classList.toggle("is-open");
-                blogExtra.setAttribute("aria-hidden", expanded ? "false" : "true");
-                moreBtn.setAttribute("aria-expanded", expanded ? "true" : "false");
-                moreBtn.textContent = expanded ? "Show less" : "Show more";
-              });
-              blogActions.appendChild(moreBtn);
-            }
-
+            const viewBlog = doc.createElement("a");
+            viewBlog.href = "https://www.theclubnyc.com/blog";
+            viewBlog.className = "qava-blog-actbtn";
+            viewBlog.textContent = "View blog";
+            blogActions.appendChild(viewBlog);
             blogStack.insertAdjacentElement("afterend", blogActions);
 
             blogStack.querySelectorAll(".qava-blog-card").forEach((card) => {
@@ -411,6 +297,15 @@
                 return;
               }
               const markLoaded = () => card.classList.add("is-loaded");
+              if (thumb.tagName === "VIDEO") {
+                if (thumb.readyState >= 2) {
+                  markLoaded();
+                } else {
+                  thumb.addEventListener("loadeddata", markLoaded, { once: true });
+                  thumb.addEventListener("error", markLoaded, { once: true });
+                }
+                return;
+              }
               if (thumb.complete && thumb.naturalWidth > 0) {
                 markLoaded();
               } else {
