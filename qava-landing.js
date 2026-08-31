@@ -224,7 +224,7 @@
             const blogReadArrow = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
             blogRow.innerHTML = `
               <a class="qava-blog-card" href="https://www.theclubnyc.com/roam">
-                <video class="qava-blog-thumb" autoplay loop muted playsinline poster="./Roam/roam-card-poster.jpg">
+                <video class="qava-blog-thumb" autoplay loop muted playsinline preload="auto" poster="./Roam/roam-card-poster.jpg">
                   <source src="./Roam/roam-card.mp4" type="video/mp4">
                 </video>
                 <div class="qava-blog-scrim"></div>
@@ -238,8 +238,8 @@
                 </div>
               </a>
               <a class="qava-blog-card" href="https://www.theclubnyc.com/buildaworld">
-                <video class="qava-blog-thumb" autoplay loop muted playsinline poster="./pete-pareo-towel.webp">
-                  <source src="./pete-pareo.mp4" type="video/mp4">
+                <video class="qava-blog-thumb" autoplay loop muted playsinline preload="auto" poster="./pete-pareo-card-poster.jpg">
+                  <source src="./pete-pareo-card.mp4" type="video/mp4">
                 </video>
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
@@ -252,7 +252,7 @@
                 </div>
               </a>
               <a class="qava-blog-card" href="https://www.theclubnyc.com/liquidskateboard">
-                <video class="qava-blog-thumb" autoplay loop muted playsinline>
+                <video class="qava-blog-thumb" autoplay loop muted playsinline preload="metadata">
                   <source src="https://liquidskateboard.b-cdn.net/Video%20-%20Web%20Aug%202025/1_GLOABL_VERTICAL_LOW.mp4" type="video/mp4">
                 </video>
                 <div class="qava-blog-scrim"></div>
@@ -266,7 +266,7 @@
                 </div>
               </a>
               <a class="qava-blog-card" href="https://www.theclubnyc.com/noonesark">
-                <img class="qava-blog-thumb" src="./No%20One%27s%20Ark/Ark%20Clip.webp" alt="No One's Ark" />
+                <img class="qava-blog-thumb" src="./No%20One%27s%20Ark/Ark%20Clip.webp" alt="No One's Ark" fetchpriority="low" decoding="async" />
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
                   <div class="qava-blog-tag">Non-Profit</div>
@@ -298,12 +298,21 @@
               }
               const markLoaded = () => card.classList.add("is-loaded");
               if (thumb.tagName === "VIDEO") {
-                if (thumb.readyState >= 2) {
+                // Reveal as soon as the poster is ready so cards aren't blank
+                // while the video buffers in the background.
+                const poster = thumb.getAttribute("poster");
+                if (poster) {
+                  const posterImg = new Image();
+                  posterImg.decoding = "async";
+                  posterImg.onload = markLoaded;
+                  posterImg.onerror = markLoaded;
+                  posterImg.src = poster;
+                } else if (thumb.readyState >= 2) {
                   markLoaded();
                 } else {
                   thumb.addEventListener("loadeddata", markLoaded, { once: true });
-                  thumb.addEventListener("error", markLoaded, { once: true });
                 }
+                thumb.addEventListener("error", markLoaded, { once: true });
                 return;
               }
               if (thumb.complete && thumb.naturalWidth > 0) {
