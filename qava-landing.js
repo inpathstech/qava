@@ -286,7 +286,7 @@
             const viewBlog = doc.createElement("a");
             viewBlog.href = "https://www.theclubnyc.com/blog";
             viewBlog.className = "qava-blog-actbtn";
-            viewBlog.textContent = "View blog";
+            viewBlog.textContent = "Visit blog";
             blogActions.appendChild(viewBlog);
             blogStack.insertAdjacentElement("afterend", blogActions);
 
