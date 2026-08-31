@@ -115,6 +115,23 @@
       inset: 0;
     }
 
+    .ss-art-split {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 100%;
+      height: 100%;
+    }
+
+    .ss-art-split .ss-thumb {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform: none;
+    }
+
     .ss-scrim {
       position: absolute;
       inset: 0;
@@ -318,6 +335,21 @@
 
     <section class="ss-grid-wrap" id="ss-stories">
       <div class="ss-grid">
+        <a href="https://www.theclubnyc.com/speakforthetrees" class="ss-card ss-reveal">
+          <span class="ss-art">
+            <span class="ss-art-split" aria-hidden="true">
+              <img src="speak-for-the-trees-rob.jpg" alt="" class="ss-thumb" loading="lazy" style="object-position: 50% 18%;">
+              <img src="speak-for-the-trees-alan.jpg" alt="" class="ss-thumb" loading="lazy" style="object-position: 82% 28%;">
+            </span>
+            <span class="ss-scrim" aria-hidden="true"></span>
+            <span class="ss-copy">
+              <span class="ss-label">Climate</span>
+              <strong class="ss-title">If Every Person Gets an Agent, Why Not Every Ecosystem?</strong>
+              <span class="ss-sub">Speak for the Trees gives ecosystems agents that read public data and speak on their behalf.</span>
+            </span>
+          </span>
+        </a>
+
         <a href="https://www.theclubnyc.com/buildaworld" class="ss-card ss-reveal">
           <span class="ss-art">
             <video class="ss-thumb" autoplay loop muted playsinline poster="pete-pareo-towel.webp">
