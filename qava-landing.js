@@ -230,7 +230,7 @@
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
                   <div class="qava-blog-tag">Consumer Goods</div>
-                  <div class="qava-blog-title">Reimagining Hydration &amp; Sustainability for a World on the Move</div>
+                  <div class="qava-blog-title">Reimagining hydration for a world on the move</div>
                   <div class="qava-blog-more">
                     <div class="qava-blog-excerpt">How Roam is revolutionizing portable carbonation with SodaTop™.</div>
                     <span class="qava-blog-read">Read ${blogReadArrow}</span>
