@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>If Every Person Gets an Agent, Why Not Every Ecosystem? | The Club</title>
+  <link rel="canonical" href="https://www.theclubnyc.com/speakforthetrees" />
+  <meta property="og:title" content="If Every Person Gets an Agent, Why Not Every Ecosystem? | The Club" />
+  <meta property="og:description" content="Rob and Alan are three months into building Speak for the Trees — an agentic system that reads public environmental data and pushes updates on behalf of the ecosystems it covers." />
+  <meta property="og:image" content="https://www.theclubnyc.com/speak-for-the-trees-rob.jpg" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <meta name="description" content="Rob and Alan are three months into building Speak for the Trees — an agentic system that reads public environmental data and pushes updates on behalf of the ecosystems it covers." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet" />
+  <style>
+
+
+    :root {
+      --display: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+      --ink: #111827;
+      --muted: #6B6B6B;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      font-family: "Inter", sans-serif;
+      background: #ffffff;
+      color: var(--ink);
+    }
+
+    body {
+      position: relative;
+      min-height: 100vh;
+    }
+
+    #qava-dot-base-fixed {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image: radial-gradient(circle, rgba(17, 24, 39, 0.16) 1px, transparent 1.35px);
+      background-size: 20px 20px;
+      background-repeat: repeat;
+    }
+
+    body > *:not(#qava-dot-base-fixed):not(.header-container) {
+      position: relative;
+      z-index: 1;
+    }
+
+    a { color: inherit; }
+
+    .header-container {
+      width: calc(100% - 22px);
+      margin: 0 auto;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 56px;
+      position: sticky;
+      top: 0;
+      z-index: 1200;
+      background: rgba(255, 255, 255, 0.24);
+      -webkit-backdrop-filter: blur(18px) saturate(150%);
+      backdrop-filter: blur(18px) saturate(150%);
+      border: 0;
+      box-shadow: none;
+      isolation: isolate;
+    }
+
+    .header-container::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      right: 6px;
+      top: 3px;
+      bottom: 3px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.44) 100%);
+      -webkit-backdrop-filter: blur(26px) saturate(165%);
+      backdrop-filter: blur(26px) saturate(165%);
+      box-shadow: 0 10px 24px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .header-container > * { position: relative; z-index: 1; }
+
+    .header-logo, .logo-container, .logo { display: flex; align-items: center; }
+
+    .header-container .logo {
+      background: transparent;
+      padding: 0;
+      border: none;
+      box-shadow: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header-center {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex: 1;
+      margin-left: 40px;
+    }
+
+    .header-right { display: flex; align-items: center; gap: 8px; }
+
+    .navigation { display: flex; align-items: center; gap: 8px; }
+
+    .header-container .nav-item,
+    .header-container .auth-item {
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      border-radius: 0;
+      padding: 0;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      transition: color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .header-container .nav-item .nav-text,
+    .header-container .auth-item .nav-text {
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: #6b6b6b;
+      line-height: 1.4;
+      transition: color 0.2s ease;
+      padding: 0 4px;
+      white-space: nowrap;
+    }
+
+    .header-container .nav-item.newsletter .nav-text {
+      color: #000000;
+    }
+
+    .header-container .nav-item:hover .nav-text,
+    .header-container .auth-item:hover .nav-text {
+      color: #000000;
+    }
+
+    .auth-section { display: flex; align-items: center; gap: 28px; }
+
+    .join-button {
+      padding: 6px 12px;
+      background: #2b2b2b;
+      border: 1px solid #2b2b2b;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: background-color 0.18s ease, border-color 0.18s ease;
+    }
+
+    .join-button:hover {
+      background: #000000;
+      border-color: #000000;
+    }
+
+    .join-text {
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .qava-premium-nav-btn {
+      padding: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transition: color 0.2s ease;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: #6b6b6b;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      line-height: 1.4;
+    }
+
+    .qava-premium-nav-btn .nav-text {
+      color: inherit;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.4;
+    }
+
+    .qava-premium-nav-btn:hover,
+    .qava-premium-nav-btn:hover .nav-text,
+    .qava-premium-nav-btn:focus-visible,
+    .qava-premium-nav-btn:focus-visible .nav-text {
+      color: #000000;
+      background: transparent;
+    }
+
+    .qava-premium-nav-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      margin-top: -1px;
+    }
+
+    .qava-premium-nav-icon svg {
+      width: 15px;
+      height: 15px;
+      display: block;
+    }
+
+    .header-container .logo img,
+    .qava-nav-logo-face {
+      width: 72px;
+      height: 16px;
+      object-fit: contain;
+      display: block;
+      border-radius: 4px;
+    }
+
+    .qava-nav-logo-back{ object-fit: contain; }
+
+    .qava-nav-logo-flip { width: 72px; height: 16px; perspective: 600px;
+    overflow: visible;}
+
+    .qava-nav-logo-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease;
+    }
+
+    .qava-nav-logo-inner.is-flipped,
+        .qava-nav-logo-inner.is-flip-up { transform: rotateX(180deg); }
+        .qava-nav-logo-inner.is-flip-down { transform: rotateX(-180deg); }
+        .qava-nav-logo-inner.is-flip-left { transform: rotateY(-180deg); }
+        .qava-nav-logo-inner.is-flip-right { transform: rotateY(180deg); }
+
+    .qava-nav-logo-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+    }
+
+    .qava-nav-logo-back,
+.qava-nav-logo-back.is-axis-x{ transform: rotateX(180deg); }
+
+.qava-nav-logo-back.is-axis-y {
+  transform: rotateY(180deg);
+}
+
+    .hamburger-menu {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .hamburger-line {
+      width: 20px;
+      height: 2px;
+      background: #111827;
+      border-radius: 1px;
+    }
+
+    
+.footer-section {
+      background: transparent;
+      width: 100%;
+      margin: 0;
+      padding: 48px 0 46px;
+      border-top: 1px solid #EBEBEB;
+    }
+
+    .footer-container {
+      width: min(1040px, calc(100vw - 120px));
+      margin: 0 auto;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+
+    .footer-content { display: flex; flex-wrap: wrap; }
+    .footer-logo { width: 39%; padding: 2px 15px 0 0; margin-bottom: 30px; }
+    .footer-logo-img { width: 40px; height: auto; }
+
+    .footer-links {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      width: 60%;
+      gap: 16px 25px;
+      padding: 0 15px 0 10px;
+    }
+
+    .footer-heading {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: 17px;
+      letter-spacing: -0.012em;
+      color: #000000;
+      margin: 0 0 8px;
+    }
+
+    .footer-link-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .footer-link {
+      font-size: 13px;
+      font-weight: 300;
+      color: #797979;
+      text-decoration: none;
+      line-height: 1.2;
+    }
+
+    .footer-link:hover { text-decoration: underline; }
+
+    .footer-copyright {
+      grid-column: 1 / -1;
+      margin-top: 14px;
+      font-size: 13px;
+      font-weight: 300;
+      color: #797979;
+    }
+
+    
+    html { scroll-behavior: smooth; }
+
+    .story-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 24px;
+      margin: 24px 0 48px;
+    }
+
+    .story-meta-col { flex: 1; min-width: 0; }
+
+    .story-meta-col:first-child { flex: 1.7; }
+
+    .story-meta-divider {
+      width: 1px;
+      background: #e5e7eb;
+      align-self: stretch;
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .story-meta-divider { display: block; margin: 0 8px; }
+    }
+
+    .story-meta h3 {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #6b7280;
+      margin-bottom: 16px;
+    }
+
+    .story-people {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .story-person {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .story-person-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #e5e7eb;
+      flex-shrink: 0;
+    }
+
+    .story-person-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .story-person-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: #111827;
+      white-space: nowrap;
+    }
+
+    .story-person-role {
+      font-size: 12px;
+      font-weight: 300;
+      color: #6b7280;
+      white-space: nowrap;
+    }
+
+    .story-focus-items {
+      font-size: 12px;
+      line-height: 1.6;
+      font-weight: 300;
+      color: #1f2937;
+    }
+
+    /* BLOG POST STYLES */
+
+        .story-wrapper {
+            max-width: 760px;
+            width: calc(100% - 48px);
+            margin: 24px auto 48px;
+            padding: 56px 40px 90px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        .story-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: "Inter", sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            color: #6b7280;
+            text-decoration: none;
+            margin: 0 0 28px;
+            width: fit-content;
+            transition: color 0.2s ease;
+        }
+
+        .story-back:visited {
+            color: #6b7280;
+        }
+
+        .story-back:hover,
+        .story-back:focus-visible {
+            color: #000000;
+        }
+
+        .story-pager {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 32px;
+            margin-top: 48px;
+            padding-top: 28px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .story-pager-link {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-width: 46%;
+            color: #6b7280;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .story-pager-prev {
+            text-align: left;
+            align-items: flex-start;
+        }
+
+        .story-pager-next {
+            margin-left: auto;
+            text-align: right;
+            align-items: flex-end;
+        }
+
+        .story-pager-link:visited {
+            color: #6b7280;
+        }
+
+        .story-pager-link:hover,
+        .story-pager-link:focus-visible {
+            color: #000000;
+        }
+
+        .story-pager-label {
+            font-family: "Inter", sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .story-pager-title {
+            font-family: var(--display);
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+
+        @media (max-width: 640px) {
+            .story-pager {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .story-pager-link {
+                max-width: 100%;
+            }
+
+            .story-pager-next {
+                margin-left: 0;
+            }
+        }
+
+        .story-header {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 0;
+        }
+
+        .story-title {
+            font-family: var(--display);
+            font-size: clamp(32px, 4vw, 42px);
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .story-title-line {
+            display: block;
+        }
+
+        .story-subtitle {
+            font-size: 20px;
+            font-weight: 300;
+            color: #4a4a4a;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        .story-categories {
+            display: flex;
+            gap: 8px;
+            margin: 0 0 20px 0;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .story-category-pill {
+            display: inline-flex;
+            align-items: center;
+            background: transparent;
+            color: #000000;
+            font-size: 11px;
+            font-weight: 400;
+            padding: 2px 4px;
+            border-radius: 0;
+            border: none;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .story-project-badges {
+            display: flex;
+            gap: 8px;
+            margin: 2px 0 3px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .story-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            background: #fafafa;
+            color: #000000;
+            font-size: 11px;
+            font-weight: 400;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-decoration: none;
+        }
+
+        .story-badge-pill span {
+            color: #000000;
+        }
+
+        .story-badge-separator {
+            font-size: 11px;
+            font-weight: 400;
+            color: #000000;
+        }
+
+        .story-hero {
+            width: 100%;
+            margin: 32px 0 40px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .story-hero img {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .story-hero-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px;
+            background: #fff;
+        }
+
+        .story-hero-split img {
+            width: 100%;
+            height: 100%;
+            aspect-ratio: 4 / 5;
+            object-fit: cover;
+        }
+
+        /* ===== SPACING SYSTEM - Professional & Consistent ===== */
+        
+        /* Intro section - appears after hero image */
+        .story-intro {
+            padding: 0 !important;
+            margin: 0 0 32px !important;
+        }
+
+        .story-intro p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 16px;
+        }
+
+        .story-intro p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Table of Contents - compact spacing */
+        .story-toc {
+            padding: 0 !important;
+            margin: 32px 0 48px !important;
+        }
+
+        .story-toc ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 0;
+        }
+
+        .story-toc li a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 300;
+            color: #2e2e2e;
+            line-height: 1.65;
+            text-decoration: none;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .story-toc li a:hover {
+            color: #111111;
+            transform: translateX(4px);
+        }
+
+        .story-toc li .index {
+            font-size: 13px;
+            font-weight: 500;
+            color: #6b6b6b;
+            letter-spacing: 0.08em;
+        }
+
+        /* Main content sections */
+        .story-section {
+            padding: 0 !important;
+            margin: 56px 0 0 0 !important;
+        }
+
+        .story-section:first-of-type {
+            margin-top: 0 !important;
+        }
+ 
+        .story-section h2 {
+            font-family: var(--display);
+            font-size: 28px;
+            font-weight: 400;
+            margin: 0 0 24px !important;
+            padding-top: 28px !important;
+            letter-spacing: -0.02em;
+            color: #000000;
+            border-top: 1px solid #e0e0e0 !important;
+        }
+
+        .story-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #111;
+        }
+
+        /* All paragraphs - consistent spacing */
+        .story-wrapper p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 14px;
+        }
+
+        .story-section p,
+        .story-intro p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+        }
+
+        /* Q&A blocks - consistent spacing */
+        .qa-block {
+            margin-bottom: 36px !important;
+        }
+
+        .qa-block:last-child {
+            margin-bottom: 0 !important;
+        }
+
+        .qa-question {
+            font-size: 16px !important;
+            font-weight: 500 !important;
+            margin-bottom: 14px !important;
+            color: #000000 !important;
+        }
+
+        .qa-question .highlight {
+            background: none;
+            padding: 0;
+            display: inline;
+        }
+
+        .qa-answer {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 14px;
+        }
+
+        .qa-answer:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Pull quotes - centered with breathing room */
+        blockquote {
+            margin: 36px auto !important;
+            padding: 0 !important;
+            width: 100%;
+            max-width: 680px;
+            font-size: 16px !important;
+            line-height: 1.65 !important;
+            color: #111111 !important;
+            font-weight: 500 !important;
+            font-style: italic !important;
+            text-align: center;
+            background: transparent;
+            border-radius: 0;
+            white-space: normal;
+            display: block;
+            font-family: 'Inter', sans-serif;
+        }
+
+        blockquote::before {
+            content: "";
+        }
+
+        /* Images with captions */
+        .story-media {
+            margin: 24px 0 28px;
+            text-align: center;
+        }
+
+        .story-media img {
+            width: 100%;
+            border-radius: 4px;
+            display: block;
+        }
+
+        .story-media-caption {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #585858;
+        }
+
+        .story-media-caption a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .story-media-caption a:hover {
+            text-decoration: underline;
+        }
+
+        /* Links within story content */
+        .qa-answer a {
+            color: inherit;
+            text-decoration: none;
+            transition: text-decoration 0.2s ease;
+        }
+
+        .qa-answer a:hover {
+            text-decoration: underline;
+        }
+
+        .story-cta {
+            margin-top: 48px;
+            text-align: center;
+            padding: 32px 48px;
+            border-radius: 14px;
+            background: #fafafa;
+        }
+
+        .story-cta h3 {
+            font-family: var(--display);
+            font-size: 24px;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .story-cta p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #3b3b3b;
+            margin-bottom: 0;
+            font-weight: 300;
+        }
+
+        .story-cta p:first-of-type {
+            margin-bottom: 4px;
+        }
+
+        .story-cta p:last-of-type {
+            margin-bottom: 28px;
+        }
+
+        .story-cta-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .story-cta .cta-button.primary {
+            padding: 6px 12px;
+            background: #2b2b2b;
+            color: #ffffff;
+            border: 1px solid #2b2b2b;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: background-color 0.18s ease, border-color 0.18s ease;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+            height: auto;
+        }
+
+        .story-cta .cta-button.primary:hover {
+            background: #000000;
+            border-color: #000000;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .story-cta .cta-button.secondary {
+            padding: 6px 12px;
+            background: transparent;
+            color: #2b2b2b;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: background-color 0.18s ease, border-color 0.18s ease;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+            height: auto;
+        }
+
+        .story-cta .cta-button.secondary:hover {
+            background: #f3f4f6;
+            border-color: #9ca3af;
+        }
+
+        .story-media-screenshot img {
+            border: 1px solid #e5e7eb;
+            background: #f7f5f0;
+        }
+
+        .story-people-block {
+            margin: 8px 0 8px;
+        }
+
+        .story-people-block .story-meta h3 {
+            margin-bottom: 12px;
+        }
+
+    /* RESPONSIVE */
+
+        @media (max-width: 768px) {
+            .story-wrapper {
+                width: calc(100% - 32px);
+                padding: 40px 24px 80px;
+                margin: 16px auto 40px;
+            }
+
+            .story-categories {
+                margin: 0 0 16px;
+                gap: 6px;
+            }
+
+            .story-category-pill {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .story-project-badges {
+                margin: 8px 0 8px;
+                gap: 6px;
+            }
+
+            .story-badge-pill {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .story-title {
+                font-size: 32px;
+                line-height: 1.15;
+            }
+
+            .story-subtitle {
+                font-size: 17px;
+                line-height: 1.45;
+            }
+
+            .story-hero {
+                margin: 24px 0 32px;
+                border-radius: 4px;
+            }
+
+            .story-intro,
+            .story-section {
+                padding: 0;
+            }
+
+            .story-section {
+                margin: 48px 0 0 0 !important;
+            }
+
+            .story-section h2 {
+                font-size: 22px;
+                padding-top: 24px !important;
+                margin-bottom: 20px !important;
+            }
+
+            .story-toc {
+                padding: 0;
+                margin: 28px 0 40px;
+            }
+
+            .story-toc ul {
+                gap: 8px;
+            }
+
+            .story-toc li a {
+                font-size: 15px;
+            }
+
+            .qa-block {
+                margin-bottom: 32px !important;
+            }
+
+            blockquote {
+                margin: 28px auto !important;
+                padding: 0 !important;
+                font-size: 15px !important;
+                line-height: 1.65 !important;
+            }
+
+            .story-media {
+                margin: 20px 0 24px;
+            }
+
+            .story-media img {
+                border-radius: 4px;
+            }
+
+            .story-cta {
+                padding: 32px 24px;
+                margin-top: 40px;
+            }
+
+            .story-cta h3 {
+                font-size: 20px;
+                margin-bottom: 14px;
+            }
+
+            .story-cta p {
+                font-size: 15px;
+                margin-bottom: 24px;
+            }
+
+            .story-cta-actions {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+                align-items: center;
+            }
+
+            .story-cta .cta-button {
+                width: auto;
+                max-width: 280px;
+                min-width: fit-content;
+                padding: 8px 16px;
+            }
+
+            .footer-section {
+                padding: 60px 24px 40px 24px;
+            }
+
+            .footer-logo {
+                width: 100%;
+                padding: 0;
+                margin-bottom: 32px;
+            }
+
+            .footer-links {
+                width: 100%;
+                grid-template-columns: 1fr;
+                padding: 0;
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .story-wrapper {
+                width: calc(100% - 24px);
+                padding: 32px 20px 70px;
+                margin: 12px auto 32px;
+            }
+
+            .story-title {
+                font-size: 28px;
+            }
+
+            .story-subtitle {
+                font-size: 16px;
+            }
+
+            .story-hero {
+                margin: 20px 0 28px;
+            }
+
+            .story-section h2 {
+                font-size: 20px;
+            }
+
+            .story-toc li a {
+                font-size: 14px;
+            }
+
+            .story-wrapper p,
+            .qa-question,
+            .qa-answer {
+                font-size: 15px !important;
+            }
+
+            blockquote {
+                font-size: 15px !important;
+                line-height: 1.65 !important;
+                padding: 0 !important;
+            }
+
+            .story-cta {
+                padding: 28px 20px;
+            }
+
+            .story-cta h3 {
+                font-size: 18px;
+            }
+
+            .story-cta p {
+                font-size: 14px;
+            }
+        }
+    
+
+    @media (max-width: 860px) {
+      .header-center, .auth-section .auth-item { display: none; }
+      .hamburger-menu { display: flex; }
+    }
+
+  
+
+    .story-section h2 {
+      border-top: 1px solid #e0e0e0 !important;
+    }
+    .story-pull {
+      font-family: var(--display);
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 1.35;
+      letter-spacing: -0.015em;
+      color: #111;
+      margin: 28px 0;
+      padding-left: 16px;
+      border-left: 2px solid #e0e0e0;
+    }
+  </style>
+</head>
+<body>
+  <div id="qava-dot-base-fixed" aria-hidden="true"></div>
+
+  <div class="header-container" data-qava-nav="landing" data-qava-auth-ready>
+    <div class="header-logo">
+      <div class="logo-container">
+        <div class="logo">
+          <a href="https://www.theclubnyc.com/">
+            <img src="/the-club-logo-light.png" alt="The Club">
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="header-center">
+      <div class="navigation">
+        <a href="https://www.theclubnyc.com/community/chat" class="nav-item"><div class="nav-text">Club Room</div></a>
+        <a href="https://www.theclubnyc.com/templates" class="nav-item"><div class="nav-text">How To</div></a>
+        <a href="https://www.theclubnyc.com/find/" class="nav-item"><div class="nav-text">Find Work</div></a>
+        <a href="https://app.theclubnyc.com/guest" class="nav-item"><div class="nav-text">Find Talent</div></a>
+        <a href="https://www.theclubnyc.com/blog" class="nav-item blog">
+          <div class="nav-text">Blog</div>
+        </a>
+        <a href="https://www.theclubnyc.com/about" class="nav-item"><div class="nav-text">About</div></a>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="auth-section">
+        <a href="https://app.theclubnyc.com/" class="qava-premium-nav-btn" aria-label="Log in"><span class="nav-text">Log in</span></a>
+        <a href="https://app.theclubnyc.com/" class="join-button"><div class="join-text">Get Started</div></a>
+      </div>
+    </div>
+  </div>
+
+  <main class="story-wrapper">
+    <a class="story-back" href="https://www.theclubnyc.com/blog">&larr; Back</a>
+
+    <header class="story-header">
+      <h1 class="story-title">If Every Person Gets an Agent, Why Not Every Ecosystem?</h1>
+      <p class="story-subtitle">Rob and Alan are three months into building Speak for the Trees, an agentic system that reads public environmental data and pushes updates on behalf of the ecosystems it covers. The big question underneath it: what happens when those updates become evidence?</p>
+    </header>
+
+    <figure class="story-hero story-hero-split">
+      <img src="speak-for-the-trees-rob.jpg" alt="Rob Greig in a winter forest, wearing a gray beanie and green jacket" loading="eager" style="object-position: 50% 18%;">
+      <img src="speak-for-the-trees-alan.jpg" alt="Alan Yan at a viewpoint overlooking forested hills at sunset" loading="eager" style="object-position: 82% 28%;">
+    </figure>
+
+    <section class="story-intro">
+      <p>A pipe at Syracuse airport has been putting more waste into the water than its permit allows. That's been true for three quarters running, and each time it's been worse: 213% over the limit in December, 980% by March, and 4,600% over in a sample logged this month.</p>
+      <p>Here's why that matters. Organic waste eats up the oxygen in water as it breaks down, and fish and insects need that oxygen to live. One bad reading could be a one-off, but three in a row, with each worse than the last, means something is clearly not working.</p>
+      <figure class="story-media story-media-screenshot">
+        <img src="speak-for-the-trees-syracuse.png" alt="Speak for the Trees field report on the Syracuse airport oxygen-demand violation, with a map of Mud Creek and the Ontario Lowlands" loading="lazy">
+        <figcaption class="story-media-caption">A Speak for the Trees field report on the Ontario Lowlands — written by an agent, published for anyone to read.</figcaption>
+      </figure>
+      <p>Nobody assigned a reporter to find this, or paid an expert to investigate. Nor did a regulator put out a press release. The report was written by an AI agent working on behalf of the Ontario Lowlands — a stretch of land that, until recently, had no way of telling anyone what was happening to it.</p>
+      <p>That's the idea behind Speak for the Trees. It started with a question its founders couldn't shake.</p>
+    </section>
+
+    <div class="story-people-block">
+      <div class="story-meta">
+        <div class="story-meta-col">
+          <h3>Founders</h3>
+          <div class="story-people">
+            <div class="story-person">
+              <div class="story-person-avatar">
+                <img src="speak-for-the-trees-rob.jpg" alt="Rob Greig">
+              </div>
+              <div>
+                <div class="story-person-name">Rob Greig</div>
+                <div class="story-person-role">Co-founder</div>
+              </div>
+            </div>
+            <div class="story-person">
+              <div class="story-person-avatar">
+                <img src="speak-for-the-trees-alan.jpg" alt="Alan Yan">
+              </div>
+              <div>
+                <div class="story-person-name">Alan Yan</div>
+                <div class="story-person-role">Co-founder</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="story-toc" aria-label="Table of contents">
+      <ul>
+        <li><a href="#the-question"><span class="index">1.</span><span>The question they kept coming back to</span></a></li>
+        <li><a href="#fifty-year-idea"><span class="index">2.</span><span>A fifty-year-old idea</span></a></li>
+        <li><a href="#newsletter"><span class="index">3.</span><span>It starts with a newsletter</span></a></li>
+        <li><a href="#tip-line"><span class="index">4.</span><span>More like a tip line than a verdict</span></a></li>
+        <li><a href="#what-this-could-become"><span class="index">5.</span><span>What this could become</span></a></li>
+      </ul>
+    </nav>
+
+    <section class="story-section" id="the-question">
+      <h2>The question they kept coming back to</h2>
+      <p>Rob is a product designer based in New York. Like everyone else, he'd spent months hearing about what AI was going to change. Somewhere in all that noise, he found himself circling something narrower: could any of this actually be a force for good for our ecosystems?</p>
+      <p class="story-pull">"We're all about to have AI agents working on our behalf — researching, negotiating, monitoring, filing things. So what if we gave that same capability to the living systems around us?"</p>
+      <figure class="story-media" style="max-width: 320px; margin-left: auto; margin-right: auto;">
+        <img src="speak-for-the-trees-logo.jpg" alt="Speak for the Trees — Speak for the Trees logo with a black pine tree" loading="lazy" style="border: 1px solid #eee;">
+      </figure>
+      <p>The concept he landed on is a powerful one. And it's the bet Speak for the Trees is built on.</p>
+    </section>
+
+    <section class="story-section" id="fifty-year-idea">
+      <h2>A fifty-year-old idea</h2>
+      <p>In 1972, a law professor named Christopher Stone asked whether a forest could sue.</p>
+      <p>His essay was called <em>Should Trees Have Standing?</em> and the argument was that natural things should be able to go to court and defend their own interests. Plenty of people thought this was ridiculous. Stone's answer to them was hard to dismiss: the law already gives rights to things that can't speak. Corporations can't speak. Countries can't speak. Both have rights, and both have lawyers.</p>
+      <p>The essay reached one reader Stone had hoped for. Supreme Court Justice William O. Douglas quoted it in his dissent in <em>Sierra Club v. Morton</em>, arguing that a valley in the Sierra Nevada should be able to represent itself rather than rely on an environmental group to do it. The Sierra Club lost that case but the idea survived. Ecuador wrote the rights of nature into its constitution in 2008, and in 2017 New Zealand granted legal personhood to the Whanganui River, handing stewardship to local Māori after more than a century of advocacy.</p>
+      <p>But rights only work if somebody exercises them. That job usually falls to the people who live closest — often an Indigenous community with the longest relationship to the place.</p>
+      <p>And this is where it gets stuck. Being a guardian means being able to monitor, document, and prove what's happening. Because of the same history that made these communities guardians, they're frequently the ones with the fewest resources to do it. The right exists. The means to enforce it often doesn't.</p>
+      <p>That's the gap Rob and Alan are building into.</p>
+    </section>
+
+    <section class="story-section" id="newsletter">
+      <h2>It starts with a newsletter</h2>
+      <p>The long-term vision is that ecosystems hold legal standing and the practical ability to defend it. The starting point is a weekly email.</p>
+      <p>Subscribers to Speak for the Trees get grouped by ecoregion — a way of drawing boundaries around land that works the same way ecologically. These lines follow rivers, soil, and climate rather than state borders, so your ecoregion probably doesn't match any map you've seen. Each week, it tells you what happened to it.</p>
+      <p>Behind that sit 16 public data sources, a couple of them international and several hyper-local, including New York City's tree database. The system tracks species sightings, drought, air quality, and — most importantly — facilities with permits to discharge into local water, along with whether they're currently breaking the terms of those permits.</p>
+      <p>Starting with a newsletter is a deliberately modest move. It doesn't need anyone's permission. It just needs the data read carefully and reported, week after week, until what it's for becomes obvious. And the data has plenty to say.</p>
+    </section>
+
+    <section class="story-section" id="tip-line">
+      <h2>More like a tip line than a verdict</h2>
+      <p>The system is built to hand off rather than conclude.</p>
+      <p>For example, it recently alerted a spike in a particular species near Springfield, Massachusetts, and offered a guess about the cause. The guess wasn't verified, and the system didn't pretend otherwise — it gets things wrong, and Rob says so openly. What it did was send the finding to a local newspaper as a tip. A reporter went out, talked to people, checked with experts, worked out what was really going on, and wrote the story.</p>
+      <p class="story-pull">Not AI replacing environmental reporting, but a tip line running quietly across every ecoregion.</p>
+      <p>That's the model. Flagging things worth a look and suggesting who should take it. Local newsrooms have been hollowed out in exactly the places this kind of coverage used to live. An agent that never stops reading compliance databases isn't a substitute for a reporter. It's a very good way of telling an overstretched one where to look closely.</p>
+      <p>Rob thinks the stories with the most traction will be large-scale facilities breaking their permits — especially ones that have unpaid fines in places that lack local organizing efforts to respond to these hazards. A clear wrongdoing is the shape of the story that moves. But three months in, he's watching what gains traction and what doesn't.</p>
+    </section>
+
+    <section class="story-section" id="what-this-could-become">
+      <h2>What this could become</h2>
+      <p>In an environmental court case, the hard part is often the proof — showing that damage happened, that someone caused it, and how bad it was. That work is slow, technical, and expensive, which means it favors whoever can afford it. A well-funded defendant can outlast a community that knows perfectly well what's happening to its water but can't document it to the standard a court demands.</p>
+      <p>A system that watches public data continuously and builds a lasting, sourced record of a place doesn't erase that imbalance. But it lowers the cost of an expensive component, for the people least able to pay it.</p>
+      <figure class="story-media story-media-screenshot">
+        <img src="speak-for-the-trees-sf-bay.png" alt="Speak for the Trees report on Treasure Island's wastewater plant standing alone on the EPA's priority list, with a map of the San Francisco Peninsula" loading="lazy">
+        <figcaption class="story-media-caption">In the San Francisco Bay report, every permitted facility is on the page — including which ones are in violation — without drawing a causal line the data can't support.</figcaption>
+      </figure>
+      <p>In another example, the San Francisco Bay report lays out that the bay is impaired, that thirty-five nearby facilities hold permits to discharge into it, and that seven are in violation — and then says plainly that no single one of them has been tied to the pollution reaching the bay. Every dot is on the page, but it doesn't draw the line (not yet, anyway) — and it can help local groups do that.</p>
+      <p>Which brings the question back to where it started. We're about to give every person a set of agents that act on their behalf. Rob and Alan are betting that we should give the same thing to ecosystems that can't speak for themselves. Three months in, subscribers span more than a hundred ecoregions around the world. Every field report stays free and public.</p>
+    </section>
+
+    <div class="story-cta">
+      <h3>Help keep the trees speaking.</h3>
+      <p style="font-weight: 300;">Speak for the Trees is running on a monthly funding goal and needs your help to continue its important work. Please donate what you can.</p>
+      <div class="story-cta-actions">
+        <a href="https://www.speakforthetrees.com/donate" class="cta-button primary" target="_blank" rel="noopener">Donate</a>
+        <a href="https://www.speakforthetrees.com/about" class="cta-button secondary" target="_blank" rel="noopener">About</a>
+        <a href="https://www.speakforthetrees.com/" class="cta-button secondary" target="_blank" rel="noopener">Visit the website</a>
+      </div>
+    </div>
+
+    <nav class="story-pager" aria-label="More stories">
+      <a class="story-pager-link story-pager-next" href="https://www.theclubnyc.com/blog">
+        <span class="story-pager-label">Blog</span>
+        <span class="story-pager-title">Back to Blog</span>
+      </a>
+    </nav>
+  </main>
+
+  <footer class="footer-section"></footer>
+  <script src="qava-footer.js"></script>
+  <script>
+    (function () {
+      if (typeof window.applyQavaFooter === "function") {
+        window.applyQavaFooter(document);
+      }
+    })();
+  </script>
+  <script src="/qava-auth.js"></script>
+</body>
+</html>
