@@ -88,22 +88,26 @@
     .club-filter {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 4px;
-      height: auto;
-      padding: 3px 9px;
+      height: 26px;
+      padding: 0 10px;
       border-radius: 999px;
-      border: 1px solid rgba(17, 24, 39, 0.12);
+      border: 1px solid rgba(17, 24, 39, 0.14);
       background: #fff;
       color: #6b7280;
-      font: 400 11px/1.25 Inter, system-ui, sans-serif;
+      font: 400 11px/1 Inter, system-ui, sans-serif;
       letter-spacing: 0.01em;
       cursor: pointer;
+      box-sizing: border-box;
       transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
     }
     .club-filter svg {
       width: 11px;
       height: 11px;
       color: #9ca3af;
+      display: block;
+      flex-shrink: 0;
     }
     .club-filter:hover {
       border-color: rgba(17, 24, 39, 0.28);
@@ -115,7 +119,7 @@
       border-color: #111827;
       color: #111827;
       font-weight: 500;
-      box-shadow: 0 0 0 1px #111827;
+      box-shadow: none;
     }
     .club-filter.is-active svg { color: #111827; }
     .club-filter[hidden] { display: none !important; }
