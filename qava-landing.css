@@ -2014,13 +2014,13 @@
         .qava-blog-card {
           position: relative;
           display: block;
-          aspect-ratio: 1 / 1;
-          background: #ffffff;
+          aspect-ratio: 4 / 5;
+          background: #1a1917;
           border: none;
           outline: none;
-          border-radius: 8px;
+          border-radius: 4px;
           overflow: hidden;
-          box-shadow: 0 6px 20px rgba(15, 23, 42, 0.12);
+          box-shadow: none;
           text-align: left;
           text-decoration: none;
           cursor: pointer;
@@ -2029,7 +2029,7 @@
         }
 
         .qava-blog-card:hover {
-          box-shadow: 0 6px 22px rgba(15, 23, 42, 0.16);
+          box-shadow: none;
         }
 
         .qava-blog-card::before {
@@ -2068,6 +2068,11 @@
           border-radius: inherit;
           transform: scale(1.02);
           transition: opacity 0.5s ease;
+        }
+
+        video.qava-blog-thumb {
+          pointer-events: none;
+          background: #1a1917;
         }
 
         .qava-blog-card.is-loaded .qava-blog-thumb {
@@ -2127,7 +2132,7 @@
           letter-spacing: -0.01em;
           text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
           display: -webkit-box;
-          -webkit-line-clamp: 2;
+          -webkit-line-clamp: 3;
           -webkit-box-orient: vertical;
           overflow: hidden;
         }
@@ -2318,8 +2323,8 @@
           }
 
           .qava-blog-card {
-            aspect-ratio: 1 / 1;
-            border-radius: 8px;
+            aspect-ratio: 4 / 5;
+            border-radius: 4px;
           }
 
           .qava-blog-card:hover {
