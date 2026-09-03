@@ -20,7 +20,7 @@
             .map((el) => ((el.querySelector(".nav-text") || el).textContent || "").trim().toLowerCase());
           const links = [
             {
-              href: "https://www.theclubnyc.com/strategy",
+              href: "https://theclubnyc.com/strategy",
               label: "Strategy Breakdowns",
               cls: "nav-item templates",
               active: path.startsWith("/strategy") || existingActive.includes("strategy breakdowns"),
