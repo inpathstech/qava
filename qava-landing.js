@@ -21,15 +21,15 @@
           const links = [
             {
               href: "https://theclubnyc.com/strategy",
-              label: "Strategy Breakdowns",
+              label: "Strategy",
               cls: "nav-item templates",
-              active: path.startsWith("/strategy") || existingActive.includes("strategy breakdowns"),
+              active: path.startsWith("/strategy") || existingActive.includes("strategy") || existingActive.includes("strategy breakdowns") || existingActive.includes("breakdowns"),
             },
             {
               href: "https://www.theclubnyc.com/find/",
-              label: "Find Work",
+              label: "Work",
               cls: "nav-item search-listings",
-              active: path.startsWith("/find") || existingActive.includes("find work"),
+              active: path.startsWith("/find") || existingActive.includes("work") || existingActive.includes("find work"),
             },
             {
               href: "https://www.theclubnyc.com/blog",
