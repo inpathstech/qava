@@ -4,1996 +4,1192 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Find Work — The Club</title>
-  <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../qava-landing.css" />
-  <link rel="stylesheet" href="../community/community.css?v=club-nav-1" />
-  <link rel="stylesheet" href="../community/chat-marketing.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Libre+Caslon+Display&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --fw-display: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
-      --fw-ui: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      --display: "Libre Caslon Display", Canela, "Iowan Old Style", "Times New Roman", serif;
+      --ui: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      --ink: #111827;
+      --muted: #6b6b6b;
+      --soft: #9b9a97;
+      --line: rgba(55, 53, 47, 0.09);
+      --content: 760px;
+      --page-pad-x: 48px;
     }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    html, body { min-height: 100%; }
     body {
-      font-family: var(--fw-ui);
+      font-family: var(--ui);
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--ink);
+      background: #fff;
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
     }
 
-    #fw-how {
-      scroll-margin-top: 96px;
+    .designer-bar {
+      position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+      z-index: 2000; display: flex; align-items: center; gap: 4px;
+      padding: 4px; background: #fff; border: 1px solid rgba(55, 53, 47, 0.09);
+      border-radius: 999px; box-shadow: 0 8px 24px rgba(17, 24, 39, 0.08);
+    }
+    .designer-bar button {
+      border: 0; background: transparent; color: var(--muted);
+      font: 400 12px/1 var(--ui); padding: 8px 14px; border-radius: 999px; cursor: pointer;
+    }
+    .designer-bar button.is-on { background: var(--ink); color: #fff; }
+    .designer-bar .sep { width: 1px; height: 16px; background: rgba(55, 53, 47, 0.09); margin: 0 2px; }
+    .note {
+      display: none; position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
+      z-index: 2000; max-width: 560px; text-align: center; font-size: 12.5px;
+      font-weight: 300; color: var(--muted); line-height: 1.45; pointer-events: none;
+    }
+    body.show-dev-notes .note { display: block; }
+
+    #qava-dot-base-fixed {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background-image: radial-gradient(circle, rgba(17, 24, 39, 0.16) 1px, transparent 1.35px);
+      background-size: 20px 20px; background-repeat: repeat;
+    }
+    #qava-dot-base-fixed::after {
+      content: ""; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(17, 24, 39, 0.32) 1px, transparent 1.35px);
+      background-size: 20px 20px; background-repeat: repeat;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.2) 38%, #000 50%, rgba(0,0,0,0.2) 62%, transparent 100%);
+      mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.2) 38%, #000 50%, rgba(0,0,0,0.2) 62%, transparent 100%);
+      -webkit-mask-size: 55% 100%; mask-size: 55% 100%;
+      -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+      animation: qava-dot-mexican-wave 4.2s ease-in-out infinite;
+    }
+    @keyframes qava-dot-mexican-wave {
+      0% { -webkit-mask-position: -50% 0; mask-position: -50% 0; }
+      100% { -webkit-mask-position: 150% 0; mask-position: 150% 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #qava-dot-base-fixed::after { animation: none; opacity: 0; }
+    }
+    body > *:not(#qava-dot-base-fixed):not(.designer-bar):not(.note):not(.header-container):not(.mobile-menu) { position: relative; z-index: 1; }
+
+    .header-container {
+      width: calc(100% - 22px); margin: 0 auto; padding: 8px 20px; box-sizing: border-box;
+      display: flex; justify-content: space-between; align-items: center; min-height: 58px;
+      position: sticky; top: 0; z-index: 1200;
+      background: rgba(255, 255, 255, 0.24);
+      -webkit-backdrop-filter: blur(18px) saturate(150%);
+      backdrop-filter: blur(18px) saturate(150%);
+      isolation: isolate; overflow: visible;
+    }
+    .header-container::before {
+      content: ""; position: absolute; left: 6px; right: 6px; top: 3px; bottom: 3px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.62) 0%, rgba(255,255,255,0.5) 55%, rgba(255,255,255,0.44) 100%);
+      -webkit-backdrop-filter: blur(26px) saturate(165%);
+      backdrop-filter: blur(26px) saturate(165%);
+      box-shadow: 0 10px 24px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      z-index: 0; pointer-events: none;
+    }
+    .header-container > * { position: relative; z-index: 1; }
+    .header-logo, .logo-container, .logo { display: inline-flex; align-items: center; flex-shrink: 0; }
+    .logo a { display: inline-flex; align-items: center; }
+    .logo img { display: block; width: 72px; height: 16px; object-fit: contain; }
+    .header-center { display: flex; align-items: center; justify-content: flex-start; flex: 1; margin-left: 40px; min-width: 0; }
+    .navigation { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; }
+    .nav-item { display: inline-flex; align-items: center; background: transparent; border: 0; padding: 0; cursor: pointer; }
+    .nav-text { padding: 0 4px; font-family: Inter, sans-serif; font-size: 14px; font-weight: 300; color: #6b6b6b; line-height: 1.4; transition: color 0.2s ease; }
+    .nav-item:hover .nav-text, .nav-item.is-active .nav-text { color: #000; }
+    .header-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .auth-section { display: flex; align-items: center; gap: 28px; }
+    .qava-premium-nav-btn .nav-text { font-size: 14px; font-weight: 300; color: #6b6b6b; }
+    .qava-premium-nav-btn:hover .nav-text { color: #000; }
+    .join-button { padding: 6px 12px; background: #2b2b2b; border: 1px solid #2b2b2b; border-radius: 6px; display: inline-flex; align-items: center; }
+    .join-button:hover { background: #000; border-color: #000; }
+    .join-text { color: #fff; font-family: Inter, sans-serif; font-size: 13px; font-weight: 300; line-height: 1; }
+    .hamburger-menu { display: none; width: 24px; height: 24px; cursor: pointer; flex-direction: column; justify-content: center; gap: 5px; }
+    .hamburger-line { height: 1.5px; background: #111; border-radius: 1px; }
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; z-index: 1300; background: #fff;
+      padding: 72px 28px 40px; flex-direction: column; gap: 18px;
+    }
+    .mobile-menu.is-open { display: flex; }
+    .mobile-menu .close-menu { position: absolute; top: 22px; right: 22px; font-size: 22px; cursor: pointer; color: #111; }
+    .mobile-nav-item .nav-text { font-size: 22px; font-weight: 300; color: #111; }
+    .mobile-menu .join-button { width: fit-content; margin-top: 8px; }
+
+    .fw-hero { padding: 72px 16px 0; text-align: center; }
+    .qava-hero-icon {
+      width: 124px; height: 124px; border-radius: 28px; object-fit: cover;
+      display: block; margin: 0 auto 26px; box-shadow: 0 16px 50px rgba(20, 10, 22, 0.18);
+      transform-style: preserve-3d; backface-visibility: hidden; will-change: transform;
+      animation: pageHeroIconFlip 2.4s linear infinite;
+    }
+    @keyframes pageHeroIconFlip {
+      0% { transform: perspective(900px) rotateY(-22deg) rotateZ(-1deg); }
+      25% { transform: perspective(900px) rotateY(0deg) rotateZ(0deg); }
+      50% { transform: perspective(900px) rotateY(22deg) rotateZ(1deg); }
+      75% { transform: perspective(900px) rotateY(0deg) rotateZ(0deg); }
+      100% { transform: perspective(900px) rotateY(-22deg) rotateZ(-1deg); }
+    }
+    .fw-hero-title {
+      font-family: var(--display); font-weight: 400; letter-spacing: -0.012em;
+      font-size: clamp(34px, 3.6vw, 54px); line-height: 1.08; color: var(--ink);
+      margin: 0 auto 10px;
+    }
+    .fw-hero-title .fw-hero-line { display: block; }
+    .fw-hero-title em { font-style: italic; font-weight: inherit; }
+    .fw-hero-sub {
+      font-family: var(--ui); font-size: 14px; font-weight: 300; color: var(--muted);
+      text-align: center; line-height: 1.45; margin: 0 auto 28px;
+      max-width: 42em;
     }
 
-
-    /* Hero — match landing display + UI stacks */
-    .chat-marketing-hero h1.feature-cards-header,
-    .chat-marketing-hero .qava-hero-heading {
-      font-family: var(--fw-display) !important;
-      font-weight: 400 !important;
-    }
-
-    .chat-marketing-hero p.feature-cards-subheader,
-    .chat-marketing-hero .qava-hero-subheader {
-      font-family: var(--fw-ui) !important;
-      white-space: nowrap;
-      margin-bottom: 28px;
-    }
-
-    /* Marquees */
-    .fw-marquees {
-      width: min(920px, calc(100vw - 32px));
-      margin: 0 auto 28px;
+    .page-hero-proof {
       display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .fw-marquee {
-      position: relative;
-      overflow: hidden;
-      width: 100%;
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
-      mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
-    }
-
-    .fw-marquee-track {
-      display: flex;
-      width: max-content;
-      align-items: center;
-      gap: 28px;
-      animation: fwMarquee 42s linear infinite;
-    }
-
-    .fw-marquee--pills .fw-marquee-track {
-      gap: 8px;
-      animation-duration: 36s;
-      animation-direction: reverse;
-    }
-
-    .fw-marquee-track:hover { animation-play-state: paused; }
-
-    @keyframes fwMarquee {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
-    }
-
-    .fw-logo-item {
-      flex: 0 0 auto;
-      display: flex;
+      flex-wrap: nowrap;
       align-items: center;
       justify-content: center;
-      opacity: 0.38;
+      gap: 12px;
+      margin: 0 auto 22px;
+      max-width: 100%;
+      white-space: nowrap;
+    }
+    .page-hero-proof-label {
+      font-family: var(--ui);
+      font-size: 12px;
+      font-weight: 300;
+      color: #6b6b6b;
+      line-height: 1.3;
+      margin: 0;
+      flex: 0 0 auto;
+      white-space: nowrap;
+    }
+    .page-hero-logos {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 0;
+      min-width: 0;
+    }
+    .page-hero-logos img {
+      display: block;
+      height: 18px;
+      width: auto;
+      flex: 0 0 auto;
+      object-fit: contain;
       filter: grayscale(1);
+      opacity: 0.45;
     }
 
-    .fw-logo-item img {
+    .fw-hero-ctas {
+      display: flex; justify-content: center; align-items: center; flex-wrap: wrap;
+      gap: 0; margin: 20px auto 48px; width: min(920px, calc(100vw - 32px));
+    }
+    .fw-hero-cta {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 4px 12px; border-radius: 6px; font-size: 13px; font-weight: 500; white-space: nowrap;
+      transition: background-color 0.18s, border-color 0.18s, color 0.15s;
+    }
+    .fw-hero-cta--primary { background: #2b2b2b; color: #fff; border: 1px solid #2b2b2b; }
+    .fw-hero-cta--primary:hover { background: #000; border-color: #000; color: #fff; }
+    .fw-hero-cta--ghost { background: #fff; color: var(--muted); border: 1px solid #fff; font-weight: 300; margin-left: 16px; }
+    .fw-hero-cta--ghost:hover { color: var(--ink); }
+    .fw-hero-cta--ghost svg { display: block; }
+
+    .fw-popular,
+    .fw-quotes {
+      position: relative;
+      z-index: 1;
+      isolation: isolate;
+      width: calc(100% - 96px);
+      max-width: var(--content);
+      margin: 0 auto 32px;
+      box-sizing: border-box;
+      text-align: left;
+    }
+    .fw-popular {
+      background: #fff;
+      border-radius: 10px;
+    }
+    .fw-quotes {
+      background: transparent;
+      margin-bottom: 48px;
+    }
+    .fw-popular-wrap {
+      width: 100%;
+      max-width: var(--content);
+      margin: 0 auto;
+      padding: 28px var(--page-pad-x);
+      box-sizing: border-box;
+    }
+    .fw-quotes-wrap {
+      width: 100%;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .fw-popular-label {
+      font-family: var(--ui);
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--soft);
+      margin: 0 0 8px;
+    }
+    .fw-popular-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: repeat(11, auto);
+      grid-auto-flow: column;
+      column-gap: 20px;
+    }
+    .fw-popular-list li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 2px 0;
+      font-family: var(--ui);
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.25;
+      color: var(--ink);
+    }
+    .fw-popular-check {
+      flex: 0 0 auto;
+      width: 16px;
+      height: 16px;
+      margin-top: 0;
+      color: var(--ink);
+    }
+    .fw-pop-quotes {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin: 0;
+      align-items: stretch;
+    }
+    .fw-pop-quote {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04);
+      box-sizing: border-box;
+    }
+    .fw-pop-quote-stars {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      margin: 0 0 8px;
+      color: #111;
+      line-height: 1;
+    }
+    .fw-pop-quote-stars svg {
       display: block;
-      height: 26px;
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
+    }
+    .fw-pop-quote blockquote {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      flex: 1 1 auto;
+      font-family: var(--ui);
+      font-size: 12px;
+      font-weight: 300;
+      font-style: normal;
+      letter-spacing: 0;
+      line-height: 1.4;
+      color: #333;
+    }
+    .fw-pop-quote figcaption {
+      margin: 12px 0 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+    .fw-pop-quote-logo {
+      display: block;
+      height: 28px;
       width: auto;
       max-width: 120px;
       object-fit: contain;
+      object-position: left;
     }
-
-    .fw-project-pill {
-      flex: 0 0 auto;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 4px 7px;
-      border-radius: 999px;
-      background: #f3f4f6;
-      white-space: nowrap;
-    }
-
-    .fw-project-pill .title {
-      font-family: var(--fw-ui);
-      font-size: 10px;
-      font-weight: 400;
-      color: #111827;
-      line-height: 1;
-    }
-
-    .fw-project-pill .icon {
-      font-size: 10px;
-      line-height: 1;
-    }
-
-    /* Hero CTAs — match homepage Get Started / How To */
-    .fw-hero-ctas {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0;
-      margin: 0 auto 72px;
-      width: min(920px, calc(100vw - 32px));
-    }
-
-    .fw-hero-cta {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      min-width: auto;
-      padding: 4px 12px;
-      border-radius: 6px;
-      font-family: var(--fw-ui);
-      font-size: 13px;
-      font-weight: 500;
-      text-decoration: none;
-      white-space: nowrap;
-      box-shadow: none;
-      transition: background-color 0.18s ease, border-color 0.18s ease, color 0.15s ease;
-    }
-
-    .fw-hero-cta--primary {
-      background: #2b2b2b;
-      color: #fff;
-      border: 1px solid #2b2b2b;
-    }
-
-    .fw-hero-cta--primary:hover {
-      background: #000;
-      border-color: #000;
-      color: #fff;
-    }
-
-    .fw-hero-cta--ghost {
-      background: #fff;
-      color: #6b6b6b;
-      border: 1px solid #fff;
+    .fw-pop-quote-school {
+      font-family: var(--ui);
+      font-size: 11px;
       font-weight: 300;
-      margin-left: 16px;
+      color: #666;
+      line-height: 1.2;
+    }
+    .fw-pop-quote-class {
+      font-family: var(--ui);
+      font-size: 10px;
+      font-weight: 300;
+      color: #666;
+      line-height: 1.2;
     }
 
-    .fw-hero-cta--ghost:hover {
-      background: #fff;
-      color: #111827;
-      border-color: #fff;
-    }
-
-    .fw-hero-cta--ghost svg {
-      flex: 0 0 auto;
-      display: block;
-      color: inherit;
-    }
-
-    .fw-hero-cta--ghost .qava-blog-shimmer {
-      display: block;
-      line-height: 1;
-    }
-
-    /* One-stop shop section */
     .fw-shop {
-      position: relative;
-      z-index: 2;
-      width: min(1040px, calc(100vw - 32px));
-      margin: 0 auto 120px;
+      width: calc(100% - 96px);
+      max-width: var(--content);
+      margin: 0 auto 0;
+      padding-top: 32px;
       text-align: center;
-    }
-
-    .fw-shop-title {
-      margin: 0 0 10px;
-      font-family: var(--fw-display);
-      font-size: clamp(28px, 3.6vw, 40px);
-      font-weight: 400;
-      letter-spacing: -0.012em;
-      line-height: 1.15;
-      color: #111827;
-    }
-
-    .fw-shop-sub {
-      margin: 0 auto 28px;
-      font-family: var(--fw-ui);
-      font-size: 14px;
-      font-weight: 300;
-      color: #6b6b6b;
-      line-height: 1.45;
-      white-space: nowrap;
-    }
-
-    .fw-shop-panel {
-      padding: 0;
-      background: none;
       box-sizing: border-box;
     }
-
-    .fw-shop-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+    .fw-shop-title, .fw-how-title, .fw-live-title, .fw-say-title, .fw-faq-title, .fw-cta-title {
+      font-family: var(--display); font-size: clamp(28px, 3.6vw, 40px); font-weight: 400;
+      letter-spacing: -0.012em; line-height: 1.15; color: var(--ink); margin: 0 0 10px;
     }
-
+    .fw-shop-title { font-size: 28px; }
+    .fw-shop-sub, .fw-how-sub, .fw-live-sub, .fw-say-sub {
+      margin: 0 auto 28px; font-size: 14px; font-weight: 300; color: var(--muted); line-height: 1.45;
+    }
+    .fw-shop-sub { margin-bottom: 16px; }
+    .fw-shop-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; align-items: stretch; }
     .fw-shop-card {
+      display: flex; flex-direction: column; text-align: left; height: 100%;
+      border: 1px solid rgba(17, 24, 39, 0.06); border-radius: 8px; background: #fff;
+      overflow: hidden; box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04);
+      transition: box-shadow 0.18s, border-color 0.18s, transform 0.18s;
+    }
+    a.fw-shop-card:hover { border-color: rgba(17, 24, 39, 0.12); box-shadow: 0 2px 10px rgba(17, 24, 39, 0.06); transform: translateY(-1px); }
+    .fw-shop-card .img-wrap { padding: 12px 12px 0; flex: 0 0 auto; }
+    .fw-shop-ph {
+      display: block; width: 100%; aspect-ratio: 16 / 10; border-radius: 6px;
+      background-color: #1a2330; background-size: cover; background-position: center;
+      padding: 28px; overflow: hidden;
+    }
+    .fw-shop-ph--project { background-image: url("photos/wave-barrel.jpg"); }
+    .fw-shop-ph--job { background-image: url("photos/ocean.jpg"); }
+    .fw-shop-ph--internship { background-image: url("photos/sandy-trail.jpg"); }
+    .fw-shop-ph-inner { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+    .fw-shop-geo { width: min(148px, 72%); height: auto; aspect-ratio: 1; }
+    .fw-shop-geo-shadow { filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.28)); }
+    .fw-shop-geo > path, .fw-shop-geo > line, .fw-shop-geo > circle, .fw-shop-geo > g path, .fw-shop-geo > g line, .fw-shop-geo > g circle {
+      fill: none; stroke: #fff; stroke-width: 1.5; stroke-linecap: square; stroke-linejoin: miter; vector-effect: non-scaling-stroke;
+    }
+    .fw-shop-geo > .fw-shop-geo-fill, .fw-shop-geo > g > .fw-shop-geo-fill { fill: #fff; stroke: none; }
+    .fw-shop-card .body {
       display: flex;
       flex-direction: column;
-      text-align: left;
-      border: 1px solid rgba(17, 24, 39, 0.06);
-      border-radius: 12px;
-      background: #fff;
-      overflow: hidden;
-      box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04);
-      text-decoration: none;
-      color: inherit;
-      transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
-    }
-
-    a.fw-shop-card:hover {
-      border-color: rgba(17, 24, 39, 0.12);
-      box-shadow: 0 2px 10px rgba(17, 24, 39, 0.06);
-      transform: translateY(-1px);
-    }
-
-    a.fw-shop-card:hover .fw-shop-link {
-      color: #111827;
-    }
-
-    a.fw-shop-card:hover .fw-shop-link .arrow {
-      transform: translateX(2px);
-    }
-
-    a.fw-shop-card:focus-visible {
-      outline: 2px solid #111827;
-      outline-offset: 3px;
-    }
-
-    .fw-shop-card .img-wrap {
-      position: relative;
-      padding: 12px 12px 0;
-      isolation: isolate;
-    }
-
-    /* Listing-type art — create-listing oil paintings + white geometry */
-    .fw-shop-ph {
-      display: block;
-      width: 100%;
-      aspect-ratio: 16 / 10;
-      border-radius: 6px;
-      background-color: #1a2330;
-      background-size: cover;
-      background-position: center center;
-      background-repeat: no-repeat;
-      padding: 28px;
-      box-sizing: border-box;
-      overflow: hidden;
-    }
-
-    .fw-shop-ph--project {
-      background-image: url("./wave-barrel.jpg");
-    }
-
-    .fw-shop-ph--job {
-      background-image: url("./ocean.jpg");
-    }
-
-    .fw-shop-ph--internship {
-      background-image: url("./sandy-trail.jpg");
-    }
-
-    .fw-shop-ph-inner {
-      width: 100%;
-      height: 100%;
-      border: 0;
-      border-radius: 0;
-      box-sizing: border-box;
-      background: transparent;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .fw-shop-geo {
-      width: min(148px, 72%);
-      height: auto;
-      aspect-ratio: 1;
-      flex: 0 0 auto;
-      overflow: visible;
-    }
-
-    .fw-shop-geo-shadow {
-      filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.28));
-    }
-
-    /* Only style painted geometry — never mask/clipPath contents in <defs> */
-    .fw-shop-geo > path,
-    .fw-shop-geo > line,
-    .fw-shop-geo > circle,
-    .fw-shop-geo > g path,
-    .fw-shop-geo > g line,
-    .fw-shop-geo > g circle {
-      fill: none;
-      stroke: #fff;
-      stroke-width: 1.5;
-      stroke-linecap: square;
-      stroke-linejoin: miter;
-      vector-effect: non-scaling-stroke;
-    }
-
-    .fw-shop-geo > .fw-shop-geo-fill,
-    .fw-shop-geo > g > .fw-shop-geo-fill {
-      fill: #fff;
-      stroke: none;
-    }
-
-
-    .fw-shop-card .img-wrap img {
-      display: block;
-      width: 100%;
-      aspect-ratio: 16 / 10;
-      object-fit: cover;
-      border-radius: 6px;
-    }
-
-    .fw-shop-card .body {
+      flex: 1 1 auto;
       padding: 12px 14px 16px;
+      min-height: 0;
     }
-
     .fw-shop-card .title-row {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
+      flex: 0 0 auto;
     }
-
     .fw-shop-card .title-row strong {
-      font-family: var(--fw-display);
-      font-size: 28px;
-      font-weight: 400;
-      letter-spacing: -0.012em;
-      color: #111827;
-      line-height: 1.2;
+      font-family: var(--display); font-size: 28px; font-weight: 400; letter-spacing: -0.012em;
+      white-space: nowrap; min-width: 0;
     }
-
-    .fw-shop-card .box {
-      width: 16px;
-      height: 16px;
-      border-radius: 4px;
-      border: 1px solid #111827;
-      background: #fff;
-      flex-shrink: 0;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: #111827;
-    }
-
-    .fw-shop-card .box svg {
-      display: block;
-      width: 10px;
-      height: 10px;
-    }
-
-    .fw-shop-card .desc {
+    .fw-shop-points {
+      list-style: none;
       margin: 0;
-      font-family: var(--fw-ui);
-      font-size: 14.5px;
-      font-weight: 300;
-      color: #767676;
-      line-height: 1.4;
+      padding: 0;
+      flex: 0 0 auto;
     }
-
-    .fw-shop-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      margin-top: 10px;
-      font-family: var(--fw-ui);
-      font-size: 13px;
-      font-weight: 500;
-      color: #111827;
-      letter-spacing: 0.01em;
-      line-height: 1.2;
-    }
-
-    .fw-shop-link .arrow {
-      display: inline-block;
-      transition: transform 0.18s ease;
-    }
-
-    /* How it works */
-    .fw-how {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      margin: 0 0 120px;
-      padding: 72px 16px 80px;
-      background: #f3f4f6;
-      box-sizing: border-box;
-      text-align: center;
-    }
-
-    .fw-how-inner {
-      width: min(1040px, 100%);
-      margin: 0 auto;
-    }
-
-    .fw-how-title {
-      margin: 0 0 10px;
-      font-family: var(--fw-display);
-      font-size: clamp(28px, 3.6vw, 40px);
-      font-weight: 400;
-      letter-spacing: -0.012em;
-      line-height: 1.15;
-      color: #111827;
-    }
-
-    .fw-how-sub {
-      margin: 0 auto 48px;
-      font-family: var(--fw-ui);
-      font-size: 14px;
-      font-weight: 300;
-      color: #6b6b6b;
-      line-height: 1.45;
-    }
-
-    .fw-how-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-      text-align: left;
-    }
-
-    .fw-how-card {
-      background: #fff;
-      border: 1px solid rgba(17, 24, 39, 0.08);
-      border-radius: 12px;
-      padding: 20px 18px 22px;
-      box-shadow: 0 1px 2px rgba(17, 24, 39, 0.03);
-    }
-
-    .fw-how-icon {
-      width: 32px;
-      height: 32px;
-      margin: 0 0 14px;
-      border-radius: 8px;
-      background: #f3f4f6;
-      color: #111827;
+    .fw-shop-points li {
       display: flex;
       align-items: center;
-      justify-content: center;
-    }
-
-    .fw-how-icon svg {
-      display: block;
-      width: 16px;
-      height: 16px;
-    }
-
-    .fw-how-step {
-      margin: 0 0 4px;
-      font-size: 9px;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #9ca3af;
-    }
-
-    .fw-how-card h3 {
-      margin: 0 0 8px;
-      font-family: var(--fw-display);
-      font-size: 21px;
-      font-weight: 400;
-      letter-spacing: -0.01em;
-      color: #111827;
-      line-height: 1.25;
-    }
-
-    .fw-how-card > p:last-child {
-      margin: 0;
-      font-family: var(--fw-ui);
-      font-size: 13px;
-      font-weight: 300;
-      color: #6b7280;
-      line-height: 1.5;
-    }
-
-    /* Live opportunities */
-    .fw-live {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      margin: 0 0 64px;
-      padding: 64px 0 56px;
-      background: transparent;
-      text-align: center;
-      overflow: hidden;
-    }
-
-    .fw-live-title {
-      margin: 0 0 10px;
-      padding: 0 16px;
-      font-family: var(--fw-display);
-      font-size: clamp(28px, 3.6vw, 40px);
-      font-weight: 400;
-      letter-spacing: -0.012em;
-      line-height: 1.15;
-      color: #111827;
-    }
-
-    .fw-live-sub {
-      margin: 0 auto 32px;
-      padding: 0 16px;
-      font-family: var(--fw-ui);
-      font-size: 14px;
-      font-weight: 300;
-      color: #6b6b6b;
-      line-height: 1.45;
-    }
-
-    .fw-live-rail {
-      position: relative;
-      overflow: hidden;
-      width: min(520px, calc(100vw - 32px));
-      height: 300px;
-      margin: 0 auto;
-      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%);
-      mask-image: linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%);
-    }
-
-    .fw-live-track {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
       gap: 8px;
-      padding: 4px 0;
-      animation: fwLiveScroll 36s linear infinite;
-      will-change: transform;
-    }
-
-    .fw-live-track:hover { animation-play-state: paused; }
-
-    @keyframes fwLiveScroll {
-      from { transform: translateY(0); }
-      to { transform: translateY(-50%); }
-    }
-
-    /* Match app ProjectBox list row / homepage listing cards */
-    .fw-opp {
-      flex: 0 0 auto;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-align: left;
-      background: #fff;
-      border: 1px solid #f0f0f0;
-      border-radius: 10px;
-      padding: 8px 12px 8px 8px;
-      box-shadow: none;
-      text-decoration: none;
-      color: inherit;
-      transition: box-shadow 0.15s ease, background 0.15s ease;
-    }
-
-    .fw-opp:hover {
-      background: #f8f8f8;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
-    }
-
-    .fw-opp-thumb {
-      flex: 0 0 auto;
-      width: 36px;
-      height: 36px;
-      border-radius: 6px;
-      object-fit: cover;
-      background: #f3f4f6;
-      display: block;
-    }
-
-    .fw-opp-body {
-      flex: 1;
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 1px;
-    }
-
-    .fw-opp-kicker {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .fw-opp-type {
-      font-family: var(--fw-ui);
-      font-size: 11px;
-      font-weight: 300;
-      color: #767676;
-      line-height: 1.25;
-    }
-
-    .fw-opp-badge {
-      padding: 0 5px;
-      border-radius: 3px;
-      background: #111827;
-      color: #fff;
-      font-family: var(--fw-ui);
-      font-size: 10px;
-      font-weight: 400;
-      line-height: 1.4;
-      white-space: nowrap;
-    }
-
-    .fw-opp-role {
-      margin: 0;
-      font-family: var(--fw-display);
-      font-size: 15px;
-      font-weight: 400;
-      letter-spacing: -0.012em;
-      color: #111827;
-      line-height: 1.2;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .fw-opp-desc {
-      margin: 0;
-      font-family: var(--fw-ui);
+      padding: 2px 0;
       font-size: 12px;
       font-weight: 300;
-      color: #6b7280;
-      line-height: 1.3;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .fw-opp-meta {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0 5px;
-      font-family: var(--fw-ui);
-      font-size: 11px;
-      font-weight: 300;
-      color: #9ca3af;
       line-height: 1.25;
+      color: var(--ink);
     }
-
-    .fw-opp-meta .fw-opp-dot {
-      color: #d1d5db;
+    .fw-shop-points svg {
+      flex: 0 0 auto;
+      width: 12px;
+      height: 12px;
+      color: var(--ink);
     }
+    .fw-shop-card .desc { margin: 0 0 10px; font-size: 14.5px; font-weight: 300; color: #767676; line-height: 1.4; flex: 0 0 auto; }
+    .fw-shop-link { display: inline-flex; align-items: center; gap: 5px; margin-top: auto; padding-top: 10px; font-size: 13px; font-weight: 500; }
+    .fw-shop-link .arrow { display: inline-block; transition: transform 0.18s; }
+    a.fw-shop-card:hover .fw-shop-link .arrow { transform: translateX(2px); }
 
-    /* Testimonials — transparent so site dots show between white cards */
-    .fw-say {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      margin: 0 0 56px;
-      padding: 72px 16px 28px;
-      background: transparent;
-      text-align: center;
+    .fw-how { width: 100%; margin: 0 0 120px; padding: 72px 0 80px; background: #f3f4f6; text-align: center; }
+    .fw-how-inner {
+      width: calc(100% - 96px);
+      max-width: var(--content);
+      margin: 0 auto;
       box-sizing: border-box;
     }
+    .fw-how-sub { margin-bottom: 48px; }
+    .fw-how-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; text-align: left; align-items: stretch; }
+    .fw-how-card { background: #fff; border: 1px solid rgba(17, 24, 39, 0.08); border-radius: 12px; padding: 16px 12px 18px; }
+    .fw-how-icon { width: 32px; height: 32px; margin: 0 0 14px; border-radius: 8px; background: #f3f4f6; display: flex; align-items: center; justify-content: center; }
+    .fw-how-icon svg { width: 16px; height: 16px; display: block; }
+    .fw-how-step { margin: 0 0 4px; font-size: 9px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: #9ca3af; }
+    .fw-how-card h3 { margin: 0 0 8px; font-family: var(--display); font-size: 18px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.25; }
+    .fw-how-card p:last-child { margin: 0; font-size: 13px; font-weight: 300; color: #6b7280; line-height: 1.5; }
 
-    .fw-say-inner {
-      width: min(1180px, 100%);
-      margin: 0 auto;
+    .fw-live {
+      width: calc(100% - 96px);
+      max-width: var(--content);
+      margin: 0 auto 32px;
+      padding: 32px 0 40px;
+      text-align: center;
+      overflow: hidden;
+      box-sizing: border-box;
     }
-
-    .fw-say-title {
-      margin: 0 0 8px;
-      font-family: var(--fw-display);
-      font-size: clamp(28px, 3.6vw, 40px);
-      font-weight: 400;
-      letter-spacing: -0.012em;
-      line-height: 1.15;
-      color: #111827;
+    .fw-live-rail {
+      position: relative; overflow: hidden; width: 100%; max-width: 520px; height: 300px; margin: 0 auto;
+      -webkit-mask-image: linear-gradient(transparent 0%, #000 10%, #000 90%, transparent 100%);
+      mask-image: linear-gradient(transparent 0%, #000 10%, #000 90%, transparent 100%);
     }
-
-    .fw-say-sub {
-      margin: 0 auto 28px;
-      max-width: 42em;
-      font-family: var(--fw-ui);
-      font-size: 14px;
-      font-weight: 300;
-      color: #6b6b6b;
-      line-height: 1.45;
+    .fw-live-track { display: flex; flex-direction: column; width: 100%; gap: 8px; padding: 4px 0; animation: fwLiveScroll 36s linear infinite; }
+    .fw-live-track:hover { animation-play-state: paused; }
+    @keyframes fwLiveScroll { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+    .fw-opp {
+      flex: 0 0 auto; width: 100%; display: flex; align-items: center; gap: 10px; text-align: left;
+      background: #fff; border: 1px solid #f0f0f0; border-radius: 10px; padding: 8px 12px 8px 8px;
     }
+    .fw-opp:hover { background: #f8f8f8; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+    .fw-opp-thumb { width: 36px; height: 36px; border-radius: 6px; object-fit: cover; background: #f3f4f6; display: block; flex: 0 0 auto; }
+    .fw-opp-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+    .fw-opp-kicker { display: flex; align-items: center; gap: 6px; }
+    .fw-opp-type { font-size: 11px; font-weight: 300; color: #767676; }
+    .fw-opp-badge { padding: 0 5px; border-radius: 3px; background: var(--ink); color: #fff; font-size: 10px; line-height: 1.4; }
+    .fw-opp-role { font-family: var(--display); font-size: 15px; font-weight: 400; letter-spacing: -0.012em; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .fw-opp-desc { margin: 0; font-size: 12px; font-weight: 300; color: #6b7280; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .fw-opp-meta { display: flex; flex-wrap: wrap; gap: 0 5px; font-size: 11px; font-weight: 300; color: #9ca3af; }
+    .fw-opp-dot { color: #d1d5db; }
 
+    .fw-quotes .fw-say-grid { margin-top: 12px; }
+    .fw-quotes .fw-stats { margin-top: 10px; }
+    .fw-say { width: 100%; margin: 0; padding: 0; text-align: left; }
+    .fw-say-inner { width: 100%; margin: 0; }
     .fw-say-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
       text-align: left;
+      align-items: stretch;
+      grid-auto-rows: 1fr;
     }
-
     .fw-say-card {
-      background: #fff;
-      border: 1px solid rgba(17, 24, 39, 0.08);
-      border-radius: 8px;
-      padding: 12px 12px 11px;
-      box-shadow: none;
-      display: flex;
-      flex-direction: column;
-      min-height: 100%;
-      text-align: left;
-      box-sizing: border-box;
+      background: #fff; border: 1px solid rgba(17, 24, 39, 0.08); border-radius: 8px;
+      padding: 12px 12px 11px; display: flex; flex-direction: column; height: 100%;
     }
+    .fw-say-person { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+    .fw-say-person > div:last-child { order: 1; flex: 1; min-width: 0; }
+    .fw-say-avatar { order: 2; width: 28px; height: 28px; overflow: hidden; margin-left: auto; flex: 0 0 auto; }
+    .fw-say-avatar img { display: block; width: 100%; height: 100%; object-fit: contain; }
+    .fw-say-avatar--crest { width: 20px; height: 20px; }
+    .fw-say-school { font-family: var(--display); font-size: 12.5px; letter-spacing: -0.01em; line-height: 1.2; }
+    .fw-say-class { font-size: 11px; font-weight: 300; color: #6b7280; }
+    .fw-say-quote { margin: 0 0 10px; flex: 1; font-size: 13.5px; font-weight: 300; letter-spacing: -0.01em; line-height: 1.35; }
+    .fw-say-pills { display: flex; flex-wrap: wrap; gap: 4px; }
+    .fw-say-pill { padding: 2px 6px; border-radius: 3px; background: #f3f4f6; font-size: 10px; color: #4b5563; }
 
-    .fw-say-person {
-      display: flex;
-      flex-direction: row;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
+    .fw-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 10px 0 0; text-align: left; }
+    .fw-stats-item { background: #000; border-radius: 8px; padding: 14px 14px 12px; }
+    .fw-stats-item strong { display: block; margin: 0 0 4px; font-family: var(--display); font-size: 26px; font-weight: 400; letter-spacing: -0.02em; color: #fff; }
+    .fw-stats-item span { display: block; font-size: 12px; font-weight: 300; color: rgba(255,255,255,0.62); line-height: 1.35; }
 
-    .fw-say-person > div:last-child {
-      order: 1;
-      flex: 1;
-      min-width: 0;
-      margin-top: 0;
-    }
-
-    .fw-say-avatar {
-      order: 2;
-      flex: 0 0 auto;
-      width: 28px;
-      height: 28px;
-      border-radius: 0;
-      background: transparent;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      padding: 0;
-      box-sizing: border-box;
-      margin-left: auto;
-    }
-
-    .fw-say-avatar img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      opacity: 1;
-    }
-
-    /* Crest fills the box harder than wordmark PNGs — scale to match optical size */
-    .fw-say-avatar--crest {
-      width: 20px;
-      height: 20px;
-    }
-
-    .fw-say-school {
-      font-family: var(--fw-display);
-      font-size: 12.5px;
-      font-weight: 400;
-      letter-spacing: -0.01em;
-      color: #111827;
-      line-height: 1.2;
-    }
-
-    .fw-say-class {
-      font-family: var(--fw-ui);
-      font-size: 11px;
-      font-weight: 300;
-      color: #6b7280;
-      line-height: 1.25;
-    }
-
-    .fw-say-quote {
-      margin: 0 0 10px;
-      flex: 1;
-      font-family: var(--fw-ui);
-      font-size: 13.5px;
-      font-weight: 300;
-      font-style: normal;
-      letter-spacing: -0.01em;
-      color: #000;
-      line-height: 1.35;
-    }
-
-    .fw-say-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-    }
-
-    .fw-say-pill {
-      display: inline-flex;
-      align-items: center;
-      padding: 2px 6px;
-      border-radius: 3px;
-      background: #f3f4f6;
-      font-family: var(--fw-ui);
-      font-size: 10px;
-      font-weight: 400;
-      color: #4b5563;
-      white-space: nowrap;
-      line-height: 1.3;
-    }
-
-    .fw-stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin: 10px 0 0; /* match .fw-say-grid gap */
-      padding: 0;
-      text-align: left;
-    }
-
-    .fw-stats-item {
-      background: #000;
-      border: 1px solid #000;
-      border-radius: 8px;
-      padding: 14px 14px 12px;
-      box-sizing: border-box;
-    }
-
-    .fw-stats-item strong {
-      display: block;
-      margin: 0 0 4px;
-      font-family: var(--fw-display);
-      font-size: 26px;
-      font-weight: 400;
-      letter-spacing: -0.02em;
-      color: #fff;
-      line-height: 1.1;
-    }
-
-    .fw-stats-item span {
-      display: block;
-      font-family: var(--fw-ui);
-      font-size: 12px;
-      font-weight: 300;
-      color: rgba(255, 255, 255, 0.62);
-      line-height: 1.35;
-    }
-
-    .fw-cta-band {
-      position: relative;
-      z-index: 3;
-      display: flex;
-      justify-content: center;
-      padding: 56px 16px 100px;
-    }
-
+    .fw-cta-band { display: flex; justify-content: center; padding: 56px 0 100px; }
     .fw-cta-inner {
-      width: min(720px, calc(100vw - 32px));
-      text-align: center;
-      background: #000;
-      border-radius: 16px;
-      padding: 40px 32px 36px;
+      width: calc(100% - 96px); max-width: var(--content);
+      text-align: center; background: #000; border-radius: 16px; padding: 40px 32px 36px;
       box-sizing: border-box;
     }
+    .fw-cta-logo { display: block; width: 56px; height: 56px; margin: 0 auto 18px; object-fit: contain; }
+    .fw-cta-title { color: #fff; }
+    .fw-cta-sub { margin: 0 auto 28px; font-size: 15px; font-weight: 300; line-height: 1.5; color: rgba(255,255,255,0.72); }
+    .fw-cta-actions { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .fw-cta-inner .fw-hero-cta--primary { background: #fff; color: #111; border-color: #fff; }
+    .fw-cta-inner .fw-hero-cta--primary:hover { background: #f3f4f6; border-color: #f3f4f6; color: #111; }
+    .fw-cta-inner .fw-hero-cta--ghost { background: transparent; color: rgba(255,255,255,0.78); border-color: transparent; margin-left: 0; }
+    .fw-cta-inner .fw-hero-cta--ghost:hover { color: #fff; }
 
-    .fw-cta-logo {
-      display: block;
-      width: 56px;
-      height: 56px;
-      margin: 0 auto 18px;
-      object-fit: contain;
-    }
-
-    .fw-cta-title {
-      margin: 0 0 10px;
-      font-family: var(--fw-display);
-      font-size: clamp(28px, 3.6vw, 40px);
-      font-weight: 400;
-      letter-spacing: -0.012em;
-      line-height: 1.15;
-      color: #fff;
-    }
-
-    .fw-cta-sub {
-      margin: 0 auto 28px;
-      font-family: var(--fw-ui);
-      font-size: 15px;
-      font-weight: 300;
-      line-height: 1.5;
-      color: rgba(255, 255, 255, 0.72);
-      white-space: nowrap;
-    }
-
-    .fw-cta-actions {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .fw-cta-inner .fw-hero-cta--primary {
-      background: #fff;
-      color: #111;
-      border-color: #fff;
-    }
-
-    .fw-cta-inner .fw-hero-cta--primary:hover {
-      background: #f3f4f6;
-      border-color: #f3f4f6;
-      color: #111;
-    }
-
-    .fw-cta-inner .fw-hero-cta--ghost {
-      background: transparent;
-      color: rgba(255, 255, 255, 0.78);
-      border-color: transparent;
-    }
-
-    .fw-cta-inner .fw-hero-cta--ghost:hover {
-      background: transparent;
-      color: #fff;
-      border-color: transparent;
-    }
-
-    /* FAQ */
     .fw-faq {
-      position: relative;
-      z-index: 2;
-      width: min(720px, calc(100vw - 32px));
-      margin: 0 auto 100px;
-      padding: 32px 28px 32px;
-      background: #fff;
-      border: 0;
-      border-radius: 16px;
-      box-shadow: none;
+      width: calc(100% - 96px); max-width: var(--content);
+      margin: 0 auto 100px; padding: 32px 28px; background: #fff; border-radius: 16px;
+      box-sizing: border-box;
     }
-
-    .fw-faq-title {
-      margin: 0 0 28px;
-      text-align: center;
-      font-family: var(--fw-display);
-      font-size: clamp(26px, 3.2vw, 36px);
-      font-weight: 400;
-      letter-spacing: -0.012em;
-      text-transform: none;
-      color: #111827;
-    }
-
-    .fw-faq-list {
-      border-top: 1px solid rgba(17, 24, 39, 0.1);
-    }
-
-    .fw-faq-item {
-      border-bottom: 1px solid rgba(17, 24, 39, 0.1);
-    }
-
+    .fw-faq-title { text-align: center; margin-bottom: 28px; }
+    .fw-faq-list { border-top: 1px solid rgba(17, 24, 39, 0.1); }
+    .fw-faq-item { border-bottom: 1px solid rgba(17, 24, 39, 0.1); }
     .fw-faq-q {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 18px 0;
-      border: 0;
-      background: transparent;
-      cursor: pointer;
-      text-align: left;
-      font-family: var(--fw-ui);
-      font-size: 15px;
-      font-weight: 600;
-      color: #111827;
-      line-height: 1.35;
+      width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 18px 0; border: 0; background: transparent; cursor: pointer; text-align: left;
+      font-size: 15px; font-weight: 600; line-height: 1.35;
     }
-
-    .fw-faq-q:hover { color: #000; }
-
-    .fw-faq-icon {
-      flex: 0 0 auto;
-      width: 18px;
-      height: 18px;
-      color: #9ca3af;
-      position: relative;
+    .fw-faq-icon { flex: 0 0 auto; width: 18px; height: 18px; color: #9ca3af; position: relative; }
+    .fw-faq-icon::before, .fw-faq-icon::after {
+      content: ""; position: absolute; top: 50%; left: 50%; width: 12px; height: 1.5px;
+      background: currentColor; border-radius: 1px; transform: translate(-50%, -50%);
     }
+    .fw-faq-icon::after { transform: translate(-50%, -50%) rotate(90deg); }
+    .fw-faq-item.is-open .fw-faq-icon::after { opacity: 0; }
+    .fw-faq-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.32s; }
+    .fw-faq-item.is-open .fw-faq-panel { grid-template-rows: 1fr; }
+    .fw-faq-panel-inner { overflow: hidden; min-height: 0; }
+    .fw-faq-a { padding: 0 28px 18px 0; margin: 0; font-size: 14px; font-weight: 300; color: #4b5563; line-height: 1.6; }
 
-    .fw-faq-icon::before,
-    .fw-faq-icon::after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 12px;
-      height: 1.5px;
-      background: currentColor;
-      border-radius: 1px;
-      transform: translate(-50%, -50%);
-      transition: transform 0.2s ease, opacity 0.2s ease;
+    .footer-section { background: #fff; width: 100%; max-width: 1070px; margin: 50px auto 0; padding: 78px 0 46px; border-top: 1px solid #ebebeb; }
+    .footer-container { max-width: 940px; margin: 0 auto; padding: 0 20px; }
+    .footer-content { display: flex; flex-wrap: wrap; }
+    .footer-logo { width: 39%; min-width: 180px; margin-bottom: 30px; }
+    .footer-logo img { width: 100px; height: 22px; display: block; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 40px; flex: 1; }
+    .footer-heading { font-size: 13px; font-weight: 500; color: #111; margin: 0 0 12px; }
+    .footer-link-list { list-style: none; }
+    .footer-link-list li { margin: 0 0 8px; }
+    .footer-link { font-size: 13px; font-weight: 300; color: #797979; }
+    .footer-link:hover { text-decoration: underline; }
+    .footer-copyright { width: 100%; margin-top: 28px; font-size: 12px; font-weight: 300; color: #9b9a97; }
+
+    body.is-mobile { --page-pad-x: 24px; }
+    body.is-mobile .fw-popular,
+    body.is-mobile .fw-quotes,
+    body.is-mobile .fw-shop,
+    body.is-mobile .fw-live,
+    body.is-mobile .fw-how-inner,
+    body.is-mobile .fw-cta-inner,
+    body.is-mobile .fw-faq {
+      width: calc(100% - 32px);
+      max-width: none;
     }
-
-    .fw-faq-icon::after {
-      transform: translate(-50%, -50%) rotate(90deg);
+    body.is-mobile .page-frame {
+      width: 390px; max-width: 390px; margin: 72px auto 96px;
+      box-shadow: 0 16px 48px rgba(17, 24, 39, 0.1);
+      border: 1px solid rgba(17, 24, 39, 0.08); border-radius: 18px; overflow: hidden; background: #fff;
     }
-
-    .fw-faq-item.is-open .fw-faq-icon::after {
-      opacity: 0;
-      transform: translate(-50%, -50%) rotate(90deg) scaleX(0);
+    body.is-mobile .header-center, body.is-mobile .auth-section { display: none; }
+    body.is-mobile .hamburger-menu { display: flex; }
+    body.is-mobile .fw-shop-grid, body.is-mobile .fw-how-grid { grid-template-columns: 1fr; }
+    body.is-mobile .fw-popular-list {
+      grid-template-columns: 1fr;
+      grid-template-rows: none;
+      grid-auto-flow: row;
     }
-
-    .fw-faq-panel {
-      display: grid;
-      grid-template-rows: 0fr;
-      transition: grid-template-rows 0.32s ease;
+    body.is-mobile .fw-pop-quotes { grid-template-columns: 1fr; }
+    body.is-mobile .fw-say-grid { grid-template-columns: 1fr; }
+    body.is-mobile .fw-stats { grid-template-columns: 1fr 1fr; }
+    body.is-mobile .page-hero-proof {
+      flex-wrap: wrap;
+      gap: 8px;
+      white-space: normal;
     }
+    body.is-mobile .page-hero-proof-label { font-size: 12px; }
+    body.is-mobile .page-hero-logos { flex-wrap: wrap; gap: 8px; }
+    body.is-mobile .page-hero-logos img { height: 15px; }
+    body.is-module .header-container, body.is-module .footer-section, body.is-module #qava-dot-base-fixed { display: none; }
+    body.is-module .page-frame { max-width: 1120px; margin: 88px auto 96px; }
 
-    .fw-faq-item.is-open .fw-faq-panel {
-      grid-template-rows: 1fr;
-    }
-
-    .fw-faq-panel-inner {
-      overflow: hidden;
-      min-height: 0;
-    }
-
-    .fw-faq-a {
-      padding: 0 28px 18px 0;
-      margin: 0;
-      font-family: var(--fw-ui);
-      font-size: 14px;
-      font-weight: 300;
-      color: #4b5563;
-      line-height: 1.6;
-      opacity: 0;
-      transform: translateY(-4px);
-      transition: opacity 0.25s ease, transform 0.25s ease;
-    }
-
-    .fw-faq-item.is-open .fw-faq-a {
-      opacity: 1;
-      transform: translateY(0);
-      transition-delay: 0.04s;
-    }
-
-    @media (max-width: 720px) {
-      .chat-marketing-hero p.feature-cards-subheader,
-      .chat-marketing-hero .qava-hero-subheader {
-        white-space: nowrap;
-        font-size: 12px;
-        padding: 0;
-      }
-      .fw-logo-item img { height: 22px; }
-      .fw-marquee-track { gap: 20px; }
-      .fw-shop-sub { white-space: normal; padding: 0 8px; }
+    @media (max-width: 860px) {
+      :root { --page-pad-x: 24px; }
+      .fw-popular,
+      .fw-quotes,
+      .fw-shop,
+      .fw-live,
+      .fw-how-inner,
+      .fw-cta-inner,
+      .fw-faq { width: calc(100% - 32px); }
+      .header-center, .auth-section { display: none; }
+      .hamburger-menu { display: flex; }
       .fw-shop-grid { grid-template-columns: 1fr; }
-      .fw-hero-ctas { margin-bottom: 56px; }
-      .fw-how { padding: 48px 16px; margin-bottom: 56px; }
       .fw-how-grid { grid-template-columns: 1fr; }
+      .fw-popular-list {
+        grid-template-columns: 1fr;
+        grid-template-rows: none;
+        grid-auto-flow: row;
+      }
+      .fw-pop-quotes { grid-template-columns: 1fr; }
       .fw-say-grid { grid-template-columns: 1fr 1fr; }
       .fw-stats { grid-template-columns: 1fr 1fr; }
-      .fw-say { padding-top: 56px; }
-      .fw-faq { padding: 24px 18px 28px; }
-      .fw-cta-sub { font-size: 12px; }
+      .fw-hero { padding-top: 48px; }
+      .page-hero-proof {
+        flex-wrap: wrap;
+        gap: 8px;
+        white-space: normal;
+      }
+      .page-hero-proof-label { font-size: 12px; }
+      .page-hero-logos { flex-wrap: wrap; gap: 8px; }
+      .page-hero-logos img { height: 15px; }
     }
-
     @media (max-width: 520px) {
-      .fw-say-grid { grid-template-columns: 1fr; }
-      .fw-stats { grid-template-columns: 1fr; }
+      .fw-say-grid, .fw-stats { grid-template-columns: 1fr; }
     }
-
-    @media (min-width: 721px) and (max-width: 960px) {
-      .fw-how-grid { grid-template-columns: repeat(2, 1fr); }
-      .fw-say-grid { grid-template-columns: repeat(2, 1fr); }
-      .fw-stats { grid-template-columns: repeat(2, 1fr); }
-    }
-
     @media (prefers-reduced-motion: reduce) {
-      .fw-marquee-track,
-      .fw-live-track { animation: none !important; }
-      .chat-marketing-hero .qava-hero-icon { animation: none !important; }
-      .fw-faq-panel,
-      .fw-faq-a { transition: none !important; }
+      .fw-live-track, .qava-hero-icon { animation: none !important; }
     }
+  </style>
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/qava-landing.css?v=13" />
+  <link rel="stylesheet" href="/qava-auth.css" />
+  <style>
+    .mobile-menu { position: fixed !important; z-index: 2000 !important; }
   </style>
 </head>
 <body>
-  <div id="qava-dot-base-fixed" aria-hidden="true"></div>
+<div id="qava-dot-base-fixed" aria-hidden="true"></div>
 
-  <header class="header-container" data-qava-nav="landing">
-    <div class="header-logo">
-      <div class="logo-container">
-        <div class="logo">
-          <a href="https://www.theclubnyc.com/">
-            <div class="qava-nav-logo-flip" id="qava-nav-logo-flip">
-              <div class="qava-nav-logo-inner" id="qava-nav-logo-inner">
-                <img class="qava-nav-logo-face qava-nav-logo-front" src="/the-club-logo-light.png" alt="The Club">
-                <img class="qava-nav-logo-face qava-nav-logo-back" src="/the-club-logo-light.png" alt="">
+  
+    <div class="header-container" data-qava-nav="landing">
+        <div class="header-logo">
+            <div class="logo-container">
+                <div class="logo">
+                    <a href="https://www.theclubnyc.com/">
+                        <div class="qava-nav-logo-flip" id="qava-nav-logo-flip">
+                            <div class="qava-nav-logo-inner" id="qava-nav-logo-inner">
+                                <img class="qava-nav-logo-face qava-nav-logo-front" src="/the-club-logo-light.png" alt="The Club">
+                                <img class="qava-nav-logo-face qava-nav-logo-back" src="/the-club-logo-light.png" alt="">
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="header-center">
+            <div class="navigation">
+                <a href="https://theclubnyc.com/strategy" class="nav-item templates"><div class="nav-text">Strategy</div></a>
+                <a href="https://www.theclubnyc.com/find/" class="nav-item search-listings is-active" aria-current="page"><div class="nav-text">Work</div></a>
+                <a href="https://www.theclubnyc.com/blog" class="nav-item blog"><div class="nav-text">Blog</div></a>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="auth-section">
+                <a href="https://app.theclubnyc.com/?login=1" class="qava-premium-nav-btn" data-qava-premium-nav aria-label="Log in"><span class="nav-text">Log in</span></a>
+                <a href="https://app.theclubnyc.com/" class="join-button">
+                    <div class="join-text">Get Started</div>
+                </a>
+            </div>
+            <div class="hamburger-menu" id="hamburger" onclick="toggleMobileMenu()" role="button" aria-label="Open menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
+            </div>
+        </div>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
+        <a href="https://theclubnyc.com/strategy" class="mobile-nav-item"><div class="nav-text">Strategy</div></a>
+        <a href="https://www.theclubnyc.com/find/" class="mobile-nav-item is-active" aria-current="page"><div class="nav-text">Work</div></a>
+        <a href="https://www.theclubnyc.com/blog" class="mobile-nav-item"><div class="nav-text">Blog</div></a>
+        <a href="https://app.theclubnyc.com/?login=1" class="mobile-nav-item qava-premium-nav-btn" data-qava-premium-nav aria-label="Log in"><span class="nav-text">Log in</span></a>
+        <a href="https://app.theclubnyc.com/" class="join-button mobile-menu-join-button">
+            <div class="join-text">Get Started</div>
+        </a>
+    </div>
+
+  <div class="page-frame">
+
+
+    <main aria-label="Find Work">
+      <section class="fw-hero" aria-label="Find Work hero">
+        <img class="qava-hero-icon" src="hero-icon.png" alt="Find Work" width="124" height="124" />
+        <h1 class="fw-hero-title"><span class="fw-hero-line">Work, <em>your way.</em></span><span class="fw-hero-line">Starting today.</span></h1>
+        <p class="fw-hero-sub">From 2-hour micro-projects to C-suite roles.</p>
+
+        <div class="page-hero-proof">
+          <p class="page-hero-proof-label">Join peers from</p>
+          <div class="page-hero-logos" aria-label="Schools">
+            <img src="logos/wharton.png" alt="Wharton" height="18" />
+            <img src="logos/hbs.png" alt="Harvard Business School" height="18" />
+            <img src="logos/haas.png" alt="Berkeley Haas" height="18" />
+            <img src="logos/stanford.png" alt="Stanford GSB" height="18" />
+            <img src="logos/kellogg.png" alt="Kellogg" height="18" />
+            <img src="logos/said.png" alt="Oxford Saïd" height="18" />
+            <img src="logos/agsm.jpg" alt="AGSM" height="18" />
+            <img src="logos/mit.png" alt="MIT Sloan" height="18" />
+            <img src="logos/stern.png" alt="NYU Stern" height="18" />
+          </div>
+        </div>
+      </section>
+
+      <section class="fw-shop" id="fw-shop" aria-label="Types of work">
+        <h2 class="fw-shop-title">Your one-stop shop for work that matters</h2>
+        <p class="fw-shop-sub">Projects, jobs, and internships designed to accelerate your career.</p>
+        <div class="fw-shop-grid">
+          <a class="fw-shop-card" href="https://app.theclubnyc.com/">
+            <div class="img-wrap">
+              <div class="fw-shop-ph fw-shop-ph--project" aria-hidden="true">
+                <div class="fw-shop-ph-inner">
+                  <svg class="fw-shop-geo fw-shop-geo-shadow" viewBox="0 0 80 80" aria-hidden="true">
+                    <path class="fw-shop-geo-fill" d="M8 40 A32 32 0 0 1 40 72 L40 40 Z"></path>
+                    <path d="M40 8 A32 32 0 0 1 72 40 A32 32 0 0 1 40 72 L8 72 L8 40 A32 32 0 0 1 40 8"></path>
+                    <line x1="40" y1="8" x2="40" y2="72"></line>
+                    <line x1="8" y1="40" x2="40" y2="40"></line>
+                    <path d="M8 40 A32 32 0 0 1 40 72"></path>
+                  </svg>
+                </div>
               </div>
+            </div>
+            <div class="body">
+              <div class="title-row">
+                <strong>Projects</strong>
+              </div>
+              <p class="desc">Targeted short-term work with clearly defined deliverables.</p>
+              <ul class="fw-shop-points">
+                <li>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  2 hours to 3 months
+                </li>
+                <li>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                  Competitive hourly rate
+                </li>
+                <li>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                  Local teams
+                </li>
+              </ul>
+              <span class="fw-shop-link">Search now <span class="arrow" aria-hidden="true">→</span></span>
+            </div>
+          </a>
+          <a class="fw-shop-card" href="https://app.theclubnyc.com/">
+            <div class="img-wrap">
+              <div class="fw-shop-ph fw-shop-ph--job" aria-hidden="true">
+                <div class="fw-shop-ph-inner">
+                  <svg class="fw-shop-geo" viewBox="0 0 80 80" aria-hidden="true">
+                    <defs>
+                      <clipPath id="fw-job-outside-right" clipPathUnits="userSpaceOnUse">
+                        <path fill-rule="evenodd" d="M0 0H80V80H0Z M56 40m-16 0a16 16 0 1 0 32 0a16 16 0 1 0-32 0"></path>
+                      </clipPath>
+                      <clipPath id="fw-job-inside-right" clipPathUnits="userSpaceOnUse">
+                        <circle cx="56" cy="40" r="16"></circle>
+                      </clipPath>
+                      <mask id="fw-job-fill-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="80" height="80" style="mask-type:luminance">
+                        <rect x="0" y="0" width="80" height="80" style="fill:#000;stroke:none"></rect>
+                        <circle cx="56" cy="40" r="16" style="fill:#fff;stroke:none"></circle>
+                        <g clip-path="url(#fw-job-inside-right)" style="fill:none;stroke:#000;stroke-width:1.5;stroke-linecap:square;stroke-linejoin:miter;vector-effect:non-scaling-stroke">
+                          <circle cx="40" cy="24" r="16"></circle>
+                          <circle cx="40" cy="56" r="16"></circle>
+                          <circle cx="24" cy="40" r="16"></circle>
+                        </g>
+                      </mask>
+                    </defs>
+                    <g class="fw-shop-geo-shadow" clip-path="url(#fw-job-outside-right)">
+                      <circle cx="40" cy="24" r="16"></circle>
+                      <circle cx="40" cy="56" r="16"></circle>
+                      <circle cx="24" cy="40" r="16"></circle>
+                    </g>
+                    <circle class="fw-shop-geo-fill fw-shop-geo-shadow" cx="56" cy="40" r="16" mask="url(#fw-job-fill-mask)"></circle>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="body">
+              <div class="title-row">
+                <strong>Jobs</strong>
+              </div>
+              <p class="desc">Ongoing work with continuous responsibilities.</p>
+              <ul class="fw-shop-points">
+                <li>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  Advisory, C-suite, and more
+                </li>
+                <li>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+                  Ongoing commitment
+                </li>
+                <li>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                  Competitive salary
+                </li>
+              </ul>
+              <span class="fw-shop-link">Search now <span class="arrow" aria-hidden="true">→</span></span>
+            </div>
+          </a>
+          <a class="fw-shop-card" href="https://app.theclubnyc.com/">
+            <div class="img-wrap">
+              <div class="fw-shop-ph fw-shop-ph--internship" aria-hidden="true">
+                <div class="fw-shop-ph-inner">
+                  <svg class="fw-shop-geo fw-shop-geo-shadow" viewBox="0 0 80 80" aria-hidden="true">
+                    <circle class="fw-shop-geo-fill" cx="40" cy="40" r="4"></circle>
+                    <line x1="37.50" y1="32.00" x2="37.50" y2="8.00"></line>
+                    <line x1="42.50" y1="32.00" x2="42.50" y2="8.00"></line>
+                    <line x1="43.89" y1="32.58" x2="60.86" y2="15.60"></line>
+                    <line x1="47.42" y1="36.11" x2="64.40" y2="19.14"></line>
+                    <line x1="48.00" y1="37.50" x2="72.00" y2="37.50"></line>
+                    <line x1="48.00" y1="42.50" x2="72.00" y2="42.50"></line>
+                    <line x1="47.42" y1="43.89" x2="64.40" y2="60.86"></line>
+                    <line x1="43.89" y1="47.42" x2="60.86" y2="64.40"></line>
+                    <line x1="42.50" y1="48.00" x2="42.50" y2="72.00"></line>
+                    <line x1="37.50" y1="48.00" x2="37.50" y2="72.00"></line>
+                    <line x1="36.11" y1="47.42" x2="19.14" y2="64.40"></line>
+                    <line x1="32.58" y1="43.89" x2="15.60" y2="60.86"></line>
+                    <line x1="32.00" y1="42.50" x2="8.00" y2="42.50"></line>
+                    <line x1="32.00" y1="37.50" x2="8.00" y2="37.50"></line>
+                    <line x1="32.58" y1="36.11" x2="15.60" y2="19.14"></line>
+                    <line x1="36.11" y1="32.58" x2="19.14" y2="15.60"></line>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="body">
+              <div class="title-row">
+                <strong>Internships</strong>
+              </div>
+              <p class="desc">Short-term, hands-on learning opportunities.</p>
+              <ul class="fw-shop-points">
+                <li>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  Short-term
+                </li>
+                <li>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                  Competitive hourly rate
+                </li>
+                <li>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 11V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2 2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>
+                  Hands-on experience
+                </li>
+              </ul>
+              <span class="fw-shop-link">Search now <span class="arrow" aria-hidden="true">→</span></span>
             </div>
           </a>
         </div>
-      </div>
-    </div>
-    <div class="header-center">
-      <nav class="navigation">
-        <a href="https://theclubnyc.com/strategy" class="nav-item templates"><div class="nav-text">Strategy</div></a>
-        <a href="https://www.theclubnyc.com/find/" class="nav-item search-listings is-active" aria-current="page"><div class="nav-text">Work</div></a>
-        <a href="https://www.theclubnyc.com/blog" class="nav-item blog"><div class="nav-text">Blog</div></a>
-      </nav>
-    </div>
-    <div class="header-right">
-      <div class="auth-section">
-        <a href="https://app.theclubnyc.com/" class="qava-premium-nav-btn" data-qava-premium-nav aria-label="Log in"><span class="nav-text">Log in</span></a>
-        <a href="https://app.theclubnyc.com/" class="join-button">
-          <span class="join-text">Get Started</span>
-        </a>
-      </div>
-    </div>
-  </header>
+      </section>
 
-  <section class="fw-hero" aria-label="Find Work hero">
-    <div class="chat-head chat-marketing-hero">
-      <img class="qava-hero-icon" src="hero-icon.png" alt="Find Work" width="124" height="124" />
-      <h1 class="feature-cards-header qava-hero-heading">Work that moves you</h1>
-      <p class="feature-cards-subheader qava-hero-subheader">Real projects, jobs, and internships from startups, enterprises, and non-profits.</p>
-    </div>
-
-    <div class="fw-marquees" aria-hidden="true">
-      <div class="fw-marquee fw-marquee--logos">
-        <div class="fw-marquee-track">
-          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/Wharton.png" alt="" /></div>
-          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/HBS.png" alt="" /></div>
-          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/Haas.png" alt="" /></div>
-          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/Standford.png" alt="" /></div>
-          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/Kellogg.png" alt="" /></div>
-          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/Said.png" alt="" /></div>
-          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/AGSM.jpg" alt="" /></div>
-          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/MIT.png" alt="" /></div>
-          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/Stern.png" alt="" /></div>
-          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/Wharton.png" alt="" /></div>
-          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/HBS.png" alt="" /></div>
-          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/Haas.png" alt="" /></div>
-          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/Standford.png" alt="" /></div>
-          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/Kellogg.png" alt="" /></div>
-          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/Said.png" alt="" /></div>
-          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/AGSM.jpg" alt="" /></div>
-          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/MIT.png" alt="" /></div>
-          <div class="fw-logo-item"><img src="../Landing%20Page%20Trusted%20by/Stern.png" alt="" /></div>
+      <section class="fw-hero-cta-strip" aria-label="Find work actions">
+        <div class="fw-hero-ctas">
+          <a class="fw-hero-cta fw-hero-cta--primary" href="https://app.theclubnyc.com/">Find your next opportunity</a>
+          <a class="fw-hero-cta fw-hero-cta--ghost" href="#fw-how">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.983 21.186a1 1 0 0 1-1.966 0 10 10 0 0 0-8.203-8.203 1 1 0 0 1 0-1.966 10 10 0 0 0 8.203-8.203 1 1 0 0 1 1.966 0 10 10 0 0 0 8.203 8.203 1 1 0 0 1 0 1.966 10 10 0 0 0-8.203 8.203"></path></svg>
+            How it works
+          </a>
         </div>
-      </div>
+      </section>
 
-      <div class="fw-marquee fw-marquee--pills">
-        <div class="fw-marquee-track">
-          <div class="fw-project-pill"><span class="title">Go-To-Market Strategy</span><span class="icon">🚀</span></div>
-          <div class="fw-project-pill"><span class="title">Growth Plan</span><span class="icon">🌱</span></div>
-          <div class="fw-project-pill"><span class="title">Partnership Strategy</span><span class="icon">🤝</span></div>
-          <div class="fw-project-pill"><span class="title">Pricing Strategy</span><span class="icon">💰</span></div>
-          <div class="fw-project-pill"><span class="title">Sales &amp; Marketing Strategy</span><span class="icon">📊</span></div>
-          <div class="fw-project-pill"><span class="title">Strategic Finance</span><span class="icon">💼</span></div>
-          <div class="fw-project-pill"><span class="title">Custom Project</span><span class="icon">🎨</span></div>
-          <div class="fw-project-pill"><span class="title">Business Plan</span><span class="icon">📈</span></div>
-          <div class="fw-project-pill"><span class="title">Pitch Deck</span><span class="icon">📋</span></div>
-          <div class="fw-project-pill"><span class="title">Financial Model</span><span class="icon">💡</span></div>
-          <div class="fw-project-pill"><span class="title">Go-To-Market Strategy</span><span class="icon">🚀</span></div>
-          <div class="fw-project-pill"><span class="title">Growth Plan</span><span class="icon">🌱</span></div>
-          <div class="fw-project-pill"><span class="title">Partnership Strategy</span><span class="icon">🤝</span></div>
-          <div class="fw-project-pill"><span class="title">Pricing Strategy</span><span class="icon">💰</span></div>
-          <div class="fw-project-pill"><span class="title">Sales &amp; Marketing Strategy</span><span class="icon">📊</span></div>
-          <div class="fw-project-pill"><span class="title">Strategic Finance</span><span class="icon">💼</span></div>
-          <div class="fw-project-pill"><span class="title">Custom Project</span><span class="icon">🎨</span></div>
-          <div class="fw-project-pill"><span class="title">Business Plan</span><span class="icon">📈</span></div>
-          <div class="fw-project-pill"><span class="title">Pitch Deck</span><span class="icon">📋</span></div>
-          <div class="fw-project-pill"><span class="title">Financial Model</span><span class="icon">💡</span></div>
+      <section class="fw-popular" id="fw-popular" aria-label="Popular projects">
+        <div class="fw-popular-wrap">
+          <p class="fw-popular-label">Popular Projects</p>
+          <ul class="fw-popular-list" id="popularList"></ul>
         </div>
-      </div>
-    </div>
+      </section>
 
-    <div class="fw-hero-ctas">
-      <a class="fw-hero-cta fw-hero-cta--primary" href="https://app.theclubnyc.com/">Search Listings</a>
-      <a class="fw-hero-cta fw-hero-cta--ghost" href="#fw-how" data-fw-scroll="fw-how">
-        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.983 21.186a1 1 0 0 1-1.966 0 10 10 0 0 0-8.203-8.203 1 1 0 0 1 0-1.966 10 10 0 0 0 8.203-8.203 1 1 0 0 1 1.966 0 10 10 0 0 0 8.203 8.203 1 1 0 0 1 0 1.966 10 10 0 0 0-8.203 8.203"/></svg>
-        <span class="qava-blog-shimmer">How It Works</span>
-      </a>
-    </div>
-  </section>
+      <section class="fw-live" id="fw-live" aria-label="Live opportunities">
+        <h2 class="fw-live-title">Live opportunities</h2>
+        <p class="fw-live-sub">New listings added daily. Here’s a sample of what’s available now.</p>
+        <div class="fw-live-rail" aria-hidden="true"><div class="fw-live-track" id="liveTrack"></div></div>
+      </section>
 
-  <section class="fw-shop" id="fw-shop" aria-label="Types of work">
-    <h2 class="fw-shop-title">Your one-stop shop for work that matters</h2>
-    <p class="fw-shop-sub">Projects, jobs, and internships designed to accelerate your career.</p>
-
-    <div class="fw-shop-panel">
-      <div class="fw-shop-grid">
-        <a class="fw-shop-card" href="https://app.theclubnyc.com/">
-          <div class="img-wrap">
-            <div class="fw-shop-ph fw-shop-ph--project" aria-hidden="true">
-              <div class="fw-shop-ph-inner">
-                <svg class="fw-shop-geo fw-shop-geo-shadow" viewBox="0 0 80 80" aria-hidden="true">
-                  <!-- Fill: quarter-circle toward center (not the outer corner wedge) -->
-                  <path class="fw-shop-geo-fill" d="M8 40 A32 32 0 0 1 40 72 L40 40 Z"/>
-                  <!-- Outer: circle with squared bottom-left; r=32, center 40,40 (on dot grid) -->
-                  <path d="M40 8 A32 32 0 0 1 72 40 A32 32 0 0 1 40 72 L8 72 L8 40 A32 32 0 0 1 40 8"/>
-                  <line x1="40" y1="8" x2="40" y2="72"/>
-                  <line x1="8" y1="40" x2="40" y2="40"/>
-                  <!-- Inner quarter-circle in the squared corner -->
-                  <path d="M8 40 A32 32 0 0 1 40 72"/>
-                </svg>
+      <section class="fw-quotes" id="fw-quotes" aria-label="What doers say">
+        <div class="fw-quotes-wrap">
+          <p class="fw-popular-label">What doers say</p>
+          <div class="fw-pop-quotes">
+            <figure class="fw-pop-quote">
+              <div class="fw-pop-quote-stars" aria-label="5 out of 5 stars">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
               </div>
-            </div>
-          </div>
-          <div class="body">
-            <div class="title-row">
-              <strong>Projects</strong>
-              <span class="box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-            </div>
-            <p class="desc">Targeted short-term work with clearly defined deliverables</p>
-            <span class="fw-shop-link">Search now <span class="arrow" aria-hidden="true">→</span></span>
-          </div>
-        </a>
-
-        <a class="fw-shop-card" href="https://app.theclubnyc.com/">
-          <div class="img-wrap">
-            <div class="fw-shop-ph fw-shop-ph--job" aria-hidden="true">
-              <div class="fw-shop-ph-inner">
-                <svg class="fw-shop-geo" viewBox="0 0 80 80" aria-hidden="true">
-                  <defs>
-                    <clipPath id="fw-job-outside-right" clipPathUnits="userSpaceOnUse">
-                      <path
-                        fill-rule="evenodd"
-                        d="M0 0H80V80H0Z M56 40m-16 0a16 16 0 1 0 32 0a16 16 0 1 0-32 0"
-                      />
-                    </clipPath>
-                    <clipPath id="fw-job-inside-right" clipPathUnits="userSpaceOnUse">
-                      <circle cx="56" cy="40" r="16"/>
-                    </clipPath>
-                    <!-- Luminance mask: white = keep fill, black = transparent cutout -->
-                    <mask
-                      id="fw-job-fill-mask"
-                      maskUnits="userSpaceOnUse"
-                      x="0"
-                      y="0"
-                      width="80"
-                      height="80"
-                      style="mask-type:luminance"
-                    >
-                      <rect x="0" y="0" width="80" height="80" style="fill:#000;stroke:none"/>
-                      <circle cx="56" cy="40" r="16" style="fill:#fff;stroke:none"/>
-                      <g
-                        clip-path="url(#fw-job-inside-right)"
-                        style="fill:none;stroke:#000;stroke-width:1.5;stroke-linecap:square;stroke-linejoin:miter;vector-effect:non-scaling-stroke"
-                      >
-                        <circle cx="40" cy="24" r="16"/>
-                        <circle cx="40" cy="56" r="16"/>
-                        <circle cx="24" cy="40" r="16"/>
-                      </g>
-                    </mask>
-                  </defs>
-                  <g class="fw-shop-geo-shadow" clip-path="url(#fw-job-outside-right)">
-                    <circle cx="40" cy="24" r="16"/>
-                    <circle cx="40" cy="56" r="16"/>
-                    <circle cx="24" cy="40" r="16"/>
-                  </g>
-                  <circle
-                    class="fw-shop-geo-fill fw-shop-geo-shadow"
-                    cx="56"
-                    cy="40"
-                    r="16"
-                    mask="url(#fw-job-fill-mask)"
-                  />
-                </svg>
+              <blockquote>Working with startups gave me hands-on experience that no case study could match. I helped build go-to-market strategies that actually launched products.</blockquote>
+              <figcaption>
+                <img class="fw-pop-quote-logo" src="logos/kellogg.png" alt="">
+                <span class="fw-pop-quote-school">Kellogg School of Management</span>
+                <span class="fw-pop-quote-class">Class of 2024</span>
+              </figcaption>
+            </figure>
+            <figure class="fw-pop-quote">
+              <div class="fw-pop-quote-stars" aria-label="5 out of 5 stars">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
               </div>
-            </div>
-          </div>
-          <div class="body">
-            <div class="title-row">
-              <strong>Jobs</strong>
-              <span class="box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-            </div>
-            <p class="desc">Ongoing, compensated work with continuous responsibilities</p>
-            <span class="fw-shop-link">Search now <span class="arrow" aria-hidden="true">→</span></span>
-          </div>
-        </a>
-
-        <a class="fw-shop-card" href="https://app.theclubnyc.com/">
-          <div class="img-wrap">
-            <div class="fw-shop-ph fw-shop-ph--internship" aria-hidden="true">
-              <div class="fw-shop-ph-inner">
-                <svg class="fw-shop-geo fw-shop-geo-shadow" viewBox="0 0 80 80" aria-hidden="true">
-                  <!-- Small center fill in the open void -->
-                  <circle class="fw-shop-geo-fill" cx="40" cy="40" r="4"/>
-                  <!-- 8 double-line spokes; open center; tips on 4-dot radius -->
-                  <line x1="37.50" y1="32.00" x2="37.50" y2="8.00"/>
-                  <line x1="42.50" y1="32.00" x2="42.50" y2="8.00"/>
-                  <line x1="43.89" y1="32.58" x2="60.86" y2="15.60"/>
-                  <line x1="47.42" y1="36.11" x2="64.40" y2="19.14"/>
-                  <line x1="48.00" y1="37.50" x2="72.00" y2="37.50"/>
-                  <line x1="48.00" y1="42.50" x2="72.00" y2="42.50"/>
-                  <line x1="47.42" y1="43.89" x2="64.40" y2="60.86"/>
-                  <line x1="43.89" y1="47.42" x2="60.86" y2="64.40"/>
-                  <line x1="42.50" y1="48.00" x2="42.50" y2="72.00"/>
-                  <line x1="37.50" y1="48.00" x2="37.50" y2="72.00"/>
-                  <line x1="36.11" y1="47.42" x2="19.14" y2="64.40"/>
-                  <line x1="32.58" y1="43.89" x2="15.60" y2="60.86"/>
-                  <line x1="32.00" y1="42.50" x2="8.00" y2="42.50"/>
-                  <line x1="32.00" y1="37.50" x2="8.00" y2="37.50"/>
-                  <line x1="32.58" y1="36.11" x2="15.60" y2="19.14"/>
-                  <line x1="36.11" y1="32.58" x2="19.14" y2="15.60"/>
-                </svg>
+              <blockquote>I helped real companies raise capital. I built investor-ready pitch decks and financial models. This experience accelerated my career by 10 years.</blockquote>
+              <figcaption>
+                <img class="fw-pop-quote-logo" src="logos/wharton.png" alt="">
+                <span class="fw-pop-quote-school">The Wharton School</span>
+                <span class="fw-pop-quote-class">Class of 2023</span>
+              </figcaption>
+            </figure>
+            <figure class="fw-pop-quote">
+              <div class="fw-pop-quote-stars" aria-label="5 out of 5 stars">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
               </div>
-            </div>
+              <blockquote>I worked on real, high-impact strategic projects for ambitious growing companies that I will stay in touch with for years to come.</blockquote>
+              <figcaption>
+                <img class="fw-pop-quote-logo" src="logos/columbia.svg" alt="">
+                <span class="fw-pop-quote-school">Columbia Business School</span>
+                <span class="fw-pop-quote-class">Class of 2024</span>
+              </figcaption>
+            </figure>
           </div>
-          <div class="body">
-            <div class="title-row">
-              <strong>Internships</strong>
-              <span class="box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-            </div>
-            <p class="desc">Short-term learning opportunities with hands-on experience</p>
-            <span class="fw-shop-link">Search now <span class="arrow" aria-hidden="true">→</span></span>
+          <div class="fw-say-grid" id="sayGrid"></div>
+          <div class="fw-stats" aria-label="The Club highlights">
+            <div class="fw-stats-item"><strong>70%</strong><span>of projects lead to ongoing relationships</span></div>
+            <div class="fw-stats-item"><strong>&lt;24h</strong><span>average time to a match</span></div>
+            <div class="fw-stats-item"><strong>96%</strong><span>of clients would recommend The Club</span></div>
+            <div class="fw-stats-item"><strong>Top 50</strong><span>global MBA &amp; EMBA schools</span></div>
           </div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="fw-how" id="fw-how" aria-label="How it works">
-    <div class="fw-how-inner">
-      <h2 class="fw-how-title">How it works</h2>
-      <p class="fw-how-sub">Four steps from signup to getting paid.</p>
-
-      <div class="fw-how-grid">
-        <article class="fw-how-card">
-          <div class="fw-how-icon" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          </div>
-          <p class="fw-how-step">Step 1</p>
-          <h3>Create your profile</h3>
-          <p>Sign up, add your skills, education, and experience. Takes about 5 minutes.</p>
-        </article>
-
-        <article class="fw-how-card">
-          <div class="fw-how-icon" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-          </div>
-          <p class="fw-how-step">Step 2</p>
-          <h3>Browse &amp; apply</h3>
-          <p>Search live projects, jobs, and internships. Apply with one click when you find the right fit.</p>
-        </article>
-
-        <article class="fw-how-card">
-          <div class="fw-how-icon" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
-          </div>
-          <p class="fw-how-step">Step 3</p>
-          <h3>Do great work</h3>
-          <p>Get matched, align on deliverables, and execute. Structured support keeps everything on track.</p>
-        </article>
-
-        <article class="fw-how-card">
-          <div class="fw-how-icon" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2.3"/><path d="M10 12h4"/></svg>
-          </div>
-          <p class="fw-how-step">Step 4</p>
-          <h3>Get paid</h3>
-          <p>Secure payment on completion. Build your reputation and unlock higher-value opportunities.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="fw-live" id="fw-live" aria-label="Live opportunities">
-    <h2 class="fw-live-title">Live opportunities</h2>
-    <p class="fw-live-sub">New listings added daily. Here’s a sample of what’s available now.</p>
-
-    <div class="fw-live-rail" aria-hidden="true">
-      <div class="fw-live-track">
-        <a class="fw-opp" href="https://app.theclubnyc.com/">
-          <img class="fw-opp-thumb" src="../Paths%20Image%20Libarary%20SVG%203%20copy/Growth%20Strategy.svg" alt="" />
-          <div class="fw-opp-body">
-            <div class="fw-opp-kicker">
-              <span class="fw-opp-type">Job</span>
-              <span class="fw-opp-badge">Featured</span>
-            </div>
-            <div class="fw-opp-role">Early-Stage Fintech Scale-Up Seeks Full-Time Growth Marketing Lead Role</div>
-            <p class="fw-opp-desc">Own acquisition, content, and brand campaigns for a seed-stage payments firm</p>
-            <div class="fw-opp-meta">
-              <span>New York City</span>
-              <span class="fw-opp-dot" aria-hidden="true">·</span>
-              <span>Full-time</span>
-              <span class="fw-opp-dot" aria-hidden="true">·</span>
-              <span>$120k–$160k</span>
-            </div>
-          </div>
-        </a>
-
-        <a class="fw-opp" href="https://app.theclubnyc.com/">
-          <img class="fw-opp-thumb" src="../Paths%20Image%20Libarary%20SVG%203%20copy/Industry%20Analysis.svg" alt="" />
-          <div class="fw-opp-body">
-            <div class="fw-opp-kicker">
-              <span class="fw-opp-type">Internship</span>
-            </div>
-            <div class="fw-opp-role">Boutique Strategy Consulting Firm Seeks Hands-On MBA Strategy Intern Role</div>
-            <p class="fw-opp-desc">Support client workstreams across market entry, pricing, and growth planning</p>
-            <div class="fw-opp-meta">
-              <span>Remote</span>
-              <span class="fw-opp-dot" aria-hidden="true">·</span>
-              <span>Fall 2026</span>
-              <span class="fw-opp-dot" aria-hidden="true">·</span>
-              <span>$32/hr</span>
-            </div>
-          </div>
-        </a>
-
-        <a class="fw-opp" href="https://app.theclubnyc.com/">
-          <img class="fw-opp-thumb" src="../Paths%20Image%20Libarary%20SVG%203%20copy/Pitch%20Deck.svg" alt="" />
-          <div class="fw-opp-body">
-            <div class="fw-opp-kicker">
-              <span class="fw-opp-type">Project</span>
-              <span class="fw-opp-badge">Featured</span>
-            </div>
-            <div class="fw-opp-role">Series B B2B SaaS Platform Looking for Investor Pitch Deck and Narrative</div>
-            <p class="fw-opp-desc">Build investor-ready narrative, core slides, appendix, and supporting storyline</p>
-            <div class="fw-opp-meta">
-              <span>Remote</span>
-              <span class="fw-opp-dot" aria-hidden="true">·</span>
-              <span>$525</span>
-              <span class="fw-opp-dot" aria-hidden="true">·</span>
-              <span>10 hours</span>
-            </div>
-          </div>
-        </a>
-
-        <a class="fw-opp" href="https://app.theclubnyc.com/">
-          <img class="fw-opp-thumb" src="../Paths%20Image%20Libarary%20SVG%203%20copy/Go-To-Market%20Strategy.svg" alt="" />
-          <div class="fw-opp-body">
-            <div class="fw-opp-kicker">
-              <span class="fw-opp-type">Project</span>
-            </div>
-            <div class="fw-opp-role">Pre-Seed Consumer Marketplace Seeks Complete Go-To-Market Strategy Plan</div>
-            <p class="fw-opp-desc">Define ICP, positioning, channels, and a 90-day launch plan for new vertical</p>
-            <div class="fw-opp-meta">
-              <span>Remote</span>
-              <span class="fw-opp-dot" aria-hidden="true">·</span>
-              <span>$280</span>
-              <span class="fw-opp-dot" aria-hidden="true">·</span>
-              <span>12 hours</span>
-            </div>
-          </div>
-        </a>
-
-        <a class="fw-opp" href="https://app.theclubnyc.com/">
-          <img class="fw-opp-thumb" src="../Paths%20Image%20Libarary%20SVG%203%20copy/Pricing%20Strategy.svg" alt="" />
-          <div class="fw-opp-body">
-            <div class="fw-opp-kicker">
-              <span class="fw-opp-type">Project</span>
-            </div>
-            <div class="fw-opp-role">Series A Fintech Company Seeks Full Pricing and Packaging Strategy Project</div>
-            <p class="fw-opp-desc">Refine packaging, tiers, and willingness-to-pay experiments for core product</p>
-            <div class="fw-opp-meta">
-              <span>Remote</span>
-              <span class="fw-opp-dot" aria-hidden="true">·</span>
-              <span>$280</span>
-              <span class="fw-opp-dot" aria-hidden="true">·</span>
-              <span>12 hours</span>
-            </div>
-          </div>
-        </a>
-
-        <a class="fw-opp" href="https://app.theclubnyc.com/">
-          <img class="fw-opp-thumb" src="../Paths%20Image%20Libarary%20SVG%203%20copy/Product%20Strategy.svg" alt="" />
-          <div class="fw-opp-body">
-            <div class="fw-opp-kicker">
-              <span class="fw-opp-type">Job</span>
-            </div>
-            <div class="fw-opp-role">Harbor B2B Marketplace Seeks Part-Time Product Designer for Core Product</div>
-            <p class="fw-opp-desc">Design product flows, UI components, and iteration cycles with a lean team</p>
-            <div class="fw-opp-meta">
-              <span>Remote</span>
-              <span class="fw-opp-dot" aria-hidden="true">·</span>
-              <span>20 hrs/wk</span>
-              <span class="fw-opp-dot" aria-hidden="true">·</span>
-              <span>$72k–$90k</span>
-            </div>
-          </div>
-        </a>
-
-        <!-- duplicate for seamless loop -->
-        <a class="fw-opp" href="https://app.theclubnyc.com/">
-          <img class="fw-opp-thumb" src="../Paths%20Image%20Libarary%20SVG%203%20copy/Growth%20Strategy.svg" alt="" />
-          <div class="fw-opp-body">
-            <div class="fw-opp-kicker">
-              <span class="fw-opp-type">Job</span>
-              <span class="fw-opp-badge">Featured</span>
-            </div>
-            <div class="fw-opp-role">Early-Stage Fintech Scale-Up Seeks Full-Time Growth Marketing Lead Role</div>
-            <p class="fw-opp-desc">Own acquisition, content, and brand campaigns for a seed-stage payments firm</p>
-            <div class="fw-opp-meta">
-              <span>New York City</span>
-              <span class="fw-opp-dot" aria-hidden="true">·</span>
-              <span>Full-time</span>
-              <span class="fw-opp-dot" aria-hidden="true">·</span>
-              <span>$120k–$160k</span>
-            </div>
-          </div>
-        </a>
-
-        <a class="fw-opp" href="https://app.theclubnyc.com/">
-          <img class="fw-opp-thumb" src="../Paths%20Image%20Libarary%20SVG%203%20copy/Industry%20Analysis.svg" alt="" />
-          <div class="fw-opp-body">
-            <div class="fw-opp-kicker">
-              <span class="fw-opp-type">Internship</span>
-            </div>
-            <div class="fw-opp-role">Boutique Strategy Consulting Firm Seeks Hands-On MBA Strategy Intern Role</div>
-            <p class="fw-opp-desc">Support client workstreams across market entry, pricing, and growth planning</p>
-            <div class="fw-opp-meta">
-              <span>Remote</span>
-              <span class="fw-opp-dot" aria-hidden="true">·</span>
-              <span>Fall 2026</span>
-              <span class="fw-opp-dot" aria-hidden="true">·</span>
-              <span>$32/hr</span>
-            </div>
-          </div>
-        </a>
-
-        <a class="fw-opp" href="https://app.theclubnyc.com/">
-          <img class="fw-opp-thumb" src="../Paths%20Image%20Libarary%20SVG%203%20copy/Pitch%20Deck.svg" alt="" />
-          <div class="fw-opp-body">
-            <div class="fw-opp-kicker">
-              <span class="fw-opp-type">Project</span>
-              <span class="fw-opp-badge">Featured</span>
-            </div>
-            <div class="fw-opp-role">Series B B2B SaaS Platform Looking for Investor Pitch Deck and Narrative</div>
-            <p class="fw-opp-desc">Build investor-ready narrative, core slides, appendix, and supporting storyline</p>
-            <div class="fw-opp-meta">
-              <span>Remote</span>
-              <span class="fw-opp-dot" aria-hidden="true">·</span>
-              <span>$525</span>
-              <span class="fw-opp-dot" aria-hidden="true">·</span>
-              <span>10 hours</span>
-            </div>
-          </div>
-        </a>
-
-        <a class="fw-opp" href="https://app.theclubnyc.com/">
-          <img class="fw-opp-thumb" src="../Paths%20Image%20Libarary%20SVG%203%20copy/Go-To-Market%20Strategy.svg" alt="" />
-          <div class="fw-opp-body">
-            <div class="fw-opp-kicker">
-              <span class="fw-opp-type">Project</span>
-            </div>
-            <div class="fw-opp-role">Pre-Seed Consumer Marketplace Seeks Complete Go-To-Market Strategy Plan</div>
-            <p class="fw-opp-desc">Define ICP, positioning, channels, and a 90-day launch plan for new vertical</p>
-            <div class="fw-opp-meta">
-              <span>Remote</span>
-              <span class="fw-opp-dot" aria-hidden="true">·</span>
-              <span>$280</span>
-              <span class="fw-opp-dot" aria-hidden="true">·</span>
-              <span>12 hours</span>
-            </div>
-          </div>
-        </a>
-
-        <a class="fw-opp" href="https://app.theclubnyc.com/">
-          <img class="fw-opp-thumb" src="../Paths%20Image%20Libarary%20SVG%203%20copy/Pricing%20Strategy.svg" alt="" />
-          <div class="fw-opp-body">
-            <div class="fw-opp-kicker">
-              <span class="fw-opp-type">Project</span>
-            </div>
-            <div class="fw-opp-role">Series A Fintech Company Seeks Full Pricing and Packaging Strategy Project</div>
-            <p class="fw-opp-desc">Refine packaging, tiers, and willingness-to-pay experiments for core product</p>
-            <div class="fw-opp-meta">
-              <span>Remote</span>
-              <span class="fw-opp-dot" aria-hidden="true">·</span>
-              <span>$280</span>
-              <span class="fw-opp-dot" aria-hidden="true">·</span>
-              <span>12 hours</span>
-            </div>
-          </div>
-        </a>
-
-        <a class="fw-opp" href="https://app.theclubnyc.com/">
-          <img class="fw-opp-thumb" src="../Paths%20Image%20Libarary%20SVG%203%20copy/Product%20Strategy.svg" alt="" />
-          <div class="fw-opp-body">
-            <div class="fw-opp-kicker">
-              <span class="fw-opp-type">Job</span>
-            </div>
-            <div class="fw-opp-role">Harbor B2B Marketplace Seeks Part-Time Product Designer for Core Product</div>
-            <p class="fw-opp-desc">Design product flows, UI components, and iteration cycles with a lean team</p>
-            <div class="fw-opp-meta">
-              <span>Remote</span>
-              <span class="fw-opp-dot" aria-hidden="true">·</span>
-              <span>20 hrs/wk</span>
-              <span class="fw-opp-dot" aria-hidden="true">·</span>
-              <span>$72k–$90k</span>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="fw-say" id="fw-say" aria-label="Reviews">
-    <div class="fw-say-inner">
-      <h2 class="fw-say-title">This many doers can’t be wrong</h2>
-      <p class="fw-say-sub">Real reviews from MBA talent who shipped real work.</p>
-
-      <div class="fw-say-grid">
-        <article class="fw-say-card">
-          <div class="fw-say-person">
-            <div class="fw-say-avatar" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/Kellogg.png" alt="" /></div>
-            <div>
-              <div class="fw-say-school">Kellogg</div>
-              <div class="fw-say-class">Class of 2024</div>
-            </div>
-          </div>
-          <p class="fw-say-quote">“Hands-on startup work no case study could match — I still talk to those founders.”</p>
-          <div class="fw-say-pills"><span class="fw-say-pill">Go-To-Market</span></div>
-        </article>
-
-        <article class="fw-say-card">
-          <div class="fw-say-person">
-            <div class="fw-say-avatar" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/Wharton.png" alt="" /></div>
-            <div>
-              <div class="fw-say-school">Wharton</div>
-              <div class="fw-say-class">Class of 2023</div>
-            </div>
-          </div>
-          <p class="fw-say-quote">“Built decks and models that went into real investor meetings. Career acceleration.”</p>
-          <div class="fw-say-pills"><span class="fw-say-pill">Pitch Deck</span></div>
-        </article>
-
-        <article class="fw-say-card">
-          <div class="fw-say-person">
-            <div class="fw-say-avatar fw-say-avatar--crest" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/Columbia.svg" alt="" /></div>
-            <div>
-              <div class="fw-say-school">Columbia</div>
-              <div class="fw-say-class">Class of 2024</div>
-            </div>
-          </div>
-          <p class="fw-say-quote">“Real strategy work — partnerships and decisions that actually mattered.”</p>
-          <div class="fw-say-pills"><span class="fw-say-pill">Strategy</span></div>
-        </article>
-
-        <article class="fw-say-card">
-          <div class="fw-say-person">
-            <div class="fw-say-avatar" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/HBS.png" alt="" /></div>
-            <div>
-              <div class="fw-say-school">Harvard Business School</div>
-              <div class="fw-say-class">Class of 2024</div>
-            </div>
-          </div>
-          <p class="fw-say-quote">“Matched in a day. Scoped cleanly. Paid on time. I’ll keep coming back.”</p>
-          <div class="fw-say-pills"><span class="fw-say-pill">Ops</span></div>
-        </article>
-
-        <article class="fw-say-card">
-          <div class="fw-say-person">
-            <div class="fw-say-avatar" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/Haas.png" alt="" /></div>
-            <div>
-              <div class="fw-say-school">Berkeley Haas</div>
-              <div class="fw-say-class">Class of 2025</div>
-            </div>
-          </div>
-          <p class="fw-say-quote">“Finally, project work that respects MBA-level thinking — not busywork.”</p>
-          <div class="fw-say-pills"><span class="fw-say-pill">Product</span></div>
-        </article>
-
-        <article class="fw-say-card">
-          <div class="fw-say-person">
-            <div class="fw-say-avatar" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/Standford.png" alt="" /></div>
-            <div>
-              <div class="fw-say-school">Stanford GSB</div>
-              <div class="fw-say-class">Class of 2023</div>
-            </div>
-          </div>
-          <p class="fw-say-quote">“I shipped a pricing project that the client still uses. That’s the bar.”</p>
-          <div class="fw-say-pills"><span class="fw-say-pill">Pricing</span></div>
-        </article>
-
-        <article class="fw-say-card">
-          <div class="fw-say-person">
-            <div class="fw-say-avatar" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/MIT.png" alt="" /></div>
-            <div>
-              <div class="fw-say-school">MIT Sloan</div>
-              <div class="fw-say-class">Class of 2024</div>
-            </div>
-          </div>
-          <p class="fw-say-quote">“Clear scope, sharp clients, and work I can put on a resume with pride.”</p>
-          <div class="fw-say-pills"><span class="fw-say-pill">Analytics</span></div>
-        </article>
-
-        <article class="fw-say-card">
-          <div class="fw-say-person">
-            <div class="fw-say-avatar" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/Stern.png" alt="" /></div>
-            <div>
-              <div class="fw-say-school">NYU Stern</div>
-              <div class="fw-say-class">Class of 2025</div>
-            </div>
-          </div>
-          <p class="fw-say-quote">“Better than cold outreach. Better briefs. Better outcomes. Simple.”</p>
-          <div class="fw-say-pills"><span class="fw-say-pill">Marketing</span></div>
-        </article>
-
-        <article class="fw-say-card">
-          <div class="fw-say-person">
-            <div class="fw-say-avatar" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/Said.png" alt="" /></div>
-            <div>
-              <div class="fw-say-school">Oxford Saïd</div>
-              <div class="fw-say-class">Class of 2024</div>
-            </div>
-          </div>
-          <p class="fw-say-quote">“Remote, high-trust projects with founders who actually wanted my input.”</p>
-          <div class="fw-say-pills"><span class="fw-say-pill">Growth</span></div>
-        </article>
-
-        <article class="fw-say-card">
-          <div class="fw-say-person">
-            <div class="fw-say-avatar" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/AGSM.jpg" alt="" /></div>
-            <div>
-              <div class="fw-say-school">AGSM</div>
-              <div class="fw-say-class">Class of 2023</div>
-            </div>
-          </div>
-          <p class="fw-say-quote">“I landed a role through a project. The relationship outlived the brief.”</p>
-          <div class="fw-say-pills"><span class="fw-say-pill">Full-time</span></div>
-        </article>
-
-        <article class="fw-say-card">
-          <div class="fw-say-person">
-            <div class="fw-say-avatar" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/Kellogg.png" alt="" /></div>
-            <div>
-              <div class="fw-say-school">Kellogg</div>
-              <div class="fw-say-class">Class of 2025</div>
-            </div>
-          </div>
-          <p class="fw-say-quote">“Applied Friday, kicked off Monday. The platform just moves.”</p>
-          <div class="fw-say-pills"><span class="fw-say-pill">Speed</span></div>
-        </article>
-
-        <article class="fw-say-card">
-          <div class="fw-say-person">
-            <div class="fw-say-avatar" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/Wharton.png" alt="" /></div>
-            <div>
-              <div class="fw-say-school">Wharton</div>
-              <div class="fw-say-class">Class of 2024</div>
-            </div>
-          </div>
-          <p class="fw-say-quote">“Quality over volume. Every listing felt worth opening.”</p>
-          <div class="fw-say-pills"><span class="fw-say-pill">Finance</span></div>
-        </article>
-
-        <article class="fw-say-card">
-          <div class="fw-say-person">
-            <div class="fw-say-avatar fw-say-avatar--crest" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/Columbia.svg" alt="" /></div>
-            <div>
-              <div class="fw-say-school">Columbia</div>
-              <div class="fw-say-class">Class of 2025</div>
-            </div>
-          </div>
-          <p class="fw-say-quote">“Protected payments, clear deliverables — I could focus on the work.”</p>
-          <div class="fw-say-pills"><span class="fw-say-pill">Consulting</span></div>
-        </article>
-
-        <article class="fw-say-card">
-          <div class="fw-say-person">
-            <div class="fw-say-avatar" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/HBS.png" alt="" /></div>
-            <div>
-              <div class="fw-say-school">Harvard Business School</div>
-              <div class="fw-say-class">Class of 2023</div>
-            </div>
-          </div>
-          <p class="fw-say-quote">“The clients were operators. The feedback was direct. I grew fast.”</p>
-          <div class="fw-say-pills"><span class="fw-say-pill">Leadership</span></div>
-        </article>
-
-        <article class="fw-say-card">
-          <div class="fw-say-person">
-            <div class="fw-say-avatar" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/Haas.png" alt="" /></div>
-            <div>
-              <div class="fw-say-school">Berkeley Haas</div>
-              <div class="fw-say-class">Class of 2024</div>
-            </div>
-          </div>
-          <p class="fw-say-quote">“Short projects, real ownership. Exactly what I wanted between terms.”</p>
-          <div class="fw-say-pills"><span class="fw-say-pill">Internship</span></div>
-        </article>
-
-        <article class="fw-say-card">
-          <div class="fw-say-person">
-            <div class="fw-say-avatar" aria-hidden="true"><img src="../Landing%20Page%20Trusted%20by/MIT.png" alt="" /></div>
-            <div>
-              <div class="fw-say-school">MIT Sloan</div>
-              <div class="fw-say-class">Class of 2025</div>
-            </div>
-          </div>
-          <p class="fw-say-quote">“I’d recommend The Club to anyone who wants proof, not just potential.”</p>
-          <div class="fw-say-pills"><span class="fw-say-pill">Proof</span></div>
-        </article>
-      </div>
-
-      <div class="fw-stats" aria-label="The Club highlights">
-        <div class="fw-stats-item">
-          <strong>70%</strong>
-          <span>of projects lead to ongoing relationships</span>
         </div>
-        <div class="fw-stats-item">
-          <strong>&lt;24h</strong>
-          <span>average time to a match</span>
-        </div>
-        <div class="fw-stats-item">
-          <strong>96%</strong>
-          <span>of clients would recommend The Club</span>
-        </div>
-        <div class="fw-stats-item">
-          <strong>Top 50</strong>
-          <span>global MBA &amp; EMBA schools</span>
-        </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  <section class="fw-cta-band" aria-label="Ready to start">
-    <div class="fw-cta-inner">
-      <img class="fw-cta-logo" src="../qava-hero-arrow.png" alt="The Club" />
-      <h3 class="fw-cta-title">Ready to start?</h3>
-      <p class="fw-cta-sub">Create your free profile in minutes and start applying to live opportunities today.</p>
-      <div class="fw-cta-actions">
-        <a class="fw-hero-cta fw-hero-cta--primary" href="https://app.theclubnyc.com/">Get Started</a>
-        <a class="fw-hero-cta fw-hero-cta--ghost" href="https://app.theclubnyc.com/">Search Listings</a>
-      </div>
-    </div>
-  </section>
+      <section class="fw-how" id="fw-how" aria-label="How it works">
+        <div class="fw-how-inner">
+          <h2 class="fw-how-title">How it works</h2>
+          <p class="fw-how-sub">Four steps from signup to getting paid.</p>
+          <div class="fw-how-grid">
+            <article class="fw-how-card">
+              <div class="fw-how-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+              <p class="fw-how-step">Step 1</p>
+              <h3>Create your profile</h3>
+              <p>Sign up, add your skills, education, and experience. Takes about 5 minutes.</p>
+            </article>
+            <article class="fw-how-card">
+              <div class="fw-how-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg></div>
+              <p class="fw-how-step">Step 2</p>
+              <h3>Browse &amp; apply</h3>
+              <p>Search live projects, jobs, and internships. Apply with one click when you find the right fit.</p>
+            </article>
+            <article class="fw-how-card">
+              <div class="fw-how-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg></div>
+              <p class="fw-how-step">Step 3</p>
+              <h3>Do great work</h3>
+              <p>Get matched, align on deliverables, and execute. Structured support keeps everything on track.</p>
+            </article>
+            <article class="fw-how-card">
+              <div class="fw-how-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2.3"></path><path d="M10 12h4"></path></svg></div>
+              <p class="fw-how-step">Step 4</p>
+              <h3>Get paid</h3>
+              <p>Secure payment on completion. Build your reputation and unlock higher-value opportunities.</p>
+            </article>
+          </div>
+        </div>
+      </section>
 
-  <section class="fw-faq" id="fw-faq" aria-label="FAQ">
-    <h2 class="fw-faq-title">FAQ</h2>
-    <div class="fw-faq-list">
-      <div class="fw-faq-item is-open">
-        <button type="button" class="fw-faq-q" aria-expanded="true">
-          Who can apply for work on The Club?
-          <span class="fw-faq-icon" aria-hidden="true"></span>
-        </button>
-        <div class="fw-faq-panel">
-          <div class="fw-faq-panel-inner">
-            <p class="fw-faq-a">The Club is designed for MBA students, graduate-level talent, and experienced professionals with strong business or technical expertise. While it was founded for MBAs and advanced degree holders, we also welcome independent consultants with relevant skills.</p>
+      <section class="fw-cta-band" aria-label="Ready to start">
+        <div class="fw-cta-inner">
+          <img class="fw-cta-logo" src="arrow.png" alt="The Club" />
+          <h3 class="fw-cta-title">Ready to start?</h3>
+          <p class="fw-cta-sub">Capitalize on the momentum you just built.</p>
+          <div class="fw-cta-actions">
+            <a class="fw-hero-cta fw-hero-cta--primary" href="https://app.theclubnyc.com/">Get Started</a>
+            <a class="fw-hero-cta fw-hero-cta--ghost" href="https://app.theclubnyc.com/">Find your next opportunity</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="fw-faq" id="fw-faq" aria-label="FAQ">
+        <h2 class="fw-faq-title">FAQ</h2>
+        <div class="fw-faq-list" id="faqList"></div>
+      </section>
+    </main>
+
+    <footer class="footer-section">
+      <div class="footer-container">
+        <div class="footer-content">
+          <div class="footer-logo">
+            <a href="https://www.theclubnyc.com/">
+              <img src="https://app.theclubnyc.com/the-club-logo-light.png" alt="The Club" width="100" height="22" />
+            </a>
+          </div>
+          <div class="footer-links">
+            <div class="footer-column">
+              <h4 class="footer-heading">Welcome</h4>
+              <ul class="footer-link-list">
+                <li><a class="footer-link" href="https://app.theclubnyc.com/guest">Create listing</a></li>
+                <li><a class="footer-link" href="https://www.theclubnyc.com/find/">Find work</a></li>
+                <li><a class="footer-link" href="https://www.theclubnyc.com/howitworks">How it works</a></li>
+                <li><a class="footer-link" href="https://www.theclubnyc.com/about">About</a></li>
+              </ul>
+            </div>
+            <div class="footer-column">
+              <h4 class="footer-heading">Get started</h4>
+              <ul class="footer-link-list">
+                <li><a class="footer-link" href="https://app.theclubnyc.com/">Sign up</a></li>
+                <li><a class="footer-link" href="https://app.theclubnyc.com/">Log in</a></li>
+              </ul>
+            </div>
+            <div class="footer-column">
+              <h4 class="footer-heading">Resources</h4>
+              <ul class="footer-link-list">
+                <li><a class="footer-link" href="https://www.theclubnyc.com/templates">How Tos</a></li>
+                <li><a class="footer-link" href="https://www.theclubnyc.com/pricing">Pricing</a></li>
+                <li><a class="footer-link" href="https://www.theclubnyc.com/termsofuse">Terms of Use</a></li>
+              </ul>
+            </div>
+            <div class="footer-copyright">© 2026 The Club NYC</div>
           </div>
         </div>
       </div>
+    </footer>
+  </div>
 
-      <div class="fw-faq-item">
-        <button type="button" class="fw-faq-q" aria-expanded="false">
-          What types of work are available?
-          <span class="fw-faq-icon" aria-hidden="true"></span>
-        </button>
-        <div class="fw-faq-panel">
-          <div class="fw-faq-panel-inner">
-            <p class="fw-faq-a">Three types: on-demand projects (strategy, finance, marketing work with clear scope and deliverables), jobs (full-time and part-time roles at fast-growing companies), and internships (paid, structured opportunities across industries and functions).</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="fw-faq-item">
-        <button type="button" class="fw-faq-q" aria-expanded="false">
-          How does the application process work?
-          <span class="fw-faq-icon" aria-hidden="true"></span>
-        </button>
-        <div class="fw-faq-panel">
-          <div class="fw-faq-panel-inner">
-            <p class="fw-faq-a">Browse live listings, find a project or role that fits your skills, and submit your application with one click. Our AI-powered matching helps surface the right opportunities. Once a client selects you, you’ll align on deliverables and timelines before work begins.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="fw-faq-item">
-        <button type="button" class="fw-faq-q" aria-expanded="false">
-          How do I get paid?
-          <span class="fw-faq-icon" aria-hidden="true"></span>
-        </button>
-        <div class="fw-faq-panel">
-          <div class="fw-faq-panel-inner">
-            <p class="fw-faq-a">The Club makes payments seamless and secure. Once the project is complete, funds are released based on the agreed terms — giving both sides confidence and clarity. For jobs and internships, compensation follows the employer’s standard payroll process.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="fw-faq-item">
-        <button type="button" class="fw-faq-q" aria-expanded="false">
-          Is The Club available globally?
-          <span class="fw-faq-icon" aria-hidden="true"></span>
-        </button>
-        <div class="fw-faq-panel">
-          <div class="fw-faq-panel-inner">
-            <p class="fw-faq-a">Yes. The Club operates internationally, matching talent and clients across time zones. Projects can be remote or in-person depending on the listing.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="fw-faq-item">
-        <button type="button" class="fw-faq-q" aria-expanded="false">
-          What makes The Club different from other job boards?
-          <span class="fw-faq-icon" aria-hidden="true"></span>
-        </button>
-        <div class="fw-faq-panel">
-          <div class="fw-faq-panel-inner">
-            <p class="fw-faq-a">Quality, not volume. Every listing is curated. The work is strategic and MBA-level — not busy work. You’re matched with operators who value your thinking, and every project includes structured support and secure payment. Plus, 70% of projects lead to ongoing relationships.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer Section (populated by qava-footer.js) -->
-  <footer class="footer-section"></footer>
-
-  <script src="../qava-footer.js"></script>
   <script>
-    if (typeof window.applyQavaFooter === "function") {
-      window.applyQavaFooter(document);
-    }
+    if (new URLSearchParams(location.search).has("dev")) document.body.classList.add("show-dev-notes");
 
-    (function () {
-      var list = document.querySelector(".fw-faq-list");
-      if (!list) return;
-      list.addEventListener("click", function (e) {
-        var btn = e.target.closest(".fw-faq-q");
-        if (!btn) return;
-        var item = btn.closest(".fw-faq-item");
-        var open = item.classList.contains("is-open");
-        list.querySelectorAll(".fw-faq-item").forEach(function (el) {
-          el.classList.remove("is-open");
-          var q = el.querySelector(".fw-faq-q");
-          if (q) q.setAttribute("aria-expanded", "false");
-        });
-        if (!open) {
-          item.classList.add("is-open");
-          btn.setAttribute("aria-expanded", "true");
-        }
-      });
-    })();
+    const PROJECT_TYPES = [
+      "Business Plan",
+      "Competitor Analysis",
+      "Cost Optimization",
+      "Creative Strategy",
+      "Customer Segmentation",
+      "Data Analysis",
+      "Data Strategy",
+      "Financial Model",
+      "Go-To-Market Strategy",
+      "Grant Application",
+      "Growth Plan",
+      "Industry Analysis",
+      "Operating Model Design",
+      "Organizational Design",
+      "Pitch Deck",
+      "Pricing Strategy",
+      "Process Improvement",
+      "Product Strategy",
+      "Sales & Marketing Strategy",
+      "Strategic Finance",
+      "Supply Chain Analysis",
+      "Tariff Impact Assessment",
+      "Vendor Strategy",
+      "Cloud Migration",
+      "Cyber Security",
+      "Digital Transformation",
+      "Innovation Projects",
+      "Partnership Strategy",
+      "System Migration",
+      "Technology Rationalization",
+      "Virtual Workshop",
+    ];
+    const LISTINGS = [
+      { type: "Job", featured: true, thumb: "thumbs/growth.png", role: "Early-Stage Fintech Scale-Up Seeks Full-Time Growth Marketing Lead Role", desc: "Own acquisition, content, and brand campaigns for a seed-stage payments firm", meta: ["New York City", "Full-time", "$120k–$160k"] },
+      { type: "Internship", featured: false, thumb: "thumbs/industry.png", role: "Boutique Strategy Consulting Firm Seeks Hands-On MBA Strategy Intern Role", desc: "Support client workstreams across market entry, pricing, and growth planning", meta: ["Remote", "Fall 2026", "$32/hr"] },
+      { type: "Project", featured: true, thumb: "thumbs/pitch.png", role: "Series B B2B SaaS Platform Looking for Investor Pitch Deck and Narrative", desc: "Build investor-ready narrative, core slides, appendix, and supporting storyline", meta: ["Remote", "$525", "10 hours"] },
+      { type: "Project", featured: false, thumb: "thumbs/gtm.png", role: "Pre-Seed Consumer Marketplace Seeks Complete Go-To-Market Strategy Plan", desc: "Define ICP, positioning, channels, and a 90-day launch plan for new vertical", meta: ["Remote", "$280", "12 hours"] },
+      { type: "Project", featured: false, thumb: "thumbs/pricing.png", role: "Series A Fintech Company Seeks Full Pricing and Packaging Strategy Project", desc: "Refine packaging, tiers, and willingness-to-pay experiments for core product", meta: ["Remote", "$280", "12 hours"] },
+      { type: "Job", featured: false, thumb: "thumbs/product.png", role: "Harbor B2B Marketplace Seeks Part-Time Product Designer for Core Product", desc: "Design product flows, UI components, and iteration cycles with a lean team", meta: ["Remote", "20 hrs/wk", "$72k–$90k"] },
+    ];
+    const REVIEWS = [
+      { school: "Harvard Business School", year: "2024", logo: "logos/hbs.png", crest: false, quote: "Matched in a day. Scoped cleanly. Paid on time. I’ll keep coming back.", pill: "Ops" },
+      { school: "Berkeley Haas", year: "2025", logo: "logos/haas.png", crest: false, quote: "Finally, project work that respects MBA-level thinking — not busywork.", pill: "Product" },
+      { school: "Stanford GSB", year: "2023", logo: "logos/stanford.png", crest: false, quote: "I shipped a pricing project that the client still uses. That’s the bar.", pill: "Pricing" },
+      { school: "MIT Sloan", year: "2024", logo: "logos/mit.png", crest: false, quote: "Clear scope, sharp clients, and work I can put on a resume with pride.", pill: "Analytics" },
+      { school: "NYU Stern", year: "2025", logo: "logos/stern.png", crest: false, quote: "Better than cold outreach. Better briefs. Better outcomes. Simple.", pill: "Marketing" },
+      { school: "Oxford Saïd", year: "2024", logo: "logos/said.png", crest: false, quote: "Remote, high-trust projects with founders who actually wanted my input.", pill: "Growth" },
+      { school: "AGSM", year: "2023", logo: "logos/agsm.jpg", crest: false, quote: "I landed a role through a project. The relationship outlived the brief.", pill: "Full-time" },
+      { school: "Kellogg", year: "2025", logo: "logos/kellogg.png", crest: false, quote: "Applied Friday, kicked off Monday. The platform just moves.", pill: "Speed" },
+      { school: "Wharton", year: "2024", logo: "logos/wharton.png", crest: false, quote: "Quality over volume. Every listing felt worth opening.", pill: "Finance" },
+      { school: "Columbia", year: "2025", logo: "logos/columbia.svg", crest: true, quote: "Protected payments, clear deliverables — I could focus on the work.", pill: "Consulting" },
+      { school: "Harvard Business School", year: "2023", logo: "logos/hbs.png", crest: false, quote: "The clients were operators. The feedback was direct. I grew fast.", pill: "Leadership" },
+      { school: "Berkeley Haas", year: "2024", logo: "logos/haas.png", crest: false, quote: "Short projects, real ownership. Exactly what I wanted between terms.", pill: "Internship" },
+      { school: "MIT Sloan", year: "2025", logo: "logos/mit.png", crest: false, quote: "I’d recommend The Club to anyone who wants proof, not just potential.", pill: "Proof" },
+    ];
+    const FAQ = [
+      ["Who can apply for work on The Club?", "The Club is designed for MBA students, graduate-level talent, and experienced professionals with strong business or technical expertise. While it was founded for MBAs and advanced degree holders, we also welcome independent consultants with relevant skills."],
+      ["What types of work are available?", "Three types: on-demand projects (strategy, finance, marketing work with clear scope and deliverables), jobs (full-time and part-time roles at fast-growing companies), and internships (paid, structured opportunities across industries and functions)."],
+      ["How does the application process work?", "Browse live listings, find a project or role that fits your skills, and submit your application with one click. Our AI-powered matching helps surface the right opportunities. Once a client selects you, you’ll align on deliverables and timelines before work begins."],
+      ["How do I get paid?", "The Club makes payments seamless and secure. Once the project is complete, funds are released based on the agreed terms — giving both sides confidence and clarity. For jobs and internships, compensation follows the employer’s standard payroll process."],
+      ["Is The Club available globally?", "Yes. The Club operates internationally, matching talent and clients across time zones. Projects can be remote or in-person depending on the listing."],
+      ["What makes The Club different from other job boards?", "Quality, not volume. Every listing is curated. The work is strategic and MBA-level — not busy work. You’re matched with operators who value your thinking, and every project includes structured support and secure payment. Plus, 70% of projects lead to ongoing relationships."],
+    ];
 
-    (function () {
-      document.querySelectorAll("[data-fw-scroll]").forEach(function (link) {
-        link.addEventListener("click", function (e) {
-          var id = link.getAttribute("data-fw-scroll");
-          var target = id && document.getElementById(id);
-          if (!target) return;
-          e.preventDefault();
-          target.scrollIntoView({ behavior: "smooth", block: "start" });
-          if (history.replaceState) {
-            history.replaceState(null, "", "#" + id);
-          } else {
-            location.hash = id;
-          }
-        });
-      });
-    })();
+    function duplicate(html) { return html + html; }
 
-    (function () {
-      document.querySelectorAll(".fw-shop-card").forEach(function (card) {
-        var img = card.querySelector(".img-wrap img");
-        if (!img) {
-          card.classList.add("is-loaded");
-          return;
-        }
-        var markLoaded = function () {
-          card.classList.add("is-loaded");
-        };
-        if (img.complete && img.naturalWidth > 0) {
-          markLoaded();
-        } else {
-          img.addEventListener("load", markLoaded, { once: true });
-          img.addEventListener("error", markLoaded, { once: true });
-        }
+    const CHECK_SVG = '<svg class="fw-popular-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+    document.getElementById("popularList").innerHTML = PROJECT_TYPES.map((name) => `<li>${CHECK_SVG}${name}</li>`).join("");
+
+    document.getElementById("liveTrack").innerHTML = duplicate(
+      LISTINGS.map((item) => `
+        <a class="fw-opp" href="https://app.theclubnyc.com/">
+          <img class="fw-opp-thumb" src="${item.thumb}" alt="">
+          <div class="fw-opp-body">
+            <div class="fw-opp-kicker">
+              <span class="fw-opp-type">${item.type}</span>
+              ${item.featured ? '<span class="fw-opp-badge">Featured</span>' : ""}
+            </div>
+            <div class="fw-opp-role">${item.role}</div>
+            <p class="fw-opp-desc">${item.desc}</p>
+            <div class="fw-opp-meta">${item.meta.map((m, i) => `${i ? '<span class="fw-opp-dot">·</span>' : ""}<span>${m}</span>`).join("")}</div>
+          </div>
+        </a>`).join("")
+    );
+    document.getElementById("sayGrid").innerHTML = REVIEWS.map((r) => `
+      <article class="fw-say-card">
+        <div class="fw-say-person">
+          <div class="fw-say-avatar${r.crest ? " fw-say-avatar--crest" : ""}" aria-hidden="true"><img src="${r.logo}" alt=""></div>
+          <div>
+            <div class="fw-say-school">${r.school}</div>
+            <div class="fw-say-class">Class of ${r.year}</div>
+          </div>
+        </div>
+        <p class="fw-say-quote">“${r.quote}”</p>
+        <div class="fw-say-pills"><span class="fw-say-pill">${r.pill}</span></div>
+      </article>`).join("");
+    document.getElementById("faqList").innerHTML = FAQ.map(([q, a], i) => `
+      <div class="fw-faq-item${i === 0 ? " is-open" : ""}">
+        <button type="button" class="fw-faq-q" aria-expanded="${i === 0 ? "true" : "false"}">
+          ${q}<span class="fw-faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="fw-faq-panel"><div class="fw-faq-panel-inner"><p class="fw-faq-a">${a}</p></div></div>
+      </div>`).join("");
+
+    document.getElementById("faqList").addEventListener("click", (e) => {
+      const btn = e.target.closest(".fw-faq-q");
+      if (!btn) return;
+      const item = btn.closest(".fw-faq-item");
+      const open = item.classList.contains("is-open");
+      document.querySelectorAll(".fw-faq-item.is-open").forEach((el) => {
+        el.classList.remove("is-open");
+        el.querySelector(".fw-faq-q").setAttribute("aria-expanded", "false");
       });
-    })();
+      if (!open) {
+        item.classList.add("is-open");
+        btn.setAttribute("aria-expanded", "true");
+      }
+    });
+
   </script>
-<script src="../qava-nav-logo-flip.js?v=multi-1"></script>
+
+  <script src="/qava-nav-logo-flip.js?v=multi-1"></script>
+  <script>
+    function toggleMobileMenu() {
+      const mobileMenu = document.getElementById("mobileMenu");
+      mobileMenu.classList.toggle("active");
+      document.body.style.overflow = mobileMenu.classList.contains("active") ? "hidden" : "";
+    }
+    document.addEventListener("click", function (event) {
+      const mobileMenu = document.getElementById("mobileMenu");
+      const hamburgerMenu = document.querySelector(".hamburger-menu");
+      if (
+        mobileMenu &&
+        hamburgerMenu &&
+        mobileMenu.classList.contains("active") &&
+        !mobileMenu.contains(event.target) &&
+        !hamburgerMenu.contains(event.target)
+      ) {
+        toggleMobileMenu();
+      }
+    });
+  </script>
+  <script src="/qava-auth.js?v=login-1"></script>
 </body>
 </html>
