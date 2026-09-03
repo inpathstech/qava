@@ -1,13 +1,3300 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="refresh" content="0; url=https://app.theclubnyc.com/strategy" />
-  <link rel="canonical" href="https://app.theclubnyc.com/strategy" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Strategy Breakdowns | The Club</title>
-  <script>location.replace("https://app.theclubnyc.com/strategy");</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* How To article tokens — matches shell.css / live template detail */
+      --display: Georgia, "Iowan Old Style", "Times New Roman", serif;
+      --ui: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      --ink: #111827;
+      --muted: #6b7280;
+      --soft: #9b9a97;
+      --line: rgba(55, 53, 47, 0.09);
+      --panel-solid: #f7f6f5;
+      --content: 760px;
+      --page-pad-x: 48px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    html, body { min-height: 100%; }
+    body {
+      font-family: var(--ui);
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--ink);
+      background: #fff;
+      -webkit-font-smoothing: antialiased;
+      letter-spacing: normal;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .designer-bar {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      background: #fff;
+      border: 1px solid rgba(55, 53, 47, 0.09);
+      border-radius: 999px;
+      box-shadow: 0 8px 24px rgba(17, 24, 39, 0.08);
+    }
+    .designer-bar button {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font: 400 12px/1 var(--ui);
+      padding: 8px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    .designer-bar button.is-on { background: var(--ink); color: #fff; }
+    .designer-bar .sep {
+      width: 1px;
+      height: 16px;
+      background: rgba(55, 53, 47, 0.09);
+      margin: 0 2px;
+    }
+    /* Dev-only chrome — hidden unless ?dev=1 (body.show-dev-notes) */
+    .note {
+      display: none;
+      position: fixed;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2000;
+      max-width: 560px;
+      text-align: center;
+      font-size: 12.5px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.45;
+      pointer-events: none;
+    }
+    body.show-dev-notes .note { display: block; }
+    body:not(.show-dev-notes) .alg-foot-note { display: none; }
+
+    #qava-dot-base-fixed {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image: radial-gradient(circle, rgba(17, 24, 39, 0.16) 1px, transparent 1.35px);
+      background-size: 20px 20px;
+      background-repeat: repeat;
+    }
+    #qava-dot-base-fixed::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(17, 24, 39, 0.32) 1px, transparent 1.35px);
+      background-size: 20px 20px;
+      background-repeat: repeat;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.2) 38%, #000 50%, rgba(0,0,0,0.2) 62%, transparent 100%);
+      mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.2) 38%, #000 50%, rgba(0,0,0,0.2) 62%, transparent 100%);
+      -webkit-mask-size: 55% 100%;
+      mask-size: 55% 100%;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      animation: qava-dot-mexican-wave 4.2s ease-in-out infinite;
+    }
+    @keyframes qava-dot-mexican-wave {
+      0% { -webkit-mask-position: -50% 0; mask-position: -50% 0; }
+      100% { -webkit-mask-position: 150% 0; mask-position: 150% 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #qava-dot-base-fixed::after { animation: none; opacity: 0; }
+    }
+    body > *:not(#qava-dot-base-fixed):not(.designer-bar):not(.note) {
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-container {
+      width: calc(100% - 22px);
+      margin: 0 auto;
+      padding: 8px 20px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 58px;
+      position: sticky;
+      top: 0;
+      z-index: 1200;
+      background: rgba(255, 255, 255, 0.24);
+      -webkit-backdrop-filter: blur(18px) saturate(150%);
+      backdrop-filter: blur(18px) saturate(150%);
+      isolation: isolate;
+      overflow: visible;
+    }
+    .header-container::before {
+      content: "";
+      position: absolute;
+      left: 6px; right: 6px; top: 3px; bottom: 3px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.62) 0%, rgba(255,255,255,0.5) 55%, rgba(255,255,255,0.44) 100%);
+      -webkit-backdrop-filter: blur(26px) saturate(165%);
+      backdrop-filter: blur(26px) saturate(165%);
+      box-shadow: 0 10px 24px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      z-index: 0;
+      pointer-events: none;
+    }
+    .header-container > * { position: relative; z-index: 1; }
+    .header-logo, .logo-container, .logo { display: inline-flex; align-items: center; flex-shrink: 0; }
+    .logo a { display: inline-flex; align-items: center; }
+    .logo img { display: block; width: 72px; height: 16px; object-fit: contain; }
+    .header-center {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex: 1;
+      margin-left: 40px;
+      min-width: 0;
+    }
+    .navigation { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; }
+    .nav-item {
+      display: inline-flex;
+      align-items: center;
+      background: transparent;
+      border: 0;
+      padding: 0;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .nav-text {
+      padding: 0 4px;
+      font-family: Inter, sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: #6b6b6b;
+      line-height: 1.4;
+      transition: color 0.2s ease;
+    }
+    .nav-item:hover .nav-text,
+    .nav-item.is-active .nav-text { color: #000; }
+    .header-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .auth-section { display: flex; align-items: center; gap: 28px; }
+    .qava-premium-nav-btn .nav-text { font-size: 14px; font-weight: 300; color: #6b6b6b; }
+    .qava-premium-nav-btn:hover .nav-text { color: #000; }
+    .join-button {
+      padding: 6px 12px;
+      background: #2b2b2b;
+      border: 1px solid #2b2b2b;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .join-button:hover { background: #000; border-color: #000; }
+    .join-text {
+      color: #fff;
+      font-family: Inter, sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1;
+    }
+    .hamburger-menu {
+      display: none;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+    }
+    .hamburger-line { height: 1.5px; background: #111; border-radius: 1px; }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1300;
+      background: #fff;
+      padding: 72px 28px 40px;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .mobile-menu.is-open { display: flex; }
+    .mobile-menu .close-menu {
+      position: absolute;
+      top: 22px;
+      right: 22px;
+      font-size: 22px;
+      cursor: pointer;
+      color: #111;
+    }
+    .mobile-nav-item .nav-text { font-size: 22px; font-weight: 300; color: #111; }
+    .mobile-menu .join-button { width: fit-content; margin-top: 8px; }
+
+    .av2-body {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: var(--content);
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 10px;
+      box-sizing: border-box;
+      overflow: visible;
+    }
+    .av2-body--alg {
+      min-height: 50vh;
+    }
+    .av2-wrap {
+      width: 100%;
+      padding: 28px var(--page-pad-x) 48px;
+      box-sizing: border-box;
+    }
+    .av2-body:not(.av2-body--alg) .av2-wrap {
+      padding-bottom: 18px;
+    }
+    .av2-body--alg .av2-wrap {
+      padding-top: 18px;
+    }
+    .av2-label {
+      font-family: var(--ui);
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--soft);
+      margin: 0 0 8px;
+    }
+
+    /* Find Work–style centered hero on dotted background */
+    .page-hero {
+      position: relative;
+      z-index: 1;
+      width: min(920px, calc(100% - 32px));
+      margin: 72px auto 0;
+      padding: 0 0 48px;
+      text-align: center;
+    }
+    .page-hero-icon {
+      width: 108px;
+      height: 108px;
+      border-radius: 14px;
+      display: block;
+      margin: 0 auto 26px;
+      object-fit: cover;
+      background: #111;
+      box-shadow: 0 16px 50px rgba(20, 10, 22, 0.18);
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      will-change: transform;
+      animation: pageHeroIconFlip 2.4s linear infinite;
+    }
+    @keyframes pageHeroIconFlip {
+      0% { transform: perspective(900px) rotateY(-22deg) rotateZ(-1deg); }
+      25% { transform: perspective(900px) rotateY(0deg) rotateZ(0deg); }
+      50% { transform: perspective(900px) rotateY(22deg) rotateZ(1deg); }
+      75% { transform: perspective(900px) rotateY(0deg) rotateZ(0deg); }
+      100% { transform: perspective(900px) rotateY(-22deg) rotateZ(-1deg); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .page-hero-icon { animation: none; }
+    }
+    .page-hero-title {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(34px, 3.6vw, 54px);
+      letter-spacing: -0.012em;
+      line-height: 1.08;
+      color: var(--ink);
+      margin: 0 auto 10px;
+      max-width: none;
+      text-align: center;
+    }
+    .page-hero-sub {
+      font-family: var(--ui);
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.45;
+      color: #6b6b6b;
+      margin: 0 auto 28px;
+      max-width: 36rem;
+      text-align: center;
+    }
+    .page-hero-proof {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 0 auto 14px;
+      max-width: 100%;
+      white-space: nowrap;
+    }
+    .page-hero-proof-label {
+      font-family: var(--ui);
+      font-size: 12px;
+      font-weight: 300;
+      color: #6b6b6b;
+      line-height: 1.3;
+      margin: 0;
+      flex: 0 0 auto;
+      white-space: nowrap;
+    }
+    .page-hero-logos {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 0;
+      min-width: 0;
+    }
+    .page-hero-logos img,
+    .page-hero-logos .logo-word {
+      display: block;
+      height: 14px;
+      width: auto;
+      flex: 0 0 auto;
+      object-fit: contain;
+      filter: grayscale(1);
+      opacity: 0.45;
+    }
+    .page-hero-logos img[alt="Bain Capital"] {
+      height: 11px;
+    }
+    .page-hero-logos img[alt="Cotopaxi"] {
+      height: 13px;
+    }
+    .page-hero-logos .logo-word {
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+      line-height: 14px;
+      filter: none;
+      opacity: 0.45;
+    }
+    .examples {
+      padding: 8px 0 4px;
+    }
+    .examples-intro {
+      max-width: 40rem;
+      margin: 0 0 28px;
+    }
+    .examples-title {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(1.35rem, 2.5vw, 1.55rem);
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      color: var(--ink);
+      margin: 0 0 8px;
+    }
+    .examples-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px 18px;
+    }
+    .examples-cta {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-top: 22px;
+    }
+    .examples-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 28px;
+      padding: 0 14px;
+      background: var(--ink);
+      border: 0;
+      border-radius: 6px;
+      color: #fff;
+      font-family: Inter, sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      font-style: normal;
+      line-height: 1;
+      white-space: nowrap;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    .examples-cta-btn:hover {
+      background: #000;
+      color: #fff;
+    }
+    .examples-cta-login {
+      display: inline-flex;
+      align-items: center;
+      background: transparent;
+      border: 0;
+      padding: 0;
+      color: #6b6b6b;
+      font-family: Inter, sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      line-height: 1;
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+    .examples-cta-login:hover {
+      color: #000;
+      background: transparent;
+    }
+    /* Quotes sit on the dotted page canvas — no white section band */
+    .quotes-band {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: var(--content);
+      margin: 56px auto 48px;
+      padding: 0 var(--page-pad-x);
+      box-sizing: border-box;
+      background: transparent;
+    }
+    .quotes-kicker {
+      font-family: var(--ui);
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--soft);
+      text-align: center;
+      margin: 0 0 22px;
+    }
+    .quotes {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px 16px;
+      margin: 0;
+      padding: 0;
+      align-items: stretch;
+    }
+    .quote {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      margin: 0;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      box-sizing: border-box;
+    }
+    .quote-stars {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      margin: 0 0 8px;
+      color: #111;
+      line-height: 1;
+    }
+    .quote-stars svg {
+      display: block;
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
+    }
+    .quote blockquote {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      flex: 1 1 auto;
+      font-family: var(--ui);
+      font-size: 12.5px;
+      font-weight: 400;
+      font-style: normal;
+      letter-spacing: -0.005em;
+      line-height: 1.5;
+      color: #111;
+    }
+    .quote figcaption {
+      margin: 12px 0 0;
+      padding: 0;
+      font-family: var(--display);
+      font-size: 12.5px;
+      font-weight: 400;
+      font-style: normal;
+      color: var(--soft);
+      letter-spacing: -0.01em;
+    }
+    .ex-card {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      color: inherit;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .ex-art {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #f7f6f5;
+    }
+    .ex-art img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 14%;
+    }
+    .ex-caption {
+      padding: 10px 2px 0;
+      text-align: left;
+    }
+    .ex-cat {
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 3px;
+    }
+    .ex-title {
+      font-family: var(--display);
+      font-size: 16px;
+      line-height: 1.25;
+      margin: 0;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+    }
+    .ex-formats {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 10px;
+    }
+    .ex-formats img {
+      width: 12px;
+      height: 12px;
+      object-fit: contain;
+      filter: grayscale(1);
+      opacity: 0.38;
+    }
+
+    .alg-hero {
+      width: 100%;
+      max-width: none;
+      position: relative;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .alg-intro {
+      max-width: 40rem;
+      margin: 0 0 8px;
+    }
+    .alg-title {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(1.35rem, 2.5vw, 1.55rem);
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      color: var(--ink);
+      margin: 0;
+    }
+    .alg-lede {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--muted);
+      margin: 0;
+      max-width: 40rem;
+    }
+
+    .alg-layout {
+      display: grid;
+      grid-template-columns: minmax(248px, 0.92fr) minmax(0, 1.45fr);
+      grid-template-areas:
+        "search ."
+        "side detail";
+      column-gap: 40px;
+      row-gap: 16px;
+      align-items: start;
+    }
+    .alg-search { grid-area: search; margin: 0; }
+    .alg-side { grid-area: side; min-width: 0; }
+    .alg-detail { grid-area: detail; }
+    .alg-search-field {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .alg-search-icon {
+      position: absolute;
+      left: 9px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 14px;
+      height: 14px;
+      color: var(--soft);
+      pointer-events: none;
+      flex-shrink: 0;
+    }
+    .alg-search-input {
+      width: 100%;
+      height: 27px;
+      appearance: none;
+      -webkit-appearance: none;
+      border: 1px solid rgba(55, 53, 47, 0.16);
+      background: #fff;
+      color: var(--ink);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      font-style: normal;
+      font-synthesis: none;
+      line-height: 1.2;
+      letter-spacing: normal;
+      text-transform: none;
+      padding: 0 28px 0 30px;
+      border-radius: 8px;
+      outline: none;
+      -webkit-font-smoothing: antialiased;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .alg-search-input::placeholder,
+    .alg-search-input::-webkit-input-placeholder {
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      font-style: normal;
+      font-synthesis: none;
+      letter-spacing: normal;
+      line-height: 1.2;
+      text-transform: none;
+      color: var(--soft);
+      -webkit-text-fill-color: var(--soft);
+      opacity: 1;
+    }
+    .alg-search-input::-moz-placeholder {
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      font-style: normal;
+      letter-spacing: normal;
+      line-height: 1.2;
+      text-transform: none;
+      color: var(--soft);
+      opacity: 1;
+    }
+    .alg-search-input:hover { border-color: rgba(55, 53, 47, 0.28); }
+    .alg-search-input:focus {
+      border-color: var(--ink);
+      box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.06);
+    }
+    .alg-search-field:focus-within .alg-search-icon { color: var(--muted); }
+    .alg-search-clear {
+      position: absolute;
+      right: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 0;
+    }
+    .alg-search-clear.is-visible { display: inline-flex; }
+    .alg-search-clear:hover { color: var(--ink); background: var(--panel-solid); }
+    .alg-search-meta {
+      margin: 8px 2px 0;
+      font-family: var(--ui);
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.4;
+      color: var(--muted);
+    }
+    .alg-search-meta[hidden] { display: none; }
+    .alg-jump { margin: 0 0 22px; }
+    .alg-jump-label {
+      font-family: var(--ui);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--soft);
+      margin: 0 0 12px;
+    }
+    .alg-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .alg-pill {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid rgba(55, 53, 47, 0.14);
+      background: #fff;
+      color: var(--muted);
+      font-family: var(--ui);
+      font-size: 11px;
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      padding: 2px 7px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+    }
+    .alg-pill:hover {
+      background: #fff;
+      border-color: var(--ink);
+      color: var(--ink);
+    }
+    .alg-pill.is-on {
+      background: #fff;
+      border-color: var(--ink);
+      color: var(--ink);
+    }
+    .alg-pill.is-on:hover {
+      background: #fff;
+      border-color: #000;
+      color: #000;
+    }
+    .alg-pill.is-dimmed {
+      opacity: 0.35;
+    }
+    .alg-pill:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 2px;
+    }
+
+    .alg-chart-wrap {
+      position: relative;
+      width: 100%;
+      margin: 2px 0 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      user-select: none;
+    }
+    .alg-line {
+      position: relative;
+      width: 100%;
+      height: 34px;
+    }
+    .alg-line-rule {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 4px;
+      height: 1px;
+      background: rgba(55, 53, 47, 0.16);
+      pointer-events: none;
+    }
+    .alg-line-stage {
+      position: absolute;
+      top: 0;
+      left: var(--stage-x, 0%);
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0;
+      margin: 0;
+      border: 0;
+      background: transparent;
+      font: inherit;
+      color: inherit;
+      cursor: default;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .alg-line-mark {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 10px;
+      height: 9px;
+      margin-bottom: 7px;
+    }
+    .alg-line-tick {
+      position: absolute;
+      left: 50%;
+      top: -3px;
+      width: 1px;
+      height: 8px;
+      margin-left: -0.5px;
+      background: transparent;
+      transition: background 0.15s ease;
+    }
+    .alg-line-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #fff;
+      border: 1px solid var(--soft);
+      box-sizing: border-box;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+    }
+    .alg-line-stage.is-on .alg-line-tick {
+      background: transparent;
+    }
+    .alg-line-stage.is-on .alg-line-dot {
+      background: var(--ink);
+      border-color: var(--ink);
+      transform: scale(1.2);
+    }
+    .alg-line-label {
+      font-family: var(--ui);
+      font-size: 8px;
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+      color: var(--soft);
+      text-align: center;
+      white-space: nowrap;
+      transition: color 0.15s ease, font-weight 0.15s ease;
+    }
+    .alg-line-stage.is-on .alg-line-label {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .alg-detail {
+      grid-area: detail;
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      max-width: 100%;
+    }
+    .alg-detail-kicker {
+      font-family: var(--ui);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--soft);
+      margin: 0 0 8px;
+      line-height: 1.15;
+      padding: 2px 0;
+    }
+    .alg-detail-title {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(1.45rem, 2.8vw, 1.8rem);
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      color: var(--ink);
+      margin: 0 0 18px;
+    }
+    .alg-strategies {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .alg-strategy {
+      padding: 0;
+      border-top: 1px solid var(--line);
+      opacity: 0;
+      transform: translateY(10px);
+      animation: algStrategyIn 0.28s ease forwards;
+    }
+    .alg-strategy:last-child { border-bottom: 1px solid var(--line); }
+    .alg-strategies.is-animating .alg-strategy {
+      animation-name: algStrategyIn;
+    }
+    @keyframes algStrategyIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .alg-strategy {
+        opacity: 1;
+        transform: none;
+        animation: none;
+      }
+    }
+    .alg-strategy-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+      text-align: left;
+      border: 0;
+      background: transparent;
+      padding: 12px 4px 12px 0;
+      margin: 0;
+      cursor: pointer;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .alg-strategy-btn:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 2px;
+    }
+    .alg-strategy-name {
+      font-family: var(--display);
+      font-size: 17px;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.3;
+      color: var(--ink);
+      margin: 0;
+      min-width: 0;
+    }
+    .alg-strategy-toggle {
+      flex: 0 0 auto;
+      width: 1.1em;
+      font-family: var(--ui);
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1;
+      color: var(--soft);
+      text-align: center;
+      transform: translateX(14px);
+      opacity: 0;
+      transition: transform 0.2s ease, opacity 0.2s ease, color 0.15s ease;
+    }
+    /* Hover / keyboard focus-visible only — not :focus-within, which sticks
+       the plus on a mouse-clicked (still focused) closed row. */
+    .alg-strategy-btn:hover .alg-strategy-toggle,
+    .alg-strategy-btn:focus-visible .alg-strategy-toggle,
+    .alg-strategy.is-open .alg-strategy-toggle {
+      transform: translateX(0);
+      opacity: 1;
+      color: var(--ink);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .alg-strategy-toggle {
+        transform: none;
+        opacity: 1;
+        transition: none;
+      }
+    }
+    .alg-detail-empty {
+      font-family: var(--ui);
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.5;
+      color: var(--soft);
+      margin: 8px 0 0;
+    }
+    .alg-strategy-panel {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.3s ease;
+    }
+    .alg-strategy.is-open .alg-strategy-panel {
+      grid-template-rows: 1fr;
+    }
+    .alg-strategy-panel-inner {
+      overflow: hidden;
+      min-height: 0;
+    }
+    .alg-strategy-panel-content {
+      padding: 0 4px 16px 0;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .alg-strategy-panel { transition: none; }
+    }
+    .alg-strategy-desc {
+      font-family: var(--ui);
+      font-size: 13.5px;
+      font-weight: 400;
+      line-height: 1.55;
+      color: var(--ink);
+      margin: 0 0 14px;
+    }
+    .alg-strategy-adv-label {
+      font-family: var(--ui);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--soft);
+      margin: 0 0 8px;
+    }
+    .alg-strategy-adv {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .alg-strategy-adv li {
+      position: relative;
+      padding: 0 0 3px 12px;
+      font-family: var(--ui);
+      font-size: 13.5px;
+      font-weight: 400;
+      line-height: 1.35;
+      color: var(--ink);
+    }
+    .alg-strategy-adv li:last-child { padding-bottom: 0; }
+    .alg-strategy-adv li::before {
+      content: "·";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--soft);
+    }
+
+    .alg-foot-note {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--soft);
+      line-height: 1.5;
+    }
+
+    .prem-band {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: var(--content);
+      margin: 40px auto 0;
+      padding: 0 var(--page-pad-x);
+      box-sizing: border-box;
+    }
+    .prem-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.28fr);
+      background: #fff;
+      border: 1px solid #000;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .prem-left,
+    .prem-right {
+      display: flex;
+      flex-direction: column;
+      padding: 28px 22px;
+      min-width: 0;
+    }
+    .prem-right {
+      border-left: 1px solid var(--line);
+      justify-content: center;
+      padding: 28px 18px 28px 20px;
+    }
+    .prem-eyebrow-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 10px;
+    }
+    .prem-eyebrow {
+      font-family: var(--ui);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--soft);
+      margin: 0;
+    }
+    .prem-beta {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      background: #f3f4f6;
+      padding: 2px 7px;
+      font-family: var(--ui);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+    }
+    .prem-title {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(1.55rem, 2.8vw, 2rem);
+      letter-spacing: -0.015em;
+      line-height: 1.15;
+      color: #000;
+      margin: 0 0 8px;
+    }
+    .prem-sub {
+      font-family: var(--ui);
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.4;
+      color: #6b6b6b;
+      margin: 0 0 22px;
+    }
+    .prem-foot {
+      margin-top: auto;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+    .prem-price {
+      font-family: var(--ui);
+      font-size: 15px;
+      color: var(--ink);
+      margin: 0 0 2px;
+    }
+    .prem-price b { font-weight: 600; }
+    .prem-price-unit {
+      font-weight: 300;
+      color: #6b6b6b;
+    }
+    .prem-price-note {
+      font-family: var(--ui);
+      font-size: 11px;
+      font-weight: 300;
+      line-height: 1.3;
+      color: #6b6b6b;
+      margin: 0 0 14px;
+    }
+    .prem-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 32px;
+      padding: 0 16px;
+      background: var(--ink);
+      border: 0;
+      border-radius: 6px;
+      color: #fff;
+      font-family: Inter, sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1;
+      text-decoration: none;
+      width: fit-content;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    .prem-cta:hover { background: #000; color: #fff; }
+    .prem-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .prem-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 7px 0;
+      font-family: var(--ui);
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.4;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+    .prem-check {
+      flex: 0 0 auto;
+      width: 16px;
+      height: 16px;
+      margin-top: 2px;
+      color: var(--ink);
+    }
+
+    /* Landing FAQ — matches theclubnyc.com .qa-* */
+    .qa-section {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: var(--content);
+      margin: 48px auto 0;
+      padding: 28px 0 40px;
+      background: #fff;
+      border-radius: 10px;
+      box-sizing: border-box;
+    }
+    .qa-container {
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 0 var(--page-pad-x);
+    }
+    .qa-title {
+      font-family: var(--display);
+      font-size: 40px;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: #000;
+      text-align: center;
+      margin: 0 0 48px;
+    }
+    .qa-item { border-bottom: 1px solid #ececec; }
+    .qa-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding: 16px;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      user-select: none;
+      text-align: left;
+      font: inherit;
+      color: inherit;
+    }
+    .qa-question-text {
+      font-family: var(--display);
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: -0.015em;
+      color: #000;
+      flex: 1;
+      padding-right: 16px;
+    }
+    .qa-toggle {
+      color: #000;
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .qa-toggle svg {
+      display: block;
+      width: 14px;
+      height: 14px;
+    }
+    .qa-item.active .qa-toggle { transform: rotate(45deg); }
+    .qa-answer {
+      max-height: 0;
+      overflow: hidden;
+    }
+    .qa-item.active .qa-answer {
+      padding-bottom: 20px;
+      padding-top: 4px;
+    }
+    .qa-answer-text {
+      font-family: var(--ui);
+      font-size: 14px;
+      font-weight: 300;
+      color: #333;
+      line-height: 1.6;
+      white-space: pre-line;
+      padding: 0 16px;
+      margin: 0;
+    }
+
+    .footer-section {
+      background: #fff;
+      width: 100%;
+      max-width: 1070px;
+      margin: 50px auto 0;
+      padding: 78px 0 46px;
+      border-top: 1px solid #ebebeb;
+    }
+    .footer-container { max-width: 940px; margin: 0 auto; padding: 0 20px; }
+    .footer-content { display: flex; flex-wrap: wrap; }
+    .footer-logo { width: 39%; min-width: 180px; margin-bottom: 30px; }
+    .footer-logo img { width: 100px; height: 22px; display: block; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 40px; flex: 1; }
+    .footer-heading {
+      font-family: Inter, sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: #111;
+      margin: 0 0 12px;
+    }
+    .footer-link-list { list-style: none; }
+    .footer-link-list li { margin: 0 0 8px; }
+    .footer-link { font-size: 13px; font-weight: 300; color: #797979; }
+    .footer-link:hover { text-decoration: underline; }
+    .footer-copyright {
+      width: 100%;
+      margin-top: 28px;
+      font-size: 12px;
+      font-weight: 300;
+      color: #9b9a97;
+    }
+
+    .page-frame {
+      width: 100%;
+      max-width: calc(var(--content) + 48px);
+      margin: 0 auto;
+      overflow: visible;
+    }
+
+    body.is-mobile .page-frame {
+      width: 390px;
+      max-width: 390px;
+      margin: 72px auto 96px;
+      box-shadow: 0 16px 48px rgba(17, 24, 39, 0.1);
+      border: 1px solid rgba(17, 24, 39, 0.08);
+      border-radius: 18px;
+      overflow: hidden;
+      background: #fff;
+    }
+    body.is-mobile { --page-pad-x: 24px; }
+    body.is-mobile .header-center,
+    body.is-mobile .auth-section { display: none; }
+    body.is-mobile .hamburger-menu { display: flex; }
+    body.is-mobile .av2-body { width: 100%; max-width: none; margin-top: 0; border-radius: 0; }
+    body.is-mobile .page-hero {
+      width: 100%;
+      margin-top: 40px;
+      padding: 0 20px 36px;
+    }
+    body.is-mobile .page-hero-icon {
+      width: 88px;
+      height: 88px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+    body.is-mobile .page-hero-title {
+      font-size: clamp(26px, 7.2vw, 34px);
+      padding: 0 8px;
+      max-width: 100%;
+    }
+    body.is-mobile .page-hero-sub {
+      font-size: 13px;
+      padding: 0 4px;
+    }
+    body.is-mobile .page-hero-proof {
+      gap: 8px;
+      transform: scale(0.82);
+      transform-origin: center top;
+    }
+    body.is-mobile .page-hero-proof-label { font-size: 12px; }
+    body.is-mobile .page-hero-logos { gap: 8px; }
+    body.is-mobile .page-hero-logos img,
+    body.is-mobile .page-hero-logos .logo-word { height: 12px; }
+    body.is-mobile .page-hero-logos img[alt="Bain Capital"] { height: 10px; }
+    body.is-mobile .page-hero-logos img[alt="Cotopaxi"] { height: 11px; }
+    body.is-mobile .page-hero-logos .logo-word {
+      font-size: 11px;
+      line-height: 12px;
+    }
+    body.is-mobile .alg-hero {
+      width: 100%;
+    }
+    body.is-mobile .alg-layout {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "search"
+        "side"
+        "detail";
+      row-gap: 28px;
+    }
+    body.is-mobile .alg-side { position: static; }
+    body.is-mobile .examples-grid { grid-template-columns: 1fr; gap: 28px; }
+    body.is-mobile .quotes-band { margin: 40px auto 36px; }
+    body.is-mobile .quotes { grid-template-columns: 1fr; gap: 12px; }
+    body.is-mobile .prem-card { grid-template-columns: 1fr; }
+    body.is-mobile .prem-right { border-left: 0; border-top: 1px solid var(--line); padding-top: 8px; }
+    body.is-mobile .prem-list li { white-space: normal; }
+    body.is-mobile .qa-title { font-size: 28px; margin-bottom: 28px; }
+    body.is-mobile .footer-logo { width: 100%; }
+    body.is-module .header-container,
+    body.is-module .footer-section,
+    body.is-module #qava-dot-base-fixed { display: none; }
+    body.is-module .page-frame {
+      max-width: calc(var(--content) + 48px);
+      margin: 88px auto 96px;
+    }
+    body.is-module .page-hero { margin-top: 24px; padding-bottom: 36px; }
+    body.is-module .av2-body,
+    body.is-module .qa-section {
+      max-width: var(--content);
+      margin-left: 0;
+      margin-right: 0;
+      box-shadow: 0 8px 28px rgba(17, 24, 39, 0.06), 0 1px 3px rgba(17, 24, 39, 0.04);
+    }
+    @media (max-width: 860px) {
+      :root { --page-pad-x: 24px; }
+      .header-center, .auth-section { display: none; }
+      .hamburger-menu { display: flex; }
+      .page-hero {
+        width: 100%;
+        margin-top: 48px;
+        padding: 0 20px 40px;
+        box-sizing: border-box;
+      }
+      .page-hero-icon {
+        width: 96px;
+        height: 96px;
+        border-radius: 13px;
+        margin-bottom: 20px;
+      }
+      .page-hero-title {
+        font-size: clamp(26px, 7.2vw, 34px);
+        padding: 0 8px;
+        max-width: 100%;
+      }
+      .page-hero-sub {
+        font-size: 13px;
+        padding: 0 8px;
+      }
+      .page-hero-proof {
+        gap: 8px;
+        transform: scale(0.82);
+        transform-origin: center top;
+      }
+      .page-hero-proof-label { font-size: 12px; }
+      .page-hero-logos { gap: 8px; }
+      .page-hero-logos img,
+      .page-hero-logos .logo-word { height: 12px; }
+      .page-hero-logos img[alt="Bain Capital"] { height: 10px; }
+      .page-hero-logos img[alt="Cotopaxi"] { height: 11px; }
+      .page-hero-logos .logo-word {
+        font-size: 11px;
+        line-height: 12px;
+      }
+      .examples-grid { grid-template-columns: 1fr; gap: 28px; }
+      .quotes-band { margin: 40px auto 36px; }
+      .quotes { grid-template-columns: 1fr; gap: 12px; }
+      .prem-card { grid-template-columns: 1fr; }
+      .prem-right { border-left: 0; border-top: 1px solid var(--line); padding-top: 8px; }
+      .prem-list li { white-space: normal; }
+      .qa-title { font-size: 28px; margin-bottom: 28px; }
+      .alg-hero {
+        width: 100%;
+      }
+      .alg-layout {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "search"
+          "side"
+          "detail";
+        row-gap: 28px;
+      }
+      .alg-side { position: static; }
+      .footer-logo { width: 100%; }
+    }
+  </style>
 </head>
 <body>
-  <p><a href="https://app.theclubnyc.com/strategy">Continue to Strategy Breakdowns</a></p>
+<div id="qava-dot-base-fixed" aria-hidden="true"></div>
+
+  <div class="page-frame">
+    <header class="header-container" data-qava-nav="landing">
+      <div class="header-logo">
+        <div class="logo-container">
+          <div class="logo">
+            <a href="https://theclubnyc.com/" aria-label="The Club home">
+              <img src="https://app.theclubnyc.com/the-club-logo-light.png" alt="The Club" width="72" height="16" />
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="header-center">
+        <nav class="navigation">
+          <a href="https://theclubnyc.com/strategy" class="nav-item templates is-active" aria-current="page"><div class="nav-text">Strategy Breakdowns</div></a>
+          <a href="https://theclubnyc.com/find/" class="nav-item"><div class="nav-text">Find Work</div></a>
+          <a href="https://theclubnyc.com/blog" class="nav-item"><div class="nav-text">Blog</div></a>
+        </nav>
+      </div>
+      <div class="header-right">
+        <div class="auth-section">
+          <a href="https://app.theclubnyc.com/" class="qava-premium-nav-btn" aria-label="Log in"><span class="nav-text">Log in</span></a>
+          <a href="https://app.theclubnyc.com/" class="join-button"><div class="join-text">Get Started</div></a>
+        </div>
+        <div class="hamburger-menu" id="hamburger" role="button" aria-label="Open menu">
+          <div class="hamburger-line"></div>
+          <div class="hamburger-line"></div>
+          <div class="hamburger-line"></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="close-menu" id="closeMenu" aria-label="Close menu">✕</div>
+      <a href="https://theclubnyc.com/strategy" class="mobile-nav-item is-active" aria-current="page"><div class="nav-text">Strategy Breakdowns</div></a>
+      <a href="https://theclubnyc.com/find/" class="mobile-nav-item"><div class="nav-text">Find Work</div></a>
+      <a href="https://theclubnyc.com/blog" class="mobile-nav-item"><div class="nav-text">Blog</div></a>
+      <a href="https://app.theclubnyc.com/" class="mobile-nav-item"><div class="nav-text">Log in</div></a>
+      <a href="https://app.theclubnyc.com/" class="join-button"><div class="join-text">Get Started</div></a>
+    </div>
+
+    <main class="av2" aria-label="Strategy Breakdowns">
+      <section class="page-hero" aria-label="Strategy Breakdowns hero">
+        <img class="page-hero-icon" src="hero-chess.png" alt="Strategy playbooks" width="108" height="108" />
+        <h1 class="page-hero-title">Strategy Breakdowns</h1>
+        <p class="page-hero-sub">Over 100 playbooks and growth hacks from top founders and business schools</p>
+        <div class="page-hero-proof">
+          <p class="page-hero-proof-label">Join strategy fanatics from</p>
+          <div class="page-hero-logos" aria-label="Companies">
+            <img src="logos/spotify.png" alt="Spotify" height="18" />
+            <img src="logos/apple.png" alt="Apple" height="18" />
+            <img src="logos/notion.webp" alt="Notion" height="18" />
+            <img src="logos/yc.png" alt="Y Combinator" height="18" />
+            <span class="logo-word" aria-label="WeWork">WeWork</span>
+            <img src="logos/bain.png" alt="Bain Capital" height="15" />
+            <img src="logos/cotopaxi.png" alt="Cotopaxi" height="20" />
+          </div>
+        </div>
+      </section>
+
+      <div class="av2-body">
+        <div class="av2-wrap">
+          <section class="examples" id="popular" aria-label="Popular">
+            <div class="examples-intro">
+              <p class="av2-label">Popular</p>
+              <h2 class="examples-title">Playbooks worth knowing</h2>
+              <p class="alg-lede">5-minute, bite-sized walkthroughs, without the jargon.</p>
+            </div>
+            <div class="examples-grid">
+              <a class="ex-card" href="https://theclubnyc.com/templates/beachhead-strategy">
+                <div class="ex-art">
+                  <img src="thumbnails/template-beachhead.png" alt="" />
+                </div>
+                <div class="ex-caption">
+                  <div class="ex-cat">Strategy</div>
+                  <p class="ex-title">Beachhead Strategy</p>
+                  <div class="ex-formats" aria-hidden="true">
+                    <img src="thumbnails/template-logo-pdf.png" alt="" />
+                    <img src="thumbnails/template-logo-ppt.png" alt="" />
+                    <img src="thumbnails/template-logo-gslides.png" alt="" />
+                    <img src="thumbnails/template-logo-canva.png" alt="" />
+                  </div>
+                </div>
+              </a>
+
+              <a class="ex-card" href="https://theclubnyc.com/templates/ideal-customer-profile">
+                <div class="ex-art">
+                  <img src="thumbnails/template-icp.png" alt="" />
+                </div>
+                <div class="ex-caption">
+                  <div class="ex-cat">Strategy</div>
+                  <p class="ex-title">Ideal Client Profile</p>
+                  <div class="ex-formats" aria-hidden="true">
+                    <img src="thumbnails/template-logo-pdf.png" alt="" />
+                    <img src="thumbnails/template-logo-ppt.png" alt="" />
+                    <img src="thumbnails/template-logo-gslides.png" alt="" />
+                    <img src="thumbnails/template-logo-canva.png" alt="" />
+                  </div>
+                </div>
+              </a>
+
+              <a class="ex-card" href="https://theclubnyc.com/templates/pricing-strategy">
+                <div class="ex-art">
+                  <img src="thumbnails/template-pricingstrategy.png" alt="" />
+                </div>
+                <div class="ex-caption">
+                  <div class="ex-cat">Strategy</div>
+                  <p class="ex-title">Pricing Strategy</p>
+                  <div class="ex-formats" aria-hidden="true">
+                    <img src="thumbnails/template-logo-pdf.png" alt="" />
+                    <img src="thumbnails/template-logo-ppt.png" alt="" />
+                    <img src="thumbnails/template-logo-gslides.png" alt="" />
+                    <img src="thumbnails/template-logo-canva.png" alt="" />
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="examples-cta">
+              <a class="examples-cta-btn" href="https://theclubnyc.com/templates">24/7 access to 100+ strategies &amp; templates</a>
+              <a class="examples-cta-login" href="https://app.theclubnyc.com/">Login</a>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <section class="quotes-band" aria-label="What members say">
+        <p class="quotes-kicker">Trusted by Doers</p>
+        <div class="quotes">
+          <figure class="quote">
+            <blockquote>Read the pricing breakdown on a coffee break — used it in a client call an hour later.</blockquote>
+            <figcaption>— Startup Founder</figcaption>
+          </figure>
+          <figure class="quote">
+            <blockquote>No case study ever explained the beachhead strategy this clearly, this fast.</blockquote>
+            <figcaption>— MBA Candidate</figcaption>
+          </figure>
+          <figure class="quote">
+            <blockquote>I keep these open in a tab. Cheaper than the class that taught me half of this.</blockquote>
+            <figcaption>— First-time Founder</figcaption>
+          </figure>
+          <figure class="quote">
+            <blockquote>Bite-sized enough to finish. Sharp enough to use before the day is over.</blockquote>
+            <figcaption>— Product Lead</figcaption>
+          </figure>
+          <figure class="quote">
+            <blockquote>Sent this to my cofounder instead of a memo. Faster — and honestly better.</blockquote>
+            <figcaption>— Early-stage Operator</figcaption>
+          </figure>
+          <figure class="quote">
+            <blockquote>The ICP breakdown alone saved us a full month of guessing who to sell.</blockquote>
+            <figcaption>— Growth Marketer</figcaption>
+          </figure>
+          <figure class="quote">
+            <blockquote>Finally a playbook I can share with the team without rewriting it first.</blockquote>
+            <figcaption>— Strategy Consultant</figcaption>
+          </figure>
+          <figure class="quote">
+            <blockquote>Skipped another pricey workshop. Same ground covered here in twenty minutes.</blockquote>
+            <figcaption>— Indie Hacker</figcaption>
+          </figure>
+          <figure class="quote">
+            <blockquote>The Club's GTM breakdown still opens every Monday before I plan the week.</blockquote>
+            <figcaption>— Revenue Lead</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <div class="av2-body av2-body--alg">
+        <div class="av2-wrap">
+          <section class="alg-hero" id="algorithm">
+            <div class="alg-intro">
+              <p class="av2-label">The Algorithm</p>
+              <h2 class="alg-title">Where we play</h2>
+            </div>
+
+            <div class="alg-layout">
+              <div class="alg-search">
+                <div class="alg-search-field">
+                  <label class="sr-only" for="algSearch">Search strategies</label>
+                  <svg class="alg-search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/>
+                  </svg>
+                  <input
+                    id="algSearch"
+                    class="alg-search-input"
+                    type="text"
+                    placeholder="Search strategies"
+                    autocomplete="off"
+                    spellcheck="false"
+                    enterkeyhint="search"
+                  />
+                  <button type="button" class="alg-search-clear" id="algSearchClear" aria-label="Clear search">×</button>
+                </div>
+                <p class="alg-search-meta" id="algSearchMeta" hidden></p>
+              </div>
+              <aside class="alg-side" aria-label="Jump to topics">
+                <div class="alg-jump">
+                  <p class="alg-jump-label">Jump to</p>
+                  <div class="alg-pills" id="algPills" role="list"></div>
+                </div>
+                <div class="alg-chart-wrap" id="algChart" aria-label="Company lifecycle stages"></div>
+              </aside>
+              <div class="alg-detail" id="algDetail"></div>
+            </div>
+            <p class="alg-foot-note">Designer preview — strategies map to How Tos on The Club.</p>
+          </section>
+        </div>
+      </div>
+
+      <section class="prem-band" id="premium" aria-label="Premium membership">
+        <div class="prem-card">
+          <div class="prem-left">
+            <div class="prem-eyebrow-row">
+              <p class="prem-eyebrow">Premium Membership</p>
+              <span class="prem-beta">Beta</span>
+            </div>
+            <h2 class="prem-title">Learn, build &amp; win</h2>
+            <p class="prem-sub">Exclusive opportunities, tools and resources.</p>
+            <div class="prem-foot">
+              <p class="prem-price"><b>$3.99</b> <span class="prem-price-unit">/ month</span></p>
+              <p class="prem-price-note">First 2 months, then $7.99/mo</p>
+              <a class="prem-cta" href="https://app.theclubnyc.com/?premium=1">Join Premium</a>
+            </div>
+          </div>
+          <div class="prem-right">
+            <ul class="prem-list">
+              <li>
+                <svg class="prem-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                Unlimited access to our expert template library
+              </li>
+              <li>
+                <svg class="prem-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                Pre-built slides to drive smarter decisions, faster
+              </li>
+              <li>
+                <svg class="prem-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                Turn connections into meaningful outcomes
+              </li>
+              <li>
+                <svg class="prem-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                Build proof, not just profiles
+              </li>
+              <li>
+                <svg class="prem-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                Learn, grow, and execute with confidence
+              </li>
+              <li>
+                <svg class="prem-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                Cancel anytime
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="qa-section" id="qa-section" aria-label="FAQ">
+        <div class="qa-container">
+          <h2 class="qa-title">FAQ</h2>
+
+          <div class="qa-item">
+            <button type="button" class="qa-question" aria-expanded="false">
+              <span class="qa-question-text">What is a Strategy Breakdown?</span>
+              <span class="qa-toggle" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg></span>
+            </button>
+            <div class="qa-answer">
+              <p class="qa-answer-text">A short, structured guide to one specific piece of business work — a pitch deck, a pricing model, a hiring plan — written to get you from "I don't know where to start" to "I have a first draft" in one sitting.</p>
+            </div>
+          </div>
+
+          <div class="qa-item">
+            <button type="button" class="qa-question" aria-expanded="false">
+              <span class="qa-question-text">How long does one actually take to read?</span>
+              <span class="qa-toggle" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg></span>
+            </button>
+            <div class="qa-answer">
+              <p class="qa-answer-text">Five minutes, give or take. Each one is built to be finished in a single sitting, not saved for "later" and forgotten.</p>
+            </div>
+          </div>
+
+          <div class="qa-item">
+            <button type="button" class="qa-question" aria-expanded="false">
+              <span class="qa-question-text">Do I need any business background to use these?</span>
+              <span class="qa-toggle" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg></span>
+            </button>
+            <div class="qa-answer">
+              <p class="qa-answer-text">No. They're written in plain language on purpose — no jargon, no assumed MBA vocabulary. If a term matters, it's explained inline.</p>
+            </div>
+          </div>
+
+          <div class="qa-item">
+            <button type="button" class="qa-question" aria-expanded="false">
+              <span class="qa-question-text">What's actually in a breakdown?</span>
+              <span class="qa-toggle" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg></span>
+            </button>
+            <div class="qa-answer">
+              <p class="qa-answer-text">A short intro framing the problem, then a clear set of advantages so you know why the strategy matters before you commit time to it. Some also include templates, checklists, or examples you can adapt directly.</p>
+            </div>
+          </div>
+
+          <div class="qa-item">
+            <button type="button" class="qa-question" aria-expanded="false">
+              <span class="qa-question-text">How is this different from just Googling it?</span>
+              <span class="qa-toggle" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg></span>
+            </button>
+            <div class="qa-answer">
+              <p class="qa-answer-text">Search gives you a hundred takes with no order and no filter. Every breakdown here is scoped to one topic, one outcome, and structured the same way — so you're not stitching together five blog posts to get one answer.</p>
+            </div>
+          </div>
+
+          <div class="qa-item">
+            <button type="button" class="qa-question" aria-expanded="false">
+              <span class="qa-question-text">Who writes these?</span>
+              <span class="qa-toggle" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg></span>
+            </button>
+            <div class="qa-answer">
+              <p class="qa-answer-text">Talent from top MBA and graduate programs, drawing on real project work — not generic content written to rank on a search engine.</p>
+            </div>
+          </div>
+
+          <div class="qa-item">
+            <button type="button" class="qa-question" aria-expanded="false">
+              <span class="qa-question-text">Can I use these at any company stage?</span>
+              <span class="qa-toggle" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg></span>
+            </button>
+            <div class="qa-answer">
+              <p class="qa-answer-text">Yes. Filter by stage (Idea through Exit) or by function (Fundraising, Marketing, Ops, and more) to find what's actually relevant to where you are right now.</p>
+            </div>
+          </div>
+
+          <div class="qa-item">
+            <button type="button" class="qa-question" aria-expanded="false">
+              <span class="qa-question-text">Are these free?</span>
+              <span class="qa-toggle" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg></span>
+            </button>
+            <div class="qa-answer">
+              <p class="qa-answer-text">[Placeholder — confirm your actual pricing/access model before publishing: free with account, part of a subscription, or paywalled by category.]</p>
+            </div>
+          </div>
+
+          <div class="qa-item">
+            <button type="button" class="qa-question" aria-expanded="false">
+              <span class="qa-question-text">Can I suggest a topic that's missing?</span>
+              <span class="qa-toggle" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg></span>
+            </button>
+            <div class="qa-answer">
+              <p class="qa-answer-text">Yes — [placeholder: link or contact method]. The library grows based on what people actually ask for.</p>
+            </div>
+          </div>
+
+          <div class="qa-item">
+            <button type="button" class="qa-question" aria-expanded="false">
+              <span class="qa-question-text">Do these replace working with a strategist?</span>
+              <span class="qa-toggle" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg></span>
+            </button>
+            <div class="qa-answer">
+              <p class="qa-answer-text">No. They're the fast, self-serve starting point — the thing you read before a call, not instead of one. If a project needs real hands-on work, that's what The Club's Match-Maker is for.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer-section">
+      <div class="footer-container">
+        <div class="footer-content">
+          <div class="footer-logo">
+            <a href="https://theclubnyc.com/">
+              <img src="https://app.theclubnyc.com/the-club-logo-light.png" alt="The Club" width="100" height="22" />
+            </a>
+          </div>
+          <div class="footer-links">
+            <div class="footer-column">
+              <h4 class="footer-heading">Welcome</h4>
+              <ul class="footer-link-list">
+                <li><a class="footer-link" href="https://app.theclubnyc.com/guest">Create listing</a></li>
+                <li><a class="footer-link" href="https://theclubnyc.com/find/">Find work</a></li>
+                <li><a class="footer-link" href="https://theclubnyc.com/howitworks">How it works</a></li>
+                <li><a class="footer-link" href="https://theclubnyc.com/about">About</a></li>
+              </ul>
+            </div>
+            <div class="footer-column">
+              <h4 class="footer-heading">Get started</h4>
+              <ul class="footer-link-list">
+                <li><a class="footer-link" href="https://app.theclubnyc.com/">Sign up</a></li>
+                <li><a class="footer-link" href="https://app.theclubnyc.com/">Log in</a></li>
+              </ul>
+            </div>
+            <div class="footer-column">
+              <h4 class="footer-heading">Resources</h4>
+              <ul class="footer-link-list">
+                <li><a class="footer-link" href="https://theclubnyc.com/templates">How Tos</a></li>
+                <li><a class="footer-link" href="https://theclubnyc.com/pricing">Pricing</a></li>
+                <li><a class="footer-link" href="https://theclubnyc.com/termsofuse">Terms of Use</a></li>
+              </ul>
+            </div>
+            <div class="footer-copyright">© 2026 The Club NYC</div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Lifecycle stages — flat line under Jump-to pills.
+    const STAGES = [
+      { id: "idea", label: "Idea", title: "Idea & validation" },
+      { id: "prototype", label: "Prototype", title: "Prototype & build" },
+      { id: "launch", label: "Launch", title: "Launch & traction" },
+      { id: "scale", label: "Scale up", title: "Scale up" },
+      { id: "optimize", label: "Optimize", title: "Optimize" },
+      { id: "exit", label: "Exit", title: "Exit" },
+    ];
+
+    const STRATEGY_STAGE = {
+      "Pitch deck": "optimize",
+      "Series A readiness": "optimize",
+      "Fundraising pipeline": "optimize",
+      "Use of funds": "optimize",
+      "Financial model": "scale",
+      "Cap table": "exit",
+      "Hiring plan": "scale",
+      "Org chart": "scale",
+      "Role scorecard": "scale",
+      "Interview loop": "scale",
+      "Offer & leveling": "scale",
+      "Onboarding plan": "scale",
+      "Culture memo": "scale",
+      "Values in practice": "scale",
+      "Performance cycle": "scale",
+      "Manager 1:1 cadence": "scale",
+      "Runway forecast": "scale",
+      "Unit economics": "scale",
+      "North star metric": "scale",
+      "Weekly business review": "scale",
+      "Dilution model": "optimize",
+      "Chart of accounts": "scale",
+      "Close calendar": "scale",
+      "Data room": "exit",
+      "Governance deck": "exit",
+      "Marketing plan": "launch",
+      "Sales playbook": "scale",
+      "Deprecation / sunset": "exit",
+      "Positioning statement": "launch",
+      "Go-to-market": "launch",
+      "Beachhead Strategy": "idea",
+      "Ideal Client Profile": "idea",
+      "Landing page copy": "launch",
+      "Launch checklist": "launch",
+      "Pricing strategy": "launch",
+      "Market sizing": "idea",
+      "Competitor analysis": "idea",
+      "Packaging & tiers": "launch",
+      "Discount policy": "launch",
+      "Founder agreements": "idea",
+      "Customer contract": "launch",
+      "Product requirements": "prototype",
+      "Product roadmap": "prototype",
+      "Discovery interviews": "idea",
+      "Feature prioritisation": "prototype",
+      "Usability testing": "prototype",
+      "Build / buy / partner": "prototype",
+      "Content engine": "launch",
+      "Channel mix": "launch",
+      "Campaign brief": "launch",
+      "Demand gen calendar": "launch",
+      "Brand voice guide": "launch",
+      "Attribution model": "scale",
+      "Pipeline stages": "scale",
+      "Discovery script": "scale",
+      "Demo narrative": "scale",
+      "Quota & territories": "scale",
+      "Win/loss review": "scale",
+      "SOP library": "scale",
+      "Vendor scorecard": "scale",
+      "Capacity plan": "scale",
+      "Incident response": "scale",
+      "Tool stack map": "scale",
+      "Process RACI": "scale",
+      "Onboarding journey": "scale",
+      "Health score": "scale",
+      "QBR agenda": "scale",
+      "Expansion playbook": "optimize",
+      "Churn autopsy": "scale",
+      "Support tiers": "scale",
+      "Partner brief": "optimize",
+      "Channel economics": "optimize",
+      "Co-marketing plan": "optimize",
+      "Integration roadmap": "optimize",
+      "Partner scorecard": "optimize",
+      "Alliance governance": "optimize",
+      "Metric dictionary": "scale",
+      "Dashboard hierarchy": "scale",
+      "Experiment log": "prototype",
+      "Cohort analysis": "scale",
+      "Data quality checks": "scale",
+      "Brand platform": "launch",
+      "Visual system": "launch",
+      "Messaging house": "launch",
+      "Naming brief": "idea",
+      "Launch creative brief": "launch",
+      "Moat map": "idea",
+      "Switch cost audit": "idea",
+      "Battlecard": "idea",
+      "Category design": "idea",
+      "Market entry brief": "optimize",
+      "Localization checklist": "optimize",
+      "Entity & tax map": "optimize",
+      "Cross-border pricing": "optimize",
+      "Regional GTM": "optimize",
+      "Compliance matrix": "optimize",
+    };
+
+    // Shared Club-voice copy — each strategy resolves to { name, description, advantages }.
+    const STRATEGY_COPY = {
+      "Pitch deck": "The story in a room that has twelve minutes and a next meeting. Sequence the problem, proof, and ask so a partner can retell it without you. Leave one slide they will screenshot.",
+      "Series A readiness": "What has to be true before the next round is a conversation — not a hope. Metrics, narrative, and gaps named in the same place. You raise when the story and the numbers stop arguing.",
+      "Fundraising pipeline": "Names, stages, and the next action — not a spreadsheet of hope. Track who is warm, who went cold, and what you owe each room. Momentum is a managed object.",
+      "Use of funds": "Where the round goes, in the language a board already pattern-matches. Hire, build, and buy — with dates, not vibes. Ambiguity here becomes a diligence question later.",
+      "Financial model": "Four hundred rows, and nine of them are numbers you typed on purpose. The rest should follow from assumptions you can defend. Models are arguments dressed as math.",
+      "Cap table": "Who owns what, after every round, option, and promise. Clean enough that a new investor or buyer does not invent history for you. Ownership is a story with a ledger.",
+      "Hiring plan": "Who you need, in what order, and what each seat is for. Headcount without outcomes is just burn with titles. Sequence roles against the loop you are trying to run.",
+      "Org chart": "Who owns what when the room no longer fits around one table. Lines of accountability beat clever titles. Draw it so a new hire can find their boss in under a minute.",
+      "Role scorecard": "Outcomes for the seat, not a wish list of adjectives. Write what great looks like at ninety days. Hire against that, not against a vibe in the debrief.",
+      "Interview loop": "Who asks what, and what “yes” has to mean for everyone. Same bar, different angles. A loop without a score is just a series of pleasant chats.",
+      "Offer & leveling": "Comp, title, and equity that still make sense next round. Level the seat, not the candidate’s last job. Surprises after signature are how you lose people quietly.",
+      "Onboarding plan": "The first thirty days owned by someone who is not guessing. Tools, intros, first shippable win. Culture is what happens before the welcome Slack fades.",
+      "Culture memo": "How you actually work when nobody is watching — written down. Rituals, decisions, and the behaviors you promote or fire for. Vague values become politics.",
+      "Values in practice": "Values tied to hiring, reviews, and hard calls — not a poster. Each value needs an observable yes and no. Otherwise they are branding for the careers page.",
+      "Performance cycle": "Cadence for goals, feedback, and leveling without quarterly theater. Managers know the dates; ICs know the bar. Silence between cycles is how drift becomes drama.",
+      "Manager 1:1 cadence": "A standing agenda that is not status theater. Blockers, growth, and the one decision that needs air. Skip-level noise drops when 1:1s are real.",
+      "Runway forecast": "When the balance crosses zero, given the plan you are actually running. Update it when spend or revenue moves. Runway that only lives in a pitch is fiction.",
+      "Unit economics": "What one customer costs, pays, and is worth — before you scale the loop. If the unit does not work, volume just accelerates the hole. Fix the unit, then add fuel.",
+      "North star metric": "The one number the whole company can pull without pulling apart. Secondary metrics support it; they do not compete with it. Pick the star you can still see in a crunch.",
+      "Weekly business review": "The operating cadence that keeps the loop visible. Same agenda, same owners, short enough that people show up. Strategy dies in meetings that rewrite themselves each week.",
+      "Dilution model": "What each path does to ownership before you pick one. Raise, bootstrap, or sell — modeled side by side. Founders regret the round they did not simulate.",
+      "Chart of accounts": "Categories you can close the month on without rewriting history. Investors and auditors both hate creative renaming. Boring structure is a feature.",
+      "Close calendar": "When the books lock, and who owns each number before they do. Dates beat heroics. A late close is a cultural problem wearing an accounting hat.",
+      "Data room": "The files a serious buyer or investor will ask for, in order. Clean, current, and owned. Scrambling mid-process is how you lose leverage.",
+      "Governance deck": "Decisions, roles, and controls a successor can pick up. Boards, signatories, and what requires a vote. Continuity is a document, not a vibe.",
+      "Marketing plan": "The split that matters more than the channel list — audience, offer, proof, and spend. Channels are tactics; the plan is the bet. Write the bet first.",
+      "Sales playbook": "Discovery, demo, proof, and the two or three claims that hold under pressure. New reps should not invent the path. Playbooks are how you stop rediscovering the close.",
+      "Deprecation / sunset": "How something ends without taking the rest of the company with it. Customers, data, and support paths named. Quiet sunsets create loud support tickets.",
+      "Positioning statement": "Who it is for, when they use it, and why it wins in that moment. One sentence the whole GTM can share. If sales and marketing tell different stories, you do not have positioning.",
+      "Go-to-market": "A great product with no plan for reaching anyone is a product almost nobody meets. Channels, owners, and the first paid motion. Ship the path, not just the build.",
+      "Beachhead Strategy": "Win one narrow market completely before you try to win the world. Dominance beats dabbling. The beachhead is the wedge that funds the rest.",
+      "Ideal Client Profile": "The customer you can reach, close, and keep — written down. Traits that predict win rate, not compliments. Everyone else is a polite distraction.",
+      "Landing page copy": "The page that has to do the work a salesperson is not there to do. Promise, proof, and the next step above the fold. Clever loses to clear every time.",
+      "Launch checklist": "The date becomes real when sales, marketing, and product share it. Assets, owners, and kill criteria. Launches fail in the seams between teams.",
+      "Pricing strategy": "What you charge, who it is expensive for, and why that is the point. Price is positioning with a number. Change it with intent, not panic.",
+      "Market sizing": "Three nested numbers, and only one of them is a plan. TAM impresses; serviceable and obtainable decide the quarter. Size the market you can actually sell into.",
+      "Competitor analysis": "Who they actually compare you to, not who you wish they did. Strengths, gaps, and the landmines in a bake-off. Honesty here wins more deals than swagger.",
+      "Packaging & tiers": "What is in, what is out, and which upgrade is obvious. Good packaging makes the next tier feel inevitable. Bad packaging trains buyers to haggle the base.",
+      "Discount policy": "When price moves, who can move it, and what you never give away. Discounts without rules become culture. Protect the floor or you do not have a price.",
+      "Founder agreements": "Vesting, IP, and what happens when someone leaves early. Awkward to write; worse to invent later. Future you will thank present you for the boring clauses.",
+      "Customer contract": "Terms you can sell, renew, and defend without a lawyer on every call. Liability, SLA, and exit paths that match how you actually operate. Paper should match product.",
+      "Product requirements": "What it is, who it is for, and what done looks like. Scope is a kindness to engineering. Ambiguous PRDs become accidental roadmaps.",
+      "Product roadmap": "Sequence, not a wishlist. What ships, what waits, and why that order. Roadmaps are bets with dates — treat them that way.",
+      "Discovery interviews": "Questions that surface the job, not compliments about the idea. Listen for workarounds and budgets. Compliments are not demand.",
+      "Feature prioritisation": "Reach, impact, confidence, effort — one ranking the room can argue with. Priorities without a frame are politics. Put the argument on the wall.",
+      "Usability testing": "Tasks, prompts, and notes that turn a session into evidence. Five users beat fifty opinions. Watch the hands, not the compliments.",
+      "Build / buy / partner": "Which pieces you own, which you rent, and which you never touch. Core is identity; the rest is leverage. Wrong ownership is slow forever.",
+      "Content engine": "A repeatable system for topics, owners, and distribution — not random posts. Cadence beats genius. The engine is what still runs when inspiration does not.",
+      "Channel mix": "Where attention becomes pipeline, with spend and ownership per channel. Kill channels that only produce vanity. Double down where the unit economics smile.",
+      "Campaign brief": "Audience, offer, proof, and the one action you want. Creative without a brief is decoration. Briefs keep five teams telling the same story.",
+      "Demand gen calendar": "Launches, always-on, and sales-needed moments on one timeline. Marketing that surprises sales is not a partnership. Share the calendar or share the blame.",
+      "Brand voice guide": "How you sound in public — words you use, words you refuse. Consistency is trust at scale. Voice is product for people who have not bought yet.",
+      "Attribution model": "How you credit the path to revenue without worshipping the last click. Imperfect and agreed beats perfect and ignored. Decide the rules before the argument.",
+      "Pipeline stages": "Definitions so a stage means the same thing to every rep. Exit criteria beat optimism. Forecasts die when stages are vibes.",
+      "Discovery script": "The questions that uncover pain, budget, and urgency before the demo. Talk less; diagnose more. Discovery is where deals are won or politely wasted.",
+      "Demo narrative": "A story arc that maps their problem to your product, not a feature tour. Lead with the job, prove with the click. Features without narrative are noise.",
+      "Quota & territories": "Fair, explainable coverage so reps know what they own. Overlap is politics with a CRM. Design territories like you design products.",
+      "Win/loss review": "Why deals closed or died — captured while the truth is still fresh. Patterns beat anecdotes. Feed product and marketing, not just the all-hands.",
+      "SOP library": "The plays the company runs without reinventing them each time. Owner, steps, and when to escalate. Operations is documented judgment.",
+      "Vendor scorecard": "Cost, risk, and performance for the tools you depend on. Renewals should not be surprises. Scorecards keep vendor love from becoming vendor lock.",
+      "Capacity plan": "What the team can actually ship or support this quarter. Ambition without capacity is a morale tax. Plan the bottleneck, not the wishlist.",
+      "Incident response": "Who pages whom, what gets said, and how you learn after. Speed and honesty both matter. Incidents are culture under fluorescent light.",
+      "Tool stack map": "Systems of record, owners, and what syncs where. Shadow tools are how data dies. One map beats twelve tribal knowledge chats.",
+      "Process RACI": "Responsible, accountable, consulted, informed — for the processes that break when unclear. Ambiguous ownership is how balls drop politely.",
+      "Onboarding journey": "The path from signed to first value, with owners at each step. Time-to-value is a product. Success starts before the welcome email.",
+      "Health score": "Leading signals that a account is thriving, stalling, or about to churn. Act before the cancel email. Health without playbooks is just a dashboard.",
+      "QBR agenda": "A recurring review that expands the account instead of reciting usage. Outcomes, risks, and the next bet together. QBRs are sales with better manners.",
+      "Expansion playbook": "When and how to upsell without poisoning trust. Triggers, talk tracks, and who owns the ask. Expansion should feel like help, not a trap.",
+      "Churn autopsy": "Why they left, written while the wound is still informative. Patterns over blame. Retention improves when churn is a dataset, not a rumor.",
+      "Support tiers": "What response and depth each plan actually gets. Clear tiers prevent silent resentment. Under-promise in the contract; over-deliver in the ticket.",
+      "Partner brief": "Why this partner, what success looks like, and who owns the relationship. Partnerships without briefs become polite inactivity. Write the bet.",
+      "Channel economics": "Margins, co-sell splits, and what “good” looks like for both sides. Misaligned math kills alliances slowly. Model the money before the logo slide.",
+      "Co-marketing plan": "Shared audience, offer, and calendar — with assets neither side improvises. One campaign, two brands, zero confusion. Ship the plan, not the vibe.",
+      "Integration roadmap": "What connects, in what order, and which customer asks wait. Integrations are product strategy with an API. Sequence for revenue, not for cool.",
+      "Partner scorecard": "Pipeline, influence, and health for each alliance. Kill or coach with the same clarity you use on reps. Logo collecting is not a strategy.",
+      "Alliance governance": "Cadence, escalation, and decision rights so the partnership survives personnel changes. Relationships need operating systems too.",
+      "Metric dictionary": "One definition per metric, owned, so dashboards stop arguing. If two teams compute differently, you do not have a metric — you have a debate.",
+      "Dashboard hierarchy": "Company, team, and operator views that nest instead of compete. Too many dashboards is no dashboard. Hierarchy is how attention stays scarce and useful.",
+      "Experiment log": "Hypothesis, result, and decision — in one place the company can learn from. Unlogged tests are expensive opinions. Write it down or it did not happen.",
+      "Cohort analysis": "How groups behave over time, not just this week’s total. Cohorts reveal whether you are improving or just getting louder. Watch retention curves like a hawk.",
+      "Data quality checks": "The boring tests that keep models and boards from lying to you. Freshness, completeness, duplicates. Bad data is a strategy problem in disguise.",
+      "Brand platform": "Purpose, promise, and personality compressed so every asset can inherit them. Brand without a platform is a mood board. Platforms scale taste.",
+      "Visual system": "Type, color, space, and components that keep you looking like one company. Consistency is recognition. Exceptions need a better reason than “this campaign.”",
+      "Messaging house": "Pillar messages and proof points the whole GTM can reuse. One house, many rooms. Random taglines are how brands sound busy and say nothing.",
+      "Naming brief": "Criteria, shortlist, and checks before you fall in love with a word. Domains, trademarks, and say-it-out-loud tests. Names are long commitments.",
+      "Launch creative brief": "Audience, tension, and the single idea the creative must land. Briefs protect craft from committee. Ambiguity produces pretty noise.",
+      "Moat map": "Where advantage actually compounds — data, brand, network, switching costs. Wishful moats do not count. Draw the real ones and invest there.",
+      "Switch cost audit": "What makes leaving hard for the customer you want to keep. Increase good friction; remove accidental pain. Retention is design, not a speech.",
+      "Battlecard": "Objections, traps, and the two lines that reframe a bake-off. Short enough for a rep to use live. Long battlecards become unread PDFs.",
+      "Category design": "The problem frame you want the market to adopt — and your place inside it. Categories are won with language before logos. Name the game you can win.",
+      "Market entry brief": "Which country or region, why now, and what “enough proof” looks like. Entry without a brief is tourism with a budget. Pick the beachhead abroad too.",
+      "Localization checklist": "Language, currency, support hours, and cultural gotchas before you ship. Half-localized is worse than English-only. Finish the last mile or wait.",
+      "Entity & tax map": "Where you incorporate, bill, and employ — with owners who care. Structure surprises are expensive. Map entities before the first hire abroad.",
+      "Cross-border pricing": "Price, packaging, and purchasing power by market without training buyers to arbitrage you. Global list prices are a choice, not a default.",
+      "Regional GTM": "Local channels, partners, and owners who can actually sell there. HQ templates rarely survive contact with a new market. Adapt the motion, keep the promise.",
+      "Compliance matrix": "Rules that apply by market — privacy, payments, employment — with status. Ignorance is not a strategy. Matrices turn dread into a checklist.",
+    };
+    const STRATEGY_ADVANTAGES = {
+      "Pitch deck": [
+        "A story partners can retell without you in the room.",
+        "Problem → proof → ask in one clean arc.",
+        "One screenshot-worthy slide that travels.",
+        "Fewer “what do you do again?” follow-ups.",
+        "Walk in with a deck that earns the next meeting.",
+      ],
+      "Series A readiness": [
+        "Know what’s true before you open the round.",
+        "Metrics and narrative stop arguing.",
+        "Gaps named early — not mid-diligence.",
+        "Raise on evidence, not hope.",
+        "A readiness bar you can actually check.",
+      ],
+      "Fundraising pipeline": [
+        "Names, stages, next action — not hope in a sheet.",
+        "See who’s warm, cold, or owed a reply.",
+        "Momentum becomes something you manage.",
+        "Stop losing deals in inbox fog.",
+        "A pipeline that survives a busy week.",
+      ],
+      "Use of funds": [
+        "Where the round goes, in board language.",
+        "Hire, build, buy — with dates attached.",
+        "Kill ambiguity before diligence invents it.",
+        "Spend that matches the story you sold.",
+        "Walk away with a plan investors trust.",
+      ],
+      "Financial model": [
+        "Assumptions you can defend out loud.",
+        "Nine intentional numbers — not 400 vibes.",
+        "Scenarios that show the real tradeoffs.",
+        "A model that argues for the plan.",
+        "Stop flying blind on burn and pace.",
+      ],
+      "Cap table": [
+        "Who owns what after every round and promise.",
+        "Clean enough for a new investor to trust.",
+        "No invented history in diligence.",
+        "Ownership as a ledger, not folklore.",
+        "Protect founder clarity before the next raise.",
+      ],
+      "Hiring plan": [
+        "Who you need — and in what order.",
+        "Seats tied to outcomes, not titles.",
+        "Burn that matches the loop you’re running.",
+        "Sequence roles against real bottlenecks.",
+        "Stop hiring on panic and vibes.",
+      ],
+      "Org chart": [
+        "Accountability when one table won’t fit.",
+        "New hires find their boss in under a minute.",
+        "Lines that beat clever titles.",
+        "Clarity that scales past founder heroics.",
+        "Draw the company before it draws chaos.",
+      ],
+      "Role scorecard": [
+        "Outcomes for the seat — not adjective soup.",
+        "What “great” looks like at day ninety.",
+        "Hire against a bar, not a debrief vibe.",
+        "Fewer bad fits that looked charming.",
+        "A scorecard the whole loop can share.",
+      ],
+      "Interview loop": [
+        "Same bar, different angles — on purpose.",
+        "“Yes” means something to everyone.",
+        "Stop pleasant chats pretending to be diligence.",
+        "A loop with a score, not theater.",
+        "Consistency that survives busy calendars.",
+      ],
+      "Offer & leveling": [
+        "Comp and title that still make sense next round.",
+        "Level the seat — not their last job.",
+        "Fewer quiet regrets after signature.",
+        "Equity math you can defend.",
+        "Offers that close talent without future drama.",
+      ],
+      "Onboarding plan": [
+        "First thirty days owned — not guessed.",
+        "A first shippable win before welcome Slack fades.",
+        "Tools, intros, and clarity on day one.",
+        "Culture delivered as a plan.",
+        "New hires productive faster, with less flail.",
+      ],
+      "Culture memo": [
+        "How you actually work — written down.",
+        "Rituals and decisions, not poster values.",
+        "Behaviors you promote or fire for.",
+        "Less politics born from vague norms.",
+        "A memo the team can hold you to.",
+      ],
+      "Values in practice": [
+        "Values tied to hiring and hard calls.",
+        "Each value has an observable yes and no.",
+        "Stop branding that dies on the careers page.",
+        "Reviews that reinforce what you claim.",
+        "Culture that shows up under pressure.",
+      ],
+      "Performance cycle": [
+        "Goals and feedback without quarterly theater.",
+        "Managers know dates; ICs know the bar.",
+        "Drift dies before it becomes drama.",
+        "Leveling that feels fair and legible.",
+        "A cadence the company can trust.",
+      ],
+      "Manager 1:1 cadence": [
+        "Standing agendas that aren’t status theater.",
+        "Blockers, growth, and the one real decision.",
+        "Skip-level noise drops when 1:1s are real.",
+        "Managers show up prepared — not improvising.",
+        "A habit that compounds trust weekly.",
+      ],
+      "Runway forecast": [
+        "When cash hits zero under the real plan.",
+        "Updates when spend or revenue moves.",
+        "Kill runway fiction living only in pitches.",
+        "Board conversations grounded in numbers.",
+        "Time to act before the cliff shows up.",
+      ],
+      "Unit economics": [
+        "What one customer costs, pays, and is worth.",
+        "Fix the unit before you scale the hole.",
+        "Volume that doesn’t accelerate the burn.",
+        "Clarity before you pour more fuel.",
+        "A loop that can survive growth.",
+      ],
+      "North star metric": [
+        "One number the company can pull together.",
+        "Secondary metrics that support — not compete.",
+        "Focus that holds in a crunch.",
+        "Less dashboard politics.",
+        "A star you can still see under pressure.",
+      ],
+      "Weekly business review": [
+        "Same agenda, same owners, short enough to show.",
+        "The loop stays visible every week.",
+        "Strategy that doesn’t die in rewrite meetings.",
+        "Decisions with names attached.",
+        "Operating rhythm that compounds.",
+      ],
+      "Dilution model": [
+        "See ownership before you pick a path.",
+        "Raise, bootstrap, or sell — side by side.",
+        "Regret the round you didn’t simulate — less.",
+        "Founder math that survives the next term sheet.",
+        "Negotiate with eyes open.",
+      ],
+      "Chart of accounts": [
+        "Categories you can close the month on.",
+        "Boring structure investors and auditors love.",
+        "No creative renaming mid-history.",
+        "Cleaner books, faster answers.",
+        "Accounting that doesn’t invent itself weekly.",
+      ],
+      "Close calendar": [
+        "When the books lock — and who owns each number.",
+        "Dates beat last-minute heroics.",
+        "A late close stops being “just accounting.”",
+        "Cadence the whole finance stack can run.",
+        "Close without the monthly scramble.",
+      ],
+      "Data room": [
+        "Files a serious buyer will ask for — in order.",
+        "Clean, current, and owned.",
+        "Keep leverage mid-process.",
+        "No scrambling when diligence starts.",
+        "Look ready when it matters.",
+      ],
+      "Governance deck": [
+        "Decisions and roles a successor can pick up.",
+        "What needs a vote — written down.",
+        "Continuity as a document, not a vibe.",
+        "Boards and signatories without folklore.",
+        "Controls that survive personnel change.",
+      ],
+      "Marketing plan": [
+        "Audience, offer, proof, and spend — the real split.",
+        "Channels as tactics; the plan as the bet.",
+        "Write the bet before the channel list.",
+        "Spend that knows what it’s buying.",
+        "Marketing with a thesis, not a scramble.",
+      ],
+      "Sales playbook": [
+        "Discovery → demo → proof that holds pressure.",
+        "New reps stop inventing the path.",
+        "Claims that survive a bake-off.",
+        "Close without rediscovering it every quarter.",
+        "A playbook that scales the win rate.",
+      ],
+      "Deprecation / sunset": [
+        "End something without taking the company with it.",
+        "Customers, data, and support paths named.",
+        "No quiet sunsets → loud tickets.",
+        "Clean exits that protect trust.",
+        "Kill products like an adult.",
+      ],
+      "Positioning statement": [
+        "Who it’s for, when, and why it wins.",
+        "One sentence the whole GTM can share.",
+        "Sales and marketing tell the same story.",
+        "Stop competing against yourself in market.",
+        "Clarity that shortens every pitch.",
+      ],
+      "Go-to-market": [
+        "A path to buyers — not just a build.",
+        "Channels, owners, and the first paid motion.",
+        "Ship the path with the product.",
+        "Less “great product, empty pipeline.”",
+        "A GTM you can run next week.",
+      ],
+      "Beachhead Strategy": [
+        "Win one narrow market completely first.",
+        "Dominance beats dabbling.",
+        "A wedge that funds the rest.",
+        "Focus that compounds instead of dilutes.",
+        "Stop trying to win the world on day one.",
+      ],
+      "Ideal Client Profile": [
+        "The customer you can reach, close, and keep.",
+        "Traits that predict win rate — not compliments.",
+        "Everyone else becomes a polite distraction.",
+        "Less month of guessing who to sell.",
+        "A profile the whole GTM can aim at.",
+      ],
+      "Landing page copy": [
+        "Promise, proof, and next step above the fold.",
+        "Clear beats clever every time.",
+        "The page works when sales isn’t there.",
+        "Fewer bounce-and-shrug visits.",
+        "Copy that converts curiosity into action.",
+      ],
+      "Launch checklist": [
+        "Sales, marketing, and product share one date.",
+        "Assets, owners, and kill criteria named.",
+        "Launches fail in the seams — this closes them.",
+        "Less day-of scramble.",
+        "A launch that actually ships together.",
+      ],
+      "Pricing strategy": [
+        "What you charge — and who it’s expensive for.",
+        "Price as positioning with a number.",
+        "Change with intent, not panic.",
+        "Packaging that supports the story.",
+        "Walk away knowing why the price is right.",
+      ],
+      "Market sizing": [
+        "TAM impresses; obtainable decides the quarter.",
+        "Size the market you can actually sell into.",
+        "Three nested numbers — one plan.",
+        "Less fantasy math in the pitch.",
+        "A sizing story that survives diligence.",
+      ],
+      "Competitor analysis": [
+        "Who they compare you to — not who you wish.",
+        "Strengths, gaps, and bake-off landmines.",
+        "Honesty that wins more than swagger.",
+        "Battle-ready before the RFP.",
+        "Know the field you’re actually in.",
+      ],
+      "Packaging & tiers": [
+        "What’s in, what’s out, what’s the obvious upgrade.",
+        "Next tier feels inevitable — not forced.",
+        "Stop training buyers to haggle the base.",
+        "Clear value steps that sell themselves.",
+        "Packaging that protects margin and motion.",
+      ],
+      "Discount policy": [
+        "When price moves — and who can move it.",
+        "What you never give away.",
+        "Discounts stop becoming culture.",
+        "Protect the floor or you don’t have a price.",
+        "Rules that keep deals clean.",
+      ],
+      "Founder agreements": [
+        "Vesting, IP, and early-exit truths — written.",
+        "Awkward now beats invented later.",
+        "Boring clauses future-you will thank.",
+        "Less cofounder drama at the worst time.",
+        "Paper that matches how you actually partner.",
+      ],
+      "Customer contract": [
+        "Terms you can sell, renew, and defend.",
+        "Liability and exit paths that match operations.",
+        "Paper that matches the product.",
+        "Fewer lawyer-on-every-call moments.",
+        "Contracts that don’t slow the close.",
+      ],
+      "Product requirements": [
+        "What it is, who it’s for, what done looks like.",
+        "Scope as a kindness to engineering.",
+        "Ambiguous PRDs stop becoming roadmaps.",
+        "Build the smallest true thing.",
+        "Alignment before the first commit.",
+      ],
+      "Product roadmap": [
+        "Sequence — not a wishlist.",
+        "What ships, what waits, and why that order.",
+        "Bets with dates, treated like bets.",
+        "Less roadmap politics.",
+        "A plan the company can argue with productively.",
+      ],
+      "Discovery interviews": [
+        "Questions that surface the job — not compliments.",
+        "Listen for workarounds and budgets.",
+        "Compliments stop masquerading as demand.",
+        "Evidence before you build the wrong thing.",
+        "Interviews that change the roadmap.",
+      ],
+      "Feature prioritisation": [
+        "Reach, impact, confidence, effort — one ranking.",
+        "Priorities without a frame become politics.",
+        "Put the argument on the wall.",
+        "Ship what matters — kill the rest.",
+        "A frame the room can reuse weekly.",
+      ],
+      "Usability testing": [
+        "Tasks and notes that turn sessions into evidence.",
+        "Five users beat fifty opinions.",
+        "Watch the hands, not the compliments.",
+        "Fewer features that confuse in production.",
+        "Clarity before you scale the UX debt.",
+      ],
+      "Build / buy / partner": [
+        "Own core; rent leverage; skip the rest.",
+        "Wrong ownership is slow forever.",
+        "Decide with identity and speed in mind.",
+        "Fewer zombie internal tools.",
+        "A map of what you should never touch.",
+      ],
+      "Content engine": [
+        "Topics, owners, distribution — on repeat.",
+        "Cadence beats genius.",
+        "Still runs when inspiration doesn’t.",
+        "Less random posting, more pipeline.",
+        "A system marketing can staff.",
+      ],
+      "Channel mix": [
+        "Where attention becomes pipeline — with owners.",
+        "Kill vanity channels without mercy.",
+        "Double down where unit economics smile.",
+        "Spend with a scoreboard.",
+        "A mix you can rebalance monthly.",
+      ],
+      "Campaign brief": [
+        "Audience, offer, proof, one action.",
+        "Creative without a brief is decoration.",
+        "Five teams telling the same story.",
+        "Less committee noise mid-flight.",
+        "Briefs that protect the idea.",
+      ],
+      "Demand gen calendar": [
+        "Launches, always-on, and sales-needed moments.",
+        "Marketing stops surprising sales.",
+        "Share the calendar or share the blame.",
+        "Demand with a timeline, not vibes.",
+        "A quarter you can actually execute.",
+      ],
+      "Brand voice guide": [
+        "Words you use — and words you refuse.",
+        "Consistency that scales trust.",
+        "Voice as product for people who haven’t bought.",
+        "Less random tone across channels.",
+        "A guide writers can actually follow.",
+      ],
+      "Attribution model": [
+        "Credit the path without worshipping last click.",
+        "Imperfect and agreed beats perfect and ignored.",
+        "Decide rules before the argument.",
+        "Spend debates get shorter.",
+        "A model marketing and sales can share.",
+      ],
+      "Pipeline stages": [
+        "A stage means the same thing to every rep.",
+        "Exit criteria beat optimism.",
+        "Forecasts stop dying on vibes.",
+        "Cleaner coaching and cleaner numbers.",
+        "CRM that reflects reality.",
+      ],
+      "Discovery script": [
+        "Pain, budget, urgency — before the demo.",
+        "Talk less; diagnose more.",
+        "Win or politely waste less time.",
+        "Reps run the same high bar.",
+        "Discovery that sets up the close.",
+      ],
+      "Demo narrative": [
+        "Their problem → your product — not a feature tour.",
+        "Lead with the job; prove with the click.",
+        "Features without narrative become noise.",
+        "Demos that stick after the call.",
+        "A story arc every rep can run.",
+      ],
+      "Quota & territories": [
+        "Fair, explainable coverage reps can own.",
+        "Overlap stops becoming CRM politics.",
+        "Design territories like products.",
+        "Motivation without territorial wars.",
+        "A map that scales headcount cleanly.",
+      ],
+      "Win/loss review": [
+        "Why deals closed or died — while truth is fresh.",
+        "Patterns beat anecdotes.",
+        "Feed product and marketing, not just all-hands.",
+        "Learn faster than competitors forget.",
+        "A ritual that improves win rate.",
+      ],
+      "SOP library": [
+        "Plays the company runs without reinventing.",
+        "Owner, steps, escalate-when — written.",
+        "Operations as documented judgment.",
+        "Less heroics pretending to be process.",
+        "Onboarding that doesn’t depend on tribal knowledge.",
+      ],
+      "Vendor scorecard": [
+        "Cost, risk, performance for tools you depend on.",
+        "Renewals stop being surprises.",
+        "Vendor love doesn’t become lock-in.",
+        "Kill or keep with the same clarity.",
+        "A scorecard finance and ops can share.",
+      ],
+      "Capacity plan": [
+        "What the team can actually ship this quarter.",
+        "Ambition without capacity is a morale tax.",
+        "Plan the bottleneck — not the wishlist.",
+        "Fewer overpromises mid-sprint.",
+        "A plan leadership can trust.",
+      ],
+      "Incident response": [
+        "Who pages whom — and what gets said.",
+        "Speed and honesty under fluorescent light.",
+        "Learn after — not just recover.",
+        "Culture that shows up in outages.",
+        "A runbook that works at 2 a.m.",
+      ],
+      "Tool stack map": [
+        "Systems of record, owners, and syncs.",
+        "Shadow tools stop killing data.",
+        "One map beats twelve tribal chats.",
+        "Onboarding and audits get easier.",
+        "Clarity before the next SaaS sprawl.",
+      ],
+      "Process RACI": [
+        "Responsible, accountable, consulted, informed — clear.",
+        "Ambiguous ownership stops dropping balls politely.",
+        "Processes that survive busy weeks.",
+        "Fewer “I thought you had it” moments.",
+        "RACI for the things that actually break.",
+      ],
+      "Onboarding journey": [
+        "Signed → first value, with owners at each step.",
+        "Time-to-value as a product.",
+        "Success starts before the welcome email.",
+        "Fewer stuck customers in week one.",
+        "A journey CS and product can improve together.",
+      ],
+      "Health score": [
+        "Leading signals before the cancel email.",
+        "Thrive, stall, or about to churn — visible.",
+        "Health without playbooks is just a dashboard.",
+        "Act early with a defined play.",
+        "Retention that gets ahead of churn.",
+      ],
+      "QBR agenda": [
+        "Reviews that expand accounts — not recite usage.",
+        "Outcomes, risks, and the next bet together.",
+        "Sales with better manners — and better results.",
+        "A recurring ritual customers value.",
+        "QBRs that create expansion, not boredom.",
+      ],
+      "Expansion playbook": [
+        "Upsell without poisoning trust.",
+        "Triggers, talk tracks, and a clear owner.",
+        "Expansion that feels like help.",
+        "Grow revenue without the trap vibes.",
+        "A playbook CS and sales can run together.",
+      ],
+      "Churn autopsy": [
+        "Why they left — while the wound still teaches.",
+        "Patterns over blame.",
+        "Retention improves when churn is a dataset.",
+        "Stop treating exits like rumors.",
+        "Insights product and GTM can act on.",
+      ],
+      "Support tiers": [
+        "What response and depth each plan actually gets.",
+        "Clear tiers prevent silent resentment.",
+        "Under-promise in paper; over-deliver in tickets.",
+        "Support economics that scale.",
+        "Expectations that match the contract.",
+      ],
+      "Partner brief": [
+        "Why this partner — and what success looks like.",
+        "Owners named before the logo slide.",
+        "Partnerships stop becoming polite inactivity.",
+        "Write the bet; then run it.",
+        "A brief both sides can hold.",
+      ],
+      "Channel economics": [
+        "Margins and co-sell splits modeled early.",
+        "Misaligned math kills alliances slowly — avoid it.",
+        "Know what “good” looks like for both sides.",
+        "Money clarity before the handshake.",
+        "Economics that keep partners motivated.",
+      ],
+      "Co-marketing plan": [
+        "Shared audience, offer, and calendar.",
+        "Assets neither side improvises.",
+        "One campaign, two brands, zero confusion.",
+        "Ship the plan — not the vibe.",
+        "Co-marketing that produces pipeline.",
+      ],
+      "Integration roadmap": [
+        "What connects, in what order, and what waits.",
+        "Integrations as product strategy with an API.",
+        "Sequence for revenue, not for cool.",
+        "Customer asks get honest timelines.",
+        "A roadmap partners and product can share.",
+      ],
+      "Partner scorecard": [
+        "Pipeline, influence, and health per alliance.",
+        "Kill or coach with rep-level clarity.",
+        "Logo collecting stops pretending to be strategy.",
+        "Focus on partners that move numbers.",
+        "A scorecard alliance teams can run.",
+      ],
+      "Alliance governance": [
+        "Cadence, escalation, and decision rights.",
+        "Partnerships survive personnel changes.",
+        "Relationships get an operating system.",
+        "Less drift between quarterly dinners.",
+        "Governance that keeps the alliance alive.",
+      ],
+      "Metric dictionary": [
+        "One definition per metric — owned.",
+        "Dashboards stop arguing.",
+        "If two teams compute differently, you have a debate.",
+        "Trustworthy numbers to steer by.",
+        "A dictionary the company can enforce.",
+      ],
+      "Dashboard hierarchy": [
+        "Company, team, operator views that nest.",
+        "Too many dashboards become no dashboard.",
+        "Attention stays scarce and useful.",
+        "Less competing scoreboards.",
+        "Hierarchy that matches how decisions get made.",
+      ],
+      "Experiment log": [
+        "Hypothesis, result, decision — in one place.",
+        "Unlogged tests stop being expensive opinions.",
+        "Write it down or it didn’t happen.",
+        "The company learns instead of relearning.",
+        "A log product and growth can share.",
+      ],
+      "Cohort analysis": [
+        "How groups behave over time — not this week’s total.",
+        "See if you’re improving or just getting louder.",
+        "Retention curves watched like a hawk.",
+        "Truth that vanity metrics hide.",
+        "Cohorts that change what you ship next.",
+      ],
+      "Data quality checks": [
+        "Boring tests that keep boards from lying to you.",
+        "Freshness, completeness, duplicates — owned.",
+        "Bad data is a strategy problem in disguise.",
+        "Trust the numbers before you bet on them.",
+        "Checks that catch rot early.",
+      ],
+      "Brand platform": [
+        "Purpose, promise, personality — compressed.",
+        "Every asset can inherit the same core.",
+        "Brand without a platform is a mood board.",
+        "Taste that scales.",
+        "A platform creative and GTM can reuse.",
+      ],
+      "Visual system": [
+        "Type, color, space, components — one company look.",
+        "Consistency is recognition.",
+        "Exceptions need a better reason than “this campaign.”",
+        "Faster creative with fewer debates.",
+        "A system designers can enforce.",
+      ],
+      "Messaging house": [
+        "Pillar messages and proof points — reusable.",
+        "One house, many rooms.",
+        "Random taglines stop sounding busy and empty.",
+        "GTM speaks with one voice.",
+        "Messaging that travels across channels.",
+      ],
+      "Naming brief": [
+        "Criteria and checks before you fall in love.",
+        "Domains, trademarks, say-it-out-loud tests.",
+        "Names are long commitments — treat them that way.",
+        "Fewer expensive renames later.",
+        "A brief that keeps the shortlist honest.",
+      ],
+      "Launch creative brief": [
+        "Audience, tension, and the single idea to land.",
+        "Briefs protect craft from committee.",
+        "Ambiguity produces pretty noise — avoid it.",
+        "Creative that serves the launch bet.",
+        "Alignment before the first concept.",
+      ],
+      "Moat map": [
+        "Where advantage actually compounds.",
+        "Wishful moats don’t count.",
+        "Invest where the real walls are.",
+        "Strategy that survives copycats.",
+        "A map that focuses scarce resources.",
+      ],
+      "Switch cost audit": [
+        "What makes leaving hard — on purpose.",
+        "Increase good friction; remove accidental pain.",
+        "Retention as design, not a speech.",
+        "Know your sticky edges.",
+        "An audit that strengthens keep-worthiness.",
+      ],
+      "Battlecard": [
+        "Objections, traps, and two lines that reframe.",
+        "Short enough for a rep to use live.",
+        "Long PDFs stop dying unread.",
+        "Win more bake-offs with prep.",
+        "A card sales actually opens.",
+      ],
+      "Category design": [
+        "The problem frame you want the market to adopt.",
+        "Categories won with language before logos.",
+        "Name the game you can win.",
+        "Stop competing inside someone else’s frame.",
+        "A category story GTM can carry.",
+      ],
+      "Market entry brief": [
+        "Which market, why now, what “enough proof” is.",
+        "Entry without a brief is tourism with a budget.",
+        "Pick the beachhead abroad too.",
+        "Less hope-and-a-flight expansion.",
+        "A brief leadership can greenlight.",
+      ],
+      "Localization checklist": [
+        "Language, currency, support, cultural gotchas.",
+        "Half-localized is worse than English-only.",
+        "Finish the last mile — or wait.",
+        "Fewer embarrassing launch misses.",
+        "A checklist that makes “global” real.",
+      ],
+      "Entity & tax map": [
+        "Where you incorporate, bill, and employ.",
+        "Structure surprises are expensive — map them.",
+        "Owners who care before the first hire abroad.",
+        "Cleaner expansion paperwork.",
+        "A map finance and legal can share.",
+      ],
+      "Cross-border pricing": [
+        "Price and packaging by market — on purpose.",
+        "Don’t train buyers to arbitrage you.",
+        "Global list price is a choice, not a default.",
+        "Purchasing power without chaos.",
+        "Pricing that travels cleanly.",
+      ],
+      "Regional GTM": [
+        "Local channels, partners, and owners who can sell.",
+        "HQ templates rarely survive new markets.",
+        "Adapt the motion; keep the promise.",
+        "Less copy-paste failure abroad.",
+        "A GTM that works on the ground.",
+      ],
+      "Compliance matrix": [
+        "Rules by market — privacy, payments, employment.",
+        "Ignorance isn’t a strategy.",
+        "Dread becomes a checklist with status.",
+        "Fewer expansion surprises.",
+        "A matrix ops and legal can update together.",
+      ],
+    };
+
+    function strat(name) {
+      const description = STRATEGY_COPY[name];
+      const advantages = STRATEGY_ADVANTAGES[name];
+      const stage = STRATEGY_STAGE[name];
+      if (!description) console.warn("Missing strategy copy:", name);
+      if (!advantages) console.warn("Missing strategy advantages:", name);
+      if (!stage) console.warn("Missing strategy stage:", name);
+      return {
+        name: name,
+        description: description || "",
+        advantages: advantages || [],
+        stage: stage || "launch",
+      };
+    }
+
+    const TOPICS = [
+      {
+        id: "raise-money",
+        label: "Raise money",
+        title: "Raise money",
+        blurb: "The story, the numbers, and the pipeline — before the room asks for them.",
+        primaryStage: "optimize",
+        stages: ["scale", "optimize"],
+        strategies: ["Pitch deck", "Series A readiness", "Fundraising pipeline", "Use of funds", "Financial model", "Cap table"].map(strat),
+      },
+      {
+        id: "hiring",
+        label: "Hiring",
+        title: "Hiring",
+        blurb: "Who you need, in what order — and the culture that keeps them.",
+        primaryStage: "scale",
+        stages: ["scale"],
+        strategies: ["Hiring plan", "Org chart", "Role scorecard", "Interview loop", "Offer & leveling", "Onboarding plan", "Culture memo", "Values in practice", "Performance cycle", "Manager 1:1 cadence"].map(strat),
+      },
+      {
+        id: "strategic-finance",
+        label: "Strategic finance",
+        title: "Strategic finance",
+        blurb: "The operating numbers that decide spend, pace, and when to raise.",
+        primaryStage: "scale",
+        stages: ["scale"],
+        strategies: ["Financial model", "Runway forecast", "Unit economics", "North star metric", "Weekly business review", "Dilution model"].map(strat),
+      },
+      {
+        id: "accounting",
+        label: "Accounting",
+        title: "Accounting",
+        blurb: "Books, controls, and the files a serious buyer or auditor will ask for.",
+        primaryStage: "scale",
+        stages: ["scale", "exit"],
+        strategies: ["Chart of accounts", "Close calendar", "Cap table", "Data room", "Runway forecast", "Governance deck"].map(strat),
+      },
+      {
+        id: "scale-up",
+        label: "Scale up",
+        title: "Scale up",
+        blurb: "Repeat what works. Add people and spend only where the loop is proven.",
+        primaryStage: "scale",
+        stages: ["scale"],
+        strategies: ["Marketing plan", "Sales playbook", "Hiring plan", "Org chart", "North star metric", "Weekly business review"].map(strat),
+      },
+      {
+        id: "exit",
+        label: "Exit",
+        title: "Exit",
+        blurb: "Ownership changes, softens, or winds down — readable to whoever’s next.",
+        primaryStage: "exit",
+        stages: ["exit"],
+        strategies: ["Cap table", "Data room", "Dilution model", "Runway forecast", "Governance deck", "Deprecation / sunset"].map(strat),
+      },
+      {
+        id: "go-to-market",
+        label: "Go-to-market",
+        title: "Go-to-market",
+        blurb: "A named offer in front of people who will pay — and a plan for reaching them.",
+        primaryStage: "launch",
+        stages: ["idea", "launch"],
+        strategies: ["Positioning statement", "Go-to-market", "Beachhead Strategy", "Ideal Client Profile", "Landing page copy", "Launch checklist"].map(strat),
+      },
+      {
+        id: "pricing",
+        label: "Pricing",
+        title: "Pricing",
+        blurb: "What you charge, who it is expensive for, and why that is the point.",
+        primaryStage: "launch",
+        stages: ["idea", "launch"],
+        strategies: ["Pricing strategy", "Market sizing", "Competitor analysis", "Positioning statement", "Packaging & tiers", "Discount policy"].map(strat),
+      },
+      {
+        id: "legal",
+        label: "Legal",
+        title: "Legal",
+        blurb: "Ownership, contracts, and controls that survive the next round or buyer.",
+        primaryStage: "exit",
+        stages: ["idea", "launch", "exit"],
+        strategies: ["Cap table", "Founder agreements", "Customer contract", "Data room", "Dilution model", "Governance deck"].map(strat),
+      },
+      {
+        id: "product",
+        label: "Product",
+        title: "Product",
+        blurb: "Scope the smallest thing that can be true — then let a real user fail it.",
+        primaryStage: "prototype",
+        stages: ["idea", "prototype"],
+        strategies: ["Product requirements", "Product roadmap", "Discovery interviews", "Feature prioritisation", "Usability testing", "Build / buy / partner"].map(strat),
+      },
+      {
+        id: "marketing",
+        label: "Marketing",
+        title: "Marketing",
+        blurb: "Attention into pipeline — with a system, not a scramble.",
+        primaryStage: "launch",
+        stages: ["launch"],
+        strategies: ["Marketing plan", "Content engine", "Channel mix", "Campaign brief", "Demand gen calendar", "Brand voice guide", "Attribution model"].map(strat),
+      },
+      {
+        id: "sales",
+        label: "Sales",
+        title: "Sales",
+        blurb: "A repeatable path from first conversation to a signed yes.",
+        primaryStage: "scale",
+        stages: ["scale"],
+        strategies: ["Sales playbook", "Pipeline stages", "Discovery script", "Demo narrative", "Quota & territories", "Win/loss review"].map(strat),
+      },
+      {
+        id: "operations",
+        label: "Operations",
+        title: "Operations",
+        blurb: "How the company runs when heroics are not a plan.",
+        primaryStage: "scale",
+        stages: ["scale"],
+        strategies: ["SOP library", "Vendor scorecard", "Capacity plan", "Incident response", "Tool stack map", "Process RACI"].map(strat),
+      },
+      {
+        id: "customer-success",
+        label: "Customer success",
+        title: "Customer success",
+        blurb: "Keep them, expand them, and learn when they leave.",
+        primaryStage: "scale",
+        stages: ["scale", "optimize"],
+        strategies: ["Onboarding journey", "Health score", "QBR agenda", "Expansion playbook", "Churn autopsy", "Support tiers"].map(strat),
+      },
+      {
+        id: "partnerships",
+        label: "Partnerships",
+        title: "Partnerships",
+        blurb: "Alliances with economics, owners, and a reason to exist.",
+        primaryStage: "optimize",
+        stages: ["optimize"],
+        strategies: ["Partner brief", "Channel economics", "Co-marketing plan", "Integration roadmap", "Partner scorecard", "Alliance governance"].map(strat),
+      },
+      {
+        id: "data-metrics",
+        label: "Data & metrics",
+        title: "Data & metrics",
+        blurb: "Numbers the company trusts enough to steer by.",
+        primaryStage: "scale",
+        stages: ["prototype", "scale", "optimize", "exit"],
+        strategies: ["North star metric", "Metric dictionary", "Dashboard hierarchy", "Experiment log", "Cohort analysis", "Data quality checks"].map(strat),
+      },
+      {
+        id: "branding",
+        label: "Branding",
+        title: "Branding",
+        blurb: "How you look and sound when you are not in the room.",
+        primaryStage: "launch",
+        stages: ["idea", "launch"],
+        strategies: ["Brand platform", "Visual system", "Messaging house", "Naming brief", "Brand voice guide", "Launch creative brief"].map(strat),
+      },
+      {
+        id: "competitive-strategy",
+        label: "Competitive strategy",
+        title: "Competitive strategy",
+        blurb: "Where you win, where you refuse to play, and why.",
+        primaryStage: "idea",
+        stages: ["idea"],
+        strategies: ["Competitor analysis", "Beachhead Strategy", "Moat map", "Switch cost audit", "Battlecard", "Category design"].map(strat),
+      },
+      {
+        id: "international",
+        label: "International",
+        title: "International",
+        blurb: "New markets with structure — not hope and a flight.",
+        primaryStage: "optimize",
+        stages: ["optimize"],
+        strategies: ["Market entry brief", "Localization checklist", "Entity & tax map", "Cross-border pricing", "Regional GTM", "Compliance matrix"].map(strat),
+      },
+    ];
+
+    const state = {
+      topicIds: ["raise-money"],
+      openStrategy: null,
+      listAnimKey: 0,
+      query: "",
+    };
+    const chartEl = document.getElementById("algChart");
+    const detailEl = document.getElementById("algDetail");
+    const pillsEl = document.getElementById("algPills");
+    const searchInput = document.getElementById("algSearch");
+    const searchClear = document.getElementById("algSearchClear");
+    const searchMeta = document.getElementById("algSearchMeta");
+
+    function esc(s) {
+      return String(s)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function topicById(id) {
+      return TOPICS.find((t) => t.id === id) || null;
+    }
+
+    function selectedTopics() {
+      return state.topicIds.map(topicById).filter(Boolean);
+    }
+
+    function normalizedQuery() {
+      return String(state.query || "").trim().toLowerCase();
+    }
+
+    function strategyMatches(item, q) {
+      if (!q) return true;
+      const name = String(item.name || "").toLowerCase();
+      const desc = String(item.description || "").toLowerCase();
+      const adv = (item.advantages || []).join(" ").toLowerCase();
+      return name.includes(q) || desc.includes(q) || adv.includes(q);
+    }
+
+    function topicHasMatch(topic, q) {
+      if (!q) return true;
+      return (topic.strategies || []).some((item) => strategyMatches(item, q));
+    }
+
+    function visibleTopics() {
+      const selected = selectedTopics();
+      if (selected.length) return selected;
+      if (normalizedQuery()) return TOPICS;
+      return [];
+    }
+
+    function visibleStrategies() {
+      const q = normalizedQuery();
+      return unionStrategies(visibleTopics()).filter((item) => strategyMatches(item, q));
+    }
+
+    function topicPrimaryStage(topic) {
+      if (!topic) return null;
+      if (topic.primaryStage) return topic.primaryStage;
+      if (topic.stages && topic.stages.length) return topic.stages[0];
+      return null;
+    }
+
+    function topicStageIds(topic) {
+      if (topic && topic.stages && topic.stages.length) return topic.stages;
+      const primary = topicPrimaryStage(topic);
+      return primary ? [primary] : [];
+    }
+
+    function activeStageIds() {
+      const ids = new Set();
+      selectedTopics().forEach((topic) => {
+        topicStageIds(topic).forEach((id) => ids.add(id));
+      });
+      if (state.openStrategy != null) {
+        const item = visibleStrategies()[state.openStrategy];
+        if (item && item.stage) ids.add(item.stage);
+      }
+      return ids;
+    }
+
+    function unionStrategies(topics) {
+      const seen = new Set();
+      const out = [];
+      topics.forEach((topic) => {
+        (topic.strategies || []).forEach((item) => {
+          if (seen.has(item.name)) return;
+          seen.add(item.name);
+          out.push(item);
+        });
+      });
+      return out;
+    }
+
+    function detailHeading(topics) {
+      const q = normalizedQuery();
+      if (!topics.length && q) return "All topics";
+      if (!topics.length) return "Select a topic";
+      if (topics.length === 1) return topics[0].title;
+      if (topics.length === 2) return topics[0].label + " · " + topics[1].label;
+      if (topics.length <= 4) return topics.map((t) => t.label).join(", ");
+      return topics.length + " topics";
+    }
+
+    function renderSearchChrome() {
+      const raw = String(state.query || "");
+      const q = normalizedQuery();
+      const hasQuery = raw.length > 0;
+      searchClear.classList.toggle("is-visible", hasQuery);
+      if (!q) {
+        searchMeta.hidden = true;
+        searchMeta.textContent = "";
+        return;
+      }
+      const count = visibleStrategies().length;
+      searchMeta.hidden = false;
+      searchMeta.textContent =
+        "Showing " + count + " result" + (count === 1 ? "" : "s") + ' for "' + raw.trim() + '"';
+    }
+
+    function renderPills() {
+      const selected = new Set(state.topicIds);
+      const q = normalizedQuery();
+      pillsEl.innerHTML = TOPICS.map((topic) => {
+        const on = selected.has(topic.id);
+        const dim = q && !topicHasMatch(topic, q);
+        return (
+          '<button type="button" class="alg-pill' +
+          (on ? " is-on" : "") +
+          (dim ? " is-dimmed" : "") +
+          '" data-topic="' + topic.id + '" role="listitem" aria-pressed="' +
+          (on ? "true" : "false") + '">' +
+          esc(topic.label) +
+          "</button>"
+        );
+      }).join("");
+    }
+
+    function renderChart() {
+      const active = activeStageIds();
+      const onIds = [...active];
+      const aria = onIds.length
+        ? "Highlighted stages: " + onIds.map((id) => (STAGES.find((s) => s.id === id) || {}).label || id).join(", ")
+        : "Company lifecycle stages";
+      const n = Math.max(STAGES.length - 1, 1);
+      const points = STAGES.map((stage, i) => {
+        const on = active.has(stage.id);
+        const x = ((i / n) * 100).toFixed(4) + "%";
+        return (
+          '<div class="alg-line-stage' + (on ? " is-on" : "") + '" data-stage="' + stage.id + '" style="--stage-x:' + x + '">' +
+          '<span class="alg-line-mark" aria-hidden="true">' +
+          '<span class="alg-line-tick"></span>' +
+          '<span class="alg-line-dot"></span>' +
+          "</span>" +
+          '<span class="alg-line-label">' + esc(stage.label) + "</span>" +
+          "</div>"
+        );
+      }).join("");
+      chartEl.innerHTML =
+        '<div class="alg-line" role="group" aria-label="' + esc(aria) + '">' +
+        '<div class="alg-line-rule" aria-hidden="true"></div>' +
+        points +
+        "</div>";
+    }
+
+    function renderDetail() {
+      const topics = selectedTopics();
+      const strategies = visibleStrategies();
+      const heading = detailHeading(topics);
+      const animKey = state.listAnimKey;
+      const q = normalizedQuery();
+      let body;
+      if (!topics.length && !q) {
+        body = '<p class="alg-detail-empty">Pick a Jump to topic to see strategies.</p>';
+      } else if (!strategies.length) {
+        body = '<p class="alg-detail-empty">No strategies match' + (q ? ' "' + esc(state.query.trim()) + '"' : "") + ".</p>";
+      } else {
+        body =
+          '<div class="alg-strategies" data-anim="' + animKey + '">' +
+          strategies.map((item, i) => {
+            const open = state.openStrategy === i;
+            const adv = (item.advantages || []).map((b) => "<li>" + esc(b) + "</li>").join("");
+            const delay = Math.min(i * 28, 220);
+            return (
+              '<div class="alg-strategy' + (open ? " is-open" : "") + '" style="animation-delay:' + delay + 'ms">' +
+              '<button type="button" class="alg-strategy-btn" data-strategy-index="' + i + '" aria-expanded="' + (open ? "true" : "false") + '">' +
+              '<span class="alg-strategy-name">' + esc(item.name) + "</span>" +
+              '<span class="alg-strategy-toggle" aria-hidden="true">' + (open ? "−" : "+") + "</span>" +
+              "</button>" +
+              '<div class="alg-strategy-panel">' +
+              '<div class="alg-strategy-panel-inner">' +
+              '<div class="alg-strategy-panel-content">' +
+              '<p class="alg-strategy-desc">' + esc(item.description || "") + "</p>" +
+              '<p class="alg-strategy-adv-label">Advantage</p>' +
+              '<ul class="alg-strategy-adv">' + adv + "</ul>" +
+              "</div>" +
+              "</div>" +
+              "</div>" +
+              "</div>"
+            );
+          }).join("") +
+          "</div>";
+      }
+      detailEl.innerHTML =
+        '<p class="alg-detail-kicker">Know your strategies</p>' +
+        '<h2 class="alg-detail-title">' + esc(heading) + '</h2>' +
+        body;
+    }
+
+    function renderAll() {
+      renderSearchChrome();
+      renderPills();
+      renderChart();
+      renderDetail();
+    }
+
+    function setQuery(next) {
+      state.query = next;
+      state.openStrategy = null;
+      state.listAnimKey += 1;
+      if (searchInput.value !== next) searchInput.value = next;
+      renderAll();
+    }
+
+    function toggleTopic(id) {
+      const topic = topicById(id);
+      if (!topic) return;
+      state.topicIds = state.topicIds[0] === id ? [] : [id];
+      state.openStrategy = null;
+      state.listAnimKey += 1;
+      renderAll();
+    }
+
+    function initTopics() {
+      state.topicIds = ["raise-money"];
+      state.openStrategy = null;
+      state.query = "";
+      state.listAnimKey += 1;
+      searchInput.value = "";
+      renderAll();
+    }
+
+    searchInput.addEventListener("input", () => {
+      setQuery(searchInput.value);
+    });
+    searchClear.addEventListener("click", () => {
+      setQuery("");
+      searchInput.focus();
+    });
+
+    pillsEl.addEventListener("click", (e) => {
+      const pill = e.target.closest("[data-topic]");
+      if (!pill) return;
+      toggleTopic(pill.getAttribute("data-topic"));
+    });
+
+    detailEl.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-strategy-index]");
+      if (!btn) return;
+      const idx = Number(btn.getAttribute("data-strategy-index"));
+      const next = state.openStrategy === idx ? null : idx;
+      const prevOpen = detailEl.querySelector(".alg-strategy.is-open");
+      if (prevOpen) {
+        prevOpen.classList.remove("is-open");
+        const prevBtn = prevOpen.querySelector(".alg-strategy-btn");
+        if (prevBtn) {
+          prevBtn.setAttribute("aria-expanded", "false");
+          const toggle = prevBtn.querySelector(".alg-strategy-toggle");
+          if (toggle) toggle.textContent = "+";
+        }
+      }
+      state.openStrategy = next;
+      if (next !== null) {
+        const row = btn.closest(".alg-strategy");
+        if (row) row.classList.add("is-open");
+        btn.setAttribute("aria-expanded", "true");
+        const toggle = btn.querySelector(".alg-strategy-toggle");
+        if (toggle) toggle.textContent = "−";
+      }
+      renderChart();
+    });
+
+    // Dev notes (floating tip + foot note) only with ?dev=1
+    if (new URLSearchParams(location.search).has("dev")) {
+      document.body.classList.add("show-dev-notes");
+    }
+
+
+    const mobileMenu = document.getElementById("mobileMenu");
+    document.getElementById("hamburger").addEventListener("click", () => mobileMenu.classList.add("is-open"));
+    document.getElementById("closeMenu").addEventListener("click", () => mobileMenu.classList.remove("is-open"));
+
+    function toggleQA(element) {
+      const qaItem = element.parentElement;
+      const qaAnswer = qaItem.querySelector(".qa-answer");
+      const isActive = qaItem.classList.contains("active");
+
+      document.querySelectorAll(".qa-item.active").forEach((item) => {
+        if (item !== qaItem) {
+          const otherAnswer = item.querySelector(".qa-answer");
+          const otherBtn = item.querySelector(".qa-question");
+          otherAnswer.style.maxHeight = "0px";
+          item.classList.remove("active");
+          if (otherBtn) otherBtn.setAttribute("aria-expanded", "false");
+        }
+      });
+
+      if (isActive) {
+        qaAnswer.style.maxHeight = qaAnswer.scrollHeight + "px";
+        requestAnimationFrame(() => {
+          qaAnswer.style.maxHeight = "0px";
+        });
+        qaItem.classList.remove("active");
+        element.setAttribute("aria-expanded", "false");
+      } else {
+        qaItem.classList.add("active");
+        requestAnimationFrame(() => {
+          qaAnswer.style.maxHeight = qaAnswer.scrollHeight + 24 + "px";
+        });
+        element.setAttribute("aria-expanded", "true");
+      }
+    }
+
+    document.querySelectorAll("#qa-section .qa-question").forEach((btn) => {
+      btn.addEventListener("click", () => toggleQA(btn));
+    });
+
+    initTopics();
+  </script>
 </body>
 </html>
