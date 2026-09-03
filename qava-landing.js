@@ -11,6 +11,68 @@
           if (!btn.getAttribute("aria-label")) btn.setAttribute("aria-label", "Open menu");
         });
 
+        (function applyClubCenterNav() {
+          const nav = doc.querySelector(".header-container .navigation, .header-center .navigation");
+          if (!nav) return;
+
+          const path = (win.location.pathname || "/").toLowerCase();
+          const existingActive = Array.from(nav.querySelectorAll(".nav-item.is-active, .nav-item.active, .nav-item[aria-current]"))
+            .map((el) => ((el.querySelector(".nav-text") || el).textContent || "").trim().toLowerCase());
+          const links = [
+            {
+              href: "https://www.theclubnyc.com/strategy",
+              label: "Strategy Breakdowns",
+              cls: "nav-item templates",
+              active: path.startsWith("/strategy") || existingActive.includes("strategy breakdowns"),
+            },
+            {
+              href: "https://www.theclubnyc.com/find/",
+              label: "Find Work",
+              cls: "nav-item search-listings",
+              active: path.startsWith("/find") || existingActive.includes("find work"),
+            },
+            {
+              href: "https://www.theclubnyc.com/blog",
+              label: "Blog",
+              cls: "nav-item blog",
+              active: path.startsWith("/blog") || existingActive.includes("blog"),
+            },
+          ];
+
+          function renderLink(link, extraClass) {
+            const a = doc.createElement("a");
+            a.href = link.href;
+            a.className = extraClass + (link.active ? " is-active" : "");
+            if (link.active) a.setAttribute("aria-current", "page");
+            const text = doc.createElement("div");
+            text.className = "nav-text";
+            text.textContent = link.label;
+            a.appendChild(text);
+            return a;
+          }
+
+          nav.innerHTML = "";
+          links.forEach((link) => nav.appendChild(renderLink(link, link.cls)));
+
+          const menu = doc.querySelector(".mobile-menu");
+          if (!menu) return;
+          const keep = (el) => {
+            if (!el || el.nodeType !== 1) return true;
+            if (el.classList.contains("close-menu") || el.classList.contains("join-button")) return true;
+            if (el.hasAttribute("data-qava-premium-nav") || el.hasAttribute("data-qava-member-chip")) return true;
+            const t = ((el.querySelector(".nav-text") || el).textContent || "").trim().toLowerCase();
+            return t === "log in" || t === "login" || t === "get started" || t === "log out";
+          };
+          Array.from(menu.children).forEach((el) => {
+            if (!keep(el)) el.remove();
+          });
+          const close = menu.querySelector(".close-menu");
+          const insertBefore = close ? close.nextSibling : menu.firstChild;
+          links.forEach((link) => {
+            menu.insertBefore(renderLink(link, "mobile-nav-item"), insertBefore);
+          });
+        })();
+
         if (!doc.getElementById("qava-sandbox-canela-link")) {
           const fontLink = doc.createElement("link");
           fontLink.id = "qava-sandbox-canela-link";
