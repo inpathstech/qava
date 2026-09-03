@@ -285,9 +285,9 @@
       display: flex;
       flex-direction: column;
       margin: 0;
-      padding: 14px;
+      padding: 12px 14px;
       height: 100%;
-      min-height: 210px;
+      min-height: 152px;
       border: 1px solid var(--line);
       border-radius: 8px;
       background: #fff;
@@ -298,7 +298,8 @@
       display: flex;
       align-items: center;
       gap: 2px;
-      margin: 0 0 8px;
+      margin: 0 0 6px;
+      flex: 0 0 auto;
       color: #111;
       line-height: 1;
     }
@@ -313,6 +314,7 @@
       padding: 0;
       border: 0;
       flex: 1 1 auto;
+      min-height: 0;
       font-family: var(--ui);
       font-size: 12px;
       font-weight: 300;
@@ -320,18 +322,24 @@
       letter-spacing: 0;
       line-height: 1.4;
       color: #333;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
     }
     .fw-pop-quote figcaption {
-      margin: 12px 0 0;
+      margin: 8px 0 0;
       padding: 0;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 4px;
+      gap: 3px;
+      flex: 0 0 auto;
     }
     .fw-pop-quote-logo {
       display: block;
-      height: 28px;
+      height: 24px;
       width: auto;
       max-width: 120px;
       object-fit: contain;
@@ -486,7 +494,6 @@
     .fw-opp-dot { color: #d1d5db; }
 
     .fw-quotes .fw-say-grid { margin-top: 12px; }
-    .fw-quotes .fw-stats { margin-top: 10px; }
     .fw-say { width: 100%; margin: 0; padding: 0; text-align: left; }
     .fw-say-inner { width: 100%; margin: 0; }
     .fw-say-grid {
@@ -511,11 +518,6 @@
     .fw-say-quote { margin: 0 0 10px; flex: 1; font-size: 13.5px; font-weight: 300; letter-spacing: -0.01em; line-height: 1.35; }
     .fw-say-pills { display: flex; flex-wrap: wrap; gap: 4px; }
     .fw-say-pill { padding: 2px 6px; border-radius: 3px; background: #f3f4f6; font-size: 10px; color: #4b5563; }
-
-    .fw-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 10px 0 0; text-align: left; }
-    .fw-stats-item { background: #000; border-radius: 8px; padding: 14px 14px 12px; }
-    .fw-stats-item strong { display: block; margin: 0 0 4px; font-family: var(--display); font-size: 26px; font-weight: 400; letter-spacing: -0.02em; color: #fff; }
-    .fw-stats-item span { display: block; font-size: 12px; font-weight: 300; color: rgba(255,255,255,0.62); line-height: 1.35; }
 
     .fw-cta-band { display: flex; justify-content: center; padding: 56px 0 100px; }
     .fw-cta-inner {
@@ -596,7 +598,6 @@
     }
     body.is-mobile .fw-pop-quotes { grid-template-columns: 1fr; }
     body.is-mobile .fw-say-grid { grid-template-columns: 1fr; }
-    body.is-mobile .fw-stats { grid-template-columns: 1fr 1fr; }
     body.is-mobile .page-hero-proof {
       flex-wrap: wrap;
       gap: 8px;
@@ -627,7 +628,6 @@
         grid-auto-flow: row;
       }
       .fw-pop-quotes { grid-template-columns: 1fr; }
-      .fw-stats { grid-template-columns: 1fr 1fr; }
       .fw-hero { padding-top: 48px; }
       .page-hero-proof {
         flex-wrap: wrap;
@@ -639,7 +639,7 @@
       .page-hero-logos img { height: 15px; }
     }
     @media (max-width: 520px) {
-      .fw-say-grid, .fw-stats { grid-template-columns: 1fr; }
+      .fw-say-grid { grid-template-columns: 1fr; }
     }
     @media (prefers-reduced-motion: reduce) {
       .fw-live-track, .qava-hero-icon { animation: none !important; }
@@ -944,12 +944,6 @@
                 <span class="fw-pop-quote-class">Class of 2024</span>
               </figcaption>
             </figure>
-          </div>
-          <div class="fw-stats" aria-label="The Club highlights">
-            <div class="fw-stats-item"><strong>70%</strong><span>of projects lead to ongoing relationships</span></div>
-            <div class="fw-stats-item"><strong>&lt;24h</strong><span>average time to a match</span></div>
-            <div class="fw-stats-item"><strong>96%</strong><span>of clients would recommend The Club</span></div>
-            <div class="fw-stats-item"><strong>Top 50</strong><span>global MBA &amp; EMBA schools</span></div>
           </div>
         </div>
       </section>
