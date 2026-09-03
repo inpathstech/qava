@@ -279,12 +279,15 @@
       gap: 10px;
       margin: 0;
       align-items: stretch;
+      grid-auto-rows: 1fr;
     }
     .fw-pop-quote {
       display: flex;
       flex-direction: column;
       margin: 0;
       padding: 14px;
+      height: 100%;
+      min-height: 210px;
       border: 1px solid var(--line);
       border-radius: 8px;
       background: #fff;
@@ -624,7 +627,6 @@
         grid-auto-flow: row;
       }
       .fw-pop-quotes { grid-template-columns: 1fr; }
-      .fw-say-grid { grid-template-columns: 1fr 1fr; }
       .fw-stats { grid-template-columns: 1fr 1fr; }
       .fw-hero { padding-top: 48px; }
       .page-hero-proof {
@@ -896,7 +898,7 @@
       <section class="fw-quotes" id="fw-quotes" aria-label="What doers say">
         <div class="fw-quotes-wrap">
           <p class="fw-popular-label">What doers say</p>
-          <div class="fw-pop-quotes">
+          <div class="fw-pop-quotes" id="quoteGrid">
             <figure class="fw-pop-quote">
               <div class="fw-pop-quote-stars" aria-label="5 out of 5 stars">
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
@@ -943,7 +945,6 @@
               </figcaption>
             </figure>
           </div>
-          <div class="fw-say-grid" id="sayGrid"></div>
           <div class="fw-stats" aria-label="The Club highlights">
             <div class="fw-stats-item"><strong>70%</strong><span>of projects lead to ongoing relationships</span></div>
             <div class="fw-stats-item"><strong>&lt;24h</strong><span>average time to a match</span></div>
@@ -1132,18 +1133,18 @@
           </div>
         </a>`).join("")
     );
-    document.getElementById("sayGrid").innerHTML = REVIEWS.map((r) => `
-      <article class="fw-say-card">
-        <div class="fw-say-person">
-          <div class="fw-say-avatar${r.crest ? " fw-say-avatar--crest" : ""}" aria-hidden="true"><img src="${r.logo}" alt=""></div>
-          <div>
-            <div class="fw-say-school">${r.school}</div>
-            <div class="fw-say-class">Class of ${r.year}</div>
-          </div>
-        </div>
-        <p class="fw-say-quote">“${r.quote}”</p>
-        <div class="fw-say-pills"><span class="fw-say-pill">${r.pill}</span></div>
-      </article>`).join("");
+    const STAR_SVG = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>';
+    const STARS = `<div class="fw-pop-quote-stars" aria-label="5 out of 5 stars">${STAR_SVG.repeat(5)}</div>`;
+    document.getElementById("quoteGrid").insertAdjacentHTML("beforeend", REVIEWS.map((r) => `
+      <figure class="fw-pop-quote">
+        ${STARS}
+        <blockquote>${r.quote}</blockquote>
+        <figcaption>
+          <img class="fw-pop-quote-logo" src="${r.logo}" alt="">
+          <span class="fw-pop-quote-school">${r.school}</span>
+          <span class="fw-pop-quote-class">Class of ${r.year}</span>
+        </figcaption>
+      </figure>`).join(""));
     document.getElementById("faqList").innerHTML = FAQ.map(([q, a], i) => `
       <div class="fw-faq-item${i === 0 ? " is-open" : ""}">
         <button type="button" class="fw-faq-q" aria-expanded="${i === 0 ? "true" : "false"}">
