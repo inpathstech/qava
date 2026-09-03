@@ -6,7 +6,8 @@
   <title>Strategy Breakdowns | The Club</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet" />
   <style>
     :root {
       /* How To article tokens — matches shell.css / live template detail */
@@ -127,7 +128,7 @@
     @media (prefers-reduced-motion: reduce) {
       #qava-dot-base-fixed::after { animation: none; opacity: 0; }
     }
-    body > *:not(#qava-dot-base-fixed):not(.designer-bar):not(.note) {
+    body > *:not(#qava-dot-base-fixed):not(.designer-bar):not(.note):not(.header-container):not(.mobile-menu) {
       position: relative;
       z-index: 1;
     }
@@ -1496,50 +1497,64 @@
       .footer-logo { width: 100%; }
     }
   </style>
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/qava-landing.css?v=13" />
+  <link rel="stylesheet" href="/qava-auth.css" />
 </head>
 <body>
 <div id="qava-dot-base-fixed" aria-hidden="true"></div>
 
-  <div class="page-frame">
-    <header class="header-container" data-qava-nav="landing">
-      <div class="header-logo">
-        <div class="logo-container">
-          <div class="logo">
-            <a href="https://theclubnyc.com/" aria-label="The Club home">
-              <img src="https://app.theclubnyc.com/the-club-logo-light.png" alt="The Club" width="72" height="16" />
-            </a>
-          </div>
+    <div class="header-container" data-qava-nav="landing">
+        <div class="header-logo">
+            <div class="logo-container">
+                <div class="logo">
+                    <a href="https://www.theclubnyc.com/">
+                        <div class="qava-nav-logo-flip" id="qava-nav-logo-flip">
+                            <div class="qava-nav-logo-inner" id="qava-nav-logo-inner">
+                                <img class="qava-nav-logo-face qava-nav-logo-front" src="/the-club-logo-light.png" alt="The Club">
+                                <img class="qava-nav-logo-face qava-nav-logo-back" src="/the-club-logo-light.png" alt="">
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="header-center">
-        <nav class="navigation">
-          <a href="https://theclubnyc.com/strategy" class="nav-item templates is-active" aria-current="page"><div class="nav-text">Strategy Breakdowns</div></a>
-          <a href="https://theclubnyc.com/find/" class="nav-item"><div class="nav-text">Find Work</div></a>
-          <a href="https://theclubnyc.com/blog" class="nav-item"><div class="nav-text">Blog</div></a>
-        </nav>
-      </div>
-      <div class="header-right">
-        <div class="auth-section">
-          <a href="https://app.theclubnyc.com/" class="qava-premium-nav-btn" aria-label="Log in"><span class="nav-text">Log in</span></a>
-          <a href="https://app.theclubnyc.com/" class="join-button"><div class="join-text">Get Started</div></a>
-        </div>
-        <div class="hamburger-menu" id="hamburger" role="button" aria-label="Open menu">
-          <div class="hamburger-line"></div>
-          <div class="hamburger-line"></div>
-          <div class="hamburger-line"></div>
-        </div>
-      </div>
-    </header>
 
-    <div class="mobile-menu" id="mobileMenu">
-      <div class="close-menu" id="closeMenu" aria-label="Close menu">✕</div>
-      <a href="https://theclubnyc.com/strategy" class="mobile-nav-item is-active" aria-current="page"><div class="nav-text">Strategy Breakdowns</div></a>
-      <a href="https://theclubnyc.com/find/" class="mobile-nav-item"><div class="nav-text">Find Work</div></a>
-      <a href="https://theclubnyc.com/blog" class="mobile-nav-item"><div class="nav-text">Blog</div></a>
-      <a href="https://app.theclubnyc.com/" class="mobile-nav-item"><div class="nav-text">Log in</div></a>
-      <a href="https://app.theclubnyc.com/" class="join-button"><div class="join-text">Get Started</div></a>
+        <div class="header-center">
+            <div class="navigation">
+                <a href="https://theclubnyc.com/strategy" class="nav-item templates is-active" aria-current="page"><div class="nav-text">Breakdowns</div></a>
+                <a href="https://www.theclubnyc.com/find/" class="nav-item search-listings"><div class="nav-text">Find Work</div></a>
+                <a href="https://www.theclubnyc.com/blog" class="nav-item blog"><div class="nav-text">Blog</div></a>
+            </div>
+        </div>
+
+        <div class="header-right">
+            <div class="auth-section">
+                <a href="https://app.theclubnyc.com/?login=1" class="qava-premium-nav-btn" data-qava-premium-nav aria-label="Log in"><span class="nav-text">Log in</span></a>
+                <a href="https://app.theclubnyc.com/" class="join-button">
+                    <div class="join-text">Get Started</div>
+                </a>
+            </div>
+
+            <div class="hamburger-menu" id="hamburger" onclick="toggleMobileMenu()" role="button" aria-label="Open menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu-icon lucide-menu" aria-hidden="true"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
+            </div>
+        </div>
     </div>
 
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
+        <a href="https://theclubnyc.com/strategy" class="mobile-nav-item is-active" aria-current="page"><div class="nav-text">Breakdowns</div></a>
+        <a href="https://www.theclubnyc.com/find/" class="mobile-nav-item"><div class="nav-text">Find Work</div></a>
+        <a href="https://www.theclubnyc.com/blog" class="mobile-nav-item"><div class="nav-text">Blog</div></a>
+        <a href="https://app.theclubnyc.com/?login=1" class="mobile-nav-item qava-premium-nav-btn" data-qava-premium-nav aria-label="Log in"><span class="nav-text">Log in</span></a>
+        <a href="https://app.theclubnyc.com/" class="join-button mobile-menu-join-button">
+            <div class="join-text">Get Started</div>
+        </a>
+    </div>
+
+  <div class="page-frame">
     <main class="av2" aria-label="Strategy Breakdowns">
       <section class="page-hero" aria-label="Strategy Breakdowns hero">
         <img class="page-hero-icon" src="hero-chess.png" alt="Strategy playbooks" width="108" height="108" />
@@ -3264,10 +3279,6 @@
     }
 
 
-    const mobileMenu = document.getElementById("mobileMenu");
-    document.getElementById("hamburger").addEventListener("click", () => mobileMenu.classList.add("is-open"));
-    document.getElementById("closeMenu").addEventListener("click", () => mobileMenu.classList.remove("is-open"));
-
     function toggleQA(element) {
       const qaItem = element.parentElement;
       const qaAnswer = qaItem.querySelector(".qa-answer");
@@ -3305,5 +3316,27 @@
 
     initTopics();
   </script>
+  <script src="/qava-nav-logo-flip.js?v=multi-1"></script>
+  <script>
+    function toggleMobileMenu() {
+      const mobileMenu = document.getElementById("mobileMenu");
+      mobileMenu.classList.toggle("active");
+      document.body.style.overflow = mobileMenu.classList.contains("active") ? "hidden" : "";
+    }
+    document.addEventListener("click", function (event) {
+      const mobileMenu = document.getElementById("mobileMenu");
+      const hamburgerMenu = document.querySelector(".hamburger-menu");
+      if (
+        mobileMenu &&
+        hamburgerMenu &&
+        mobileMenu.classList.contains("active") &&
+        !mobileMenu.contains(event.target) &&
+        !hamburgerMenu.contains(event.target)
+      ) {
+        toggleMobileMenu();
+      }
+    });
+  </script>
+  <script src="/qava-auth.js?v=login-1"></script>
 </body>
 </html>
