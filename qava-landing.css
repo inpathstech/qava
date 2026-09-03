@@ -76,7 +76,7 @@
           display: none;
         }
 
-        body > *:not(#qava-dot-base-fixed):not(.qava-modal-overlay) {
+        body > *:not(#qava-dot-base-fixed):not(.qava-modal-overlay):not(.header-container):not(.mobile-menu) {
             position: relative;
           z-index: 1;
         }
@@ -5468,9 +5468,9 @@
 
         .mobile-menu {
           display: none;
-          position: fixed;
+          position: fixed !important;
           inset: 0;
-          z-index: 2000;
+          z-index: 2000 !important;
           background: #fff;
           padding: 72px 28px 40px;
           overflow-y: auto;
