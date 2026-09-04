@@ -498,18 +498,21 @@
       display: flex;
       flex-direction: column;
       height: 100%;
+      min-height: 152px;
       margin: 0;
-      padding: 16px;
+      padding: 12px 14px;
       border: 1px solid var(--line);
-      border-radius: 6px;
+      border-radius: 8px;
       background: #fff;
+      box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04);
       box-sizing: border-box;
     }
     .quote-stars {
       display: flex;
       align-items: center;
       gap: 2px;
-      margin: 0 0 8px;
+      margin: 0 0 6px;
+      flex: 0 0 auto;
       color: #111;
       line-height: 1;
     }
@@ -524,23 +527,50 @@
       padding: 0;
       border: 0;
       flex: 1 1 auto;
+      min-height: 0;
       font-family: var(--ui);
-      font-size: 12.5px;
-      font-weight: 400;
+      font-size: 12px;
+      font-weight: 300;
       font-style: normal;
-      letter-spacing: -0.005em;
-      line-height: 1.5;
-      color: #111;
+      letter-spacing: 0;
+      line-height: 1.4;
+      color: #333;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
     }
     .quote figcaption {
-      margin: 12px 0 0;
+      margin: 8px 0 0;
       padding: 0;
-      font-family: var(--display);
-      font-size: 12.5px;
-      font-weight: 400;
-      font-style: normal;
-      color: var(--soft);
-      letter-spacing: -0.01em;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 3px;
+      flex: 0 0 auto;
+    }
+    .quote-logo {
+      display: block;
+      height: 24px;
+      width: auto;
+      max-width: 120px;
+      object-fit: contain;
+      object-position: left;
+    }
+    .quote-school {
+      font-family: var(--ui);
+      font-size: 11px;
+      font-weight: 300;
+      color: #666;
+      line-height: 1.2;
+    }
+    .quote-class {
+      font-family: var(--ui);
+      font-size: 10px;
+      font-weight: 300;
+      color: #666;
+      line-height: 1.2;
     }
     .ex-card {
       display: flex;
@@ -1645,40 +1675,244 @@
         <p class="quotes-kicker">Trusted by Doers</p>
         <div class="quotes">
           <figure class="quote">
-            <blockquote>Read the pricing breakdown on a coffee break — used it in a client call an hour later.</blockquote>
-            <figcaption>— Startup Founder</figcaption>
+            <div class="quote-stars" aria-label="5 out of 5 stars">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+            </div>
+            <blockquote>Working with startups gave me hands-on experience that no case study could match. I helped build go-to-market strategies that actually launched products.</blockquote>
+            <figcaption>
+              <img class="quote-logo" src="school-logos/kellogg.png" alt="">
+              <span class="quote-school">Kellogg School of Management</span>
+              <span class="quote-class">Class of 2024</span>
+            </figcaption>
           </figure>
           <figure class="quote">
-            <blockquote>No case study ever explained the beachhead strategy this clearly, this fast.</blockquote>
-            <figcaption>— MBA Candidate</figcaption>
+            <div class="quote-stars" aria-label="5 out of 5 stars">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+            </div>
+            <blockquote>I helped real companies raise capital. I built investor-ready pitch decks and financial models. This experience accelerated my career by 10 years.</blockquote>
+            <figcaption>
+              <img class="quote-logo" src="school-logos/wharton.png" alt="">
+              <span class="quote-school">The Wharton School</span>
+              <span class="quote-class">Class of 2023</span>
+            </figcaption>
           </figure>
           <figure class="quote">
-            <blockquote>I keep these open in a tab. Cheaper than the class that taught me half of this.</blockquote>
-            <figcaption>— First-time Founder</figcaption>
+            <div class="quote-stars" aria-label="5 out of 5 stars">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+            </div>
+            <blockquote>I worked on real, high-impact strategic projects for ambitious growing companies that I will stay in touch with for years to come.</blockquote>
+            <figcaption>
+              <img class="quote-logo" src="school-logos/columbia.svg" alt="">
+              <span class="quote-school">Columbia Business School</span>
+              <span class="quote-class">Class of 2024</span>
+            </figcaption>
           </figure>
           <figure class="quote">
-            <blockquote>Bite-sized enough to finish. Sharp enough to use before the day is over.</blockquote>
-            <figcaption>— Product Lead</figcaption>
+            <div class="quote-stars" aria-label="5 out of 5 stars">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+            </div>
+            <blockquote>Matched in a day. Scoped cleanly. Paid on time. I’ll keep coming back.</blockquote>
+            <figcaption>
+              <img class="quote-logo" src="school-logos/hbs.png" alt="">
+              <span class="quote-school">Harvard Business School</span>
+              <span class="quote-class">Class of 2024</span>
+            </figcaption>
           </figure>
           <figure class="quote">
-            <blockquote>Sent this to my cofounder instead of a memo. Faster — and honestly better.</blockquote>
-            <figcaption>— Early-stage Operator</figcaption>
+            <div class="quote-stars" aria-label="5 out of 5 stars">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+            </div>
+            <blockquote>Finally, project work that respects MBA-level thinking — not busywork.</blockquote>
+            <figcaption>
+              <img class="quote-logo" src="school-logos/haas.png" alt="">
+              <span class="quote-school">Berkeley Haas</span>
+              <span class="quote-class">Class of 2025</span>
+            </figcaption>
           </figure>
           <figure class="quote">
-            <blockquote>The ICP breakdown alone saved us a full month of guessing who to sell.</blockquote>
-            <figcaption>— Growth Marketer</figcaption>
+            <div class="quote-stars" aria-label="5 out of 5 stars">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+            </div>
+            <blockquote>I shipped a pricing project that the client still uses. That’s the bar.</blockquote>
+            <figcaption>
+              <img class="quote-logo" src="school-logos/stanford.png" alt="">
+              <span class="quote-school">Stanford GSB</span>
+              <span class="quote-class">Class of 2023</span>
+            </figcaption>
           </figure>
           <figure class="quote">
-            <blockquote>Finally a playbook I can share with the team without rewriting it first.</blockquote>
-            <figcaption>— Strategy Consultant</figcaption>
+            <div class="quote-stars" aria-label="5 out of 5 stars">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+            </div>
+            <blockquote>Clear scope, sharp clients, and work I can put on a resume with pride.</blockquote>
+            <figcaption>
+              <img class="quote-logo" src="school-logos/mit.png" alt="">
+              <span class="quote-school">MIT Sloan</span>
+              <span class="quote-class">Class of 2024</span>
+            </figcaption>
           </figure>
           <figure class="quote">
-            <blockquote>Skipped another pricey workshop. Same ground covered here in twenty minutes.</blockquote>
-            <figcaption>— Indie Hacker</figcaption>
+            <div class="quote-stars" aria-label="5 out of 5 stars">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+            </div>
+            <blockquote>Better than cold outreach. Better briefs. Better outcomes. Simple.</blockquote>
+            <figcaption>
+              <img class="quote-logo" src="school-logos/stern.png" alt="">
+              <span class="quote-school">NYU Stern</span>
+              <span class="quote-class">Class of 2025</span>
+            </figcaption>
           </figure>
           <figure class="quote">
-            <blockquote>The Club's GTM breakdown still opens every Monday before I plan the week.</blockquote>
-            <figcaption>— Revenue Lead</figcaption>
+            <div class="quote-stars" aria-label="5 out of 5 stars">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+            </div>
+            <blockquote>Remote, high-trust projects with founders who actually wanted my input.</blockquote>
+            <figcaption>
+              <img class="quote-logo" src="school-logos/said.png" alt="">
+              <span class="quote-school">Oxford Saïd</span>
+              <span class="quote-class">Class of 2024</span>
+            </figcaption>
+          </figure>
+          <figure class="quote">
+            <div class="quote-stars" aria-label="5 out of 5 stars">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+            </div>
+            <blockquote>I landed a role through a project. The relationship outlived the brief.</blockquote>
+            <figcaption>
+              <img class="quote-logo" src="school-logos/agsm.jpg" alt="">
+              <span class="quote-school">AGSM</span>
+              <span class="quote-class">Class of 2023</span>
+            </figcaption>
+          </figure>
+          <figure class="quote">
+            <div class="quote-stars" aria-label="5 out of 5 stars">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+            </div>
+            <blockquote>Applied Friday, kicked off Monday. The platform just moves.</blockquote>
+            <figcaption>
+              <img class="quote-logo" src="school-logos/kellogg.png" alt="">
+              <span class="quote-school">Kellogg</span>
+              <span class="quote-class">Class of 2025</span>
+            </figcaption>
+          </figure>
+          <figure class="quote">
+            <div class="quote-stars" aria-label="5 out of 5 stars">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+            </div>
+            <blockquote>Quality over volume. Every listing felt worth opening.</blockquote>
+            <figcaption>
+              <img class="quote-logo" src="school-logos/wharton.png" alt="">
+              <span class="quote-school">Wharton</span>
+              <span class="quote-class">Class of 2024</span>
+            </figcaption>
+          </figure>
+          <figure class="quote">
+            <div class="quote-stars" aria-label="5 out of 5 stars">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+            </div>
+            <blockquote>Protected payments, clear deliverables — I could focus on the work.</blockquote>
+            <figcaption>
+              <img class="quote-logo" src="school-logos/columbia.svg" alt="">
+              <span class="quote-school">Columbia</span>
+              <span class="quote-class">Class of 2025</span>
+            </figcaption>
+          </figure>
+          <figure class="quote">
+            <div class="quote-stars" aria-label="5 out of 5 stars">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+            </div>
+            <blockquote>The clients were operators. The feedback was direct. I grew fast.</blockquote>
+            <figcaption>
+              <img class="quote-logo" src="school-logos/hbs.png" alt="">
+              <span class="quote-school">Harvard Business School</span>
+              <span class="quote-class">Class of 2023</span>
+            </figcaption>
+          </figure>
+          <figure class="quote">
+            <div class="quote-stars" aria-label="5 out of 5 stars">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+            </div>
+            <blockquote>Short projects, real ownership. Exactly what I wanted between terms.</blockquote>
+            <figcaption>
+              <img class="quote-logo" src="school-logos/haas.png" alt="">
+              <span class="quote-school">Berkeley Haas</span>
+              <span class="quote-class">Class of 2024</span>
+            </figcaption>
+          </figure>
+          <figure class="quote">
+            <div class="quote-stars" aria-label="5 out of 5 stars">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
+            </div>
+            <blockquote>I’d recommend The Club to anyone who wants proof, not just potential.</blockquote>
+            <figcaption>
+              <img class="quote-logo" src="school-logos/mit.png" alt="">
+              <span class="quote-school">MIT Sloan</span>
+              <span class="quote-class">Class of 2025</span>
+            </figcaption>
           </figure>
         </div>
       </section>
