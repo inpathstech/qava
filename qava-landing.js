@@ -27,19 +27,19 @@
             },
             {
               href: "https://theclubnyc.com/find/",
-              label: "Job & Project Listings",
+              label: "Project Listings",
               cls: "nav-item search-listings",
-              active: path.startsWith("/find") || existingActive.includes("work") || existingActive.includes("find work") || existingActive.includes("job & project listings"),
+              active: path.startsWith("/find") || existingActive.includes("work") || existingActive.includes("find work") || existingActive.includes("job & project listings") || existingActive.includes("project listings"),
             },
             {
               href: "https://theclubnyc.com/blog",
-              label: "Blog & Partners",
+              label: "Blog",
               cls: "nav-item blog",
               active: path.startsWith("/blog") || existingActive.includes("blog") || existingActive.includes("blog & partners"),
             },
             {
               href: "https://theclubnyc.com/newsletter",
-              label: "Weekly Newsletter",
+              label: "Newsletter",
               cls: "nav-item newsletter",
               active: path.startsWith("/newsletter") || existingActive.includes("newsletter") || existingActive.includes("weekly newsletter"),
             },
