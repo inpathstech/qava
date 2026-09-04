@@ -1229,37 +1229,46 @@
           frameDoc.body.prepend(fixedDotLayer);
         }
 
-        // Remove Pricing from the top nav (kept in footer)
-        const navPricing = Array.from(frameDoc.querySelectorAll(".navigation a.nav-item")).find((link) =>
-          (link.textContent || "").trim().toLowerCase() === "pricing"
-        );
-        if (navPricing) navPricing.remove();
-
-        // Rename nav items to match the new sandbox wording
-        Array.from(frameDoc.querySelectorAll(".navigation .nav-item .nav-text")).forEach((el) => {
-          const current = (el.textContent || "").trim().toLowerCase();
-          const rename = NAV_RENAMES.find((r) => r.match === current);
-          if (rename) el.textContent = rename.label;
-        });
-
-        // Point the (renamed) Newsletter nav item to the newsletter page
-        const newsletterNav = Array.from(frameDoc.querySelectorAll(".navigation a.nav-item")).find((a) =>
-          (a.textContent || "").trim().toLowerCase() === "newsletter"
-        );
-        if (newsletterNav) {
-          newsletterNav.href = "https://www.theclubnyc.com/newsletter";
-          const qavaNavRow = newsletterNav.parentElement;
-          const qavaHasPremium = qavaNavRow && Array.from(qavaNavRow.querySelectorAll("a.nav-item")).some(
-            (a) => (a.textContent || "").trim().toLowerCase() === "premium"
-          );
-          if (!qavaHasPremium) {
-            const premiumNav = newsletterNav.cloneNode(true);
-            premiumNav.href = "https://app.theclubnyc.com/?premium=1";
-            const premiumText = premiumNav.querySelector(".nav-text") || premiumNav;
-            premiumText.textContent = "Premium";
-            newsletterNav.insertAdjacentElement("afterend", premiumNav);
+        (function applyClubCenterNav() {
+          const links = [
+            { href: "https://theclubnyc.com/strategy/", label: "Strategy Breakdowns", cls: "nav-item templates" },
+            { href: "https://theclubnyc.com/find/", label: "Job & Project Listings", cls: "nav-item search-listings" },
+            { href: "https://theclubnyc.com/blog", label: "Blog & Partners", cls: "nav-item blog" },
+            { href: "https://theclubnyc.com/newsletter", label: "Weekly Newsletter", cls: "nav-item newsletter" },
+          ];
+          function render(link, extraClass) {
+            const a = frameDoc.createElement("a");
+            a.href = link.href;
+            a.className = extraClass;
+            const text = frameDoc.createElement("div");
+            text.className = "nav-text";
+            text.textContent = link.label;
+            a.appendChild(text);
+            return a;
           }
-        }
+          const nav = frameDoc.querySelector(".header-container .navigation, .header-center .navigation");
+          if (nav) {
+            nav.innerHTML = "";
+            links.forEach((link) => nav.appendChild(render(link, link.cls)));
+          }
+          const menu = frameDoc.querySelector(".mobile-menu");
+          if (!menu) return;
+          const keep = (el) => {
+            if (!el || el.nodeType !== 1) return true;
+            if (el.classList.contains("close-menu") || el.classList.contains("join-button") || el.classList.contains("mobile-auth-section")) return true;
+            if (el.hasAttribute("data-qava-premium-nav")) return true;
+            const t = ((el.querySelector(".nav-text") || el).textContent || "").trim().toLowerCase();
+            return t === "log in" || t === "login" || t === "get started" || t === "log out";
+          };
+          Array.from(menu.children).forEach((el) => {
+            if (!keep(el)) el.remove();
+          });
+          const close = menu.querySelector(".close-menu");
+          const insertBefore = close ? close.nextSibling : menu.firstChild;
+          links.forEach((link) => {
+            menu.insertBefore(render(link, "mobile-nav-item"), insertBefore);
+          });
+        })();
 
         const howItWorksNavText = Array.from(frameDoc.querySelectorAll(".auth-item .nav-text, .mobile-nav-item")).find((item) => {
           const t = (item.textContent || "").trim().toLowerCase();
