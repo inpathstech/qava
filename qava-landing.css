@@ -5204,7 +5204,7 @@
           transition: color 0.15s ease !important;
         }
 
-        /* Phones in portrait and landscape: keep Get Started + How To on one row. */
+        /* Phones in portrait and landscape: keep Get Started + Strategy Breakdowns on one row. */
         @media (max-width: 1024px), (orientation: landscape) and (max-height: 500px) {
           .matching-cta-buttons {
             flex-direction: row !important;
