@@ -28,7 +28,7 @@
     <script>document.documentElement.classList.add('qava-pending');</script>
     <!-- Fetch the design stylesheet as early and high-priority as possible so the
          page spends the least possible time hidden behind the anti-FOUC guard. -->
-    <link rel="preload" as="style" href="qava-landing.css?v=12">
+    <link rel="preload" as="style" href="qava-landing.css?v=14">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -5420,7 +5420,7 @@
     </style>
     <!-- Do NOT call __qavaReveal from stylesheet onload — CSS finishes before
          qava-landing.js rebuilds the page, which re-exposes the legacy hero. -->
-    <link rel="stylesheet" href="qava-landing.css?v=12" />
+    <link rel="stylesheet" href="qava-landing.css?v=14" />
     <link rel="stylesheet" href="community/landing-community.css" />
     <link rel="stylesheet" href="qava-auth.css" />
     <script>
@@ -5462,9 +5462,10 @@
         <!-- Navigation in the center -->
         <div class="header-center">
             <div class="navigation">
-                <a href="https://theclubnyc.com/strategy" class="nav-item templates"><div class="nav-text">Strategy</div></a>
-                <a href="https://www.theclubnyc.com/find/" class="nav-item search-listings"><div class="nav-text">Work</div></a>
-                <a href="https://www.theclubnyc.com/blog" class="nav-item blog"><div class="nav-text">Blog</div></a>
+                <a href="https://theclubnyc.com/strategy/" class="nav-item templates"><div class="nav-text">Strategy Breakdowns</div></a>
+                <a href="https://theclubnyc.com/find/" class="nav-item search-listings"><div class="nav-text">Job &amp; Project Listings</div></a>
+                <a href="https://theclubnyc.com/blog" class="nav-item blog"><div class="nav-text">Blog &amp; Partners</div></a>
+                <a href="https://theclubnyc.com/newsletter" class="nav-item newsletter"><div class="nav-text">Weekly Newsletter</div></a>
               </div>
         </div>
         
@@ -5487,9 +5488,10 @@
     <!-- Mobile Menu Overlay -->
     <div class="mobile-menu" id="mobileMenu">
         <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
-                <a href="https://theclubnyc.com/strategy" class="mobile-nav-item"><div class="nav-text">Strategy</div></a>
-        <a href="https://www.theclubnyc.com/find/" class="mobile-nav-item"><div class="nav-text">Work</div></a>
-        <a href="https://www.theclubnyc.com/blog" class="mobile-nav-item"><div class="nav-text">Blog</div></a>
+                <a href="https://theclubnyc.com/strategy/" class="mobile-nav-item"><div class="nav-text">Strategy Breakdowns</div></a>
+        <a href="https://theclubnyc.com/find/" class="mobile-nav-item"><div class="nav-text">Job &amp; Project Listings</div></a>
+        <a href="https://theclubnyc.com/blog" class="mobile-nav-item"><div class="nav-text">Blog &amp; Partners</div></a>
+        <a href="https://theclubnyc.com/newsletter" class="mobile-nav-item"><div class="nav-text">Weekly Newsletter</div></a>
 <a href="https://app.theclubnyc.com/?login=1" class="mobile-nav-item qava-premium-nav-btn" data-qava-premium-nav aria-label="Log in"><span class="nav-text">Log in</span></a>
         <a href="https://app.theclubnyc.com/" class="join-button mobile-menu-join-button">
             <div class="join-text">Get Started</div>
@@ -12307,7 +12309,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
       }
     })();
     </script>
-    <script src="qava-landing.js?v=menu-6"></script>
+    <script src="qava-landing.js?v=menu-8"></script>
     <script src="qava-auth.js?v=login-1"></script>
     <script src="community/landing-community.js"></script>
 </body>

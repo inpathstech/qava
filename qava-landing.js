@@ -20,22 +20,28 @@
             .map((el) => ((el.querySelector(".nav-text") || el).textContent || "").trim().toLowerCase());
           const links = [
             {
-              href: "https://theclubnyc.com/strategy",
-              label: "Strategy",
+              href: "https://theclubnyc.com/strategy/",
+              label: "Strategy Breakdowns",
               cls: "nav-item templates",
               active: path.startsWith("/strategy") || existingActive.includes("strategy") || existingActive.includes("strategy breakdowns") || existingActive.includes("breakdowns"),
             },
             {
-              href: "https://www.theclubnyc.com/find/",
-              label: "Work",
+              href: "https://theclubnyc.com/find/",
+              label: "Job & Project Listings",
               cls: "nav-item search-listings",
-              active: path.startsWith("/find") || existingActive.includes("work") || existingActive.includes("find work"),
+              active: path.startsWith("/find") || existingActive.includes("work") || existingActive.includes("find work") || existingActive.includes("job & project listings"),
             },
             {
-              href: "https://www.theclubnyc.com/blog",
-              label: "Blog",
+              href: "https://theclubnyc.com/blog",
+              label: "Blog & Partners",
               cls: "nav-item blog",
-              active: path.startsWith("/blog") || existingActive.includes("blog"),
+              active: path.startsWith("/blog") || existingActive.includes("blog") || existingActive.includes("blog & partners"),
+            },
+            {
+              href: "https://theclubnyc.com/newsletter",
+              label: "Weekly Newsletter",
+              cls: "nav-item newsletter",
+              active: path.startsWith("/newsletter") || existingActive.includes("newsletter") || existingActive.includes("weekly newsletter"),
             },
           ];
 
@@ -162,11 +168,12 @@
         });
 
         // Keep explicit Newsletter links pointed at /newsletter. Do not rewrite About.
-        const newsletterNavLinks = Array.from(doc.querySelectorAll(".navigation .nav-item, .mobile-nav-item")).filter((a) =>
-          (a.textContent || "").trim().toLowerCase() === "newsletter"
-        );
+        const newsletterNavLinks = Array.from(doc.querySelectorAll(".navigation .nav-item, .mobile-nav-item")).filter((a) => {
+          const t = (a.textContent || "").trim().toLowerCase();
+          return t === "newsletter" || t === "weekly newsletter";
+        });
         newsletterNavLinks.forEach((link) => {
-          link.href = "https://www.theclubnyc.com/newsletter";
+          link.href = "https://theclubnyc.com/newsletter";
           link.classList.add("newsletter");
         });
 
