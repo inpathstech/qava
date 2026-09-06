@@ -134,7 +134,7 @@
   function startNeedFaceCluster(clusterEl) {
     if (!clusterEl || clusterEl.dataset.running) return;
     clusterEl.dataset.running = "1";
-    [
+    const faces = [
       [4,  32, "11%", "22%", 1],
       [13, 30, "30%", "14%", 2],
       [1,  28, "50%", "12%", 2],
@@ -151,16 +151,56 @@
       [3,  56, "38%", "60%", 12],
       [10, 50, "56%", "56%", 11],
       [8,  58, "72%", "70%", 14],
-    ].forEach(([n, size, x, y, z]) => {
+    ];
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const wraps = [];
+    let ready = 0;
+    let shown = false;
+    const reveal = () => {
+      if (shown) return;
+      shown = true;
+      wraps.forEach((wrap, i) => {
+        wrap.style.setProperty("--d", reduceMotion ? "0ms" : (40 + i * 78) + "ms");
+        wrap.classList.add("is-loaded", "is-in");
+      });
+    };
+    const onAllReady = () => {
+      if (reduceMotion || !("IntersectionObserver" in window)) {
+        reveal();
+        return;
+      }
+      const io = new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          reveal();
+          io.disconnect();
+        }
+      }, { threshold: 0.2 });
+      io.observe(clusterEl);
+    };
+    faces.forEach(([n, size, x, y, z]) => {
+      const wrap = document.createElement("span");
+      wrap.className = "qava-need-bubble";
+      wrap.style.setProperty("--x", x);
+      wrap.style.setProperty("--y", y);
+      wrap.style.setProperty("--s", size + "px");
+      wrap.style.setProperty("--z", z);
       const img = document.createElement("img");
-      img.className = "qava-need-bubble";
-      img.src = "need-art/members/" + n + ".png";
       img.alt = "";
-      img.style.setProperty("--x", x);
-      img.style.setProperty("--y", y);
-      img.style.setProperty("--s", size + "px");
-      img.style.setProperty("--z", z);
-      clusterEl.appendChild(img);
+      img.decoding = "async";
+      let settled = false;
+      const onReady = () => {
+        if (settled) return;
+        settled = true;
+        ready += 1;
+        if (ready >= faces.length) onAllReady();
+      };
+      img.addEventListener("load", onReady);
+      img.addEventListener("error", onReady);
+      wrap.appendChild(img);
+      clusterEl.appendChild(wrap);
+      wraps.push(wrap);
+      img.src = "need-art/members/" + n + ".png";
+      if (img.complete) onReady();
     });
   }
 
