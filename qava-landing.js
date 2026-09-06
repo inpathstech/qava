@@ -1,163 +1,173 @@
 (function () {
-  function startNeedBubbles(section) {
-    const arena = section && section.querySelector(".qava-need-bubbles");
-    if (!arena || arena.dataset.running) return;
-    arena.dataset.running = "1";
+  function startNeedStrategyChart(plot) {
+    if (!plot || plot.dataset.running) return;
+    plot.dataset.running = "1";
+    const NS = "http://www.w3.org/2000/svg";
+    const TARGETS = [1.5, 3.6, 9.2];
+    const XS = [188, 274, 360];
+    const Y0 = 186.8;
+    const Y1 = [169.2, 126.4, 30.8];
+    const STAGGER = 167;
+    const RISE = 1600;
+    const CYCLE = 3200;
+    const BAND_IN = 667;
+    const BAND_DUR = 1000;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const nodes = Array.from(arena.querySelectorAll(".qava-need-bubble"));
-    if (!nodes.length) return;
+    const svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("viewBox", "0 0 400 200");
+    svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+    svg.innerHTML = `
+      <rect class="band" x="51" y="67.5" width="332" height="62.5" fill="#f7f6f5" opacity="0"/>
+      <line x1="72" y1="67.5" x2="384" y2="67.5" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3 3"/>
+      <line x1="72" y1="130" x2="384" y2="130" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3 3"/>
+      <rect x="67.6" y="10.4" width="9.2" height="51.8" rx="2.1" fill="#fff" stroke="#e5e7eb" stroke-width="0.9"/>
+      <rect class="mid-pill" x="67.6" y="72.9" width="9.2" height="51.8" rx="2.1" fill="#f7f6f5" stroke="#e5e7eb" stroke-width="0.9" opacity="0"/>
+      <rect x="67.6" y="72.9" width="9.2" height="51.8" rx="2.1" fill="none" stroke="#e5e7eb" stroke-width="0.9"/>
+      <rect x="67.6" y="135.3" width="9.2" height="51.8" rx="2.1" fill="#fff" stroke="#e5e7eb" stroke-width="0.9"/>
+      <text class="qava-need-chart-label" x="82" y="38.5">ABOVE RANGE</text>
+      <text class="qava-need-chart-label" x="82" y="101">IN RANGE</text>
+      <text class="qava-need-chart-label" x="82" y="163.5">BELOW RANGE</text>
+      <polyline class="line" fill="none" stroke="#111827" stroke-width="1.25" stroke-linejoin="round" stroke-linecap="round"/>
+    `;
+    plot.appendChild(svg);
 
-    const SIZE = 56;
-    const R = SIZE / 2;
-    const MIN_SPEED = 10;
-    const MAX_SPEED = 16;
-    const balls = nodes.map(() => ({ x: R, y: R, vx: 0, vy: 0 }));
-    let width = 0;
-    let height = 0;
-    let paused = false;
+    const band = svg.querySelector(".band");
+    const midPill = svg.querySelector(".mid-pill");
+    const line = svg.querySelector(".line");
+    const dots = XS.map((x, i) => {
+      const stem = document.createElementNS(NS, "line");
+      stem.setAttribute("stroke", "#e5e7eb");
+      stem.setAttribute("stroke-width", "1");
+      stem.setAttribute("stroke-dasharray", "2.5 3");
+      stem.setAttribute("x1", x);
+      stem.setAttribute("x2", x);
+      svg.appendChild(stem);
+      const glow = document.createElementNS(NS, "circle");
+      glow.setAttribute("r", "8.2");
+      glow.setAttribute("fill", "rgba(17,24,39,0.10)");
+      glow.setAttribute("cx", x);
+      svg.appendChild(glow);
+      const c = document.createElementNS(NS, "circle");
+      c.setAttribute("r", "5.7");
+      c.setAttribute("fill", "#111827");
+      c.setAttribute("cx", x);
+      svg.appendChild(c);
+      const t = document.createElementNS(NS, "text");
+      t.setAttribute("class", "qava-need-chart-score");
+      t.setAttribute("text-anchor", "middle");
+      t.setAttribute("x", x);
+      svg.appendChild(t);
+      return { stem, glow, c, t, x, y1: Y1[i], target: TARGETS[i] };
+    });
+
     let visible = true;
-    let last = 0;
+    let elapsed = 0;
+    let lastNow = 0;
+    let raf = 0;
 
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const card = arena.closest(".qava-need-card");
-
-    function randomSpeed() {
-      return MIN_SPEED + Math.random() * (MAX_SPEED - MIN_SPEED);
-    }
-
-    function measure() {
-      const rect = arena.getBoundingClientRect();
-      width = rect.width;
-      height = rect.height;
-      return width >= SIZE * 2 && height >= SIZE;
-    }
-
-    function place() {
-      if (!measure()) return;
-      const cols = Math.max(2, Math.ceil(Math.sqrt(nodes.length)));
-      const rows = Math.ceil(nodes.length / cols);
-      const cellW = width / cols;
-      const cellH = height / rows;
-      nodes.forEach((_, i) => {
-        const col = i % cols;
-        const row = Math.floor(i / cols);
-        const jitterX = (Math.random() - 0.5) * Math.max(0, cellW - SIZE - 10);
-        const jitterY = (Math.random() - 0.5) * Math.max(0, cellH - SIZE - 10);
-        balls[i].x = Math.min(width - R, Math.max(R, cellW * col + cellW / 2 + jitterX));
-        balls[i].y = Math.min(height - R, Math.max(R, cellH * row + cellH / 2 + jitterY));
-        const angle = Math.random() * Math.PI * 2;
-        const speed = randomSpeed();
-        balls[i].vx = Math.cos(angle) * speed;
-        balls[i].vy = Math.sin(angle) * speed;
-      });
-      paint();
-    }
-
-    function paint() {
-      nodes.forEach((el, i) => {
-        el.style.left = (balls[i].x - R) + "px";
-        el.style.top = (balls[i].y - R) + "px";
-        el.style.transform = "none";
-      });
-    }
-
-    function step(dt) {
-      for (let i = 0; i < balls.length; i++) {
-        const b = balls[i];
-        b.x += b.vx * dt;
-        b.y += b.vy * dt;
-        if (b.x < R) {
-          b.x = R;
-          b.vx = Math.abs(b.vx);
-        } else if (b.x > width - R) {
-          b.x = width - R;
-          b.vx = -Math.abs(b.vx);
-        }
-        if (b.y < R) {
-          b.y = R;
-          b.vy = Math.abs(b.vy);
-        } else if (b.y > height - R) {
-          b.y = height - R;
-          b.vy = -Math.abs(b.vy);
-        }
+    function ease(t) {
+      if (t <= 0) return 0;
+      if (t >= 1) return 1;
+      if (t < 0.52) {
+        const u = t / 0.52;
+        return 0.34 * u * u;
       }
+      const u = (t - 0.52) / 0.48;
+      return 0.34 + 0.66 * (1 - Math.pow(1 - u, 2));
+    }
 
-      for (let i = 0; i < balls.length; i++) {
-        for (let j = i + 1; j < balls.length; j++) {
-          const a = balls[i];
-          const b = balls[j];
-          let dx = b.x - a.x;
-          let dy = b.y - a.y;
-          let dist = Math.hypot(dx, dy);
-          if (dist === 0) {
-            dx = 0.01;
-            dy = 0;
-            dist = 0.01;
-          }
-          if (dist >= SIZE) continue;
-          const nx = dx / dist;
-          const ny = dy / dist;
-          const overlap = (SIZE - dist) / 2;
-          a.x -= nx * overlap;
-          a.y -= ny * overlap;
-          b.x += nx * overlap;
-          b.y += ny * overlap;
-          const rel = (a.vx - b.vx) * nx + (a.vy - b.vy) * ny;
-          if (rel > 0) continue;
-          a.vx -= rel * nx;
-          a.vy -= rel * ny;
-          b.vx += rel * nx;
-          b.vy += rel * ny;
-        }
+    function paint(nowOffset) {
+      const t = reduce ? CYCLE : nowOffset;
+      const bandP = Math.max(0, Math.min(1, (t - BAND_IN) / BAND_DUR));
+      const bandE = 1 - Math.pow(1 - bandP, 2);
+      band.setAttribute("opacity", String(bandE));
+      midPill.setAttribute("opacity", String(bandE));
+
+      const pts = dots.map((dot, i) => {
+        const local = Math.max(0, Math.min(1, (t - i * STAGGER) / RISE));
+        const p = reduce ? 1 : ease(local);
+        const y = Y0 + (dot.y1 - Y0) * p;
+        dot.stem.setAttribute("y1", y + 6);
+        dot.stem.setAttribute("y2", Y0);
+        dot.glow.setAttribute("cy", y);
+        dot.c.setAttribute("cy", y);
+        dot.t.setAttribute("x", dot.x + (i === 1 ? -11 : 0));
+        dot.t.setAttribute("y", y - (i === 1 ? 15 : 13));
+        dot.t.textContent = (dot.target * p).toFixed(1);
+        return dot.x + "," + y;
+      });
+      line.setAttribute("points", pts.join(" "));
+    }
+
+    function frame(now) {
+      if (!lastNow) lastNow = now;
+      if (visible && !reduce) {
+        elapsed = Math.min(CYCLE, elapsed + (now - lastNow));
+        paint(elapsed);
       }
-      paint();
-    }
-
-    function loop(t) {
-      if (!last) last = t;
-      const dt = Math.min(0.032, (t - last) / 1000);
-      last = t;
-      if (!paused && visible) step(dt);
-      window.requestAnimationFrame(loop);
-    }
-
-    function boot() {
-      if (!measure()) {
-        window.requestAnimationFrame(boot);
+      lastNow = now;
+      if (elapsed >= CYCLE || reduce) {
+        paint(CYCLE);
+        raf = 0;
         return;
       }
-      place();
-      if (reduceMotion) return;
-
-      if (card) {
-        card.addEventListener("mouseenter", () => { paused = true; });
-        card.addEventListener("mouseleave", () => { paused = false; last = 0; });
-      }
-
-      if ("IntersectionObserver" in window) {
-        const io = new IntersectionObserver((entries) => {
-          visible = entries.some((e) => e.isIntersecting);
-          if (visible) last = 0;
-        }, { threshold: 0.05 });
-        io.observe(arena);
-      }
-
-      if (typeof ResizeObserver !== "undefined") {
-        const ro = new ResizeObserver(() => {
-          if (!measure()) return;
-          balls.forEach((b) => {
-            b.x = Math.min(width - R, Math.max(R, b.x));
-            b.y = Math.min(height - R, Math.max(R, b.y));
-          });
-          paint();
-        });
-        ro.observe(arena);
-      }
-
-      window.requestAnimationFrame(loop);
+      raf = requestAnimationFrame(frame);
     }
 
-    window.requestAnimationFrame(boot);
+    paint(reduce ? CYCLE : 0);
+    if (!reduce) raf = requestAnimationFrame(frame);
+
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver((entries) => {
+        const on = entries.some((e) => e.isIntersecting);
+        if (on && !visible) lastNow = 0;
+        visible = on;
+        if (on && elapsed < CYCLE && !reduce && !raf) {
+          raf = requestAnimationFrame(frame);
+        }
+      }, { threshold: 0.2 });
+      io.observe(plot);
+    }
+  }
+
+  function startNeedFaceCluster(clusterEl) {
+    if (!clusterEl || clusterEl.dataset.running) return;
+    clusterEl.dataset.running = "1";
+    [
+      [4,  32, "11%", "22%", 1],
+      [13, 30, "30%", "14%", 2],
+      [1,  28, "50%", "12%", 2],
+      [6,  32, "70%", "16%", 2],
+      [14, 30, "88%", "26%", 1],
+      [12, 32, "91%", "72%", 2],
+      [5,  30, "9%",  "78%", 2],
+      [15, 42, "22%", "44%", 6],
+      [2,  44, "40%", "34%", 7],
+      [9,  42, "61%", "36%", 6],
+      [11, 46, "79%", "50%", 8],
+      [7,  42, "18%", "68%", 7],
+      [16, 50, "50%", "78%", 10],
+      [3,  56, "38%", "60%", 12],
+      [10, 50, "56%", "56%", 11],
+      [8,  58, "72%", "70%", 14],
+    ].forEach(([n, size, x, y, z]) => {
+      const img = document.createElement("img");
+      img.className = "qava-need-bubble";
+      img.src = "need-art/members/" + n + ".png";
+      img.alt = "";
+      img.style.setProperty("--x", x);
+      img.style.setProperty("--y", y);
+      img.style.setProperty("--s", size + "px");
+      img.style.setProperty("--z", z);
+      clusterEl.appendChild(img);
+    });
+  }
+
+  function startNeedSection(section) {
+    if (!section) return;
+    startNeedStrategyChart(section.querySelector("#strategyPlot"));
+    startNeedFaceCluster(section.querySelector("#faceCluster"));
   }
 
   function attachLandingEnhancements() {
@@ -527,21 +537,20 @@
               needSection.id = "qava-need-section";
               needSection.className = "qava-need-section";
               needSection.setAttribute("aria-label", "Everything you need");
-              const listingRow = (thumb, title, meta) => `
+              const listingRow = (title, meta) => `
                       <div class="qava-need-listing">
-                        <img class="qava-need-listing-thumb" src="${thumb}" alt="">
                         <div class="qava-need-listing-copy">
                           <p class="qava-need-listing-title">${title}</p>
                           <p class="qava-need-listing-meta">${meta}</p>
                         </div>
                       </div>`;
               const listingSet = [
-                listingRow("find/thumbs/pitch.png", "Series B SaaS — Pitch Deck", "Remote · $525 · 10 hrs"),
-                listingRow("find/thumbs/pricing.png", "Fintech — Pricing Strategy", "Remote · $280 · 12 hrs"),
-                listingRow("find/thumbs/gtm.png", "Nonprofit — GTM Plan", "Remote · $280 · 12 hrs"),
-                listingRow("find/thumbs/product.png", "Seed AI — Business Plan", "New York · $350 · 12 hrs"),
-                listingRow("find/thumbs/industry.png", "Climate — Financial Model", "Remote · $700 · 12 hrs"),
-                listingRow("find/thumbs/growth.png", "Marketplace — Growth Plan", "Denver · $280 · 12 hrs"),
+                listingRow("Pitch Deck for Series B SaaS Workflow Automation Financial Model for Mid-Market Expansion", "Remote · $525 · 10 hrs"),
+                listingRow("Pricing Strategy for Fintech Lending Platform Expansion into Europe GTM Plan for Bank Partnerships", "Remote · $280 · 12 hrs"),
+                listingRow("GTM Plan for Nonprofit Climate Education Partnerships Nationwide Growth Plan for Regional Chapters", "Remote · $280 · 12 hrs"),
+                listingRow("Business Plan for Seed AI Copilot targeting Legal Operations Teams Pitch Deck for First Institutional Round", "New York · $350 · 12 hrs"),
+                listingRow("Financial Model for B2B Climate Platform Growth Plan for Three Segments Pitch Deck for Series A", "Remote · $700 · 12 hrs"),
+                listingRow("Growth Plan for Marketplace Density in Secondary US Cities Pricing Strategy for Supply-Side Incentives", "Denver · $280 · 12 hrs"),
               ].join("");
               needSection.innerHTML = `
                 <p class="qava-need-kicker">One stop shop</p>
@@ -552,14 +561,7 @@
                     <div class="qava-need-card-title">Strategy Breakdowns</div>
                     <p class="qava-need-card-desc">Real teardowns of how top operators solved the exact problem you're facing.</p>
                     <div class="qava-need-preview qava-need-preview--art">
-                      <div class="qava-need-carousel" aria-hidden="true">
-                        <div class="qava-need-carousel-track">
-                          <div class="qava-need-carousel-slide"><img src="need-art/template-beachhead.png" alt=""></div>
-                          <div class="qava-need-carousel-slide"><img src="need-art/template-icp.png" alt=""></div>
-                          <div class="qava-need-carousel-slide"><img src="need-art/template-pricingstrategy.png" alt=""></div>
-                          <div class="qava-need-carousel-slide"><img src="need-art/template-beachhead.png" alt=""></div>
-                        </div>
-                      </div>
+                      <div class="qava-need-chart" id="strategyPlot" aria-hidden="true"></div>
                     </div>
                   </a>
                   <a class="qava-need-card" href="https://www.theclubnyc.com/find/">
@@ -580,19 +582,7 @@
                     <div class="qava-need-card-title">Networking</div>
                     <p class="qava-need-card-desc">Build real relationships with founders, peers, and alumni from top programs.</p>
                     <div class="qava-need-preview qava-need-preview--faces">
-                      <div class="qava-need-bubbles" aria-hidden="true">
-                        ${[
-                          [3, "#3f5c4a"],
-                          [2, "#111827"],
-                          [6, "#8b5340"],
-                          [5, "#8bb4c9"],
-                          [7, "#7ba882"],
-                          [8, "#6aa3a8"],
-                          [4, "#9ca3af"],
-                        ].map(([n, color]) =>
-                          `<img class="qava-need-bubble" src="need-art/members/${n}.png" alt="" style="border-color:${color}">`
-                        ).join("")}
-                      </div>
+                      <div class="qava-need-bubbles" id="faceCluster" aria-hidden="true"></div>
                     </div>
                   </a>
                 </div>
@@ -601,7 +591,7 @@
                 </div>
               `;
               blogActions.insertAdjacentElement("afterend", needSection);
-              startNeedBubbles(needSection);
+              startNeedSection(needSection);
             }
 
             blogStack.querySelectorAll(".qava-blog-card").forEach((card) => {

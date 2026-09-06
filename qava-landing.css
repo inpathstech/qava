@@ -2308,20 +2308,22 @@
         .qava-need-grid {
           width: 100%;
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
+          grid-template-columns: repeat(3, minmax(0, 1fr));
           gap: 16px;
           margin: 0 0 32px;
         }
         .qava-need-card {
           display: flex;
           flex-direction: column;
+          height: 340px;
           min-height: 340px;
+          min-width: 0;
           padding: 22px 20px 18px;
           background: var(--need-card);
-          border-radius: 16px;
+          border-radius: 8px;
           text-decoration: none;
           color: inherit;
-          text-align: left;
+          text-align: center;
         }
         .qava-need-num {
           font-family: "Inter", sans-serif;
@@ -2346,56 +2348,53 @@
           font-weight: 300;
           line-height: 1.45;
           color: var(--need-muted);
-          margin: 0 0 20px;
+          margin: 0 0 10px;
         }
         .qava-need-preview {
-          margin-top: auto;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
           background: #fff;
-          border-radius: 12px;
+          border-radius: 6px;
           padding: 16px;
-          min-height: 148px;
+          min-height: 0;
           overflow: hidden;
+          text-align: left;
         }
-        .qava-need-preview--art {
-          padding: 8px;
-          background: #fff;
-        }
-        .qava-need-preview--listings {
-          padding: 8px 8px 6px;
-        }
-        .qava-need-carousel {
-          overflow: hidden;
+        .qava-need-preview--art { padding: 6px 4px 4px; }
+        .qava-need-preview--listings { padding: 8px 8px 6px; }
+        .qava-need-chart {
+          flex: 1;
           width: 100%;
-          height: 132px;
-          border-radius: 8px;
+          min-height: 0;
         }
-        .qava-need-carousel-track {
-          display: flex;
-          width: 400%;
-          height: 100%;
-          animation: qavaNeedSlide 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-        }
-        .qava-need-carousel-slide {
-          flex: 0 0 25%;
-          height: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .qava-need-carousel-slide img {
+        .qava-need-chart svg {
           display: block;
           width: 100%;
           height: 100%;
-          object-fit: contain;
         }
-        @keyframes qavaNeedSlide {
-          0%, 26% { transform: translateX(0); }
-          33%, 59% { transform: translateX(-25%); }
-          66%, 92% { transform: translateX(-50%); }
-          100% { transform: translateX(-75%); }
+        .qava-need-chart-label {
+          font-family: "Fragment Mono", ui-monospace, Menlo, monospace;
+          font-size: 8.5px;
+          letter-spacing: 0.04em;
+          fill: #6b6b6b;
+        }
+        .qava-need-chart-score {
+          font-family: Inter, sans-serif;
+          font-size: 11px;
+          font-weight: 600;
+          letter-spacing: -0.02em;
+          fill: #6b6b6b;
+          paint-order: stroke fill;
+          stroke: #fff;
+          stroke-width: 3.5px;
+          stroke-linejoin: round;
         }
         .qava-need-live-rail {
-          height: 132px;
+          flex: 1;
+          min-height: 0;
+          min-width: 0;
+          width: 100%;
           overflow: hidden;
           -webkit-mask-image: linear-gradient(transparent 0%, #000 14%, #000 86%, transparent 100%);
           mask-image: linear-gradient(transparent 0%, #000 14%, #000 86%, transparent 100%);
@@ -2403,6 +2402,8 @@
         .qava-need-live-track {
           display: flex;
           flex-direction: column;
+          width: 100%;
+          min-width: 0;
           animation: qavaNeedLive 22s linear infinite;
         }
         .qava-need-live-set {
@@ -2410,9 +2411,10 @@
           flex-direction: column;
           gap: 6px;
           padding-bottom: 6px;
+          width: 100%;
+          min-width: 0;
         }
-        .qava-need-card:hover .qava-need-live-track,
-        .qava-need-card:hover .qava-need-carousel-track {
+        .qava-need-card:hover .qava-need-live-track {
           animation-play-state: paused;
         }
         @keyframes qavaNeedLive {
@@ -2420,22 +2422,20 @@
           to { transform: translateY(-50%); }
         }
         .qava-need-listing {
-          display: flex;
-          align-items: center;
-          gap: 8px;
+          display: block;
           margin: 0;
           flex: 0 0 auto;
+          padding: 6px 4px;
+          min-width: 0;
+          max-width: 100%;
+          overflow: hidden;
         }
-        .qava-need-listing-thumb {
-          width: 32px;
-          height: 32px;
-          border-radius: 6px;
-          object-fit: cover;
-          background: #f7f6f5;
-          flex: 0 0 auto;
-          display: block;
+        .qava-need-listing-copy {
+          min-width: 0;
+          width: 100%;
+          overflow: hidden;
+          text-align: left;
         }
-        .qava-need-listing-copy { min-width: 0; flex: 1; }
         .qava-need-listing-title {
           font-family: "Inter", sans-serif;
           font-size: 12px;
@@ -2443,6 +2443,8 @@
           color: var(--need-ink);
           line-height: 1.25;
           margin: 0 0 1px;
+          width: 100%;
+          max-width: 100%;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -2458,43 +2460,38 @@
           text-overflow: ellipsis;
         }
         @media (prefers-reduced-motion: reduce) {
-          .qava-need-carousel-track,
           .qava-need-live-track { animation: none; }
         }
         .qava-need-preview--faces {
           padding: 0;
-          position: relative;
         }
         .qava-need-bubbles {
           position: relative;
           width: 100%;
-          height: 148px;
+          flex: 1;
+          min-height: 0;
           overflow: hidden;
-          border-radius: 12px;
+          border-radius: 6px;
         }
         .qava-need-bubble {
           position: absolute;
-          width: 56px;
-          height: 56px;
-          max-width: none;
+          left: var(--x);
+          top: var(--y);
+          width: var(--s);
+          height: var(--s);
+          transform: translate(-50%, -50%);
+          z-index: var(--z);
           border-radius: 50%;
           box-sizing: border-box;
           object-fit: cover;
           object-position: center top;
           display: block;
           background: #e8e0d4;
-          border: 2px solid #fff;
-          box-shadow: 0 1px 5px rgba(17, 24, 39, 0.18);
+          border: 1.5px solid #e5e7eb;
+          box-shadow: 0 1px 4px rgba(17, 24, 39, 0.08);
+          filter: grayscale(1);
           pointer-events: none;
-          z-index: 1;
         }
-        .qava-need-bubble:nth-child(1) { top: 10%; left: 8%; }
-        .qava-need-bubble:nth-child(2) { top: 6%; left: 38%; }
-        .qava-need-bubble:nth-child(3) { top: 14%; left: 68%; }
-        .qava-need-bubble:nth-child(4) { top: 52%; left: 16%; }
-        .qava-need-bubble:nth-child(5) { top: 48%; left: 46%; }
-        .qava-need-bubble:nth-child(6) { top: 58%; left: 72%; }
-        .qava-need-bubble:nth-child(7) { top: 28%; left: 28%; }
         .qava-need-actions {
           display: flex;
           align-items: center;
@@ -2508,7 +2505,7 @@
           gap: 7px;
           height: 38px;
           padding: 0 18px;
-          border-radius: 10px;
+          border-radius: 8px;
           font-family: "Inter", sans-serif;
           font-size: 13.5px;
           font-weight: 400;
@@ -2542,7 +2539,13 @@
             grid-template-columns: 1fr;
             gap: 12px;
           }
-          .qava-need-card { min-height: 0; }
+          .qava-need-card {
+            height: auto;
+            min-height: 0;
+          }
+          .qava-need-preview {
+            min-height: 168px;
+          }
         }
 
         /* Cursor-style "shimmer": a lighter highlight band sweeps across the text
