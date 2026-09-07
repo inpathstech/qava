@@ -1,7 +1,9 @@
 /**
  * Club Room quiet-list landing preview.
- * Places the section between blog thumbnails and match-making showcase,
- * then wires accordion + topic filters.
+ * Homepage no longer mounts this section; the markup lives in
+ * club-room-section.html so it can be dropped back onto a page later.
+ * On the homepage this script just reveals the page. On the archive page
+ * it inits the quiet list in place.
  */
 (function () {
   function finishLandingPreview() {
@@ -15,6 +17,12 @@
   }
 
   function placeLandingPreview(attempt) {
+    var archive = document.querySelector('.landing-section[data-club-archive]');
+    if (archive) {
+      initQuietList(archive);
+      finishLandingPreview();
+      return;
+    }
     var el = document.querySelector('.landing-section[data-landing-preview]');
     if (!el) {
       if (window.__qavaLandingReady || (attempt || 0) > 30) finishLandingPreview();

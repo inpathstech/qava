@@ -126,7 +126,7 @@
         .qava-hero-rule {
           width: 320px;
           height: 1px;
-          background: #111827;
+          background: #6b6b6b;
           margin: 40px 0 80px;
           position: relative;
           left: 50%;
@@ -2255,20 +2255,25 @@
         }
 
         .qava-blog-actbtn {
+          display: inline-flex;
+          align-items: center;
           background: transparent;
           border: none;
           padding: 0;
           cursor: pointer;
-          font-family: "Inter", sans-serif;
+          font-family: Inter, sans-serif;
           font-size: 12px;
-            font-weight: 400;
-          color: #6B6B6B;
+          font-weight: 300;
+          line-height: 1;
+          color: #6b6b6b;
           text-decoration: none;
+          transition: color 0.2s ease;
         }
 
         .qava-blog-actbtn:hover {
-          color: #111827;
-          text-decoration: underline;
+          color: #000;
+          background: transparent;
+          text-decoration: none;
         }
 
         .qava-need-section {
