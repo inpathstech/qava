@@ -2285,7 +2285,7 @@
               calcSection.innerHTML = `
                 <div class="qava-calc-header">
                   <h2 class="qava-calc-title">More value. More control.</h2>
-                  <p class="qava-calc-sub">On-demand talent to fill gaps or start on the right foot.</p>
+                  <p class="qava-calc-sub">On-demand talent to fill gaps and start on the right foot.</p>
                   <a class="qava-calc-pricing" href="https://www.theclubnyc.com/pricing">See pricing plans ${arrowSvg}</a>
                 </div>
                 <div class="qava-calc-body">
@@ -2469,11 +2469,11 @@
                 "Cancel anytime"
               ];
               const mmFeatures = [
-                "Reach 1,000s of MBA talent",
-                "Post projects, jobs, internships",
-                "Matched in under 24 hours",
-                "Review and choose applicants",
-                "No long-term contracts",
+                "Reach 1,000s of MBA and expert talent",
+                "Post projects, jobs, internships anytime",
+                "Match talent in as little as 24 hours",
+                "Review and choose top applicants",
+                "No long-term contracts for flexibility",
                 "Pay only when ready to hire"
               ];
               if (!doc.getElementById("qava-premium-section")) {
@@ -2518,7 +2518,7 @@
                           <span class="qava-prem-beta">Beta</span>
                         </div>
                         <h2 class="qava-prem-title">Post &amp; find talent</h2>
-                        <p class="qava-prem-sub">Create listings from $49 and browse for free.</p>
+                        <p class="qava-prem-sub">Create any listings and browse for free.</p>
                         <div class="qava-prem-foot">
                           <p class="qava-prem-price"><b>$49</b> <span class="qava-prem-price-unit">starting from</span></p>
                           <p class="qava-prem-price-note">No subscription required</p>
