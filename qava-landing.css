@@ -3490,28 +3490,34 @@
           }
         }
 
-        .stats-footer-wrapper {
-          mask-image: none !important;
-          -webkit-mask-image: none !important;
-          width: min(1040px, calc(100vw - 120px)) !important;
-          max-width: min(1040px, calc(100vw - 120px)) !important;
-          margin: 8px 0 0 0 !important;
-          padding: 20px 0 60px 0 !important;
+        #qava-stories-section .stats-footer-wrapper {
+          mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%) !important;
+          -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%) !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          margin: 14px 0 0 0 !important;
+          padding: 8px 0 2px 0 !important;
           overflow: hidden !important;
           box-sizing: border-box !important;
           position: relative !important;
-          left: 50% !important;
-          transform: translateX(-50%) !important;
+          left: auto !important;
+          transform: none !important;
           background: transparent !important;
         }
 
-        .stats-footer {
+        #qava-stories-section .stats-footer {
           animation: slideStats 60s linear infinite !important;
         }
 
         @media (max-width: 768px) {
-          .stats-footer {
+          #qava-stories-section .stats-footer {
             animation: slideStats 40s linear infinite !important;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          #qava-stories-section .stats-footer {
+            animation: none !important;
           }
         }
 

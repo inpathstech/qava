@@ -2433,7 +2433,6 @@
                 { quote: "Protected payments, clear deliverables — I could focus on the work.", logo: "./Testimonial%20images/Columbia%20Business%20School%20Logo%202.png", h: 32, name: "Columbia", sub: "Class of 2025" },
                 { quote: "The clients were operators. The feedback was direct. I grew fast.", logo: "./Landing%20Page%20Trusted%20by/HBS.png", h: 32, name: "Harvard Business School", sub: "Class of 2023" },
                 { quote: "Short projects, real ownership. Exactly what I wanted between terms.", logo: "./Landing%20Page%20Trusted%20by/Haas.png", h: 32, name: "Berkeley Haas", sub: "Class of 2024" },
-                { quote: "I’d recommend The Club to anyone who wants proof, not just potential.", logo: "./Landing%20Page%20Trusted%20by/MIT.png", h: 32, name: "MIT Sloan", sub: "Class of 2025" },
                 { quote: "The briefs were tight. The work was real. That’s rare.", logo: "./Landing%20Page%20Trusted%20by/Standford.png", h: 32, name: "Stanford GSB", sub: "Class of 2024" }
               ];
 
@@ -2686,14 +2685,13 @@
           }
 
           const newStoriesSection = doc.getElementById("qava-stories-section");
-          const newFaqSection = doc.getElementById("qava-faq-section");
           const legacyStatsFooter = doc.querySelector(".stats-footer-wrapper");
           if (newStoriesSection && legacyStatsFooter && legacyStatsFooter.getAttribute("data-qava-moved") !== "true") {
             legacyStatsFooter.setAttribute("data-qava-moved", "true");
-            legacyStatsFooter.style.marginTop = "8px";
-            legacyStatsFooter.style.marginLeft = "0";
-            legacyStatsFooter.style.marginRight = "0";
-            (newFaqSection || newStoriesSection).insertAdjacentElement("afterend", legacyStatsFooter);
+            legacyStatsFooter.removeAttribute("style");
+            const storiesGrid = newStoriesSection.querySelector(".qava-stories-grid");
+            if (storiesGrid) storiesGrid.insertAdjacentElement("afterend", legacyStatsFooter);
+            else newStoriesSection.appendChild(legacyStatsFooter);
           }
 
           [
