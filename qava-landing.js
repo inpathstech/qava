@@ -243,7 +243,7 @@
         </a>
       </div>
       <button type="button" class="qava-lib-pause" aria-pressed="false">${pauseIcon}<span class="qava-lib-pause-label">Pause motion</span></button>
-      <p class="qava-lib-foot">Plus job listings, networking, and a live community — all included with membership.</p>
+      <p class="qava-lib-foot">Plus job listings, networking, and a live community.</p>
     `;
     return section;
   }
@@ -718,15 +718,15 @@
                 <div class="qava-need-kicker">everything in one place</div>
                 <h2 class="qava-need-title">How it works</h2>
                 <div class="qava-need-grid">
-                  <a class="qava-need-card" href="https://theclubnyc.com/strategy/">
+                  <div class="qava-need-card">
                     <div class="qava-need-num">01</div>
                     <div class="qava-need-card-title">Strategy Breakdowns</div>
                     <p class="qava-need-card-desc">Real teardowns of how top operators solved the exact problem you're facing.</p>
                     <div class="qava-need-preview qava-need-preview--art">
                       <div class="qava-need-chart" id="strategyPlot" aria-hidden="true"></div>
                     </div>
-                  </a>
-                  <a class="qava-need-card" href="https://www.theclubnyc.com/find/">
+                  </div>
+                  <div class="qava-need-card">
                     <div class="qava-need-num">02</div>
                     <div class="qava-need-card-title">Project Listings</div>
                     <p class="qava-need-card-desc">Live projects, jobs, and internships from startups to nonprofits, updated daily.</p>
@@ -738,15 +738,15 @@
                         </div>
                       </div>
                     </div>
-                  </a>
-                  <a class="qava-need-card" href="https://theclubnyc.com/community/chat">
+                  </div>
+                  <div class="qava-need-card">
                     <div class="qava-need-num">03</div>
                     <div class="qava-need-card-title">Networking</div>
                     <p class="qava-need-card-desc">Build real relationships with founders, peers, and alumni from top programs.</p>
                     <div class="qava-need-preview qava-need-preview--faces">
                       <div class="qava-need-bubbles" id="faceCluster" aria-hidden="true"></div>
                     </div>
-                  </a>
+                  </div>
                 </div>
               `;
               blogStack.insertAdjacentElement("afterend", needSection);

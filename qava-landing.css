@@ -2343,6 +2343,7 @@
           text-decoration: none;
           color: inherit;
           text-align: center;
+          cursor: default;
         }
         .qava-need-num {
           font-family: "Inter", sans-serif;
