@@ -3148,7 +3148,8 @@
         }
 
         .qava-logos-testimonial {
-          width: min(1040px, calc(100vw - 80px));
+          width: 100%;
+          max-width: 1040px;
           margin: 0 auto 32px auto;
           text-align: center;
         }
@@ -3161,6 +3162,8 @@
           letter-spacing: -0.01em;
           color: #111827;
           margin: 0 0 18px 0;
+          text-align: center;
+          hanging-punctuation: first last;
         }
 
         .qava-testimonial-author {
@@ -3320,12 +3323,12 @@
           display: flex;
           align-items: center;
           gap: 6px;
-          font-family: "Inter", sans-serif;
-          font-size: 14px;
-          font-weight: 300;
-          color: #6B6B6B;
-          text-transform: none;
-          letter-spacing: normal;
+          font-family: Inter, system-ui, sans-serif;
+          font-size: 12px;
+          font-weight: 200;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          color: #9ca3af;
           margin: 0 0 10px 0;
           padding-left: 6px;
         }
@@ -3351,32 +3354,60 @@
           border: 1px solid #d1d5db;
           border-radius: 4px;
           background: #ffffff;
+          color: #111827;
           flex: 0 0 auto;
           display: flex;
           align-items: center;
           justify-content: center;
-          transition: background 0.15s ease, border-color 0.15s ease;
+          overflow: visible;
+          transition: border-color 0.15s ease;
         }
 
         .qava-calc-box svg {
+          display: block;
           opacity: 0;
-          transition: opacity 0.15s ease;
+          transform: scale(0.2);
+          transform-origin: center;
+          transition: opacity 0.12s ease, transform 0.16s cubic-bezier(0.4, 0, 1, 1);
+        }
+
+        .qava-calc-item:hover .qava-calc-box {
+          border-color: #111827;
         }
 
         .qava-calc-item.checked .qava-calc-box {
-          background: #111827;
+          background: #ffffff;
           border-color: #111827;
         }
 
         .qava-calc-item.checked .qava-calc-box svg {
           opacity: 1;
+          transform: scale(1);
+          transition: opacity 0.12s ease, transform 0.28s cubic-bezier(0.22, 1.5, 0.36, 1);
         }
 
         .qava-calc-label {
           font-family: "Inter", sans-serif;
             font-size: 13px;
             font-weight: 300;
-          color: #1f1f1f;
+          color: #6b6b6b;
+          transition: color 0.15s ease;
+        }
+
+        .qava-calc-item:hover .qava-calc-label,
+        .qava-calc-item.checked .qava-calc-label {
+          color: #000;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .qava-calc-box,
+          .qava-calc-box svg,
+          .qava-calc-label {
+            transition: none;
+          }
+          .qava-calc-box svg {
+            transform: none;
+          }
         }
 
         .qava-calc-results {
