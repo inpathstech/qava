@@ -2232,7 +2232,7 @@
             logosAnchor.appendChild(universityLogosRow);
 
             if (!doc.getElementById("qava-calc-section")) {
-              const checkSvg = '<svg width="11" height="9" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 5L4.5 8.5L11 1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+              const checkSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-check"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m16 9-5.5 5.5L8 12"/></svg>';
               const arrowSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
               const calcCols = [
                 { title: "Core Strategies", icon: "🧭", items: [
@@ -2432,7 +2432,9 @@
                 { quote: "Quality over volume. Every listing felt worth opening.", logo: "./Landing%20Page%20Trusted%20by/Wharton.png", h: 32, name: "Wharton", sub: "Class of 2024" },
                 { quote: "Protected payments, clear deliverables — I could focus on the work.", logo: "./Testimonial%20images/Columbia%20Business%20School%20Logo%202.png", h: 32, name: "Columbia", sub: "Class of 2025" },
                 { quote: "The clients were operators. The feedback was direct. I grew fast.", logo: "./Landing%20Page%20Trusted%20by/HBS.png", h: 32, name: "Harvard Business School", sub: "Class of 2023" },
-                { quote: "Short projects, real ownership. Exactly what I wanted between terms.", logo: "./Landing%20Page%20Trusted%20by/Haas.png", h: 32, name: "Berkeley Haas", sub: "Class of 2024" }
+                { quote: "Short projects, real ownership. Exactly what I wanted between terms.", logo: "./Landing%20Page%20Trusted%20by/Haas.png", h: 32, name: "Berkeley Haas", sub: "Class of 2024" },
+                { quote: "I’d recommend The Club to anyone who wants proof, not just potential.", logo: "./Landing%20Page%20Trusted%20by/MIT.png", h: 32, name: "MIT Sloan", sub: "Class of 2025" },
+                { quote: "The briefs were tight. The work was real. That’s rare.", logo: "./Landing%20Page%20Trusted%20by/Standford.png", h: 32, name: "Stanford GSB", sub: "Class of 2024" }
               ];
 
               const storiesSection = doc.createElement("section");
@@ -2458,7 +2460,133 @@
               `;
               calcSection.insertAdjacentElement("afterend", storiesSection);
 
+              const premCheck = '<svg class="qava-prem-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+              const premFeatures = [
+                "Unlimited access to our expert template library",
+                "Pre-built slides to drive smarter decisions, faster",
+                "Turn connections into meaningful outcomes",
+                "Build proof, not just profiles",
+                "Learn, grow, and execute with confidence",
+                "Cancel anytime"
+              ];
+              const mmFeatures = [
+                "Reach 1,000s of MBA talent",
+                "Post projects, jobs, internships",
+                "Matched in under 24 hours",
+                "Review and choose applicants",
+                "No long-term contracts",
+                "Pay only when ready to hire"
+              ];
+              if (!doc.getElementById("qava-premium-section")) {
+              const premiumSection = doc.createElement("section");
+              premiumSection.id = "qava-premium-section";
+              premiumSection.className = "qava-prem-section";
+              premiumSection.dataset.view = "premium";
+              premiumSection.setAttribute("aria-label", "Membership and listings");
+              premiumSection.innerHTML = `
+                <div class="qava-prem-toggle" role="radiogroup" aria-label="Choose Premium or Match Maker">
+                  <button type="button" class="qava-prem-toggle-btn is-on" role="radio" aria-checked="true" aria-pressed="true" tabindex="0" data-view="premium">Premium</button>
+                  <button type="button" class="qava-prem-toggle-btn" role="radio" aria-checked="false" aria-pressed="false" tabindex="-1" data-view="matchmaker">Match Maker</button>
+                </div>
+                <div class="qava-prem-panels">
+                  <div class="qava-prem-panel is-on" data-view="premium">
+                    <div class="qava-prem-card">
+                      <div class="qava-prem-left">
+                        <div class="qava-prem-eyebrow-row">
+                          <p class="qava-prem-eyebrow">Premium Membership</p>
+                          <span class="qava-prem-beta">Beta</span>
+                        </div>
+                        <h2 class="qava-prem-title">Learn, build &amp; win</h2>
+                        <p class="qava-prem-sub">Exclusive opportunities, tools and resources.</p>
+                        <div class="qava-prem-foot">
+                          <p class="qava-prem-price"><b>$3.99</b> <span class="qava-prem-price-unit">/ month</span></p>
+                          <p class="qava-prem-price-note">First 2 months, then $7.99/mo</p>
+                          <a class="qava-prem-cta" href="https://app.theclubnyc.com/?premium=1">Join Premium</a>
+                        </div>
+                      </div>
+                      <div class="qava-prem-right">
+                        <ul class="qava-prem-list">
+                          ${premFeatures.map((f) => `<li>${premCheck}${f}</li>`).join("")}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="qava-prem-panel" data-view="matchmaker" hidden>
+                    <div class="qava-prem-card">
+                      <div class="qava-prem-left">
+                        <div class="qava-prem-eyebrow-row">
+                          <p class="qava-prem-eyebrow">Listings</p>
+                          <span class="qava-prem-beta">Beta</span>
+                        </div>
+                        <h2 class="qava-prem-title">Post &amp; find talent</h2>
+                        <p class="qava-prem-sub">Create listings from $49 and browse for free.</p>
+                        <div class="qava-prem-foot">
+                          <p class="qava-prem-price"><b>$49</b> <span class="qava-prem-price-unit">starting from</span></p>
+                          <p class="qava-prem-price-note">No subscription required</p>
+                          <a class="qava-prem-cta" href="https://theclubnyc.com/find/">Browse listings</a>
+                        </div>
+                      </div>
+                      <div class="qava-prem-right">
+                        <ul class="qava-prem-list">
+                          ${mmFeatures.map((f) => `<li>${premCheck}${f}</li>`).join("")}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              `;
+              storiesSection.insertAdjacentElement("afterend", premiumSection);
+
+              const premToggleBtns = Array.from(premiumSection.querySelectorAll(".qava-prem-toggle-btn"));
+              const premPanels = Array.from(premiumSection.querySelectorAll(".qava-prem-panel"));
+              const setPremView = (view) => {
+                premiumSection.dataset.view = view;
+                premToggleBtns.forEach((btn) => {
+                  const on = btn.getAttribute("data-view") === view;
+                  btn.classList.toggle("is-on", on);
+                  btn.setAttribute("aria-checked", on ? "true" : "false");
+                  btn.setAttribute("aria-pressed", on ? "true" : "false");
+                  btn.tabIndex = on ? 0 : -1;
+                });
+                premPanels.forEach((panel) => {
+                  const on = panel.getAttribute("data-view") === view;
+                  panel.hidden = !on;
+                  panel.classList.toggle("is-on", on);
+                });
+              };
+              premToggleBtns.forEach((btn) => {
+                btn.addEventListener("click", () => setPremView(btn.getAttribute("data-view")));
+              });
+              premiumSection.querySelector(".qava-prem-toggle").addEventListener("keydown", (e) => {
+                const dir = e.key === "ArrowRight" || e.key === "ArrowDown" ? 1
+                  : e.key === "ArrowLeft" || e.key === "ArrowUp" ? -1 : 0;
+                if (!dir) return;
+                e.preventDefault();
+                const views = ["premium", "matchmaker"];
+                const next = views[(views.indexOf(premiumSection.dataset.view || "premium") + dir + views.length) % views.length];
+                setPremView(next);
+                const focusBtn = premiumSection.querySelector('.qava-prem-toggle-btn[data-view="' + next + '"]');
+                if (focusBtn) focusBtn.focus();
+              });
+              }
+
               const storyCards = Array.from(storiesSection.querySelectorAll(".qava-story-card"));
+              const equalizeStoryCards = () => {
+                storyCards.forEach((card) => { card.style.minHeight = ""; });
+                const maxH = storyCards.reduce((m, card) => Math.max(m, card.offsetHeight), 0);
+                if (maxH) storyCards.forEach((card) => { card.style.minHeight = maxH + "px"; });
+              };
+              const runEqualizeStoryCards = () => {
+                equalizeStoryCards();
+                requestAnimationFrame(equalizeStoryCards);
+              };
+              runEqualizeStoryCards();
+              if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(runEqualizeStoryCards);
+              storiesSection.querySelectorAll(".qava-story-logo").forEach((img) => {
+                if (!img.complete) img.addEventListener("load", runEqualizeStoryCards);
+              });
+              win.addEventListener("resize", runEqualizeStoryCards);
+
               storyCards.forEach((card) => card.classList.add("qava-story-reveal"));
               const storyRevealReduced = win.matchMedia("(prefers-reduced-motion: reduce)").matches;
               if (storyRevealReduced) {
@@ -2512,7 +2640,9 @@
                     </div>`).join("")}
                 </div>
               `;
-              storiesSection.insertAdjacentElement("afterend", faqSection);
+              const premiumSection = doc.getElementById("qava-premium-section");
+              if (premiumSection) premiumSection.insertAdjacentElement("afterend", faqSection);
+              else storiesSection.insertAdjacentElement("afterend", faqSection);
 
               faqSection.querySelectorAll(".qava-faq-item").forEach((item) => {
                 const q = item.querySelector(".qava-faq-q");
@@ -2556,13 +2686,14 @@
           }
 
           const newStoriesSection = doc.getElementById("qava-stories-section");
+          const newFaqSection = doc.getElementById("qava-faq-section");
           const legacyStatsFooter = doc.querySelector(".stats-footer-wrapper");
           if (newStoriesSection && legacyStatsFooter && legacyStatsFooter.getAttribute("data-qava-moved") !== "true") {
             legacyStatsFooter.setAttribute("data-qava-moved", "true");
             legacyStatsFooter.style.marginTop = "8px";
             legacyStatsFooter.style.marginLeft = "0";
             legacyStatsFooter.style.marginRight = "0";
-            newStoriesSection.insertAdjacentElement("afterend", legacyStatsFooter);
+            (newFaqSection || newStoriesSection).insertAdjacentElement("afterend", legacyStatsFooter);
           }
 
           [
