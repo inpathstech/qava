@@ -2221,7 +2221,7 @@
               testimonial.id = "qava-logos-testimonial";
               testimonial.className = "qava-logos-testimonial";
               testimonial.innerHTML = `
-                <p class="qava-testimonial-quote">&ldquo;Reddit's honesty, LinkedIn's reach, and strategy breakdowns in plain english that actually work.<br>I can't imagine needing anything else.&rdquo;</p>
+                <p class="qava-testimonial-quote">&ldquo;Reddit's honesty, LinkedIn's reach, and strategy breakdowns in<br>plain english that actually work. I can't imagine needing anything else.&rdquo;</p>
                 <p class="qava-testimonial-author">Marcus Bennett</p>
                 <p class="qava-testimonial-role">Chief Revenue Officer, Northwind Labs</p>
               `;
@@ -2232,7 +2232,7 @@
             logosAnchor.appendChild(universityLogosRow);
 
             if (!doc.getElementById("qava-calc-section")) {
-              const checkSvg = '<svg width="11" height="9" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+              const checkSvg = '<svg width="11" height="9" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 5L4.5 8.5L11 1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
               const arrowSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
               const calcCols = [
                 { title: "Core Strategies", icon: "🧭", items: [
