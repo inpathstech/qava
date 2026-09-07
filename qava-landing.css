@@ -3121,6 +3121,11 @@
             padding-right: 14px;
           }
 
+          #qava-premium-section.qava-prem-section {
+            width: calc(100vw - 32px);
+            max-width: calc(100vw - 32px);
+          }
+
           #qava-faq-section.qava-faq-section {
             width: calc(100vw - 32px);
             max-width: calc(100vw - 32px);
@@ -3351,36 +3356,39 @@
         .qava-calc-box {
           width: 16px;
           height: 16px;
-          border: 1px solid #d1d5db;
-          border-radius: 4px;
-          background: #ffffff;
-          color: #111827;
+          color: #d1d5db;
           flex: 0 0 auto;
           display: flex;
           align-items: center;
           justify-content: center;
           overflow: visible;
-          transition: border-color 0.15s ease;
+          transition: color 0.15s ease;
         }
 
         .qava-calc-box svg {
           display: block;
+          width: 16px;
+          height: 16px;
+        }
+
+        .qava-calc-box svg rect {
+          fill: #ffffff;
+        }
+
+        .qava-calc-box svg path {
           opacity: 0;
           transform: scale(0.2);
           transform-origin: center;
+          transform-box: fill-box;
           transition: opacity 0.12s ease, transform 0.16s cubic-bezier(0.4, 0, 1, 1);
         }
 
-        .qava-calc-item:hover .qava-calc-box {
-          border-color: #111827;
-        }
-
+        .qava-calc-item:hover .qava-calc-box,
         .qava-calc-item.checked .qava-calc-box {
-          background: #ffffff;
-          border-color: #111827;
+          color: #111827;
         }
 
-        .qava-calc-item.checked .qava-calc-box svg {
+        .qava-calc-item.checked .qava-calc-box svg path {
           opacity: 1;
           transform: scale(1);
           transition: opacity 0.12s ease, transform 0.28s cubic-bezier(0.22, 1.5, 0.36, 1);
@@ -3401,11 +3409,11 @@
 
         @media (prefers-reduced-motion: reduce) {
           .qava-calc-box,
-          .qava-calc-box svg,
+          .qava-calc-box svg path,
           .qava-calc-label {
             transition: none;
           }
-          .qava-calc-box svg {
+          .qava-calc-box svg path {
             transform: none;
           }
         }
@@ -3530,7 +3538,7 @@
           background: #f4f4f5;
           border-radius: 8px;
           box-shadow: 0 1px 3px rgba(17, 24, 39, 0.04);
-          padding: 32px;
+          padding: 24px;
         }
 
         .qava-stories-title {
@@ -3555,62 +3563,70 @@
 
         .qava-stories-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-          gap: 16px;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 10px;
+          align-items: stretch;
         }
 
         .qava-story-card {
           background: #ffffff;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
           box-shadow: none;
-          padding: 18px 18px 16px;
+          padding: 12px 12px 11px;
             display: flex;
             flex-direction: column;
           text-align: left;
+          height: 100%;
+          min-height: 0;
+          box-sizing: border-box;
         }
 
         .qava-story-stars {
-          font-size: 13px;
-          letter-spacing: 2px;
+          font-size: 10px;
+          letter-spacing: 1.5px;
           color: #111827;
-          margin-bottom: 10px;
+          margin-bottom: 6px;
+          line-height: 1;
         }
 
         .qava-story-quote {
           font-family: "Inter", sans-serif;
-          font-size: 14px;
+          font-size: 12px;
           font-weight: 300;
           color: #333333;
-          line-height: 1.5;
-          margin: 0 0 14px 0;
+          line-height: 1.4;
+          margin: 0 0 10px 0;
+          flex: 1 1 auto;
         }
 
         .qava-story-attr {
           margin-top: auto;
             display: flex;
           flex-direction: column;
-          gap: 6px;
+          gap: 4px;
           align-items: flex-start;
+          min-height: 46px;
         }
 
         .qava-story-logo {
             display: block;
           width: auto;
-          max-width: 180px;
+          max-width: 108px;
+          height: 16px !important;
           object-fit: contain;
           object-position: left center;
         }
 
         .qava-story-logo-crop {
-          width: 26px;
-          height: 26px;
+          width: 16px;
+          height: 16px;
           overflow: hidden;
             display: inline-block;
         }
 
         .qava-story-logo-crop img {
-          height: 26px;
+          height: 16px !important;
           transform: scale(2.6);
           transform-origin: left center;
           display: block;
@@ -3618,15 +3634,15 @@
 
         .qava-story-name {
           font-family: "Inter", sans-serif;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 300;
           color: #666666;
-          line-height: 1.3;
+          line-height: 1.25;
         }
 
         .qava-story-sub {
           font-family: "Inter", sans-serif;
-          font-size: 10px;
+          font-size: 9px;
           font-weight: 300;
           color: #999999;
           line-height: 1.2;
@@ -3648,12 +3664,262 @@
 
         @media (max-width: 860px) {
           .qava-stories-grid {
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
           }
 
           .qava-showcase-toggle-sticky {
             position: static;
             top: auto;
+          }
+        }
+
+        .qava-prem-section {
+          width: min(760px, calc(100vw - 120px));
+          margin: 88px 0 0 0;
+          position: relative;
+          left: 50%;
+          transform: translateX(-50%);
+          box-sizing: border-box;
+          padding: 0;
+        }
+
+        .qava-prem-card {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+          column-gap: 0;
+          background: #fff;
+          border: 1px solid #000;
+          border-radius: 6px;
+          overflow: hidden;
+        }
+
+        .qava-prem-toggle {
+          display: flex;
+          align-items: stretch;
+          justify-content: center;
+          width: fit-content;
+          height: 30px;
+          margin: 0 auto 16px;
+          padding: 2px;
+          box-sizing: border-box;
+          border: 1px solid #e5e7eb;
+          border-radius: 999px;
+          background: #fff;
+        }
+
+        .qava-prem-toggle-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          height: 100%;
+          margin: 0;
+          padding: 0 14px;
+          border: 0;
+          border-radius: 999px;
+          background: transparent;
+          font-family: Inter, system-ui, sans-serif;
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 1;
+          letter-spacing: 0.01em;
+          color: #6b6b6b;
+          cursor: pointer;
+          user-select: none;
+        }
+
+        .qava-prem-toggle-btn.is-on {
+          background: #111827;
+          color: #fff;
+        }
+
+        .qava-prem-toggle-btn:hover:not(.is-on) {
+          color: #111827;
+        }
+
+        .qava-prem-toggle-btn:focus-visible {
+          outline: 2px solid rgba(17, 24, 39, 0.25);
+          outline-offset: 2px;
+        }
+
+        .qava-prem-panels {
+          position: relative;
+        }
+
+        .qava-prem-panel[hidden] {
+          display: none;
+        }
+
+        .qava-prem-left,
+        .qava-prem-right {
+          display: flex;
+          flex-direction: column;
+          min-width: 0;
+        }
+
+        .qava-prem-left {
+          text-align: left;
+          align-items: flex-start;
+          padding: 28px 10px 28px 22px;
+        }
+
+        .qava-prem-right {
+          justify-content: center;
+          padding: 28px 22px 28px 10px;
+        }
+
+        .qava-prem-eyebrow-row {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin: 0 0 10px;
+        }
+
+        .qava-prem-eyebrow {
+          font-family: Inter, system-ui, sans-serif;
+          font-size: 12px;
+          font-weight: 200;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          color: #9ca3af;
+          margin: 0;
+        }
+
+        .qava-prem-beta {
+          display: inline-flex;
+          align-items: center;
+          border-radius: 999px;
+          background: #f3f4f6;
+          padding: 2px 7px;
+          font-family: Inter, system-ui, sans-serif;
+          font-size: 9px;
+          font-weight: 500;
+          letter-spacing: 0.02em;
+          color: #111827;
+        }
+
+        .qava-prem-title {
+          font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+          font-weight: 400;
+          font-size: clamp(1.55rem, 2.8vw, 2rem);
+          letter-spacing: -0.015em;
+          line-height: 1.15;
+          color: #000;
+          margin: 0 0 8px;
+        }
+
+        .qava-prem-sub {
+          font-family: Inter, system-ui, sans-serif;
+          font-size: 14px;
+          font-weight: 300;
+          line-height: 1.4;
+          color: #6b6b6b;
+          margin: 0 0 22px;
+          white-space: nowrap;
+        }
+
+        .qava-prem-foot {
+          margin-top: auto;
+          padding-top: 18px;
+          position: relative;
+        }
+
+        .qava-prem-foot::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 56px;
+          height: 1px;
+          background: #e5e7eb;
+        }
+
+        .qava-prem-price {
+          font-family: Inter, system-ui, sans-serif;
+          font-size: 15px;
+          color: #111827;
+          margin: 0 0 2px;
+        }
+
+        .qava-prem-price b { font-weight: 600; }
+
+        .qava-prem-price-unit {
+          font-weight: 300;
+          color: #6b6b6b;
+        }
+
+        .qava-prem-price-note {
+          font-family: Inter, system-ui, sans-serif;
+          font-size: 11px;
+          font-weight: 300;
+          line-height: 1.3;
+          color: #6b6b6b;
+          margin: 0 0 14px;
+        }
+
+        .qava-prem-cta {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          height: 32px;
+          padding: 0 16px;
+          background: #111827;
+          border: 0;
+          border-radius: 6px;
+          color: #fff;
+          font-family: Inter, sans-serif;
+          font-size: 13px;
+          font-weight: 400;
+          line-height: 1;
+          text-decoration: none;
+          width: fit-content;
+          cursor: pointer;
+          transition: background 0.15s ease;
+        }
+
+        .qava-prem-cta:hover { background: #000; color: #fff; }
+
+        .qava-prem-list {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+        }
+
+        .qava-prem-list li {
+          display: flex;
+          align-items: flex-start;
+          gap: 8px;
+          padding: 7px 0;
+          font-family: Inter, system-ui, sans-serif;
+          font-size: 13px;
+          font-weight: 300;
+          line-height: 1.4;
+          color: #111827;
+          white-space: nowrap;
+        }
+
+        .qava-prem-check {
+          flex: 0 0 auto;
+          width: 16px;
+          height: 16px;
+          margin-top: 2px;
+          color: #111827;
+        }
+
+        @media (max-width: 860px) {
+          .qava-prem-card { grid-template-columns: 1fr; }
+          .qava-prem-left,
+          .qava-prem-right {
+            padding-left: 22px;
+            padding-right: 22px;
+          }
+          .qava-prem-right {
+            border-top: 1px solid #e5e7eb;
+            padding-top: 8px;
+          }
+          .qava-prem-sub { white-space: normal; }
+          .qava-prem-list li {
+            white-space: nowrap;
+            font-size: 12px;
           }
         }
 
