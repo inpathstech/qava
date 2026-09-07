@@ -2221,7 +2221,7 @@
               testimonial.id = "qava-logos-testimonial";
               testimonial.className = "qava-logos-testimonial";
               testimonial.innerHTML = `
-                <p class="qava-testimonial-quote">&ldquo;My one-stop-shop for flexible talent that rips!&rdquo;</p>
+                <p class="qava-testimonial-quote">&ldquo;Reddit's honesty, LinkedIn's reach, and strategy breakdowns in plain english that actually work.<br>I can't imagine needing anything else.&rdquo;</p>
                 <p class="qava-testimonial-author">Marcus Bennett</p>
                 <p class="qava-testimonial-role">Chief Revenue Officer, Northwind Labs</p>
               `;
