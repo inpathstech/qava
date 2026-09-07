@@ -4585,41 +4585,66 @@
         .qava-nl-box {
           width: 16px;
           height: 16px;
-          border: 1px solid #d1d5db;
-          border-radius: 4px;
-          background: #ffffff;
+          color: #d1d5db;
           flex: 0 0 auto;
           display: flex;
           align-items: center;
           justify-content: center;
-          transition: background 0.15s ease, border-color 0.15s ease;
+          overflow: visible;
+          transition: color 0.15s ease;
         }
 
         .qava-nl-box svg {
           display: block;
+          width: 16px;
+          height: 16px;
+        }
+
+        .qava-nl-box svg rect {
+          fill: #ffffff;
+        }
+
+        .qava-nl-box svg path {
           opacity: 0;
-          transition: opacity 0.15s ease;
+          transform: scale(0.2);
+          transform-origin: center;
+          transform-box: fill-box;
+          transition: opacity 0.12s ease, transform 0.16s cubic-bezier(0.4, 0, 1, 1);
         }
 
-        .qava-nl-check:not(.checked):hover .qava-nl-box {
-          background: #f3f4f6;
-          border-color: rgba(17, 24, 39, 0.28);
-        }
-
+        .qava-nl-check:hover .qava-nl-box,
         .qava-nl-check.checked .qava-nl-box {
-          background: #111827;
-          border-color: #111827;
+          color: #111827;
         }
 
-        .qava-nl-check.checked .qava-nl-box svg {
+        .qava-nl-check.checked .qava-nl-box svg path {
           opacity: 1;
+          transform: scale(1);
+          transition: opacity 0.12s ease, transform 0.28s cubic-bezier(0.22, 1.5, 0.36, 1);
         }
 
         .qava-nl-check-label {
           font-family: "Inter", sans-serif;
           font-size: 14px;
           font-weight: 300;
-          color: #1f1f1f;
+          color: #6b6b6b;
+          transition: color 0.15s ease;
+        }
+
+        .qava-nl-check:hover .qava-nl-check-label,
+        .qava-nl-check.checked .qava-nl-check-label {
+          color: #000;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .qava-nl-box,
+          .qava-nl-box svg path,
+          .qava-nl-check-label {
+            transition: none;
+          }
+          .qava-nl-box svg path {
+            transform: none;
+          }
         }
 
         .qava-nl-field-row {
