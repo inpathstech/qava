@@ -374,8 +374,6 @@
       width: auto;
       flex: 0 0 auto;
       object-fit: contain;
-      filter: grayscale(1);
-      opacity: 0.45;
     }
     .page-hero-logos img[alt="Bain Capital"] {
       height: 11px;
@@ -390,8 +388,6 @@
       letter-spacing: -0.04em;
       color: var(--ink);
       line-height: 14px;
-      filter: none;
-      opacity: 0.45;
     }
     .examples {
       padding: 8px 0 4px;
@@ -625,8 +621,6 @@
       width: 12px;
       height: 12px;
       object-fit: contain;
-      filter: grayscale(1);
-      opacity: 0.38;
     }
 
     .alg-hero {
@@ -1107,63 +1101,114 @@
       line-height: 1.5;
     }
 
-    .prem-band {
-      position: relative;
-      z-index: 1;
+    /* Landing Premium / Match Maker card — beats qava-landing.css section layout */
+    body .prem-band.qava-prem-section {
       width: 100%;
       max-width: var(--content);
       margin: 40px auto 0;
       padding: 0;
+      left: auto;
+      transform: none;
+      position: relative;
+      z-index: 1;
       box-sizing: border-box;
     }
-    .prem-card {
+    .qava-prem-toggle {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      width: fit-content;
+      height: 30px;
+      margin: 0 auto 16px;
+      padding: 2px;
+      box-sizing: border-box;
+      border: 1px solid #e5e7eb;
+      border-radius: 999px;
+      background: #fff;
+    }
+    .qava-prem-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      margin: 0;
+      padding: 0 14px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      font-family: Inter, system-ui, sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: 0.01em;
+      color: #6b6b6b;
+      cursor: pointer;
+      user-select: none;
+    }
+    .qava-prem-toggle-btn.is-on {
+      background: #111827;
+      color: #fff;
+    }
+    .qava-prem-toggle-btn:hover:not(.is-on) { color: #111827; }
+    .qava-prem-toggle-btn:focus-visible {
+      outline: 2px solid rgba(17, 24, 39, 0.25);
+      outline-offset: 2px;
+    }
+    .qava-prem-panels { position: relative; }
+    .qava-prem-panel[hidden] { display: none; }
+    .qava-prem-card {
       display: grid;
-      grid-template-columns: minmax(0, 1.28fr) minmax(0, 1.12fr);
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      column-gap: 0;
       background: #fff;
       border: 1px solid #000;
       border-radius: 6px;
       overflow: hidden;
     }
-    .prem-left,
-    .prem-right {
+    .qava-prem-left,
+    .qava-prem-right {
       display: flex;
       flex-direction: column;
-      padding: 28px 18px;
       min-width: 0;
     }
-    .prem-right {
-      justify-content: center;
-      padding: 28px 18px 28px 20px;
+    .qava-prem-left {
+      text-align: left;
+      align-items: flex-start;
+      padding: 28px 10px 28px 22px;
     }
-    .prem-eyebrow-row {
+    .qava-prem-right {
+      justify-content: center;
+      padding: 28px 22px 28px 10px;
+    }
+    .qava-prem-eyebrow-row {
       display: flex;
       align-items: center;
       gap: 8px;
       margin: 0 0 10px;
     }
-    .prem-eyebrow {
-      font-family: var(--ui);
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
+    .qava-prem-eyebrow {
+      font-family: Inter, system-ui, sans-serif;
+      font-size: 12px;
+      font-weight: 200;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--soft);
+      color: #9ca3af;
       margin: 0;
     }
-    .prem-beta {
+    .qava-prem-beta {
       display: inline-flex;
       align-items: center;
       border-radius: 999px;
       background: #f3f4f6;
       padding: 2px 7px;
-      font-family: var(--ui);
+      font-family: Inter, system-ui, sans-serif;
       font-size: 9px;
       font-weight: 500;
       letter-spacing: 0.02em;
-      color: var(--ink);
+      color: #111827;
     }
-    .prem-title {
-      font-family: var(--display);
+    .qava-prem-title {
+      font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
       font-weight: 400;
       font-size: clamp(1.55rem, 2.8vw, 2rem);
       letter-spacing: -0.015em;
@@ -1171,8 +1216,8 @@
       color: #000;
       margin: 0 0 8px;
     }
-    .prem-sub {
-      font-family: var(--ui);
+    .qava-prem-sub {
+      font-family: Inter, system-ui, sans-serif;
       font-size: 14px;
       font-weight: 300;
       line-height: 1.4;
@@ -1180,46 +1225,46 @@
       margin: 0 0 22px;
       white-space: nowrap;
     }
-    .prem-foot {
+    .qava-prem-foot {
       margin-top: auto;
       padding-top: 18px;
       position: relative;
     }
-    .prem-foot::before {
+    .qava-prem-foot::before {
       content: "";
       position: absolute;
       top: 0;
       left: 0;
       width: 56px;
       height: 1px;
-      background: var(--line);
+      background: #e5e7eb;
     }
-    .prem-price {
-      font-family: var(--ui);
+    .qava-prem-price {
+      font-family: Inter, system-ui, sans-serif;
       font-size: 15px;
-      color: var(--ink);
+      color: #111827;
       margin: 0 0 2px;
     }
-    .prem-price b { font-weight: 600; }
-    .prem-price-unit {
+    .qava-prem-price b { font-weight: 600; }
+    .qava-prem-price-unit {
       font-weight: 300;
       color: #6b6b6b;
     }
-    .prem-price-note {
-      font-family: var(--ui);
+    .qava-prem-price-note {
+      font-family: Inter, system-ui, sans-serif;
       font-size: 11px;
       font-weight: 300;
       line-height: 1.3;
       color: #6b6b6b;
       margin: 0 0 14px;
     }
-    .prem-cta {
+    .qava-prem-cta {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       height: 32px;
       padding: 0 16px;
-      background: var(--ink);
+      background: #111827;
       border: 0;
       border-radius: 6px;
       color: #fff;
@@ -1232,30 +1277,30 @@
       cursor: pointer;
       transition: background 0.15s ease;
     }
-    .prem-cta:hover { background: #000; color: #fff; }
-    .prem-list {
+    .qava-prem-cta:hover { background: #000; color: #fff; }
+    .qava-prem-list {
       list-style: none;
       margin: 0;
       padding: 0;
     }
-    .prem-list li {
+    .qava-prem-list li {
       display: flex;
       align-items: flex-start;
       gap: 8px;
       padding: 7px 0;
-      font-family: var(--ui);
+      font-family: Inter, system-ui, sans-serif;
       font-size: 13px;
       font-weight: 300;
       line-height: 1.4;
-      color: var(--ink);
+      color: #111827;
       white-space: nowrap;
     }
-    .prem-check {
+    .qava-prem-check {
       flex: 0 0 auto;
       width: 16px;
       height: 16px;
       margin-top: 2px;
-      color: var(--ink);
+      color: #111827;
     }
 
     /* Landing FAQ — matches theclubnyc.com .qa-* */
@@ -1445,9 +1490,12 @@
     body.is-mobile .examples-grid { grid-template-columns: 1fr; gap: 28px; }
     body.is-mobile .quotes-band { margin: 40px auto 36px; }
     body.is-mobile .quotes { grid-template-columns: 1fr; gap: 12px; }
-    body.is-mobile .prem-card { grid-template-columns: 1fr; }
-    body.is-mobile .prem-right { border-left: 0; border-top: 1px solid var(--line); padding-top: 8px; }
-    body.is-mobile .prem-list li { white-space: normal; }
+    body.is-mobile .qava-prem-card { grid-template-columns: 1fr; }
+    body.is-mobile .qava-prem-left,
+    body.is-mobile .qava-prem-right { padding-left: 22px; padding-right: 22px; }
+    body.is-mobile .qava-prem-right { border-left: 0; border-top: 1px solid #e5e7eb; padding-top: 8px; }
+    body.is-mobile .qava-prem-sub { white-space: normal; }
+    body.is-mobile .qava-prem-list li { white-space: nowrap; font-size: 12px; }
     body.is-mobile .qa-title { font-size: 28px; margin-bottom: 28px; }
     body.is-mobile .footer-logo { width: 100%; }
     body.is-module .header-container,
@@ -1508,9 +1556,12 @@
       .examples-grid { grid-template-columns: 1fr; gap: 28px; }
       .quotes-band { margin: 40px auto 36px; }
       .quotes { grid-template-columns: 1fr; gap: 12px; }
-      .prem-card { grid-template-columns: 1fr; }
-      .prem-right { border-left: 0; border-top: 1px solid var(--line); padding-top: 8px; }
-      .prem-list li { white-space: normal; }
+      .qava-prem-card { grid-template-columns: 1fr; }
+      .qava-prem-left,
+      .qava-prem-right { padding-left: 22px; padding-right: 22px; }
+      .qava-prem-right { border-left: 0; border-top: 1px solid #e5e7eb; padding-top: 8px; }
+      .qava-prem-sub { white-space: normal; }
+      .qava-prem-list li { white-space: nowrap; font-size: 12px; }
       .qa-title { font-size: 28px; margin-bottom: 28px; }
       .alg-hero {
         width: 100%;
@@ -1529,7 +1580,7 @@
   </style>
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  <link rel="stylesheet" href="/qava-landing.css?v=15" />
+  <link rel="stylesheet" href="/qava-landing.css?v=16" />
   <link rel="stylesheet" href="/qava-auth.css" />
 </head>
 <body>
@@ -1664,8 +1715,8 @@
               </a>
             </div>
             <div class="examples-cta">
-              <a class="examples-cta-btn" href="https://theclubnyc.com/templates">24/7 access to 100+ strategies &amp; templates</a>
-              <a class="examples-cta-login" href="https://app.theclubnyc.com/">Login</a>
+              <a class="examples-cta-btn" href="https://app.theclubnyc.com/">24/7 access to 100+ strategies &amp; templates</a>
+              <a class="examples-cta-login" href="https://app.theclubnyc.com/?login=1">Login</a>
             </div>
           </section>
         </div>
@@ -1944,48 +1995,101 @@
         </div>
       </div>
 
-      <section class="prem-band" id="premium" aria-label="Premium membership">
-        <div class="prem-card">
-          <div class="prem-left">
-            <div class="prem-eyebrow-row">
-              <p class="prem-eyebrow">Premium Membership</p>
-              <span class="prem-beta">Beta</span>
-            </div>
-            <h2 class="prem-title">Learn, build &amp; win</h2>
-            <p class="prem-sub">Exclusive opportunities, tools and resources.</p>
-            <div class="prem-foot">
-              <p class="prem-price"><b>$3.99</b> <span class="prem-price-unit">/ month</span></p>
-              <p class="prem-price-note">First 2 months, then $7.99/mo</p>
-              <a class="prem-cta" href="https://app.theclubnyc.com/?premium=1">Join Premium</a>
+      <section class="prem-band qava-prem-section" id="premium" data-view="premium" aria-label="Membership and listings">
+        <div class="qava-prem-toggle" role="radiogroup" aria-label="Choose Premium or Match Maker">
+          <button type="button" class="qava-prem-toggle-btn is-on" role="radio" aria-checked="true" aria-pressed="true" tabindex="0" data-view="premium">Premium</button>
+          <button type="button" class="qava-prem-toggle-btn" role="radio" aria-checked="false" aria-pressed="false" tabindex="-1" data-view="matchmaker">Match Maker</button>
+        </div>
+        <div class="qava-prem-panels">
+          <div class="qava-prem-panel is-on" data-view="premium">
+            <div class="qava-prem-card">
+              <div class="qava-prem-left">
+                <div class="qava-prem-eyebrow-row">
+                  <p class="qava-prem-eyebrow">Premium Membership</p>
+                  <span class="qava-prem-beta">Beta</span>
+                </div>
+                <h2 class="qava-prem-title">Learn, build &amp; win</h2>
+                <p class="qava-prem-sub">Exclusive opportunities, tools and resources.</p>
+                <div class="qava-prem-foot">
+                  <p class="qava-prem-price"><b>$3.99</b> <span class="qava-prem-price-unit">/ month</span></p>
+                  <p class="qava-prem-price-note">First 2 months, then $7.99/mo</p>
+                  <a class="qava-prem-cta" href="https://app.theclubnyc.com/?premium=1">Join Premium</a>
+                </div>
+              </div>
+              <div class="qava-prem-right">
+                <ul class="qava-prem-list">
+                  <li>
+                    <svg class="qava-prem-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                    Unlimited access to our expert template library
+                  </li>
+                  <li>
+                    <svg class="qava-prem-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                    Pre-built slides to drive smarter decisions, faster
+                  </li>
+                  <li>
+                    <svg class="qava-prem-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                    Turn connections into meaningful outcomes
+                  </li>
+                  <li>
+                    <svg class="qava-prem-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                    Build proof, not just profiles
+                  </li>
+                  <li>
+                    <svg class="qava-prem-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                    Learn, grow, and execute with confidence
+                  </li>
+                  <li>
+                    <svg class="qava-prem-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                    Cancel anytime
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-          <div class="prem-right">
-            <ul class="prem-list">
-              <li>
-                <svg class="prem-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-                Unlimited access to our expert template library
-              </li>
-              <li>
-                <svg class="prem-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-                Pre-built slides to drive smarter decisions, faster
-              </li>
-              <li>
-                <svg class="prem-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-                Turn connections into meaningful outcomes
-              </li>
-              <li>
-                <svg class="prem-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-                Build proof, not just profiles
-              </li>
-              <li>
-                <svg class="prem-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-                Learn, grow, and execute with confidence
-              </li>
-              <li>
-                <svg class="prem-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-                Cancel anytime
-              </li>
-            </ul>
+          <div class="qava-prem-panel" data-view="matchmaker" hidden>
+            <div class="qava-prem-card">
+              <div class="qava-prem-left">
+                <div class="qava-prem-eyebrow-row">
+                  <p class="qava-prem-eyebrow">Listings</p>
+                  <span class="qava-prem-beta">Beta</span>
+                </div>
+                <h2 class="qava-prem-title">Post &amp; find talent</h2>
+                <p class="qava-prem-sub">Create listings from $49 and browse for free.</p>
+                <div class="qava-prem-foot">
+                  <p class="qava-prem-price"><b>$49</b> <span class="qava-prem-price-unit">starting from</span></p>
+                  <p class="qava-prem-price-note">No subscription required</p>
+                  <a class="qava-prem-cta" href="https://theclubnyc.com/find/">Browse listings</a>
+                </div>
+              </div>
+              <div class="qava-prem-right">
+                <ul class="qava-prem-list">
+                  <li>
+                    <svg class="qava-prem-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                    Reach 1,000s of MBA talent
+                  </li>
+                  <li>
+                    <svg class="qava-prem-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                    Post projects, jobs, internships
+                  </li>
+                  <li>
+                    <svg class="qava-prem-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                    Matched in under 24 hours
+                  </li>
+                  <li>
+                    <svg class="qava-prem-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                    Review and choose applicants
+                  </li>
+                  <li>
+                    <svg class="qava-prem-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                    No long-term contracts
+                  </li>
+                  <li>
+                    <svg class="qava-prem-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                    Pay only when ready to hire
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -3534,6 +3638,45 @@
     document.querySelectorAll("#qa-section .qa-question").forEach((btn) => {
       btn.addEventListener("click", () => toggleQA(btn));
     });
+
+    (function initPremToggle() {
+      const premiumSection = document.getElementById("premium");
+      if (!premiumSection) return;
+      const premToggleBtns = Array.from(premiumSection.querySelectorAll(".qava-prem-toggle-btn"));
+      const premPanels = Array.from(premiumSection.querySelectorAll(".qava-prem-panel"));
+      const setPremView = (view) => {
+        premiumSection.dataset.view = view;
+        premToggleBtns.forEach((btn) => {
+          const on = btn.getAttribute("data-view") === view;
+          btn.classList.toggle("is-on", on);
+          btn.setAttribute("aria-checked", on ? "true" : "false");
+          btn.setAttribute("aria-pressed", on ? "true" : "false");
+          btn.tabIndex = on ? 0 : -1;
+        });
+        premPanels.forEach((panel) => {
+          const on = panel.getAttribute("data-view") === view;
+          panel.hidden = !on;
+          panel.classList.toggle("is-on", on);
+        });
+      };
+      premToggleBtns.forEach((btn) => {
+        btn.addEventListener("click", () => setPremView(btn.getAttribute("data-view")));
+      });
+      const toggle = premiumSection.querySelector(".qava-prem-toggle");
+      if (toggle) {
+        toggle.addEventListener("keydown", (e) => {
+          const dir = e.key === "ArrowRight" || e.key === "ArrowDown" ? 1
+            : e.key === "ArrowLeft" || e.key === "ArrowUp" ? -1 : 0;
+          if (!dir) return;
+          e.preventDefault();
+          const views = ["premium", "matchmaker"];
+          const next = views[(views.indexOf(premiumSection.dataset.view || "premium") + dir + views.length) % views.length];
+          setPremView(next);
+          const focusBtn = premiumSection.querySelector('.qava-prem-toggle-btn[data-view="' + next + '"]');
+          if (focusBtn) focusBtn.focus();
+        });
+      }
+    })();
 
     initTopics();
   </script>
