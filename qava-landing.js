@@ -210,6 +210,119 @@
     startNeedFaceCluster(section.querySelector("#faceCluster"));
   }
 
+  function buildStrategyLibrary(doc) {
+    const searchIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>';
+    const arrowIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
+    const pauseIcon = '<svg class="qava-lib-pause-icon" xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="0.5"/><rect x="14" y="4" width="4" height="16" rx="0.5"/></svg>';
+    const row = (items) => {
+      const bits = items.map((name) => `<span class="qava-lib-term">${name}</span>`).join('<span class="qava-lib-dot" aria-hidden="true">·</span>');
+      return `<div class="qava-lib-set">${bits}</div><div class="qava-lib-set" aria-hidden="true">${bits}</div>`;
+    };
+    const rowA = ["Business Plan", "Competitor Analysis", "Cost Optimization", "Creative Strategy", "Customer Segmentation", "Data Analysis", "Financial Model", "Go-To-Market Strategy", "Growth Plan", "Pitch Deck", "Pricing Strategy", "Product Strategy", "Strategic Finance"];
+    const rowB = ["Brand Strategy", "Fundraising Strategy", "Hiring Plan", "Market Research", "Partnership Strategy", "Sales Strategy", "Unit Economics", "Pricing Strategy", "Product Strategy", "Growth Plan", "Financial Model", "Creative Strategy", "Go-To-Market Strategy"];
+    const section = doc.createElement("section");
+    section.id = "qava-strategy-library";
+    section.className = "qava-lib";
+    section.setAttribute("aria-label", "Strategy library");
+    section.innerHTML = `
+      <h2 class="qava-lib-title">The world's <em>largest library</em> of strategies</h2>
+      <ul class="qava-lib-points">
+        <li>Real tear-downs, not theory</li>
+        <li>AI-powered strategy</li>
+        <li>Customizable by industry/stage</li>
+      </ul>
+      <div class="qava-lib-stage">
+        <div class="qava-lib-marquee" aria-hidden="true">
+          <div class="qava-lib-track qava-lib-track--left">${row(rowA)}</div>
+          <div class="qava-lib-track qava-lib-track--right">${row(rowB)}</div>
+        </div>
+        <a class="qava-lib-search" href="https://theclubnyc.com/strategy/" aria-label="Search the strategy library">
+          ${searchIcon}
+          <span class="qava-lib-typed"><span class="qava-lib-typed-text"></span><span class="qava-lib-caret" aria-hidden="true"></span></span>
+          <span class="qava-lib-go">${arrowIcon}</span>
+        </a>
+      </div>
+      <button type="button" class="qava-lib-pause" aria-pressed="false">${pauseIcon}<span class="qava-lib-pause-label">Pause motion</span></button>
+      <p class="qava-lib-foot">Plus job listings, networking, and a live community — all included with membership.</p>
+    `;
+    return section;
+  }
+
+  function startStrategyLibrary(section) {
+    if (!section) return;
+    const questions = [
+      "How do I get traction on social media?",
+      "How do I build a financial plan investors trust?",
+      "How do I raise money?",
+      "How do I put a project plan together?",
+      "How do I build a team that gets me closer to my goals?",
+      "How do I find product-market fit?",
+      "How do I price something I've never sold before?",
+    ];
+    const textEl = section.querySelector(".qava-lib-typed-text");
+    const pauseBtn = section.querySelector(".qava-lib-pause");
+    const pauseLabel = section.querySelector(".qava-lib-pause-label");
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let paused = reduce;
+    let q = 0;
+    let i = 0;
+    let mode = "type";
+    let timer = 0;
+
+    const playIcon = '<svg class="qava-lib-pause-icon" xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+    const pauseIcon = '<svg class="qava-lib-pause-icon" xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="0.5"/><rect x="14" y="4" width="4" height="16" rx="0.5"/></svg>';
+
+    const setPaused = (next) => {
+      paused = next;
+      section.classList.toggle("is-paused", paused);
+      pauseBtn.setAttribute("aria-pressed", paused ? "true" : "false");
+      pauseLabel.textContent = paused ? "Play motion" : "Pause motion";
+      const icon = pauseBtn.querySelector(".qava-lib-pause-icon");
+      pauseBtn.insertAdjacentHTML("afterbegin", paused ? playIcon : pauseIcon);
+      if (icon) icon.remove();
+    };
+
+    const step = () => {
+      if (paused) {
+        timer = window.setTimeout(step, 120);
+        return;
+      }
+      const full = questions[q];
+      if (mode === "type") {
+        i += 1;
+        textEl.textContent = full.slice(0, i);
+        if (i >= full.length) {
+          mode = "hold";
+          timer = window.setTimeout(step, 1500);
+          return;
+        }
+        timer = window.setTimeout(step, 42);
+        return;
+      }
+      if (mode === "hold") {
+        mode = "delete";
+        timer = window.setTimeout(step, 22);
+        return;
+      }
+      i -= 1;
+      textEl.textContent = full.slice(0, Math.max(0, i));
+      if (i <= 0) {
+        q = (q + 1) % questions.length;
+        mode = "type";
+        timer = window.setTimeout(step, 280);
+        return;
+      }
+      timer = window.setTimeout(step, 22);
+    };
+
+    if (textEl) textEl.textContent = reduce ? questions[0] : "";
+    if (reduce) setPaused(true);
+    pauseBtn.addEventListener("click", () => {
+      setPaused(!paused);
+    });
+    step();
+  }
+
   function attachLandingEnhancements() {
     const doc = document;
     const win = window;
@@ -349,7 +462,14 @@
         const heroSubheader = doc.querySelector(".feature-cards-subheader");
         if (heroSubheader) {
           heroSubheader.classList.add("qava-hero-subheader");
-          heroSubheader.innerHTML = '<span class="qava-sub-line">Test ideas, secure funding, drive growth,</span> <span class="qava-sub-line">and make more money—the smart way.</span>';
+          heroSubheader.innerHTML = '<span class="qava-sub-line">Test ideas, secure funding, drive growth,</span> <span class="qava-sub-line">and make more money.</span>';
+          if (!doc.getElementById("qava-hero-rule")) {
+            const rule = doc.createElement("div");
+            rule.id = "qava-hero-rule";
+            rule.className = "qava-hero-rule";
+            rule.setAttribute("aria-hidden", "true");
+            heroSubheader.insertAdjacentElement("afterend", rule);
+          }
         }
 
         const pricingNavLinks = Array.from(doc.querySelectorAll("a.nav-item, .mobile-nav-item, .footer-link")).filter((link) =>
@@ -561,22 +681,22 @@
               </a>
             `;
             ctaButtonsRow.insertAdjacentElement("afterend", blogStack);
-            blogStack.appendChild(blogRow);
 
-            const blogActions = doc.createElement("div");
-            blogActions.className = "qava-blog-actions";
+            const blogHead = doc.createElement("div");
+            blogHead.className = "qava-blog-head";
             const viewBlog = doc.createElement("a");
             viewBlog.href = "https://www.theclubnyc.com/blog";
             viewBlog.className = "qava-blog-actbtn";
             viewBlog.textContent = "Visit blog";
-            blogActions.appendChild(viewBlog);
-            blogStack.insertAdjacentElement("afterend", blogActions);
+            blogHead.appendChild(viewBlog);
+            blogStack.appendChild(blogHead);
+            blogStack.appendChild(blogRow);
 
             if (!doc.getElementById("qava-need-section")) {
               const needSection = doc.createElement("section");
               needSection.id = "qava-need-section";
               needSection.className = "qava-need-section";
-              needSection.setAttribute("aria-label", "Everything you need");
+              needSection.setAttribute("aria-label", "Strategy, listings, and networking");
               const listingRow = (title, meta) => `
                       <div class="qava-need-listing">
                         <div class="qava-need-listing-copy">
@@ -593,8 +713,8 @@
                 listingRow("Growth Plan for Marketplace Density in Secondary US Cities Pricing Strategy for Supply-Side Incentives", "Denver · $280 · 12 hrs"),
               ].join("");
               needSection.innerHTML = `
-                <p class="qava-need-kicker">One stop shop</p>
-                <h2 class="qava-need-title">Everything you need is <em>right here</em></h2>
+                <div class="qava-need-kicker">everything in one place</div>
+                <h2 class="qava-need-title">How it works</h2>
                 <div class="qava-need-grid">
                   <a class="qava-need-card" href="https://theclubnyc.com/strategy/">
                     <div class="qava-need-num">01</div>
@@ -626,11 +746,9 @@
                     </div>
                   </a>
                 </div>
-                <div class="qava-need-actions">
-                  <a class="qava-need-btn qava-need-btn-primary" href="https://app.theclubnyc.com/">Get Started</a>
-                </div>
               `;
-              blogActions.insertAdjacentElement("afterend", needSection);
+              blogStack.insertAdjacentElement("afterend", needSection);
+              needSection.appendChild(ctaButtonsRow);
               startNeedSection(needSection);
             }
 
@@ -666,6 +784,14 @@
                 thumb.addEventListener("error", markLoaded, { once: true });
               }
             });
+          }
+
+          if (!doc.getElementById("qava-strategy-library")) {
+            const library = buildStrategyLibrary(doc);
+            const needEl = doc.getElementById("qava-need-section");
+            if (needEl) needEl.insertAdjacentElement("afterend", library);
+            else if (doc.querySelector(".qava-blog-stack")) doc.querySelector(".qava-blog-stack").insertAdjacentElement("afterend", library);
+            startStrategyLibrary(library);
           }
 
           if (showcaseBox && !doc.getElementById("qava-showcase-dynamic-content")) {
