@@ -566,6 +566,7 @@
 
         const ctaButtonsRow = doc.querySelector(".matching-cta-buttons");
         if (ctaButtonsRow) {
+          const isMatchmakingArchive = doc.body.hasAttribute("data-qava-matchmaking-archive");
           ctaButtonsRow.style.justifyContent = "center";
           ctaButtonsRow.style.gap = "0";
 
@@ -596,15 +597,16 @@
 
           // "How it works" links navigate directly to the standalone
           // /howitworks page (no in-page overlay).
+          // How match-making works is shelved in how-matchmaking-works.html.
 
-          if (!doc.getElementById("qava-hero-showcase-box")) {
+          if (isMatchmakingArchive && !doc.getElementById("qava-hero-showcase-box")) {
             const showcaseBox = doc.createElement("div");
             showcaseBox.id = "qava-hero-showcase-box";
             showcaseBox.className = "qava-hero-showcase-box";
             ctaButtonsRow.insertAdjacentElement("afterend", showcaseBox);
           }
 
-          const showcaseBox = doc.getElementById("qava-hero-showcase-box");
+          const showcaseBox = isMatchmakingArchive ? doc.getElementById("qava-hero-showcase-box") : null;
 
           if (showcaseBox && !doc.getElementById("qava-showcase-toggle-wrap")) {
             const toggleWrap = doc.createElement("div");
@@ -617,7 +619,7 @@
             showcaseBox.insertAdjacentElement("beforebegin", toggleWrap);
           }
 
-          if (showcaseBox && !doc.getElementById("qava-blog-row")) {
+          if (!isMatchmakingArchive && !doc.getElementById("qava-blog-row")) {
             const blogStack = doc.createElement("div");
             blogStack.className = "qava-blog-stack";
             const blogRow = doc.createElement("div");
@@ -786,7 +788,7 @@
             });
           }
 
-          if (!doc.getElementById("qava-strategy-library")) {
+          if (!isMatchmakingArchive && !doc.getElementById("qava-strategy-library")) {
             const library = buildStrategyLibrary(doc);
             const needEl = doc.getElementById("qava-need-section");
             if (needEl) needEl.insertAdjacentElement("afterend", library);
@@ -2091,7 +2093,11 @@
           }
 
           const universityLogosRow = doc.querySelector(".feature-cards-logos");
-          if (showcaseBox && universityLogosRow) {
+          const logosAnchorPoint = showcaseBox
+            || doc.getElementById("qava-strategy-library")
+            || doc.getElementById("qava-need-section")
+            || ctaButtonsRow;
+          if (logosAnchorPoint && universityLogosRow) {
             if (!universityLogosRow.getAttribute("data-qava-intermingled")) {
               universityLogosRow.setAttribute("data-qava-intermingled", "true");
 
@@ -2199,7 +2205,7 @@
             logosAnchor.style.paddingBottom = "64px";
             logosAnchor.style.margin = "0";
 
-            showcaseBox.insertAdjacentElement("afterend", logosAnchor);
+            logosAnchorPoint.insertAdjacentElement("afterend", logosAnchor);
             let spacer = doc.getElementById("qava-logos-top-spacer");
             if (!spacer) {
               spacer = doc.createElement("div");
@@ -2414,7 +2420,19 @@
                 { quote: "I used The Club to set up our P&amp;L with charts showing where our revenue is growing and how our expenses are trending.", logo: "./Testimonial%20company%20logos/The%20Rise%20Group%20Square%20Logo.svg", h: 26, name: "CEO" },
                 { quote: "Working with startups gave me hands-on experience that no case study could match. I helped build go-to-market strategies that actually launched products.", logo: "./Landing%20Page%20Trusted%20by/Kellogg.png", h: 32, name: "Kellogg School of Management", sub: "Class of 2024" },
                 { quote: "I helped real companies raise capital. I built investor-ready pitch decks and financial models. This experience accelerated my career by 10 years.", logo: "./Landing%20Page%20Trusted%20by/Wharton.png", h: 32, name: "The Wharton School", sub: "Class of 2023" },
-                { quote: "I worked on real, high-impact strategic projects for ambitious growing companies that I will stay in touch with for years to come.", logo: "./Testimonial%20images/Columbia%20Business%20School%20Logo%202.png", h: 32, name: "Columbia Business School", sub: "Class of 2024" }
+                { quote: "I worked on real, high-impact strategic projects for ambitious growing companies that I will stay in touch with for years to come.", logo: "./Testimonial%20images/Columbia%20Business%20School%20Logo%202.png", h: 32, name: "Columbia Business School", sub: "Class of 2024" },
+                { quote: "Matched in a day. Scoped cleanly. Paid on time. I’ll keep coming back.", logo: "./Landing%20Page%20Trusted%20by/HBS.png", h: 32, name: "Harvard Business School", sub: "Class of 2024" },
+                { quote: "Finally, project work that respects MBA-level thinking — not busywork.", logo: "./Landing%20Page%20Trusted%20by/Haas.png", h: 32, name: "Berkeley Haas", sub: "Class of 2025" },
+                { quote: "I shipped a pricing project that the client still uses. That’s the bar.", logo: "./Landing%20Page%20Trusted%20by/Standford.png", h: 32, name: "Stanford GSB", sub: "Class of 2023" },
+                { quote: "Clear scope, sharp clients, and work I can put on a resume with pride.", logo: "./Landing%20Page%20Trusted%20by/MIT.png", h: 32, name: "MIT Sloan", sub: "Class of 2024" },
+                { quote: "Better than cold outreach. Better briefs. Better outcomes. Simple.", logo: "./Landing%20Page%20Trusted%20by/Stern.png", h: 32, name: "NYU Stern", sub: "Class of 2025" },
+                { quote: "Remote, high-trust projects with founders who actually wanted my input.", logo: "./Landing%20Page%20Trusted%20by/Said.png", h: 32, name: "Oxford Saïd", sub: "Class of 2024" },
+                { quote: "I landed a role through a project. The relationship outlived the brief.", logo: "./Landing%20Page%20Trusted%20by/AGSM.jpg", h: 32, name: "AGSM", sub: "Class of 2023" },
+                { quote: "Applied Friday, kicked off Monday. The platform just moves.", logo: "./Landing%20Page%20Trusted%20by/Kellogg.png", h: 32, name: "Kellogg", sub: "Class of 2025" },
+                { quote: "Quality over volume. Every listing felt worth opening.", logo: "./Landing%20Page%20Trusted%20by/Wharton.png", h: 32, name: "Wharton", sub: "Class of 2024" },
+                { quote: "Protected payments, clear deliverables — I could focus on the work.", logo: "./Testimonial%20images/Columbia%20Business%20School%20Logo%202.png", h: 32, name: "Columbia", sub: "Class of 2025" },
+                { quote: "The clients were operators. The feedback was direct. I grew fast.", logo: "./Landing%20Page%20Trusted%20by/HBS.png", h: 32, name: "Harvard Business School", sub: "Class of 2023" },
+                { quote: "Short projects, real ownership. Exactly what I wanted between terms.", logo: "./Landing%20Page%20Trusted%20by/Haas.png", h: 32, name: "Berkeley Haas", sub: "Class of 2024" }
               ];
 
               const storiesSection = doc.createElement("section");
