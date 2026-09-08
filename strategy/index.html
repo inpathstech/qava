@@ -522,6 +522,50 @@
       padding: 0;
       align-items: stretch;
     }
+    .quotes-clip {
+      overflow: hidden;
+    }
+    .quotes-clip.is-animating {
+      transition: height 0.45s ease;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .quotes-clip.is-animating {
+        transition: none;
+      }
+    }
+    .quotes-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: fit-content;
+      margin: 18px auto 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #6b6b6b;
+      font-family: Inter, sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .quotes-toggle:hover {
+      color: #111;
+    }
+    .quotes-toggle:focus-visible {
+      outline: 2px solid rgba(17, 24, 39, 0.25);
+      outline-offset: 4px;
+    }
+    .quotes-toggle-chevron {
+      display: block;
+      width: 12px;
+      height: 12px;
+      transition: transform 0.35s ease;
+    }
+    .quotes-toggle[aria-expanded="true"] .quotes-toggle-chevron {
+      transform: rotate(180deg);
+    }
     .quote {
       display: flex;
       flex-direction: column;
@@ -1756,7 +1800,8 @@
 
       <section class="quotes-band" aria-label="What members say">
         <p class="quotes-kicker">Trusted by Doers</p>
-        <div class="quotes">
+        <div class="quotes-clip" id="quotesClip">
+        <div class="quotes" id="quotesGrid">
           <figure class="quote">
             <div class="quote-stars" aria-label="5 out of 5 stars">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.62 6.26 6.88.58-5.22 4.48 1.62 6.72L12 17.27 6.1 20.54l1.62-6.72-5.22-4.48 6.88-.58L12 2.5z"/></svg>
@@ -2028,6 +2073,11 @@
             </figcaption>
           </figure>
         </div>
+        </div>
+        <button type="button" class="quotes-toggle" id="quotesToggle" aria-expanded="false" aria-controls="quotesGrid">
+          <span class="quotes-toggle-label">Show more</span>
+          <svg class="quotes-toggle-chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg>
+        </button>
       </section>
 
       <div class="av2-body av2-body--alg">
@@ -3777,6 +3827,87 @@
         toggleMobileMenu();
       }
     });
+
+    (function initQuotesToggle() {
+      const clip = document.getElementById("quotesClip");
+      const grid = document.getElementById("quotesGrid");
+      const toggle = document.getElementById("quotesToggle");
+      const label = toggle && toggle.querySelector(".quotes-toggle-label");
+      if (!clip || !grid || !toggle || !label) return;
+
+      const cards = Array.from(grid.querySelectorAll(".quote"));
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let open = false;
+
+      function columnCount() {
+        return getComputedStyle(grid).gridTemplateColumns.trim().split(/\s+/).filter(Boolean).length;
+      }
+
+      function collapsedHeight() {
+        const visible = columnCount() <= 1 ? 2 : 6;
+        const last = cards[Math.min(visible, cards.length) - 1];
+        if (!last) return grid.scrollHeight;
+        return last.offsetTop + last.offsetHeight;
+      }
+
+      function setClipHeight(px, animate) {
+        clip.classList.toggle("is-animating", !!animate && !reduceMotion);
+        clip.style.height = Math.round(px) + "px";
+      }
+
+      function applyCollapsed(animate) {
+        setClipHeight(collapsedHeight(), animate);
+      }
+
+      function applyOpen(animate) {
+        setClipHeight(grid.scrollHeight, animate);
+      }
+
+      function updateA11y() {
+        const visible = columnCount() <= 1 ? 2 : 6;
+        cards.forEach((card, i) => {
+          const hide = !open && i >= visible;
+          card.setAttribute("aria-hidden", hide ? "true" : "false");
+          card.inert = hide;
+        });
+      }
+
+      function sync() {
+        if (open) applyOpen(false);
+        else applyCollapsed(false);
+        updateA11y();
+      }
+
+      toggle.addEventListener("click", () => {
+        open = !open;
+        toggle.setAttribute("aria-expanded", open ? "true" : "false");
+        label.textContent = open ? "Show less" : "Show more";
+        updateA11y();
+        if (open) applyOpen(true);
+        else {
+          applyOpen(false);
+          requestAnimationFrame(() => applyCollapsed(true));
+          const bandTop = clip.closest(".quotes-band").getBoundingClientRect().top;
+          if (bandTop < 80) {
+            clip.closest(".quotes-band").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+          }
+        }
+      });
+
+      clip.addEventListener("transitionend", (e) => {
+        if (e.propertyName !== "height") return;
+        clip.classList.remove("is-animating");
+        if (open) clip.style.height = "auto";
+      });
+
+      applyCollapsed(false);
+      updateA11y();
+      window.addEventListener("resize", sync);
+      grid.querySelectorAll("img").forEach((img) => {
+        if (!img.complete) img.addEventListener("load", sync);
+      });
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(sync);
+    })();
   </script>
   <script src="/qava-auth.js?v=login-1"></script>
 </body>
