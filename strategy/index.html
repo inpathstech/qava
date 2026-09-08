@@ -3847,7 +3847,9 @@
         const visible = columnCount() <= 1 ? 2 : 6;
         const last = cards[Math.min(visible, cards.length) - 1];
         if (!last) return grid.scrollHeight;
-        return last.offsetTop + last.offsetHeight;
+        const gridRect = grid.getBoundingClientRect();
+        const lastRect = last.getBoundingClientRect();
+        return lastRect.bottom - gridRect.top;
       }
 
       function setClipHeight(px, animate) {
