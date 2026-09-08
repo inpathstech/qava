@@ -403,14 +403,6 @@
           });
         })();
 
-        if (!doc.getElementById("qava-sandbox-canela-link")) {
-          const fontLink = doc.createElement("link");
-          fontLink.id = "qava-sandbox-canela-link";
-          fontLink.rel = "stylesheet";
-          fontLink.href = "https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap";
-          doc.head.appendChild(fontLink);
-        }
-
         const logoLink = doc.querySelector(".header-logo .logo a, .logo a, .header-logo > a");
         const logoImg = logoLink && logoLink.querySelector("img:not(.qava-nav-logo-face)");
         if (logoLink && logoImg && !doc.getElementById("qava-nav-logo-flip")) {

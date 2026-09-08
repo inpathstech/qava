@@ -104,7 +104,7 @@
     }
     .footer-section .footer-column { display: flex; flex-direction: column; min-width: 0; }
     .footer-section .footer-heading {
-      font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+      font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
       font-weight: 400;
       font-size: 17px;
       letter-spacing: -0.012em;
@@ -157,8 +157,7 @@
   `;
 
   const FONT_LINKS = [
-    "https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap",
-    "https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap"
+    "https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap"
   ];
 
   function ensureFooterFonts(doc) {

@@ -1,6 +1,6 @@
 /* Club Room quiet-list landing preview (ported from get-real-answers-designer) */
 .landing-section {
-  --display: "Libre Caslon Display", "Libre Caslon Text", "Canela", "Canela Deck", "Iowan Old Style", Baskerville, "Times New Roman", serif;
+  --display: Georgia, "Iowan Old Style", "Times New Roman", serif;
   --ink: #111827;
   --muted: #6b7280;
   --soft: #9ca3af;

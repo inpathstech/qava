@@ -86,10 +86,10 @@
 
   <script src="/qava-footer.js"></script>
   <script src="/qava-nav-logo-flip.js?v=multi-1"></script>
-<script>
+  <script>
     (function () {
       const preview = document.getElementById("preview");
-      const DISPLAY_FONT = '"Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif';
+      const DISPLAY_FONT = 'Georgia, "Iowan Old Style", "Times New Roman", serif';
       // When embedded inside SANDBOXindex (?embed=1), hide this page's own
       // navbar/footer so the host sandbox chrome is the only chrome shown.
       const IS_EMBED = new URLSearchParams(location.search).has("embed");
@@ -1183,14 +1183,6 @@
           baseTag.setAttribute("target", "_top");
           baseTag.setAttribute("data-qava-top-target", "true");
           frameDoc.head.insertBefore(baseTag, frameDoc.head.firstChild);
-        }
-
-        if (!frameDoc.getElementById("qava-sandbox-canela-link")) {
-          const fontLink = frameDoc.createElement("link");
-          fontLink.id = "qava-sandbox-canela-link";
-          fontLink.rel = "stylesheet";
-          fontLink.href = "https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&display=swap";
-          frameDoc.head.appendChild(fontLink);
         }
 
         let styleTag = frameDoc.getElementById("qava-sandbox-style");
