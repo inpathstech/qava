@@ -494,7 +494,7 @@
 .qava-auth-close:hover { background: transparent; color: #111827; }
 
 .qava-auth-title {
-  font-family: "Libre Caslon Display", "Canela", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+  font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
   font-weight: 400;
   font-size: 24px;
   line-height: 1.15;

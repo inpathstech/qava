@@ -6,7 +6,7 @@
 }
 
 :root {
-  --display: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+  --display: Georgia, "Iowan Old Style", "Times New Roman", serif;
   --ui: Inter, system-ui, -apple-system, sans-serif;
   --ink: #111827;
   --muted: #6b7280;

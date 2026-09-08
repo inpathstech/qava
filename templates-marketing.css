@@ -350,7 +350,7 @@ body {
 }
 
 .tpl-marketing-hero h1.qava-hero-heading {
-  font-family: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+  font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
   font-weight: 400;
   letter-spacing: -0.012em;
   font-size: clamp(34px, 3.6vw, 54px);
@@ -487,7 +487,7 @@ body {
 
 .tpl-demo-title {
   margin: 0;
-  font-family: "Libre Caslon Display", Georgia, serif;
+  font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
   font-size: 18px;
   font-weight: 400;
   line-height: 1.2;
@@ -565,7 +565,7 @@ body {
 
 .tpl-slide-heading {
   margin: 0;
-  font-family: "Libre Caslon Display", Georgia, serif;
+  font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
   font-size: clamp(22px, 2.4vw, 30px);
   font-weight: 400;
   line-height: 1.15;
@@ -613,7 +613,7 @@ body {
 }
 
 .tpl-demo-slide-title {
-  font-family: "Libre Caslon Display", Georgia, serif;
+  font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
   font-size: 18px;
   font-weight: 400;
   color: #111827;
@@ -671,7 +671,7 @@ body {
 
 .room-thesis h2 {
   margin: 0 0 14px;
-  font-family: "Libre Caslon Display", Georgia, serif;
+  font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
   font-size: clamp(17px, 3.35vw, 36px);
   font-weight: 400;
   letter-spacing: -0.02em;
@@ -726,7 +726,7 @@ body {
 
 .premium-pitch h3 {
   margin: 0 0 8px;
-  font-family: "Libre Caslon Display", Georgia, serif;
+  font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
   font-size: clamp(26px, 3.6vw, 34px);
   font-weight: 400;
   letter-spacing: -0.02em;

@@ -1,5 +1,5 @@
     :root {
-      --display: "Libre Caslon Display", "Canela", "Canela Deck", "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+      --display: Georgia, "Iowan Old Style", "Times New Roman", serif;
       --ink: #111827;
       --muted: #6b6b6b;
       --hairline: rgba(17, 24, 39, 0.08);
