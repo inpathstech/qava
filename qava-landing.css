@@ -3162,19 +3162,32 @@
           width: 100%;
           max-width: 1040px;
           margin: 0 auto 32px auto;
+          padding: 0 24px;
+          box-sizing: border-box;
           text-align: center;
         }
 
         .qava-testimonial-quote {
           font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
           font-weight: 400;
-          font-size: clamp(20px, 2.05vw, 28px);
+          font-size: clamp(18px, 1.85vw, 24px);
           line-height: 1.25;
           letter-spacing: -0.01em;
           color: #111827;
           margin: 0 0 18px 0;
           text-align: center;
           hanging-punctuation: first last;
+        }
+
+        .qava-quote-line {
+          display: block;
+          white-space: nowrap;
+        }
+
+        @media (max-width: 760px) {
+          .qava-quote-line {
+            white-space: normal;
+          }
         }
 
         .qava-testimonial-author {

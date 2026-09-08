@@ -2212,12 +2212,15 @@
               testimonial = doc.createElement("div");
               testimonial.id = "qava-logos-testimonial";
               testimonial.className = "qava-logos-testimonial";
-              testimonial.innerHTML = `
-                <p class="qava-testimonial-quote">&ldquo;Reddit's honesty, LinkedIn's reach, and strategy breakdowns in plain<br>english that actually work. I can't imagine needing anything else.&rdquo;</p>
-                <p class="qava-testimonial-author">Marcus Bennett</p>
-                <p class="qava-testimonial-role">Chief Revenue Officer, Northwind Labs</p>
-              `;
             }
+            testimonial.innerHTML = `
+              <p class="qava-testimonial-quote">
+                <span class="qava-quote-line">&ldquo;Reddit's honesty, LinkedIn's reach, and strategy breakdowns in plain</span>
+                <span class="qava-quote-line">english that actually work. I can't imagine needing anything else.&rdquo;</span>
+              </p>
+              <p class="qava-testimonial-author">Marcus Bennett</p>
+              <p class="qava-testimonial-role">Chief Revenue Officer, Northwind Labs</p>
+            `;
 
             logosAnchor.appendChild(spacer);
             logosAnchor.appendChild(testimonial);
