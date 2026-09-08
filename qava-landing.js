@@ -2433,7 +2433,8 @@
                 { quote: "Protected payments, clear deliverables — I could focus on the work instead of chasing invoices or wondering if the scope would shift midway.", logo: "./Testimonial%20images/Columbia%20Business%20School%20Logo%202.png", h: 32, name: "Columbia", sub: "Class of 2025" },
                 { quote: "The clients were operators. The feedback was direct. I grew fast because every project pushed me to think and deliver like a real consultant.", logo: "./Landing%20Page%20Trusted%20by/HBS.png", h: 32, name: "Harvard Business School", sub: "Class of 2023" },
                 { quote: "Short projects, real ownership. Exactly what I wanted between terms — enough structure to feel supported, enough freedom to make it mine.", logo: "./Landing%20Page%20Trusted%20by/Haas.png", h: 32, name: "Berkeley Haas", sub: "Class of 2024" },
-                { quote: "The briefs were tight. The work was real. That’s rare to find in student projects, and it’s why I keep coming back for more engagements.", logo: "./Landing%20Page%20Trusted%20by/Standford.png", h: 32, name: "Stanford GSB", sub: "Class of 2024" }
+                { quote: "The briefs were tight. The work was real. That’s rare to find in student projects, and it’s why I keep coming back for more engagements.", logo: "./Landing%20Page%20Trusted%20by/Standford.png", h: 32, name: "Stanford GSB", sub: "Class of 2024" },
+                { quote: "I landed a role through a project. The relationship outlived the brief, and the client brought me back for two more engagements after that.", logo: "./Landing%20Page%20Trusted%20by/AGSM.jpg", h: 32, name: "AGSM", sub: "Class of 2023" }
               ];
 
               const storiesSection = doc.createElement("section");
