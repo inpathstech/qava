@@ -28,7 +28,7 @@
     <script>document.documentElement.classList.add('qava-pending');</script>
     <!-- Fetch the design stylesheet as early and high-priority as possible so the
          page spends the least possible time hidden behind the anti-FOUC guard. -->
-    <link rel="preload" as="style" href="qava-landing.css?v=59">
+    <link rel="preload" as="style" href="qava-landing.css?v=60">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -5406,6 +5406,7 @@
         .feature-cards-header {
             font-family: Georgia, "Iowan Old Style", "Times New Roman", serif !important;
             font-weight: 400 !important;
+            color: #111827 !important;
             letter-spacing: -0.012em !important;
             font-size: clamp(34px, 3.6vw, 54px) !important;
             line-height: 1.08 !important;
@@ -5413,6 +5414,8 @@
             max-width: none !important;
             margin: 0 auto 10px auto !important;
             text-align: center !important;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .feature-cards-header br { display: none !important; }
@@ -5420,7 +5423,7 @@
     </style>
     <!-- Do NOT call __qavaReveal from stylesheet onload — CSS finishes before
          qava-landing.js rebuilds the page, which re-exposes the legacy hero. -->
-    <link rel="stylesheet" href="qava-landing.css?v=59" />
+    <link rel="stylesheet" href="qava-landing.css?v=60" />
     <link rel="stylesheet" href="community/landing-community.css" />
     <link rel="stylesheet" href="qava-auth.css" />
     <script>
@@ -11474,7 +11477,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
       }
     })();
     </script>
-    <script src="qava-landing.js?v=need-59"></script>
+    <script src="qava-landing.js?v=need-60"></script>
     <script src="qava-auth.js?v=login-1"></script>
     <script src="community/landing-community.js"></script>
 </body>
