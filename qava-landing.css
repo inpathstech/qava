@@ -2525,7 +2525,7 @@
           border: 1.5px solid #e5e7eb;
           box-shadow: 0 1px 4px rgba(17, 24, 39, 0.08);
           pointer-events: auto;
-          cursor: pointer;
+          cursor: default;
         }
         .qava-need-bubble::before {
           content: "";
