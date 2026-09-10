@@ -523,6 +523,7 @@
     }
     .quotes-clip {
       overflow: hidden;
+      padding-bottom: 3px;
     }
     .quotes-clip.is-animating {
       transition: height 0.45s ease;
@@ -3848,12 +3849,15 @@
         if (!last) return grid.scrollHeight;
         const gridRect = grid.getBoundingClientRect();
         const lastRect = last.getBoundingClientRect();
-        return lastRect.bottom - gridRect.top;
+        // Room for the 1px border plus 0 1px 2px shadow so overflow:hidden
+        // does not shave the bottom edge. Row gap is 18px, so this stays
+        // well above the next row.
+        return Math.ceil(lastRect.bottom - gridRect.top) + 3;
       }
 
       function setClipHeight(px, animate) {
         clip.classList.toggle("is-animating", !!animate && !reduceMotion);
-        clip.style.height = Math.round(px) + "px";
+        clip.style.height = Math.ceil(px) + "px";
       }
 
       function applyCollapsed(animate) {
@@ -3861,7 +3865,7 @@
       }
 
       function applyOpen(animate) {
-        setClipHeight(grid.scrollHeight, animate);
+        setClipHeight(grid.scrollHeight + 3, animate);
       }
 
       function updateA11y() {
