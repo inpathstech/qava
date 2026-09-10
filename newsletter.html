@@ -391,11 +391,70 @@
       color: #b91c1c;
     }
 
+    .qava-nl-peek {
+      width: min(960px, calc(100vw - 48px));
+      margin: 56px auto 0;
+    }
+
+    .qava-nl-peek-title {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(24px, 2.4vw, 32px);
+      line-height: 1.15;
+      letter-spacing: -0.012em;
+      color: var(--ink);
+      margin: 0 0 6px;
+    }
+
+    .qava-nl-peek-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--muted);
+      margin: 0 0 22px;
+      line-height: 1.45;
+    }
+
+    .qava-nl-peek-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px 16px;
+    }
+
+    .qava-nl-peek-card {
+      display: block;
+      min-width: 0;
+    }
+
+    .qava-nl-peek-thumb {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      border-radius: 8px;
+      background: #ececec;
+    }
+
+    .qava-nl-peek-card-title {
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.35;
+      color: var(--ink);
+      margin: 10px 0 0;
+    }
+
+    @media (max-width: 860px) {
+      .qava-nl-peek-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
     @media (max-width: 620px) {
       .qava-nl-options { grid-template-columns: 1fr; }
       .qava-nl-field-row { flex-direction: column; gap: 0; }
       .qava-nl-container { padding: 28px 24px; }
       .qava-nl-logo { top: 28px; right: 24px; width: 38px; height: 38px; border-radius: 9px; }
+      .qava-nl-peek-grid { grid-template-columns: 1fr 1fr; gap: 16px 12px; }
+      .qava-nl-peek-card-title { font-size: 13px; }
     }
   </style>
   <link rel="stylesheet" href="club-dot-wave.css?v=1" />
@@ -534,6 +593,37 @@
         <a href="https://www.theclubnyc.com/" class="qava-nl-home">Return home ↗</a>
       </div>
     </div>
+
+    <section class="qava-nl-peek" aria-labelledby="qava-nl-peek-title">
+      <h2 class="qava-nl-peek-title" id="qava-nl-peek-title">A peek inside</h2>
+      <p class="qava-nl-peek-sub">Real examples of what shows up in your box.</p>
+      <div class="qava-nl-peek-grid">
+        <article class="qava-nl-peek-card">
+          <img class="qava-nl-peek-thumb" src="newsletter-art/projects.jpg" alt="" />
+          <h3 class="qava-nl-peek-card-title">7 new projects added this week, from Seed to Series B</h3>
+        </article>
+        <article class="qava-nl-peek-card">
+          <img class="qava-nl-peek-thumb" src="newsletter-art/grants.jpg" alt="" />
+          <h3 class="qava-nl-peek-card-title">12 grants closing this month for early-stage founders</h3>
+        </article>
+        <article class="qava-nl-peek-card">
+          <img class="qava-nl-peek-thumb" src="newsletter-art/startup-news.jpg" alt="" />
+          <h3 class="qava-nl-peek-card-title">The fintech seed round that closed in 9 days</h3>
+        </article>
+        <article class="qava-nl-peek-card">
+          <img class="qava-nl-peek-thumb" src="newsletter-art/business-schools.jpg" alt="" />
+          <h3 class="qava-nl-peek-card-title">This year's top 10 MBA programs for entrepreneurship</h3>
+        </article>
+        <article class="qava-nl-peek-card">
+          <img class="qava-nl-peek-thumb" src="newsletter-art/events.jpg" alt="" />
+          <h3 class="qava-nl-peek-card-title">Live teardown: pricing a product no one's sold before</h3>
+        </article>
+        <article class="qava-nl-peek-card">
+          <img class="qava-nl-peek-thumb" src="newsletter-art/fractional-cmos.jpg" alt="" />
+          <h3 class="qava-nl-peek-card-title">Why fractional CMOs are having a moment</h3>
+        </article>
+      </div>
+    </section>
   </main>
 
   <footer class="footer-section"></footer>
