@@ -30,6 +30,10 @@
          page spends the least possible time hidden behind the anti-FOUC guard. -->
     <link rel="preload" as="style" href="qava-landing.css?v=64">
     <link rel="preload" as="image" href="need-art/members/faces.jpg">
+    <link rel="preload" as="image" href="Roam/roam-card-poster.jpg">
+    <link rel="preload" as="image" href="pete-pareo-card-poster.jpg">
+    <link rel="preload" as="image" href="liquidskateboard-card-poster.jpg">
+    <link rel="preload" as="image" href="ark-card-poster.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -5859,7 +5863,7 @@
                     <!-- No One's Ark Card -->
                     <div class="in-focus-card">
                         <a href="https://www.theclubnyc.com/noonesark" class="in-focus-image-wrapper">
-                            <img src="No One's Ark/Ark Clip.webp" alt="No One's Ark" class="in-focus-image" loading="lazy">
+                            <img src="ark-card-poster.jpg" alt="No One's Ark" class="in-focus-image" loading="lazy">
                         </a>
                         <div class="in-focus-content">
                             <h3 class="in-focus-blog-title">The Story of No One's Ark—and the Strategic Projects Powering Their Mission</h3>
@@ -5898,8 +5902,8 @@
                     <!-- Liquid Skateboard Card -->
                     <div class="in-focus-card">
                         <a href="https://www.theclubnyc.com/liquidskateboard" class="in-focus-image-wrapper">
-                            <video class="in-focus-image" autoplay loop muted playsinline loading="lazy">
-                                <source src="https://liquidskateboard.b-cdn.net/Video%20-%20Web%20Aug%202025/1_GLOABL_VERTICAL_LOW.mp4" type="video/mp4">
+                            <video class="in-focus-image" autoplay loop muted playsinline poster="liquidskateboard-card-poster.jpg" preload="none">
+                                <source src="liquidskateboard-card.mp4" type="video/mp4">
                             </video>
                         </a>
                         <div class="in-focus-content">
@@ -11478,7 +11482,7 @@ If you're talent, sign in and click Search Listings to explore live opportunitie
       }
     })();
     </script>
-    <script src="qava-landing.js?v=need-65"></script>
+    <script src="qava-landing.js?v=need-66"></script>
     <script src="qava-auth.js?v=login-1"></script>
     <script src="community/landing-community.js"></script>
 </body>
