@@ -2494,6 +2494,7 @@
             opacity: 1;
           }
           .qava-need-bubble img { opacity: 1; }
+          .qava-edu-img-wrap::before { animation: none; }
         }
         .qava-need-preview--faces {
           padding: 0;
@@ -4062,20 +4063,57 @@
         .qava-edu-img-wrap {
             position: relative;
           flex: 0 0 auto;
+          width: 140px;
+          height: 140px;
+          border-radius: 12px;
+          overflow: hidden;
+          background: #ececec;
+        }
+
+        .qava-edu-img-wrap::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+          background-image: linear-gradient(
+            100deg,
+            #ececec 0%,
+            #ececec 38%,
+            #f7f6f5 50%,
+            #ececec 62%,
+            #ececec 100%
+          );
+          background-size: 220% 100%;
+          background-repeat: no-repeat;
+          animation: qavaNeedFaceShimmer 1.4s linear infinite;
+          pointer-events: none;
         }
 
         .qava-edu-img {
-          width: 140px;
-          height: 140px;
-          flex: 0 0 auto;
+          width: 100%;
+          height: 100%;
           border-radius: 12px;
           object-fit: cover;
           display: block;
+          position: relative;
+          z-index: 0;
+          opacity: 0;
+          transition: opacity 0.35s ease;
+        }
+
+        .qava-edu-img-wrap.is-loaded .qava-edu-img {
+          opacity: 1;
+        }
+
+        .qava-edu-img-wrap.is-loaded::before {
+          opacity: 0;
+          animation: none;
         }
 
         .qava-edu-badge {
             position: absolute;
           inset: 0;
+          z-index: 2;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -4139,10 +4177,14 @@
             align-items: flex-start;
             gap: 24px;
           }
+          .qava-edu-img-wrap {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 10;
+          }
           .qava-edu-img {
             width: 100%;
-                height: auto;
-            aspect-ratio: 16 / 10;
+            height: 100%;
           }
         }
 
