@@ -2522,7 +2522,8 @@
           background: #ececec;
           border: 1.5px solid #e5e7eb;
           box-shadow: 0 1px 4px rgba(17, 24, 39, 0.08);
-          pointer-events: none;
+          pointer-events: auto;
+          cursor: pointer;
         }
         .qava-need-bubble::before {
           content: "";
@@ -2551,8 +2552,15 @@
           object-position: center top;
           filter: grayscale(1);
           opacity: 0;
+          transition: opacity 0.28s ease, filter 0.22s ease;
         }
         .qava-need-bubble.is-loaded img { opacity: 1; }
+        .qava-need-bubble:hover {
+          z-index: 20;
+        }
+        .qava-need-bubble:hover img {
+          filter: grayscale(0);
+        }
         .qava-need-bubble.is-loaded::before {
           opacity: 0;
           animation: none;

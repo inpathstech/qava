@@ -1,4 +1,11 @@
 (function () {
+  const NEED_FACE_SRC = (n) => "need-art/members/" + n + ".jpg";
+  for (let n = 1; n <= 16; n++) {
+    const preload = new Image();
+    preload.decoding = "async";
+    preload.src = NEED_FACE_SRC(n);
+  }
+
   function startNeedStrategyChart(plot) {
     if (!plot || plot.dataset.running) return;
     plot.dataset.running = "1";
@@ -154,28 +161,14 @@
     ];
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const wraps = [];
-    let ready = 0;
     let shown = false;
     const reveal = () => {
       if (shown) return;
       shown = true;
       wraps.forEach((wrap, i) => {
         wrap.style.setProperty("--d", reduceMotion ? "0ms" : (40 + i * 78) + "ms");
-        wrap.classList.add("is-loaded", "is-in");
+        wrap.classList.add("is-in");
       });
-    };
-    const onAllReady = () => {
-      if (reduceMotion || !("IntersectionObserver" in window)) {
-        reveal();
-        return;
-      }
-      const io = new IntersectionObserver((entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) {
-          reveal();
-          io.disconnect();
-        }
-      }, { threshold: 0.2 });
-      io.observe(clusterEl);
     };
     faces.forEach(([n, size, x, y, z]) => {
       const wrap = document.createElement("span");
@@ -186,22 +179,30 @@
       wrap.style.setProperty("--z", z);
       const img = document.createElement("img");
       img.alt = "";
+      img.width = size;
+      img.height = size;
       img.decoding = "async";
-      let settled = false;
-      const onReady = () => {
-        if (settled) return;
-        settled = true;
-        ready += 1;
-        if (ready >= faces.length) onAllReady();
-      };
-      img.addEventListener("load", onReady);
-      img.addEventListener("error", onReady);
+      img.fetchPriority = "low";
+      const markLoaded = () => wrap.classList.add("is-loaded");
+      img.addEventListener("load", markLoaded);
+      img.addEventListener("error", markLoaded);
       wrap.appendChild(img);
       clusterEl.appendChild(wrap);
       wraps.push(wrap);
-      img.src = "need-art/members/" + n + ".png";
-      if (img.complete) onReady();
+      img.src = NEED_FACE_SRC(n);
+      if (img.complete) markLoaded();
     });
+    if (reduceMotion || !("IntersectionObserver" in window)) {
+      reveal();
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        reveal();
+        io.disconnect();
+      }
+    }, { threshold: 0.2 });
+    io.observe(clusterEl);
   }
 
   function startNeedSection(section) {
