@@ -650,8 +650,8 @@
                 </div>
               </a>
               <a class="qava-blog-card" href="https://www.theclubnyc.com/liquidskateboard">
-                <video class="qava-blog-thumb" autoplay loop muted playsinline preload="metadata">
-                  <source src="https://liquidskateboard.b-cdn.net/Video%20-%20Web%20Aug%202025/1_GLOABL_VERTICAL_LOW.mp4" type="video/mp4">
+                <video class="qava-blog-thumb" autoplay loop muted playsinline preload="auto" poster="./liquidskateboard-card-poster.jpg">
+                  <source src="./liquidskateboard-card.mp4" type="video/mp4">
                 </video>
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
@@ -664,7 +664,9 @@
                 </div>
               </a>
               <a class="qava-blog-card" href="https://www.theclubnyc.com/noonesark">
-                <img class="qava-blog-thumb" src="./No%20One%27s%20Ark/Ark%20Clip.webp" alt="No One's Ark" fetchpriority="low" decoding="async" />
+                <video class="qava-blog-thumb" autoplay loop muted playsinline preload="auto" poster="./ark-card-poster.jpg">
+                  <source src="./ark-card.mp4" type="video/mp4">
+                </video>
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
                   <div class="qava-blog-tag">Non-Profit</div>
@@ -2708,6 +2710,7 @@
             ".feature-cards-section.fuel-section",
             ".customer-stories-section",
             ".education-section",
+            ".in-focus-wrapper",
             ".calculator-section",
             "#qa-section",
             "#qava-moved-pills-anchor",
