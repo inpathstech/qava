@@ -2656,7 +2656,7 @@
               eduSection.innerHTML = `
                 <a class="qava-edu-card" href="https://aurorafoundation.com.au/" target="_blank" rel="noopener">
                   <div class="qava-edu-img-wrap">
-                    <img class="qava-edu-img" src="./Education%20Breaks%20the%20Cycle.png" alt="Education Breaks the Cycle">
+                    <img class="qava-edu-img" src="./Education%20Breaks%20the%20Cycle.png" alt="Education Breaks the Cycle" decoding="async">
                     <span class="qava-edu-badge">1%</span>
                   </div>
                   <div class="qava-edu-content">
@@ -2667,6 +2667,16 @@
                 </a>
               `;
               faqSection.insertAdjacentElement("afterend", eduSection);
+              const eduWrap = eduSection.querySelector(".qava-edu-img-wrap");
+              const eduImg = eduSection.querySelector(".qava-edu-img");
+              if (eduWrap && eduImg) {
+                const markEduLoaded = () => eduWrap.classList.add("is-loaded");
+                if (eduImg.complete && eduImg.naturalWidth > 0) markEduLoaded();
+                else {
+                  eduImg.addEventListener("load", markEduLoaded, { once: true });
+                  eduImg.addEventListener("error", markEduLoaded, { once: true });
+                }
+              }
             }
           }
 
