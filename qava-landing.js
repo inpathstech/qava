@@ -1,10 +1,5 @@
 (function () {
-  const NEED_FACE_SRC = (n) => "need-art/members/" + n + ".jpg";
-  for (let n = 1; n <= 16; n++) {
-    const preload = new Image();
-    preload.decoding = "async";
-    preload.src = NEED_FACE_SRC(n);
-  }
+  const NEED_FACES_SPRITE = "need-art/members/faces.jpg";
 
   function startNeedStrategyChart(plot) {
     if (!plot || plot.dataset.running) return;
@@ -177,21 +172,27 @@
       wrap.style.setProperty("--y", y);
       wrap.style.setProperty("--s", size + "px");
       wrap.style.setProperty("--z", z);
-      const img = document.createElement("img");
-      img.alt = "";
-      img.width = size;
-      img.height = size;
-      img.decoding = "async";
-      img.fetchPriority = "low";
-      const markLoaded = () => wrap.classList.add("is-loaded");
-      img.addEventListener("load", markLoaded);
-      img.addEventListener("error", markLoaded);
-      wrap.appendChild(img);
+      wrap.style.setProperty("--col", String((n - 1) % 4));
+      wrap.style.setProperty("--row", String(Math.floor((n - 1) / 4)));
+      const face = document.createElement("span");
+      face.className = "qava-need-face";
+      wrap.appendChild(face);
       clusterEl.appendChild(wrap);
       wraps.push(wrap);
-      img.src = NEED_FACE_SRC(n);
-      if (img.complete) markLoaded();
     });
+    const markLoaded = () => wraps.forEach((wrap) => wrap.classList.add("is-loaded"));
+    const sprite = new Image();
+    sprite.decoding = "async";
+    let settled = false;
+    const onReady = () => {
+      if (settled) return;
+      settled = true;
+      markLoaded();
+    };
+    sprite.addEventListener("load", onReady);
+    sprite.addEventListener("error", onReady);
+    sprite.src = NEED_FACES_SPRITE;
+    if (sprite.complete && sprite.naturalWidth > 0) onReady();
     if (reduceMotion || !("IntersectionObserver" in window)) {
       reveal();
       return;
