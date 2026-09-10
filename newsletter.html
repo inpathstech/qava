@@ -418,30 +418,74 @@
     .qava-nl-peek-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px 8px;
+      gap: 8px;
     }
 
     .qava-nl-peek-card {
+      position: relative;
       display: block;
       min-width: 0;
+      aspect-ratio: 16 / 10;
+      border-radius: 6px;
+      overflow: hidden;
+      isolation: isolate;
+      background: #1a1917;
     }
 
     .qava-nl-peek-thumb {
+      position: absolute;
+      inset: 0;
       display: block;
       width: 100%;
-      aspect-ratio: 16 / 10;
+      height: 100%;
       object-fit: cover;
-      border-radius: 6px;
-      background: #ececec;
+    }
+
+    .qava-nl-peek-scrim {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 38%, rgba(0, 0, 0, 0.62) 100%);
+    }
+
+    .qava-nl-peek-frost {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 68%;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.16) 100%);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 52%);
+      mask-image: linear-gradient(180deg, transparent 0%, #000 52%);
+    }
+
+    .qava-nl-peek-copy {
+      position: absolute;
+      left: 8px;
+      right: 8px;
+      bottom: 8px;
+      z-index: 2;
+      pointer-events: none;
     }
 
     .qava-nl-peek-card-title {
-      font-family: "Inter", sans-serif;
-      font-size: 11px;
-      font-weight: 500;
-      line-height: 1.3;
-      color: var(--ink);
-      margin: 6px 0 0;
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 1.2;
+      letter-spacing: -0.012em;
+      color: #fff;
+      margin: 0;
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     @media (max-width: 620px) {
@@ -449,7 +493,8 @@
       .qava-nl-field-row { flex-direction: column; gap: 0; }
       .qava-nl-container { padding: 28px 24px; }
       .qava-nl-logo { top: 28px; right: 24px; width: 38px; height: 38px; border-radius: 9px; }
-      .qava-nl-peek-card-title { font-size: 10px; }
+      .qava-nl-peek-card-title { font-size: 11px; }
+      .qava-nl-peek-copy { left: 6px; right: 6px; bottom: 6px; }
     }
   </style>
   <link rel="stylesheet" href="club-dot-wave.css?v=1" />
@@ -517,27 +562,51 @@
         <div class="qava-nl-peek-grid">
           <article class="qava-nl-peek-card">
             <img class="qava-nl-peek-thumb" src="newsletter-art/projects.jpg" alt="" />
-            <h3 class="qava-nl-peek-card-title">7 new projects added this week, from Seed to Series B</h3>
+            <div class="qava-nl-peek-scrim"></div>
+            <div class="qava-nl-peek-frost"></div>
+            <div class="qava-nl-peek-copy">
+              <h3 class="qava-nl-peek-card-title">7 new projects added this week, from Seed to Series B</h3>
+            </div>
           </article>
           <article class="qava-nl-peek-card">
             <img class="qava-nl-peek-thumb" src="newsletter-art/grants.jpg" alt="" />
-            <h3 class="qava-nl-peek-card-title">12 grants closing this month for early-stage founders</h3>
+            <div class="qava-nl-peek-scrim"></div>
+            <div class="qava-nl-peek-frost"></div>
+            <div class="qava-nl-peek-copy">
+              <h3 class="qava-nl-peek-card-title">12 grants closing this month for early-stage founders</h3>
+            </div>
           </article>
           <article class="qava-nl-peek-card">
             <img class="qava-nl-peek-thumb" src="newsletter-art/startup-news.jpg" alt="" />
-            <h3 class="qava-nl-peek-card-title">The fintech seed round that closed in 9 days</h3>
+            <div class="qava-nl-peek-scrim"></div>
+            <div class="qava-nl-peek-frost"></div>
+            <div class="qava-nl-peek-copy">
+              <h3 class="qava-nl-peek-card-title">The fintech seed round that closed in 9 days</h3>
+            </div>
           </article>
           <article class="qava-nl-peek-card">
             <img class="qava-nl-peek-thumb" src="newsletter-art/business-schools.jpg" alt="" />
-            <h3 class="qava-nl-peek-card-title">This year's top 10 MBA programs for entrepreneurship</h3>
+            <div class="qava-nl-peek-scrim"></div>
+            <div class="qava-nl-peek-frost"></div>
+            <div class="qava-nl-peek-copy">
+              <h3 class="qava-nl-peek-card-title">This year's top 10 MBA programs for entrepreneurship</h3>
+            </div>
           </article>
           <article class="qava-nl-peek-card">
             <img class="qava-nl-peek-thumb" src="newsletter-art/events.jpg" alt="" />
-            <h3 class="qava-nl-peek-card-title">Live teardown: pricing a product no one's sold before</h3>
+            <div class="qava-nl-peek-scrim"></div>
+            <div class="qava-nl-peek-frost"></div>
+            <div class="qava-nl-peek-copy">
+              <h3 class="qava-nl-peek-card-title">Live teardown: pricing a product no one's sold before</h3>
+            </div>
           </article>
           <article class="qava-nl-peek-card">
             <img class="qava-nl-peek-thumb" src="newsletter-art/fractional-cmos.jpg" alt="" />
-            <h3 class="qava-nl-peek-card-title">Why fractional CMOs are having a moment</h3>
+            <div class="qava-nl-peek-scrim"></div>
+            <div class="qava-nl-peek-frost"></div>
+            <div class="qava-nl-peek-copy">
+              <h3 class="qava-nl-peek-card-title">Why fractional CMOs are having a moment</h3>
+            </div>
           </article>
         </div>
       </section>
