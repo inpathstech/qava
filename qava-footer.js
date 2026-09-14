@@ -9,30 +9,26 @@
           <div class="footer-column">
             <h4 class="footer-heading">Welcome</h4>
             <ul class="footer-link-list">
-              <li><a href="https://app.theclubnyc.com/guest" class="footer-link">Create listing</a></li>
-              <li><a href="https://theclubnyc.com/find/" class="footer-link">Find work</a></li>
-              <li><a href="https://app.theclubnyc.com/templates" class="footer-link">How To</a></li>
-              <li><a href="https://theclubnyc.com/community/chat" class="footer-link">Club Room</a></li>
-              <li><a href="https://theclubnyc.com/howitworks" class="footer-link">How it works</a></li>
-              <li><a href="https://theclubnyc.com/newsletter" class="footer-link">Newsletter</a></li>
-              <li><a href="https://app.theclubnyc.com/?premium=1" class="footer-link">Premium</a></li>
+              <li><a href="https://theclubnyc.com/strategy/" class="footer-link">Strategy Breakdowns</a></li>
+              <li><a href="https://theclubnyc.com/find/" class="footer-link">Find Work</a></li>
+              <li><a href="https://app.theclubnyc.com/" class="footer-link">Club Room</a></li>
+              <li><a href="https://app.theclubnyc.com/" class="footer-link">Create Listing</a></li>
             </ul>
           </div>
           <div class="footer-column">
             <h4 class="footer-heading">Get started</h4>
             <ul class="footer-link-list">
-              <li><a href="https://app.theclubnyc.com/" class="footer-link">Sign up</a></li>
-              <li><a href="https://app.theclubnyc.com/?login=1" class="footer-link">Log in</a></li>
+              <li><a href="https://app.theclubnyc.com/" class="footer-link">Sign Up</a></li>
+              <li><a href="https://app.theclubnyc.com/?login=1" class="footer-link">Log In</a></li>
+              <li><a href="https://theclubnyc.com/newsletter" class="footer-link">Newsletter</a></li>
+              <li><a href="https://theclubnyc.com/blog" class="footer-link">Blog</a></li>
             </ul>
           </div>
           <div class="footer-column">
             <h4 class="footer-heading">Resources</h4>
             <ul class="footer-link-list">
-              <li><a href="https://theclubnyc.com/demo" class="footer-link">Request a demo</a></li>
-              <li><a href="https://theclubnyc.com/pricing" class="footer-link">Pricing</a></li>
-              <li><a href="https://theclubnyc.com/blog" class="footer-link">Blog</a></li>
+              <li><a href="https://theclubnyc.com/about" class="footer-link">About</a></li>
               <li><a href="https://theclubnyc.com/termsofuse" class="footer-link">Terms of Use</a></li>
-              <li><a href="https://theclubnyc.com/termsofuse" class="footer-link">California privacy notice</a></li>
               <li><a href="https://theclubnyc.com/useragreement" class="footer-link">User Agreement</a></li>
             </ul>
           </div>
