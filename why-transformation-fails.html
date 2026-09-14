@@ -1,0 +1,4742 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Why Transformation Fails — And the PMO Playbook That Actually Works | The Club</title>
+  <link rel="canonical" href="https://www.theclubnyc.com/why-transformation-fails" />
+  <meta name="description" content="Most enterprises chase &quot;transformation&quot; without ever achieving it. This piece breaks down why the term is so hard to pin down, why change efforts stall in practice, and the PMO practices — standard and unconventional — that turn transformation from a buzzword into a repeatable outcome." />
+  <meta property="og:title" content="Why Transformation Fails — And the PMO Playbook That Actually Works | The Club" />
+  <meta property="og:description" content="Most enterprises chase &quot;transformation&quot; without ever achieving it. This piece breaks down why the term is so hard to pin down, why change efforts stall in practice, and the PMO practices — standard and unconventional — that turn transformation from a buzzword into a repeatable outcome." />
+  <meta property="og:image" content="https://www.theclubnyc.com/why-transformation-fails.gif" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://www.theclubnyc.com/why-transformation-fails.gif" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+
+
+    :root {
+      --display: Georgia, "Iowan Old Style", "Times New Roman", serif;
+      --ink: #111827;
+      --muted: #6B6B6B;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      font-family: "Inter", sans-serif;
+      background: #ffffff;
+      color: var(--ink);
+    }
+
+    body {
+      position: relative;
+      min-height: 100vh;
+    }
+
+    #qava-dot-base-fixed {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image: radial-gradient(circle, rgba(17, 24, 39, 0.16) 1px, transparent 1.35px);
+      background-size: 20px 20px;
+      background-repeat: repeat;
+    }
+
+    body > *:not(#qava-dot-base-fixed):not(.header-container) {
+      position: relative;
+      z-index: 1;
+    }
+
+    a { color: inherit; }
+
+    .header-container {
+      width: calc(100% - 22px);
+      margin: 0 auto;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 56px;
+      position: sticky;
+      top: 0;
+      z-index: 1200;
+      background: rgba(255, 255, 255, 0.24);
+      -webkit-backdrop-filter: blur(18px) saturate(150%);
+      backdrop-filter: blur(18px) saturate(150%);
+      border: 0;
+      box-shadow: none;
+      isolation: isolate;
+    }
+
+    .header-container::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      right: 6px;
+      top: 3px;
+      bottom: 3px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.44) 100%);
+      -webkit-backdrop-filter: blur(26px) saturate(165%);
+      backdrop-filter: blur(26px) saturate(165%);
+      box-shadow: 0 10px 24px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .header-container > * { position: relative; z-index: 1; }
+
+    .header-logo, .logo-container, .logo { display: flex; align-items: center; }
+
+    .header-container .logo {
+      background: transparent;
+      padding: 0;
+      border: none;
+      box-shadow: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header-center {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex: 1;
+      margin-left: 40px;
+    }
+
+    .header-right { display: flex; align-items: center; gap: 8px; }
+
+    .navigation { display: flex; align-items: center; gap: 8px; }
+
+    .header-container .nav-item,
+    .header-container .auth-item {
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      border-radius: 0;
+      padding: 0;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      transition: color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .header-container .nav-item .nav-text,
+    .header-container .auth-item .nav-text {
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: #6b6b6b;
+      line-height: 1.4;
+      transition: color 0.2s ease;
+      padding: 0 4px;
+      white-space: nowrap;
+    }
+
+    .header-container .nav-item.newsletter .nav-text {
+      color: #000000;
+    }
+
+    .header-container .nav-item:hover .nav-text,
+    .header-container .auth-item:hover .nav-text {
+      color: #000000;
+    }
+
+    .auth-section { display: flex; align-items: center; gap: 28px; }
+
+    .join-button {
+      padding: 6px 12px;
+      background: #2b2b2b;
+      border: 1px solid #2b2b2b;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: background-color 0.18s ease, border-color 0.18s ease;
+    }
+
+    .join-button:hover {
+      background: #000000;
+      border-color: #000000;
+    }
+
+    .join-text {
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .qava-premium-nav-btn {
+      padding: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transition: color 0.2s ease;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: #6b6b6b;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      line-height: 1.4;
+    }
+
+    .qava-premium-nav-btn .nav-text {
+      color: inherit;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.4;
+    }
+
+    .qava-premium-nav-btn:hover,
+    .qava-premium-nav-btn:hover .nav-text,
+    .qava-premium-nav-btn:focus-visible,
+    .qava-premium-nav-btn:focus-visible .nav-text {
+      color: #000000;
+      background: transparent;
+    }
+
+    .qava-premium-nav-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      margin-top: -1px;
+    }
+
+    .qava-premium-nav-icon svg {
+      width: 15px;
+      height: 15px;
+      display: block;
+    }
+
+    .header-container .logo img,
+    .qava-nav-logo-face {
+      width: 72px;
+      height: 16px;
+      object-fit: contain;
+      display: block;
+      border-radius: 4px;
+    }
+
+    .qava-nav-logo-back{ object-fit: contain; }
+
+    .qava-nav-logo-flip { width: 72px; height: 16px; perspective: 600px;
+    overflow: visible;}
+
+    .qava-nav-logo-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease;
+    }
+
+    .qava-nav-logo-inner.is-flipped,
+        .qava-nav-logo-inner.is-flip-up { transform: rotateX(180deg); }
+        .qava-nav-logo-inner.is-flip-down { transform: rotateX(-180deg); }
+        .qava-nav-logo-inner.is-flip-left { transform: rotateY(-180deg); }
+        .qava-nav-logo-inner.is-flip-right { transform: rotateY(180deg); }
+
+    .qava-nav-logo-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+    }
+
+    .qava-nav-logo-back,
+.qava-nav-logo-back.is-axis-x{ transform: rotateX(180deg); }
+
+.qava-nav-logo-back.is-axis-y {
+  transform: rotateY(180deg);
+}
+
+    .hamburger-menu {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .hamburger-line {
+      width: 20px;
+      height: 2px;
+      background: #111827;
+      border-radius: 1px;
+    }
+
+    
+.footer-section {
+      background: transparent;
+      width: 100%;
+      margin: 0;
+      padding: 48px 0 46px;
+      border-top: 1px solid #EBEBEB;
+    }
+
+    .footer-container {
+      width: min(1040px, calc(100vw - 120px));
+      margin: 0 auto;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+
+    .footer-content { display: flex; flex-wrap: wrap; }
+    .footer-logo { width: 39%; padding: 2px 15px 0 0; margin-bottom: 30px; }
+    .footer-logo-img { width: 40px; height: auto; }
+
+    .footer-links {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      width: 60%;
+      gap: 16px 25px;
+      padding: 0 15px 0 10px;
+    }
+
+    .footer-heading {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: 17px;
+      letter-spacing: -0.012em;
+      color: #000000;
+      margin: 0 0 8px;
+    }
+
+    .footer-link-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .footer-link {
+      font-size: 13px;
+      font-weight: 300;
+      color: #797979;
+      text-decoration: none;
+      line-height: 1.2;
+    }
+
+    .footer-link:hover { text-decoration: underline; }
+
+    .footer-copyright {
+      grid-column: 1 / -1;
+      margin-top: 14px;
+      font-size: 13px;
+      font-weight: 300;
+      color: #797979;
+    }
+
+    
+    html { scroll-behavior: smooth; }
+
+    .story-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 24px;
+      margin: 24px 0 48px;
+    }
+
+    .story-meta-col { flex: 1; min-width: 0; }
+
+    .story-meta-col:first-child { flex: 1.7; }
+
+    .story-meta-divider {
+      width: 1px;
+      background: #e5e7eb;
+      align-self: stretch;
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .story-meta-divider { display: block; margin: 0 8px; }
+    }
+
+    .story-meta h3 {
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      line-height: 1.3;
+      color: #6b7280;
+      margin-bottom: 16px;
+    }
+
+    .story-people {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .story-person {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .story-person-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #e5e7eb;
+      flex-shrink: 0;
+    }
+
+    .story-person-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .story-person-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: #111827;
+      white-space: nowrap;
+    }
+
+    .story-person-role {
+      font-size: 12px;
+      font-weight: 300;
+      color: #6b7280;
+      white-space: nowrap;
+    }
+
+    .story-focus-items {
+      font-size: 12px;
+      line-height: 1.6;
+      font-weight: 300;
+      color: #1f2937;
+    }
+
+    /* BLOG POST STYLES */
+
+        .story-wrapper {
+            max-width: 760px;
+            width: calc(100% - 48px);
+            margin: 24px auto 48px;
+            padding: 56px 40px 90px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        .story-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: "Inter", sans-serif;
+            font-size: 12px;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            line-height: 1.3;
+            color: #6b7280;
+            text-decoration: none;
+            margin: 0 0 28px;
+            width: fit-content;
+            transition: color 0.2s ease;
+        }
+
+        .story-back-arrow {
+            font-weight: 300;
+            letter-spacing: 0;
+            color: inherit;
+            line-height: 1;
+        }
+
+        .story-back:visited {
+            color: #6b7280;
+        }
+
+        .story-back:hover,
+        .story-back:focus-visible {
+            color: #000000;
+        }
+
+        .story-pager {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 32px;
+            margin-top: 48px;
+            padding-top: 28px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .story-pager-link {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-width: 46%;
+            color: #6b7280;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .story-pager-prev {
+            text-align: left;
+            align-items: flex-start;
+        }
+
+        .story-pager-next {
+            margin-left: auto;
+            text-align: right;
+            align-items: flex-end;
+        }
+
+        .story-pager-link:visited {
+            color: #6b7280;
+        }
+
+        .story-pager-link:hover,
+        .story-pager-link:focus-visible {
+            color: #000000;
+        }
+
+        .story-pager-label {
+            font-family: "Inter", sans-serif;
+            font-size: 12px;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            line-height: 1.3;
+            color: #6b7280;
+        }
+
+        .story-pager-title {
+            font-family: var(--display);
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+
+        @media (max-width: 640px) {
+            .story-pager {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .story-pager-link {
+                max-width: 100%;
+            }
+
+            .story-pager-next {
+                margin-left: 0;
+            }
+        }
+
+        .story-header {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 0;
+        }
+
+        .story-title {
+            font-family: var(--display);
+            font-size: clamp(32px, 4vw, 42px);
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .story-title-line {
+            display: block;
+        }
+
+        .story-subtitle {
+            font-size: 20px;
+            font-weight: 300;
+            color: #4a4a4a;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        .story-categories {
+            display: flex;
+            gap: 8px;
+            margin: 0 0 20px 0;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .story-category-pill {
+            display: inline-flex;
+            align-items: center;
+            background: transparent;
+            color: #000000;
+            font-size: 11px;
+            font-weight: 400;
+            padding: 2px 4px;
+            border-radius: 0;
+            border: none;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .story-project-badges {
+            display: flex;
+            gap: 8px;
+            margin: 2px 0 3px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .story-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            background: #fafafa;
+            color: #000000;
+            font-size: 11px;
+            font-weight: 400;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-decoration: none;
+        }
+
+        .story-badge-pill span {
+            color: #000000;
+        }
+
+        .story-badge-separator {
+            font-size: 11px;
+            font-weight: 400;
+            color: #000000;
+        }
+
+        .story-hero {
+            width: 100%;
+            margin: 32px 0 40px;
+            border-radius: 4px;
+            overflow: hidden;
+            background: #f4725b;
+        }
+
+        .story-hero img {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        /* ===== SPACING SYSTEM - Professional & Consistent ===== */
+        
+        /* Intro section - appears after hero image */
+        .story-intro {
+            padding: 0 !important;
+            margin: 0 0 32px !important;
+        }
+
+        .story-intro p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 16px;
+        }
+
+        .story-intro p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Table of Contents - compact spacing */
+        .story-toc {
+            padding: 0 !important;
+            margin: 32px 0 48px !important;
+        }
+
+        .story-toc ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 0;
+        }
+
+        .story-toc li a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 300;
+            color: #2e2e2e;
+            line-height: 1.65;
+            text-decoration: none;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .story-toc li a:hover {
+            color: #111111;
+            transform: translateX(4px);
+        }
+
+        .story-toc li .index {
+            font-size: 13px;
+            font-weight: 500;
+            color: #6b6b6b;
+            letter-spacing: 0.08em;
+        }
+
+        /* Main content sections */
+        .story-section {
+            padding: 0 !important;
+            margin: 56px 0 0 0 !important;
+            scroll-margin-top: 80px;
+        }
+
+        .story-section:first-of-type {
+            margin-top: 0 !important;
+        }
+ 
+        .story-section h2 {
+            font-family: var(--display);
+            font-size: 28px;
+            font-weight: 400;
+            margin: 0 0 24px !important;
+            padding-top: 28px !important;
+            letter-spacing: -0.02em;
+            color: #000000;
+            border-top: 1px solid #e0e0e0 !important;
+        }
+
+        .story-step-kicker {
+            display: block;
+            font-family: "Inter", sans-serif;
+            font-size: 12px;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            line-height: 1.3;
+            color: #6b7280;
+            margin: 0 0 8px;
+        }
+
+        .story-section h3 {
+            font-family: var(--display);
+            font-size: 22px;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin: 32px 0 16px;
+            color: #111;
+        }
+
+        .story-section h3:first-of-type {
+            margin-top: 8px;
+        }
+
+        .playbook-example {
+            margin: 0;
+        }
+
+        .story-section .playbook-example h3 {
+            margin: 0;
+            padding: 22px 0 16px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .playbook-deck {
+            margin: 32px 0 8px;
+        }
+
+        .playbook-deck-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 12px;
+            margin: 0;
+            padding: 0 0 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .playbook-deck-index {
+            font-family: "Inter", sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .playbook-deck-arrows {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .playbook-deck-arrow {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            padding: 0;
+            border: 0;
+            background: none;
+            color: #6b7280;
+            cursor: pointer;
+        }
+
+        .playbook-deck-arrow svg {
+            display: block;
+            width: 16px;
+            height: 16px;
+        }
+
+        .playbook-deck-arrow:hover,
+        .playbook-deck-arrow:focus-visible {
+            color: #111111;
+            outline: none;
+        }
+
+        .playbook-deck-stage {
+            position: relative;
+        }
+
+        .playbook-deck .playbook-example {
+            display: none;
+        }
+
+        .playbook-deck .playbook-example.is-active {
+            display: block;
+        }
+
+        .playbook-deck.is-ready .playbook-example.is-active {
+            animation: playbook-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        @keyframes playbook-in {
+            from { opacity: 0; transform: translateX(12px); }
+            to { opacity: 1; transform: none; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .playbook-deck.is-ready .playbook-example.is-active {
+                animation: none;
+            }
+        }
+
+        .playbook-row {
+            display: grid;
+            grid-template-columns: 76px minmax(0, 1fr);
+            column-gap: 0;
+            margin: 0;
+            padding: 18px 0;
+            align-items: start;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .playbook-row:last-child {
+            padding-bottom: 20px;
+        }
+
+        .playbook-label {
+            font-family: "Inter", sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #6b6b6b;
+            padding: 3px 22px 0 0;
+            line-height: 1.4;
+        }
+
+        .playbook-row > :not(.playbook-label) {
+            min-width: 0;
+            padding-left: 22px;
+            border-left: 1px solid #e5e7eb;
+        }
+
+        .playbook-row p {
+            margin: 0 0 8px;
+        }
+
+        .playbook-row p:last-child {
+            margin-bottom: 0;
+        }
+
+        .playbook-row p + p {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #eeeeee;
+        }
+
+        .playbook-row ul {
+            margin: 6px 0 0;
+        }
+
+        .backlog-practice,
+        .framework-block {
+            margin: 0;
+        }
+
+        .story-section .backlog-practice h3,
+        .story-section .framework-block h3 {
+            margin: 0;
+            padding: 22px 0 16px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .backlog-practice p,
+        .framework-block p {
+            margin: 16px 0 8px;
+        }
+
+        .backlog-practices,
+        .framework-list {
+            margin: 8px 0 24px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .backlog-practices .backlog-practice:last-child p,
+        .framework-list .framework-block:last-child p {
+            margin-bottom: 20px;
+        }
+
+        .backlog-card-deck {
+            padding: 20px 20px 16px;
+        }
+
+        .backlog-card-deck .playbook-deck {
+            margin: 0;
+        }
+
+        .backlog-card-deck .playbook-deck-toolbar {
+            justify-content: center;
+            gap: 8px;
+            padding: 0 0 16px;
+            border-bottom: 0;
+        }
+
+        .backlog-card-deck .playbook-deck-index {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .opp-card-grid {
+            display: grid;
+            grid-template-columns: minmax(108px, 0.85fr) 1fr 1fr;
+            gap: 8px;
+        }
+
+        .opp-tile {
+            min-width: 0;
+            background: #ffffff;
+            border: 1px solid #111111;
+            border-radius: 4px;
+            padding: 14px 14px 13px;
+        }
+
+        .opp-tile--desc,
+        .opp-tile--goal {
+            grid-column: 2 / -1;
+        }
+
+        .opp-tile-label {
+            display: block;
+            font-family: "Inter", sans-serif;
+            font-size: 10.5px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #6b6b6b;
+            line-height: 1.3;
+            margin-bottom: 8px;
+        }
+
+        .opp-tile-value {
+            display: block;
+            font-family: "Inter", sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 1.35;
+            letter-spacing: -0.01em;
+            color: #111111;
+        }
+
+        .opp-tile-cadence {
+            display: block;
+            margin-top: 4px;
+            font-family: "Inter", sans-serif;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #8a8680;
+            line-height: 1.2;
+        }
+
+        .opp-tile--id .opp-tile-value {
+            letter-spacing: 0.02em;
+        }
+
+        .opp-tile--desc .opp-tile-value,
+        .opp-tile--goal .opp-tile-value {
+            font-weight: 400;
+            min-height: 2.7em;
+        }
+
+        .opp-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 24px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-family: "Inter", sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            line-height: 1.2;
+        }
+
+        .opp-pill--high {
+            background: #111111;
+            color: #ffffff;
+        }
+
+        .opp-pill--medium {
+            background: #ffffff;
+            color: #111111;
+            border: 1px solid #111111;
+        }
+
+        .opp-pill--low {
+            background: #f6f4f0;
+            color: #6b6b6b;
+            border: 1px solid #cfc9c0;
+        }
+
+        .backlog-card-deck,
+        .backlog-card-deck .playbook-deck-stage,
+        .backlog-card-deck .playbook-example,
+        .opp-card-grid {
+            overflow: visible;
+        }
+
+        .opp-tile.story-tip {
+            display: block;
+            background: #ffffff;
+            background-image: none;
+            cursor: help;
+        }
+
+        .opp-tile.story-tip:hover,
+        .opp-tile.story-tip:focus,
+        .opp-tile.story-tip:focus-visible {
+            background-image: none;
+            outline: none;
+            z-index: 4;
+        }
+
+        .story-tip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+            color: inherit;
+            font: inherit;
+            background-image: radial-gradient(circle, #767676 0.55px, transparent 0.65px);
+            background-size: 5px 1px;
+            background-repeat: repeat-x;
+            background-position: 0 1.08em;
+        }
+
+        .story-tip:hover,
+        .story-tip:focus,
+        .story-tip:focus-visible {
+            outline: none;
+            background-image: radial-gradient(circle, #111111 0.55px, transparent 0.65px);
+        }
+
+        .story-tip-text {
+            position: absolute;
+            left: 0;
+            bottom: calc(100% + 10px);
+            transform: translateY(4px);
+            width: 248px;
+            padding: 8px 10px;
+            background: #111111;
+            color: #ffffff;
+            font-family: "Inter", sans-serif;
+            font-size: 11px;
+            font-weight: 300;
+            line-height: 1.45;
+            letter-spacing: 0;
+            text-transform: none;
+            border-radius: 6px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+            z-index: 30;
+            text-align: left;
+        }
+
+        .story-tip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 16px;
+            border: 4px solid transparent;
+            border-top-color: #111111;
+        }
+
+        .story-tip--end .story-tip-text {
+            left: auto;
+            right: 0;
+        }
+
+        .story-tip--end .story-tip-text::after {
+            left: auto;
+            right: 16px;
+        }
+
+        .story-tip:hover .story-tip-text,
+        .story-tip:focus .story-tip-text,
+        .story-tip:focus-visible .story-tip-text {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .story-viz {
+            position: relative;
+            background: #f6f4f0;
+            border-radius: 8px;
+            padding: 28px 20px 14px;
+            margin: 40px 0 8px;
+        }
+
+        .story-viz-kicker {
+            display: block;
+            font-family: "Inter", sans-serif;
+            font-size: 12px;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            line-height: 1.3;
+            color: #6b7280;
+            margin: 0 0 14px;
+        }
+
+        .story-viz-bar {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            min-height: 22px;
+            margin: 10px 4px 0 0;
+            position: relative;
+        }
+
+        .story-viz-replay {
+            font-family: "Inter", sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #6b7280;
+            background: none;
+            border: 0;
+            cursor: pointer;
+            padding: 2px 0;
+        }
+
+        .story-viz-replay:hover,
+        .story-viz-replay:focus-visible {
+            color: #111;
+        }
+
+        .story-viz .story-viz-caption {
+            font-size: 12.5px;
+            line-height: 1.45;
+            color: #6b7280;
+            font-weight: 400;
+            margin: 0;
+            flex: 1;
+        }
+
+        .goal-funnel-stack {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .funnel-layer {
+            opacity: 0;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 4px;
+        }
+
+        .funnel-bhag {
+            width: 100%;
+            background: #111111;
+            color: #ffffff;
+            padding: 22px 26px 20px;
+        }
+
+        .funnel-okr {
+            width: 76%;
+            background: #ffffff;
+            color: #111111;
+            border: 1px solid #111111;
+            padding: 16px 22px 15px;
+        }
+
+        .funnel-smart {
+            width: 64%;
+            background: transparent;
+            border: 0;
+            padding: 2px 0 0;
+            text-align: center;
+        }
+
+        .funnel-kicker {
+            display: block;
+            font-family: "Inter", sans-serif;
+            font-size: 10.5px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .funnel-bhag .funnel-kicker {
+            color: rgba(255, 255, 255, 0.62);
+        }
+
+        .funnel-okr .funnel-kicker,
+        .funnel-smart .funnel-kicker {
+            color: #6b6b6b;
+        }
+
+        .funnel-title {
+            display: block;
+            font-family: var(--display);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+        }
+
+        .funnel-bhag .funnel-title {
+            font-size: 28px;
+        }
+
+        .funnel-okr .funnel-title {
+            font-size: 20px;
+        }
+
+        .funnel-copy {
+            display: block;
+            font-family: "Inter", sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            line-height: 1.45;
+            margin-top: 6px;
+        }
+
+        .funnel-bhag .funnel-copy {
+            color: rgba(255, 255, 255, 0.78);
+        }
+
+        .funnel-okr .funnel-copy {
+            color: #3b3b3b;
+        }
+
+        .funnel-chips {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px;
+            max-width: 268px;
+            margin: 0 auto;
+        }
+
+        .funnel-chip {
+            opacity: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 34px;
+            padding: 6px 10px;
+            background: #ffffff;
+            border: 1px solid #111111;
+            border-radius: 4px;
+            font-family: "Inter", sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            color: #111111;
+            line-height: 1.2;
+        }
+
+        .goal-funnel.is-on .funnel-bhag {
+            animation: funnel-wide 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+            animation-delay: 0.08s;
+        }
+
+        .goal-funnel.is-on .funnel-okr {
+            animation: funnel-slide 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+            animation-delay: 0.72s;
+        }
+
+        .goal-funnel.is-on .funnel-smart {
+            animation: funnel-slide 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+            animation-delay: 1.28s;
+        }
+
+        .goal-funnel.is-on .funnel-chip {
+            animation: funnel-stack 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .goal-funnel.is-on .funnel-chip:nth-child(1) { animation-delay: 1.42s; }
+        .goal-funnel.is-on .funnel-chip:nth-child(2) { animation-delay: 1.54s; }
+        .goal-funnel.is-on .funnel-chip:nth-child(3) { animation-delay: 1.66s; }
+        .goal-funnel.is-on .funnel-chip:nth-child(4) { animation-delay: 1.78s; }
+        .goal-funnel.is-on .funnel-chip:nth-child(5) { animation-delay: 1.90s; }
+
+        .viz-fade { opacity: 0; }
+        .story-viz.is-on .viz-fade { animation: viz-fade-in 0.45s ease both; }
+
+        @keyframes funnel-wide {
+            from { opacity: 0; transform: translateY(-16px) scaleX(0.86); }
+            to { opacity: 1; transform: none; }
+        }
+
+        @keyframes funnel-slide {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: none; }
+        }
+
+        @keyframes funnel-stack {
+            from { opacity: 0; transform: translateY(-12px); }
+            to { opacity: 1; transform: none; }
+        }
+
+        @keyframes viz-fade-in {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: none; }
+        }
+
+        .value-effort {
+            margin: 28px 0 12px;
+            padding: 24px 18px 12px;
+        }
+
+        .ve-chart {
+            display: grid;
+            grid-template-columns: 22px minmax(0, 1fr);
+            grid-template-rows: auto 20px;
+            align-items: stretch;
+            gap: 0 6px;
+        }
+
+        .ve-axis {
+            font-family: "Inter", sans-serif;
+            font-size: 10.5px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #6b6b6b;
+            line-height: 1;
+        }
+
+        .ve-axis-y {
+            grid-column: 1;
+            grid-row: 1;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ve-axis-x {
+            grid-column: 2;
+            grid-row: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ve-plot {
+            grid-column: 2;
+            grid-row: 1;
+            position: relative;
+            aspect-ratio: 5 / 4;
+            min-height: 240px;
+        }
+
+        .ve-quads {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            border: 1px solid #d4cfc6;
+            opacity: 0;
+        }
+
+        .ve-quad {
+            position: relative;
+            min-width: 0;
+        }
+
+        .ve-qw {
+            background: rgba(90, 140, 105, 0.09);
+            border-right: 1px solid #d4cfc6;
+            border-bottom: 1px solid #d4cfc6;
+        }
+
+        .ve-sb {
+            background: rgba(115, 95, 150, 0.08);
+            border-bottom: 1px solid #d4cfc6;
+        }
+
+        .ve-fi {
+            background: rgba(255, 255, 255, 0.42);
+            border-right: 1px solid #d4cfc6;
+        }
+
+        .ve-rc {
+            background: rgba(196, 100, 82, 0.08);
+        }
+
+        .ve-quad-label {
+            position: absolute;
+            font-family: "Inter", sans-serif;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #8a8680;
+            line-height: 1.2;
+            pointer-events: none;
+        }
+
+        .ve-qw .ve-quad-label,
+        .ve-sb .ve-quad-label {
+            top: 8px;
+        }
+
+        .ve-fi .ve-quad-label,
+        .ve-rc .ve-quad-label {
+            bottom: 8px;
+        }
+
+        .ve-qw .ve-quad-label,
+        .ve-fi .ve-quad-label {
+            left: 8px;
+        }
+
+        .ve-sb .ve-quad-label,
+        .ve-rc .ve-quad-label {
+            right: 8px;
+        }
+
+        .ve-points {
+            position: absolute;
+            inset: 0;
+        }
+
+        .ve-anchor {
+            position: absolute;
+            left: var(--x);
+            bottom: var(--y);
+            transform: translate(-50%, 50%);
+            z-index: 1;
+        }
+
+        .ve-anchor:hover,
+        .ve-anchor:focus-within {
+            z-index: 6;
+        }
+
+        .ve-point {
+            appearance: none;
+            border: 0;
+            background: none;
+            padding: 0;
+            margin: 0;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            color: inherit;
+            opacity: 0;
+        }
+
+        .ve-point:focus {
+            outline: none;
+        }
+
+        .ve-point:focus-visible {
+            outline: 1px solid #111;
+            outline-offset: 3px;
+            border-radius: 50%;
+        }
+
+        .ve-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: currentColor;
+            display: block;
+            flex-shrink: 0;
+        }
+
+        .ve-pri-high { color: #c75b4a; }
+        .ve-pri-med { color: #3e8a76; }
+        .ve-pri-low { color: #8c8882; }
+
+        .ve-label {
+            position: absolute;
+            font-family: "Inter", sans-serif;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            color: #8a8680;
+            line-height: 1;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .ve-lab-r .ve-label {
+            left: calc(100% - 2px);
+            top: 50%;
+            transform: translateY(-50%) translate(var(--lx, 0px), var(--ly, 0px));
+        }
+
+        .ve-lab-l .ve-label {
+            right: calc(100% - 2px);
+            top: 50%;
+            transform: translateY(-50%) translate(var(--lx, 0px), var(--ly, 0px));
+        }
+
+        .ve-lab-b .ve-label {
+            left: 50%;
+            top: calc(100% - 2px);
+            transform: translateX(-50%) translate(var(--lx, 0px), var(--ly, 0px));
+        }
+
+        .ve-lab-t .ve-label {
+            left: 50%;
+            bottom: calc(100% - 2px);
+            transform: translateX(-50%) translate(var(--lx, 0px), var(--ly, 0px));
+        }
+
+        .ve-tip {
+            position: absolute;
+            left: 50%;
+            bottom: calc(100% + 8px);
+            transform: translateX(-50%) translateY(4px);
+            width: 220px;
+            padding: 8px 10px;
+            background: #111111;
+            color: #ffffff;
+            font-family: "Inter", sans-serif;
+            font-size: 11px;
+            font-weight: 300;
+            line-height: 1.45;
+            letter-spacing: 0;
+            text-transform: none;
+            border-radius: 6px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+            z-index: 30;
+            text-align: left;
+        }
+
+        .ve-tip strong {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .ve-tip-below .ve-tip {
+            bottom: auto;
+            top: calc(100% + 8px);
+        }
+
+        .ve-tip-left .ve-tip {
+            left: auto;
+            right: 0;
+            transform: translateY(4px);
+        }
+
+        .ve-tip-right .ve-tip {
+            left: 0;
+            transform: translateY(4px);
+        }
+
+        .ve-point:hover .ve-tip,
+        .ve-point:focus .ve-tip,
+        .ve-point:focus-visible .ve-tip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .ve-tip-left .ve-point:hover .ve-tip,
+        .ve-tip-left .ve-point:focus .ve-tip,
+        .ve-tip-left .ve-point:focus-visible .ve-tip,
+        .ve-tip-right .ve-point:hover .ve-tip,
+        .ve-tip-right .ve-point:focus .ve-tip,
+        .ve-tip-right .ve-point:focus-visible .ve-tip {
+            transform: translateY(0);
+        }
+
+        .value-effort.is-on .ve-quads {
+            animation: viz-fade-in 0.45s ease both;
+        }
+
+        .value-effort.is-on .ve-point {
+            animation: viz-fade-in 0.42s ease both;
+        }
+
+        .value-effort.is-on .ve-anchor:nth-child(1) .ve-point { animation-delay: 0.18s; }
+        .value-effort.is-on .ve-anchor:nth-child(2) .ve-point { animation-delay: 0.26s; }
+        .value-effort.is-on .ve-anchor:nth-child(3) .ve-point { animation-delay: 0.34s; }
+        .value-effort.is-on .ve-anchor:nth-child(4) .ve-point { animation-delay: 0.42s; }
+        .value-effort.is-on .ve-anchor:nth-child(5) .ve-point { animation-delay: 0.50s; }
+        .value-effort.is-on .ve-anchor:nth-child(6) .ve-point { animation-delay: 0.58s; }
+        .value-effort.is-on .ve-anchor:nth-child(7) .ve-point { animation-delay: 0.66s; }
+        .value-effort.is-on .ve-anchor:nth-child(8) .ve-point { animation-delay: 0.74s; }
+
+        .cp-spine,
+        .cp-bars,
+        .cp-phases {
+            overflow: visible;
+        }
+
+        .cp-spine-scroll {
+            overflow-x: auto;
+            overflow-y: visible;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .cp-spine-track {
+            position: relative;
+            height: 196px;
+            min-width: 0;
+        }
+
+        .cp-spine-line {
+            position: absolute;
+            left: 4%;
+            right: 6%;
+            top: 50%;
+            height: 1px;
+            background: #111;
+            transform: scaleX(0);
+            transform-origin: left center;
+        }
+
+        .cp-spine-line::after {
+            content: "";
+            position: absolute;
+            right: -1px;
+            top: 50%;
+            width: 0;
+            height: 0;
+            border: 5px solid transparent;
+            border-left: 7px solid #111;
+            border-right: 0;
+            transform: translate(100%, -50%);
+        }
+
+        .cp-ms {
+            position: absolute;
+            top: 50%;
+            left: var(--t);
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        .cp-ms:hover,
+        .cp-ms:focus-within {
+            z-index: 6;
+        }
+
+        .cp-ms-btn {
+            appearance: none;
+            border: 0;
+            background: none;
+            padding: 0;
+            margin: 0;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            color: inherit;
+            opacity: 0;
+        }
+
+        .cp-ms-btn:focus {
+            outline: none;
+        }
+
+        .cp-ms-btn:focus-visible {
+            outline: 1px solid #111;
+            outline-offset: 3px;
+            border-radius: 50%;
+        }
+
+        .cp-ms-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: currentColor;
+            display: block;
+        }
+
+        .cp-ms-stem {
+            position: absolute;
+            left: 50%;
+            width: 1px;
+            background: #cfc9bd;
+            pointer-events: none;
+        }
+
+        .cp-ms-above .cp-ms-stem {
+            bottom: calc(100% - 2px);
+            height: 22px;
+        }
+
+        .cp-ms-below .cp-ms-stem {
+            top: calc(100% - 2px);
+            height: 22px;
+        }
+
+        .cp-ms-meta {
+            position: absolute;
+            left: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .cp-ms-above .cp-ms-meta {
+            bottom: calc(100% + 24px);
+            transform: translateX(-50%);
+        }
+
+        .cp-ms-below .cp-ms-meta {
+            top: calc(100% + 24px);
+            transform: translateX(-50%);
+        }
+
+        .cp-ms-id {
+            font-family: "Inter", sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            color: #111;
+            line-height: 1.2;
+        }
+
+        .cp-ms-when {
+            font-family: "Inter", sans-serif;
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: #8a8680;
+            line-height: 1.2;
+        }
+
+        .cp-tip {
+            position: absolute;
+            left: 50%;
+            width: 220px;
+            padding: 8px 10px;
+            background: #111111;
+            color: #ffffff;
+            font-family: "Inter", sans-serif;
+            font-size: 11px;
+            font-weight: 300;
+            line-height: 1.45;
+            border-radius: 6px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+            z-index: 30;
+            text-align: left;
+        }
+
+        .cp-tip strong {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .cp-ms-above .cp-tip {
+            top: calc(100% + 10px);
+            bottom: auto;
+            transform: translateX(-50%) translateY(4px);
+        }
+
+        .cp-ms-below .cp-tip {
+            bottom: calc(100% + 10px);
+            top: auto;
+            transform: translateX(-50%) translateY(4px);
+        }
+
+        .cp-tip-left .cp-tip {
+            left: auto;
+            right: 0;
+            transform: translateY(4px);
+        }
+
+        .cp-tip-right .cp-tip {
+            left: 0;
+            transform: translateY(4px);
+        }
+
+        .cp-ms-btn:hover .cp-tip,
+        .cp-ms-btn:focus .cp-tip,
+        .cp-ms-btn:focus-visible .cp-tip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .cp-tip-left .cp-ms-btn:hover .cp-tip,
+        .cp-tip-left .cp-ms-btn:focus .cp-tip,
+        .cp-tip-left .cp-ms-btn:focus-visible .cp-tip,
+        .cp-tip-right .cp-ms-btn:hover .cp-tip,
+        .cp-tip-right .cp-ms-btn:focus .cp-tip,
+        .cp-tip-right .cp-ms-btn:focus-visible .cp-tip {
+            transform: translateY(0);
+        }
+
+        .cp-bars-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 4px 2px 2px;
+        }
+
+        .cp-bar-row {
+            display: grid;
+            grid-template-columns: 72px minmax(0, 1fr);
+            gap: 10px;
+            align-items: center;
+            opacity: 0;
+        }
+
+        .cp-bar-id {
+            font-family: "Inter", sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            color: #111;
+        }
+
+        .cp-bar-track {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+        }
+
+        .cp-bar-rail {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .cp-bar-fill {
+            display: block;
+            height: 10px;
+            width: var(--w);
+            min-width: 8px;
+            border-radius: 2px;
+            background: currentColor;
+            transform: scaleX(0);
+            transform-origin: left center;
+        }
+
+        .cp-bar-when {
+            font-family: "Inter", sans-serif;
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: #8a8680;
+            white-space: nowrap;
+        }
+
+        .cp-phase-row {
+            display: flex;
+            align-items: stretch;
+            gap: 10px;
+        }
+
+        .cp-phase {
+            flex: 1;
+            min-width: 0;
+            background: #ffffff;
+            border: 1px solid #111;
+            border-radius: 4px;
+            padding: 16px 14px 14px;
+            opacity: 0;
+        }
+
+        .cp-phase-kicker {
+            display: block;
+            font-family: "Inter", sans-serif;
+            font-size: 10.5px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #6b6b6b;
+            margin-bottom: 4px;
+        }
+
+        .cp-phase-when {
+            display: block;
+            font-family: var(--display);
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            color: #111;
+            line-height: 1.2;
+            margin-bottom: 14px;
+        }
+
+        .story-section .cp-phase-items {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .story-section .cp-phase-items li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 0 8px;
+            padding: 0;
+            font-family: "Inter", sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            color: #111;
+            line-height: 1.3;
+        }
+
+        .story-section .cp-phase-items li::before {
+            content: none;
+        }
+
+        .story-section .cp-phase-items li:last-child {
+            margin-bottom: 0;
+        }
+
+        .cp-phase-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            flex-shrink: 0;
+        }
+
+        .cp-phase-arrow {
+            flex: 0 0 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #111;
+            opacity: 0;
+        }
+
+        .cp-phase-arrow svg {
+            width: 16px;
+            height: 16px;
+            display: block;
+        }
+
+        .pri-high { color: #c75b4a; }
+        .pri-med { color: #3e8a76; }
+        .pri-low { color: #8c8882; }
+
+        .cp-spine.is-on .cp-spine-line {
+            animation: cp-draw 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .cp-spine.is-on .cp-ms-btn {
+            animation: viz-fade-in 0.42s ease both;
+        }
+
+        .cp-spine.is-on .cp-ms:nth-child(2) .cp-ms-btn { animation-delay: 0.28s; }
+        .cp-spine.is-on .cp-ms:nth-child(3) .cp-ms-btn { animation-delay: 0.38s; }
+        .cp-spine.is-on .cp-ms:nth-child(4) .cp-ms-btn { animation-delay: 0.48s; }
+        .cp-spine.is-on .cp-ms:nth-child(5) .cp-ms-btn { animation-delay: 0.58s; }
+        .cp-spine.is-on .cp-ms:nth-child(6) .cp-ms-btn { animation-delay: 0.68s; }
+        .cp-spine.is-on .cp-ms:nth-child(7) .cp-ms-btn { animation-delay: 0.78s; }
+
+        .cp-bars.is-on .cp-bar-row {
+            animation: viz-fade-in 0.4s ease both;
+        }
+
+        .cp-bars.is-on .cp-bar-fill {
+            animation: cp-draw 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .cp-bars.is-on .cp-bar-row:nth-child(1) { animation-delay: 0.12s; }
+        .cp-bars.is-on .cp-bar-row:nth-child(1) .cp-bar-fill { animation-delay: 0.2s; }
+        .cp-bars.is-on .cp-bar-row:nth-child(2) { animation-delay: 0.2s; }
+        .cp-bars.is-on .cp-bar-row:nth-child(2) .cp-bar-fill { animation-delay: 0.28s; }
+        .cp-bars.is-on .cp-bar-row:nth-child(3) { animation-delay: 0.28s; }
+        .cp-bars.is-on .cp-bar-row:nth-child(3) .cp-bar-fill { animation-delay: 0.36s; }
+        .cp-bars.is-on .cp-bar-row:nth-child(4) { animation-delay: 0.36s; }
+        .cp-bars.is-on .cp-bar-row:nth-child(4) .cp-bar-fill { animation-delay: 0.44s; }
+        .cp-bars.is-on .cp-bar-row:nth-child(5) { animation-delay: 0.44s; }
+        .cp-bars.is-on .cp-bar-row:nth-child(5) .cp-bar-fill { animation-delay: 0.52s; }
+        .cp-bars.is-on .cp-bar-row:nth-child(6) { animation-delay: 0.52s; }
+        .cp-bars.is-on .cp-bar-row:nth-child(6) .cp-bar-fill { animation-delay: 0.6s; }
+
+        .cp-phases.is-on .cp-phase {
+            animation: viz-fade-in 0.45s ease both;
+        }
+
+        .cp-phases.is-on .cp-phase-arrow {
+            animation: viz-fade-in 0.4s ease both;
+        }
+
+        .cp-phases.is-on .cp-phase:nth-of-type(1) { animation-delay: 0.12s; }
+        .cp-phases.is-on .cp-phase-arrow:nth-of-type(1) { animation-delay: 0.28s; }
+        .cp-phases.is-on .cp-phase:nth-of-type(2) { animation-delay: 0.36s; }
+        .cp-phases.is-on .cp-phase-arrow:nth-of-type(2) { animation-delay: 0.5s; }
+        .cp-phases.is-on .cp-phase:nth-of-type(3) { animation-delay: 0.58s; }
+
+        @keyframes cp-draw {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+
+        .su-spec {
+            margin: 8px 0 24px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .su-spec-row {
+            display: grid;
+            grid-template-columns: minmax(148px, 0.42fr) minmax(0, 1fr);
+            column-gap: 0;
+            margin: 0;
+            padding: 16px 0;
+            align-items: start;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .su-spec-label {
+            font-family: "Inter", sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #6b6b6b;
+            padding: 3px 22px 0 0;
+            line-height: 1.4;
+        }
+
+        .su-spec-row p {
+            min-width: 0;
+            margin: 0;
+            padding-left: 22px;
+            border-left: 1px solid #e5e7eb;
+        }
+
+        .status-card-viz {
+            overflow: visible;
+        }
+
+        .status-card-viz.is-on .su-card {
+            animation: viz-fade-in 0.45s ease both;
+        }
+
+        .su-card {
+            background: #ffffff;
+            border: 1px solid #111111;
+            border-radius: 4px;
+            padding: 16px 16px 14px;
+        }
+
+        .su-head {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 10px 16px;
+            align-items: start;
+            margin-bottom: 12px;
+        }
+
+        .su-label {
+            display: block;
+            font-family: "Inter", sans-serif;
+            font-size: 10.5px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #6b6b6b;
+            line-height: 1.3;
+            margin-bottom: 5px;
+        }
+
+        .su-label.story-tip {
+            display: inline-block;
+            background-image: none;
+            cursor: help;
+        }
+
+        .su-label.story-tip:hover,
+        .su-label.story-tip:focus,
+        .su-label.story-tip:focus-visible {
+            background-image: none;
+            outline: none;
+        }
+
+        .status-card-viz .su-title,
+        .status-card-viz .su-owner,
+        .story-wrapper .status-card-viz .su-title,
+        .story-wrapper .status-card-viz .su-tile-copy,
+        .story-section .status-card-viz .su-tile-list li {
+            font-family: "Inter", sans-serif;
+            font-size: 15px;
+            font-weight: 300;
+            line-height: 1.5;
+            letter-spacing: 0;
+            color: #2e2e2e;
+            margin: 0;
+        }
+
+        .status-card-viz .su-title {
+            display: block;
+            margin: 0 0 2px;
+        }
+
+        .status-card-viz .su-owner {
+            display: block;
+        }
+
+        .su-status {
+            text-align: right;
+        }
+
+        .su-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 24px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-family: "Inter", sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            line-height: 1.2;
+            background: #eef3f1;
+            color: #3e8a76;
+            border: 1px solid #b7cdc4;
+        }
+
+        .su-progress {
+            margin: 0 0 8px;
+        }
+
+        .su-progress-meta {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 6px;
+        }
+
+        .su-progress-readout {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 8px;
+            font-family: "Inter", sans-serif;
+            white-space: nowrap;
+        }
+
+        .su-pct {
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            color: #111111;
+        }
+
+        .su-delta {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            color: #3e8a76;
+        }
+
+        .su-bar {
+            position: relative;
+            height: 8px;
+            background: #e8e4dc;
+            border-radius: 2px;
+        }
+
+        .su-bar-fill {
+            display: block;
+            height: 100%;
+            width: 60%;
+            background: #3e8a76;
+            border-radius: 2px;
+        }
+
+        .su-bar-prior {
+            position: absolute;
+            top: 50%;
+            left: 45%;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(246, 244, 240, 0.88);
+            border: 1px solid rgba(17, 17, 17, 0.28);
+            transform: translate(-50%, -50%);
+            transition: left 0.35s ease;
+            pointer-events: none;
+        }
+
+        .su-compare {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 8px 0 12px;
+        }
+
+        .su-chip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 28px;
+            padding: 5px 10px;
+            background: #ffffff;
+            border: 1px solid #111111;
+            border-radius: 4px;
+            font-family: "Inter", sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            color: #111111;
+            line-height: 1.2;
+            cursor: pointer;
+        }
+
+        .su-chip:hover,
+        .su-chip:focus-visible {
+            outline: none;
+            background: #f6f4f0;
+        }
+
+        .su-chip.is-active {
+            background: #111111;
+            color: #ffffff;
+        }
+
+        .su-chip.is-active:hover,
+        .su-chip.is-active:focus-visible {
+            background: #111111;
+        }
+
+        .su-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            margin: 0 0 6px;
+        }
+
+        .su-tile {
+            min-width: 0;
+            background: #ffffff;
+            border: 1px solid #111111;
+            border-radius: 4px;
+            padding: 10px 12px;
+        }
+
+        .su-tile--next {
+            margin: 0;
+        }
+
+        .story-section .status-card-viz .su-tile-list {
+            margin: 0;
+            padding: 0;
+        }
+
+        .story-section .status-card-viz .su-tile-list li {
+            margin-bottom: 5px;
+            padding-left: 1.15em;
+        }
+
+        .story-section .status-card-viz .su-tile-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .status-card-viz .story-tip-text {
+            width: min(248px, calc(100vw - 72px));
+        }
+
+        .vc-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px 16px;
+            margin: 0 2px 18px;
+        }
+
+        .vc-modes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .vc-check {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: "Inter", sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            color: #111111;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .vc-check input {
+            appearance: none;
+            width: 14px;
+            height: 14px;
+            margin: 0;
+            border: 1px solid #111111;
+            border-radius: 2px;
+            background: #ffffff;
+            display: grid;
+            place-content: center;
+            cursor: pointer;
+        }
+
+        .vc-check input:focus-visible {
+            outline: 1px solid #111111;
+            outline-offset: 2px;
+        }
+
+        .vc-check input:checked {
+            background: #111111;
+        }
+
+        .vc-check input:checked::after {
+            content: "";
+            width: 8px;
+            height: 4px;
+            border-left: 1.5px solid #ffffff;
+            border-bottom: 1.5px solid #ffffff;
+            transform: translateY(-1px) rotate(-45deg);
+        }
+
+        .vc-chart {
+            position: relative;
+            padding: 4px 2px 0;
+        }
+
+        .vc-svg {
+            display: block;
+            width: 100%;
+            height: auto;
+            overflow: visible;
+        }
+
+        .vc-col {
+            transform-box: fill-box;
+            transform-origin: center bottom;
+        }
+
+        .vc-viz.is-on .vc-col {
+            animation: vc-grow 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .vc-col:nth-child(1) { animation-delay: 0.06s; }
+        .vc-col:nth-child(2) { animation-delay: 0.12s; }
+        .vc-col:nth-child(3) { animation-delay: 0.18s; }
+        .vc-col:nth-child(4) { animation-delay: 0.24s; }
+        .vc-col:nth-child(5) { animation-delay: 0.3s; }
+        .vc-col:nth-child(6) { animation-delay: 0.36s; }
+
+        @keyframes vc-grow {
+            from { transform: scaleY(0); }
+            to { transform: scaleY(1); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .vc-viz.is-on .vc-col {
+                animation: none;
+            }
+        }
+
+        .vc-seg {
+            stroke: #111111;
+            stroke-width: 1;
+        }
+
+        .vc-seg--solid,
+        .vc-seg--actual,
+        .vc-seg--upcoming {
+            fill: #ffffff;
+        }
+
+        .vc-seg--realized {
+            fill: url(#vc-dots);
+        }
+
+        .vc-seg--gray { fill: #c8c4bc; }
+        .vc-seg--dots { fill: url(#vc-dots); }
+        .vc-seg--hatch { fill: url(#vc-hatch); }
+        .vc-seg--black { fill: #111111; }
+
+        .vc-seg:hover,
+        .vc-seg:focus {
+            outline: none;
+            stroke-width: 1.5;
+        }
+
+        .vc-axis {
+            fill: #8a8680;
+            font-family: "Inter", sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.04em;
+        }
+
+        .vc-base {
+            stroke: #111111;
+            stroke-width: 1;
+        }
+
+        .vc-forecast {
+            pointer-events: none;
+        }
+
+        .vc-forecast-halo {
+            stroke: #f6f4f0;
+            stroke-width: 3.5;
+            stroke-linecap: square;
+        }
+
+        .vc-forecast-tick {
+            stroke: #111111;
+            stroke-width: 1.25;
+            stroke-dasharray: 2.75 2.5;
+            stroke-linecap: square;
+        }
+
+        .vc-now {
+            stroke: #cfc9bd;
+            stroke-width: 1;
+            stroke-dasharray: 1.5 2.5;
+            pointer-events: none;
+        }
+
+        .vc-forecast-g {
+            opacity: 0;
+        }
+
+        .vc-viz.is-on .vc-forecast-g {
+            animation: viz-fade-in 0.4s ease both;
+            animation-delay: 0.42s;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .vc-viz.is-on .vc-forecast-g {
+                animation: none;
+                opacity: 1;
+            }
+        }
+
+        .vc-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 16px;
+            list-style: none;
+            margin: 10px 2px 0;
+            padding: 0;
+        }
+
+        .story-section .vc-legend li {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            margin: 0;
+            padding: 0;
+            font-family: "Inter", sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            color: #111111;
+            line-height: 1.2;
+        }
+
+        .story-section .vc-legend li::before {
+            content: none;
+        }
+
+        .vc-swatch {
+            width: 12px;
+            height: 12px;
+            border: 1px solid #111111;
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        .vc-swatch--gray { background: #c8c4bc; }
+        .vc-swatch--dots { background: #ffffff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Ccircle cx='2' cy='2' r='1' fill='%23111'/%3E%3C/svg%3E"); }
+        .vc-swatch--hatch { background: #f6f4f0 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Cpath d='M-1 1L1-1M0 6L6 0M5 7L7 5' stroke='%23111' stroke-width='1.2'/%3E%3C/svg%3E"); }
+        .vc-swatch--black { background: #111111; }
+        .vc-swatch--actual,
+        .vc-swatch--upcoming { background: #ffffff; }
+        .vc-swatch--realized {
+            background: #ffffff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Ccircle cx='2' cy='2' r='1' fill='%23111'/%3E%3C/svg%3E");
+        }
+
+        .vc-swatch--forecast {
+            width: 18px;
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            position: relative;
+        }
+
+        .vc-swatch--forecast::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            border-top: 1.6px dashed #111111;
+        }
+
+        .vc-tip {
+            position: absolute;
+            min-width: 120px;
+            max-width: 200px;
+            padding: 8px 10px;
+            background: #111111;
+            color: #ffffff;
+            font-family: "Inter", sans-serif;
+            font-size: 11px;
+            font-weight: 300;
+            line-height: 1.45;
+            border-radius: 6px;
+            pointer-events: none;
+            z-index: 30;
+            transform: translate(-50%, calc(-100% - 10px));
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .vc-tip.is-on {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .vc-tip strong {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .artefact-split-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .artefact-card {
+            opacity: 0;
+            border-radius: 4px;
+            padding: 16px 16px 14px;
+            min-width: 0;
+        }
+
+        .artefact-card--human {
+            background: #ffffff;
+            color: #111111;
+            border: 1px solid #111111;
+        }
+
+        .artefact-card--ai {
+            background: #111111;
+            color: #ffffff;
+        }
+
+        .story-section .artefact-card-title {
+            font-family: "Inter", sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            line-height: 1.3;
+            margin: 0 0 14px;
+            color: inherit;
+        }
+
+        .story-section .artefact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .story-section .artefact-grid li {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            min-height: 32px;
+            margin: 0;
+            padding: 6px 7px;
+            border-radius: 4px;
+            font-family: "Inter", sans-serif;
+            font-size: 10.5px;
+            font-weight: 500;
+            letter-spacing: 0;
+            line-height: 1.25;
+            color: inherit;
+        }
+
+        .story-section .artefact-grid li::before {
+            content: none;
+        }
+
+        .artefact-card--human .artefact-grid li {
+            background: #ffffff;
+            border: 1px solid #111111;
+        }
+
+        .artefact-card--ai .artefact-grid li {
+            background: #1c1c1c;
+            color: #f3f3f3;
+        }
+
+        .artefact-icon {
+            display: block;
+            width: 13px;
+            height: 13px;
+            flex: 0 0 13px;
+        }
+
+        .artefact-card--human .artefact-icon {
+            color: #111111;
+        }
+
+        .artefact-card--ai .artefact-icon {
+            color: #d6d3cd;
+        }
+
+        .artefact-chip {
+            opacity: 0;
+        }
+
+        .artefact-split.is-on .artefact-card--human {
+            animation: funnel-slide 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+            animation-delay: 0.08s;
+        }
+
+        .artefact-split.is-on .artefact-card--ai {
+            animation: funnel-slide 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+            animation-delay: 0.28s;
+        }
+
+        .artefact-split.is-on .artefact-chip {
+            animation: funnel-stack 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .artefact-split.is-on .artefact-card--human .artefact-chip:nth-child(1) { animation-delay: 0.42s; }
+        .artefact-split.is-on .artefact-card--human .artefact-chip:nth-child(2) { animation-delay: 0.5s; }
+        .artefact-split.is-on .artefact-card--human .artefact-chip:nth-child(3) { animation-delay: 0.58s; }
+        .artefact-split.is-on .artefact-card--human .artefact-chip:nth-child(4) { animation-delay: 0.66s; }
+        .artefact-split.is-on .artefact-card--human .artefact-chip:nth-child(5) { animation-delay: 0.74s; }
+        .artefact-split.is-on .artefact-card--human .artefact-chip:nth-child(6) { animation-delay: 0.82s; }
+        .artefact-split.is-on .artefact-card--ai .artefact-chip:nth-child(1) { animation-delay: 0.62s; }
+        .artefact-split.is-on .artefact-card--ai .artefact-chip:nth-child(2) { animation-delay: 0.7s; }
+        .artefact-split.is-on .artefact-card--ai .artefact-chip:nth-child(3) { animation-delay: 0.78s; }
+        .artefact-split.is-on .artefact-card--ai .artefact-chip:nth-child(4) { animation-delay: 0.86s; }
+        .artefact-split.is-on .artefact-card--ai .artefact-chip:nth-child(5) { animation-delay: 0.94s; }
+        .artefact-split.is-on .artefact-card--ai .artefact-chip:nth-child(6) { animation-delay: 1.02s; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .funnel-layer,
+            .funnel-chip,
+            .artefact-card,
+            .artefact-chip,
+            .viz-fade,
+            .ve-quads,
+            .ve-point,
+            .cp-spine-line,
+            .cp-ms-btn,
+            .cp-bar-row,
+            .cp-bar-fill,
+            .cp-phase,
+            .cp-phase-arrow {
+                animation: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+
+            .cp-spine-line,
+            .cp-bar-fill {
+                transform: scaleX(1) !important;
+            }
+        }
+
+        /* All paragraphs - consistent spacing */
+        .story-wrapper p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 14px;
+        }
+
+        .story-section p,
+        .story-intro p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+        }
+
+        /* Q&A blocks - consistent spacing */
+        .qa-block {
+            margin-bottom: 36px !important;
+        }
+
+        .qa-block:last-child {
+            margin-bottom: 0 !important;
+        }
+
+        .qa-question {
+            font-size: 16px !important;
+            font-weight: 500 !important;
+            margin-bottom: 14px !important;
+            color: #000000 !important;
+        }
+
+        .qa-question .highlight {
+            background: none;
+            padding: 0;
+            display: inline;
+        }
+
+        .qa-answer {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 14px;
+        }
+
+        .qa-answer:last-child {
+            margin-bottom: 0;
+        }
+
+        .story-section ul {
+            margin: 8px 0 20px;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .story-section ul li {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 8px;
+            padding-left: 1.15em;
+            position: relative;
+        }
+
+        .story-section ul li::before {
+            content: "–";
+            position: absolute;
+            left: 0;
+        }
+
+        .story-section ul li a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .story-section ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Pull quotes - centered with breathing room */
+        blockquote {
+            margin: 36px auto !important;
+            padding: 0 !important;
+            width: 100%;
+            max-width: 680px;
+            font-size: 16px !important;
+            line-height: 1.65 !important;
+            color: #111111 !important;
+            font-weight: 500 !important;
+            font-style: italic !important;
+            text-align: center;
+            background: transparent;
+            border-radius: 0;
+            white-space: normal;
+            display: block;
+            font-family: 'Inter', sans-serif;
+        }
+
+        blockquote::before {
+            content: "";
+        }
+
+        /* Images with captions */
+        .story-media {
+            margin: 24px 0 28px;
+            text-align: center;
+        }
+
+        .story-media img {
+            width: 100%;
+            border-radius: 4px;
+            display: block;
+        }
+
+        .story-media-caption {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #585858;
+        }
+
+        .story-media-caption a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .story-media-caption a:hover {
+            text-decoration: underline;
+        }
+
+        /* Links within story content */
+        .qa-answer a {
+            color: inherit;
+            text-decoration: none;
+            transition: text-decoration 0.2s ease;
+        }
+
+        .qa-answer a:hover {
+            text-decoration: underline;
+        }
+
+        .story-cta {
+            margin-top: 48px;
+            text-align: center;
+            padding: 32px 48px;
+            border-radius: 14px;
+            background: #fafafa;
+        }
+
+        .story-cta h3 {
+            font-family: var(--display);
+            font-size: 24px;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .story-cta p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #3b3b3b;
+            margin-bottom: 0;
+            font-weight: 300;
+        }
+
+        .story-cta p:first-of-type {
+            margin-bottom: 4px;
+        }
+
+        .story-cta p:last-of-type {
+            margin-bottom: 28px;
+        }
+
+        .story-cta-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .story-cta .cta-button.primary {
+            padding: 6px 12px;
+            background: #2b2b2b;
+            color: #ffffff;
+            border: 1px solid #2b2b2b;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: background-color 0.18s ease, border-color 0.18s ease;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+            height: auto;
+        }
+
+        .story-cta .cta-button.primary:hover {
+            background: #000000;
+            border-color: #000000;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Secondary button - How Qava Works (matches hero) */
+        .story-cta .cta-button.secondary {
+            padding: 6px 12px;
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            height: 27.6px;
+            text-decoration: none;
+            color: #000000;
+            font-size: 13px;
+            font-weight: 300;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .story-cta .cta-button.secondary::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 12px;
+            right: 12px;
+            height: 1px;
+            background-color: #000000;
+            transform: scaleX(0);
+            transition: transform 0.2s ease;
+        }
+
+        .story-cta .cta-button.secondary:hover::after {
+            transform: scaleX(1);
+        }
+
+        .story-cta .cta-button.secondary:visited {
+            color: #000000;
+        }
+
+        .story-cta .cta-button.secondary:active {
+            color: #000000;
+        }
+
+        
+    /* RESPONSIVE */
+
+        @media (max-width: 768px) {
+            .story-wrapper {
+                width: calc(100% - 32px);
+                padding: 40px 24px 80px;
+                margin: 16px auto 40px;
+            }
+
+            .story-categories {
+                margin: 0 0 16px;
+                gap: 6px;
+            }
+
+            .story-category-pill {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .story-project-badges {
+                margin: 8px 0 8px;
+                gap: 6px;
+            }
+
+            .story-badge-pill {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .story-title {
+                font-size: 32px;
+                line-height: 1.15;
+            }
+
+            .story-subtitle {
+                font-size: 17px;
+                line-height: 1.45;
+            }
+
+            .story-hero {
+                margin: 24px 0 32px;
+                border-radius: 8px;
+            }
+
+            .story-intro,
+            .story-section {
+                padding: 0;
+            }
+
+            .story-section {
+                margin: 48px 0 0 0 !important;
+            }
+
+            .story-section h2 {
+                font-size: 22px;
+                padding-top: 24px !important;
+                margin-bottom: 20px !important;
+            }
+
+            .story-step-kicker {
+                font-size: 11px;
+                margin-bottom: 6px;
+            }
+
+            .story-toc {
+                padding: 0;
+                margin: 28px 0 40px;
+            }
+
+            .story-toc ul {
+                gap: 8px;
+            }
+
+            .story-toc li a {
+                font-size: 15px;
+            }
+
+            .qa-block {
+                margin-bottom: 32px !important;
+            }
+
+            blockquote {
+                margin: 28px auto !important;
+                padding: 0 !important;
+                font-size: 15px !important;
+                line-height: 1.65 !important;
+            }
+
+            .story-media {
+                margin: 20px 0 24px;
+            }
+
+            .story-media img {
+                border-radius: 12px;
+            }
+
+            .funnel-bhag .funnel-title {
+                font-size: 22px;
+            }
+
+            .funnel-okr {
+                width: 82%;
+            }
+
+            .funnel-smart {
+                width: 70%;
+            }
+
+            .artefact-split-grid,
+            .story-section .artefact-grid,
+            .opp-card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .value-effort {
+                padding: 20px 12px 12px;
+            }
+
+            .ve-plot {
+                min-height: 220px;
+            }
+
+            .ve-quad-label {
+                font-size: 9px;
+                letter-spacing: 0.06em;
+            }
+
+            .ve-tip,
+            .cp-tip {
+                width: min(200px, 64vw);
+            }
+
+            .cp-spine-track {
+                min-width: 540px;
+                height: 180px;
+            }
+
+            .cp-phase-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .cp-phase-arrow {
+                flex: 0 0 16px;
+                transform: rotate(90deg);
+            }
+
+            .cp-bar-row {
+                grid-template-columns: 64px minmax(0, 1fr);
+                gap: 8px;
+            }
+
+            .opp-tile--desc,
+            .opp-tile--time,
+            .opp-tile--goal {
+                grid-column: auto;
+            }
+
+            .opp-tile--desc .opp-tile-value,
+            .opp-tile--goal .opp-tile-value {
+                min-height: 0;
+            }
+
+            .su-spec-row {
+                grid-template-columns: 1fr;
+                padding: 14px 0;
+            }
+
+            .su-spec-label {
+                padding-right: 0;
+                margin-bottom: 6px;
+            }
+
+            .su-spec-row p {
+                padding-left: 0;
+                border-left: 0;
+            }
+
+            .su-card {
+                padding: 14px 12px 12px;
+            }
+
+            .su-head {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .su-status {
+                text-align: left;
+            }
+
+            .status-card-viz .su-title,
+            .status-card-viz .su-owner,
+            .story-wrapper .status-card-viz .su-tile-copy,
+            .story-section .status-card-viz .su-tile-list li {
+                font-size: 15px;
+            }
+
+            .su-split {
+                grid-template-columns: 1fr;
+            }
+
+            .su-progress {
+                width: 100%;
+            }
+
+            .su-bar {
+                width: 100%;
+            }
+
+            .vc-toolbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .vc-check {
+                width: 100%;
+            }
+
+            .story-cta {
+                padding: 32px 24px;
+                margin-top: 40px;
+            }
+
+            .story-cta h3 {
+                font-size: 20px;
+                margin-bottom: 14px;
+            }
+
+            .story-cta p {
+                font-size: 15px;
+                margin-bottom: 24px;
+            }
+
+            .story-cta-actions {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+                align-items: center;
+            }
+
+            .story-cta .cta-button {
+                width: auto;
+                max-width: 280px;
+                min-width: fit-content;
+                padding: 8px 16px;
+            }
+
+            .footer-section {
+                padding: 60px 24px 40px 24px;
+            }
+
+            .footer-logo {
+                width: 100%;
+                padding: 0;
+                margin-bottom: 32px;
+            }
+
+            .footer-links {
+                width: 100%;
+                grid-template-columns: 1fr;
+                padding: 0;
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .ve-label {
+                opacity: 0;
+            }
+
+            .ve-point:hover .ve-label,
+            .ve-point:focus .ve-label,
+            .ve-point:focus-visible .ve-label {
+                opacity: 1;
+            }
+
+            .story-wrapper {
+                padding: 32px 24px 70px;
+            }
+
+            .story-title {
+                font-size: 28px;
+            }
+
+            .story-subtitle {
+                font-size: 16px;
+            }
+
+            .story-hero {
+                margin: 20px 0 28px;
+            }
+
+            .story-section h2 {
+                font-size: 20px;
+            }
+
+            .playbook-row {
+                grid-template-columns: 1fr;
+                padding: 16px 0;
+            }
+
+            .playbook-label {
+                padding-right: 0;
+            }
+
+            .playbook-row > :not(.playbook-label) {
+                padding-left: 0;
+                border-left: 0;
+            }
+
+            .story-section .playbook-example h3 {
+                padding: 18px 0 14px;
+            }
+
+            .story-toc li a {
+                font-size: 14px;
+            }
+
+            .story-wrapper p,
+            .qa-question,
+            .qa-answer {
+                font-size: 15px !important;
+            }
+
+            blockquote {
+                font-size: 15px !important;
+                line-height: 1.65 !important;
+                padding: 0 !important;
+            }
+
+            .story-cta {
+                padding: 28px 20px;
+            }
+
+            .story-cta h3 {
+                font-size: 18px;
+            }
+
+            .story-cta p {
+                font-size: 14px;
+            }
+        }
+    
+
+    @media (max-width: 860px) {
+      .header-center, .auth-section .auth-item { display: none; }
+      .hamburger-menu { display: flex; }
+    }
+
+  
+  </style>
+  <link rel="stylesheet" href="/qava-auth.css" />
+  <link rel="stylesheet" href="club-dot-wave.css?v=1" />
+</head>
+<body>
+<div id="qava-dot-base-fixed" aria-hidden="true"></div>
+
+  <header class="header-container" data-qava-nav="landing">
+    <div class="header-logo">
+      <div class="logo-container">
+        <div class="logo">
+          <a href="https://www.theclubnyc.com/">
+            <div class="qava-nav-logo-flip" id="qava-nav-logo-flip">
+              <div class="qava-nav-logo-inner" id="qava-nav-logo-inner">
+                <img class="qava-nav-logo-face qava-nav-logo-front" src="/the-club-logo-light.png" alt="The Club">
+                <img class="qava-nav-logo-face qava-nav-logo-back" src="/the-club-logo-light.png" alt="">
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="header-center">
+      <nav class="navigation">
+        <a href="https://theclubnyc.com/strategy/" class="nav-item templates"><div class="nav-text">Strategy Breakdowns</div></a>
+        <a href="https://theclubnyc.com/find/" class="nav-item search-listings"><div class="nav-text">Project Listings</div></a>
+        <a href="https://theclubnyc.com/blog" class="nav-item blog"><div class="nav-text">Blog</div></a>
+        <a href="https://theclubnyc.com/newsletter" class="nav-item newsletter"><div class="nav-text">Newsletter</div></a>
+      </nav>
+    </div>
+    <div class="header-right">
+      <div class="auth-section">
+        <a href="https://app.theclubnyc.com/" class="qava-premium-nav-btn" data-qava-premium-nav aria-label="Log in"><span class="nav-text">Log in</span></a>
+        <a href="https://app.theclubnyc.com/" class="join-button">
+          <div class="join-text">Get Started</div>
+        </a>
+      </div>
+      <div class="hamburger-menu" aria-hidden="true">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </div>
+    </div>
+  </header>
+
+<main class="story-wrapper">
+        <a class="story-back" href="https://www.theclubnyc.com/blog"><span class="story-back-arrow" aria-hidden="true">&larr;</span> Back</a>
+        <header class="story-header">
+            <h1 class="story-title"><span class="story-title-line">Why Transformation Fails</span><span class="story-title-line">And the PMO Playbook That Actually Works</span></h1>
+            <p class="story-subtitle" style="color: #666666;">Most enterprises chase &ldquo;transformation&rdquo; without ever achieving it. This piece breaks down why the term is so hard to pin down, why change efforts stall in practice, and the PMO practices &mdash; standard and unconventional &mdash; that turn transformation from a buzzword into a repeatable outcome.</p>
+        </header>
+
+        <section class="story-meta">
+            <div class="story-meta-col">
+                <h3>Behind the Story</h3>
+                <div class="story-people">
+                    <div class="story-person">
+                        <div class="story-person-avatar">
+                            <img src="Reed%20Langridge%20Profile.jpg" alt="Reed Langridge" loading="lazy" />
+                        </div>
+                        <div>
+                            <div class="story-person-name">Reed Langridge</div>
+                            <div class="story-person-role">Founder, The Club</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="story-meta-divider" aria-hidden="true"></div>
+            <div class="story-meta-col">
+                <h3>Focus Areas</h3>
+                <div class="story-focus-items">
+                    <div>Transformation 🔄</div>
+                    <div>PMO 🗂️</div>
+                    <div>Change Management 🧭</div>
+                    <div>Execution ⚙️</div>
+                </div>
+            </div>
+        </section>
+
+        <figure class="story-hero">
+            <img src="why-transformation-fails.gif" alt="A wooden Trojan horse on wheels, with tiny figures climbing, pulling, and standing on it" width="800" height="600">
+        </figure>
+
+        <section class="story-intro">
+            <p>In a world where &ldquo;digital transformation&rdquo; has become the new goalpost for companies looking to modernize and realize the benefits of change at scale, few organizations have actually made that shift. Fewer still can truly claim a transformed outcome.</p>
+            <p>Part of that is because &ldquo;transformation&rdquo; is a vague concept &mdash; a criterion open to interpretation. But vague or not, there&rsquo;s enough evidence out there to know that driving transformation at scale is hard. The good news: there are proven PMO practices for inserting change into a team&rsquo;s day-to-day that minimize resistance and maximize understanding. That&rsquo;s the intent of this piece &mdash; to explain how to run transformation in a large enterprise successfully and efficiently.</p>
+            <p>Some of this relies on standard PMO practices. Some of it involves tweaks and incremental steps that may look like more work up front, but unlock real leverage and scalability in the long run. So, without further ado, let&rsquo;s get into it.</p>
+        </section>
+
+        <nav class="story-toc" aria-label="Table of contents">
+            <ul>
+                <li><a href="#define-the-objectives"><span class="index">1.</span><span>Define the Objectives</span></a></li>
+                <li><a href="#map-the-process-landscape"><span class="index">2.</span><span>Map the Process Landscape</span></a></li>
+                <li><a href="#build-the-opportunity-backlog"><span class="index">3.</span><span>Build the Opportunity Backlog</span></a></li>
+                <li><a href="#prioritize-the-backlog"><span class="index">4.</span><span>Prioritize the Backlog</span></a></li>
+                <li><a href="#build-the-critical-path"><span class="index">5.</span><span>Build the Critical Path</span></a></li>
+                <li><a href="#mobilize-workstreams"><span class="index">6.</span><span>Mobilize Workstreams and Standardize Reporting</span></a></li>
+                <li><a href="#value-capture"><span class="index">7.</span><span>Value Capture</span></a></li>
+            </ul>
+        </nav>
+
+        <section class="story-section" id="define-the-objectives">
+            <h2><span class="story-step-kicker">Step One</span>Define the Objectives</h2>
+            <p>The first step in any transformation effort is to document the goals. I know this seems obvious, but it&rsquo;s worth saying, because it&rsquo;s often the case that this step is done halfheartedly, or it&rsquo;s not documented and communicated as well as it could have been. While the inner circle may know the goals of the initiative, everyone else &mdash; especially the people responsible for implementing the change or making a change in their own behavior &mdash; sometimes doesn&rsquo;t know the goals at all.</p>
+            <p>Goals don&rsquo;t need to be exact at the early stages of a transformation. If you can be specific, you should be, but broad-stroke goals &mdash; percentage increases in revenue, reductions in cost, achieving compliance, boosting morale &mdash; are all legitimate. They provide direction on where to focus, and that&rsquo;s enough to start.</p>
+            <p>There are different frameworks for goal-setting worth knowing here. SMART goals &mdash; <span class="story-tip" tabindex="0">Specific<span class="story-tip-text" role="tooltip">Clearly define what you&rsquo;re trying to accomplish, leaving no room for ambiguity.</span></span>, <span class="story-tip" tabindex="0">Measurable<span class="story-tip-text" role="tooltip">Attach a number or metric so progress can be tracked objectively.</span></span>, <span class="story-tip" tabindex="0">Achievable<span class="story-tip-text" role="tooltip">Set a target that&rsquo;s ambitious but realistically within reach given your resources.</span></span>, <span class="story-tip" tabindex="0">Relevant<span class="story-tip-text" role="tooltip">Make sure the goal actually ladders up to the broader transformation objective.</span></span>, and <span class="story-tip story-tip--end" tabindex="0">Time-bound<span class="story-tip-text" role="tooltip">Give it a deadline, so it drives action instead of sitting indefinitely.</span></span> &mdash; are the standard for turning a vague aspiration into something a team can actually execute against and track. BHAGs (Big Hairy Audacious Goals) sit at the other end of the spectrum: intentionally bold, long-range targets meant to galvanize an organization around a single ambitious vision rather than a precise metric. In between, OKRs (Objectives and Key Results) pair a qualitative, inspirational objective with a handful of measurable key results that define what achieving it actually looks like &mdash; the framework popularized by Intel and Google, and now a default operating rhythm at many transformation-stage companies.</p>
+            <p>None of these frameworks is &ldquo;correct&rdquo; on its own. BHAGs give an organization direction and motivation. SMART goals give it discipline and accountability. OKRs sit in between, giving teams a cadence &mdash; usually quarterly &mdash; for translating big ambitions into trackable progress. Most transformation efforts benefit from using all three together: a BHAG at the top (the why), OKRs as the connective tissue (the near-term focus), and SMART goals underneath, adding the specificity and timelines that make the whole thing executable.</p>
+            <p>Here&rsquo;s what that looks like across a few common transformation types:</p>
+
+            <div class="playbook-deck" data-playbook-deck tabindex="0" role="region" aria-label="Transformation type examples">
+            <div class="playbook-deck-toolbar">
+                <p class="playbook-deck-index" aria-live="polite"><span data-playbook-current>1</span> / 3</p>
+                <div class="playbook-deck-arrows">
+                    <button type="button" class="playbook-deck-arrow" data-playbook-dir="-1" aria-label="Previous example">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+                    </button>
+                    <button type="button" class="playbook-deck-arrow" data-playbook-dir="1" aria-label="Next example">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="playbook-deck-stage">
+            <div class="playbook-example is-active">
+                <h3>Product relaunch to increase retention</h3>
+                <div class="playbook-row">
+                    <div class="playbook-label">BHAG</div>
+                    <p>Become the category leader in customer retention within three years</p>
+                </div>
+                <div class="playbook-row">
+                    <div class="playbook-label">OKR</div>
+                    <div>
+                        <p><strong>Objective</strong> &mdash; Make the relaunched product indispensable to existing customers.</p>
+                        <p><strong>Key Results</strong></p>
+                        <ul>
+                            <li>Reduce 90-day churn by 15%</li>
+                            <li>Grow NPS by 10 points</li>
+                            <li>Increase feature adoption by 30%</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="playbook-example">
+                <h3>Merger targets to enter new markets</h3>
+                <div class="playbook-row">
+                    <div class="playbook-label">BHAG</div>
+                    <p>Become the dominant player in three new geographic markets within five years</p>
+                </div>
+                <div class="playbook-row">
+                    <div class="playbook-label">OKR</div>
+                    <div>
+                        <p><strong>Objective</strong> &mdash; Successfully integrate operations and unlock cross-market growth.</p>
+                        <p><strong>Key Results</strong></p>
+                        <ul>
+                            <li>Launch in two new markets</li>
+                            <li>Achieve 25% cross-sell penetration</li>
+                            <li>Retain 90% of acquired accounts</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="playbook-example">
+                <h3>Process and reporting improvements for public company readiness</h3>
+                <div class="playbook-row">
+                    <div class="playbook-label">BHAG</div>
+                    <p>Operate with the reporting discipline and transparency of a best-in-class public company</p>
+                </div>
+                <div class="playbook-row">
+                    <div class="playbook-label">OKR</div>
+                    <div>
+                        <p><strong>Objective</strong> &mdash; Build a reporting infrastructure investors and regulators can trust.</p>
+                        <p><strong>Key Results</strong></p>
+                        <ul>
+                            <li>Close books within 5 days</li>
+                            <li>Achieve full SOX-compliant documentation</li>
+                            <li>Zero restatements across two audit cycles</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
+
+            <figure class="story-viz goal-funnel" data-viz="funnel" aria-label="A BHAG at the top, OKRs in the middle, SMART goals at the base">
+                <div class="goal-funnel-stack">
+                    <div class="funnel-layer funnel-bhag">
+                        <span class="funnel-kicker">BHAG</span>
+                        <span class="funnel-title">The why</span>
+                        <span class="funnel-copy">One bold, long-range vision the whole organization can point at.</span>
+                    </div>
+                    <div class="funnel-layer funnel-okr">
+                        <span class="funnel-kicker">OKRs</span>
+                        <span class="funnel-title">The near-term focus</span>
+                        <span class="funnel-copy">A quarterly cadence that turns the vision into trackable progress.</span>
+                    </div>
+                    <div class="funnel-layer funnel-smart">
+                        <span class="funnel-kicker">SMART goals</span>
+                        <div class="funnel-chips" aria-label="Specific, Measurable, Achievable, Relevant, Time-bound">
+                            <span class="funnel-chip">Specific</span>
+                            <span class="funnel-chip">Measurable</span>
+                            <span class="funnel-chip">Achievable</span>
+                            <span class="funnel-chip">Relevant</span>
+                            <span class="funnel-chip">Time-bound</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="story-viz-bar">
+                    <p class="story-viz-caption viz-fade" style="animation-delay:2.15s;">Big vision narrows into daily execution.</p>
+                    <button type="button" class="story-viz-replay">Replay</button>
+                </div>
+            </figure>
+        </section>
+
+        <section class="story-section" id="map-the-process-landscape">
+            <h2><span class="story-step-kicker">Step Two</span>Map the Process Landscape</h2>
+            <p>Once goals are defined, the next step is to map the process landscape and build process blueprints. That means creating swimlane maps and documenting business rules and logic thoroughly enough that you actually understand the mechanics of what gets done &mdash; not just at a high level, but in practice. This can vary by product, by department, by geography. There can be an infinite number of variations to a single process, and an infinite number of processes to map in the first place.</p>
+            <p>Given that, it&rsquo;s important to break the process landscape into parts so you can move quickly rather than trying to boil the ocean. In the startup world, this is what you&rsquo;d call a beachhead &mdash; getting a foothold in one market and using it as a stronghold to expand into adjacencies. The same logic applies to business transformation: focus on a narrow process or technology area, establish a beachhead, and use it to build momentum before expanding outward. That&rsquo;s the way this has traditionally been done, and it still holds.</p>
+            <p>What&rsquo;s changed is a new requirement layered on top of the old one: these artifacts &mdash; the process maps, business rules, logic tables &mdash; need to be consumable in the usual formats (PowerPoint, Google Slides, Excel, Word, memos), but they also need to exist as Markdown files. It&rsquo;s the Markdown versions that you feed into your enterprise AI tool to support tasks like:</p>
+            <ul>
+                <li>Prioritization</li>
+                <li>Building a critical path</li>
+                <li>Identifying dependencies</li>
+                <li>Understanding a tech stack</li>
+                <li>And more</li>
+            </ul>
+            <p>Yes, you can copy-paste or upload your process maps, business rules, logic tables, technology stack diagrams, and system architecture diagrams in their human-consumable state. But it&rsquo;s far better to put them into a format AI can absorb cleanly. A PowerPoint slide or a swimlane diagram is built for the human eye &mdash; visual layout, color, position on the page all carry meaning that a slide&rsquo;s underlying text doesn&rsquo;t capture. Markdown strips that away and leaves structure: headers, hierarchy, plain logic. That&rsquo;s the format AI parses fastest and most accurately, which frees it to do what it does best &mdash; connect dots, surface insights, and reveal blind spots that would otherwise stay buried in a slide deck.</p>
+
+            <figure class="story-viz artefact-split" id="artefact-outputs" data-viz="artefacts" aria-label="Standard outputs and their Markdown equivalents for AI">
+                <div class="artefact-split-grid">
+                    <div class="artefact-card artefact-card--human">
+                        <p class="artefact-card-title">Standard outputs</p>
+                        <ul class="artefact-grid">
+                            <li class="artefact-chip">
+                                <svg class="artefact-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="4" cy="4" r="1.5"/><circle cx="12" cy="4" r="1.5"/><circle cx="8" cy="12" r="1.5"/><path d="M5.3 5.1 7 10.6M10.7 5.1 9 10.6M5.6 4h4.8"/></svg>
+                                Process map
+                            </li>
+                            <li class="artefact-chip">
+                                <svg class="artefact-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.6 14.1 13.4H1.9L8 2.6z"/><path d="M8 6.6v3.2"/><circle cx="8" cy="11.6" r="0.55" fill="currentColor" stroke="none"/></svg>
+                                Pain points
+                            </li>
+                            <li class="artefact-chip">
+                                <svg class="artefact-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3v10M3.5 13h9"/><path d="M3 6h4L5 9.4 3 6zM9 6h4l-2 3.4L9 6z"/><path d="M3 6h10"/></svg>
+                                Business rules
+                            </li>
+                            <li class="artefact-chip">
+                                <svg class="artefact-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="2.8" width="10" height="3"/><rect x="3" y="6.5" width="10" height="3"/><rect x="3" y="10.2" width="10" height="3"/></svg>
+                                Tech stack
+                            </li>
+                            <li class="artefact-chip">
+                                <svg class="artefact-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="1.35"/><circle cx="8" cy="2.7" r="1.05"/><circle cx="13.3" cy="8" r="1.05"/><circle cx="8" cy="13.3" r="1.05"/><circle cx="2.7" cy="8" r="1.05"/><path d="M8 3.8V6.6M12.2 8H9.4M8 12.2V9.4M3.8 8H6.6"/></svg>
+                                System architecture
+                            </li>
+                            <li class="artefact-chip">
+                                <svg class="artefact-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="3.4" r="1.35"/><circle cx="4" cy="11.6" r="1.25"/><circle cx="12" cy="11.6" r="1.25"/><path d="M8 4.8v2.1M4 9.4V8.6h8v.8"/></svg>
+                                Org chart
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="artefact-card artefact-card--ai">
+                        <p class="artefact-card-title">Markdown for AI</p>
+                        <ul class="artefact-grid">
+                            <li class="artefact-chip">
+                                <svg class="artefact-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12.2V3.8h2.2L8 8.2l2.8-4.4H13v8.4h-1.8V7.2L8 11.4 4.8 7.2v5"/></svg>
+                                Process.md
+                            </li>
+                            <li class="artefact-chip">
+                                <svg class="artefact-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12.2V3.8h2.2L8 8.2l2.8-4.4H13v8.4h-1.8V7.2L8 11.4 4.8 7.2v5"/></svg>
+                                Painpoints.md
+                            </li>
+                            <li class="artefact-chip">
+                                <svg class="artefact-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12.2V3.8h2.2L8 8.2l2.8-4.4H13v8.4h-1.8V7.2L8 11.4 4.8 7.2v5"/></svg>
+                                Business rules.md
+                            </li>
+                            <li class="artefact-chip">
+                                <svg class="artefact-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12.2V3.8h2.2L8 8.2l2.8-4.4H13v8.4h-1.8V7.2L8 11.4 4.8 7.2v5"/></svg>
+                                Tech stack.md
+                            </li>
+                            <li class="artefact-chip">
+                                <svg class="artefact-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12.2V3.8h2.2L8 8.2l2.8-4.4H13v8.4h-1.8V7.2L8 11.4 4.8 7.2v5"/></svg>
+                                System architecture.md
+                            </li>
+                            <li class="artefact-chip">
+                                <svg class="artefact-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12.2V3.8h2.2L8 8.2l2.8-4.4H13v8.4h-1.8V7.2L8 11.4 4.8 7.2v5"/></svg>
+                                Org chart.md
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="story-viz-bar">
+                    <p class="story-viz-caption viz-fade" style="animation-delay:1.25s;">Same artefacts. One for the eye. One for the model.</p>
+                    <button type="button" class="story-viz-replay">Replay</button>
+                </div>
+            </figure>
+        </section>
+
+        <section class="story-section" id="build-the-opportunity-backlog">
+            <h2><span class="story-step-kicker">Step Three</span>Build the Opportunity Backlog</h2>
+            <p>With the process landscape mapped, you now have visibility into what actually happens, where the friction lives, and where the gaps are. That visibility needs a home. The next step is to turn it into an opportunity backlog &mdash; a single, structured list of every improvement worth considering, so decisions about what to tackle first are made deliberately rather than by whoever shouted loudest in the last steering committee meeting.</p>
+            <p>Every entry in the backlog should carry the same fields, no exceptions:</p>
+
+            <figure class="story-viz backlog-card-deck" aria-label="Example opportunity backlog entries">
+                <div class="playbook-deck" data-playbook-deck tabindex="0" role="region" aria-label="Opportunity backlog examples">
+                    <div class="playbook-deck-toolbar">
+                        <button type="button" class="playbook-deck-arrow" data-playbook-dir="-1" aria-label="Previous example">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+                        </button>
+                        <p class="playbook-deck-index" aria-live="polite"><span data-playbook-current>1</span> / 4</p>
+                        <button type="button" class="playbook-deck-arrow" data-playbook-dir="1" aria-label="Next example">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+                        </button>
+                    </div>
+                    <div class="playbook-deck-stage">
+                        <div class="playbook-example is-active">
+                            <div class="opp-card-grid">
+                                <div class="opp-tile opp-tile--id story-tip" tabindex="0">
+                                    <span class="opp-tile-label">ID</span>
+                                    <span class="story-tip-text" role="tooltip">A unique identifier, assigned the moment the opportunity is logged, so it can be referenced in meetings, decks, and follow-up work without ambiguity.</span>
+                                    <span class="opp-tile-value">OPP-014</span>
+                                </div>
+                                <div class="opp-tile opp-tile--desc story-tip story-tip--end" tabindex="0">
+                                    <span class="opp-tile-label">Description</span>
+                                    <span class="story-tip-text" role="tooltip">A plain-language explanation of the opportunity: what&rsquo;s broken or missing, and what improving it would look like.</span>
+                                    <span class="opp-tile-value">Manual invoice matching causes 3-day AP delays</span>
+                                </div>
+                                <div class="opp-tile opp-tile--impact story-tip" tabindex="0">
+                                    <span class="opp-tile-label">Financial impact</span>
+                                    <span class="story-tip-text" role="tooltip">An estimate of the value at stake &mdash; cost savings, revenue upside, or risk avoided &mdash; and whether that impact is recurring or one-off. Early estimates can be ranges; precision comes later.</span>
+                                    <span class="opp-tile-value">$120K&ndash;180K</span>
+                                    <span class="opp-tile-cadence">Recurring</span>
+                                </div>
+                                <div class="opp-tile opp-tile--priority story-tip" tabindex="0">
+                                    <span class="opp-tile-label">Prioritization</span>
+                                    <span class="story-tip-text" role="tooltip">A simple high/medium/low rating, so the backlog can be sorted and triaged at a glance without a scoring model that takes longer to build than the fix itself.</span>
+                                    <span class="opp-pill opp-pill--high">High</span>
+                                </div>
+                                <div class="opp-tile opp-tile--owner story-tip story-tip--end" tabindex="0">
+                                    <span class="opp-tile-label">Owner</span>
+                                    <span class="story-tip-text" role="tooltip">A named individual, not a team or department. Backlogs with &ldquo;Finance&rdquo; as an owner rarely move; backlogs with &ldquo;Sarah in Finance&rdquo; as an owner do.</span>
+                                    <span class="opp-tile-value">Sarah Chen</span>
+                                </div>
+                                <div class="opp-tile opp-tile--time story-tip" tabindex="0">
+                                    <span class="opp-tile-label">Time to implement</span>
+                                    <span class="story-tip-text" role="tooltip">A rough band from one day to two years, giving a sense of effort and sequencing alongside impact.</span>
+                                    <span class="opp-tile-value">3 months</span>
+                                </div>
+                                <div class="opp-tile opp-tile--goal story-tip story-tip--end" tabindex="0">
+                                    <span class="opp-tile-label">Related goal</span>
+                                    <span class="story-tip-text" role="tooltip">Tie every opportunity back to the goals from Step One. Tag each entry against the goal(s) it supports &mdash; this alone does most of the work of prioritization for you.</span>
+                                    <span class="opp-tile-value">Close the books within 5 days</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="playbook-example">
+                            <div class="opp-card-grid">
+                                <div class="opp-tile opp-tile--id story-tip" tabindex="0">
+                                    <span class="opp-tile-label">ID</span>
+                                    <span class="story-tip-text" role="tooltip">A unique identifier, assigned the moment the opportunity is logged, so it can be referenced in meetings, decks, and follow-up work without ambiguity.</span>
+                                    <span class="opp-tile-value">OPP-027</span>
+                                </div>
+                                <div class="opp-tile opp-tile--desc story-tip story-tip--end" tabindex="0">
+                                    <span class="opp-tile-label">Description</span>
+                                    <span class="story-tip-text" role="tooltip">A plain-language explanation of the opportunity: what&rsquo;s broken or missing, and what improving it would look like.</span>
+                                    <span class="opp-tile-value">No single source of truth for customer contract terms</span>
+                                </div>
+                                <div class="opp-tile opp-tile--impact story-tip" tabindex="0">
+                                    <span class="opp-tile-label">Financial impact</span>
+                                    <span class="story-tip-text" role="tooltip">An estimate of the value at stake &mdash; cost savings, revenue upside, or risk avoided &mdash; and whether that impact is recurring or one-off. Early estimates can be ranges; precision comes later.</span>
+                                    <span class="opp-tile-value">$300K&ndash;500K</span>
+                                    <span class="opp-tile-cadence">Recurring</span>
+                                </div>
+                                <div class="opp-tile opp-tile--priority story-tip" tabindex="0">
+                                    <span class="opp-tile-label">Prioritization</span>
+                                    <span class="story-tip-text" role="tooltip">A simple high/medium/low rating, so the backlog can be sorted and triaged at a glance without a scoring model that takes longer to build than the fix itself.</span>
+                                    <span class="opp-pill opp-pill--high">High</span>
+                                </div>
+                                <div class="opp-tile opp-tile--owner story-tip story-tip--end" tabindex="0">
+                                    <span class="opp-tile-label">Owner</span>
+                                    <span class="story-tip-text" role="tooltip">A named individual, not a team or department. Backlogs with &ldquo;Finance&rdquo; as an owner rarely move; backlogs with &ldquo;Sarah in Finance&rdquo; as an owner do.</span>
+                                    <span class="opp-tile-value">Marcus Webb</span>
+                                </div>
+                                <div class="opp-tile opp-tile--time story-tip" tabindex="0">
+                                    <span class="opp-tile-label">Time to implement</span>
+                                    <span class="story-tip-text" role="tooltip">A rough band from one day to two years, giving a sense of effort and sequencing alongside impact.</span>
+                                    <span class="opp-tile-value">6 months</span>
+                                </div>
+                                <div class="opp-tile opp-tile--goal story-tip story-tip--end" tabindex="0">
+                                    <span class="opp-tile-label">Related goal</span>
+                                    <span class="story-tip-text" role="tooltip">Tie every opportunity back to the goals from Step One. Tag each entry against the goal(s) it supports &mdash; this alone does most of the work of prioritization for you.</span>
+                                    <span class="opp-tile-value">SOX-ready contract record</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="playbook-example">
+                            <div class="opp-card-grid">
+                                <div class="opp-tile opp-tile--id story-tip" tabindex="0">
+                                    <span class="opp-tile-label">ID</span>
+                                    <span class="story-tip-text" role="tooltip">A unique identifier, assigned the moment the opportunity is logged, so it can be referenced in meetings, decks, and follow-up work without ambiguity.</span>
+                                    <span class="opp-tile-value">OPP-041</span>
+                                </div>
+                                <div class="opp-tile opp-tile--desc story-tip story-tip--end" tabindex="0">
+                                    <span class="opp-tile-label">Description</span>
+                                    <span class="story-tip-text" role="tooltip">A plain-language explanation of the opportunity: what&rsquo;s broken or missing, and what improving it would look like.</span>
+                                    <span class="opp-tile-value">Onboarding new vendors takes 6 weeks due to redundant approvals</span>
+                                </div>
+                                <div class="opp-tile opp-tile--impact story-tip" tabindex="0">
+                                    <span class="opp-tile-label">Financial impact</span>
+                                    <span class="story-tip-text" role="tooltip">An estimate of the value at stake &mdash; cost savings, revenue upside, or risk avoided &mdash; and whether that impact is recurring or one-off. Early estimates can be ranges; precision comes later.</span>
+                                    <span class="opp-tile-value">$40K&ndash;60K</span>
+                                    <span class="opp-tile-cadence">Recurring</span>
+                                </div>
+                                <div class="opp-tile opp-tile--priority story-tip" tabindex="0">
+                                    <span class="opp-tile-label">Prioritization</span>
+                                    <span class="story-tip-text" role="tooltip">A simple high/medium/low rating, so the backlog can be sorted and triaged at a glance without a scoring model that takes longer to build than the fix itself.</span>
+                                    <span class="opp-pill opp-pill--medium">Medium</span>
+                                </div>
+                                <div class="opp-tile opp-tile--owner story-tip story-tip--end" tabindex="0">
+                                    <span class="opp-tile-label">Owner</span>
+                                    <span class="story-tip-text" role="tooltip">A named individual, not a team or department. Backlogs with &ldquo;Finance&rdquo; as an owner rarely move; backlogs with &ldquo;Sarah in Finance&rdquo; as an owner do.</span>
+                                    <span class="opp-tile-value">Priya Nair</span>
+                                </div>
+                                <div class="opp-tile opp-tile--time story-tip" tabindex="0">
+                                    <span class="opp-tile-label">Time to implement</span>
+                                    <span class="story-tip-text" role="tooltip">A rough band from one day to two years, giving a sense of effort and sequencing alongside impact.</span>
+                                    <span class="opp-tile-value">1 month</span>
+                                </div>
+                                <div class="opp-tile opp-tile--goal story-tip story-tip--end" tabindex="0">
+                                    <span class="opp-tile-label">Related goal</span>
+                                    <span class="story-tip-text" role="tooltip">Tie every opportunity back to the goals from Step One. Tag each entry against the goal(s) it supports &mdash; this alone does most of the work of prioritization for you.</span>
+                                    <span class="opp-tile-value">Audit-ready vendor onboarding</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="playbook-example">
+                            <div class="opp-card-grid">
+                                <div class="opp-tile opp-tile--id story-tip" tabindex="0">
+                                    <span class="opp-tile-label">ID</span>
+                                    <span class="story-tip-text" role="tooltip">A unique identifier, assigned the moment the opportunity is logged, so it can be referenced in meetings, decks, and follow-up work without ambiguity.</span>
+                                    <span class="opp-tile-value">OPP-058</span>
+                                </div>
+                                <div class="opp-tile opp-tile--desc story-tip story-tip--end" tabindex="0">
+                                    <span class="opp-tile-label">Description</span>
+                                    <span class="story-tip-text" role="tooltip">A plain-language explanation of the opportunity: what&rsquo;s broken or missing, and what improving it would look like.</span>
+                                    <span class="opp-tile-value">Expense reports are re-keyed manually into the ERP</span>
+                                </div>
+                                <div class="opp-tile opp-tile--impact story-tip" tabindex="0">
+                                    <span class="opp-tile-label">Financial impact</span>
+                                    <span class="story-tip-text" role="tooltip">An estimate of the value at stake &mdash; cost savings, revenue upside, or risk avoided &mdash; and whether that impact is recurring or one-off. Early estimates can be ranges; precision comes later.</span>
+                                    <span class="opp-tile-value">$15K&ndash;25K</span>
+                                    <span class="opp-tile-cadence">Recurring</span>
+                                </div>
+                                <div class="opp-tile opp-tile--priority story-tip" tabindex="0">
+                                    <span class="opp-tile-label">Prioritization</span>
+                                    <span class="story-tip-text" role="tooltip">A simple high/medium/low rating, so the backlog can be sorted and triaged at a glance without a scoring model that takes longer to build than the fix itself.</span>
+                                    <span class="opp-pill opp-pill--low">Low</span>
+                                </div>
+                                <div class="opp-tile opp-tile--owner story-tip story-tip--end" tabindex="0">
+                                    <span class="opp-tile-label">Owner</span>
+                                    <span class="story-tip-text" role="tooltip">A named individual, not a team or department. Backlogs with &ldquo;Finance&rdquo; as an owner rarely move; backlogs with &ldquo;Sarah in Finance&rdquo; as an owner do.</span>
+                                    <span class="opp-tile-value">Tom Alvarez</span>
+                                </div>
+                                <div class="opp-tile opp-tile--time story-tip" tabindex="0">
+                                    <span class="opp-tile-label">Time to implement</span>
+                                    <span class="story-tip-text" role="tooltip">A rough band from one day to two years, giving a sense of effort and sequencing alongside impact.</span>
+                                    <span class="opp-tile-value">1 day</span>
+                                </div>
+                                <div class="opp-tile opp-tile--goal story-tip story-tip--end" tabindex="0">
+                                    <span class="opp-tile-label">Related goal</span>
+                                    <span class="story-tip-text" role="tooltip">Tie every opportunity back to the goals from Step One. Tag each entry against the goal(s) it supports &mdash; this alone does most of the work of prioritization for you.</span>
+                                    <span class="opp-tile-value">Single ERP source of truth</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="story-viz-bar">
+                    <p class="story-viz-caption">Same fields, every entry.</p>
+                </div>
+            </figure>
+
+            <p>A few best practices worth calling out:</p>
+
+            <div class="backlog-practices">
+                <div class="backlog-practice">
+                    <h3>Source opportunities broadly, then filter centrally.</h3>
+                    <p>The best opportunities usually come from the people closest to the process, not from the steering committee. Give every team a way to submit opportunities, but route them through one central backlog rather than letting each department keep its own list &mdash; otherwise you end up duplicating effort and losing the ability to compare and prioritize across the whole organization.</p>
+                </div>
+                <div class="backlog-practice">
+                    <h3>Resist the urge to solutioneer at the logging stage.</h3>
+                    <p>When someone submits an opportunity, the instinct is to also propose the fix. Resist it. Log the opportunity and the pain it&rsquo;s tied to; let solutioning happen later, once it&rsquo;s been prioritized and resourced. Solutioning too early biases the backlog toward whatever fix was top of mind that day, not necessarily the best one.</p>
+                </div>
+                <div class="backlog-practice">
+                    <h3>Tie every opportunity back to the goals from Step One.</h3>
+                    <p>An opportunity backlog with no connection to the transformation&rsquo;s stated goals becomes a wish list. Tag each entry against the goal(s) it supports &mdash; this alone does most of the work of prioritization for you.</p>
+                </div>
+                <div class="backlog-practice">
+                    <h3>Treat it as a living document, not a one-time exercise.</h3>
+                    <p>New opportunities surface constantly once teams know there&rsquo;s a place to put them. Revisit and re-prioritize on a regular cadence rather than treating the backlog as something you build once and execute against forever.</p>
+                </div>
+            </div>
+
+            <p>As with the process artifacts in Step Two, the opportunity backlog needs to exist in multiple formats for multiple audiences. The working version lives in Excel, where prioritization, filtering, and sorting actually happen. A summary slide distills the top opportunities &mdash; typically the highest-impact, highest-priority items &mdash; for steering committee and leadership audiences who don&rsquo;t need the full 200-row list. And a Markdown version exists specifically for your enterprise AI tool, so it can help with tasks like clustering similar opportunities, flagging duplicates across departments, or surfacing opportunities that quietly support multiple goals at once.</p>
+        </section>
+
+        <section class="story-section" id="prioritize-the-backlog">
+            <h2><span class="story-step-kicker">Step Four</span>Prioritize the Backlog</h2>
+            <p>Once the opportunity backlog exists, the temptation is to prioritize by instinct &mdash; tackle whatever feels most urgent, or whatever the loudest stakeholder is pushing for. That&rsquo;s how backlogs turn into whack-a-mole. A framework forces the same criteria to be applied to every opportunity, which is what actually makes prioritization defensible when someone asks why their pet project didn&rsquo;t make the cut.</p>
+            <p>There&rsquo;s no single &ldquo;correct&rdquo; framework &mdash; the right one depends on how much rigor your organization has appetite for and how much data you actually have at the early stages. Here are a few worth knowing:</p>
+
+            <div class="framework-list">
+                <div class="framework-block">
+                    <h3>RICE (Reach, Impact, Confidence, Effort)</h3>
+                    <p>Score each opportunity on how many people or processes it reaches, how much impact it has, how confident you are in that estimate, and how much effort it takes &mdash; then combine them into a single score (Reach &times; Impact &times; Confidence &divide; Effort). RICE is popular because it forces you to explicitly account for uncertainty (the confidence factor) rather than treating every estimate as gospel.</p>
+                </div>
+                <div class="framework-block">
+                    <h3>ICE (Impact, Confidence, Ease)</h3>
+                    <p>A lighter version of RICE, dropping the reach factor. Score impact, confidence, and ease of implementation, usually on a 1-10 scale, and average or multiply them. ICE is fast to run and works well early on, when you want a rough-cut prioritization without a heavy scoring exercise.</p>
+                </div>
+                <div class="framework-block">
+                    <h3>MoSCoW (Must have, Should have, Could have, Won&rsquo;t have)</h3>
+                    <p>Instead of numeric scores, opportunities are bucketed into four categories based on necessity. This is less precise than RICE or ICE but far easier to socialize with non-technical stakeholders, and it&rsquo;s especially useful when you need to draw a hard line around scope for a specific phase or release.</p>
+                </div>
+                <div class="framework-block">
+                    <h3>Value vs. effort quadrant</h3>
+                    <p>A simple 2x2 matrix plotting business value against implementation effort. Opportunities that are high value and low effort are the obvious quick wins; high value and high effort become the strategic bets; low value opportunities, regardless of effort, get deprioritized or cut. This is often the fastest way to get a room full of stakeholders aligned in a single working session, since it&rsquo;s visual and intuitive.</p>
+
+                    <figure class="story-viz value-effort" data-viz="value-effort" aria-label="Value versus effort quadrant with eight opportunity backlog items">
+                        <div class="ve-chart">
+                            <span class="ve-axis ve-axis-y">Value</span>
+                            <div class="ve-plot">
+                                <div class="ve-quads" aria-hidden="true">
+                                    <div class="ve-quad ve-qw"><span class="ve-quad-label">Quick wins</span></div>
+                                    <div class="ve-quad ve-sb"><span class="ve-quad-label">Strategic bets</span></div>
+                                    <div class="ve-quad ve-fi"><span class="ve-quad-label">Fill-ins</span></div>
+                                    <div class="ve-quad ve-rc"><span class="ve-quad-label">Reconsider</span></div>
+                                </div>
+                                <div class="ve-points">
+                                    <div class="ve-anchor ve-lab-l ve-tip-left" style="--x:45%;--y:72%;--lx:0px;--ly:-8px;">
+                                        <button type="button" class="ve-point ve-pri-high" aria-label="OPP-014. Manual invoice matching causes 3-day AP delays">
+                                            <span class="ve-dot" aria-hidden="true"></span>
+                                            <span class="ve-label">OPP-014</span>
+                                            <span class="ve-tip" role="tooltip"><strong>OPP-014</strong> Manual invoice matching causes 3-day AP delays</span>
+                                        </button>
+                                    </div>
+                                    <div class="ve-anchor ve-lab-b ve-tip-below ve-tip-left" style="--x:75%;--y:88%;--lx:-10px;--ly:4px;">
+                                        <button type="button" class="ve-point ve-pri-high" aria-label="OPP-027. No single source of truth for customer contract terms">
+                                            <span class="ve-dot" aria-hidden="true"></span>
+                                            <span class="ve-label">OPP-027</span>
+                                            <span class="ve-tip" role="tooltip"><strong>OPP-027</strong> No single source of truth for customer contract terms</span>
+                                        </button>
+                                    </div>
+                                    <div class="ve-anchor ve-lab-r ve-tip-right" style="--x:20%;--y:55%;--lx:2px;--ly:0px;">
+                                        <button type="button" class="ve-point ve-pri-med" aria-label="OPP-041. Onboarding new vendors takes 6 weeks due to redundant approvals">
+                                            <span class="ve-dot" aria-hidden="true"></span>
+                                            <span class="ve-label">OPP-041</span>
+                                            <span class="ve-tip" role="tooltip"><strong>OPP-041</strong> Onboarding new vendors takes 6 weeks due to redundant approvals</span>
+                                        </button>
+                                    </div>
+                                    <div class="ve-anchor ve-lab-t ve-tip-right" style="--x:10%;--y:15%;--lx:14px;--ly:-2px;">
+                                        <button type="button" class="ve-point ve-pri-low" aria-label="OPP-058. Expense reports are re-keyed manually into the ERP">
+                                            <span class="ve-dot" aria-hidden="true"></span>
+                                            <span class="ve-label">OPP-058</span>
+                                            <span class="ve-tip" role="tooltip"><strong>OPP-058</strong> Expense reports are re-keyed manually into the ERP</span>
+                                        </button>
+                                    </div>
+                                    <div class="ve-anchor ve-lab-r ve-tip-below ve-tip-right" style="--x:12%;--y:80%;--lx:2px;--ly:6px;">
+                                        <button type="button" class="ve-point ve-pri-med" aria-label="OPP-063. Sales reps re-enter the same customer data across three systems">
+                                            <span class="ve-dot" aria-hidden="true"></span>
+                                            <span class="ve-label">OPP-063</span>
+                                            <span class="ve-tip" role="tooltip"><strong>OPP-063</strong> Sales reps re-enter the same customer data across three systems</span>
+                                        </button>
+                                    </div>
+                                    <div class="ve-anchor ve-lab-l ve-tip-below ve-tip-left" style="--x:88%;--y:82%;--lx:0px;--ly:-8px;">
+                                        <button type="button" class="ve-point ve-pri-high" aria-label="OPP-072. Legacy ERP migration blocking real-time inventory visibility">
+                                            <span class="ve-dot" aria-hidden="true"></span>
+                                            <span class="ve-label">OPP-072</span>
+                                            <span class="ve-tip" role="tooltip"><strong>OPP-072</strong> Legacy ERP migration blocking real-time inventory visibility</span>
+                                        </button>
+                                    </div>
+                                    <div class="ve-anchor ve-lab-r" style="--x:35%;--y:20%;--lx:2px;--ly:8px;">
+                                        <button type="button" class="ve-point ve-pri-low" aria-label="OPP-085. Meeting room booking system has a confusing interface">
+                                            <span class="ve-dot" aria-hidden="true"></span>
+                                            <span class="ve-label">OPP-085</span>
+                                            <span class="ve-tip" role="tooltip"><strong>OPP-085</strong> Meeting room booking system has a confusing interface</span>
+                                        </button>
+                                    </div>
+                                    <div class="ve-anchor ve-lab-l ve-tip-left" style="--x:78%;--y:18%;--lx:0px;--ly:0px;">
+                                        <button type="button" class="ve-point ve-pri-low" aria-label="OPP-091. Rebuilding the intranet portal from scratch for a minor UX refresh">
+                                            <span class="ve-dot" aria-hidden="true"></span>
+                                            <span class="ve-label">OPP-091</span>
+                                            <span class="ve-tip" role="tooltip"><strong>OPP-091</strong> Rebuilding the intranet portal from scratch for a minor UX refresh</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="ve-axis ve-axis-x">Effort</span>
+                        </div>
+                        <div class="story-viz-bar">
+                            <p class="story-viz-caption viz-fade" style="animation-delay:0.95s;">High value, low effort is a quick win. High value, high effort is a bet.</p>
+                            <button type="button" class="story-viz-replay">Replay</button>
+                        </div>
+                    </figure>
+                </div>
+                <div class="framework-block">
+                    <h3>Weighted scoring model</h3>
+                    <p>For organizations that want more rigor, define your own set of criteria (financial impact, strategic alignment, risk, time to implement, etc.), assign each a weight based on what matters most to your transformation&rsquo;s goals, then score every opportunity against each criterion and calculate a weighted total. This takes longer to set up but produces a ranking that&rsquo;s tightly tied to your specific goals rather than a generic formula.</p>
+                </div>
+            </div>
+
+            <p>In practice, most transformations end up using two: something fast and visual (like value vs. effort) for early triage and stakeholder workshops, and something more rigorous (like RICE or a custom weighted model) once the backlog has been narrowed down and the remaining opportunities need a finer-grained ranking.</p>
+        </section>
+
+        <section class="story-section" id="build-the-critical-path">
+            <h2><span class="story-step-kicker">Step Five</span>Build the Critical Path</h2>
+            <p>Once the backlog is prioritized, the question shifts from &ldquo;what should we do&rdquo; to &ldquo;in what order, and by when.&rdquo; That&rsquo;s what a critical path answers. It&rsquo;s a timeline view that plots the major milestones across the highest-priority opportunities &mdash; not every single backlog item, just the ones that actually determine how long the overall transformation takes.</p>
+            <p>The critical path matters because opportunities aren&rsquo;t independent. Some can run in parallel; others depend on something upstream being finished first. A quick win that takes one day is meaningless to the overall timeline if it&rsquo;s sitting behind a six-month dependency. The critical path exists to surface that sequencing so leadership isn&rsquo;t just looking at a prioritized list &mdash; they&rsquo;re looking at a realistic timeline, with the bottlenecks visible.</p>
+            <p>A few things worth keeping in mind when building one:</p>
+
+            <div class="backlog-practices">
+                <div class="backlog-practice">
+                    <h3>Only the critical path items belong on it.</h3>
+                    <p>Not every opportunity in the backlog needs a spot on this timeline &mdash; only the ones whose timing genuinely constrains the rest of the effort. Cramming the full backlog onto one timeline defeats the purpose; it should read as a spine, not a Gantt chart.</p>
+                </div>
+                <div class="backlog-practice">
+                    <h3>Milestones, not tasks.</h3>
+                    <p>This isn&rsquo;t a project plan with every sub-task laid out. It&rsquo;s the handful of moments that matter &mdash; when something ships, when a dependency clears, when a phase completes &mdash; so it stays readable at a glance for an executive audience.</p>
+                </div>
+                <div class="backlog-practice">
+                    <h3>Revisit it as the backlog evolves.</h3>
+                    <p>As opportunities move through prioritization, get re-scoped, or get pulled forward, the critical path shifts with them. Treat it as a living artifact, same as the backlog itself.</p>
+                </div>
+            </div>
+
+            <p>Here&rsquo;s what that looks like using the opportunities from the backlog:</p>
+
+            <figure class="story-viz cp-spine" data-viz="cp-spine" aria-label="Critical path milestone timeline with six opportunities">
+                <span class="story-viz-kicker">Option 1</span>
+                <div class="cp-spine-scroll">
+                    <div class="cp-spine-track">
+                        <div class="cp-spine-line" aria-hidden="true"></div>
+                        <div class="cp-ms cp-ms-above cp-tip-right" style="--t:8%;">
+                            <button type="button" class="cp-ms-btn pri-low" aria-label="OPP-058. Expense reports are re-keyed manually into the ERP">
+                                <span class="cp-ms-dot" aria-hidden="true"></span>
+                                <span class="cp-ms-stem" aria-hidden="true"></span>
+                                <span class="cp-ms-meta">
+                                    <span class="cp-ms-id">OPP-058</span>
+                                    <span class="cp-ms-when">Day 1</span>
+                                </span>
+                                <span class="cp-tip" role="tooltip"><strong>OPP-058</strong> Expense reports are re-keyed manually into the ERP</span>
+                            </button>
+                        </div>
+                        <div class="cp-ms cp-ms-below" style="--t:24%;">
+                            <button type="button" class="cp-ms-btn pri-med" aria-label="OPP-063. Sales reps re-enter the same customer data across three systems">
+                                <span class="cp-ms-dot" aria-hidden="true"></span>
+                                <span class="cp-ms-stem" aria-hidden="true"></span>
+                                <span class="cp-ms-meta">
+                                    <span class="cp-ms-id">OPP-063</span>
+                                    <span class="cp-ms-when">Month 1</span>
+                                </span>
+                                <span class="cp-tip" role="tooltip"><strong>OPP-063</strong> Sales reps re-enter the same customer data across three systems</span>
+                            </button>
+                        </div>
+                        <div class="cp-ms cp-ms-above" style="--t:40%;">
+                            <button type="button" class="cp-ms-btn pri-med" aria-label="OPP-041. Onboarding new vendors takes 6 weeks due to redundant approvals">
+                                <span class="cp-ms-dot" aria-hidden="true"></span>
+                                <span class="cp-ms-stem" aria-hidden="true"></span>
+                                <span class="cp-ms-meta">
+                                    <span class="cp-ms-id">OPP-041</span>
+                                    <span class="cp-ms-when">Month 2</span>
+                                </span>
+                                <span class="cp-tip" role="tooltip"><strong>OPP-041</strong> Onboarding new vendors takes 6 weeks due to redundant approvals</span>
+                            </button>
+                        </div>
+                        <div class="cp-ms cp-ms-below" style="--t:56%;">
+                            <button type="button" class="cp-ms-btn pri-high" aria-label="OPP-014. Manual invoice matching causes 3-day AP delays">
+                                <span class="cp-ms-dot" aria-hidden="true"></span>
+                                <span class="cp-ms-stem" aria-hidden="true"></span>
+                                <span class="cp-ms-meta">
+                                    <span class="cp-ms-id">OPP-014</span>
+                                    <span class="cp-ms-when">Month 3</span>
+                                </span>
+                                <span class="cp-tip" role="tooltip"><strong>OPP-014</strong> Manual invoice matching causes 3-day AP delays</span>
+                            </button>
+                        </div>
+                        <div class="cp-ms cp-ms-above" style="--t:72%;">
+                            <button type="button" class="cp-ms-btn pri-high" aria-label="OPP-027. No single source of truth for customer contract terms">
+                                <span class="cp-ms-dot" aria-hidden="true"></span>
+                                <span class="cp-ms-stem" aria-hidden="true"></span>
+                                <span class="cp-ms-meta">
+                                    <span class="cp-ms-id">OPP-027</span>
+                                    <span class="cp-ms-when">Month 6</span>
+                                </span>
+                                <span class="cp-tip" role="tooltip"><strong>OPP-027</strong> No single source of truth for customer contract terms</span>
+                            </button>
+                        </div>
+                        <div class="cp-ms cp-ms-below cp-tip-left" style="--t:90%;">
+                            <button type="button" class="cp-ms-btn pri-high" aria-label="OPP-072. Legacy ERP migration blocking real-time inventory visibility">
+                                <span class="cp-ms-dot" aria-hidden="true"></span>
+                                <span class="cp-ms-stem" aria-hidden="true"></span>
+                                <span class="cp-ms-meta">
+                                    <span class="cp-ms-id">OPP-072</span>
+                                    <span class="cp-ms-when">Month 12</span>
+                                </span>
+                                <span class="cp-tip" role="tooltip"><strong>OPP-072</strong> Legacy ERP migration blocking real-time inventory visibility</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="story-viz-bar">
+                    <p class="story-viz-caption viz-fade" style="animation-delay:1s;">Six milestones span the effort &mdash; from a same-day fix to a year-long ERP migration.</p>
+                    <button type="button" class="story-viz-replay">Replay</button>
+                </div>
+            </figure>
+
+            <figure class="story-viz cp-bars" data-viz="cp-bars" aria-label="Relative duration of the six critical path opportunities">
+                <span class="story-viz-kicker">Option 2</span>
+                <div class="cp-bars-list">
+                    <div class="cp-bar-row pri-low" style="--w:4%;">
+                        <span class="cp-bar-id">OPP-058</span>
+                        <div class="cp-bar-track">
+                            <span class="cp-bar-rail"><span class="cp-bar-fill" aria-hidden="true"></span></span>
+                            <span class="cp-bar-when">Day 1</span>
+                        </div>
+                    </div>
+                    <div class="cp-bar-row pri-med" style="--w:10%;">
+                        <span class="cp-bar-id">OPP-063</span>
+                        <div class="cp-bar-track">
+                            <span class="cp-bar-rail"><span class="cp-bar-fill" aria-hidden="true"></span></span>
+                            <span class="cp-bar-when">Month 1</span>
+                        </div>
+                    </div>
+                    <div class="cp-bar-row pri-med" style="--w:18%;">
+                        <span class="cp-bar-id">OPP-041</span>
+                        <div class="cp-bar-track">
+                            <span class="cp-bar-rail"><span class="cp-bar-fill" aria-hidden="true"></span></span>
+                            <span class="cp-bar-when">Month 2</span>
+                        </div>
+                    </div>
+                    <div class="cp-bar-row pri-high" style="--w:28%;">
+                        <span class="cp-bar-id">OPP-014</span>
+                        <div class="cp-bar-track">
+                            <span class="cp-bar-rail"><span class="cp-bar-fill" aria-hidden="true"></span></span>
+                            <span class="cp-bar-when">Month 3</span>
+                        </div>
+                    </div>
+                    <div class="cp-bar-row pri-high" style="--w:50%;">
+                        <span class="cp-bar-id">OPP-027</span>
+                        <div class="cp-bar-track">
+                            <span class="cp-bar-rail"><span class="cp-bar-fill" aria-hidden="true"></span></span>
+                            <span class="cp-bar-when">Month 6</span>
+                        </div>
+                    </div>
+                    <div class="cp-bar-row pri-high" style="--w:100%;">
+                        <span class="cp-bar-id">OPP-072</span>
+                        <div class="cp-bar-track">
+                            <span class="cp-bar-rail"><span class="cp-bar-fill" aria-hidden="true"></span></span>
+                            <span class="cp-bar-when">Month 12</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="story-viz-bar">
+                    <p class="story-viz-caption viz-fade" style="animation-delay:0.85s;">Same six opportunities. The bar is the duration.</p>
+                    <button type="button" class="story-viz-replay">Replay</button>
+                </div>
+            </figure>
+
+            <figure class="story-viz cp-phases" data-viz="cp-phases" aria-label="Critical path grouped into three phases">
+                <span class="story-viz-kicker">Option 3</span>
+                <div class="cp-phase-row">
+                    <div class="cp-phase">
+                        <span class="cp-phase-kicker">Phase 1</span>
+                        <span class="cp-phase-when">0&ndash;2 months</span>
+                        <ul class="cp-phase-items">
+                            <li class="pri-low"><span class="cp-phase-dot" aria-hidden="true"></span>OPP-058</li>
+                            <li class="pri-med"><span class="cp-phase-dot" aria-hidden="true"></span>OPP-063</li>
+                            <li class="pri-med"><span class="cp-phase-dot" aria-hidden="true"></span>OPP-041</li>
+                        </ul>
+                    </div>
+                    <span class="cp-phase-arrow" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+                    </span>
+                    <div class="cp-phase">
+                        <span class="cp-phase-kicker">Phase 2</span>
+                        <span class="cp-phase-when">3&ndash;6 months</span>
+                        <ul class="cp-phase-items">
+                            <li class="pri-high"><span class="cp-phase-dot" aria-hidden="true"></span>OPP-014</li>
+                            <li class="pri-high"><span class="cp-phase-dot" aria-hidden="true"></span>OPP-027</li>
+                        </ul>
+                    </div>
+                    <span class="cp-phase-arrow" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+                    </span>
+                    <div class="cp-phase">
+                        <span class="cp-phase-kicker">Phase 3</span>
+                        <span class="cp-phase-when">7&ndash;12 months</span>
+                        <ul class="cp-phase-items">
+                            <li class="pri-high"><span class="cp-phase-dot" aria-hidden="true"></span>OPP-072</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="story-viz-bar">
+                    <p class="story-viz-caption viz-fade" style="animation-delay:0.85s;">Three phases. The last one is a single bet.</p>
+                    <button type="button" class="story-viz-replay">Replay</button>
+                </div>
+            </figure>
+
+            <p>Six milestones span the full effort &mdash; a same-day fix on one end, a twelve-month ERP migration on the other. The point isn&rsquo;t to capture everything happening across the transformation; it&rsquo;s to give leadership one glance that answers &ldquo;when does this actually finish, and what&rsquo;s on the critical chain to get there.&rdquo;</p>
+        </section>
+
+        <section class="story-section" id="mobilize-workstreams">
+            <h2><span class="story-step-kicker">Step Six</span>Mobilize Workstreams and Standardize Reporting</h2>
+            <p>With the backlog prioritized and the critical path mapped, the opportunities need to be organized into workstreams &mdash; clusters of related opportunities that a single team can own end to end, rather than a flat list of 50 individual initiatives with no clear home. Grouping by process area, department, or system usually works well, since it keeps ownership clean and avoids the same team getting pulled into five unrelated efforts at once.</p>
+            <p>Each workstream needs a single accountable owner &mdash; the same principle from the backlog itself, applied at a higher level. That owner is responsible not just for delivery, but for reporting status in a way that&rsquo;s consistent across every workstream, so leadership can compare progress apples-to-apples instead of parsing five different formats from five different teams.</p>
+            <p>That consistency is the part organizations skip, and it&rsquo;s the part that matters most. A standardized status update should always answer the same handful of questions: Where do things stand? What&rsquo;s blocking progress? What&rsquo;s coming next? Without a standard format, status updates become narrative and inconsistent &mdash; one team reports in paragraphs, another in a spreadsheet, a third only when asked &mdash; and leadership loses the ability to actually compare workstreams against each other.</p>
+            <p>At minimum, a standardized update should include:</p>
+
+            <div class="su-spec">
+                <div class="su-spec-row">
+                    <div class="su-spec-label">Workstream and owner</div>
+                    <p>who&rsquo;s accountable, no ambiguity</p>
+                </div>
+                <div class="su-spec-row">
+                    <div class="su-spec-label">Status</div>
+                    <p>a simple red/yellow/green rating for at-a-glance health</p>
+                </div>
+                <div class="su-spec-row">
+                    <div class="su-spec-label">Progress</div>
+                    <p>how far along the workstream is against its milestones</p>
+                </div>
+                <div class="su-spec-row">
+                    <div class="su-spec-label">Key accomplishments</div>
+                    <p>what actually moved since the last update</p>
+                </div>
+                <div class="su-spec-row">
+                    <div class="su-spec-label">Blockers</div>
+                    <p>what&rsquo;s in the way, and what&rsquo;s needed to clear it</p>
+                </div>
+                <div class="su-spec-row">
+                    <div class="su-spec-label">Next steps</div>
+                    <p>what&rsquo;s happening before the next check-in</p>
+                </div>
+            </div>
+
+            <p>Here&rsquo;s what that looks like as a standard template:</p>
+
+            <figure class="story-viz status-card-viz" data-viz="status-card" data-status-card aria-label="Standard workstream status update for accounts payable automation">
+                <div class="su-card">
+                    <div class="su-head">
+                        <div class="su-identity">
+                            <span class="su-label story-tip" tabindex="0">Workstream update template<span class="story-tip-text" role="tooltip">who&rsquo;s accountable, no ambiguity</span></span>
+                            <p class="su-title">Accounts payable automation</p>
+                            <span class="su-owner">Sarah Chen</span>
+                        </div>
+                        <div class="su-status">
+                            <span class="su-label story-tip story-tip--end" tabindex="0">Status<span class="story-tip-text" role="tooltip">a simple red/yellow/green rating for at-a-glance health</span></span>
+                            <span class="su-pill">On track</span>
+                        </div>
+                    </div>
+                    <div class="su-progress">
+                        <div class="su-progress-meta">
+                            <span class="su-label story-tip" tabindex="0">Progress<span class="story-tip-text" role="tooltip">how far along the workstream is against its milestones</span></span>
+                            <span class="su-progress-readout">
+                                <span class="su-pct">60%</span>
+                                <span class="su-delta" data-delta aria-live="polite">&uarr;15</span>
+                            </span>
+                        </div>
+                        <div class="su-bar" role="img" aria-label="Progress 60 percent, up 15 versus last week">
+                            <span class="su-bar-fill" aria-hidden="true"></span>
+                            <span class="su-bar-prior" data-prior-marker aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="su-compare" role="group" aria-label="Compare progress">
+                        <button type="button" class="su-chip is-active" data-compare data-prior="45" data-delta="15" aria-pressed="true">vs last week</button>
+                        <button type="button" class="su-chip" data-compare data-prior="25" data-delta="35" aria-pressed="false">vs last month</button>
+                        <button type="button" class="su-chip" data-compare data-prior="0" data-delta="60" aria-pressed="false">vs last period</button>
+                    </div>
+                    <div class="su-split">
+                        <div class="su-tile">
+                            <span class="su-label story-tip" tabindex="0">Key accomplishments<span class="story-tip-text" role="tooltip">what actually moved since the last update</span></span>
+                            <p class="su-tile-copy">Invoice matching rules documented; vendor pilot group selected</p>
+                        </div>
+                        <div class="su-tile">
+                            <span class="su-label story-tip story-tip--end" tabindex="0">Blockers<span class="story-tip-text" role="tooltip">what&rsquo;s in the way, and what&rsquo;s needed to clear it</span></span>
+                            <p class="su-tile-copy">Awaiting IT access to ERP sandbox environment</p>
+                        </div>
+                    </div>
+                    <div class="su-tile su-tile--next">
+                        <span class="su-label story-tip" tabindex="0">Next steps<span class="story-tip-text" role="tooltip">what&rsquo;s happening before the next check-in</span></span>
+                        <ul class="su-tile-list">
+                            <li>Complete sandbox testing</li>
+                            <li>Begin pilot with three vendors by end of month</li>
+                            <li>Train AP team on new matching workflow</li>
+                            <li>Set go/no-go criteria for full rollout</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="story-viz-bar">
+                    <p class="story-viz-caption viz-fade" style="animation-delay:0.85s;">Same six fields, every workstream, every cadence.</p>
+                    <button type="button" class="story-viz-replay">Replay</button>
+                </div>
+            </figure>
+
+            <p>Every workstream owner fills out the same six fields on the same cadence &mdash; the format above is the template, filled in with a working example. When a dozen workstreams all report this way, leadership can scan status across the entire transformation in minutes instead of chasing down five different formats.</p>
+        </section>
+
+        <section class="story-section" id="value-capture">
+            <h2><span class="story-step-kicker">Step Seven</span>Value Capture</h2>
+            <p>Every prior step has been about getting the work identified, prioritized, and moving. Value capture is where you prove it actually mattered. It&rsquo;s the discipline of tracking the financial and non-financial impact of the transformation as it happens &mdash; not projected value, not the estimate from the backlog, but value that&rsquo;s actually landed.</p>
+            <p>Getting this right requires being precise about a few distinctions that are easy to blur together.</p>
+
+            <div class="backlog-practices">
+                <div class="backlog-practice">
+                    <h3>P&amp;L impact vs. balance sheet impact.</h3>
+                    <p>A P&amp;L impact hits the income statement directly &mdash; it shows up as higher revenue or lower operating expense, and it&rsquo;s the kind of value most transformation programs are built around. A balance sheet impact is different: it&rsquo;s things like reduced inventory, faster receivables collection, or lower capital expenditure. These matter just as much, but they don&rsquo;t show up on the P&amp;L, so if your value capture only tracks P&amp;L line items, balance sheet wins go uncounted and unclaimed.</p>
+                </div>
+                <div class="backlog-practice">
+                    <h3>Revenue vs. expense, recurring vs. one-off.</h3>
+                    <p>Revenue impact and expense impact pull different levers and often get reported to different stakeholders, so they&rsquo;re worth tracking separately rather than blending into a single number. Just as important is whether the value is recurring (a process improvement that saves money every single month going forward) or one-off (a single cost avoided, a one-time write-down eliminated). Recurring value compounds; one-off value doesn&rsquo;t. Conflating the two inflates the long-term picture and sets up the program for a credibility problem down the line when the &ldquo;savings&rdquo; don&rsquo;t reappear next quarter.</p>
+                </div>
+                <div class="backlog-practice">
+                    <h3>Financial value vs. non-financial value.</h3>
+                    <p>Not every opportunity produces a number you can put in a spreadsheet. Improved compliance posture, better security controls, or a meaningful lift in employee morale are all real value &mdash; they just don&rsquo;t route through the P&amp;L or balance sheet. These deserve their own tracking category rather than being awkwardly forced into a dollar estimate or, worse, dropped from the value capture story entirely because they don&rsquo;t fit the format.</p>
+                </div>
+                <div class="backlog-practice">
+                    <h3>Timeline of realization.</h3>
+                    <p>Value doesn&rsquo;t land the moment an opportunity is marked &ldquo;complete.&rdquo; There&rsquo;s usually a lag between implementation and realized impact, and that lag varies &mdash; a process fix might show savings the following month, while a system migration might take two quarters before the benefit is fully visible. Value capture needs to track <em>when</em> value is actually realized, not just when the underlying work was finished, or the reporting will systematically overstate progress.</p>
+                </div>
+            </div>
+
+            <p>A few best practices for running this well:</p>
+
+            <div class="backlog-practices">
+                <div class="backlog-practice">
+                    <h3>Track value capture with the same rigor as the backlog itself.</h3>
+                    <p>Every value claim should trace back to a specific opportunity ID, so double-counting or vague attribution (&ldquo;efficiency gains&rdquo;) doesn&rsquo;t creep in.</p>
+                </div>
+                <div class="backlog-practice">
+                    <h3>Validate estimates with finance, not just the workstream owner.</h3>
+                    <p>Workstream owners are close to the work but have an incentive to report favorably. A finance partner reviewing and signing off on realized value keeps the numbers credible.</p>
+                </div>
+                <div class="backlog-practice">
+                    <h3>Report cumulative value alongside period value.</h3>
+                    <p>Cumulative shows the trajectory of the whole program; period-over-period shows whether momentum is accelerating, flat, or stalling. Both matter, and they tell different stories.</p>
+                </div>
+                <div class="backlog-practice">
+                    <h3>Don&rsquo;t let non-financial value become an afterthought.</h3>
+                    <p>If compliance, security, and morale gains aren&rsquo;t tracked with the same discipline as financial value, they&rsquo;ll quietly disappear from the narrative &mdash; even when they were a stated goal back in Step One.</p>
+                </div>
+            </div>
+
+            <div class="backlog-practices">
+                <div class="backlog-practice">
+                    <h3>Value Capture Begins With a Forecast.</h3>
+                    <p>Before any value gets reported as &ldquo;realized,&rdquo; it starts as a forecast. When an opportunity is logged in the backlog with a financial impact estimate, that estimate becomes the baseline forecast for what the program expects to deliver, and when. As opportunities move through prioritization and implementation, those individual forecasts roll up into a program-level forecast &mdash; a projected value curve for the whole transformation, built before a single dollar has actually landed.</p>
+                    <p>That forecast is only useful if it gets reconciled against actual performance, on the same cadence as the rest of the reporting. Reconciliation is where value capture earns its credibility: it&rsquo;s the moment you can say not just &ldquo;we captured $X this quarter&rdquo; but &ldquo;we captured $X against a forecast of $Y&rdquo; &mdash; showing whether the program is ahead, behind, or on track relative to what was promised.</p>
+                    <p>A few things worth building in from the start:</p>
+                    <ul>
+                        <li><strong>Keep the original forecast visible, don&rsquo;t quietly revise it.</strong> It&rsquo;s tempting to update the forecast every time a new estimate comes in, but if the baseline keeps moving, &ldquo;on track&rdquo; stops meaning anything. Keep the original forecast as the reference line, and track revisions separately if needed.</li>
+                        <li><strong>Investigate variance in both directions.</strong> Underperformance against forecast is the obvious thing to dig into, but consistently beating the forecast is also worth investigating &mdash; it usually means the original estimates were too conservative, which has implications for how future opportunities get sized.</li>
+                        <li><strong>Reconcile at the same level you forecasted.</strong> If forecasts were built opportunity by opportunity, reconcile them the same way, not just at the aggregate program level &mdash; otherwise a strong-performing opportunity can mask a stalled one underneath the total.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <p>Here&rsquo;s what that tracking looks like visualized:</p>
+
+            <figure class="story-viz vc-viz" data-viz="value-capture" data-value-chart aria-label="Value captured over six months versus forecast, with cumulative and period views">
+                <div class="vc-toolbar">
+                    <div class="vc-modes" role="group" aria-label="Value view">
+                        <button type="button" class="su-chip is-active" data-vc-mode="cumulative" aria-pressed="true">Cumulative</button>
+                        <button type="button" class="su-chip" data-vc-mode="period" aria-pressed="false">This period</button>
+                    </div>
+                    <label class="vc-check">
+                        <input type="checkbox" data-vc-breakdown>
+                        Show breakdown by opportunity
+                    </label>
+                </div>
+                <div class="vc-chart">
+                    <svg class="vc-svg" viewBox="0 0 600 248" role="img" aria-labelledby="vc-chart-title">
+                        <title id="vc-chart-title">Value captured versus forecast from month 1 through month 6</title>
+                        <defs>
+                            <pattern id="vc-dots" width="6" height="6" patternUnits="userSpaceOnUse">
+                                <rect width="6" height="6" fill="#ffffff"></rect>
+                                <circle cx="2" cy="2" r="1.05" fill="#111111"></circle>
+                            </pattern>
+                            <pattern id="vc-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                                <rect width="6" height="6" fill="#f6f4f0"></rect>
+                                <line x1="0" y1="0" x2="0" y2="6" stroke="#111111" stroke-width="2"></line>
+                            </pattern>
+                        </defs>
+                        <line class="vc-base" x1="18" y1="206" x2="582" y2="206"></line>
+                        <g data-vc-bars></g>
+                        <g class="vc-forecast-g" data-vc-forecast></g>
+                        <g aria-hidden="true">
+                            <text class="vc-axis" x="53.3" y="228" text-anchor="middle">M1</text>
+                            <text class="vc-axis" x="152" y="228" text-anchor="middle">M2</text>
+                            <text class="vc-axis" x="250.7" y="228" text-anchor="middle">M3</text>
+                            <text class="vc-axis" x="349.3" y="228" text-anchor="middle">M4</text>
+                            <text class="vc-axis" x="448" y="228" text-anchor="middle">M5</text>
+                            <text class="vc-axis" x="546.7" y="228" text-anchor="middle">M6</text>
+                        </g>
+                    </svg>
+                    <div class="vc-tip" data-vc-tip hidden></div>
+                </div>
+                <ul class="vc-legend" data-vc-legend aria-label="Chart legend"></ul>
+                <div class="story-viz-bar">
+                    <p class="story-viz-caption viz-fade" style="animation-delay:0.95s;">Same tracking, every month.</p>
+                    <button type="button" class="story-viz-replay">Replay</button>
+                </div>
+            </figure>
+
+            <p>In its default state, the chart shows cumulative value as white bars &mdash; dotted for months that have already closed, open for months still ahead. Toggling to &ldquo;this period&rdquo; shows the incremental value captured each month rather than the running total, and flipping on &ldquo;show breakdown by opportunity&rdquo; splits each bar into segments so you can see exactly which opportunities are driving the number, rather than treating value capture as one undifferentiated total. The dashed marker on each column is that period&rsquo;s forecast &mdash; the original baseline, held still so you can see whether actuals landed ahead or behind.</p>
+        </section>
+
+        <div class="story-cta">
+            <h3>Transformation is a practice, not a slogan.</h3>
+            <p style="font-weight: 300;">The right people, running the same playbook, is how change actually sticks.</p>
+            <p style="font-weight: 300;">Find them with The Club.</p>
+            <div class="story-cta-actions">
+                <a href="https://app.theclubnyc.com/" class="cta-button primary">Join for free</a>
+            </div>
+        </div>
+            <nav class="story-pager" aria-label="More stories">
+            <a class="story-pager-link story-pager-prev" href="https://www.theclubnyc.com/the-alignment-trap">
+                <span class="story-pager-label">Previous</span>
+                <span class="story-pager-title">The False Alignment Trap</span>
+            </a>
+            <a class="story-pager-link story-pager-next" href="https://www.theclubnyc.com/strategicdoer">
+                <span class="story-pager-label">Next</span>
+                <span class="story-pager-title">The rise of the<br>strategic doer</span>
+            </a>
+        </nav>
+    </main>
+
+  <footer class="footer-section"></footer>
+
+  <script src="./qava-footer.js?v=footer-v6"></script>
+  <script src="/qava-nav-logo-flip.js?v=multi-1"></script>
+  <script>
+    (function () {
+      if (typeof window.applyQavaFooter === "function") {
+        window.applyQavaFooter(document);
+      }
+
+      document.querySelectorAll('.qa-question').forEach((questionEl) => {
+        if (!questionEl.querySelector('.highlight')) {
+          questionEl.innerHTML = `<span class="highlight">${questionEl.innerHTML}</span>`;
+        }
+      });
+
+      var decks = document.querySelectorAll("[data-playbook-deck]");
+      decks.forEach(function (deck) {
+        var slides = Array.from(deck.querySelectorAll(".playbook-example"));
+        var currentEl = deck.querySelector("[data-playbook-current]");
+        var index = slides.findIndex(function (slide) { return slide.classList.contains("is-active"); });
+        if (index < 0) index = 0;
+
+        function show(next) {
+          if (!slides.length) return;
+          index = (next + slides.length) % slides.length;
+          slides.forEach(function (slide, i) {
+            slide.classList.toggle("is-active", i === index);
+          });
+          if (currentEl) currentEl.textContent = String(index + 1);
+        }
+
+        deck.querySelectorAll("[data-playbook-dir]").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            deck.classList.add("is-ready");
+            show(index + Number(btn.getAttribute("data-playbook-dir")));
+          });
+        });
+
+        deck.addEventListener("keydown", function (event) {
+          if (event.key === "ArrowRight") {
+            event.preventDefault();
+            deck.classList.add("is-ready");
+            show(index + 1);
+          }
+          if (event.key === "ArrowLeft") {
+            event.preventDefault();
+            deck.classList.add("is-ready");
+            show(index - 1);
+          }
+        });
+      });
+
+      var vizs = document.querySelectorAll(".story-viz");
+      if (!vizs.length) return;
+      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      function play(el) {
+        el.classList.remove("is-on");
+        void el.offsetWidth;
+        el.classList.add("is-on");
+      }
+
+      vizs.forEach(function (el) {
+        var btn = el.querySelector(".story-viz-replay");
+        if (btn) btn.addEventListener("click", function () { play(el); });
+        if (reduce) {
+          el.classList.add("is-on");
+          return;
+        }
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            play(el);
+            io.disconnect();
+          });
+        }, { threshold: 0.35, rootMargin: "0px 0px -8% 0px" });
+        io.observe(el);
+      });
+
+      document.querySelectorAll("[data-status-card]").forEach(function (card) {
+        var chips = Array.from(card.querySelectorAll("[data-compare]"));
+        var marker = card.querySelector("[data-prior-marker]");
+        var delta = card.querySelector("[data-delta]");
+        var bar = card.querySelector(".su-bar");
+        var labels = {
+          "45": "versus last week",
+          "25": "versus last month",
+          "0": "versus last period"
+        };
+
+        function setCompare(chip) {
+          if (!chip) return;
+          var prior = chip.getAttribute("data-prior") || "45";
+          var change = chip.getAttribute("data-delta") || "15";
+          chips.forEach(function (c) {
+            var on = c === chip;
+            c.classList.toggle("is-active", on);
+            c.setAttribute("aria-pressed", on ? "true" : "false");
+          });
+          if (marker) marker.style.left = prior + "%";
+          if (delta) delta.innerHTML = "&uarr;" + change;
+          if (bar) bar.setAttribute("aria-label", "Progress 60 percent, up " + change + " " + (labels[prior] || ""));
+        }
+
+        chips.forEach(function (chip) {
+          chip.addEventListener("click", function () { setCompare(chip); });
+        });
+
+        card.addEventListener("keydown", function (event) {
+          if (!event.target.closest("[data-compare]")) return;
+          if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+          event.preventDefault();
+          var i = chips.indexOf(event.target);
+          if (i < 0) return;
+          var next = event.key === "ArrowRight"
+            ? (i + 1) % chips.length
+            : (i - 1 + chips.length) % chips.length;
+          chips[next].focus();
+          setCompare(chips[next]);
+        });
+
+        var replay = card.querySelector(".story-viz-replay");
+        if (replay) {
+          replay.addEventListener("click", function () {
+            setCompare(chips[0]);
+          });
+        }
+      });
+
+      document.querySelectorAll("[data-value-chart]").forEach(function (chart) {
+        var NS = "http://www.w3.org/2000/svg";
+        var barsG = chart.querySelector("[data-vc-bars]");
+        var forecastG = chart.querySelector("[data-vc-forecast]");
+        var legendEl = chart.querySelector("[data-vc-legend]");
+        var tip = chart.querySelector("[data-vc-tip]");
+        var modes = Array.from(chart.querySelectorAll("[data-vc-mode]"));
+        var breakdownEl = chart.querySelector("[data-vc-breakdown]");
+        var months = ["M1", "M2", "M3", "M4", "M5", "M6"];
+        var kinds = {
+          "OPP-058": "gray",
+          "OPP-063": "dots",
+          "OPP-014": "hatch",
+          "OPP-027": "black"
+        };
+        var periodRows = [
+          { total: 8, stack: [["OPP-058", 8]] },
+          { total: 14, stack: [["OPP-063", 14]] },
+          { total: 28, stack: [["OPP-063", 10], ["OPP-014", 18]] },
+          { total: 28, stack: [["OPP-063", 10], ["OPP-014", 18]] },
+          { total: 72, stack: [["OPP-063", 10], ["OPP-014", 18], ["OPP-027", 44]] },
+          { total: 72, stack: [["OPP-063", 10], ["OPP-014", 18], ["OPP-027", 44]] }
+        ];
+        var periodForecast = [10, 12, 24, 32, 65, 80];
+
+        function withForecast(rows, forecasts) {
+          return rows.map(function (row, i) {
+            return { total: row.total, forecast: forecasts[i], stack: row.stack };
+          });
+        }
+
+        function runningSum(rows, forecasts) {
+          var total = 0;
+          var forecast = 0;
+          var acc = {};
+          var order = [];
+          return rows.map(function (row, i) {
+            total += row.total;
+            forecast += forecasts[i];
+            row.stack.forEach(function (seg) {
+              if (acc[seg[0]] == null) order.push(seg[0]);
+              acc[seg[0]] = (acc[seg[0]] || 0) + seg[1];
+            });
+            return {
+              total: total,
+              forecast: forecast,
+              stack: order.map(function (id) { return [id, acc[id]]; })
+            };
+          });
+        }
+
+        var data = {
+          period: withForecast(periodRows, periodForecast),
+          cumulative: runningSum(periodRows, periodForecast)
+        };
+
+        function money(n) {
+          var k = n * 10;
+          if (k >= 1000) {
+            var m = k / 1000;
+            return "$" + String(m).replace(/(\.\d)0$/, "$1") + "M";
+          }
+          return "$" + String(k) + "K";
+        }
+
+        function currentMode() {
+          var active = modes.find(function (btn) { return btn.classList.contains("is-active"); });
+          return (active && active.getAttribute("data-vc-mode")) || "cumulative";
+        }
+
+        function hideTip() {
+          if (!tip) return;
+          tip.hidden = true;
+          tip.classList.remove("is-on");
+        }
+
+        function showTip(event, html) {
+          if (!tip) return;
+          var wrap = chart.querySelector(".vc-chart").getBoundingClientRect();
+          var box = event.target.getBoundingClientRect();
+          tip.innerHTML = html;
+          tip.hidden = false;
+          tip.classList.add("is-on");
+          tip.style.left = (box.left + box.width / 2 - wrap.left) + "px";
+          tip.style.top = (box.top - wrap.top) + "px";
+        }
+
+        function tipHtml(month, forecast, actual, opp) {
+          return "<strong>" + month + (opp ? " · " + opp : "") + "</strong>" +
+            "Actual " + money(actual) + "<br>Forecast " + money(forecast);
+        }
+
+        function renderLegend(breakdown) {
+          if (!legendEl) return;
+          var items = breakdown
+            ? [["gray", "OPP-058"], ["dots", "OPP-063"], ["hatch", "OPP-014"], ["black", "OPP-027"], ["upcoming", "Upcoming"]]
+            : [["realized", "Realized"], ["upcoming", "Upcoming"]];
+          items.push(["forecast", "Forecast"]);
+          legendEl.innerHTML = items.map(function (item) {
+            return "<li><span class=\"vc-swatch vc-swatch--" + item[0] + "\" aria-hidden=\"true\"></span>" + item[1] + "</li>";
+          }).join("");
+        }
+
+        function draw() {
+          if (!barsG) return;
+          var mode = currentMode();
+          var breakdown = !!(breakdownEl && breakdownEl.checked);
+          var rows = data[mode];
+          var plot = { x: 18, y: 10, w: 564, h: 196 };
+          var gap = 28;
+          var barW = (plot.w - gap * 5) / 6;
+          var max = rows.reduce(function (top, row) {
+            return Math.max(top, row.total, row.forecast);
+          }, 0);
+          barsG.innerHTML = "";
+          if (forecastG) forecastG.innerHTML = "";
+          chart.classList.toggle("is-breakdown", breakdown);
+          renderLegend(breakdown);
+          hideTip();
+
+          var realizedThrough = 3;
+          rows.forEach(function (row, i) {
+            var col = document.createElementNS(NS, "g");
+            col.setAttribute("class", "vc-col");
+            var x = plot.x + i * (barW + gap);
+            var past = i <= realizedThrough;
+            var segs = breakdown ? row.stack : [[null, row.total]];
+            var y = plot.y + plot.h;
+            segs.forEach(function (seg) {
+              var h = (seg[1] / max) * plot.h;
+              y -= h;
+              var rect = document.createElementNS(NS, "rect");
+              var kind = breakdown
+                ? (past ? (kinds[seg[0]] || "solid") : "upcoming")
+                : (past ? "realized" : "upcoming");
+              rect.setAttribute("class", "vc-seg vc-seg--" + kind);
+              rect.setAttribute("x", String(x));
+              rect.setAttribute("y", String(y));
+              rect.setAttribute("width", String(barW));
+              rect.setAttribute("height", String(Math.max(h, 0.6)));
+              rect.setAttribute("rx", "1.5");
+              rect.setAttribute("tabindex", "0");
+              var html = tipHtml(months[i], row.forecast, seg[1], seg[0]);
+              rect.setAttribute("aria-label", months[i] + (seg[0] ? ", " + seg[0] : "") + ", actual " + money(seg[1]) + ", forecast " + money(row.forecast));
+              rect.addEventListener("mouseenter", function (event) { showTip(event, html); });
+              rect.addEventListener("focus", function (event) { showTip(event, html); });
+              rect.addEventListener("mouseleave", hideTip);
+              rect.addEventListener("blur", hideTip);
+              col.appendChild(rect);
+            });
+            barsG.appendChild(col);
+
+            if (forecastG) {
+              var fy = plot.y + plot.h - (row.forecast / max) * plot.h;
+              var x1 = x - 5;
+              var x2 = x + barW + 5;
+              var halo = document.createElementNS(NS, "line");
+              halo.setAttribute("class", "vc-forecast vc-forecast-halo");
+              halo.setAttribute("x1", String(x1));
+              halo.setAttribute("y1", String(fy));
+              halo.setAttribute("x2", String(x2));
+              halo.setAttribute("y2", String(fy));
+              var tick = document.createElementNS(NS, "line");
+              tick.setAttribute("class", "vc-forecast vc-forecast-tick");
+              tick.setAttribute("x1", String(x1));
+              tick.setAttribute("y1", String(fy));
+              tick.setAttribute("x2", String(x2));
+              tick.setAttribute("y2", String(fy));
+              forecastG.appendChild(halo);
+              forecastG.appendChild(tick);
+            }
+          });
+
+          var nowX = plot.x + 4 * (barW + gap) - gap / 2;
+          var nowTick = document.createElementNS(NS, "line");
+          nowTick.setAttribute("class", "vc-now");
+          nowTick.setAttribute("x1", String(nowX));
+          nowTick.setAttribute("x2", String(nowX));
+          nowTick.setAttribute("y1", String(plot.y));
+          nowTick.setAttribute("y2", String(plot.y + plot.h));
+          barsG.appendChild(nowTick);
+
+          chart.setAttribute("data-vc-state", mode + (breakdown ? "-breakdown" : ""));
+        }
+
+        function setMode(mode) {
+          modes.forEach(function (btn) {
+            var on = btn.getAttribute("data-vc-mode") === mode;
+            btn.classList.toggle("is-active", on);
+            btn.setAttribute("aria-pressed", on ? "true" : "false");
+          });
+          draw();
+          play(chart);
+        }
+
+        modes.forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            setMode(btn.getAttribute("data-vc-mode"));
+          });
+        });
+
+        chart.querySelector(".vc-modes").addEventListener("keydown", function (event) {
+          if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+          event.preventDefault();
+          var i = modes.indexOf(document.activeElement);
+          if (i < 0) i = modes.findIndex(function (btn) { return btn.classList.contains("is-active"); });
+          var next = event.key === "ArrowRight"
+            ? (i + 1) % modes.length
+            : (i - 1 + modes.length) % modes.length;
+          modes[next].focus();
+          setMode(modes[next].getAttribute("data-vc-mode"));
+        });
+
+        if (breakdownEl) {
+          breakdownEl.addEventListener("change", function () {
+            draw();
+            play(chart);
+          });
+        }
+
+        var replay = chart.querySelector(".story-viz-replay");
+        if (replay) {
+          replay.addEventListener("click", function () {
+            if (breakdownEl) breakdownEl.checked = false;
+            setMode("cumulative");
+          });
+        }
+
+        draw();
+      });
+    })();
+  </script>
+  <script src="/qava-auth.js"></script>
+</body>
+</html>
