@@ -3723,9 +3723,13 @@
           grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
           column-gap: 0;
           background: #fff;
-          border: 1px solid #000;
+          border: 1px solid #e5e7eb;
           border-radius: 6px;
           overflow: hidden;
+        }
+
+        .qava-prem-card:hover {
+          border-color: #000;
         }
 
         .qava-prem-toggle {
