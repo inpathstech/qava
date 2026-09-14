@@ -2483,9 +2483,9 @@
               premiumSection.dataset.view = "premium";
               premiumSection.setAttribute("aria-label", "Membership and listings");
               premiumSection.innerHTML = `
-                <div class="qava-prem-toggle" role="radiogroup" aria-label="Choose Premium or Match Maker">
+                <div class="qava-prem-toggle" role="radiogroup" aria-label="Choose Premium or Job Board">
                   <button type="button" class="qava-prem-toggle-btn is-on" role="radio" aria-checked="true" aria-pressed="true" tabindex="0" data-view="premium">Premium</button>
-                  <button type="button" class="qava-prem-toggle-btn" role="radio" aria-checked="false" aria-pressed="false" tabindex="-1" data-view="matchmaker">Match Maker</button>
+                  <button type="button" class="qava-prem-toggle-btn" role="radio" aria-checked="false" aria-pressed="false" tabindex="-1" data-view="matchmaker">Job Board</button>
                 </div>
                 <div class="qava-prem-panels">
                   <div class="qava-prem-panel is-on" data-view="premium">
