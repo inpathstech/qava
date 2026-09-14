@@ -111,7 +111,7 @@
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 6px;
       margin: 0;
       padding: 0;
     }
