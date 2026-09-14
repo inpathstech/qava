@@ -123,10 +123,14 @@
       color: #797979;
       text-decoration: none;
       line-height: 1.2;
-      transition: text-decoration 0.2s ease;
+      transition: color 0.2s ease;
       cursor: pointer;
     }
-    .footer-section .footer-link:hover { text-decoration: underline; color: #797979; }
+    .footer-section .footer-link:hover,
+    .footer-section .footer-link.qava-footer-current {
+      color: #000000;
+      text-decoration: none;
+    }
     .footer-section .footer-copyright {
       grid-column: 1 / -1;
       margin-top: 14px;
@@ -182,6 +186,38 @@
     doc.head.appendChild(style);
   }
 
+  function isClubMarketingHost(host) {
+    return (
+      host === "theclubnyc.com" ||
+      host === "www.theclubnyc.com" ||
+      host === "localhost" ||
+      host === "127.0.0.1" ||
+      host.endsWith(".github.io")
+    );
+  }
+
+  function isCurrentFooterLink(here, dest) {
+    if (!here || !dest || !dest.path) return false;
+    if (here.path !== dest.path) return false;
+    if (here.host === dest.host) return true;
+    return isClubMarketingHost(here.host) && isClubMarketingHost(dest.host);
+  }
+
+  function setActiveFooter(doc) {
+    if (!doc) return;
+    const view = doc.defaultView || window;
+    const here = normalizeLocation(view.location.href);
+    if (!here) return;
+    const links = doc.querySelectorAll(".footer-section .footer-link");
+    links.forEach((a) => {
+      a.classList.remove("qava-footer-current");
+      const dest = normalizeLocation(a.getAttribute("href") || "");
+      if (isCurrentFooterLink(here, dest)) {
+        a.classList.add("qava-footer-current");
+      }
+    });
+  }
+
   function applyQavaFooter(doc) {
     if (!doc) return;
     const footer = doc.querySelector(".footer-section");
@@ -189,6 +225,7 @@
     footer.innerHTML = FOOTER_INNER_HTML;
     footer.setAttribute("data-qava-footer", "true");
     ensureFooterStyles(doc);
+    setActiveFooter(doc);
   }
 
   window.applyQavaFooter = applyQavaFooter;
@@ -259,10 +296,12 @@
   }
 
   window.setQavaActiveNav = setActiveNav;
+  window.setQavaActiveFooter = setActiveFooter;
 
   function initActiveNav() {
     try {
       setActiveNav(document);
+      setActiveFooter(document);
     } catch (e) {}
   }
 
