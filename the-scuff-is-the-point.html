@@ -1,0 +1,1418 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Scuff Is the Point | The Club</title>
+  <link rel="canonical" href="https://www.theclubnyc.com/the-scuff-is-the-point" />
+  <meta name="description" content="There is a line in the product description for Poly &amp; Bark's Sorrento sofa that would get a software engineer fired. The leather will scuff. Not may. Will." />
+  <meta property="og:title" content="The Scuff Is the Point | The Club" />
+  <meta property="og:description" content="There is a line in the product description for Poly &amp; Bark's Sorrento sofa that would get a software engineer fired. The leather will scuff. Not may. Will." />
+  <meta property="og:image" content="https://www.theclubnyc.com/scuff-hero.jpg" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://www.theclubnyc.com/scuff-hero.jpg" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+
+
+    :root {
+      --display: Georgia, "Iowan Old Style", "Times New Roman", serif;
+      --ink: #111827;
+      --muted: #6B6B6B;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      font-family: "Inter", sans-serif;
+      background: #ffffff;
+      color: var(--ink);
+    }
+
+    body {
+      position: relative;
+      min-height: 100vh;
+    }
+
+    #qava-dot-base-fixed {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image: radial-gradient(circle, rgba(17, 24, 39, 0.16) 1px, transparent 1.35px);
+      background-size: 20px 20px;
+      background-repeat: repeat;
+    }
+
+    body > *:not(#qava-dot-base-fixed):not(.header-container) {
+      position: relative;
+      z-index: 1;
+    }
+
+    a { color: inherit; }
+
+    .header-container {
+      width: calc(100% - 22px);
+      margin: 0 auto;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 56px;
+      position: sticky;
+      top: 0;
+      z-index: 1200;
+      background: rgba(255, 255, 255, 0.24);
+      -webkit-backdrop-filter: blur(18px) saturate(150%);
+      backdrop-filter: blur(18px) saturate(150%);
+      border: 0;
+      box-shadow: none;
+      isolation: isolate;
+    }
+
+    .header-container::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      right: 6px;
+      top: 3px;
+      bottom: 3px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.44) 100%);
+      -webkit-backdrop-filter: blur(26px) saturate(165%);
+      backdrop-filter: blur(26px) saturate(165%);
+      box-shadow: 0 10px 24px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .header-container > * { position: relative; z-index: 1; }
+
+    .header-logo, .logo-container, .logo { display: flex; align-items: center; }
+
+    .header-container .logo {
+      background: transparent;
+      padding: 0;
+      border: none;
+      box-shadow: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header-center {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex: 1;
+      margin-left: 40px;
+    }
+
+    .header-right { display: flex; align-items: center; gap: 8px; }
+
+    .navigation { display: flex; align-items: center; gap: 8px; }
+
+    .header-container .nav-item,
+    .header-container .auth-item {
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      border-radius: 0;
+      padding: 0;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      transition: color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .header-container .nav-item .nav-text,
+    .header-container .auth-item .nav-text {
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: #6b6b6b;
+      line-height: 1.4;
+      transition: color 0.2s ease;
+      padding: 0 4px;
+      white-space: nowrap;
+    }
+
+    .header-container .nav-item.newsletter .nav-text {
+      color: #000000;
+    }
+
+    .header-container .nav-item:hover .nav-text,
+    .header-container .auth-item:hover .nav-text {
+      color: #000000;
+    }
+
+    .auth-section { display: flex; align-items: center; gap: 28px; }
+
+    .join-button {
+      padding: 6px 12px;
+      background: #2b2b2b;
+      border: 1px solid #2b2b2b;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: background-color 0.18s ease, border-color 0.18s ease;
+    }
+
+    .join-button:hover {
+      background: #000000;
+      border-color: #000000;
+    }
+
+    .join-text {
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .qava-premium-nav-btn {
+      padding: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transition: color 0.2s ease;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: #6b6b6b;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      line-height: 1.4;
+    }
+
+    .qava-premium-nav-btn .nav-text {
+      color: inherit;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.4;
+    }
+
+    .qava-premium-nav-btn:hover,
+    .qava-premium-nav-btn:hover .nav-text,
+    .qava-premium-nav-btn:focus-visible,
+    .qava-premium-nav-btn:focus-visible .nav-text {
+      color: #000000;
+      background: transparent;
+    }
+
+    .qava-premium-nav-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      margin-top: -1px;
+    }
+
+    .qava-premium-nav-icon svg {
+      width: 15px;
+      height: 15px;
+      display: block;
+    }
+
+    .header-container .logo img,
+    .qava-nav-logo-face {
+      width: 72px;
+      height: 16px;
+      object-fit: contain;
+      display: block;
+      border-radius: 4px;
+    }
+
+    .qava-nav-logo-back{ object-fit: contain; }
+
+    .qava-nav-logo-flip { width: 72px; height: 16px; perspective: 600px;
+    overflow: visible;}
+
+    .qava-nav-logo-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease;
+    }
+
+    .qava-nav-logo-inner.is-flipped,
+        .qava-nav-logo-inner.is-flip-up { transform: rotateX(180deg); }
+        .qava-nav-logo-inner.is-flip-down { transform: rotateX(-180deg); }
+        .qava-nav-logo-inner.is-flip-left { transform: rotateY(-180deg); }
+        .qava-nav-logo-inner.is-flip-right { transform: rotateY(180deg); }
+
+    .qava-nav-logo-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+    }
+
+    .qava-nav-logo-back,
+.qava-nav-logo-back.is-axis-x{ transform: rotateX(180deg); }
+
+.qava-nav-logo-back.is-axis-y {
+  transform: rotateY(180deg);
+}
+
+    .hamburger-menu {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .hamburger-line {
+      width: 20px;
+      height: 2px;
+      background: #111827;
+      border-radius: 1px;
+    }
+
+    
+.footer-section {
+      background: transparent;
+      width: 100%;
+      margin: 0;
+      padding: 48px 0 46px;
+      border-top: 1px solid #EBEBEB;
+    }
+
+    .footer-container {
+      width: min(1040px, calc(100vw - 120px));
+      margin: 0 auto;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+
+    .footer-content { display: flex; flex-wrap: wrap; }
+    .footer-logo { width: 39%; padding: 2px 15px 0 0; margin-bottom: 30px; }
+    .footer-logo-img { width: 40px; height: auto; }
+
+    .footer-links {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      width: 60%;
+      gap: 16px 25px;
+      padding: 0 15px 0 10px;
+    }
+
+    .footer-heading {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: 17px;
+      letter-spacing: -0.012em;
+      color: #000000;
+      margin: 0 0 8px;
+    }
+
+    .footer-link-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .footer-link {
+      font-size: 13px;
+      font-weight: 300;
+      color: #797979;
+      text-decoration: none;
+      line-height: 1.2;
+    }
+
+    .footer-link:hover { text-decoration: underline; }
+
+    .footer-copyright {
+      grid-column: 1 / -1;
+      margin-top: 14px;
+      font-size: 13px;
+      font-weight: 300;
+      color: #797979;
+    }
+
+    
+    html { scroll-behavior: smooth; }
+
+    .story-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 24px;
+      margin: 24px 0 48px;
+    }
+
+    .story-meta-col { flex: 1; min-width: 0; }
+
+    .story-meta-col:first-child { flex: 1.7; }
+
+    .story-meta-divider {
+      width: 1px;
+      background: #e5e7eb;
+      align-self: stretch;
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .story-meta-divider { display: block; margin: 0 8px; }
+    }
+
+    .story-meta h3 {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #6b7280;
+      margin-bottom: 16px;
+    }
+
+    .story-people {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .story-person {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .story-person-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #e5e7eb;
+      flex-shrink: 0;
+    }
+
+    .story-person-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .story-person-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: #111827;
+      white-space: nowrap;
+    }
+
+    .story-person-role {
+      font-size: 12px;
+      font-weight: 300;
+      color: #6b7280;
+      white-space: nowrap;
+    }
+
+    .story-focus-items {
+      font-size: 12px;
+      line-height: 1.6;
+      font-weight: 300;
+      color: #1f2937;
+    }
+
+    /* BLOG POST STYLES */
+
+        .story-wrapper {
+            max-width: 760px;
+            width: calc(100% - 48px);
+            margin: 24px auto 48px;
+            padding: 56px 40px 90px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        .story-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: "Inter", sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            color: #6b7280;
+            text-decoration: none;
+            margin: 0 0 28px;
+            width: fit-content;
+            transition: color 0.2s ease;
+        }
+
+        .story-back:visited {
+            color: #6b7280;
+        }
+
+        .story-back:hover,
+        .story-back:focus-visible {
+            color: #000000;
+        }
+
+        .story-pager {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 32px;
+            margin-top: 48px;
+            padding-top: 28px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .story-pager-link {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-width: 46%;
+            color: #6b7280;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .story-pager-prev {
+            text-align: left;
+            align-items: flex-start;
+        }
+
+        .story-pager-next {
+            margin-left: auto;
+            text-align: right;
+            align-items: flex-end;
+        }
+
+        .story-pager-link:visited {
+            color: #6b7280;
+        }
+
+        .story-pager-link:hover,
+        .story-pager-link:focus-visible {
+            color: #000000;
+        }
+
+        .story-pager-label {
+            font-family: "Inter", sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .story-pager-title {
+            font-family: var(--display);
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+
+        @media (max-width: 640px) {
+            .story-pager {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .story-pager-link {
+                max-width: 100%;
+            }
+
+            .story-pager-next {
+                margin-left: 0;
+            }
+        }
+
+        .story-header {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 0;
+        }
+
+        .story-title {
+            font-family: var(--display);
+            font-size: clamp(32px, 4vw, 42px);
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .story-title-line {
+            display: block;
+        }
+
+        .story-subtitle {
+            font-size: 20px;
+            font-weight: 300;
+            color: #4a4a4a;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        .story-categories {
+            display: flex;
+            gap: 8px;
+            margin: 0 0 20px 0;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .story-category-pill {
+            display: inline-flex;
+            align-items: center;
+            background: transparent;
+            color: #000000;
+            font-size: 11px;
+            font-weight: 400;
+            padding: 2px 4px;
+            border-radius: 0;
+            border: none;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .story-project-badges {
+            display: flex;
+            gap: 8px;
+            margin: 2px 0 3px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .story-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            background: #fafafa;
+            color: #000000;
+            font-size: 11px;
+            font-weight: 400;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-decoration: none;
+        }
+
+        .story-badge-pill span {
+            color: #000000;
+        }
+
+        .story-badge-separator {
+            font-size: 11px;
+            font-weight: 400;
+            color: #000000;
+        }
+
+        .story-hero {
+            width: 100%;
+            margin: 32px 0 40px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .story-hero img {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .leather-pair {
+            width: 100%;
+            margin: 28px 0 32px;
+        }
+
+        .leather-pair-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .leather-pair-item {
+            margin: 0;
+        }
+
+        .leather-pair-item img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+
+        .leather-pair-item figcaption {
+            margin-top: 10px;
+            font-family: "Inter", sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: #6b6b6b;
+        }
+
+        .leather-pair-item figcaption strong {
+            display: block;
+            font-weight: 500;
+            color: #111111;
+            letter-spacing: 0.02em;
+            text-transform: none;
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+
+        .leather-pair > figcaption {
+            margin-top: 14px;
+            font-size: 14px;
+            font-weight: 300;
+            color: #6b6b6b;
+            line-height: 1.5;
+        }
+
+        /* ===== SPACING SYSTEM - Professional & Consistent ===== */
+        
+        /* Intro section - appears after hero image */
+        .story-intro {
+            padding: 0 !important;
+            margin: 0 0 32px !important;
+        }
+
+        .story-intro p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 16px;
+        }
+
+        .story-intro p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Table of Contents - compact spacing */
+        .story-toc {
+            padding: 0 !important;
+            margin: 32px 0 48px !important;
+        }
+
+        .story-toc ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 0;
+        }
+
+        .story-toc li a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 300;
+            color: #2e2e2e;
+            line-height: 1.65;
+            text-decoration: none;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .story-toc li a:hover {
+            color: #111111;
+            transform: translateX(4px);
+        }
+
+        .story-toc li .index {
+            font-size: 13px;
+            font-weight: 500;
+            color: #6b6b6b;
+            letter-spacing: 0.08em;
+        }
+
+        /* Main content sections */
+        .story-section {
+            padding: 0 !important;
+            margin: 56px 0 0 0 !important;
+        }
+
+        .story-section:first-of-type {
+            margin-top: 0 !important;
+        }
+ 
+        .story-section h2 {
+            font-family: var(--display);
+            font-size: 28px;
+            font-weight: 400;
+            margin: 0 0 24px !important;
+            padding-top: 28px !important;
+            letter-spacing: -0.02em;
+            color: #000000;
+            border-top: 1px solid #e0e0e0 !important;
+        }
+
+        .story-section h3 {
+            font-family: var(--display);
+            font-size: 22px;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin: 32px 0 16px;
+            color: #111;
+        }
+
+        .story-section h3:first-of-type {
+            margin-top: 8px;
+        }
+
+        /* All paragraphs - consistent spacing */
+        .story-wrapper p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 14px;
+        }
+
+        .story-section p,
+        .story-intro p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+        }
+
+        /* Q&A blocks - consistent spacing */
+        .qa-block {
+            margin-bottom: 36px !important;
+        }
+
+        .qa-block:last-child {
+            margin-bottom: 0 !important;
+        }
+
+        .qa-question {
+            font-size: 16px !important;
+            font-weight: 500 !important;
+            margin-bottom: 14px !important;
+            color: #000000 !important;
+        }
+
+        .qa-question .highlight {
+            background: none;
+            padding: 0;
+            display: inline;
+        }
+
+        .qa-answer {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 14px;
+        }
+
+        .qa-answer:last-child {
+            margin-bottom: 0;
+        }
+
+        .story-section ul {
+            margin: 8px 0 20px;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .story-section ul li {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 8px;
+            padding-left: 1.15em;
+            position: relative;
+        }
+
+        .story-section ul li::before {
+            content: "–";
+            position: absolute;
+            left: 0;
+        }
+
+        .story-section ul li a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .story-section ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Pull quotes - centered with breathing room */
+        blockquote {
+            margin: 36px auto !important;
+            padding: 0 !important;
+            width: 100%;
+            max-width: 680px;
+            font-size: 16px !important;
+            line-height: 1.65 !important;
+            color: #111111 !important;
+            font-weight: 500 !important;
+            font-style: italic !important;
+            text-align: center;
+            background: transparent;
+            border-radius: 0;
+            white-space: normal;
+            display: block;
+            font-family: 'Inter', sans-serif;
+        }
+
+        blockquote::before {
+            content: "";
+        }
+
+        /* Images with captions */
+        .story-media {
+            margin: 24px 0 28px;
+            text-align: center;
+        }
+
+        .story-media img {
+            width: 100%;
+            border-radius: 4px;
+            display: block;
+        }
+
+        .story-media-caption {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #585858;
+        }
+
+        .story-media-caption a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .story-media-caption a:hover {
+            text-decoration: underline;
+        }
+
+        /* Links within story content */
+        .qa-answer a {
+            color: inherit;
+            text-decoration: none;
+            transition: text-decoration 0.2s ease;
+        }
+
+        .qa-answer a:hover {
+            text-decoration: underline;
+        }
+
+        .story-cta {
+            margin-top: 48px;
+            text-align: center;
+            padding: 32px 48px;
+            border-radius: 14px;
+            background: #fafafa;
+        }
+
+        .story-cta h3 {
+            font-family: var(--display);
+            font-size: 24px;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .story-cta p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #3b3b3b;
+            margin-bottom: 0;
+            font-weight: 300;
+        }
+
+        .story-cta p:first-of-type {
+            margin-bottom: 4px;
+        }
+
+        .story-cta p:last-of-type {
+            margin-bottom: 28px;
+        }
+
+        .story-cta-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .story-cta .cta-button.primary {
+            padding: 6px 12px;
+            background: #2b2b2b;
+            color: #ffffff;
+            border: 1px solid #2b2b2b;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: background-color 0.18s ease, border-color 0.18s ease;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+            height: auto;
+        }
+
+        .story-cta .cta-button.primary:hover {
+            background: #000000;
+            border-color: #000000;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Secondary button - How Qava Works (matches hero) */
+        .story-cta .cta-button.secondary {
+            padding: 6px 12px;
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            height: 27.6px;
+            text-decoration: none;
+            color: #000000;
+            font-size: 13px;
+            font-weight: 300;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .story-cta .cta-button.secondary::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 12px;
+            right: 12px;
+            height: 1px;
+            background-color: #000000;
+            transform: scaleX(0);
+            transition: transform 0.2s ease;
+        }
+
+        .story-cta .cta-button.secondary:hover::after {
+            transform: scaleX(1);
+        }
+
+        .story-cta .cta-button.secondary:visited {
+            color: #000000;
+        }
+
+        .story-cta .cta-button.secondary:active {
+            color: #000000;
+        }
+
+        
+    /* RESPONSIVE */
+
+        @media (max-width: 768px) {
+            .story-wrapper {
+                width: calc(100% - 32px);
+                padding: 40px 24px 80px;
+                margin: 16px auto 40px;
+            }
+
+            .story-categories {
+                margin: 0 0 16px;
+                gap: 6px;
+            }
+
+            .story-category-pill {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .story-project-badges {
+                margin: 8px 0 8px;
+                gap: 6px;
+            }
+
+            .story-badge-pill {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .story-title {
+                font-size: 32px;
+                line-height: 1.15;
+            }
+
+            .story-subtitle {
+                font-size: 17px;
+                line-height: 1.45;
+            }
+
+            .story-hero {
+                margin: 24px 0 32px;
+                border-radius: 8px;
+            }
+
+            .story-intro,
+            .story-section {
+                padding: 0;
+            }
+
+            .story-section {
+                margin: 48px 0 0 0 !important;
+            }
+
+            .story-section h2 {
+                font-size: 22px;
+                padding-top: 24px !important;
+                margin-bottom: 20px !important;
+            }
+
+            .story-toc {
+                padding: 0;
+                margin: 28px 0 40px;
+            }
+
+            .story-toc ul {
+                gap: 8px;
+            }
+
+            .story-toc li a {
+                font-size: 15px;
+            }
+
+            .qa-block {
+                margin-bottom: 32px !important;
+            }
+
+            blockquote {
+                margin: 28px auto !important;
+                padding: 0 !important;
+                font-size: 15px !important;
+                line-height: 1.65 !important;
+            }
+
+            .story-media {
+                margin: 20px 0 24px;
+            }
+
+            .story-media img {
+                border-radius: 12px;
+            }
+
+            .story-cta {
+                padding: 32px 24px;
+                margin-top: 40px;
+            }
+
+            .story-cta h3 {
+                font-size: 20px;
+                margin-bottom: 14px;
+            }
+
+            .story-cta p {
+                font-size: 15px;
+                margin-bottom: 24px;
+            }
+
+            .story-cta-actions {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+                align-items: center;
+            }
+
+            .story-cta .cta-button {
+                width: auto;
+                max-width: 280px;
+                min-width: fit-content;
+                padding: 8px 16px;
+            }
+
+            .footer-section {
+                padding: 60px 24px 40px 24px;
+            }
+
+            .footer-logo {
+                width: 100%;
+                padding: 0;
+                margin-bottom: 32px;
+            }
+
+            .footer-links {
+                width: 100%;
+                grid-template-columns: 1fr;
+                padding: 0;
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .story-wrapper {
+                padding: 32px 24px 70px;
+            }
+
+            .story-title {
+                font-size: 28px;
+            }
+
+            .story-subtitle {
+                font-size: 16px;
+            }
+
+            .story-hero {
+                margin: 20px 0 28px;
+            }
+
+            .story-section h2 {
+                font-size: 20px;
+            }
+
+            .story-toc li a {
+                font-size: 14px;
+            }
+
+            .story-wrapper p,
+            .qa-question,
+            .qa-answer {
+                font-size: 15px !important;
+            }
+
+            blockquote {
+                font-size: 15px !important;
+                line-height: 1.65 !important;
+                padding: 0 !important;
+            }
+
+            .story-cta {
+                padding: 28px 20px;
+            }
+
+            .story-cta h3 {
+                font-size: 18px;
+            }
+
+            .story-cta p {
+                font-size: 14px;
+            }
+        }
+    
+
+    @media (max-width: 860px) {
+      .header-center, .auth-section .auth-item { display: none; }
+      .hamburger-menu { display: flex; }
+    }
+
+  
+  </style>
+  <link rel="stylesheet" href="/qava-auth.css" />
+  <link rel="stylesheet" href="club-dot-wave.css?v=1" />
+</head>
+<body>
+<div id="qava-dot-base-fixed" aria-hidden="true"></div>
+
+  <header class="header-container" data-qava-nav="landing">
+    <div class="header-logo">
+      <div class="logo-container">
+        <div class="logo">
+          <a href="https://www.theclubnyc.com/">
+            <div class="qava-nav-logo-flip" id="qava-nav-logo-flip">
+              <div class="qava-nav-logo-inner" id="qava-nav-logo-inner">
+                <img class="qava-nav-logo-face qava-nav-logo-front" src="/the-club-logo-light.png" alt="The Club">
+                <img class="qava-nav-logo-face qava-nav-logo-back" src="/the-club-logo-light.png" alt="">
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="header-center">
+      <nav class="navigation">
+        <a href="https://theclubnyc.com/strategy/" class="nav-item templates"><div class="nav-text">Strategy Breakdowns</div></a>
+        <a href="https://theclubnyc.com/find/" class="nav-item search-listings"><div class="nav-text">Project Listings</div></a>
+        <a href="https://theclubnyc.com/blog" class="nav-item blog"><div class="nav-text">Blog</div></a>
+        <a href="https://theclubnyc.com/newsletter" class="nav-item newsletter"><div class="nav-text">Newsletter</div></a>
+      </nav>
+    </div>
+    <div class="header-right">
+      <div class="auth-section">
+        <a href="https://app.theclubnyc.com/" class="qava-premium-nav-btn" data-qava-premium-nav aria-label="Log in"><span class="nav-text">Log in</span></a>
+        <a href="https://app.theclubnyc.com/" class="join-button">
+          <div class="join-text">Get Started</div>
+        </a>
+      </div>
+      <div class="hamburger-menu" aria-hidden="true">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </div>
+    </div>
+  </header>
+
+<main class="story-wrapper">
+        <a class="story-back" href="https://www.theclubnyc.com/blog">&larr; Back</a>
+        <header class="story-header">
+            <h1 class="story-title">The Scuff Is the Point</h1>
+            <p class="story-subtitle" style="color: #666666;">There is a line in the product description for Poly &amp; Bark's Sorrento sofa that would get a software engineer fired. The leather will scuff. Not may. Will.</p>
+        </header>
+
+        <section class="story-meta">
+            <div class="story-meta-col">
+                <h3>Behind the Story</h3>
+                <div class="story-people">
+                    <div class="story-person">
+                        <div class="story-person-avatar">
+                            <img src="Reed%20Langridge%20Profile.jpg" alt="Reed Langridge" loading="lazy" />
+                        </div>
+                        <div>
+                            <div class="story-person-name">Reed Langridge</div>
+                            <div class="story-person-role">Founder, The Club</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="story-meta-divider" aria-hidden="true"></div>
+            <div class="story-meta-col">
+                <h3>Focus Areas</h3>
+                <div class="story-focus-items">
+                    <div>Product Strategy 🪑</div>
+                    <div>Consumer Goods 🛋️</div>
+                    <div>Craft 🪵</div>
+                    <div>Brand ✒️</div>
+                </div>
+            </div>
+        </section>
+
+        <figure class="story-hero">
+            <img src="scuff-hero.jpg" alt="The oak veneer back of a dining chair, photographed close enough to see the grain" loading="lazy">
+        </figure>
+
+        <section class="story-section" id="the-line">
+            <h2>The leather will scuff</h2>
+            <p>There is a line in the product description for Poly &amp; Bark's Sorrento sofa that would get a software engineer fired.</p>
+            <blockquote>The leather will scuff.</blockquote>
+            <p>Not may. Will. It's listed under Features, alongside the frame construction and the cushion fill, as a thing you are buying rather than a thing you are risking. A few lines down it goes further: each hide is unique and will vary in depth of colour. Which is to say, the thing you receive will not match the photograph, and that is the intention.</p>
+            <p>Spend enough time around software and that sentence stops reading as a disclaimer and starts reading as an argument.</p>
+        </section>
+
+        <section class="story-section" id="uncorrected">
+            <h2>What uncorrected actually means</h2>
+            <p>Most leather furniture you'll encounter has been corrected. The hide is buffed to remove scars and insect bites, embossed with a uniform artificial grain, then sealed under a pigmented topcoat. The result is consistent, durable, wipeable, and essentially a plastic film with leather underneath. It photographs beautifully. It also cannot age, because nothing can reach it.</p>
+            <figure class="leather-pair">
+                <div class="leather-pair-grid">
+                    <figure class="leather-pair-item">
+                        <img src="scuff-leather-corrected.jpg" alt="Corrected leather: a uniform tan grain with no visible scars or variation" loading="lazy">
+                        <figcaption><strong>Corrected</strong>Buffed, embossed, sealed</figcaption>
+                    </figure>
+                    <figure class="leather-pair-item">
+                        <img src="scuff-leather-uncorrected.jpg" alt="Uncorrected full-grain leather: pores, marks, and variation visible in the hide" loading="lazy">
+                        <figcaption><strong>Uncorrected</strong>Every marking left in</figcaption>
+                    </figure>
+                </div>
+                <figcaption>Same colour family. Different theories of what a surface is for.</figcaption>
+            </figure>
+            <p>The Sorrento uses full-grain pure-aniline Italian-tanned leather. Poly &amp; Bark's own material notes are unusually direct about what that involves: aniline-dyed with no surface coating, untreated and uncorrected, showing every marking, variation and nuance of the hide.</p>
+            <p>No coating means no protection. It means the hide breathes, absorbs the oils from your hands, darkens where the sun hits it and where you sit. It means a dog's claw leaves a mark. In exchange, the leather softens rather than cracks, and after a few years the sofa looks like yours specifically and like nobody else's.</p>
+            <p>That's a trade, and it's worth being honest that it's a trade. The care instructions ask you to keep it out of direct sun and heat, dust it regularly, and condition it every six to twelve months. This is a piece of furniture that asks something of you.</p>
+        </section>
+
+        <section class="story-section" id="underneath">
+            <h2>The parts nobody photographs</h2>
+            <p>Underneath the hide, the specification is where the actual craftsmanship argument lives, because none of it is visible once the sofa is assembled.</p>
+            <p>The frame is kiln-dried and corner-blocked. Kiln-drying pulls moisture out of the timber under controlled conditions so it doesn't warp later in a centrally heated room &mdash; the failure mode that turns a sofa into a wobbling embarrassment in year four. Corner-blocking means additional wood is fitted into each joint to spread load rather than letting it concentrate on the fasteners. Neither is expensive. Both are routinely skipped, because a customer who can't see a joint can't miss it.</p>
+            <p>The suspension is Pirelli webbing &mdash; rubberised strapping stretched across the frame, a mid-century solution that replaced coil springs in a lot of good furniture and never really got improved on. It's why the seat gives rather than bounces.</p>
+            <p>The cushions are a high-resiliency foam core with a feather-down and fibre topper. Foam alone holds its shape and feels dead. Feathers alone feel wonderful and flatten within a year. The combination is the compromise that actually works, and it's more expensive than either.</p>
+            <p>The legs are solid rubberwood in a walnut finish. The whole thing weighs 109 pounds and is rated to 250 pounds per seat.</p>
+            <p>You will never see the kiln-drying, the corner blocks or the webbing. You will only ever experience them as an absence &mdash; of creaking, of sagging, of the slow structural disappointment that most furniture delivers on a predictable schedule.</p>
+        </section>
+
+        <section class="story-section" id="twenty-twenty-six">
+            <h2>Why this reads differently in 2026</h2>
+            <p>We've spent three years now in an industry conversation where the defining virtue of a thing is how fast it can be changed. Ship it, watch the telemetry, patch it Thursday. Every artefact is provisional. Every version is a draft of the next one. The word &ldquo;finished&rdquo; has quietly stopped meaning anything.</p>
+            <p>There's a lot to like about that. It's why software gets better while you sleep.</p>
+            <p>But it produces a particular relationship with objects, and I think people are starting to feel the cost of it. Nothing you own digitally improves by being used. It degrades &mdash; the app gets slower and more cluttered, the interface you learned gets redesigned by someone optimising a metric, the file format stops opening, the service shuts down and takes your library with it. Use is erosion.</p>
+            <p>A pure-aniline hide runs the other way. It is finished the day it ships, and then it gets better, and the mechanism by which it gets better is you sitting on it. Patina is just the accumulated record of your own life pressed into a surface. No update required. No subscription. The sofa is not going to be deprecated.</p>
+            <p>That's not nostalgia and it isn't a rejection of technology. It's a different theory of what an object is for.</p>
+        </section>
+
+        <section class="story-section" id="the-bet-on-touch">
+            <h2>The bet on touch</h2>
+            <p>The way Poly &amp; Bark sells is downstream of the same idea, and it's the part I find most interesting commercially.</p>
+            <p>They will mail you leather swatches, free. Actual pieces of the hide, cut from the same material, sent to your house &mdash; an entirely analogue act performed by an entirely online company. Because they know a screen cannot tell you what cognac tan looks like in your north-facing living room at four in the afternoon, and they'd rather spend on postage than on a return.</p>
+            <p>Then there's the 100-day trial. Software has trained us to expect a free tier before commitment. This inverts it: they'll ship you a 109-pound object, carry it into your home, and take it back three months later with no restocking fee if you don't love it. That's not a marketing flourish. It's an enormous operational liability, and a company only offers it when it is confident that living with the thing is the strongest argument it has.</p>
+            <p>And underneath both sits the warranty, which is where a furniture company's actual convictions are legible. One year on materials and workmanship, and ten years on the structural elements of every upholstered sofa &mdash; frames, joints, bases, legs and hardware. Ten years is a long time to stand behind a corner block nobody can see. You don't write that policy unless you know what's inside your own product.</p>
+        </section>
+
+        <section class="story-section" id="honest-tension">
+            <h2>The honest tension</h2>
+            <p>It would be easy to write this as craft versus technology. It isn't, and pretending otherwise would be a worse story.</p>
+            <p>Poly &amp; Bark is a digital-native company. No showrooms, no floor staff, a Shopify storefront, financing partners at checkout, and &mdash; I noticed while reading the Sorrento page &mdash; an AI-generated summary of its own customer reviews sitting a few inches above the description of the leather's uncorrected grain.</p>
+            <p>That juxtaposition is the actual thesis. Their pitch is that removing the showroom and the middlemen removes cost that was never in the sofa to begin with, which leaves more of the price inside the object. Their own comparison puts a comparable retail sofa at $3,499.</p>
+            <p>So the software isn't the enemy of the craft here. It's the delivery mechanism for it. The technology is aimed at the parts of the experience that nobody was ever going to treasure &mdash; the drive to the showroom, the salesperson on commission, the distributor's margin &mdash; and the savings are pointed at the hide and the frame.</p>
+            <p>Which is, when you think about it, exactly what you'd want technology to do. Automate the parts that don't deserve a human. Leave the parts that do.</p>
+        </section>
+
+        <section class="story-section" id="what-you-choose">
+            <h2>What you're actually choosing</h2>
+            <p>Buying a sofa like this means accepting a small set of obligations. Condition the leather twice a year. Keep it out of the sun. Accept that the first scratch is coming and that it isn't a defect.</p>
+            <p>In return you get an object that will not ask you to update it, will not be redesigned by a product team, will not lose your data, and will look more like yours every year rather than less.</p>
+            <p>Ninety-nine people have reviewed the Sorrento and rated it 4.8. Reading through them, the word that recurs isn't luxurious or beautiful. It's solid.</p>
+            <blockquote>Solid is not a word we use about software.</blockquote>
+        </section>
+
+        <div class="story-cta">
+            <h3>Build things that get better with use.</h3>
+            <p style="font-weight: 300;">The Club is for people turning a point of view into something real &mdash; strategy, product, and the operating model underneath it.</p>
+            <div class="story-cta-actions">
+                <a href="https://app.theclubnyc.com/" class="cta-button primary">Join for free</a>
+            </div>
+        </div>
+            <nav class="story-pager" aria-label="More stories">
+            <a class="story-pager-link story-pager-prev" href="https://www.theclubnyc.com/why-transformation-fails">
+                <span class="story-pager-label">Previous</span>
+                <span class="story-pager-title">Why Transformation Fails</span>
+            </a>
+            <a class="story-pager-link story-pager-next" href="https://www.theclubnyc.com/the-market-stall-never-went-away">
+                <span class="story-pager-label">Next</span>
+                <span class="story-pager-title">The Market Stall<br>Never Went Away</span>
+            </a>
+        </nav>
+    </main>
+
+  <footer class="footer-section"></footer>
+
+  <script src="./qava-footer.js?v=footer-v6"></script>
+  <script src="/qava-nav-logo-flip.js?v=multi-1"></script>
+  <script>
+    (function () {
+      if (typeof window.applyQavaFooter === "function") {
+        window.applyQavaFooter(document);
+      }
+
+      document.querySelectorAll('.qa-question').forEach((questionEl) => {
+        if (!questionEl.querySelector('.highlight')) {
+          questionEl.innerHTML = `<span class="highlight">${questionEl.innerHTML}</span>`;
+        }
+      });
+    })();
+  </script>
+  <script src="/qava-auth.js"></script>
+</body>
+</html>

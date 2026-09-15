@@ -1991,6 +1991,38 @@
           transform: translateX(-50%);
         }
 
+        .qava-blog-stack::before,
+        .qava-blog-stack::after {
+          content: "";
+          position: absolute;
+          top: 34px;
+          bottom: 0;
+          width: 44px;
+          z-index: 3;
+          pointer-events: none;
+          opacity: 0;
+          transition: opacity 0.25s ease;
+        }
+
+        .qava-blog-stack::before {
+          left: 0;
+          background: linear-gradient(90deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+        }
+
+        .qava-blog-stack::after {
+          right: 0;
+          background: linear-gradient(270deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+          opacity: 1;
+        }
+
+        .qava-blog-stack.is-scrolled::before {
+          opacity: 1;
+        }
+
+        .qava-blog-stack.is-scrolled-end::after {
+          opacity: 0;
+        }
+
         .qava-blog-head {
           display: flex;
           justify-content: flex-start;
@@ -1998,7 +2030,28 @@
           margin: 0 0 10px;
         }
 
-        .qava-blog-row,
+        .qava-blog-row {
+          display: flex;
+          gap: 16px;
+          overflow-x: auto;
+          overflow-y: hidden;
+          scroll-snap-type: x mandatory;
+          scroll-padding-inline: 0;
+          overscroll-behavior-x: contain;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          touch-action: pan-x;
+        }
+
+        .qava-blog-row::-webkit-scrollbar {
+          display: none;
+        }
+
+        .qava-blog-row .qava-blog-card {
+          flex: 0 0 calc((100% - 48px - 28px) / 4);
+          scroll-snap-align: start;
+        }
+
         .qava-blog-extra-inner {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
@@ -2972,7 +3025,14 @@
             margin: 28px 0 56px;
           }
 
-          .qava-blog-row,
+          .qava-blog-row {
+            gap: 12px;
+          }
+
+          .qava-blog-row .qava-blog-card {
+            flex: 0 0 calc(100% - 36px);
+          }
+
           .qava-blog-extra-inner {
             grid-template-columns: 1fr;
             gap: 28px;

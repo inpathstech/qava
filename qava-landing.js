@@ -677,6 +677,34 @@
                   </div>
                 </div>
               </a>
+              <a class="qava-blog-card" href="https://www.theclubnyc.com/the-scuff-is-the-point" data-lazy-video>
+                <video class="qava-blog-thumb" loop muted playsinline preload="none" poster="./scuff-card-poster.jpg">
+                  <source data-src="./scuff-card.mp4" type="video/mp4">
+                </video>
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
+                  <div class="qava-blog-tag">Product Strategy</div>
+                  <div class="qava-blog-title">The scuff is the point</div>
+                  <div class="qava-blog-more">
+                    <div class="qava-blog-excerpt">The leather will scuff. Not may. Will.</div>
+                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
+                  </div>
+                </div>
+              </a>
+              <a class="qava-blog-card" href="https://www.theclubnyc.com/the-market-stall-never-went-away" data-lazy-video>
+                <video class="qava-blog-thumb" loop muted playsinline preload="none" poster="./ghanda-card-poster.jpg">
+                  <source data-src="./ghanda-card.mp4" type="video/mp4">
+                </video>
+                <div class="qava-blog-scrim"></div>
+                <div class="qava-blog-glass">
+                  <div class="qava-blog-tag">Brand Strategy</div>
+                  <div class="qava-blog-title">The market stall never went away</div>
+                  <div class="qava-blog-more">
+                    <div class="qava-blog-excerpt">Most companies lose something when they scale. Ghanda industrialised it.</div>
+                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
+                  </div>
+                </div>
+              </a>
             `;
             ctaButtonsRow.insertAdjacentElement("afterend", blogStack);
 
@@ -782,6 +810,67 @@
                 thumb.addEventListener("error", markLoaded, { once: true });
               }
             });
+
+            const updateBlogRowFades = () => {
+              const max = blogRow.scrollWidth - blogRow.clientWidth;
+              blogStack.classList.toggle("is-scrolled", blogRow.scrollLeft > 8);
+              blogStack.classList.toggle("is-scrolled-end", max <= 8 || blogRow.scrollLeft >= max - 8);
+            };
+            blogRow.addEventListener("scroll", updateBlogRowFades, { passive: true });
+            window.addEventListener("resize", updateBlogRowFades);
+            updateBlogRowFades();
+
+            let dragPointer = null;
+            let dragStartX = 0;
+            let dragStartLeft = 0;
+            let dragMoved = false;
+            blogRow.addEventListener("pointerdown", (event) => {
+              if (event.pointerType === "touch") return;
+              if (event.button !== 0) return;
+              dragPointer = event.pointerId;
+              dragStartX = event.clientX;
+              dragStartLeft = blogRow.scrollLeft;
+              dragMoved = false;
+            });
+            blogRow.addEventListener("pointermove", (event) => {
+              if (dragPointer !== event.pointerId) return;
+              const delta = event.clientX - dragStartX;
+              if (Math.abs(delta) > 6) dragMoved = true;
+              if (dragMoved) blogRow.scrollLeft = dragStartLeft - delta;
+            });
+            const endBlogDrag = (event) => {
+              if (dragPointer !== event.pointerId) return;
+              dragPointer = null;
+            };
+            blogRow.addEventListener("pointerup", endBlogDrag);
+            blogRow.addEventListener("pointercancel", endBlogDrag);
+            blogRow.addEventListener("click", (event) => {
+              if (!dragMoved) return;
+              event.preventDefault();
+              event.stopPropagation();
+              dragMoved = false;
+            }, true);
+
+            const lazyVideos = blogRow.querySelectorAll("[data-lazy-video] video");
+            if (lazyVideos.length && "IntersectionObserver" in window) {
+              const hydrateVideo = (video) => {
+                const source = video.querySelector("source[data-src]");
+                if (!source || source.src) return;
+                source.src = source.getAttribute("data-src");
+                video.load();
+                const play = () => video.play().catch(() => {});
+                if (video.readyState >= 2) play();
+                else video.addEventListener("loadeddata", play, { once: true });
+              };
+              const lazyIo = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                  if (!entry.isIntersecting) return;
+                  hydrateVideo(entry.target);
+                  lazyIo.unobserve(entry.target);
+                });
+              }, { root: blogRow, rootMargin: "0px", threshold: 0.35 });
+              lazyVideos.forEach((video) => lazyIo.observe(video));
+            }
           }
 
           if (!isMatchmakingArchive && !doc.getElementById("qava-strategy-library")) {
