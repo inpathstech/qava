@@ -774,16 +774,6 @@
             border-bottom: 1px solid #e5e7eb;
         }
 
-        .playbook-deck-index {
-            font-family: "Inter", sans-serif;
-            font-size: 11px;
-            font-weight: 500;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: #6b7280;
-            margin: 0;
-        }
-
         .playbook-deck-arrows {
             display: flex;
             align-items: center;
@@ -932,15 +922,6 @@
             gap: 8px;
             padding: 0 0 16px;
             border-bottom: 0;
-        }
-
-        .backlog-card-deck .playbook-deck-index {
-            font-size: 11px;
-            font-weight: 500;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: #6b7280;
-            margin: 0;
         }
 
         .opp-card-grid {
@@ -1398,13 +1379,19 @@
             min-height: 240px;
         }
 
+        .ve-chart,
+        .ve-plot,
+        .value-effort {
+            overflow: visible;
+        }
+
         .ve-quads {
             position: absolute;
             inset: 0;
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr 1fr;
-            border: 1px solid #d4cfc6;
+            border: 1px solid #e5e7eb;
             opacity: 0;
         }
 
@@ -1414,26 +1401,27 @@
         }
 
         .ve-qw {
-            background: rgba(90, 140, 105, 0.09);
-            border-right: 1px solid #d4cfc6;
-            border-bottom: 1px solid #d4cfc6;
+            background: #e5e7eb;
+            border-right: 1px solid #e5e7eb;
+            border-bottom: 1px solid #e5e7eb;
         }
 
         .ve-sb {
-            background: rgba(115, 95, 150, 0.08);
-            border-bottom: 1px solid #d4cfc6;
+            background: #ededef;
+            border-bottom: 1px solid #e5e7eb;
         }
 
         .ve-fi {
-            background: rgba(255, 255, 255, 0.42);
-            border-right: 1px solid #d4cfc6;
+            background: #ffffff;
+            border-right: 1px solid #e5e7eb;
         }
 
         .ve-rc {
-            background: rgba(196, 100, 82, 0.08);
+            background: #f6f4f0;
         }
 
-        .ve-quad-label {
+        .ve-quad-label,
+        .ve-quad-label.story-tip {
             position: absolute;
             font-family: "Inter", sans-serif;
             font-size: 10px;
@@ -1442,7 +1430,14 @@
             text-transform: uppercase;
             color: #8a8680;
             line-height: 1.2;
-            pointer-events: none;
+            pointer-events: auto;
+            z-index: 4;
+        }
+
+        .ve-quad-label.story-tip:hover,
+        .ve-quad-label.story-tip:focus,
+        .ve-quad-label.story-tip:focus-visible {
+            z-index: 8;
         }
 
         .ve-qw .ve-quad-label,
@@ -1465,9 +1460,53 @@
             right: 8px;
         }
 
+        .ve-axis.story-tip {
+            cursor: help;
+        }
+
+        .ve-qw .story-tip-text,
+        .ve-sb .story-tip-text {
+            bottom: auto;
+            top: calc(100% + 8px);
+        }
+
+        .ve-qw .story-tip-text::after,
+        .ve-sb .story-tip-text::after {
+            top: auto;
+            bottom: 100%;
+            border-top-color: transparent;
+            border-bottom-color: #111111;
+        }
+
+        .ve-axis-y.story-tip .story-tip-text {
+            writing-mode: horizontal-tb;
+            left: calc(100% + 12px);
+            right: auto;
+            bottom: 50%;
+            width: 220px;
+            transform: rotate(180deg) translateY(50%);
+        }
+
+        .ve-axis-y.story-tip .story-tip-text::after {
+            top: 50%;
+            left: auto;
+            right: 100%;
+            bottom: auto;
+            border-top-color: transparent;
+            border-right-color: #111111;
+            transform: translateY(-50%);
+        }
+
+        .ve-axis-y.story-tip:hover .story-tip-text,
+        .ve-axis-y.story-tip:focus .story-tip-text,
+        .ve-axis-y.story-tip:focus-visible .story-tip-text {
+            transform: rotate(180deg) translateY(50%);
+        }
+
         .ve-points {
             position: absolute;
             inset: 0;
+            pointer-events: none;
         }
 
         .ve-anchor {
@@ -1476,6 +1515,7 @@
             bottom: var(--y);
             transform: translate(-50%, 50%);
             z-index: 1;
+            pointer-events: auto;
         }
 
         .ve-anchor:hover,
@@ -1514,14 +1554,27 @@
             width: 14px;
             height: 14px;
             border-radius: 50%;
-            background: currentColor;
             display: block;
             flex-shrink: 0;
+            box-sizing: border-box;
         }
 
-        .ve-pri-high { color: #c75b4a; }
-        .ve-pri-med { color: #3e8a76; }
-        .ve-pri-low { color: #8c8882; }
+        .ve-pri-high .ve-dot {
+            background: #111111;
+        }
+
+        .ve-pri-med .ve-dot {
+            background-color: #ffffff;
+            background-image: radial-gradient(circle, #111111 1px, transparent 1.15px);
+            background-size: 4px 4px;
+            border: 1px solid #111111;
+        }
+
+        .ve-pri-low .ve-dot {
+            background-color: #ffffff;
+            background-image: repeating-linear-gradient(-45deg, #e5e7eb 0 1px, transparent 1px 3.5px);
+            border: 1px solid #e5e7eb;
+        }
 
         .ve-label {
             position: absolute;
@@ -2000,9 +2053,38 @@
             display: block;
         }
 
-        .pri-high { color: #c75b4a; }
-        .pri-med { color: #3e8a76; }
-        .pri-low { color: #8c8882; }
+        .pri-high .cp-ms-dot,
+        .pri-high .cp-phase-dot,
+        .pri-high .cp-bar-fill {
+            background: #111111;
+            color: #111111;
+        }
+
+        .pri-med .cp-ms-dot,
+        .pri-med .cp-phase-dot {
+            background-color: #ffffff;
+            background-image: radial-gradient(circle, #111111 1px, transparent 1.15px);
+            background-size: 4px 4px;
+            border: 1px solid #111111;
+            box-sizing: border-box;
+        }
+
+        .pri-med .cp-bar-fill {
+            background-color: #ffffff;
+            background-image: radial-gradient(circle, #111111 1px, transparent 1.15px);
+            background-size: 4px 4px;
+            border: 1px solid #111111;
+            box-sizing: border-box;
+        }
+
+        .pri-low .cp-ms-dot,
+        .pri-low .cp-phase-dot,
+        .pri-low .cp-bar-fill {
+            background-color: #ffffff;
+            background-image: repeating-linear-gradient(-45deg, #e5e7eb 0 1px, transparent 1px 3.5px);
+            border: 1px solid #e5e7eb;
+            box-sizing: border-box;
+        }
 
         .cp-spine.is-on .cp-spine-line {
             animation: cp-draw 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -2057,39 +2139,6 @@
         @keyframes cp-draw {
             from { transform: scaleX(0); }
             to { transform: scaleX(1); }
-        }
-
-        .su-spec {
-            margin: 8px 0 24px;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .su-spec-row {
-            display: grid;
-            grid-template-columns: minmax(148px, 0.42fr) minmax(0, 1fr);
-            column-gap: 0;
-            margin: 0;
-            padding: 16px 0;
-            align-items: start;
-            border-top: 1px solid #e5e7eb;
-        }
-
-        .su-spec-label {
-            font-family: "Inter", sans-serif;
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: #6b6b6b;
-            padding: 3px 22px 0 0;
-            line-height: 1.4;
-        }
-
-        .su-spec-row p {
-            min-width: 0;
-            margin: 0;
-            padding-left: 22px;
-            border-left: 1px solid #e5e7eb;
         }
 
         .status-card-viz {
@@ -3153,21 +3202,6 @@
                 min-height: 0;
             }
 
-            .su-spec-row {
-                grid-template-columns: 1fr;
-                padding: 14px 0;
-            }
-
-            .su-spec-label {
-                padding-right: 0;
-                margin-bottom: 6px;
-            }
-
-            .su-spec-row p {
-                padding-left: 0;
-                border-left: 0;
-            }
-
             .su-card {
                 padding: 14px 12px 12px;
             }
@@ -3452,7 +3486,6 @@
 
             <div class="playbook-deck" data-playbook-deck tabindex="0" role="region" aria-label="Transformation type examples">
             <div class="playbook-deck-toolbar">
-                <p class="playbook-deck-index" aria-live="polite"><span data-playbook-current>1</span> / 3</p>
                 <div class="playbook-deck-arrows">
                     <button type="button" class="playbook-deck-arrow" data-playbook-dir="-1" aria-label="Previous example">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
@@ -3648,7 +3681,6 @@
                         <button type="button" class="playbook-deck-arrow" data-playbook-dir="-1" aria-label="Previous example">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
                         </button>
-                        <p class="playbook-deck-index" aria-live="polite"><span data-playbook-current>1</span> / 4</p>
                         <button type="button" class="playbook-deck-arrow" data-playbook-dir="1" aria-label="Next example">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
                         </button>
@@ -4155,35 +4187,6 @@
             <p>With the backlog prioritized and the critical path mapped, the opportunities need to be organized into workstreams &mdash; clusters of related opportunities that a single team can own end to end, rather than a flat list of 50 individual initiatives with no clear home. Grouping by process area, department, or system usually works well, since it keeps ownership clean and avoids the same team getting pulled into five unrelated efforts at once.</p>
             <p>Each workstream needs a single accountable owner &mdash; the same principle from the backlog itself, applied at a higher level. That owner is responsible not just for delivery, but for reporting status in a way that&rsquo;s consistent across every workstream, so leadership can compare progress apples-to-apples instead of parsing five different formats from five different teams.</p>
             <p>That consistency is the part organizations skip, and it&rsquo;s the part that matters most. A standardized status update should always answer the same handful of questions: Where do things stand? What&rsquo;s blocking progress? What&rsquo;s coming next? Without a standard format, status updates become narrative and inconsistent &mdash; one team reports in paragraphs, another in a spreadsheet, a third only when asked &mdash; and leadership loses the ability to actually compare workstreams against each other.</p>
-            <p>At minimum, a standardized update should include:</p>
-
-            <div class="su-spec">
-                <div class="su-spec-row">
-                    <div class="su-spec-label">Workstream and owner</div>
-                    <p>who&rsquo;s accountable, no ambiguity</p>
-                </div>
-                <div class="su-spec-row">
-                    <div class="su-spec-label">Status</div>
-                    <p>a simple red/yellow/green rating for at-a-glance health</p>
-                </div>
-                <div class="su-spec-row">
-                    <div class="su-spec-label">Progress</div>
-                    <p>how far along the workstream is against its milestones</p>
-                </div>
-                <div class="su-spec-row">
-                    <div class="su-spec-label">Key accomplishments</div>
-                    <p>what actually moved since the last update</p>
-                </div>
-                <div class="su-spec-row">
-                    <div class="su-spec-label">Blockers</div>
-                    <p>what&rsquo;s in the way, and what&rsquo;s needed to clear it</p>
-                </div>
-                <div class="su-spec-row">
-                    <div class="su-spec-label">Next steps</div>
-                    <p>what&rsquo;s happening before the next check-in</p>
-                </div>
-            </div>
-
             <p>Here&rsquo;s what that looks like as a standard template:</p>
 
             <figure class="story-viz status-card-viz" data-viz="status-card" data-status-card aria-label="Standard workstream status update for accounts payable automation">
@@ -4215,7 +4218,7 @@
                     <div class="su-compare" role="group" aria-label="Compare progress">
                         <button type="button" class="su-chip is-active" data-compare data-prior="45" data-delta="15" aria-pressed="true">vs last week</button>
                         <button type="button" class="su-chip" data-compare data-prior="25" data-delta="35" aria-pressed="false">vs last month</button>
-                        <button type="button" class="su-chip" data-compare data-prior="0" data-delta="60" aria-pressed="false">vs last period</button>
+                        <button type="button" class="su-chip" data-compare data-prior="0" data-delta="60" aria-pressed="false">vs start</button>
                     </div>
                     <div class="su-split">
                         <div class="su-tile">
@@ -4463,7 +4466,7 @@
         var labels = {
           "45": "versus last week",
           "25": "versus last month",
-          "0": "versus last period"
+          "0": "versus start"
         };
 
         function setCompare(chip) {
