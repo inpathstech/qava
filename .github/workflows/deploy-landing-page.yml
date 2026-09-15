@@ -100,6 +100,10 @@ jobs:
           --content-type "text/html" \
           --cache-control "max-age=3600"
 
+        aws s3 cp boring-businesses-still-work.html s3://${{ secrets.S3_BUCKET_NAME }}/boring-businesses-still-work.html \
+          --content-type "text/html" \
+          --cache-control "max-age=3600"
+
         aws s3 cp speakforthetrees.html s3://${{ secrets.S3_BUCKET_NAME }}/speakforthetrees.html \
           --content-type "text/html" \
           --cache-control "max-age=3600"
