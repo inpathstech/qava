@@ -1027,6 +1027,12 @@
       const NAV_RENAMES = [
         { match: "chat", label: "Club Room" },
         { match: "create listing", label: "Create listing" },
+        { match: "strategy breakdowns", label: "Strategies & Playbooks" },
+        { match: "breakdowns", label: "Strategies & Playbooks" },
+        { match: "project listings", label: "Job Board" },
+        { match: "job listing", label: "Job Board" },
+        { match: "job listings", label: "Job Board" },
+        { match: "find work", label: "Job Board" },
         { match: "search listings", label: "Job Board" },
         { match: "about", label: "Newsletter" }
       ];
@@ -1070,6 +1076,47 @@
           fixedDotLayer.id = "qava-dot-base-fixed";
           frameDoc.body.prepend(fixedDotLayer);
         }
+
+        (function applyClubCenterNav() {
+          const links = [
+            { href: "https://theclubnyc.com/strategy/", label: "Strategies & Playbooks", cls: "nav-item templates" },
+            { href: "https://theclubnyc.com/find/", label: "Job Board", cls: "nav-item search-listings" },
+            { href: "https://theclubnyc.com/blog", label: "Blog", cls: "nav-item blog" },
+            { href: "https://theclubnyc.com/newsletter", label: "Newsletter", cls: "nav-item newsletter" },
+          ];
+          function render(link, extraClass) {
+            const a = frameDoc.createElement("a");
+            a.href = link.href;
+            a.className = extraClass;
+            const text = frameDoc.createElement("div");
+            text.className = "nav-text";
+            text.textContent = link.label;
+            a.appendChild(text);
+            return a;
+          }
+          const nav = frameDoc.querySelector(".header-container .navigation, .header-center .navigation");
+          if (nav) {
+            nav.innerHTML = "";
+            links.forEach((link) => nav.appendChild(render(link, link.cls)));
+          }
+          const menu = frameDoc.querySelector(".mobile-menu");
+          if (!menu) return;
+          const keep = (el) => {
+            if (!el || el.nodeType !== 1) return true;
+            if (el.classList.contains("close-menu") || el.classList.contains("join-button") || el.classList.contains("mobile-auth-section")) return true;
+            if (el.hasAttribute("data-qava-premium-nav")) return true;
+            const t = ((el.querySelector(".nav-text") || el).textContent || "").trim().toLowerCase();
+            return t === "log in" || t === "login" || t === "get started" || t === "log out";
+          };
+          Array.from(menu.children).forEach((el) => {
+            if (!keep(el)) el.remove();
+          });
+          const close = menu.querySelector(".close-menu");
+          const insertBefore = close ? close.nextSibling : menu.firstChild;
+          links.forEach((link) => {
+            menu.insertBefore(render(link, "mobile-nav-item"), insertBefore);
+          });
+        })();
 
         // Remove Pricing from the top nav (kept in footer)
         const navPricing = Array.from(frameDoc.querySelectorAll(".navigation a.nav-item")).find((link) =>
