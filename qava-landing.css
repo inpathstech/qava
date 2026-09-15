@@ -2743,6 +2743,159 @@
           }
         }
 
+        #qava-home-playbooks {
+          width: 100vw;
+          margin: 72px 0 0;
+          position: relative;
+          left: 50%;
+          transform: translateX(-50%);
+          padding: 72px 24px 64px;
+          scroll-margin-top: 80px;
+          box-sizing: border-box;
+          background: #ffffff;
+        }
+        #qava-home-playbooks .examples-intro,
+        #qava-home-playbooks .examples-grid,
+        #qava-home-playbooks .examples-cta {
+          width: min(1040px, 100%);
+          margin-left: auto;
+          margin-right: auto;
+        }
+        #qava-home-playbooks .examples-intro {
+          margin-bottom: 28px;
+          text-align: center;
+        }
+        #qava-home-playbooks .av2-label {
+          font-family: Inter, system-ui, sans-serif;
+          font-size: 11px;
+          font-weight: 300;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: #9b9a97;
+          margin: 0 0 8px;
+        }
+        #qava-home-playbooks .examples-title {
+          font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+          font-weight: 400;
+          font-size: clamp(1.35rem, 2.5vw, 1.55rem);
+          letter-spacing: -0.02em;
+          line-height: 1.25;
+          color: #111827;
+          margin: 0 0 8px;
+        }
+        #qava-home-playbooks .alg-lede {
+          font-family: Inter, system-ui, sans-serif;
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 1.5;
+          color: #6b7280;
+          margin: 0 auto;
+          max-width: 36rem;
+        }
+        #qava-home-playbooks .examples-grid {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 20px 18px;
+        }
+        #qava-home-playbooks .ex-card {
+          display: flex;
+          flex-direction: column;
+          min-width: 0;
+          color: inherit;
+          text-decoration: none;
+          cursor: pointer;
+        }
+        #qava-home-playbooks .ex-art {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 1 / 1;
+          border-radius: 6px;
+          overflow: hidden;
+          background: #f7f6f5;
+        }
+        #qava-home-playbooks .ex-art img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          padding: 14%;
+        }
+        #qava-home-playbooks .ex-caption { padding: 10px 2px 0; text-align: left; }
+        #qava-home-playbooks .ex-cat {
+          font-size: 10px;
+          font-weight: 300;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: #111827;
+          margin-bottom: 3px;
+        }
+        #qava-home-playbooks .ex-title {
+          font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+          font-size: 16px;
+          line-height: 1.25;
+          margin: 0;
+          letter-spacing: -0.015em;
+          color: #111827;
+        }
+        #qava-home-playbooks .ex-formats {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          margin-top: 10px;
+        }
+        #qava-home-playbooks .ex-formats img {
+          width: 12px;
+          height: 12px;
+          object-fit: contain;
+        }
+        #qava-home-playbooks .examples-cta {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+          margin-top: 22px;
+        }
+        #qava-home-playbooks .examples-cta-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          height: 28px;
+          padding: 0 14px;
+          background: #111827;
+          border: 0;
+          border-radius: 6px;
+          color: #fff;
+          font-family: Inter, sans-serif;
+          font-size: 13px;
+          font-weight: 400;
+          line-height: 1;
+          white-space: nowrap;
+          text-decoration: none;
+        }
+        #qava-home-playbooks .examples-cta-btn:hover { background: #000; color: #fff; }
+        #qava-home-playbooks .examples-cta-login {
+          display: inline-flex;
+          align-items: center;
+          background: transparent;
+          border: 0;
+          padding: 0;
+          color: #6b6b6b;
+          font-family: Inter, sans-serif;
+          font-size: 12px;
+          font-weight: 300;
+          line-height: 1;
+          text-decoration: none;
+        }
+        #qava-home-playbooks .examples-cta-login:hover { color: #000; }
+        @media (max-width: 720px) {
+          #qava-home-playbooks { padding: 56px 20px 48px; }
+          #qava-home-playbooks .examples-grid {
+            grid-template-columns: 1fr;
+            gap: 28px;
+          }
+        }
+
         .qava-lib {
           width: 100vw;
           margin: 72px 0 0;

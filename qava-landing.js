@@ -250,6 +250,65 @@
     return section;
   }
 
+  function buildHomePlaybooks(doc) {
+    const section = doc.createElement("section");
+    section.id = "qava-home-playbooks";
+    section.setAttribute("aria-label", "Strategy Breakdowns");
+    section.innerHTML = `
+      <div class="examples-intro">
+        <p class="av2-label">Popular</p>
+        <h2 class="examples-title">Playbooks worth knowing</h2>
+        <p class="alg-lede">5-minute, bite-sized walkthroughs, without the jargon.</p>
+      </div>
+      <div class="examples-grid">
+        <a class="ex-card" href="https://theclubnyc.com/templates/beachhead-strategy">
+          <div class="ex-art"><img src="./strategy/thumbnails/template-beachhead.png" alt="" /></div>
+          <div class="ex-caption">
+            <div class="ex-cat">Strategy</div>
+            <p class="ex-title">Beachhead Strategy</p>
+            <div class="ex-formats" aria-hidden="true">
+              <img src="./strategy/thumbnails/template-logo-pdf.png" alt="" />
+              <img src="./strategy/thumbnails/template-logo-ppt.png" alt="" />
+              <img src="./strategy/thumbnails/template-logo-gslides.png" alt="" />
+              <img src="./strategy/thumbnails/template-logo-canva.png" alt="" />
+            </div>
+          </div>
+        </a>
+        <a class="ex-card" href="https://theclubnyc.com/templates/ideal-customer-profile">
+          <div class="ex-art"><img src="./strategy/thumbnails/template-icp.png" alt="" /></div>
+          <div class="ex-caption">
+            <div class="ex-cat">Strategy</div>
+            <p class="ex-title">Ideal Client Profile</p>
+            <div class="ex-formats" aria-hidden="true">
+              <img src="./strategy/thumbnails/template-logo-pdf.png" alt="" />
+              <img src="./strategy/thumbnails/template-logo-ppt.png" alt="" />
+              <img src="./strategy/thumbnails/template-logo-gslides.png" alt="" />
+              <img src="./strategy/thumbnails/template-logo-canva.png" alt="" />
+            </div>
+          </div>
+        </a>
+        <a class="ex-card" href="https://theclubnyc.com/templates/pricing-strategy">
+          <div class="ex-art"><img src="./strategy/thumbnails/template-pricingstrategy.png" alt="" /></div>
+          <div class="ex-caption">
+            <div class="ex-cat">Strategy</div>
+            <p class="ex-title">Pricing Strategy</p>
+            <div class="ex-formats" aria-hidden="true">
+              <img src="./strategy/thumbnails/template-logo-pdf.png" alt="" />
+              <img src="./strategy/thumbnails/template-logo-ppt.png" alt="" />
+              <img src="./strategy/thumbnails/template-logo-gslides.png" alt="" />
+              <img src="./strategy/thumbnails/template-logo-canva.png" alt="" />
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="examples-cta">
+        <a class="examples-cta-btn" href="https://app.theclubnyc.com/">24/7 access to 100+ strategies &amp; templates</a>
+        <a class="examples-cta-login" href="https://app.theclubnyc.com/?login=1">Login</a>
+      </div>
+    `;
+    return section;
+  }
+
   function startStrategyLibrary(section) {
     if (!section) return;
     const questions = [
@@ -881,10 +940,19 @@
             }
           }
 
+          if (!isMatchmakingArchive && !doc.getElementById("qava-home-playbooks")) {
+            const playbooks = buildHomePlaybooks(doc);
+            const needEl = doc.getElementById("qava-need-section");
+            if (needEl) needEl.insertAdjacentElement("afterend", playbooks);
+            else if (doc.querySelector(".qava-blog-stack")) doc.querySelector(".qava-blog-stack").insertAdjacentElement("afterend", playbooks);
+          }
+
           if (!isMatchmakingArchive && !doc.getElementById("qava-strategy-library")) {
             const library = buildStrategyLibrary(doc);
+            const playbooksEl = doc.getElementById("qava-home-playbooks");
             const needEl = doc.getElementById("qava-need-section");
-            if (needEl) needEl.insertAdjacentElement("afterend", library);
+            if (playbooksEl) playbooksEl.insertAdjacentElement("afterend", library);
+            else if (needEl) needEl.insertAdjacentElement("afterend", library);
             else if (doc.querySelector(".qava-blog-stack")) doc.querySelector(".qava-blog-stack").insertAdjacentElement("afterend", library);
             startStrategyLibrary(library);
           }
