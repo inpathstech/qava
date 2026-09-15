@@ -2001,6 +2001,7 @@
         .qava-blog-viewport {
           overflow: hidden;
           width: 100%;
+          isolation: isolate;
         }
 
         .qava-blog-row {
@@ -2020,36 +2021,36 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          gap: 2px;
+          gap: 6px;
           margin-top: 16px;
+          overflow: visible;
+          position: relative;
+          z-index: 1;
         }
 
         .qava-blog-dot {
-          width: 22px;
-          height: 22px;
+          -webkit-appearance: none;
+          appearance: none;
+          width: 7px;
+          height: 7px;
           padding: 0;
           border: 0;
           border-radius: 50%;
-          background: transparent;
+          background: #c8c8c8;
           cursor: pointer;
           position: relative;
+          flex: 0 0 7px;
+          transition: background-color 0.2s ease;
         }
 
         .qava-blog-dot::after {
           content: "";
           position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 7px;
-          height: 7px;
-          border-radius: 50%;
-          background: #c8c8c8;
-          transform: translate(-50%, -50%);
-          transition: background-color 0.2s ease;
+          inset: -8px;
         }
 
-        .qava-blog-dot.is-active::after,
-        .qava-blog-dot:hover::after {
+        .qava-blog-dot.is-active,
+        .qava-blog-dot:hover {
           background: #111111;
         }
 

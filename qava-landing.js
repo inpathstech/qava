@@ -727,7 +727,7 @@
             blogDots.setAttribute("aria-label", "Story pages");
             blogDots.innerHTML = `
               <button type="button" class="qava-blog-dot is-active" aria-label="First four stories" aria-current="true"></button>
-              <button type="button" class="qava-blog-dot" aria-label="Next two stories"></button>
+              <button type="button" class="qava-blog-dot" aria-label="Next four stories"></button>
             `;
             blogStack.appendChild(blogDots);
 
@@ -825,7 +825,7 @@
             });
 
             const blogDotButtons = [...blogDots.querySelectorAll(".qava-blog-dot")];
-            const blogPageSize = 4;
+            const blogPageSize = 2;
             let blogPage = 0;
 
             const blogPageOffset = (page) => {
