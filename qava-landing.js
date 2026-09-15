@@ -550,19 +550,13 @@
       </a>
     `;
 
-    const blogHead = doc.createElement("div");
-    blogHead.className = "qava-blog-head";
-    const viewBlog = doc.createElement("a");
-    viewBlog.href = "https://www.theclubnyc.com/blog";
-    viewBlog.className = "qava-blog-actbtn";
-    viewBlog.textContent = "Visit blog";
-    blogHead.appendChild(viewBlog);
-    blogStack.appendChild(blogHead);
     const blogViewport = doc.createElement("div");
     blogViewport.className = "qava-blog-viewport";
     blogViewport.appendChild(blogRow);
     blogStack.appendChild(blogViewport);
 
+    const blogFoot = doc.createElement("div");
+    blogFoot.className = "qava-blog-foot";
     const blogDots = doc.createElement("div");
     blogDots.className = "qava-blog-dots";
     blogDots.setAttribute("role", "tablist");
@@ -571,7 +565,13 @@
       <button type="button" class="qava-blog-dot is-active" aria-label="First four stories" aria-current="true"></button>
       <button type="button" class="qava-blog-dot" aria-label="Next four stories"></button>
     `;
-    blogStack.appendChild(blogDots);
+    const viewBlog = doc.createElement("a");
+    viewBlog.href = "https://www.theclubnyc.com/blog";
+    viewBlog.className = "qava-blog-actbtn";
+    viewBlog.textContent = "Visit blog";
+    blogFoot.appendChild(blogDots);
+    blogFoot.appendChild(viewBlog);
+    blogStack.appendChild(blogFoot);
     return blogStack;
   }
 
