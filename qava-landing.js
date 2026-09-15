@@ -716,7 +716,20 @@
             viewBlog.textContent = "Visit blog";
             blogHead.appendChild(viewBlog);
             blogStack.appendChild(blogHead);
-            blogStack.appendChild(blogRow);
+            const blogViewport = doc.createElement("div");
+            blogViewport.className = "qava-blog-viewport";
+            blogViewport.appendChild(blogRow);
+            blogStack.appendChild(blogViewport);
+
+            const blogDots = doc.createElement("div");
+            blogDots.className = "qava-blog-dots";
+            blogDots.setAttribute("role", "tablist");
+            blogDots.setAttribute("aria-label", "Story pages");
+            blogDots.innerHTML = `
+              <button type="button" class="qava-blog-dot is-active" aria-label="First four stories" aria-current="true"></button>
+              <button type="button" class="qava-blog-dot" aria-label="Next two stories"></button>
+            `;
+            blogStack.appendChild(blogDots);
 
             if (!doc.getElementById("qava-need-section")) {
               const needSection = doc.createElement("section");
@@ -811,45 +824,40 @@
               }
             });
 
-            const updateBlogRowFades = () => {
-              const max = blogRow.scrollWidth - blogRow.clientWidth;
-              blogStack.classList.toggle("is-scrolled", blogRow.scrollLeft > 8);
-              blogStack.classList.toggle("is-scrolled-end", max <= 8 || blogRow.scrollLeft >= max - 8);
-            };
-            blogRow.addEventListener("scroll", updateBlogRowFades, { passive: true });
-            window.addEventListener("resize", updateBlogRowFades);
-            updateBlogRowFades();
+            const blogDotButtons = [...blogDots.querySelectorAll(".qava-blog-dot")];
+            const blogPageSize = 4;
+            let blogPage = 0;
 
-            let dragPointer = null;
-            let dragStartX = 0;
-            let dragStartLeft = 0;
-            let dragMoved = false;
-            blogRow.addEventListener("pointerdown", (event) => {
-              if (event.pointerType === "touch") return;
-              if (event.button !== 0) return;
-              dragPointer = event.pointerId;
-              dragStartX = event.clientX;
-              dragStartLeft = blogRow.scrollLeft;
-              dragMoved = false;
-            });
-            blogRow.addEventListener("pointermove", (event) => {
-              if (dragPointer !== event.pointerId) return;
-              const delta = event.clientX - dragStartX;
-              if (Math.abs(delta) > 6) dragMoved = true;
-              if (dragMoved) blogRow.scrollLeft = dragStartLeft - delta;
-            });
-            const endBlogDrag = (event) => {
-              if (dragPointer !== event.pointerId) return;
-              dragPointer = null;
+            const blogPageOffset = (page) => {
+              const card = blogRow.querySelector(".qava-blog-card");
+              if (!card) return 0;
+              const gap = parseFloat(getComputedStyle(blogRow).columnGap || getComputedStyle(blogRow).gap) || 16;
+              return page * blogPageSize * (card.getBoundingClientRect().width + gap);
             };
-            blogRow.addEventListener("pointerup", endBlogDrag);
-            blogRow.addEventListener("pointercancel", endBlogDrag);
-            blogRow.addEventListener("click", (event) => {
-              if (!dragMoved) return;
-              event.preventDefault();
-              event.stopPropagation();
-              dragMoved = false;
-            }, true);
+
+            const goToBlogPage = (page) => {
+              blogPage = page;
+              blogRow.style.transform = `translateX(-${blogPageOffset(page)}px)`;
+              blogDotButtons.forEach((dot, index) => {
+                const active = index === page;
+                dot.classList.toggle("is-active", active);
+                if (active) dot.setAttribute("aria-current", "true");
+                else dot.removeAttribute("aria-current");
+              });
+            };
+
+            blogDotButtons.forEach((dot, index) => {
+              dot.addEventListener("mouseenter", () => goToBlogPage(index));
+              dot.addEventListener("focus", () => goToBlogPage(index));
+              dot.addEventListener("click", () => goToBlogPage(index));
+            });
+            window.addEventListener("resize", () => {
+              blogRow.style.transition = "none";
+              blogRow.style.transform = `translateX(-${blogPageOffset(blogPage)}px)`;
+              requestAnimationFrame(() => {
+                blogRow.style.transition = "";
+              });
+            });
 
             const lazyVideos = blogRow.querySelectorAll("[data-lazy-video] video");
             if (lazyVideos.length && "IntersectionObserver" in window) {
@@ -868,7 +876,7 @@
                   hydrateVideo(entry.target);
                   lazyIo.unobserve(entry.target);
                 });
-              }, { root: blogRow, rootMargin: "0px", threshold: 0.35 });
+              }, { root: blogViewport, rootMargin: "0px", threshold: 0.35 });
               lazyVideos.forEach((video) => lazyIo.observe(video));
             }
           }
