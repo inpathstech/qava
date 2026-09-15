@@ -1,5 +1,34 @@
 (function () {
   const NEED_FACES_SPRITE = "need-art/members/faces.jpg";
+  const HERO_PROOF_LOGO_SRCS = [
+    "./strategy/logos/spotify.png",
+    "./strategy/logos/apple.png",
+    "./strategy/logos/notion.webp",
+    "./strategy/logos/yc.png",
+    "./strategy/logos/bain.png",
+    "./strategy/logos/cotopaxi.png",
+    "./find/logos/wharton.png",
+    "./find/logos/hbs.png",
+    "./find/logos/haas.png",
+    "./find/logos/stanford.png",
+    "./find/logos/kellogg.png",
+    "./find/logos/said.png",
+    "./find/logos/agsm.jpg",
+    "./find/logos/mit.png",
+    "./find/logos/stern.png",
+  ];
+
+  function prefetchHeroProofLogos() {
+    if (prefetchHeroProofLogos.done) return;
+    prefetchHeroProofLogos.done = true;
+    HERO_PROOF_LOGO_SRCS.forEach((src) => {
+      const img = new Image();
+      img.decoding = "async";
+      img.src = src;
+      if (typeof img.decode === "function") img.decode().catch(() => {});
+    });
+  }
+  prefetchHeroProofLogos();
 
   function startNeedStrategyChart(plot) {
     if (!plot || plot.dataset.running) return;
@@ -212,6 +241,104 @@
     startNeedFaceCluster(section.querySelector("#faceCluster"));
   }
 
+  function startHeroProofLogoCycle(proof) {
+    if (!proof || proof.getAttribute("data-qava-logo-cycle") === "1") return;
+    const slot = proof.querySelector(".qava-hero-proof-slot");
+    const companies = proof.querySelector(".qava-hero-proof-set--companies");
+    const schools = proof.querySelector(".qava-hero-proof-set--schools");
+    const inner = schools && schools.querySelector(".qava-hero-proof-set-inner");
+    if (!slot || !companies || !schools || !inner) return;
+    proof.setAttribute("data-qava-logo-cycle", "1");
+
+    const setState = (el, state) => {
+      el.classList.remove("is-in", "is-out", "is-wait");
+      el.classList.add(state);
+    };
+
+    const fitSchools = () => {
+      inner.style.zoom = "1";
+      const slotW = companies.offsetWidth;
+      const schoolW = inner.scrollWidth;
+      if (slotW > 0 && schoolW > slotW) {
+        inner.style.zoom = String(slotW / schoolW);
+      }
+    };
+
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const HOLD = 3400;
+    const FIRST_HOLD = 2800;
+    const SLIDE = 780;
+    let showingCompanies = true;
+    let timer = 0;
+
+    const syncA11y = () => {
+      companies.setAttribute("aria-hidden", showingCompanies ? "false" : "true");
+      schools.setAttribute("aria-hidden", showingCompanies ? "true" : "false");
+      slot.setAttribute("aria-label", showingCompanies ? "Companies" : "Schools");
+    };
+
+    const swap = () => {
+      const outgoing = showingCompanies ? companies : schools;
+      const incoming = showingCompanies ? schools : companies;
+      incoming.classList.remove("is-animating");
+      setState(incoming, "is-wait");
+      incoming.getBoundingClientRect();
+      if (!reduce) {
+        outgoing.classList.add("is-animating");
+        incoming.classList.add("is-animating");
+      }
+      setState(outgoing, "is-out");
+      setState(incoming, "is-in");
+      showingCompanies = !showingCompanies;
+      syncA11y();
+      timer = window.setTimeout(swap, HOLD + (reduce ? 0 : SLIDE));
+    };
+
+    const startCycle = () => {
+      fitSchools();
+      syncA11y();
+      timer = window.setTimeout(swap, reduce ? HOLD : FIRST_HOLD);
+    };
+
+    prefetchHeroProofLogos();
+    if (!slot.querySelector(".qava-hero-proof-shimmer")) {
+      slot.insertAdjacentHTML("afterbegin", '<div class="qava-hero-proof-shimmer" aria-hidden="true"></div>');
+    }
+    slot.classList.add("is-loading");
+    slot.classList.remove("is-ready");
+
+    const revealAndStart = () => {
+      slot.classList.remove("is-loading");
+      slot.classList.add("is-ready");
+      startCycle();
+    };
+
+    const imgs = Array.from(proof.querySelectorAll("img"));
+    imgs.forEach((img) => {
+      img.decoding = "async";
+      img.loading = "eager";
+    });
+
+    const waitImg = (img) => {
+      const decoded = () => (typeof img.decode === "function" ? img.decode().catch(() => {}) : Promise.resolve());
+      if (img.complete) return decoded();
+      return new Promise((resolve) => {
+        const done = () => decoded().then(resolve);
+        img.addEventListener("load", done, { once: true });
+        img.addEventListener("error", resolve, { once: true });
+      });
+    };
+
+    if (imgs.every((img) => img.complete)) {
+      window.requestAnimationFrame(revealAndStart);
+    } else {
+      Promise.all(imgs.map(waitImg)).then(revealAndStart);
+    }
+
+    window.addEventListener("resize", fitSchools);
+    proof.addEventListener("remove", () => window.clearTimeout(timer), { once: true });
+  }
+
   function buildStrategyLibrary(doc) {
     const searchIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>';
     const arrowIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
@@ -229,9 +356,9 @@
     section.innerHTML = `
       <h2 class="qava-lib-title">The world's <em>largest library</em> of strategies</h2>
       <ul class="qava-lib-points">
-        <li>Real tear-downs, not theory</li>
-        <li>AI-powered strategy</li>
-        <li>Customizable by industry/stage</li>
+        <li>Real playbooks, not theory</li>
+        <li>AI-first tactics</li>
+        <li>100% customizable to you</li>
       </ul>
       <div class="qava-lib-stage">
         <div class="qava-lib-marquee" aria-hidden="true">
@@ -245,26 +372,46 @@
         </a>
       </div>
       <button type="button" class="qava-lib-pause" aria-pressed="false">${pauseIcon}<span class="qava-lib-pause-label">Pause motion</span></button>
-      <p class="qava-lib-foot">Plus job listings, networking, and a live community.</p>
+      <p class="qava-lib-foot">Plus job listings and live community chat boards.</p>
     `;
     return section;
+  }
+
+  function placeAfterHeroColumn(doc, el) {
+    const heroSection = doc.querySelector(".feature-cards-section");
+    const heroContainer = heroSection && heroSection.querySelector(".feature-cards-container");
+    if (heroContainer) {
+      heroContainer.insertAdjacentElement("afterend", el);
+      return true;
+    }
+    const heroRule = doc.getElementById("qava-hero-rule");
+    if (heroRule) {
+      heroRule.insertAdjacentElement("afterend", el);
+      return true;
+    }
+    return false;
   }
 
   function buildHomePlaybooks(doc) {
     const section = doc.createElement("section");
     section.id = "qava-home-playbooks";
-    section.setAttribute("aria-label", "Strategy Breakdowns");
+    section.setAttribute("aria-label", "New Releases");
     section.innerHTML = `
-      <div class="examples-intro">
-        <p class="av2-label">Popular</p>
-        <h2 class="examples-title">Playbooks worth knowing</h2>
-        <p class="alg-lede">5-minute, bite-sized walkthroughs, without the jargon.</p>
+      <div class="qava-playbooks-inner">
+      <div class="qava-new-releases-row">
+        <h2 class="qava-new-releases">New Releases</h2>
+        <a class="examples-cta-login" href="https://app.theclubnyc.com/?login=1">
+          <span class="examples-cta-login-text">Login</span>
+          <span class="examples-cta-login-arrow" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-right"><path d="M18 8L22 12L18 16"/><path d="M2 12H22"/></svg>
+          </span>
+        </a>
       </div>
       <div class="examples-grid">
         <a class="ex-card" href="https://theclubnyc.com/templates/beachhead-strategy">
           <div class="ex-art"><img src="./strategy/thumbnails/template-beachhead.png" alt="" /></div>
           <div class="ex-caption">
-            <div class="ex-cat">Strategy</div>
+            <div class="ex-cat">GTM Strategy</div>
             <p class="ex-title">Beachhead Strategy</p>
             <div class="ex-formats" aria-hidden="true">
               <img src="./strategy/thumbnails/template-logo-pdf.png" alt="" />
@@ -277,7 +424,7 @@
         <a class="ex-card" href="https://theclubnyc.com/templates/ideal-customer-profile">
           <div class="ex-art"><img src="./strategy/thumbnails/template-icp.png" alt="" /></div>
           <div class="ex-caption">
-            <div class="ex-cat">Strategy</div>
+            <div class="ex-cat">Marketing Strategy</div>
             <p class="ex-title">Ideal Client Profile</p>
             <div class="ex-formats" aria-hidden="true">
               <img src="./strategy/thumbnails/template-logo-pdf.png" alt="" />
@@ -290,7 +437,7 @@
         <a class="ex-card" href="https://theclubnyc.com/templates/pricing-strategy">
           <div class="ex-art"><img src="./strategy/thumbnails/template-pricingstrategy.png" alt="" /></div>
           <div class="ex-caption">
-            <div class="ex-cat">Strategy</div>
+            <div class="ex-cat">Finance Strategy</div>
             <p class="ex-title">Pricing Strategy</p>
             <div class="ex-formats" aria-hidden="true">
               <img src="./strategy/thumbnails/template-logo-pdf.png" alt="" />
@@ -302,11 +449,225 @@
         </a>
       </div>
       <div class="examples-cta">
-        <a class="examples-cta-btn" href="https://app.theclubnyc.com/">24/7 access to 100+ strategies &amp; templates</a>
-        <a class="examples-cta-login" href="https://app.theclubnyc.com/?login=1">Login</a>
+        <a class="examples-cta-btn" href="https://app.theclubnyc.com/">24/7 access to 100+ Strategies &amp; Playbooks</a>
+      </div>
       </div>
     `;
     return section;
+  }
+
+  function buildHomeBlog(doc) {
+    const blogStack = doc.createElement("div");
+    blogStack.className = "qava-blog-stack";
+    const blogRow = doc.createElement("div");
+    blogRow.id = "qava-blog-row";
+    blogRow.className = "qava-blog-row";
+    const blogReadArrow = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
+    blogRow.innerHTML = `
+      <a class="qava-blog-card" href="https://www.theclubnyc.com/roam">
+        <video class="qava-blog-thumb" autoplay loop muted playsinline preload="auto" poster="./Roam/roam-card-poster.jpg">
+          <source src="./Roam/roam-card.mp4" type="video/mp4">
+        </video>
+        <div class="qava-blog-scrim"></div>
+        <div class="qava-blog-glass">
+          <div class="qava-blog-tag">Consumer Goods</div>
+          <div class="qava-blog-title">Reimagining hydration for a world on the move</div>
+          <div class="qava-blog-more">
+            <div class="qava-blog-excerpt">How Roam is revolutionizing portable carbonation with SodaTop™.</div>
+            <span class="qava-blog-read">Read ${blogReadArrow}</span>
+          </div>
+        </div>
+      </a>
+      <a class="qava-blog-card" href="https://www.theclubnyc.com/buildaworld">
+        <video class="qava-blog-thumb" autoplay loop muted playsinline preload="auto" poster="./pete-pareo-card-poster.jpg">
+          <source src="./pete-pareo-card.mp4" type="video/mp4">
+        </video>
+        <div class="qava-blog-scrim"></div>
+        <div class="qava-blog-glass">
+          <div class="qava-blog-tag">Brand Strategy</div>
+          <div class="qava-blog-title">Build a world, a feeling —<br>not a product line</div>
+          <div class="qava-blog-more">
+            <div class="qava-blog-excerpt">Most brands describe a product. A few describe a world.</div>
+            <span class="qava-blog-read">Read ${blogReadArrow}</span>
+          </div>
+        </div>
+      </a>
+      <a class="qava-blog-card" href="https://www.theclubnyc.com/liquidskateboard">
+        <video class="qava-blog-thumb" autoplay loop muted playsinline preload="auto" poster="./liquidskateboard-card-poster.jpg">
+          <source src="./liquidskateboard-card.mp4" type="video/mp4">
+        </video>
+        <div class="qava-blog-scrim"></div>
+        <div class="qava-blog-glass">
+          <div class="qava-blog-tag">Product Strategy</div>
+          <div class="qava-blog-title">I just wanted something<br>that felt real</div>
+          <div class="qava-blog-more">
+            <div class="qava-blog-excerpt">How Alexis Chabat built the most original board in a $4B market.</div>
+            <span class="qava-blog-read">Read ${blogReadArrow}</span>
+          </div>
+        </div>
+      </a>
+      <a class="qava-blog-card" href="https://www.theclubnyc.com/noonesark">
+        <video class="qava-blog-thumb" autoplay loop muted playsinline preload="auto" poster="./ark-card-poster.jpg">
+          <source src="./ark-card.mp4" type="video/mp4">
+        </video>
+        <div class="qava-blog-scrim"></div>
+        <div class="qava-blog-glass">
+          <div class="qava-blog-tag">Non-Profit</div>
+          <div class="qava-blog-title">Fundraising to restore NYC's most polluted waterway</div>
+          <div class="qava-blog-more">
+            <div class="qava-blog-excerpt">A 270-ton retired ferry, a pirate brigade, and a vision bold enough to rewrite a waterway's future.</div>
+            <span class="qava-blog-read">Read ${blogReadArrow}</span>
+          </div>
+        </div>
+      </a>
+      <a class="qava-blog-card" href="https://www.theclubnyc.com/the-scuff-is-the-point" data-lazy-video>
+        <video class="qava-blog-thumb" loop muted playsinline preload="none" poster="./scuff-card-poster.jpg?v=3">
+          <source data-src="./scuff-card.mp4?v=3" type="video/mp4">
+        </video>
+        <div class="qava-blog-scrim"></div>
+        <div class="qava-blog-glass">
+          <div class="qava-blog-tag">Product Strategy</div>
+          <div class="qava-blog-title">The scuff is the point</div>
+          <div class="qava-blog-more">
+            <div class="qava-blog-excerpt">The leather will scuff. Not may. Will.</div>
+            <span class="qava-blog-read">Read ${blogReadArrow}</span>
+          </div>
+        </div>
+      </a>
+      <a class="qava-blog-card" href="https://www.theclubnyc.com/the-market-stall-never-went-away" data-lazy-video>
+        <video class="qava-blog-thumb" loop muted playsinline preload="none" poster="./ghanda-card-poster.jpg">
+          <source data-src="./ghanda-card.mp4" type="video/mp4">
+        </video>
+        <div class="qava-blog-scrim"></div>
+        <div class="qava-blog-glass">
+          <div class="qava-blog-tag">Brand Strategy</div>
+          <div class="qava-blog-title">The market stall never went away</div>
+          <div class="qava-blog-more">
+            <div class="qava-blog-excerpt">Most companies lose something when they scale. Ghanda industrialised it.</div>
+            <span class="qava-blog-read">Read ${blogReadArrow}</span>
+          </div>
+        </div>
+      </a>
+    `;
+
+    const blogHead = doc.createElement("div");
+    blogHead.className = "qava-blog-head";
+    const viewBlog = doc.createElement("a");
+    viewBlog.href = "https://www.theclubnyc.com/blog";
+    viewBlog.className = "qava-blog-actbtn";
+    viewBlog.textContent = "Visit blog";
+    blogHead.appendChild(viewBlog);
+    blogStack.appendChild(blogHead);
+    const blogViewport = doc.createElement("div");
+    blogViewport.className = "qava-blog-viewport";
+    blogViewport.appendChild(blogRow);
+    blogStack.appendChild(blogViewport);
+
+    const blogDots = doc.createElement("div");
+    blogDots.className = "qava-blog-dots";
+    blogDots.setAttribute("role", "tablist");
+    blogDots.setAttribute("aria-label", "Story pages");
+    blogDots.innerHTML = `
+      <button type="button" class="qava-blog-dot is-active" aria-label="First four stories" aria-current="true"></button>
+      <button type="button" class="qava-blog-dot" aria-label="Next four stories"></button>
+    `;
+    blogStack.appendChild(blogDots);
+    return blogStack;
+  }
+
+  function startHomeBlog(blogStack) {
+    if (!blogStack) return;
+    const blogRow = blogStack.querySelector("#qava-blog-row");
+    const blogViewport = blogStack.querySelector(".qava-blog-viewport");
+    const blogDots = blogStack.querySelector(".qava-blog-dots");
+    if (!blogRow || !blogDots) return;
+
+    blogStack.querySelectorAll(".qava-blog-card").forEach((card) => {
+      const thumb = card.querySelector(".qava-blog-thumb");
+      if (!thumb) {
+        card.classList.add("is-loaded");
+        return;
+      }
+      const markLoaded = () => card.classList.add("is-loaded");
+      if (thumb.tagName === "VIDEO") {
+        const poster = thumb.getAttribute("poster");
+        if (poster) {
+          const posterImg = new Image();
+          posterImg.decoding = "async";
+          posterImg.onload = markLoaded;
+          posterImg.onerror = markLoaded;
+          posterImg.src = poster;
+        } else if (thumb.readyState >= 2) {
+          markLoaded();
+        } else {
+          thumb.addEventListener("loadeddata", markLoaded, { once: true });
+        }
+        thumb.addEventListener("error", markLoaded, { once: true });
+        return;
+      }
+      if (thumb.complete && thumb.naturalWidth > 0) {
+        markLoaded();
+      } else {
+        thumb.addEventListener("load", markLoaded, { once: true });
+        thumb.addEventListener("error", markLoaded, { once: true });
+      }
+    });
+
+    const blogDotButtons = [...blogDots.querySelectorAll(".qava-blog-dot")];
+    const blogPageSize = 2;
+    let blogPage = 0;
+
+    const blogPageOffset = (page) => {
+      const card = blogRow.querySelector(".qava-blog-card");
+      if (!card) return 0;
+      const gap = parseFloat(getComputedStyle(blogRow).columnGap || getComputedStyle(blogRow).gap) || 16;
+      return page * blogPageSize * (card.getBoundingClientRect().width + gap);
+    };
+
+    const goToBlogPage = (page) => {
+      blogPage = page;
+      blogRow.style.transform = `translateX(-${blogPageOffset(page)}px)`;
+      blogDotButtons.forEach((dot, index) => {
+        const active = index === page;
+        dot.classList.toggle("is-active", active);
+        if (active) dot.setAttribute("aria-current", "true");
+        else dot.removeAttribute("aria-current");
+      });
+    };
+
+    blogDotButtons.forEach((dot, index) => {
+      dot.addEventListener("mouseenter", () => goToBlogPage(index));
+      dot.addEventListener("focus", () => goToBlogPage(index));
+      dot.addEventListener("click", () => goToBlogPage(index));
+    });
+    window.addEventListener("resize", () => {
+      blogRow.style.transition = "none";
+      blogRow.style.transform = `translateX(-${blogPageOffset(blogPage)}px)`;
+      requestAnimationFrame(() => {
+        blogRow.style.transition = "";
+      });
+    });
+
+    const lazyVideos = blogRow.querySelectorAll("[data-lazy-video] video");
+    if (blogViewport && lazyVideos.length && "IntersectionObserver" in window) {
+      const hydrateVideo = (video) => {
+        const source = video.querySelector("source[data-src]");
+        if (!source || source.src) return;
+        source.src = source.getAttribute("data-src");
+        video.load();
+        const play = () => video.play().catch(() => {});
+        if (video.readyState >= 2) play();
+        else video.addEventListener("loadeddata", play, { once: true });
+      };
+      const lazyIo = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          hydrateVideo(entry.target);
+          lazyIo.unobserve(entry.target);
+        });
+      }, { root: blogViewport, rootMargin: "0px", threshold: 0.35 });
+      lazyVideos.forEach((video) => lazyIo.observe(video));
+    }
   }
 
   function startStrategyLibrary(section) {
@@ -406,15 +767,15 @@
           const links = [
             {
               href: "https://theclubnyc.com/strategy/",
-              label: "Strategy Breakdowns",
+              label: "Strategies & Playbooks",
               cls: "nav-item templates",
-              active: path.startsWith("/strategy") || existingActive.includes("strategy") || existingActive.includes("strategy breakdowns") || existingActive.includes("breakdowns"),
+              active: path.startsWith("/strategy") || existingActive.includes("strategy") || existingActive.includes("strategy breakdowns") || existingActive.includes("strategies and playbooks") || existingActive.includes("strategies & playbooks") || existingActive.includes("breakdowns"),
             },
             {
               href: "https://theclubnyc.com/find/",
-              label: "Project Listings",
+              label: "Job Board",
               cls: "nav-item search-listings",
-              active: path.startsWith("/find") || existingActive.includes("work") || existingActive.includes("find work") || existingActive.includes("job & project listings") || existingActive.includes("project listings"),
+              active: path.startsWith("/find") || existingActive.includes("work") || existingActive.includes("find work") || existingActive.includes("job & project listings") || existingActive.includes("project listings") || existingActive.includes("job listing") || existingActive.includes("job listings") || existingActive.includes("job board"),
             },
             {
               href: "https://theclubnyc.com/blog",
@@ -499,7 +860,7 @@
         const heroHeading = doc.querySelector(".feature-cards-header");
         if (heroHeading) {
           heroHeading.classList.add("qava-hero-heading");
-          heroHeading.innerHTML = '<span class="qava-hero-line">Your idea deserves</span> <span class="qava-hero-line">the best.</span>';
+          heroHeading.innerHTML = '<span class="qava-hero-line">Off-campus strategies</span> <span class="qava-hero-line">&amp; playbooks.</span>';
 
           if (!doc.getElementById("qava-hero-icon")) {
             const heroIcon = doc.createElement("img");
@@ -515,14 +876,57 @@
         const heroSubheader = doc.querySelector(".feature-cards-subheader");
         if (heroSubheader) {
           heroSubheader.classList.add("qava-hero-subheader");
-          heroSubheader.innerHTML = '<span class="qava-sub-line">Test ideas, secure funding, drive growth,</span> <span class="qava-sub-line">and make more money.</span>';
-          if (!doc.getElementById("qava-hero-rule")) {
-            const rule = doc.createElement("div");
-            rule.id = "qava-hero-rule";
-            rule.className = "qava-hero-rule";
-            rule.setAttribute("aria-hidden", "true");
-            heroSubheader.insertAdjacentElement("afterend", rule);
+          heroSubheader.innerHTML = '<span class="qava-sub-line">Test ideas, secure funding, drive growth,</span> <span class="qava-sub-line">lead transformation, and make more money.</span>';
+
+          let proof = doc.getElementById("qava-hero-proof");
+          if (!proof) {
+            proof = doc.createElement("div");
+            proof.id = "qava-hero-proof";
+            proof.className = "qava-hero-proof";
+            heroSubheader.insertAdjacentElement("afterend", proof);
           }
+          prefetchHeroProofLogos();
+          if (!proof.querySelector(".qava-hero-proof-slot")) {
+            proof.innerHTML = `
+              <p class="qava-hero-proof-label">Join strategy fanatics from</p>
+              <div class="qava-hero-proof-slot is-loading" aria-label="Companies">
+                <div class="qava-hero-proof-shimmer" aria-hidden="true"></div>
+                <div class="qava-hero-proof-set qava-hero-proof-set--companies is-in" data-set="companies">
+                  <img src="./strategy/logos/spotify.png" alt="Spotify" width="14" height="14" decoding="async" loading="eager" fetchpriority="high" />
+                  <img src="./strategy/logos/apple.png" alt="Apple" width="11" height="14" decoding="async" loading="eager" fetchpriority="high" />
+                  <img src="./strategy/logos/notion.webp" alt="Notion" width="14" height="14" decoding="async" loading="eager" fetchpriority="high" />
+                  <img src="./strategy/logos/yc.png" alt="Y Combinator" width="14" height="14" decoding="async" loading="eager" fetchpriority="high" />
+                  <span class="qava-hero-logo-word" aria-label="WeWork">WeWork</span>
+                  <img src="./strategy/logos/bain.png" alt="Bain Capital" width="65" height="11" decoding="async" loading="eager" fetchpriority="high" />
+                  <img src="./strategy/logos/cotopaxi.png" alt="Cotopaxi" width="39" height="13" decoding="async" loading="eager" fetchpriority="high" />
+                </div>
+                <div class="qava-hero-proof-set qava-hero-proof-set--schools is-wait" data-set="schools" aria-hidden="true">
+                  <div class="qava-hero-proof-set-inner">
+                    <img src="./find/logos/wharton.png" alt="Wharton" width="28" height="16" decoding="async" loading="eager" />
+                    <img src="./find/logos/hbs.png" alt="Harvard Business School" width="28" height="16" decoding="async" loading="eager" />
+                    <img src="./find/logos/haas.png" alt="Berkeley Haas" width="28" height="16" decoding="async" loading="eager" />
+                    <img src="./find/logos/stanford.png" alt="Stanford GSB" width="28" height="16" decoding="async" loading="eager" />
+                    <img src="./find/logos/kellogg.png" alt="Kellogg" width="28" height="16" decoding="async" loading="eager" />
+                    <img src="./find/logos/said.png" alt="Oxford Saïd" width="28" height="16" decoding="async" loading="eager" />
+                    <img src="./find/logos/agsm.jpg" alt="AGSM" width="43" height="16" decoding="async" loading="eager" />
+                    <img src="./find/logos/mit.png" alt="MIT Sloan" width="28" height="16" decoding="async" loading="eager" />
+                    <img src="./find/logos/stern.png" alt="NYU Stern" width="28" height="16" decoding="async" loading="eager" />
+                  </div>
+                </div>
+              </div>
+            `;
+          }
+          startHeroProofLogoCycle(proof);
+
+          let divider = doc.getElementById("qava-hero-rule");
+          if (!divider) {
+            divider = doc.createElement("div");
+            divider.id = "qava-hero-rule";
+            divider.className = "qava-hero-rule";
+            divider.setAttribute("aria-hidden", "true");
+          }
+          const afterHero = proof || heroSubheader;
+          afterHero.insertAdjacentElement("afterend", divider);
         }
 
         const pricingNavLinks = Array.from(doc.querySelectorAll("a.nav-item, .mobile-nav-item, .footer-link")).filter((link) =>
@@ -535,7 +939,13 @@
         const navRenames = [
           { match: "chat", label: "Club Room" },
           { match: "create listing", label: "Create listing" },
-          { match: "search listings", label: "Find work" }
+          { match: "strategy breakdowns", label: "Strategies & Playbooks" },
+          { match: "breakdowns", label: "Strategies & Playbooks" },
+          { match: "project listings", label: "Job Board" },
+          { match: "job listing", label: "Job Board" },
+          { match: "job listings", label: "Job Board" },
+          { match: "find work", label: "Job Board" },
+          { match: "search listings", label: "Job Board" }
         ];
         Array.from(doc.querySelectorAll(
           ".navigation .nav-item .nav-text, .navigation .nav-item, .mobile-nav-item .nav-text, .mobile-nav-item"
@@ -549,6 +959,21 @@
           if (rename) {
             target.textContent = rename.label;
           }
+        });
+
+        const footerRenames = [
+          { match: "strategy breakdowns", label: "Strategies & Playbooks" },
+          { match: "breakdowns", label: "Strategies & Playbooks" },
+          { match: "project listings", label: "Job Board" },
+          { match: "job listing", label: "Job Board" },
+          { match: "job listings", label: "Job Board" },
+          { match: "find work", label: "Job Board" },
+          { match: "search listings", label: "Job Board" }
+        ];
+        Array.from(doc.querySelectorAll(".footer-section .footer-link")).forEach((el) => {
+          const current = (el.textContent || "").trim().toLowerCase();
+          const rename = footerRenames.find((r) => r.match === current);
+          if (rename) el.textContent = rename.label;
         });
 
         // Keep explicit Newsletter links pointed at /newsletter. Do not rewrite About.
@@ -623,30 +1048,17 @@
           ctaButtonsRow.style.justifyContent = "center";
           ctaButtonsRow.style.gap = "0";
 
-          const secondaryCta = Array.from(ctaButtonsRow.querySelectorAll("a")).find((link) =>
-            (link.textContent || "").trim().toLowerCase().includes("how qava works")
-          );
-          if (secondaryCta) secondaryCta.remove();
-
-          if (!doc.getElementById("qava-ai-toolset-cta")) {
-            const aiToolsetCta = doc.createElement("a");
-            aiToolsetCta.id = "qava-ai-toolset-cta";
-            aiToolsetCta.href = "https://theclubnyc.com/strategy/";
-            aiToolsetCta.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.983 21.186a1 1 0 0 1-1.966 0 10 10 0 0 0-8.203-8.203 1 1 0 0 1 0-1.966 10 10 0 0 0 8.203-8.203 1 1 0 0 1 1.966 0 10 10 0 0 0 8.203 8.203 1 1 0 0 1 0 1.966 10 10 0 0 0-8.203 8.203"/></svg><span class="qava-blog-shimmer">Strategies</span>';
-            const primaryCta = ctaButtonsRow.querySelector(".cta-button-primary") || ctaButtonsRow.querySelector("a");
-            if (primaryCta) {
-              primaryCta.insertAdjacentElement("afterend", aiToolsetCta);
-            } else {
-              ctaButtonsRow.appendChild(aiToolsetCta);
-            }
-          }
-
-          const existingAiCta = doc.getElementById("qava-ai-toolset-cta");
-          if (existingAiCta) {
-            existingAiCta.href = "https://theclubnyc.com/strategy/";
-            const label = existingAiCta.querySelector(".qava-blog-shimmer");
-            if (label) label.textContent = "Strategies";
-          }
+          Array.from(ctaButtonsRow.querySelectorAll("a")).forEach((link) => {
+            const t = (link.textContent || "").trim().toLowerCase();
+            const isExtraCta = link.id === "qava-ai-toolset-cta"
+              || link.classList.contains("cta-button-secondary")
+              || t.includes("how it works")
+              || t.includes("how qava works")
+              || t.includes("strategies");
+            if (isExtraCta) link.remove();
+          });
+          const leftoverAiCta = doc.getElementById("qava-ai-toolset-cta");
+          if (leftoverAiCta) leftoverAiCta.remove();
 
           // "How it works" links navigate directly to the standalone
           // /howitworks page (no in-page overlay).
@@ -672,288 +1084,95 @@
             showcaseBox.insertAdjacentElement("beforebegin", toggleWrap);
           }
 
-          if (!isMatchmakingArchive && !doc.getElementById("qava-blog-row")) {
-            const blogStack = doc.createElement("div");
-            blogStack.className = "qava-blog-stack";
-            const blogRow = doc.createElement("div");
-            blogRow.id = "qava-blog-row";
-            blogRow.className = "qava-blog-row";
-            const blogReadArrow = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
-            blogRow.innerHTML = `
-              <a class="qava-blog-card" href="https://www.theclubnyc.com/roam">
-                <video class="qava-blog-thumb" autoplay loop muted playsinline preload="auto" poster="./Roam/roam-card-poster.jpg">
-                  <source src="./Roam/roam-card.mp4" type="video/mp4">
-                </video>
-                <div class="qava-blog-scrim"></div>
-                <div class="qava-blog-glass">
-                  <div class="qava-blog-tag">Consumer Goods</div>
-                  <div class="qava-blog-title">Reimagining hydration for a world on the move</div>
-                  <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">How Roam is revolutionizing portable carbonation with SodaTop™.</div>
-                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
-                  </div>
-                </div>
-              </a>
-              <a class="qava-blog-card" href="https://www.theclubnyc.com/buildaworld">
-                <video class="qava-blog-thumb" autoplay loop muted playsinline preload="auto" poster="./pete-pareo-card-poster.jpg">
-                  <source src="./pete-pareo-card.mp4" type="video/mp4">
-                </video>
-                <div class="qava-blog-scrim"></div>
-                <div class="qava-blog-glass">
-                  <div class="qava-blog-tag">Brand Strategy</div>
-                  <div class="qava-blog-title">Build a world, a feeling —<br>not a product line</div>
-                  <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">Most brands describe a product. A few describe a world.</div>
-                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
-                  </div>
-                </div>
-              </a>
-              <a class="qava-blog-card" href="https://www.theclubnyc.com/liquidskateboard">
-                <video class="qava-blog-thumb" autoplay loop muted playsinline preload="auto" poster="./liquidskateboard-card-poster.jpg">
-                  <source src="./liquidskateboard-card.mp4" type="video/mp4">
-                </video>
-                <div class="qava-blog-scrim"></div>
-                <div class="qava-blog-glass">
-                  <div class="qava-blog-tag">Product Strategy</div>
-                  <div class="qava-blog-title">I just wanted something<br>that felt real</div>
-                  <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">How Alexis Chabat built the most original board in a $4B market.</div>
-                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
-                  </div>
-                </div>
-              </a>
-              <a class="qava-blog-card" href="https://www.theclubnyc.com/noonesark">
-                <video class="qava-blog-thumb" autoplay loop muted playsinline preload="auto" poster="./ark-card-poster.jpg">
-                  <source src="./ark-card.mp4" type="video/mp4">
-                </video>
-                <div class="qava-blog-scrim"></div>
-                <div class="qava-blog-glass">
-                  <div class="qava-blog-tag">Non-Profit</div>
-                  <div class="qava-blog-title">Fundraising to restore NYC's most polluted waterway</div>
-                  <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">A 270-ton retired ferry, a pirate brigade, and a vision bold enough to rewrite a waterway's future.</div>
-                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
-                  </div>
-                </div>
-              </a>
-              <a class="qava-blog-card" href="https://www.theclubnyc.com/the-scuff-is-the-point" data-lazy-video>
-                <video class="qava-blog-thumb" loop muted playsinline preload="none" poster="./scuff-card-poster.jpg?v=3">
-                  <source data-src="./scuff-card.mp4?v=3" type="video/mp4">
-                </video>
-                <div class="qava-blog-scrim"></div>
-                <div class="qava-blog-glass">
-                  <div class="qava-blog-tag">Product Strategy</div>
-                  <div class="qava-blog-title">The scuff is the point</div>
-                  <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">The leather will scuff. Not may. Will.</div>
-                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
-                  </div>
-                </div>
-              </a>
-              <a class="qava-blog-card" href="https://www.theclubnyc.com/the-market-stall-never-went-away" data-lazy-video>
-                <video class="qava-blog-thumb" loop muted playsinline preload="none" poster="./ghanda-card-poster.jpg">
-                  <source data-src="./ghanda-card.mp4" type="video/mp4">
-                </video>
-                <div class="qava-blog-scrim"></div>
-                <div class="qava-blog-glass">
-                  <div class="qava-blog-tag">Brand Strategy</div>
-                  <div class="qava-blog-title">The market stall never went away</div>
-                  <div class="qava-blog-more">
-                    <div class="qava-blog-excerpt">Most companies lose something when they scale. Ghanda industrialised it.</div>
-                    <span class="qava-blog-read">Read ${blogReadArrow}</span>
-                  </div>
-                </div>
-              </a>
-            `;
-            ctaButtonsRow.insertAdjacentElement("afterend", blogStack);
-
-            const blogHead = doc.createElement("div");
-            blogHead.className = "qava-blog-head";
-            const viewBlog = doc.createElement("a");
-            viewBlog.href = "https://www.theclubnyc.com/blog";
-            viewBlog.className = "qava-blog-actbtn";
-            viewBlog.textContent = "Visit blog";
-            blogHead.appendChild(viewBlog);
-            blogStack.appendChild(blogHead);
-            const blogViewport = doc.createElement("div");
-            blogViewport.className = "qava-blog-viewport";
-            blogViewport.appendChild(blogRow);
-            blogStack.appendChild(blogViewport);
-
-            const blogDots = doc.createElement("div");
-            blogDots.className = "qava-blog-dots";
-            blogDots.setAttribute("role", "tablist");
-            blogDots.setAttribute("aria-label", "Story pages");
-            blogDots.innerHTML = `
-              <button type="button" class="qava-blog-dot is-active" aria-label="First four stories" aria-current="true"></button>
-              <button type="button" class="qava-blog-dot" aria-label="Next four stories"></button>
-            `;
-            blogStack.appendChild(blogDots);
-
-            if (!doc.getElementById("qava-need-section")) {
-              const needSection = doc.createElement("section");
-              needSection.id = "qava-need-section";
-              needSection.className = "qava-need-section";
-              needSection.setAttribute("aria-label", "Strategy, listings, and networking");
-              const listingRow = (title, meta) => `
-                      <div class="qava-need-listing">
-                        <div class="qava-need-listing-copy">
-                          <p class="qava-need-listing-title">${title}</p>
-                          <p class="qava-need-listing-meta">${meta}</p>
-                        </div>
-                      </div>`;
-              const listingSet = [
-                listingRow("Pitch Deck for Series B SaaS Workflow Automation Financial Model for Mid-Market Expansion", "Remote · $525 · 10 hrs"),
-                listingRow("Pricing Strategy for Fintech Lending Platform Expansion into Europe GTM Plan for Bank Partnerships", "Remote · $280 · 12 hrs"),
-                listingRow("GTM Plan for Nonprofit Climate Education Partnerships Nationwide Growth Plan for Regional Chapters", "Remote · $280 · 12 hrs"),
-                listingRow("Business Plan for Seed AI Copilot targeting Legal Operations Teams Pitch Deck for First Institutional Round", "New York · $350 · 12 hrs"),
-                listingRow("Financial Model for B2B Climate Platform Growth Plan for Three Segments Pitch Deck for Series A", "Remote · $700 · 12 hrs"),
-                listingRow("Growth Plan for Marketplace Density in Secondary US Cities Pricing Strategy for Supply-Side Incentives", "Denver · $280 · 12 hrs"),
-              ].join("");
-              needSection.innerHTML = `
-                <div class="qava-need-kicker">everything in one place</div>
-                <h2 class="qava-need-title">How it works</h2>
-                <div class="qava-need-grid">
-                  <div class="qava-need-card">
-                    <div class="qava-need-num">01</div>
-                    <div class="qava-need-card-title">Strategy Breakdowns</div>
-                    <p class="qava-need-card-desc">Real teardowns of how top operators solved the exact problem you're facing.</p>
-                    <div class="qava-need-preview qava-need-preview--art">
-                      <div class="qava-need-chart" id="strategyPlot" aria-hidden="true"></div>
-                    </div>
-                  </div>
-                  <div class="qava-need-card">
-                    <div class="qava-need-num">02</div>
-                    <div class="qava-need-card-title">Project Listings</div>
-                    <p class="qava-need-card-desc">Live projects, jobs, and internships from startups to nonprofits, updated daily.</p>
-                    <div class="qava-need-preview qava-need-preview--listings">
-                      <div class="qava-need-live-rail" aria-hidden="true">
-                        <div class="qava-need-live-track">
-                          <div class="qava-need-live-set">${listingSet}</div>
-                          <div class="qava-need-live-set">${listingSet}</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="qava-need-card">
-                    <div class="qava-need-num">03</div>
-                    <div class="qava-need-card-title">Networking</div>
-                    <p class="qava-need-card-desc">Build real relationships with founders, peers, and alumni from top programs.</p>
-                    <div class="qava-need-preview qava-need-preview--faces">
-                      <div class="qava-need-bubbles" id="faceCluster" aria-hidden="true"></div>
-                    </div>
-                  </div>
-                </div>
-              `;
-              blogStack.insertAdjacentElement("afterend", needSection);
-              needSection.appendChild(ctaButtonsRow);
-              startNeedSection(needSection);
-            }
-
-            blogStack.querySelectorAll(".qava-blog-card").forEach((card) => {
-              const thumb = card.querySelector(".qava-blog-thumb");
-              if (!thumb) {
-                card.classList.add("is-loaded");
-                return;
-              }
-              const markLoaded = () => card.classList.add("is-loaded");
-              if (thumb.tagName === "VIDEO") {
-                // Reveal as soon as the poster is ready so cards aren't blank
-                // while the video buffers in the background.
-                const poster = thumb.getAttribute("poster");
-                if (poster) {
-                  const posterImg = new Image();
-                  posterImg.decoding = "async";
-                  posterImg.onload = markLoaded;
-                  posterImg.onerror = markLoaded;
-                  posterImg.src = poster;
-                } else if (thumb.readyState >= 2) {
-                  markLoaded();
-                } else {
-                  thumb.addEventListener("loadeddata", markLoaded, { once: true });
-                }
-                thumb.addEventListener("error", markLoaded, { once: true });
-                return;
-              }
-              if (thumb.complete && thumb.naturalWidth > 0) {
-                markLoaded();
-              } else {
-                thumb.addEventListener("load", markLoaded, { once: true });
-                thumb.addEventListener("error", markLoaded, { once: true });
-              }
-            });
-
-            const blogDotButtons = [...blogDots.querySelectorAll(".qava-blog-dot")];
-            const blogPageSize = 2;
-            let blogPage = 0;
-
-            const blogPageOffset = (page) => {
-              const card = blogRow.querySelector(".qava-blog-card");
-              if (!card) return 0;
-              const gap = parseFloat(getComputedStyle(blogRow).columnGap || getComputedStyle(blogRow).gap) || 16;
-              return page * blogPageSize * (card.getBoundingClientRect().width + gap);
-            };
-
-            const goToBlogPage = (page) => {
-              blogPage = page;
-              blogRow.style.transform = `translateX(-${blogPageOffset(page)}px)`;
-              blogDotButtons.forEach((dot, index) => {
-                const active = index === page;
-                dot.classList.toggle("is-active", active);
-                if (active) dot.setAttribute("aria-current", "true");
-                else dot.removeAttribute("aria-current");
-              });
-            };
-
-            blogDotButtons.forEach((dot, index) => {
-              dot.addEventListener("mouseenter", () => goToBlogPage(index));
-              dot.addEventListener("focus", () => goToBlogPage(index));
-              dot.addEventListener("click", () => goToBlogPage(index));
-            });
-            window.addEventListener("resize", () => {
-              blogRow.style.transition = "none";
-              blogRow.style.transform = `translateX(-${blogPageOffset(blogPage)}px)`;
-              requestAnimationFrame(() => {
-                blogRow.style.transition = "";
-              });
-            });
-
-            const lazyVideos = blogRow.querySelectorAll("[data-lazy-video] video");
-            if (lazyVideos.length && "IntersectionObserver" in window) {
-              const hydrateVideo = (video) => {
-                const source = video.querySelector("source[data-src]");
-                if (!source || source.src) return;
-                source.src = source.getAttribute("data-src");
-                video.load();
-                const play = () => video.play().catch(() => {});
-                if (video.readyState >= 2) play();
-                else video.addEventListener("loadeddata", play, { once: true });
-              };
-              const lazyIo = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                  if (!entry.isIntersecting) return;
-                  hydrateVideo(entry.target);
-                  lazyIo.unobserve(entry.target);
-                });
-              }, { root: blogViewport, rootMargin: "0px", threshold: 0.35 });
-              lazyVideos.forEach((video) => lazyIo.observe(video));
+          if (!isMatchmakingArchive && !doc.getElementById("qava-home-playbooks")) {
+            const playbooks = buildHomePlaybooks(doc);
+            if (!placeAfterHeroColumn(doc, playbooks)) {
+              ctaButtonsRow.insertAdjacentElement("afterend", playbooks);
             }
           }
 
-          if (!isMatchmakingArchive && !doc.getElementById("qava-home-playbooks")) {
-            const playbooks = buildHomePlaybooks(doc);
-            const needEl = doc.getElementById("qava-need-section");
-            if (needEl) needEl.insertAdjacentElement("afterend", playbooks);
-            else if (doc.querySelector(".qava-blog-stack")) doc.querySelector(".qava-blog-stack").insertAdjacentElement("afterend", playbooks);
+          if (!isMatchmakingArchive && !doc.getElementById("qava-blog-row")) {
+            const homeBlog = buildHomeBlog(doc);
+            const playbooksEl = doc.getElementById("qava-home-playbooks");
+            if (playbooksEl) playbooksEl.insertAdjacentElement("afterend", homeBlog);
+            else if (!placeAfterHeroColumn(doc, homeBlog)) {
+              ctaButtonsRow.insertAdjacentElement("afterend", homeBlog);
+            }
+            startHomeBlog(homeBlog);
+          }
+
+          if (!isMatchmakingArchive && !doc.getElementById("qava-need-section")) {
+            const needSection = doc.createElement("section");
+            needSection.id = "qava-need-section";
+            needSection.className = "qava-need-section";
+            needSection.setAttribute("aria-label", "Strategy, listings, and networking");
+            const listingRow = (title, meta) => `
+                    <div class="qava-need-listing">
+                      <div class="qava-need-listing-copy">
+                        <p class="qava-need-listing-title">${title}</p>
+                        <p class="qava-need-listing-meta">${meta}</p>
+                      </div>
+                    </div>`;
+            const listingSet = [
+              listingRow("Pitch Deck for Series B SaaS Workflow Automation Financial Model for Mid-Market Expansion", "Remote · $525 · 10 hrs"),
+              listingRow("Pricing Strategy for Fintech Lending Platform Expansion into Europe GTM Plan for Bank Partnerships", "Remote · $280 · 12 hrs"),
+              listingRow("GTM Plan for Nonprofit Climate Education Partnerships Nationwide Growth Plan for Regional Chapters", "Remote · $280 · 12 hrs"),
+              listingRow("Business Plan for Seed AI Copilot targeting Legal Operations Teams Pitch Deck for First Institutional Round", "New York · $350 · 12 hrs"),
+              listingRow("Financial Model for B2B Climate Platform Growth Plan for Three Segments Pitch Deck for Series A", "Remote · $700 · 12 hrs"),
+              listingRow("Growth Plan for Marketplace Density in Secondary US Cities Pricing Strategy for Supply-Side Incentives", "Denver · $280 · 12 hrs"),
+            ].join("");
+            needSection.innerHTML = `
+              <div class="qava-need-kicker">everything in one place</div>
+              <h2 class="qava-need-title">How it works</h2>
+              <div class="qava-need-grid">
+                <div class="qava-need-card">
+                  <div class="qava-need-num">01</div>
+                  <div class="qava-need-card-title">Strategy Breakdowns</div>
+                  <p class="qava-need-card-desc">Real teardowns of how top operators solved the exact problem you're facing.</p>
+                  <div class="qava-need-preview qava-need-preview--art">
+                    <div class="qava-need-chart" id="strategyPlot" aria-hidden="true"></div>
+                  </div>
+                </div>
+                <div class="qava-need-card">
+                  <div class="qava-need-num">02</div>
+                  <div class="qava-need-card-title">Project Listings</div>
+                  <p class="qava-need-card-desc">Live projects, jobs, and internships from startups to nonprofits, updated daily.</p>
+                  <div class="qava-need-preview qava-need-preview--listings">
+                    <div class="qava-need-live-rail" aria-hidden="true">
+                      <div class="qava-need-live-track">
+                        <div class="qava-need-live-set">${listingSet}</div>
+                        <div class="qava-need-live-set">${listingSet}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="qava-need-card">
+                  <div class="qava-need-num">03</div>
+                  <div class="qava-need-card-title">Networking</div>
+                  <p class="qava-need-card-desc">Build real relationships with founders, peers, and alumni from top programs.</p>
+                  <div class="qava-need-preview qava-need-preview--faces">
+                    <div class="qava-need-bubbles" id="faceCluster" aria-hidden="true"></div>
+                  </div>
+                </div>
+              </div>
+            `;
+            const homeBlog = doc.querySelector(".qava-blog-stack");
+            const playbooksEl = doc.getElementById("qava-home-playbooks");
+            const heroRule = doc.getElementById("qava-hero-rule");
+            if (homeBlog) homeBlog.insertAdjacentElement("afterend", needSection);
+            else if (playbooksEl) playbooksEl.insertAdjacentElement("afterend", needSection);
+            else if (heroRule) heroRule.insertAdjacentElement("afterend", needSection);
+            else ctaButtonsRow.insertAdjacentElement("afterend", needSection);
+            needSection.appendChild(ctaButtonsRow);
+            startNeedSection(needSection);
           }
 
           if (!isMatchmakingArchive && !doc.getElementById("qava-strategy-library")) {
             const library = buildStrategyLibrary(doc);
             const playbooksEl = doc.getElementById("qava-home-playbooks");
             const needEl = doc.getElementById("qava-need-section");
-            if (playbooksEl) playbooksEl.insertAdjacentElement("afterend", library);
-            else if (needEl) needEl.insertAdjacentElement("afterend", library);
-            else if (doc.querySelector(".qava-blog-stack")) doc.querySelector(".qava-blog-stack").insertAdjacentElement("afterend", library);
+            if (needEl) needEl.insertAdjacentElement("afterend", library);
+            else if (playbooksEl) playbooksEl.insertAdjacentElement("afterend", library);
             startStrategyLibrary(library);
           }
 
@@ -2254,103 +2473,14 @@
           }
 
           const universityLogosRow = doc.querySelector(".feature-cards-logos");
+          if (universityLogosRow) {
+            universityLogosRow.remove();
+          }
           const logosAnchorPoint = showcaseBox
             || doc.getElementById("qava-strategy-library")
             || doc.getElementById("qava-need-section")
             || ctaButtonsRow;
-          if (logosAnchorPoint && universityLogosRow) {
-            if (!universityLogosRow.getAttribute("data-qava-intermingled")) {
-              universityLogosRow.setAttribute("data-qava-intermingled", "true");
-
-              const aiTools = [
-                { src: "./qava-tool-openai.png", alt: "ChatGPT" },
-                { src: "./qava-tool-claude.png", alt: "Claude" },
-                { src: "./qava-tool-gemini.png", alt: "Gemini" },
-                { src: "./qava-tool-copilot.png", alt: "Microsoft Copilot" },
-                { src: "./qava-tool-notion.svg", alt: "Notion", h: 22 },
-                { src: "./qava-tool-airtable.png", alt: "Airtable", h: 18 }
-              ];
-
-              const uniItems = Array.from(universityLogosRow.querySelectorAll(".feature-logo-item"));
-              const aiItems = aiTools.map((t) => {
-                const item = doc.createElement("div");
-                item.className = "feature-logo-item qava-ai-logo-item";
-                const img = doc.createElement("img");
-                img.src = t.src;
-                img.alt = t.alt;
-                if (t.h) img.style.height = t.h + "px";
-                item.appendChild(img);
-                return item;
-              });
-
-              const combined = [];
-              const maxLen = Math.max(uniItems.length, aiItems.length);
-              for (let i = 0; i < maxLen; i++) {
-                if (uniItems[i]) combined.push(uniItems[i]);
-                if (aiItems[i]) combined.push(aiItems[i]);
-              }
-
-              universityLogosRow.innerHTML = "";
-              universityLogosRow.style.flexDirection = "column";
-              universityLogosRow.style.gap = "16px";
-
-              const half = Math.ceil(combined.length / 2);
-              let logoAnimIdx = 0;
-              [combined.slice(0, half), combined.slice(half)].forEach((items) => {
-                const row = doc.createElement("div");
-                row.className = "qava-logos-row";
-                items.forEach((it) => {
-                  it.classList.add("qava-logo-anim");
-                  it.style.transitionDelay = (logoAnimIdx * 75) + "ms";
-                  logoAnimIdx++;
-                  row.appendChild(it);
-                });
-                universityLogosRow.appendChild(row);
-              });
-
-              const logoAnimItems = Array.from(universityLogosRow.querySelectorAll(".qava-logo-anim"));
-              const revealLogoItems = () => {
-                const win = window;
-                const vh = win ? win.innerHeight : 800;
-                logoAnimItems.forEach((item) => {
-                  item.classList.remove("qava-logo-in");
-                  item.style.transition = "none";
-                  item.style.transform = "translateY(0)";
-                  item.style.opacity = "0";
-                });
-                if (doc.documentElement) {
-                  doc.documentElement.getBoundingClientRect();
-                }
-                logoAnimItems.forEach((item, idx) => {
-                  const top = item.getBoundingClientRect().top;
-                  const rise = Math.max(Math.round(vh - top + 36), 72);
-                  item.style.setProperty("--logo-rise-from", rise + "px");
-                  item.style.removeProperty("transform");
-                  item.style.removeProperty("opacity");
-                  item.style.transition = "";
-                  item.style.transitionDelay = (idx * 75) + "ms";
-                });
-                win.requestAnimationFrame(() => {
-                  win.requestAnimationFrame(() => {
-                    logoAnimItems.forEach((it) => it.classList.add("qava-logo-in"));
-                  });
-                });
-              };
-              const IOClass = window && window.IntersectionObserver;
-              if (IOClass && logoAnimItems.length) {
-                const logoObserver = new IOClass((entries) => {
-                  entries.forEach((entry) => {
-                    if (!entry.isIntersecting) return;
-                    revealLogoItems();
-                    logoObserver.disconnect();
-                  });
-                }, { threshold: 0.15 });
-                logoObserver.observe(universityLogosRow);
-              } else {
-                revealLogoItems();
-              }
-            }
-
+          if (logosAnchorPoint) {
             let logosAnchor = doc.getElementById("qava-moved-logos-anchor");
             if (!logosAnchor) {
               logosAnchor = doc.createElement("section");
@@ -2393,7 +2523,6 @@
 
             logosAnchor.appendChild(spacer);
             logosAnchor.appendChild(testimonial);
-            logosAnchor.appendChild(universityLogosRow);
 
             if (!doc.getElementById("qava-calc-section")) {
               const checkSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-check"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m16 9-5.5 5.5L8 12"/></svg>';
@@ -2883,6 +3012,16 @@
           ].forEach((sel) => {
             doc.querySelectorAll(sel).forEach((el) => el.remove());
           });
+
+          const playbooksEl = doc.getElementById("qava-home-playbooks");
+          const homeBlog = doc.querySelector(".qava-blog-stack");
+          const needEl = doc.getElementById("qava-need-section");
+          if (playbooksEl) placeAfterHeroColumn(doc, playbooksEl);
+          if (playbooksEl && homeBlog) playbooksEl.insertAdjacentElement("afterend", homeBlog);
+          else if (homeBlog) placeAfterHeroColumn(doc, homeBlog);
+          if (homeBlog && needEl) homeBlog.insertAdjacentElement("afterend", needEl);
+          else if (playbooksEl && needEl) playbooksEl.insertAdjacentElement("afterend", needEl);
+          else if (needEl) placeAfterHeroColumn(doc, needEl);
         }
 
         if (typeof window.applyQavaFooter === "function") {

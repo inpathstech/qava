@@ -1163,7 +1163,7 @@
       const NAV_RENAMES = [
         { match: "chat", label: "Club Room" },
         { match: "create listing", label: "Create listing" },
-        { match: "search listings", label: "Find work" },
+        { match: "search listings", label: "Job Board" },
         { match: "about", label: "Newsletter" }
       ];
 
@@ -1268,7 +1268,7 @@
             const label = a.querySelector(".nav-text") || a;
             const t = (a.textContent || "").trim().toLowerCase();
             if (t === "chat") label.textContent = "Club Room";
-            else if (t === "search listings") label.textContent = "Find work";
+            else if (t === "search listings") label.textContent = "Job Board";
             else if (t === "create listing") label.textContent = "Create listing";
             else if (t === "pricing") a.remove();
             else if (t === "about") {

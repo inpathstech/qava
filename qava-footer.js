@@ -9,8 +9,8 @@
           <div class="footer-column">
             <h4 class="footer-heading">Welcome</h4>
             <ul class="footer-link-list">
-              <li><a href="https://theclubnyc.com/strategy/" class="footer-link">Strategy Breakdowns</a></li>
-              <li><a href="https://theclubnyc.com/find/" class="footer-link">Find Work</a></li>
+              <li><a href="https://theclubnyc.com/strategy/" class="footer-link">Strategies &amp; Playbooks</a></li>
+              <li><a href="https://theclubnyc.com/find/" class="footer-link">Job Board</a></li>
               <li><a href="https://app.theclubnyc.com/" class="footer-link">Club Room</a></li>
               <li><a href="https://app.theclubnyc.com/" class="footer-link">Create Listing</a></li>
             </ul>
