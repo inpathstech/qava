@@ -2210,15 +2210,31 @@
           scroll-snap-align: start;
         }
 
+        .qava-blog-foot {
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-top: 16px;
+          min-height: 16px;
+        }
+
         .qava-blog-dots {
           display: flex;
           justify-content: center;
           align-items: center;
           gap: 6px;
-          margin-top: 16px;
+          margin-top: 0;
           overflow: visible;
           position: relative;
           z-index: 1;
+        }
+
+        .qava-blog-foot .qava-blog-actbtn {
+          position: absolute;
+          right: 0;
+          top: 50%;
+          transform: translateY(-50%);
         }
 
         .qava-blog-dot {
