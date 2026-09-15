@@ -678,8 +678,8 @@
                 </div>
               </a>
               <a class="qava-blog-card" href="https://www.theclubnyc.com/the-scuff-is-the-point" data-lazy-video>
-                <video class="qava-blog-thumb" loop muted playsinline preload="none" poster="./scuff-card-poster.jpg?v=2">
-                  <source data-src="./scuff-card.mp4?v=2" type="video/mp4">
+                <video class="qava-blog-thumb" loop muted playsinline preload="none" poster="./scuff-card-poster.jpg?v=3">
+                  <source data-src="./scuff-card.mp4?v=3" type="video/mp4">
                 </video>
                 <div class="qava-blog-scrim"></div>
                 <div class="qava-blog-glass">
