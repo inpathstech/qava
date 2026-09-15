@@ -1235,6 +1235,43 @@
     }
 
   
+  
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: #fff;
+      padding: 72px 28px 40px;
+      overflow-y: auto;
+    }
+    .mobile-menu.active {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .mobile-menu .close-menu {
+      position: absolute;
+      top: 22px;
+      right: 22px;
+      font-size: 22px;
+      cursor: pointer;
+      line-height: 1;
+      color: #111827;
+    }
+    .mobile-menu .mobile-nav-item {
+      display: block;
+      padding: 12px 0;
+      text-decoration: none;
+      font-family: "Inter", sans-serif;
+      font-size: 16px;
+      font-weight: 300;
+      color: #6b6b6b;
+    }
+    .mobile-menu .mobile-nav-item:hover,
+    .mobile-menu .mobile-nav-item.is-active { color: #000; }
+    .mobile-menu .mobile-menu-join-button { margin-top: 16px; width: fit-content; }
+
   </style>
   <link rel="stylesheet" href="/qava-auth.css" />
   <link rel="stylesheet" href="club-dot-wave.css?v=1" />
@@ -1272,7 +1309,7 @@
           <div class="join-text">Get Started</div>
         </a>
       </div>
-      <div class="hamburger-menu" aria-hidden="true">
+      <div class="hamburger-menu" onclick="toggleMobileMenu()" role="button" aria-label="Open menu">
         <div class="hamburger-line"></div>
         <div class="hamburger-line"></div>
         <div class="hamburger-line"></div>
@@ -1280,6 +1317,18 @@
     </div>
   </header>
 
+
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
+    <a href="https://theclubnyc.com/strategy/" class="mobile-nav-item"><div class="nav-text">Strategies &amp; Playbooks</div></a>
+    <a href="https://theclubnyc.com/find/" class="mobile-nav-item"><div class="nav-text">Job Board</div></a>
+    <a href="https://theclubnyc.com/blog" class="mobile-nav-item"><div class="nav-text">Blog</div></a>
+    <a href="https://theclubnyc.com/newsletter" class="mobile-nav-item"><div class="nav-text">Newsletter</div></a>
+    <a href="https://app.theclubnyc.com/?login=1" class="mobile-nav-item qava-premium-nav-btn" data-qava-premium-nav aria-label="Log in"><span class="nav-text">Log in</span></a>
+    <a href="https://app.theclubnyc.com/" class="join-button mobile-menu-join-button">
+      <div class="join-text">Get Started</div>
+    </a>
+  </div>
 <main class="story-wrapper">
         <a class="story-back" href="https://www.theclubnyc.com/blog"><span class="story-back-arrow" aria-hidden="true">&larr;</span> Back</a>
         <header class="story-header">
@@ -1436,5 +1485,15 @@
     })();
   </script>
   <script src="/qava-auth.js"></script>
+
+  <script>
+    function toggleMobileMenu() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      if (!mobileMenu) return;
+      mobileMenu.classList.toggle('active');
+      document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    }
+  </script>
+
 </body>
 </html>
