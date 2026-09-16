@@ -311,7 +311,7 @@
           width: 320px;
           height: 1px;
           background: #6b6b6b;
-          margin: 40px 0 56px;
+          margin: 40px 0 72px;
           position: relative;
           left: 50%;
           transform: translateX(-50%);
@@ -2165,7 +2165,7 @@
 
         .qava-blog-stack {
           width: min(1040px, calc(100vw - 120px));
-          margin: 72px 0 0;
+          margin: 88px 0 0;
           position: relative;
           left: 50%;
           transform: translateX(-50%);
@@ -2557,7 +2557,7 @@
           --need-teal: #6aa3a8;
           width: min(1040px, calc(100vw - 120px));
           max-width: min(1040px, calc(100vw - 120px));
-          margin: 72px auto 8px;
+          margin: 96px auto 8px;
           position: relative;
           left: auto;
           transform: none;
@@ -2963,7 +2963,7 @@
           position: relative;
           left: auto;
           transform: none;
-          padding: 0;
+          padding: 48px 0 48px;
           scroll-margin-top: 80px;
           box-sizing: border-box;
           background: #ffffff;
@@ -3086,6 +3086,7 @@
           align-items: center;
           gap: 10px;
           margin-top: 34px;
+          margin-bottom: 0;
         }
         #qava-home-playbooks .examples-cta-btn {
           display: inline-flex;
@@ -3159,7 +3160,7 @@
           #qava-home-playbooks {
             width: 100%;
             max-width: none;
-            padding: 0;
+            padding: 36px 0 36px;
           }
           #qava-home-playbooks .qava-playbooks-inner {
             width: calc(100vw - 32px);
@@ -3173,7 +3174,7 @@
 
         .qava-lib {
           width: 100vw;
-          margin: 72px 0 0;
+          margin: 96px 0 0;
           position: relative;
           left: 50%;
           transform: translateX(-50%);
@@ -3423,7 +3424,7 @@
         @media (max-width: 600px) {
           .qava-lib {
             padding: 48px 16px 48px;
-            margin-top: 48px;
+            margin-top: 64px;
           }
 
           .qava-lib-title {
@@ -3442,7 +3443,7 @@
           .qava-blog-stack {
             width: calc(100vw - 32px);
             max-width: calc(100vw - 32px);
-            margin-top: 56px;
+            margin-top: 72px;
           }
           #qava-home-playbooks {
             width: 100%;
@@ -3453,13 +3454,13 @@
           .qava-need-section {
             width: calc(100vw - 32px);
             max-width: calc(100vw - 32px);
-            margin-top: 56px;
+            margin-top: 72px;
             left: auto;
             transform: none;
           }
           .qava-hero-rule {
             width: 240px;
-            margin: 28px 0 40px;
+            margin: 28px 0 56px;
           }
 
           .qava-blog-row {
@@ -3795,7 +3796,7 @@
 
         #qava-calc-section.qava-calc-section {
           width: min(1040px, calc(100vw - 120px));
-          margin: 88px 0 0 0;
+          margin: 104px 0 0 0;
           position: relative;
           left: 50%;
           transform: translateX(-50%);
@@ -4104,7 +4105,7 @@
 
         .qava-stories-section {
           width: min(1040px, calc(100vw - 120px));
-          margin: 88px 0 0 0;
+          margin: 104px 0 0 0;
           position: relative;
           left: 50%;
           transform: translateX(-50%);
@@ -4249,7 +4250,7 @@
 
         .qava-prem-section {
           width: min(760px, calc(100vw - 120px));
-          margin: 88px 0 0 0;
+          margin: 104px 0 0 0;
           position: relative;
           left: 50%;
           transform: translateX(-50%);
@@ -4503,7 +4504,7 @@
 
         .qava-faq-section {
           width: min(820px, calc(100vw - 120px));
-          margin: 88px 0 0 0;
+          margin: 104px 0 0 0;
             position: relative;
           left: 50%;
           transform: translateX(-50%);
