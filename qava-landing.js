@@ -876,7 +876,7 @@
         const heroSubheader = doc.querySelector(".feature-cards-subheader");
         if (heroSubheader) {
           heroSubheader.classList.add("qava-hero-subheader");
-          heroSubheader.innerHTML = '<span class="qava-sub-line">Test ideas, secure funding, drive growth,</span> <span class="qava-sub-line">lead transformation, and make more money.</span>';
+          heroSubheader.innerHTML = '<span class="qava-sub-line">Test ideas, secure funding, drive growth,</span> <span class="qava-sub-line">lead transformation, and make money.</span>';
 
           let proof = doc.getElementById("qava-hero-proof");
           if (!proof) {
