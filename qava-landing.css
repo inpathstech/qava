@@ -3052,30 +3052,23 @@
           object-fit: contain;
           padding: 14%;
         }
-        #qava-home-playbooks .ex-art::after {
-          content: "";
-          position: absolute;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          height: 28%;
-          pointer-events: none;
-          background: linear-gradient(
-            to top,
-            rgba(247, 246, 245, 0.96) 0%,
-            rgba(247, 246, 245, 0.55) 48%,
-            rgba(247, 246, 245, 0) 100%
-          );
-        }
         #qava-home-playbooks .ex-caption {
           position: absolute;
-          left: 16px;
-          right: 16px;
-          bottom: 14px;
+          left: 10px;
+          right: auto;
+          bottom: 10px;
           z-index: 2;
-          padding: 0;
+          width: max-content;
+          max-width: calc(100% - 20px);
+          padding: 8px 10px;
           text-align: left;
           pointer-events: none;
+          border-radius: 8px;
+          background: rgba(255, 255, 255, 0.42);
+          -webkit-backdrop-filter: blur(16px) saturate(160%);
+          backdrop-filter: blur(16px) saturate(160%);
+          border: 1px solid rgba(255, 255, 255, 0.62);
+          box-shadow: 0 6px 20px rgba(17, 24, 39, 0.05);
         }
         #qava-home-playbooks .ex-cat {
           font-size: 10px;
