@@ -458,7 +458,7 @@
             <img src="./strategy/thumbnails/template-gtmplan.svg" alt="" />
             <div class="ex-caption">
               <div class="ex-cat">GTM Strategy</div>
-              <p class="ex-title">GTM Plan</p>
+              <p class="ex-title">Go-To-Market Plan</p>
               <div class="ex-formats" aria-hidden="true">
                 <img src="./strategy/thumbnails/template-logo-pdf.png" alt="" />
                 <img src="./strategy/thumbnails/template-logo-ppt.png" alt="" />
