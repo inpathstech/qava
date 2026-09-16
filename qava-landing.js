@@ -7,6 +7,7 @@
     "./strategy/logos/yc.png",
     "./strategy/logos/bain.png",
     "./strategy/logos/cotopaxi.png",
+    "./strategy/logos/mlb.webp",
     "./find/logos/wharton.png",
     "./find/logos/hbs.png",
     "./find/logos/haas.png",
@@ -30,9 +31,8 @@
   }
   prefetchHeroProofLogos();
 
-  const HERO_TILE_VIDEO = "./hero-tile-loop.mp4?v=seq-3-tiny";
-  const HERO_TILE_POSTER = "./hero-sequence-poster.jpg";
-  const HERO_TILE_ARROW = "./hero-arrow-overlay.png";
+  const HERO_TILE_VIDEO = "./hero-tile-loop.mp4?v=seq-4-tiny";
+  const HERO_TILE_POSTER = "./hero-sequence-poster.jpg?v=seq-4";
 
   function ensureHeroVideoTile(doc, heroHeading) {
     if (!heroHeading || !heroHeading.parentNode) return;
@@ -48,10 +48,13 @@
           '<video class="qava-hero-icon-video" autoplay muted loop playsinline preload="auto" poster="' + HERO_TILE_POSTER + '">' +
             '<source src="' + HERO_TILE_VIDEO + '" type="video/mp4" />' +
           "</video>" +
-          '<img class="qava-hero-icon-arrow" src="' + HERO_TILE_ARROW + '" alt="" />' +
         "</div>";
       if (tile) tile.replaceWith(next);
       else heroHeading.parentNode.insertBefore(next, heroHeading);
+      tile = next;
+    }
+    if (tile && tile.querySelectorAll) {
+      tile.querySelectorAll(".qava-hero-icon-arrow").forEach((el) => el.remove());
     }
   }
 
@@ -316,6 +319,7 @@
       ].forEach((need, i) => {
         rows[i] = shuffle(c.splice(0, need.c).concat(s.splice(0, need.s)));
       });
+      rows[2].push({ kind: "company", src: "./strategy/logos/mlb.webp", alt: "MLB", w: 26, h: 14 });
       return rows;
     };
 
@@ -1011,7 +1015,7 @@
           prefetchHeroProofLogos();
           if (proof.getAttribute("data-qava-logo-cycle") !== "1") {
             proof.innerHTML = `
-              <p class="qava-hero-proof-label">Join strategy fanatics from</p>
+              <p class="qava-hero-proof-label">Join strategists from</p>
               <div class="qava-hero-proof-slot is-loading" aria-label="Companies and schools">
                 <div class="qava-hero-proof-shimmer" aria-hidden="true"></div>
                 <div class="qava-hero-proof-set is-in is-pop" data-set="0"></div>
