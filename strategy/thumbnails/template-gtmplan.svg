@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 564 520" fill="none">
+  <defs>
+    <marker id="gtm-mark-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M1 1 L9 5 L1 9" fill="none" stroke="#111827" stroke-width="1.5"/>
+    </marker>
+  </defs>
+  <line x1="88" y1="138" x2="158" y2="207" stroke="#111827" stroke-width="1.5"/>
+  <line x1="158" y1="138" x2="88" y2="207" stroke="#111827" stroke-width="1.5"/>
+  <circle cx="414.5" cy="172.5" r="48.5" stroke="#111827" stroke-width="1.5"/>
+  <rect x="228" y="316" width="97" height="97" stroke="#111827" stroke-width="1.5"/>
+  <line x1="98" y1="365" x2="240" y2="223" stroke="#111827" stroke-width="1.5" marker-end="url(#gtm-mark-arrow)"/>
+  <line x1="300" y1="223" x2="442" y2="365" stroke="#111827" stroke-width="1.5" marker-end="url(#gtm-mark-arrow)"/>
+</svg>
