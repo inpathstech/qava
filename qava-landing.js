@@ -409,41 +409,47 @@
       </div>
       <div class="examples-grid">
         <a class="ex-card" href="https://theclubnyc.com/templates/beachhead-strategy">
-          <div class="ex-art"><img src="./strategy/thumbnails/template-beachhead.png" alt="" /></div>
-          <div class="ex-caption">
-            <div class="ex-cat">GTM Strategy</div>
-            <p class="ex-title">Beachhead Strategy</p>
-            <div class="ex-formats" aria-hidden="true">
-              <img src="./strategy/thumbnails/template-logo-pdf.png" alt="" />
-              <img src="./strategy/thumbnails/template-logo-ppt.png" alt="" />
-              <img src="./strategy/thumbnails/template-logo-gslides.png" alt="" />
-              <img src="./strategy/thumbnails/template-logo-canva.png" alt="" />
+          <div class="ex-art">
+            <img src="./strategy/thumbnails/template-beachhead.png" alt="" />
+            <div class="ex-caption">
+              <div class="ex-cat">GTM Strategy</div>
+              <p class="ex-title">Beachhead Strategy</p>
+              <div class="ex-formats" aria-hidden="true">
+                <img src="./strategy/thumbnails/template-logo-pdf.png" alt="" />
+                <img src="./strategy/thumbnails/template-logo-ppt.png" alt="" />
+                <img src="./strategy/thumbnails/template-logo-gslides.png" alt="" />
+                <img src="./strategy/thumbnails/template-logo-canva.png" alt="" />
+              </div>
             </div>
           </div>
         </a>
         <a class="ex-card" href="https://theclubnyc.com/templates/ideal-customer-profile">
-          <div class="ex-art"><img src="./strategy/thumbnails/template-icp.png" alt="" /></div>
-          <div class="ex-caption">
-            <div class="ex-cat">Marketing Strategy</div>
-            <p class="ex-title">Ideal Client Profile</p>
-            <div class="ex-formats" aria-hidden="true">
-              <img src="./strategy/thumbnails/template-logo-pdf.png" alt="" />
-              <img src="./strategy/thumbnails/template-logo-ppt.png" alt="" />
-              <img src="./strategy/thumbnails/template-logo-gslides.png" alt="" />
-              <img src="./strategy/thumbnails/template-logo-canva.png" alt="" />
+          <div class="ex-art">
+            <img src="./strategy/thumbnails/template-icp.png" alt="" />
+            <div class="ex-caption">
+              <div class="ex-cat">Marketing Strategy</div>
+              <p class="ex-title">Ideal Client Profile</p>
+              <div class="ex-formats" aria-hidden="true">
+                <img src="./strategy/thumbnails/template-logo-pdf.png" alt="" />
+                <img src="./strategy/thumbnails/template-logo-ppt.png" alt="" />
+                <img src="./strategy/thumbnails/template-logo-gslides.png" alt="" />
+                <img src="./strategy/thumbnails/template-logo-canva.png" alt="" />
+              </div>
             </div>
           </div>
         </a>
         <a class="ex-card" href="https://theclubnyc.com/templates/pricing-strategy">
-          <div class="ex-art"><img src="./strategy/thumbnails/template-pricingstrategy.png" alt="" /></div>
-          <div class="ex-caption">
-            <div class="ex-cat">Finance Strategy</div>
-            <p class="ex-title">Pricing Strategy</p>
-            <div class="ex-formats" aria-hidden="true">
-              <img src="./strategy/thumbnails/template-logo-pdf.png" alt="" />
-              <img src="./strategy/thumbnails/template-logo-ppt.png" alt="" />
-              <img src="./strategy/thumbnails/template-logo-gslides.png" alt="" />
-              <img src="./strategy/thumbnails/template-logo-canva.png" alt="" />
+          <div class="ex-art">
+            <img src="./strategy/thumbnails/template-pricingstrategy.png" alt="" />
+            <div class="ex-caption">
+              <div class="ex-cat">Finance Strategy</div>
+              <p class="ex-title">Pricing Strategy</p>
+              <div class="ex-formats" aria-hidden="true">
+                <img src="./strategy/thumbnails/template-logo-pdf.png" alt="" />
+                <img src="./strategy/thumbnails/template-logo-ppt.png" alt="" />
+                <img src="./strategy/thumbnails/template-logo-gslides.png" alt="" />
+                <img src="./strategy/thumbnails/template-logo-canva.png" alt="" />
+              </div>
             </div>
           </div>
         </a>

@@ -3044,21 +3044,45 @@
           overflow: hidden;
           background: #f7f6f5;
         }
-        #qava-home-playbooks .ex-art img {
+        #qava-home-playbooks .ex-art > img {
           display: block;
           width: 100%;
           height: 100%;
           object-fit: contain;
           padding: 14%;
         }
-        #qava-home-playbooks .ex-caption { padding: 10px 2px 0; text-align: left; }
+        #qava-home-playbooks .ex-art::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          height: 28%;
+          pointer-events: none;
+          background: linear-gradient(
+            to top,
+            rgba(247, 246, 245, 0.96) 0%,
+            rgba(247, 246, 245, 0.55) 48%,
+            rgba(247, 246, 245, 0) 100%
+          );
+        }
+        #qava-home-playbooks .ex-caption {
+          position: absolute;
+          left: 16px;
+          right: 16px;
+          bottom: 14px;
+          z-index: 2;
+          padding: 0;
+          text-align: left;
+          pointer-events: none;
+        }
         #qava-home-playbooks .ex-cat {
           font-size: 10px;
           font-weight: 300;
           letter-spacing: 0.08em;
           text-transform: uppercase;
           color: #111827;
-          margin-bottom: 3px;
+          margin-bottom: 4px;
         }
         #qava-home-playbooks .ex-title {
           font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
@@ -3072,12 +3096,34 @@
           display: flex;
           align-items: center;
           gap: 5px;
-          margin-top: 10px;
+          height: 0;
+          margin-top: 0;
+          overflow: hidden;
+          opacity: 0;
+          pointer-events: none;
+          transform: translateY(8px);
+          transition: height 0.3s ease, margin-top 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
         }
         #qava-home-playbooks .ex-formats img {
           width: 12px;
           height: 12px;
+          max-width: 12px;
+          max-height: 12px;
           object-fit: contain;
+          padding: 0;
+        }
+        #qava-home-playbooks .ex-card:hover .ex-formats,
+        #qava-home-playbooks .ex-card:focus-visible .ex-formats {
+          height: 12px;
+          margin-top: 6px;
+          opacity: 1;
+          transform: translateY(0);
+        }
+        @media (prefers-reduced-motion: reduce) {
+          #qava-home-playbooks .ex-formats {
+            transition: opacity 0.2s ease;
+            transform: none;
+          }
         }
         #qava-home-playbooks .examples-cta {
           display: flex;
