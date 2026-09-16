@@ -30,6 +30,31 @@
   }
   prefetchHeroProofLogos();
 
+  const HERO_TILE_VIDEO = "./hero-tile-loop.mp4?v=seq-3-tiny";
+  const HERO_TILE_POSTER = "./hero-sequence-poster.jpg";
+  const HERO_TILE_ARROW = "./hero-arrow-overlay.png";
+
+  function ensureHeroVideoTile(doc, heroHeading) {
+    if (!heroHeading || !heroHeading.parentNode) return;
+    let tile = doc.getElementById("qava-hero-icon");
+    const hasVideo = !!(tile && tile.querySelector && tile.querySelector(".qava-hero-icon-video"));
+    if (!hasVideo) {
+      const next = doc.createElement("div");
+      next.id = "qava-hero-icon";
+      next.className = "qava-hero-icon";
+      next.setAttribute("aria-hidden", "true");
+      next.innerHTML =
+        '<div class="qava-hero-icon-clip">' +
+          '<video class="qava-hero-icon-video" autoplay muted loop playsinline preload="auto" poster="' + HERO_TILE_POSTER + '">' +
+            '<source src="' + HERO_TILE_VIDEO + '" type="video/mp4" />' +
+          "</video>" +
+          '<img class="qava-hero-icon-arrow" src="' + HERO_TILE_ARROW + '" alt="" />' +
+        "</div>";
+      if (tile) tile.replaceWith(next);
+      else heroHeading.parentNode.insertBefore(next, heroHeading);
+    }
+  }
+
   function startNeedStrategyChart(plot) {
     if (!plot || plot.dataset.running) return;
     plot.dataset.running = "1";
@@ -244,43 +269,132 @@
   function startHeroProofLogoCycle(proof) {
     if (!proof || proof.getAttribute("data-qava-logo-cycle") === "1") return;
     const slot = proof.querySelector(".qava-hero-proof-slot");
-    const companies = proof.querySelector(".qava-hero-proof-set--companies");
-    const schools = proof.querySelector(".qava-hero-proof-set--schools");
-    const inner = schools && schools.querySelector(".qava-hero-proof-set-inner");
-    if (!slot || !companies || !schools || !inner) return;
+    const sets = proof ? Array.from(proof.querySelectorAll(".qava-hero-proof-set")) : [];
+    if (!slot || sets.length !== 3) return;
     proof.setAttribute("data-qava-logo-cycle", "1");
+
+    const companies = [
+      { kind: "company", src: "./strategy/logos/spotify.png", alt: "Spotify", w: 14, h: 14 },
+      { kind: "company", src: "./strategy/logos/apple.png", alt: "Apple", w: 11, h: 14 },
+      { kind: "company", src: "./strategy/logos/notion.webp", alt: "Notion", w: 14, h: 14 },
+      { kind: "company", src: "./strategy/logos/yc.png", alt: "Y Combinator", w: 14, h: 14 },
+      { kind: "company", word: "WeWork" },
+      { kind: "company", src: "./strategy/logos/bain.png", alt: "Bain Capital", w: 65, h: 11 },
+      { kind: "company", src: "./strategy/logos/cotopaxi.png", alt: "Cotopaxi", w: 39, h: 13 },
+    ];
+    const schools = [
+      { kind: "school", src: "./find/logos/wharton.png", alt: "Wharton", w: 28, h: 16 },
+      { kind: "school", src: "./find/logos/hbs.png", alt: "Harvard Business School", w: 28, h: 16 },
+      { kind: "school", src: "./find/logos/haas.png", alt: "Berkeley Haas", w: 28, h: 16 },
+      { kind: "school", src: "./find/logos/stanford.png", alt: "Stanford GSB", w: 28, h: 16 },
+      { kind: "school", src: "./find/logos/kellogg.png", alt: "Kellogg", w: 28, h: 16 },
+      { kind: "school", src: "./find/logos/said.png", alt: "Oxford Saïd", w: 28, h: 16 },
+      { kind: "school", src: "./find/logos/agsm.jpg", alt: "AGSM", w: 43, h: 16 },
+      { kind: "school", src: "./find/logos/mit.png", alt: "MIT Sloan", w: 28, h: 16 },
+      { kind: "school", src: "./find/logos/stern.png", alt: "NYU Stern", w: 28, h: 16 },
+    ];
+
+    const shuffle = (list) => {
+      const next = list.slice();
+      for (let i = next.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const tmp = next[i];
+        next[i] = next[j];
+        next[j] = tmp;
+      }
+      return next;
+    };
+
+    const mixRows = () => {
+      const c = shuffle(companies);
+      const s = shuffle(schools);
+      const rows = [[], [], []];
+      [
+        { c: 3, s: 2 },
+        { c: 2, s: 4 },
+        { c: 2, s: 3 },
+      ].forEach((need, i) => {
+        rows[i] = shuffle(c.splice(0, need.c).concat(s.splice(0, need.s)));
+      });
+      return rows;
+    };
+
+    const makeLogo = (item) => {
+      if (item.word) {
+        const span = document.createElement("span");
+        span.className = "qava-hero-logo-word";
+        span.setAttribute("aria-label", item.word);
+        span.textContent = item.word;
+        return span;
+      }
+      const img = document.createElement("img");
+      img.src = item.src;
+      img.alt = item.alt;
+      img.width = item.w;
+      img.height = item.h;
+      img.decoding = "async";
+      img.loading = "eager";
+      return img;
+    };
+
+    mixRows().forEach((row, i) => {
+      sets[i].replaceChildren(...row.map(makeLogo));
+    });
 
     const setState = (el, state) => {
       el.classList.remove("is-in", "is-out", "is-wait");
       el.classList.add(state);
     };
 
-    const fitSchools = () => {
-      inner.style.zoom = "1";
-      const slotW = companies.offsetWidth;
-      const schoolW = inner.scrollWidth;
-      if (slotW > 0 && schoolW > slotW) {
-        inner.style.zoom = String(slotW / schoolW);
-      }
+    const measureContentWidth = (el) => {
+      const prev = {
+        position: el.style.position,
+        width: el.style.width,
+        visibility: el.style.visibility,
+        height: el.style.height,
+        left: el.style.left,
+        top: el.style.top,
+      };
+      el.style.position = "absolute";
+      el.style.width = "max-content";
+      el.style.height = "auto";
+      el.style.visibility = "hidden";
+      el.style.left = "0";
+      el.style.top = "0";
+      const width = Math.ceil(el.getBoundingClientRect().width || el.scrollWidth);
+      el.style.position = prev.position;
+      el.style.width = prev.width;
+      el.style.visibility = prev.visibility;
+      el.style.height = prev.height;
+      el.style.left = prev.left;
+      el.style.top = prev.top;
+      return width;
+    };
+
+    const sizeSlot = () => {
+      const widths = sets.map(measureContentWidth);
+      const max = Math.max(0, ...widths);
+      if (max > 0) slot.style.width = max + "px";
     };
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const HOLD = 3400;
     const FIRST_HOLD = 2800;
     const SLIDE = 780;
-    let showingCompanies = true;
+    let index = 0;
     let timer = 0;
 
     const syncA11y = () => {
-      companies.setAttribute("aria-hidden", showingCompanies ? "false" : "true");
-      schools.setAttribute("aria-hidden", showingCompanies ? "true" : "false");
-      slot.setAttribute("aria-label", showingCompanies ? "Companies" : "Schools");
+      sets.forEach((el, i) => {
+        el.setAttribute("aria-hidden", i === index ? "false" : "true");
+      });
+      slot.setAttribute("aria-label", "Companies and schools");
     };
 
     const swap = () => {
-      const outgoing = showingCompanies ? companies : schools;
-      const incoming = showingCompanies ? schools : companies;
-      incoming.classList.remove("is-animating");
+      const outgoing = sets[index];
+      const incoming = sets[(index + 1) % sets.length];
+      incoming.classList.remove("is-animating", "is-pop");
       setState(incoming, "is-wait");
       incoming.getBoundingClientRect();
       if (!reduce) {
@@ -289,15 +403,9 @@
       }
       setState(outgoing, "is-out");
       setState(incoming, "is-in");
-      showingCompanies = !showingCompanies;
+      index = (index + 1) % sets.length;
       syncA11y();
       timer = window.setTimeout(swap, HOLD + (reduce ? 0 : SLIDE));
-    };
-
-    const startCycle = () => {
-      fitSchools();
-      syncA11y();
-      timer = window.setTimeout(swap, reduce ? HOLD : FIRST_HOLD);
     };
 
     prefetchHeroProofLogos();
@@ -308,12 +416,14 @@
     slot.classList.remove("is-ready");
 
     const revealAndStart = () => {
+      sizeSlot();
       slot.classList.remove("is-loading");
       slot.classList.add("is-ready");
-      startCycle();
+      syncA11y();
+      timer = window.setTimeout(swap, reduce ? HOLD : FIRST_HOLD);
     };
 
-    const imgs = Array.from(proof.querySelectorAll("img"));
+    const imgs = Array.from(slot.querySelectorAll("img"));
     imgs.forEach((img) => {
       img.decoding = "async";
       img.loading = "eager";
@@ -329,13 +439,13 @@
       });
     };
 
-    if (imgs.every((img) => img.complete)) {
+    if (!imgs.length || imgs.every((img) => img.complete)) {
       window.requestAnimationFrame(revealAndStart);
     } else {
       Promise.all(imgs.map(waitImg)).then(revealAndStart);
     }
 
-    window.addEventListener("resize", fitSchools);
+    window.addEventListener("resize", sizeSlot);
     proof.addEventListener("remove", () => window.clearTimeout(timer), { once: true });
   }
 
@@ -883,15 +993,7 @@
           heroHeading.classList.add("qava-hero-heading");
           heroHeading.innerHTML = '<span class="qava-hero-line">Off-campus strategies</span> <span class="qava-hero-line">&amp; playbooks.</span>';
 
-          if (!doc.getElementById("qava-hero-icon")) {
-            const heroIcon = doc.createElement("img");
-            heroIcon.id = "qava-hero-icon";
-            heroIcon.className = "qava-hero-icon";
-            heroIcon.alt = "Hero icon";
-            heroHeading.parentNode.insertBefore(heroIcon, heroHeading);
-          }
-          const heroIcon = doc.getElementById("qava-hero-icon");
-          if (heroIcon) heroIcon.src = "./qava-hero-arrow.png";
+          ensureHeroVideoTile(doc, heroHeading);
         }
 
         const heroSubheader = doc.querySelector(".feature-cards-subheader");
@@ -907,37 +1009,18 @@
             heroSubheader.insertAdjacentElement("afterend", proof);
           }
           prefetchHeroProofLogos();
-          if (!proof.querySelector(".qava-hero-proof-slot")) {
+          if (proof.getAttribute("data-qava-logo-cycle") !== "1") {
             proof.innerHTML = `
               <p class="qava-hero-proof-label">Join strategy fanatics from</p>
-              <div class="qava-hero-proof-slot is-loading" aria-label="Companies">
+              <div class="qava-hero-proof-slot is-loading" aria-label="Companies and schools">
                 <div class="qava-hero-proof-shimmer" aria-hidden="true"></div>
-                <div class="qava-hero-proof-set qava-hero-proof-set--companies is-in" data-set="companies">
-                  <img src="./strategy/logos/spotify.png" alt="Spotify" width="14" height="14" decoding="async" loading="eager" fetchpriority="high" />
-                  <img src="./strategy/logos/apple.png" alt="Apple" width="11" height="14" decoding="async" loading="eager" fetchpriority="high" />
-                  <img src="./strategy/logos/notion.webp" alt="Notion" width="14" height="14" decoding="async" loading="eager" fetchpriority="high" />
-                  <img src="./strategy/logos/yc.png" alt="Y Combinator" width="14" height="14" decoding="async" loading="eager" fetchpriority="high" />
-                  <span class="qava-hero-logo-word" aria-label="WeWork">WeWork</span>
-                  <img src="./strategy/logos/bain.png" alt="Bain Capital" width="65" height="11" decoding="async" loading="eager" fetchpriority="high" />
-                  <img src="./strategy/logos/cotopaxi.png" alt="Cotopaxi" width="39" height="13" decoding="async" loading="eager" fetchpriority="high" />
-                </div>
-                <div class="qava-hero-proof-set qava-hero-proof-set--schools is-wait" data-set="schools" aria-hidden="true">
-                  <div class="qava-hero-proof-set-inner">
-                    <img src="./find/logos/wharton.png" alt="Wharton" width="28" height="16" decoding="async" loading="eager" />
-                    <img src="./find/logos/hbs.png" alt="Harvard Business School" width="28" height="16" decoding="async" loading="eager" />
-                    <img src="./find/logos/haas.png" alt="Berkeley Haas" width="28" height="16" decoding="async" loading="eager" />
-                    <img src="./find/logos/stanford.png" alt="Stanford GSB" width="28" height="16" decoding="async" loading="eager" />
-                    <img src="./find/logos/kellogg.png" alt="Kellogg" width="28" height="16" decoding="async" loading="eager" />
-                    <img src="./find/logos/said.png" alt="Oxford Saïd" width="28" height="16" decoding="async" loading="eager" />
-                    <img src="./find/logos/agsm.jpg" alt="AGSM" width="43" height="16" decoding="async" loading="eager" />
-                    <img src="./find/logos/mit.png" alt="MIT Sloan" width="28" height="16" decoding="async" loading="eager" />
-                    <img src="./find/logos/stern.png" alt="NYU Stern" width="28" height="16" decoding="async" loading="eager" />
-                  </div>
-                </div>
+                <div class="qava-hero-proof-set is-in is-pop" data-set="0"></div>
+                <div class="qava-hero-proof-set is-wait" data-set="1" aria-hidden="true"></div>
+                <div class="qava-hero-proof-set is-wait" data-set="2" aria-hidden="true"></div>
               </div>
             `;
+            startHeroProofLogoCycle(proof);
           }
-          startHeroProofLogoCycle(proof);
 
           let divider = doc.getElementById("qava-hero-rule");
           if (!divider) {
