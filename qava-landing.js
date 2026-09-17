@@ -1610,7 +1610,7 @@
                 </div>
                 <div class="qava-need-card">
                   <div class="qava-need-num">02</div>
-                  <div class="qava-need-card-title">Project Listings</div>
+                  <div class="qava-need-card-title">Job Board</div>
                   <p class="qava-need-card-desc">Live projects, jobs, and internships from startups to nonprofits, updated daily.</p>
                   <div class="qava-need-preview qava-need-preview--listings">
                     <div class="qava-need-live-rail" aria-hidden="true">
