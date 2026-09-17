@@ -3066,14 +3066,14 @@
           margin: 0;
         }
         #qava-home-playbooks .qava-new-releases-subheader {
-          font-family: Inter, system-ui, sans-serif;
+          font-family: Inter, sans-serif;
           font-size: 14px;
           font-weight: 300;
           color: #6B6B6B;
           letter-spacing: normal;
-          line-height: normal;
+          line-height: 21px;
           text-align: left;
-          margin: 0 0 22px;
+          margin: 8px 0 22px;
         }
         #qava-home-playbooks .examples-intro {
           margin-bottom: 14px;
@@ -3254,7 +3254,7 @@
         }
         #qava-home-playbooks .examples-cta-btn:hover { background: #000; color: #fff; }
         #qava-home-playbooks .examples-cta-login {
-          display: inline-flex;
+          display: none; /* temporarily hidden */
           align-items: center;
           flex-shrink: 0;
           background: transparent;
@@ -3316,6 +3316,9 @@
           #qava-home-playbooks .examples-grid {
             grid-template-columns: 1fr;
             gap: 28px;
+          }
+          #qava-home-playbooks .qava-new-releases-subheader {
+            line-height: 1.55;
           }
         }
 
