@@ -179,6 +179,7 @@
           justify-content: center;
           flex: 0 0 auto;
           box-sizing: border-box;
+          overflow: visible;
           filter: grayscale(1);
           transform-origin: center center;
           transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), filter 0.28s ease;
@@ -259,7 +260,7 @@
           display: block;
           width: auto;
           height: 100%;
-          max-width: none;
+          max-width: 100%;
           object-fit: contain;
           object-position: center center;
           opacity: 0;
@@ -301,18 +302,18 @@
 
         .qava-hero-proof-mark[data-logo="wework"],
         .qava-hero-proof-mark[data-logo="cotopaxi"] { height: 13px; }
-        .qava-hero-proof-mark[data-logo="mit"] { height: 14px; }
         .qava-hero-proof-mark[data-logo="stanford"],
         .qava-hero-proof-mark[data-logo="wharton"],
         .qava-hero-proof-mark[data-logo="kellogg"],
-        .qava-hero-proof-mark[data-logo="agsm"] { height: 16px; }
-        .qava-hero-proof-mark[data-logo="mlb"],
+        .qava-hero-proof-mark[data-logo="agsm"],
         .qava-hero-proof-mark[data-logo="hbs"],
+        .qava-hero-proof-mark[data-logo="mit"],
+        .qava-hero-proof-mark[data-logo="columbia"] { height: 16px; }
+        .qava-hero-proof-mark[data-logo="mlb"],
         .qava-hero-proof-mark[data-logo="said"],
         .qava-hero-proof-mark[data-logo="melbourne"] { height: 18px; }
         .qava-hero-proof-mark[data-logo="haas"],
-        .qava-hero-proof-mark[data-logo="stern"],
-        .qava-hero-proof-mark[data-logo="columbia"] { height: 20px; }
+        .qava-hero-proof-mark[data-logo="stern"] { height: 20px; }
 
         @keyframes qavaHeroLogoPop {
           0% { opacity: 0; transform: scale(0.35); }
@@ -3047,6 +3048,7 @@
           text-align: left;
         }
         #qava-home-playbooks .qava-new-releases-row,
+        #qava-home-playbooks .qava-new-releases-subheader,
         #qava-home-playbooks .examples-grid,
         #qava-home-playbooks .examples-cta {
           width: 100%;
@@ -3058,10 +3060,20 @@
           align-items: center;
           justify-content: space-between;
           gap: 16px;
-          margin-bottom: 14px;
+          margin-bottom: 10px;
         }
         #qava-home-playbooks .qava-new-releases {
           margin: 0;
+        }
+        #qava-home-playbooks .qava-new-releases-subheader {
+          font-family: Inter, system-ui, sans-serif;
+          font-size: 14px;
+          font-weight: 300;
+          color: #6B6B6B;
+          letter-spacing: normal;
+          line-height: normal;
+          text-align: left;
+          margin: 0 0 22px;
         }
         #qava-home-playbooks .examples-intro {
           margin-bottom: 14px;
