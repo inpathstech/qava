@@ -18,7 +18,7 @@
     "./hero-proof-logos/mit.png",
     "./hero-proof-logos/stern.png",
     "./hero-proof-logos/melbourne.png",
-    "./hero-proof-logos/columbia.svg",
+    "./hero-proof-logos/columbia.png",
   ];
 
   function prefetchHeroProofLogos() {
@@ -288,16 +288,16 @@
       cotopaxi: { kind: "company", src: "./strategy/logos/cotopaxi.png", alt: "Cotopaxi", logo: "cotopaxi", w: 39, h: 13 },
       mlb: { kind: "company", src: "./hero-proof-logos/mlb.png", alt: "MLB", logo: "mlb", w: 33, h: 18 },
       wharton: { kind: "school", src: "./hero-proof-logos/wharton.png", alt: "Wharton", logo: "wharton", w: 51, h: 16 },
-      hbs: { kind: "school", src: "./hero-proof-logos/hbs.png", alt: "Harvard Business School", logo: "hbs", w: 37, h: 18 },
-      haas: { kind: "school", src: "./hero-proof-logos/haas.png", alt: "Berkeley Haas", logo: "haas", w: 21, h: 20 },
+      hbs: { kind: "school", src: "./hero-proof-logos/hbs.png", alt: "Harvard Business School", logo: "hbs", w: 30, h: 16 },
+      haas: { kind: "school", src: "./hero-proof-logos/haas.png", alt: "Berkeley Haas", logo: "haas", w: 20, h: 20 },
       stanford: { kind: "school", src: "./hero-proof-logos/stanford.png", alt: "Stanford GSB", logo: "stanford", w: 56, h: 16 },
       kellogg: { kind: "school", src: "./hero-proof-logos/kellogg.png", alt: "Kellogg", logo: "kellogg", w: 48, h: 16 },
       said: { kind: "school", src: "./hero-proof-logos/said.png", alt: "Oxford Saïd", logo: "said", w: 34, h: 18 },
       agsm: { kind: "school", src: "./hero-proof-logos/agsm.png", alt: "AGSM", logo: "agsm", w: 53, h: 16 },
-      mit: { kind: "school", src: "./hero-proof-logos/mit.png", alt: "MIT Sloan", logo: "mit", w: 24, h: 14 },
-      stern: { kind: "school", src: "./hero-proof-logos/stern.png", alt: "NYU Stern", logo: "stern", w: 23, h: 20 },
+      mit: { kind: "school", src: "./hero-proof-logos/mit.png", alt: "MIT Sloan", logo: "mit", w: 22, h: 16 },
+      stern: { kind: "school", src: "./hero-proof-logos/stern.png", alt: "NYU Stern", logo: "stern", w: 20, h: 20 },
       melbourne: { kind: "school", src: "./hero-proof-logos/melbourne.png", alt: "Melbourne Business School", logo: "melbourne", w: 22, h: 18 },
-      columbia: { kind: "school", src: "./hero-proof-logos/columbia.svg", alt: "Columbia Business School", logo: "columbia", w: 16, h: 20 },
+      columbia: { kind: "school", src: "./hero-proof-logos/columbia.png", alt: "Columbia Business School", logo: "columbia", w: 30, h: 16 },
     };
 
     const mixRows = () => [
@@ -423,10 +423,20 @@
     slot.classList.add("is-loading");
     slot.classList.remove("is-ready");
 
+    const pin = parseInt(new URLSearchParams(window.location.search).get("proofRow") || "", 10);
+    if (Number.isInteger(pin) && pin >= 0 && pin < sets.length) {
+      sets.forEach((el, i) => {
+        el.classList.remove("is-animating");
+        setState(el, i === pin ? "is-in" : "is-wait");
+      });
+      index = pin;
+    }
+
     const revealAndStart = () => {
       slot.classList.remove("is-loading");
       slot.classList.add("is-ready");
       syncA11y();
+      if (Number.isInteger(pin) && pin >= 0 && pin < sets.length) return;
       timer = window.setTimeout(swap, reduce ? HOLD : FIRST_HOLD);
     };
 
@@ -523,6 +533,7 @@
           </span>
         </a>
       </div>
+      <p class="qava-new-releases-subheader">The playbooks top brands use, broken down for you, your team, and your AI.</p>
       <div class="examples-grid">
         <a class="ex-card" href="https://app.theclubnyc.com/">
           <div class="ex-art">
