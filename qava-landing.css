@@ -139,6 +139,7 @@
           justify-content: center;
           gap: 14px;
           margin: 8px auto 0;
+          width: 100%;
           max-width: 100%;
           white-space: nowrap;
         }
@@ -157,19 +158,30 @@
         .qava-hero-proof-slot {
           position: relative;
           overflow: hidden;
-          flex: 0 0 420px;
-          width: 420px;
-          min-width: 420px;
+          flex: 0 0 auto;
+          width: auto;
+          min-width: 0;
           display: flex;
           align-items: center;
           height: 30px;
           min-height: 30px;
           box-sizing: border-box;
-          flex-shrink: 0;
         }
 
         .qava-hero-proof-slot.is-ready:not(.is-sliding) {
           overflow: visible;
+        }
+
+        .qava-hero-proof-mark {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex: 0 0 auto;
+          box-sizing: border-box;
+          filter: grayscale(1);
+          transform-origin: center center;
+          transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), filter 0.28s ease;
         }
 
         .qava-hero-proof-shimmer {
@@ -193,13 +205,15 @@
           transition: opacity 0.28s ease, visibility 0.28s ease;
         }
 
-        .qava-hero-proof-slot.is-loading .qava-hero-proof-shimmer {
-          opacity: 1;
-          visibility: visible;
+        .qava-hero-proof-mark[data-logo="mlb"] .qava-hero-proof-shimmer,
+        .qava-hero-proof-mark[data-logo="spotify"] .qava-hero-proof-shimmer,
+        .qava-hero-proof-mark[data-logo="yc"] .qava-hero-proof-shimmer {
+          border-radius: 4px;
         }
 
-        .qava-hero-proof-slot.is-loading .qava-hero-proof-set {
-          visibility: hidden;
+        .qava-hero-proof-mark.is-loading .qava-hero-proof-shimmer {
+          opacity: 1;
+          visibility: visible;
         }
 
         .qava-hero-proof-set {
@@ -213,7 +227,7 @@
           position: absolute;
           left: 0;
           top: 0;
-          width: 100%;
+          width: max-content;
           height: 100%;
         }
 
@@ -240,55 +254,63 @@
           transition: transform 0.78s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        .qava-hero-proof-set img,
-        .qava-hero-proof-set .qava-hero-logo-word {
+        .qava-hero-proof-mark img,
+        .qava-hero-proof-mark .qava-hero-logo-word {
           display: block;
-          height: 18px;
           width: auto;
-          flex: 0 0 auto;
+          height: 100%;
+          max-width: none;
           object-fit: contain;
-          filter: grayscale(1);
-          transform-origin: center center;
-          transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), filter 0.28s ease;
-        }
-
-        .qava-hero-proof-slot.is-ready .qava-hero-proof-set.is-in > *:hover,
-        .qava-hero-proof-slot.is-ready .qava-hero-proof-set.is-in > *.is-hover {
-          animation: none;
-          filter: grayscale(0);
-          transform: scale(1.14);
-          position: relative;
-          z-index: 2;
-        }
-
-        .qava-hero-proof-slot.is-ready .qava-hero-proof-set.is-in > *.is-hover {
-          transition: none;
-        }
-
-        .qava-hero-proof-set img[data-logo="bain"] { height: 11px; }
-        .qava-hero-proof-set img[data-logo="cotopaxi"] { height: 13px; }
-        .qava-hero-proof-set img[data-logo="mit"] { height: 14px; }
-        .qava-hero-proof-set img[data-logo="stanford"],
-        .qava-hero-proof-set img[data-logo="wharton"],
-        .qava-hero-proof-set img[data-logo="kellogg"],
-        .qava-hero-proof-set img[data-logo="agsm"] { height: 16px; }
-        .qava-hero-proof-set img[data-logo="hbs"],
-        .qava-hero-proof-set img[data-logo="said"] { height: 18px; }
-        .qava-hero-proof-set img[data-logo="haas"],
-        .qava-hero-proof-set img[data-logo="stern"] { height: 20px; }
-
-        .qava-hero-proof-slot.is-ready .qava-hero-proof-set.is-in.is-pop > * {
+          object-position: center center;
           opacity: 0;
+          transition: opacity 0.28s ease;
+        }
+
+        .qava-hero-proof-mark[data-logo="bain"] {
+          height: 11px;
+          width: auto;
+        }
+
+        .qava-hero-proof-mark[data-logo="bain"] img {
+          width: auto;
+          height: 11px;
+        }
+
+        .qava-hero-proof-mark.is-ready img,
+        .qava-hero-proof-mark.is-ready .qava-hero-logo-word {
+          opacity: 1;
+        }
+
+        .qava-hero-proof-mark.is-ready.is-pop img,
+        .qava-hero-proof-mark.is-ready.is-pop .qava-hero-logo-word {
           transform-origin: center center;
           animation: qavaHeroLogoPop 0.42s cubic-bezier(0.22, 1.48, 0.36, 1) both;
         }
 
-        .qava-hero-proof-set.is-pop > *:nth-child(1) { animation-delay: 0.06s; }
-        .qava-hero-proof-set.is-pop > *:nth-child(2) { animation-delay: 0.18s; }
-        .qava-hero-proof-set.is-pop > *:nth-child(3) { animation-delay: 0.30s; }
-        .qava-hero-proof-set.is-pop > *:nth-child(4) { animation-delay: 0.42s; }
-        .qava-hero-proof-set.is-pop > *:nth-child(5) { animation-delay: 0.54s; }
-        .qava-hero-proof-set.is-pop > *:nth-child(6) { animation-delay: 0.66s; }
+        .qava-hero-proof-slot.is-ready .qava-hero-proof-set.is-in > .qava-hero-proof-mark:hover,
+        .qava-hero-proof-slot.is-ready .qava-hero-proof-set.is-in > .qava-hero-proof-mark.is-hover {
+          animation: none;
+          filter: grayscale(0);
+          transform: scale(1.14);
+          z-index: 2;
+        }
+
+        .qava-hero-proof-slot.is-ready .qava-hero-proof-set.is-in > .qava-hero-proof-mark.is-hover {
+          transition: none;
+        }
+
+        .qava-hero-proof-mark[data-logo="wework"],
+        .qava-hero-proof-mark[data-logo="cotopaxi"] { height: 13px; }
+        .qava-hero-proof-mark[data-logo="mit"] { height: 14px; }
+        .qava-hero-proof-mark[data-logo="stanford"],
+        .qava-hero-proof-mark[data-logo="wharton"],
+        .qava-hero-proof-mark[data-logo="kellogg"],
+        .qava-hero-proof-mark[data-logo="agsm"] { height: 16px; }
+        .qava-hero-proof-mark[data-logo="mlb"],
+        .qava-hero-proof-mark[data-logo="hbs"],
+        .qava-hero-proof-mark[data-logo="said"] { height: 18px; }
+        .qava-hero-proof-mark[data-logo="haas"],
+        .qava-hero-proof-mark[data-logo="stern"] { height: 20px; }
 
         @keyframes qavaHeroLogoPop {
           0% { opacity: 0; transform: scale(0.35); }
@@ -297,8 +319,8 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .qava-hero-proof-set.is-pop > *,
-          .qava-hero-proof-slot.is-ready .qava-hero-proof-set.is-pop > * {
+          .qava-hero-proof-mark.is-ready.is-pop img,
+          .qava-hero-proof-mark.is-ready.is-pop .qava-hero-logo-word {
             animation: none;
             opacity: 1;
           }
@@ -312,23 +334,23 @@
             background-image: none;
           }
 
-          .qava-hero-proof-set img,
-          .qava-hero-proof-set .qava-hero-logo-word {
+          .qava-hero-proof-mark {
             transition: filter 0.2s ease;
           }
 
-          .qava-hero-proof-slot.is-ready .qava-hero-proof-set.is-in > *:hover,
-          .qava-hero-proof-slot.is-ready .qava-hero-proof-set.is-in > *.is-hover {
+          .qava-hero-proof-slot.is-ready .qava-hero-proof-set.is-in > .qava-hero-proof-mark:hover,
+          .qava-hero-proof-slot.is-ready .qava-hero-proof-set.is-in > .qava-hero-proof-mark.is-hover {
             transform: none;
           }
         }
 
-        .qava-hero-proof-set .qava-hero-logo-word {
+        .qava-hero-proof-mark .qava-hero-logo-word {
           font-family: Helvetica, Arial, sans-serif;
           font-size: 11px;
           font-weight: 700;
           letter-spacing: -0.04em;
           color: #111827;
+          width: auto;
           height: 13px;
           line-height: 13px;
         }

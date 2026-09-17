@@ -319,31 +319,57 @@
       ].forEach((need, i) => {
         rows[i] = shuffle(c.splice(0, need.c).concat(s.splice(0, need.s)));
       });
-      rows[2].push({ kind: "company", src: "./hero-proof-logos/mlb.png", alt: "MLB", logo: "mlb", w: 30, h: 18 });
+      rows[2].push({ kind: "company", src: "./hero-proof-logos/mlb.png", alt: "MLB", logo: "mlb", w: 33, h: 18 });
       return rows;
     };
 
+    const revealMark = (mark) => {
+      if (!mark || mark.classList.contains("is-ready")) return;
+      mark.classList.remove("is-loading");
+      mark.classList.add("is-ready", "is-pop");
+    };
+
     const makeLogo = (item) => {
+      const mark = document.createElement("span");
+      mark.className = "qava-hero-proof-mark is-loading";
+      if (item.logo) mark.dataset.logo = item.logo;
+      mark.style.width = item.w + "px";
+      mark.style.height = item.h + "px";
+
+      const shimmer = document.createElement("span");
+      shimmer.className = "qava-hero-proof-shimmer";
+      shimmer.setAttribute("aria-hidden", "true");
+      mark.appendChild(shimmer);
+
       if (item.word) {
         const span = document.createElement("span");
         span.className = "qava-hero-logo-word";
         span.setAttribute("aria-label", item.word);
         if (item.logo) span.dataset.logo = item.logo;
         span.textContent = item.word;
-        return span;
+        mark.appendChild(span);
+        window.requestAnimationFrame(() => revealMark(mark));
+        return mark;
       }
+
       const img = document.createElement("img");
       img.src = item.src;
       img.alt = item.alt;
-      img.width = item.w;
       img.height = item.h;
       img.decoding = "async";
       img.loading = "eager";
       if (item.logo) img.dataset.logo = item.logo;
-      return img;
+      mark.appendChild(img);
+
+      const decoded = () => (typeof img.decode === "function" ? img.decode().then(() => revealMark(mark)).catch(() => revealMark(mark)) : revealMark(mark));
+      if (img.complete && img.naturalWidth) decoded();
+      else {
+        img.addEventListener("load", decoded, { once: true });
+        img.addEventListener("error", () => revealMark(mark), { once: true });
+      }
+      return mark;
     };
 
-    const SLOT_FLOOR = 420;
     const itemDisplayWidth = (item) => Math.ceil(item && item.w ? item.w : 48);
     const estimateRowWidth = (row) => {
       if (!row.length) return 0;
@@ -361,14 +387,15 @@
     };
 
     const applySlotWidth = (px) => {
-      const width = Math.max(SLOT_FLOOR, Math.ceil(px || 0));
+      const width = Math.max(1, Math.ceil(px || 0));
       slot.style.width = width + "px";
       slot.style.flexBasis = width + "px";
       slot.style.minWidth = width + "px";
+      slot.style.maxWidth = width + "px";
       return width;
     };
 
-    applySlotWidth(Math.max(SLOT_FLOOR, ...rows.map(estimateRowWidth)));
+    applySlotWidth(Math.max(...rows.map(estimateRowWidth)));
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const HOLD = 3400;
@@ -410,9 +437,6 @@
     };
 
     prefetchHeroProofLogos();
-    if (!slot.querySelector(".qava-hero-proof-shimmer")) {
-      slot.insertAdjacentHTML("afterbegin", '<div class="qava-hero-proof-shimmer" aria-hidden="true"></div>');
-    }
     slot.classList.add("is-loading");
     slot.classList.remove("is-ready");
 
@@ -1011,9 +1035,8 @@
           if (proof.getAttribute("data-qava-logo-cycle") !== "1") {
             proof.innerHTML = `
               <p class="qava-hero-proof-label">Join strategists from</p>
-              <div class="qava-hero-proof-slot is-loading" style="width:420px;flex-basis:420px;min-width:420px" aria-label="Companies and schools">
-                <div class="qava-hero-proof-shimmer" aria-hidden="true"></div>
-                <div class="qava-hero-proof-set is-in is-pop" data-set="0"></div>
+              <div class="qava-hero-proof-slot is-loading" aria-label="Companies and schools">
+                <div class="qava-hero-proof-set is-in" data-set="0"></div>
                 <div class="qava-hero-proof-set is-wait" data-set="1" aria-hidden="true"></div>
                 <div class="qava-hero-proof-set is-wait" data-set="2" aria-hidden="true"></div>
               </div>
