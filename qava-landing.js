@@ -31,8 +31,8 @@
   }
   prefetchHeroProofLogos();
 
-  const HERO_TILE_VIDEO = "./hero-tile-loop.mp4?v=seq-4-tiny";
-  const HERO_TILE_POSTER = "./hero-sequence-poster.jpg?v=seq-4";
+  const HERO_TILE_VIDEO = "./hero-tile-loop.mp4?v=seq-5-tiny";
+  const HERO_TILE_POSTER = "./hero-sequence-poster.jpg?v=seq-5";
 
   function ensureHeroVideoTile(doc, heroHeading) {
     if (!heroHeading || !heroHeading.parentNode) return;
