@@ -277,24 +277,24 @@
     proof.setAttribute("data-qava-logo-cycle", "1");
 
     const companies = [
-      { kind: "company", src: "./strategy/logos/spotify.png", alt: "Spotify", logo: "spotify", w: 14, h: 14 },
-      { kind: "company", src: "./strategy/logos/apple.png", alt: "Apple", logo: "apple", w: 11, h: 14 },
-      { kind: "company", src: "./hero-proof-logos/notion.png", alt: "Notion", logo: "notion", w: 14, h: 14 },
-      { kind: "company", src: "./strategy/logos/yc.png", alt: "Y Combinator", logo: "yc", w: 14, h: 14 },
-      { kind: "company", word: "WeWork", logo: "wework" },
-      { kind: "company", src: "./strategy/logos/bain.png", alt: "Bain Capital", logo: "bain", w: 65, h: 11 },
+      { kind: "company", src: "./strategy/logos/spotify.png", alt: "Spotify", logo: "spotify", w: 18, h: 18 },
+      { kind: "company", src: "./strategy/logos/apple.png", alt: "Apple", logo: "apple", w: 15, h: 18 },
+      { kind: "company", src: "./hero-proof-logos/notion.png", alt: "Notion", logo: "notion", w: 17, h: 18 },
+      { kind: "company", src: "./strategy/logos/yc.png", alt: "Y Combinator", logo: "yc", w: 18, h: 18 },
+      { kind: "company", word: "WeWork", logo: "wework", w: 48, h: 13 },
+      { kind: "company", src: "./strategy/logos/bain.png", alt: "Bain Capital", logo: "bain", w: 66, h: 11 },
       { kind: "company", src: "./strategy/logos/cotopaxi.png", alt: "Cotopaxi", logo: "cotopaxi", w: 39, h: 13 },
     ];
     const schools = [
-      { kind: "school", src: "./hero-proof-logos/wharton.png", alt: "Wharton", logo: "wharton", w: 28, h: 16 },
-      { kind: "school", src: "./hero-proof-logos/hbs.png", alt: "Harvard Business School", logo: "hbs", w: 28, h: 16 },
-      { kind: "school", src: "./hero-proof-logos/haas.png", alt: "Berkeley Haas", logo: "haas", w: 28, h: 16 },
-      { kind: "school", src: "./hero-proof-logos/stanford.png", alt: "Stanford GSB", logo: "stanford", w: 28, h: 16 },
-      { kind: "school", src: "./hero-proof-logos/kellogg.png", alt: "Kellogg", logo: "kellogg", w: 28, h: 16 },
-      { kind: "school", src: "./hero-proof-logos/said.png", alt: "Oxford Saïd", logo: "said", w: 28, h: 16 },
-      { kind: "school", src: "./hero-proof-logos/agsm.png", alt: "AGSM", logo: "agsm", w: 43, h: 16 },
-      { kind: "school", src: "./hero-proof-logos/mit.png", alt: "MIT Sloan", logo: "mit", w: 28, h: 16 },
-      { kind: "school", src: "./hero-proof-logos/stern.png", alt: "NYU Stern", logo: "stern", w: 28, h: 16 },
+      { kind: "school", src: "./hero-proof-logos/wharton.png", alt: "Wharton", logo: "wharton", w: 51, h: 16 },
+      { kind: "school", src: "./hero-proof-logos/hbs.png", alt: "Harvard Business School", logo: "hbs", w: 37, h: 18 },
+      { kind: "school", src: "./hero-proof-logos/haas.png", alt: "Berkeley Haas", logo: "haas", w: 21, h: 20 },
+      { kind: "school", src: "./hero-proof-logos/stanford.png", alt: "Stanford GSB", logo: "stanford", w: 56, h: 16 },
+      { kind: "school", src: "./hero-proof-logos/kellogg.png", alt: "Kellogg", logo: "kellogg", w: 48, h: 16 },
+      { kind: "school", src: "./hero-proof-logos/said.png", alt: "Oxford Saïd", logo: "said", w: 34, h: 18 },
+      { kind: "school", src: "./hero-proof-logos/agsm.png", alt: "AGSM", logo: "agsm", w: 53, h: 16 },
+      { kind: "school", src: "./hero-proof-logos/mit.png", alt: "MIT Sloan", logo: "mit", w: 24, h: 14 },
+      { kind: "school", src: "./hero-proof-logos/stern.png", alt: "NYU Stern", logo: "stern", w: 23, h: 20 },
     ];
 
     const shuffle = (list) => {
@@ -319,7 +319,7 @@
       ].forEach((need, i) => {
         rows[i] = shuffle(c.splice(0, need.c).concat(s.splice(0, need.s)));
       });
-      rows[2].push({ kind: "company", src: "./hero-proof-logos/mlb.png", alt: "MLB", logo: "mlb", w: 26, h: 14 });
+      rows[2].push({ kind: "company", src: "./hero-proof-logos/mlb.png", alt: "MLB", logo: "mlb", w: 30, h: 18 });
       return rows;
     };
 
@@ -343,53 +343,21 @@
       return img;
     };
 
-    mixRows().forEach((row, i) => {
+    const SLOT_FLOOR = 420;
+    const itemDisplayWidth = (item) => Math.ceil(item && item.w ? item.w : 48);
+    const estimateRowWidth = (row) => {
+      if (!row.length) return 0;
+      return row.reduce((sum, item) => sum + itemDisplayWidth(item), 0) + 14 * (row.length - 1);
+    };
+
+    const rows = mixRows();
+    rows.forEach((row, i) => {
       sets[i].replaceChildren(...row.map(makeLogo));
     });
 
     const setState = (el, state) => {
       el.classList.remove("is-in", "is-out", "is-wait");
       el.classList.add(state);
-    };
-
-    const SLOT_FLOOR = 360;
-    const LOGO_CSS_H = {
-      bain: 11,
-      cotopaxi: 13,
-      mit: 14,
-      stanford: 16,
-      wharton: 16,
-      kellogg: 16,
-      agsm: 16,
-      hbs: 18,
-      said: 18,
-      haas: 20,
-      stern: 20,
-      wework: 13,
-    };
-
-    const measureItemWidth = (el) => {
-      if (!el) return 0;
-      if (el.classList.contains("qava-hero-logo-word")) {
-        return Math.ceil(el.getBoundingClientRect().width || el.scrollWidth || 52);
-      }
-      const cssH = LOGO_CSS_H[el.dataset.logo] || 18;
-      if (el.naturalWidth && el.naturalHeight) {
-        return Math.ceil(el.naturalWidth * (cssH / el.naturalHeight));
-      }
-      const attrW = Number(el.getAttribute("width")) || 28;
-      const attrH = Number(el.getAttribute("height")) || cssH;
-      return Math.ceil(attrW * (cssH / attrH));
-    };
-
-    const measureContentWidth = (el) => {
-      const kids = Array.from(el.children);
-      if (!kids.length) return 0;
-      const gap = parseFloat(getComputedStyle(el).gap);
-      const gapPx = Number.isFinite(gap) ? gap : 14;
-      return Math.ceil(kids.reduce((sum, child, i) => (
-        sum + measureItemWidth(child) + (i ? gapPx : 0)
-      ), 0));
     };
 
     const applySlotWidth = (px) => {
@@ -400,13 +368,7 @@
       return width;
     };
 
-    let committedWidth = SLOT_FLOOR;
-    const sizeSlot = () => {
-      const max = Math.max(committedWidth, ...sets.map(measureContentWidth));
-      committedWidth = applySlotWidth(max);
-    };
-    applySlotWidth(SLOT_FLOOR);
-    sizeSlot();
+    applySlotWidth(Math.max(SLOT_FLOOR, ...rows.map(estimateRowWidth)));
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const HOLD = 3400;
@@ -455,7 +417,6 @@
     slot.classList.remove("is-ready");
 
     const revealAndStart = () => {
-      sizeSlot();
       slot.classList.remove("is-loading");
       slot.classList.add("is-ready");
       syncA11y();
@@ -484,7 +445,6 @@
       Promise.all(imgs.map(waitImg)).then(revealAndStart);
     }
 
-    window.addEventListener("resize", sizeSlot);
     proof.addEventListener("remove", () => window.clearTimeout(timer), { once: true });
   }
 
@@ -1051,7 +1011,7 @@
           if (proof.getAttribute("data-qava-logo-cycle") !== "1") {
             proof.innerHTML = `
               <p class="qava-hero-proof-label">Join strategists from</p>
-              <div class="qava-hero-proof-slot is-loading" style="width:360px;flex-basis:360px;min-width:360px" aria-label="Companies and schools">
+              <div class="qava-hero-proof-slot is-loading" style="width:420px;flex-basis:420px;min-width:420px" aria-label="Companies and schools">
                 <div class="qava-hero-proof-shimmer" aria-hidden="true"></div>
                 <div class="qava-hero-proof-set is-in is-pop" data-set="0"></div>
                 <div class="qava-hero-proof-set is-wait" data-set="1" aria-hidden="true"></div>

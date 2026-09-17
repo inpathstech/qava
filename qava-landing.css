@@ -157,14 +157,15 @@
         .qava-hero-proof-slot {
           position: relative;
           overflow: hidden;
-          flex: 0 0 360px;
-          width: 360px;
-          min-width: 360px;
+          flex: 0 0 420px;
+          width: 420px;
+          min-width: 420px;
           display: flex;
           align-items: center;
           height: 30px;
           min-height: 30px;
           box-sizing: border-box;
+          flex-shrink: 0;
         }
 
         .qava-hero-proof-slot.is-ready:not(.is-sliding) {
