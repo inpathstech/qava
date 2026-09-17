@@ -17,6 +17,8 @@
     "./hero-proof-logos/agsm.png",
     "./hero-proof-logos/mit.png",
     "./hero-proof-logos/stern.png",
+    "./hero-proof-logos/melbourne.png",
+    "./hero-proof-logos/columbia.svg",
   ];
 
   function prefetchHeroProofLogos() {
@@ -276,52 +278,33 @@
     if (!slot || sets.length !== 3) return;
     proof.setAttribute("data-qava-logo-cycle", "1");
 
-    const companies = [
-      { kind: "company", src: "./strategy/logos/spotify.png", alt: "Spotify", logo: "spotify", w: 18, h: 18 },
-      { kind: "company", src: "./strategy/logos/apple.png", alt: "Apple", logo: "apple", w: 15, h: 18 },
-      { kind: "company", src: "./hero-proof-logos/notion.png", alt: "Notion", logo: "notion", w: 17, h: 18 },
-      { kind: "company", src: "./strategy/logos/yc.png", alt: "Y Combinator", logo: "yc", w: 18, h: 18 },
-      { kind: "company", word: "WeWork", logo: "wework", w: 48, h: 13 },
-      { kind: "company", src: "./strategy/logos/bain.png", alt: "Bain Capital", logo: "bain", w: 66, h: 11 },
-      { kind: "company", src: "./strategy/logos/cotopaxi.png", alt: "Cotopaxi", logo: "cotopaxi", w: 39, h: 13 },
-    ];
-    const schools = [
-      { kind: "school", src: "./hero-proof-logos/wharton.png", alt: "Wharton", logo: "wharton", w: 51, h: 16 },
-      { kind: "school", src: "./hero-proof-logos/hbs.png", alt: "Harvard Business School", logo: "hbs", w: 37, h: 18 },
-      { kind: "school", src: "./hero-proof-logos/haas.png", alt: "Berkeley Haas", logo: "haas", w: 21, h: 20 },
-      { kind: "school", src: "./hero-proof-logos/stanford.png", alt: "Stanford GSB", logo: "stanford", w: 56, h: 16 },
-      { kind: "school", src: "./hero-proof-logos/kellogg.png", alt: "Kellogg", logo: "kellogg", w: 48, h: 16 },
-      { kind: "school", src: "./hero-proof-logos/said.png", alt: "Oxford Saïd", logo: "said", w: 34, h: 18 },
-      { kind: "school", src: "./hero-proof-logos/agsm.png", alt: "AGSM", logo: "agsm", w: 53, h: 16 },
-      { kind: "school", src: "./hero-proof-logos/mit.png", alt: "MIT Sloan", logo: "mit", w: 24, h: 14 },
-      { kind: "school", src: "./hero-proof-logos/stern.png", alt: "NYU Stern", logo: "stern", w: 23, h: 20 },
-    ];
-
-    const shuffle = (list) => {
-      const next = list.slice();
-      for (let i = next.length - 1; i > 0; i -= 1) {
-        const j = Math.floor(Math.random() * (i + 1));
-        const tmp = next[i];
-        next[i] = next[j];
-        next[j] = tmp;
-      }
-      return next;
+    const logo = {
+      spotify: { kind: "company", src: "./strategy/logos/spotify.png", alt: "Spotify", logo: "spotify", w: 18, h: 18 },
+      apple: { kind: "company", src: "./strategy/logos/apple.png", alt: "Apple", logo: "apple", w: 15, h: 18 },
+      notion: { kind: "company", src: "./hero-proof-logos/notion.png", alt: "Notion", logo: "notion", w: 17, h: 18 },
+      yc: { kind: "company", src: "./strategy/logos/yc.png", alt: "Y Combinator", logo: "yc", w: 18, h: 18 },
+      wework: { kind: "company", word: "WeWork", logo: "wework", w: 48, h: 13 },
+      bain: { kind: "company", src: "./strategy/logos/bain.png", alt: "Bain Capital", logo: "bain", w: 66, h: 11 },
+      cotopaxi: { kind: "company", src: "./strategy/logos/cotopaxi.png", alt: "Cotopaxi", logo: "cotopaxi", w: 39, h: 13 },
+      mlb: { kind: "company", src: "./hero-proof-logos/mlb.png", alt: "MLB", logo: "mlb", w: 33, h: 18 },
+      wharton: { kind: "school", src: "./hero-proof-logos/wharton.png", alt: "Wharton", logo: "wharton", w: 51, h: 16 },
+      hbs: { kind: "school", src: "./hero-proof-logos/hbs.png", alt: "Harvard Business School", logo: "hbs", w: 37, h: 18 },
+      haas: { kind: "school", src: "./hero-proof-logos/haas.png", alt: "Berkeley Haas", logo: "haas", w: 21, h: 20 },
+      stanford: { kind: "school", src: "./hero-proof-logos/stanford.png", alt: "Stanford GSB", logo: "stanford", w: 56, h: 16 },
+      kellogg: { kind: "school", src: "./hero-proof-logos/kellogg.png", alt: "Kellogg", logo: "kellogg", w: 48, h: 16 },
+      said: { kind: "school", src: "./hero-proof-logos/said.png", alt: "Oxford Saïd", logo: "said", w: 34, h: 18 },
+      agsm: { kind: "school", src: "./hero-proof-logos/agsm.png", alt: "AGSM", logo: "agsm", w: 53, h: 16 },
+      mit: { kind: "school", src: "./hero-proof-logos/mit.png", alt: "MIT Sloan", logo: "mit", w: 24, h: 14 },
+      stern: { kind: "school", src: "./hero-proof-logos/stern.png", alt: "NYU Stern", logo: "stern", w: 23, h: 20 },
+      melbourne: { kind: "school", src: "./hero-proof-logos/melbourne.png", alt: "Melbourne Business School", logo: "melbourne", w: 22, h: 18 },
+      columbia: { kind: "school", src: "./hero-proof-logos/columbia.svg", alt: "Columbia Business School", logo: "columbia", w: 16, h: 20 },
     };
 
-    const mixRows = () => {
-      const c = shuffle(companies);
-      const s = shuffle(schools);
-      const rows = [[], [], []];
-      [
-        { c: 3, s: 2 },
-        { c: 2, s: 4 },
-        { c: 2, s: 3 },
-      ].forEach((need, i) => {
-        rows[i] = shuffle(c.splice(0, need.c).concat(s.splice(0, need.s)));
-      });
-      rows[2].push({ kind: "company", src: "./hero-proof-logos/mlb.png", alt: "MLB", logo: "mlb", w: 33, h: 18 });
-      return rows;
-    };
+    const mixRows = () => [
+      [logo.spotify, logo.agsm, logo.bain, logo.stanford, logo.cotopaxi],
+      [logo.wework, logo.wharton, logo.apple, logo.melbourne, logo.kellogg, logo.said],
+      [logo.notion, logo.hbs, logo.yc, logo.stern, logo.columbia, logo.mit, logo.haas, logo.mlb],
+    ];
 
     const revealMark = (mark) => {
       if (!mark || mark.classList.contains("is-ready")) return;
