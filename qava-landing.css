@@ -137,7 +137,7 @@
           flex-wrap: nowrap;
           align-items: center;
           justify-content: center;
-          gap: 12px;
+          gap: 14px;
           margin: 8px auto 0;
           max-width: 100%;
           white-space: nowrap;
@@ -161,7 +161,12 @@
           display: flex;
           align-items: center;
           min-width: 0;
-          min-height: 18px;
+          height: 30px;
+          min-height: 30px;
+        }
+
+        .qava-hero-proof-slot.is-ready:not(.is-sliding) {
+          overflow: visible;
         }
 
         .qava-hero-proof-shimmer {
@@ -199,7 +204,7 @@
           flex-wrap: nowrap;
           align-items: center;
           justify-content: flex-start;
-          gap: 12px;
+          gap: 14px;
           margin: 0;
           will-change: transform;
           position: absolute;
@@ -215,11 +220,17 @@
 
         .qava-hero-proof-set.is-out {
           transform: translateY(-130%);
+          pointer-events: none;
+        }
+
+        .qava-hero-proof-set.is-out:not(.is-animating) {
+          visibility: hidden;
         }
 
         .qava-hero-proof-set.is-wait {
           transform: translateY(130%);
           visibility: hidden;
+          pointer-events: none;
         }
 
         .qava-hero-proof-set.is-animating {
@@ -229,11 +240,39 @@
         .qava-hero-proof-set img,
         .qava-hero-proof-set .qava-hero-logo-word {
           display: block;
-          height: 14px;
+          height: 18px;
           width: auto;
           flex: 0 0 auto;
           object-fit: contain;
+          filter: grayscale(1);
+          transform-origin: center center;
+          transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), filter 0.28s ease;
         }
+
+        .qava-hero-proof-slot.is-ready .qava-hero-proof-set.is-in > *:hover,
+        .qava-hero-proof-slot.is-ready .qava-hero-proof-set.is-in > *.is-hover {
+          animation: none;
+          filter: grayscale(0);
+          transform: scale(1.14);
+          position: relative;
+          z-index: 2;
+        }
+
+        .qava-hero-proof-slot.is-ready .qava-hero-proof-set.is-in > *.is-hover {
+          transition: none;
+        }
+
+        .qava-hero-proof-set img[data-logo="bain"] { height: 11px; }
+        .qava-hero-proof-set img[data-logo="cotopaxi"] { height: 13px; }
+        .qava-hero-proof-set img[data-logo="mit"] { height: 14px; }
+        .qava-hero-proof-set img[data-logo="stanford"],
+        .qava-hero-proof-set img[data-logo="wharton"],
+        .qava-hero-proof-set img[data-logo="kellogg"],
+        .qava-hero-proof-set img[data-logo="agsm"] { height: 16px; }
+        .qava-hero-proof-set img[data-logo="hbs"],
+        .qava-hero-proof-set img[data-logo="said"] { height: 18px; }
+        .qava-hero-proof-set img[data-logo="haas"],
+        .qava-hero-proof-set img[data-logo="stern"] { height: 20px; }
 
         .qava-hero-proof-slot.is-ready .qava-hero-proof-set.is-in.is-pop > * {
           opacity: 0;
@@ -269,23 +308,26 @@
             animation: none;
             background-image: none;
           }
-        }
 
-        .qava-hero-proof-set img[alt="Bain Capital"] {
-          height: 11px;
-        }
+          .qava-hero-proof-set img,
+          .qava-hero-proof-set .qava-hero-logo-word {
+            transition: filter 0.2s ease;
+          }
 
-        .qava-hero-proof-set img[alt="Cotopaxi"] {
-          height: 13px;
+          .qava-hero-proof-slot.is-ready .qava-hero-proof-set.is-in > *:hover,
+          .qava-hero-proof-slot.is-ready .qava-hero-proof-set.is-in > *.is-hover {
+            transform: none;
+          }
         }
 
         .qava-hero-proof-set .qava-hero-logo-word {
           font-family: Helvetica, Arial, sans-serif;
-          font-size: 12px;
+          font-size: 11px;
           font-weight: 700;
           letter-spacing: -0.04em;
           color: #111827;
-          line-height: 14px;
+          height: 13px;
+          line-height: 13px;
         }
 
         .qava-hero-rule {
@@ -3049,23 +3091,43 @@
           object-fit: contain;
           padding: 14%;
         }
+        #qava-home-playbooks .ex-art::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          height: 58%;
+          z-index: 1;
+          pointer-events: none;
+          background: linear-gradient(
+            to top,
+            rgba(247, 246, 245, 0.78) 0%,
+            rgba(247, 246, 245, 0.38) 46%,
+            rgba(247, 246, 245, 0) 100%
+          );
+          -webkit-backdrop-filter: blur(18px) saturate(140%);
+          backdrop-filter: blur(18px) saturate(140%);
+          -webkit-mask-image: linear-gradient(to top, #000 0%, #000 36%, transparent 100%);
+          mask-image: linear-gradient(to top, #000 0%, #000 36%, transparent 100%);
+        }
         #qava-home-playbooks .ex-caption {
           position: absolute;
-          left: 10px;
-          right: auto;
-          bottom: 10px;
+          left: 16px;
+          right: 16px;
+          bottom: 14px;
           z-index: 2;
-          width: max-content;
-          max-width: calc(100% - 20px);
-          padding: 8px 10px;
+          width: auto;
+          max-width: none;
+          padding: 0;
           text-align: left;
           pointer-events: none;
-          border-radius: 8px;
-          background: rgba(255, 255, 255, 0.42);
-          -webkit-backdrop-filter: blur(16px) saturate(160%);
-          backdrop-filter: blur(16px) saturate(160%);
-          border: 1px solid rgba(255, 255, 255, 0.62);
-          box-shadow: 0 6px 20px rgba(17, 24, 39, 0.05);
+          border-radius: 0;
+          background: none;
+          border: 0;
+          box-shadow: none;
+          -webkit-backdrop-filter: none;
+          backdrop-filter: none;
         }
         #qava-home-playbooks .ex-cat {
           font-size: 10px;
@@ -3114,6 +3176,10 @@
           #qava-home-playbooks .ex-formats {
             transition: opacity 0.2s ease;
             transform: none;
+          }
+          #qava-home-playbooks .ex-art::after {
+            -webkit-backdrop-filter: none;
+            backdrop-filter: none;
           }
         }
         #qava-home-playbooks .examples-cta {
