@@ -60,7 +60,8 @@
     }
   }
 
-  function startNeedStrategyChart(plot) {
+  function startNeedStrategyChart(plot, options) {
+    options = options || {};
     if (!plot || plot.dataset.running) return;
     plot.dataset.running = "1";
     const NS = "http://www.w3.org/2000/svg";
@@ -74,9 +75,17 @@
     const BAND_IN = 667;
     const BAND_DUR = 1000;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const host = plot.closest(".qava-need-chart") || plot;
+
+    function inView() {
+      const r = host.getBoundingClientRect();
+      if (r.height <= 0) return false;
+      const visiblePx = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
+      return visiblePx / r.height >= 0.2;
+    }
 
     const svg = document.createElementNS(NS, "svg");
-    svg.setAttribute("viewBox", "0 0 400 200");
+    svg.setAttribute("viewBox", options.viewBox || "0 0 400 200");
     svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
     svg.innerHTML = `
       <rect class="band" x="51" y="67.5" width="332" height="62.5" fill="#f7f6f5" opacity="0"/>
@@ -86,9 +95,9 @@
       <rect class="mid-pill" x="67.6" y="72.9" width="9.2" height="51.8" rx="2.1" fill="#f7f6f5" stroke="#e5e7eb" stroke-width="0.9" opacity="0"/>
       <rect x="67.6" y="72.9" width="9.2" height="51.8" rx="2.1" fill="none" stroke="#e5e7eb" stroke-width="0.9"/>
       <rect x="67.6" y="135.3" width="9.2" height="51.8" rx="2.1" fill="#fff" stroke="#e5e7eb" stroke-width="0.9"/>
-      <text class="qava-need-chart-label" x="82" y="38.5">ABOVE RANGE</text>
-      <text class="qava-need-chart-label" x="82" y="101">IN RANGE</text>
-      <text class="qava-need-chart-label" x="82" y="163.5">BELOW RANGE</text>
+      <text class="qava-need-chart-label" x="82" y="38.5">ABOVE PLAN</text>
+      <text class="qava-need-chart-label" x="82" y="101">ON PLAN</text>
+      <text class="qava-need-chart-label" x="82" y="163.5">BELOW PLAN</text>
       <polyline class="line" fill="none" stroke="#111827" stroke-width="1.25" stroke-linejoin="round" stroke-linecap="round"/>
     `;
     plot.appendChild(svg);
@@ -122,7 +131,7 @@
       return { stem, glow, c, t, x, y1: Y1[i], target: TARGETS[i] };
     });
 
-    let visible = true;
+    let visible = inView();
     let elapsed = 0;
     let lastNow = 0;
     let raf = 0;
@@ -162,6 +171,9 @@
     }
 
     function frame(now) {
+      const on = inView();
+      if (on && !visible) lastNow = 0;
+      visible = on;
       if (!lastNow) lastNow = now;
       if (visible && !reduce) {
         elapsed = Math.min(CYCLE, elapsed + (now - lastNow));
@@ -171,24 +183,367 @@
       if (elapsed >= CYCLE || reduce) {
         paint(CYCLE);
         raf = 0;
+        if (typeof options.onComplete === "function") options.onComplete();
         return;
       }
       raf = requestAnimationFrame(frame);
     }
 
     paint(reduce ? CYCLE : 0);
-    if (!reduce) raf = requestAnimationFrame(frame);
+    if (reduce) {
+      if (typeof options.onComplete === "function") options.onComplete();
+      return;
+    }
+    raf = requestAnimationFrame(frame);
 
     if ("IntersectionObserver" in window) {
       const io = new IntersectionObserver((entries) => {
-        const on = entries.some((e) => e.isIntersecting);
+        const on = entries.some((e) => e.isIntersecting) || inView();
         if (on && !visible) lastNow = 0;
         visible = on;
         if (on && elapsed < CYCLE && !reduce && !raf) {
           raf = requestAnimationFrame(frame);
         }
       }, { threshold: 0.2 });
-      io.observe(plot);
+      io.observe(host);
+    }
+  }
+
+  function centerChartInk(svg) {
+    if (!svg) return;
+    const pill = svg.querySelector('rect[width="9.2"]');
+    const dots = svg.querySelectorAll('circle[r="5.7"]');
+    const last = dots[dots.length - 1];
+    if (!pill || !last) return;
+    const left = Number(pill.getAttribute("x"));
+    const right = Number(last.getAttribute("cx")) + Number(last.getAttribute("r"));
+    svg.querySelectorAll("line").forEach((line) => {
+      if (line.getAttribute("x2") === "384") line.setAttribute("x2", String(right));
+    });
+    const mid = (left + right) / 2;
+    svg.setAttribute("viewBox", (mid - 200) + " 0 400 200");
+  }
+
+  function startNeedStrategySequence(plot) {
+    if (!plot || plot.dataset.running) return;
+    plot.dataset.running = "1";
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const HOLD = 2000;
+    const SLIDE = 720;
+    const BAR_FADE = 1200;
+    const DRAW = 2800;
+    const REST = 2800;
+    const BAR_W = 16;
+    const BAR_TOP = 16;
+    const BAR_BOT = 184;
+    const CLEAR = 16;
+    const MIN_STUB = 26;
+    const COLS = [
+      { x: 64, gapY: 140 },
+      { x: 128, gapY: 125 },
+      { x: 192, gapY: 68 },
+      { x: 256, gapY: 81 },
+      { x: 320, gapY: 140 },
+    ];
+    const BARS = COLS.flatMap((col, i) => {
+      const gapTop = Math.max(BAR_TOP + MIN_STUB, col.gapY - CLEAR);
+      const gapBot = Math.min(BAR_BOT - MIN_STUB, col.gapY + CLEAR);
+      return [
+        { x: col.x, y: BAR_TOP, h: gapTop - BAR_TOP, col: i },
+        { x: col.x, y: gapBot, h: BAR_BOT - gapBot, col: i },
+      ];
+    });
+    const POINTS = [
+      [72, 140],
+      [136, 125],
+      [200, 68],
+      [264, 81],
+      [328, 140],
+    ];
+    const PATH_PTS = [
+      [40, 140],
+      [72, 140],
+      [136, 125],
+      [200, 68],
+      [264, 81],
+      [328, 140],
+    ];
+    const PATH_D = "M " + PATH_PTS.map((pt) => pt.join(" ")).join(" L ");
+    const RANGE_VIEWBOX = "18 0 400 200";
+
+    const rangeScene = document.createElement("div");
+    rangeScene.className = "qava-need-chart-scene is-range";
+    const pathScene = document.createElement("div");
+    pathScene.className = "qava-need-chart-scene is-path";
+    plot.appendChild(rangeScene);
+    plot.appendChild(pathScene);
+
+    const NS = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("viewBox", "0 -15 400 215");
+    svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+    const blockEls = BARS.map((bar) => {
+      const rect = document.createElementNS(NS, "rect");
+      rect.setAttribute("class", "qava-need-block");
+      rect.setAttribute("x", String(bar.x));
+      rect.setAttribute("y", String(bar.y));
+      rect.setAttribute("width", String(BAR_W));
+      rect.setAttribute("height", String(bar.h));
+      rect.setAttribute("rx", "2.1");
+      rect.setAttribute("fill", "#eceae6");
+      rect.setAttribute("stroke", "#ddd9d3");
+      rect.setAttribute("stroke-width", "1");
+      return rect;
+    });
+    blockEls.forEach((rect) => svg.appendChild(rect));
+    const ICONS = [
+      [
+        "M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5",
+        "M9 18h6",
+        "M10 22h4",
+      ],
+      [
+        "M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2",
+        "M6.453 15h11.094",
+        "M8.5 2h7",
+      ],
+      [
+        "m15 12-9.373 9.373a1 1 0 0 1-3.001-3L12 9",
+        "m18 15 4-4",
+        "m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172v-.344a2 2 0 0 0-.586-1.414l-1.657-1.657A6 6 0 0 0 12.516 3H9l1.243 1.243A6 6 0 0 1 12 8.485V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5",
+      ],
+      [
+        "M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0 1-4 4 4 4 0 0 0-4 4c0 2 1 3 1 5a5 5 0 0 1-1 3",
+        "M4 9a5 5 0 0 1 8 4 5 5 0 0 1-8-4",
+        "M5 21h14",
+      ],
+      [
+        "M15 3h6v6",
+        "m21 3-7 7",
+        "m3 21 7-7",
+        "M9 21H3v-6",
+      ],
+    ];
+    const ICON_SIZE = 22;
+    const iconEls = COLS.map((col, i) => {
+      const icon = document.createElementNS(NS, "svg");
+      icon.setAttribute("class", "qava-need-col-icon");
+      icon.setAttribute("viewBox", "0 0 24 24");
+      icon.setAttribute("width", String(ICON_SIZE));
+      icon.setAttribute("height", String(ICON_SIZE));
+      icon.setAttribute("x", String(col.x + BAR_W / 2 - ICON_SIZE / 2));
+      icon.setAttribute("y", "-13");
+      icon.setAttribute("fill", "none");
+      (ICONS[i] || []).forEach((d) => {
+        const p = document.createElementNS(NS, "path");
+        p.setAttribute("d", d);
+        p.setAttribute("fill", "none");
+        p.setAttribute("stroke", "currentColor");
+        p.setAttribute("stroke-width", "1");
+        p.setAttribute("stroke-linecap", "round");
+        p.setAttribute("stroke-linejoin", "round");
+        icon.appendChild(p);
+      });
+      svg.appendChild(icon);
+      return icon;
+    });
+    const route = document.createElementNS(NS, "path");
+    route.setAttribute("d", PATH_D);
+    route.setAttribute("fill", "none");
+    route.setAttribute("stroke", "#111827");
+    route.setAttribute("stroke-width", "1.25");
+    route.setAttribute("stroke-linejoin", "round");
+    route.setAttribute("stroke-linecap", "round");
+    svg.appendChild(route);
+    const pathDists = [0];
+    for (let i = 1; i < PATH_PTS.length; i++) {
+      pathDists.push(
+        pathDists[i - 1] + Math.hypot(
+          PATH_PTS[i][0] - PATH_PTS[i - 1][0],
+          PATH_PTS[i][1] - PATH_PTS[i - 1][1]
+        )
+      );
+    }
+    const dots = POINTS.map(([x, y]) => {
+      const idx = PATH_PTS.findIndex((pt) => pt[0] === x && pt[1] === y);
+      const glow = document.createElementNS(NS, "circle");
+      glow.setAttribute("class", "qava-need-route-glow");
+      glow.setAttribute("r", "8.2");
+      glow.setAttribute("fill", "rgba(17,24,39,0.10)");
+      glow.setAttribute("cx", String(x));
+      glow.setAttribute("cy", String(y));
+      const c = document.createElementNS(NS, "circle");
+      c.setAttribute("class", "qava-need-route-dot");
+      c.setAttribute("r", "5.7");
+      c.setAttribute("fill", "#111827");
+      c.setAttribute("cx", String(x));
+      c.setAttribute("cy", String(y));
+      svg.appendChild(glow);
+      svg.appendChild(c);
+      return { glow, c, dist: idx >= 0 ? pathDists[idx] : 0 };
+    });
+    pathScene.appendChild(svg);
+
+    let routeLen = 0;
+    const host = plot.closest(".qava-need-chart") || plot;
+    function inView() {
+      const r = host.getBoundingClientRect();
+      if (r.height <= 0) return false;
+      const visiblePx = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
+      return visiblePx / r.height >= 0.2;
+    }
+    let visible = inView();
+    let timers = [];
+    let raf = 0;
+
+    function later(fn, ms) {
+      const id = window.setTimeout(fn, ms);
+      timers.push(id);
+      return id;
+    }
+
+    function clearTimers() {
+      timers.forEach((id) => window.clearTimeout(id));
+      timers = [];
+      if (raf) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      }
+    }
+
+    function measureRoute() {
+      const len = route.getTotalLength();
+      if (len > 0) routeLen = len;
+      return routeLen;
+    }
+
+    function showDots(drawnLen) {
+      dots.forEach((dot, i) => {
+        const on = drawnLen >= dot.dist - 0.5;
+        dot.glow.classList.toggle("is-in", on);
+        dot.c.classList.toggle("is-in", on);
+        if (iconEls[i]) iconEls[i].classList.toggle("is-on", on);
+      });
+    }
+
+    function resetRoute(drawn) {
+      const len = measureRoute();
+      if (!len) return;
+      route.style.strokeDasharray = String(len);
+      route.style.strokeDashoffset = drawn ? "0" : String(len);
+      showDots(drawn ? len : -1);
+    }
+
+    function paintRoute(p) {
+      const len = measureRoute();
+      if (!len) return;
+      route.style.strokeDasharray = String(len);
+      const t = Math.max(0, Math.min(1, p));
+      const drawn = len * t;
+      route.style.strokeDashoffset = String(len - drawn);
+      showDots(drawn);
+    }
+
+    function easeDraw(t) {
+      if (t <= 0) return 0;
+      if (t >= 1) return 1;
+      return 1 - Math.pow(1 - t, 2);
+    }
+
+    function drawRoute() {
+      let last = 0;
+      let elapsed = 0;
+      function frame(now) {
+        visible = inView();
+        if (!last) last = now;
+        if (visible) elapsed += now - last;
+        last = now;
+        paintRoute(easeDraw(elapsed / DRAW));
+        if (elapsed >= DRAW) {
+          paintRoute(1);
+          raf = 0;
+          later(replay, REST);
+          return;
+        }
+        raf = requestAnimationFrame(frame);
+      }
+      raf = requestAnimationFrame(frame);
+    }
+
+    function showBars() {
+      blockEls.forEach((rect) => rect.classList.add("is-in"));
+      iconEls.forEach((icon) => icon.classList.add("is-in"));
+      later(drawRoute, BAR_FADE + 180);
+    }
+
+    function slideOut() {
+      rangeScene.classList.add("is-out");
+      later(showBars, SLIDE);
+    }
+
+    function replay() {
+      if (!visible) {
+        later(replay, 400);
+        return;
+      }
+      clearTimers();
+      rangeScene.classList.remove("is-out");
+      rangeScene.innerHTML = "";
+      delete rangeScene.dataset.running;
+      blockEls.forEach((rect) => rect.classList.remove("is-in"));
+      iconEls.forEach((icon) => {
+        icon.classList.remove("is-in");
+        icon.classList.remove("is-on");
+      });
+      dots.forEach((dot) => {
+        dot.glow.classList.remove("is-in");
+        dot.c.classList.remove("is-in");
+      });
+      resetRoute(false);
+      startNeedStrategyChart(rangeScene, {
+        viewBox: RANGE_VIEWBOX,
+        onComplete: () => later(slideOut, HOLD),
+      });
+      centerChartInk(rangeScene.querySelector("svg"));
+    }
+
+    function showComplete() {
+      rangeScene.classList.add("is-out");
+      blockEls.forEach((rect) => rect.classList.add("is-in"));
+      iconEls.forEach((icon) => icon.classList.add("is-in"));
+      resetRoute(true);
+    }
+
+    function begin() {
+      startNeedStrategyChart(rangeScene, {
+        viewBox: RANGE_VIEWBOX,
+        onComplete: () => later(slideOut, HOLD),
+      });
+      centerChartInk(rangeScene.querySelector("svg"));
+    }
+
+    requestAnimationFrame(() => {
+      resetRoute(false);
+      if (reduce) {
+        showComplete();
+        return;
+      }
+      function waitStart() {
+        visible = inView();
+        if (visible) {
+          begin();
+          return;
+        }
+        raf = requestAnimationFrame(waitStart);
+      }
+      waitStart();
+    });
+
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver((entries) => {
+        visible = entries.some((e) => e.isIntersecting) || inView();
+      }, { threshold: 0.2 });
+      io.observe(host);
     }
   }
 
@@ -267,7 +622,7 @@
 
   function startNeedSection(section) {
     if (!section) return;
-    startNeedStrategyChart(section.querySelector("#strategyPlot"));
+    startNeedStrategySequence(section.querySelector("#strategyPlot"));
     startNeedFaceCluster(section.querySelector("#faceCluster"));
   }
 
@@ -1247,7 +1602,7 @@
               <div class="qava-need-grid">
                 <div class="qava-need-card">
                   <div class="qava-need-num">01</div>
-                  <div class="qava-need-card-title">Strategy Breakdowns</div>
+                  <div class="qava-need-card-title">Strategies &amp; Playbooks</div>
                   <p class="qava-need-card-desc">Real teardowns of how top operators solved the exact problem you're facing.</p>
                   <div class="qava-need-preview qava-need-preview--art">
                     <div class="qava-need-chart" id="strategyPlot" aria-hidden="true"></div>

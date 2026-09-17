@@ -2696,9 +2696,10 @@
           font-weight: 400;
           font-size: 22px;
           line-height: 1.2;
-          letter-spacing: -0.015em;
+          letter-spacing: -0.02em;
           color: var(--need-ink);
           margin: 0 0 8px;
+          white-space: nowrap;
         }
         .qava-need-card-desc {
           font-family: "Inter", sans-serif;
@@ -2722,14 +2723,62 @@
         .qava-need-preview--art { padding: 6px 4px 4px; }
         .qava-need-preview--listings { padding: 8px 8px 6px; }
         .qava-need-chart {
+          position: relative;
           flex: 1;
           width: 100%;
           min-height: 0;
+          overflow: hidden;
         }
         .qava-need-chart svg {
           display: block;
           width: 100%;
           height: 100%;
+        }
+        .qava-need-chart-scene {
+          position: absolute;
+          inset: 0;
+        }
+        .qava-need-chart-scene.is-range {
+          z-index: 2;
+          background: #fff;
+          transition: transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .qava-need-chart-scene.is-range.is-out {
+          transform: translateX(-108%);
+        }
+        .qava-need-chart-scene.is-path {
+          z-index: 1;
+        }
+        .qava-need-block,
+        .qava-need-col-icon {
+          opacity: 0;
+        }
+        .qava-need-block.is-in,
+        .qava-need-col-icon.is-in {
+          opacity: 1;
+          transition: opacity 1.2s ease, color 0.28s ease;
+        }
+        .qava-need-col-icon {
+          color: #9b9b9b;
+          overflow: visible;
+        }
+        .qava-need-col-icon path {
+          stroke-width: 1;
+          transition: stroke-width 0.28s ease;
+        }
+        .qava-need-col-icon.is-on {
+          color: #111827;
+        }
+        .qava-need-col-icon.is-on path {
+          stroke-width: 1.5;
+        }
+        .qava-need-route-dot,
+        .qava-need-route-glow {
+          opacity: 0;
+        }
+        .qava-need-route-dot.is-in,
+        .qava-need-route-glow.is-in {
+          opacity: 1;
         }
         .qava-need-chart-label {
           font-family: "Fragment Mono", ui-monospace, Menlo, monospace;
@@ -2829,6 +2878,22 @@
           .qava-need-bubble img,
           .qava-need-face { opacity: 1; }
           .qava-edu-img-wrap::before { animation: none; }
+          .qava-need-block,
+          .qava-need-block.is-in,
+          .qava-need-col-icon,
+          .qava-need-col-icon.is-in {
+            opacity: 1;
+            transition: none;
+          }
+          .qava-need-route-dot,
+          .qava-need-route-glow,
+          .qava-need-route-dot.is-in,
+          .qava-need-route-glow.is-in {
+            opacity: 1;
+          }
+          .qava-need-chart-scene.is-range {
+            transition: none;
+          }
         }
         .qava-need-preview--faces {
           padding: 0;
