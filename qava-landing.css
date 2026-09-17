@@ -308,9 +308,11 @@
         .qava-hero-proof-mark[data-logo="agsm"] { height: 16px; }
         .qava-hero-proof-mark[data-logo="mlb"],
         .qava-hero-proof-mark[data-logo="hbs"],
-        .qava-hero-proof-mark[data-logo="said"] { height: 18px; }
+        .qava-hero-proof-mark[data-logo="said"],
+        .qava-hero-proof-mark[data-logo="melbourne"] { height: 18px; }
         .qava-hero-proof-mark[data-logo="haas"],
-        .qava-hero-proof-mark[data-logo="stern"] { height: 20px; }
+        .qava-hero-proof-mark[data-logo="stern"],
+        .qava-hero-proof-mark[data-logo="columbia"] { height: 20px; }
 
         @keyframes qavaHeroLogoPop {
           0% { opacity: 0; transform: scale(0.35); }
