@@ -352,36 +352,61 @@
       el.classList.add(state);
     };
 
+    const SLOT_FLOOR = 360;
+    const LOGO_CSS_H = {
+      bain: 11,
+      cotopaxi: 13,
+      mit: 14,
+      stanford: 16,
+      wharton: 16,
+      kellogg: 16,
+      agsm: 16,
+      hbs: 18,
+      said: 18,
+      haas: 20,
+      stern: 20,
+      wework: 13,
+    };
+
+    const measureItemWidth = (el) => {
+      if (!el) return 0;
+      if (el.classList.contains("qava-hero-logo-word")) {
+        return Math.ceil(el.getBoundingClientRect().width || el.scrollWidth || 52);
+      }
+      const cssH = LOGO_CSS_H[el.dataset.logo] || 18;
+      if (el.naturalWidth && el.naturalHeight) {
+        return Math.ceil(el.naturalWidth * (cssH / el.naturalHeight));
+      }
+      const attrW = Number(el.getAttribute("width")) || 28;
+      const attrH = Number(el.getAttribute("height")) || cssH;
+      return Math.ceil(attrW * (cssH / attrH));
+    };
+
     const measureContentWidth = (el) => {
-      const prev = {
-        position: el.style.position,
-        width: el.style.width,
-        visibility: el.style.visibility,
-        height: el.style.height,
-        left: el.style.left,
-        top: el.style.top,
-      };
-      el.style.position = "absolute";
-      el.style.width = "max-content";
-      el.style.height = "auto";
-      el.style.visibility = "hidden";
-      el.style.left = "0";
-      el.style.top = "0";
-      const width = Math.ceil(el.getBoundingClientRect().width || el.scrollWidth);
-      el.style.position = prev.position;
-      el.style.width = prev.width;
-      el.style.visibility = prev.visibility;
-      el.style.height = prev.height;
-      el.style.left = prev.left;
-      el.style.top = prev.top;
+      const kids = Array.from(el.children);
+      if (!kids.length) return 0;
+      const gap = parseFloat(getComputedStyle(el).gap);
+      const gapPx = Number.isFinite(gap) ? gap : 14;
+      return Math.ceil(kids.reduce((sum, child, i) => (
+        sum + measureItemWidth(child) + (i ? gapPx : 0)
+      ), 0));
+    };
+
+    const applySlotWidth = (px) => {
+      const width = Math.max(SLOT_FLOOR, Math.ceil(px || 0));
+      slot.style.width = width + "px";
+      slot.style.flexBasis = width + "px";
+      slot.style.minWidth = width + "px";
       return width;
     };
 
+    let committedWidth = SLOT_FLOOR;
     const sizeSlot = () => {
-      const widths = sets.map(measureContentWidth);
-      const max = Math.max(0, ...widths);
-      if (max > 0) slot.style.width = max + "px";
+      const max = Math.max(committedWidth, ...sets.map(measureContentWidth));
+      committedWidth = applySlotWidth(max);
     };
+    applySlotWidth(SLOT_FLOOR);
+    sizeSlot();
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const HOLD = 3400;
@@ -1026,7 +1051,7 @@
           if (proof.getAttribute("data-qava-logo-cycle") !== "1") {
             proof.innerHTML = `
               <p class="qava-hero-proof-label">Join strategists from</p>
-              <div class="qava-hero-proof-slot is-loading" aria-label="Companies and schools">
+              <div class="qava-hero-proof-slot is-loading" style="width:360px;flex-basis:360px;min-width:360px" aria-label="Companies and schools">
                 <div class="qava-hero-proof-shimmer" aria-hidden="true"></div>
                 <div class="qava-hero-proof-set is-in is-pop" data-set="0"></div>
                 <div class="qava-hero-proof-set is-wait" data-set="1" aria-hidden="true"></div>
