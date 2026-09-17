@@ -3,20 +3,20 @@
   const HERO_PROOF_LOGO_SRCS = [
     "./strategy/logos/spotify.png",
     "./strategy/logos/apple.png",
-    "./strategy/logos/notion.webp",
+    "./hero-proof-logos/notion.png",
     "./strategy/logos/yc.png",
     "./strategy/logos/bain.png",
     "./strategy/logos/cotopaxi.png",
-    "./strategy/logos/mlb.webp",
-    "./find/logos/wharton.png",
-    "./find/logos/hbs.png",
-    "./find/logos/haas.png",
-    "./find/logos/stanford.png",
-    "./find/logos/kellogg.png",
-    "./find/logos/said.png",
-    "./find/logos/agsm.jpg",
-    "./find/logos/mit.png",
-    "./find/logos/stern.png",
+    "./hero-proof-logos/mlb.png",
+    "./hero-proof-logos/wharton.png",
+    "./hero-proof-logos/hbs.png",
+    "./hero-proof-logos/haas.png",
+    "./hero-proof-logos/stanford.png",
+    "./hero-proof-logos/kellogg.png",
+    "./hero-proof-logos/said.png",
+    "./hero-proof-logos/agsm.png",
+    "./hero-proof-logos/mit.png",
+    "./hero-proof-logos/stern.png",
   ];
 
   function prefetchHeroProofLogos() {
@@ -277,24 +277,24 @@
     proof.setAttribute("data-qava-logo-cycle", "1");
 
     const companies = [
-      { kind: "company", src: "./strategy/logos/spotify.png", alt: "Spotify", w: 14, h: 14 },
-      { kind: "company", src: "./strategy/logos/apple.png", alt: "Apple", w: 11, h: 14 },
-      { kind: "company", src: "./strategy/logos/notion.webp", alt: "Notion", w: 14, h: 14 },
-      { kind: "company", src: "./strategy/logos/yc.png", alt: "Y Combinator", w: 14, h: 14 },
-      { kind: "company", word: "WeWork" },
-      { kind: "company", src: "./strategy/logos/bain.png", alt: "Bain Capital", w: 65, h: 11 },
-      { kind: "company", src: "./strategy/logos/cotopaxi.png", alt: "Cotopaxi", w: 39, h: 13 },
+      { kind: "company", src: "./strategy/logos/spotify.png", alt: "Spotify", logo: "spotify", w: 14, h: 14 },
+      { kind: "company", src: "./strategy/logos/apple.png", alt: "Apple", logo: "apple", w: 11, h: 14 },
+      { kind: "company", src: "./hero-proof-logos/notion.png", alt: "Notion", logo: "notion", w: 14, h: 14 },
+      { kind: "company", src: "./strategy/logos/yc.png", alt: "Y Combinator", logo: "yc", w: 14, h: 14 },
+      { kind: "company", word: "WeWork", logo: "wework" },
+      { kind: "company", src: "./strategy/logos/bain.png", alt: "Bain Capital", logo: "bain", w: 65, h: 11 },
+      { kind: "company", src: "./strategy/logos/cotopaxi.png", alt: "Cotopaxi", logo: "cotopaxi", w: 39, h: 13 },
     ];
     const schools = [
-      { kind: "school", src: "./find/logos/wharton.png", alt: "Wharton", w: 28, h: 16 },
-      { kind: "school", src: "./find/logos/hbs.png", alt: "Harvard Business School", w: 28, h: 16 },
-      { kind: "school", src: "./find/logos/haas.png", alt: "Berkeley Haas", w: 28, h: 16 },
-      { kind: "school", src: "./find/logos/stanford.png", alt: "Stanford GSB", w: 28, h: 16 },
-      { kind: "school", src: "./find/logos/kellogg.png", alt: "Kellogg", w: 28, h: 16 },
-      { kind: "school", src: "./find/logos/said.png", alt: "Oxford Saïd", w: 28, h: 16 },
-      { kind: "school", src: "./find/logos/agsm.jpg", alt: "AGSM", w: 43, h: 16 },
-      { kind: "school", src: "./find/logos/mit.png", alt: "MIT Sloan", w: 28, h: 16 },
-      { kind: "school", src: "./find/logos/stern.png", alt: "NYU Stern", w: 28, h: 16 },
+      { kind: "school", src: "./hero-proof-logos/wharton.png", alt: "Wharton", logo: "wharton", w: 28, h: 16 },
+      { kind: "school", src: "./hero-proof-logos/hbs.png", alt: "Harvard Business School", logo: "hbs", w: 28, h: 16 },
+      { kind: "school", src: "./hero-proof-logos/haas.png", alt: "Berkeley Haas", logo: "haas", w: 28, h: 16 },
+      { kind: "school", src: "./hero-proof-logos/stanford.png", alt: "Stanford GSB", logo: "stanford", w: 28, h: 16 },
+      { kind: "school", src: "./hero-proof-logos/kellogg.png", alt: "Kellogg", logo: "kellogg", w: 28, h: 16 },
+      { kind: "school", src: "./hero-proof-logos/said.png", alt: "Oxford Saïd", logo: "said", w: 28, h: 16 },
+      { kind: "school", src: "./hero-proof-logos/agsm.png", alt: "AGSM", logo: "agsm", w: 43, h: 16 },
+      { kind: "school", src: "./hero-proof-logos/mit.png", alt: "MIT Sloan", logo: "mit", w: 28, h: 16 },
+      { kind: "school", src: "./hero-proof-logos/stern.png", alt: "NYU Stern", logo: "stern", w: 28, h: 16 },
     ];
 
     const shuffle = (list) => {
@@ -319,7 +319,7 @@
       ].forEach((need, i) => {
         rows[i] = shuffle(c.splice(0, need.c).concat(s.splice(0, need.s)));
       });
-      rows[2].push({ kind: "company", src: "./strategy/logos/mlb.webp", alt: "MLB", w: 26, h: 14 });
+      rows[2].push({ kind: "company", src: "./hero-proof-logos/mlb.png", alt: "MLB", logo: "mlb", w: 26, h: 14 });
       return rows;
     };
 
@@ -328,6 +328,7 @@
         const span = document.createElement("span");
         span.className = "qava-hero-logo-word";
         span.setAttribute("aria-label", item.word);
+        if (item.logo) span.dataset.logo = item.logo;
         span.textContent = item.word;
         return span;
       }
@@ -338,6 +339,7 @@
       img.height = item.h;
       img.decoding = "async";
       img.loading = "eager";
+      if (item.logo) img.dataset.logo = item.logo;
       return img;
     };
 
@@ -402,6 +404,7 @@
       setState(incoming, "is-wait");
       incoming.getBoundingClientRect();
       if (!reduce) {
+        slot.classList.add("is-sliding");
         outgoing.classList.add("is-animating");
         incoming.classList.add("is-animating");
       }
@@ -409,6 +412,13 @@
       setState(incoming, "is-in");
       index = (index + 1) % sets.length;
       syncA11y();
+      if (!reduce) {
+        window.setTimeout(() => {
+          slot.classList.remove("is-sliding");
+          outgoing.classList.remove("is-animating");
+          incoming.classList.remove("is-animating");
+        }, SLIDE);
+      }
       timer = window.setTimeout(swap, HOLD + (reduce ? 0 : SLIDE));
     };
 
