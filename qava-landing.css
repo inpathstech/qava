@@ -2948,7 +2948,12 @@
             min-height: 0;
           }
           .qava-need-preview {
+            flex: 0 0 168px;
+            height: 168px;
             min-height: 168px;
+            max-height: 168px;
+            overflow: hidden;
+            box-sizing: border-box;
           }
         }
 
@@ -3758,26 +3763,40 @@
           #qava-faq-section.qava-faq-section {
             width: calc(100vw - 32px);
             max-width: calc(100vw - 32px);
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
+            overflow-x: hidden;
           }
 
           #qava-faq-section .qava-faq-title {
-            position: sticky;
-            left: 0;
+            position: static;
           }
 
           #qava-faq-section .qava-faq-list {
-            width: max-content;
-            min-width: 100%;
+            width: 100%;
+            min-width: 0;
+          }
+
+          #qava-faq-section .qava-faq-q {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            width: 100%;
           }
 
           #qava-faq-section .qava-faq-q-text {
-            white-space: nowrap;
+            flex: 1;
+            min-width: 0;
+            white-space: normal;
+          }
+
+          #qava-faq-section .qava-faq-toggle {
+            flex: 0 0 auto;
+            flex-shrink: 0;
           }
 
           #qava-faq-section .qava-faq-a {
-            width: calc(100vw - 112px);
+            width: 100%;
+            max-width: 100%;
           }
         }
 
