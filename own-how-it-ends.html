@@ -1,0 +1,1779 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>You Didn’t Start This, but You Own How It Ends | The Club</title>
+  <meta name="description" content="The project plan you inherit might be right. Or it might not be. Here's the process to figure that out, and do a healthy reset." />
+  <meta property="og:title" content="You Didn’t Start This, but You Own How It Ends | The Club" />
+  <meta property="og:description" content="The project plan you inherit might be right. Or it might not be. Here's the process to figure that out, and do a healthy reset." />
+  <meta property="og:image" content="https://www.theclubnyc.com/own-how-it-ends-card.png" />
+  <link rel="canonical" href="https://www.theclubnyc.com/own-how-it-ends" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+
+
+    :root {
+      --display: Georgia, "Iowan Old Style", "Times New Roman", serif;
+      --ink: #111827;
+      --muted: #6B6B6B;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      font-family: "Inter", sans-serif;
+      background: #ffffff;
+      color: var(--ink);
+    }
+
+    body {
+      position: relative;
+      min-height: 100vh;
+    }
+
+    #qava-dot-base-fixed {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image: radial-gradient(circle, rgba(17, 24, 39, 0.16) 1px, transparent 1.35px);
+      background-size: 20px 20px;
+      background-repeat: repeat;
+    }
+
+    body > *:not(#qava-dot-base-fixed):not(.header-container) {
+      position: relative;
+      z-index: 1;
+    }
+
+    a { color: inherit; }
+
+    .header-container {
+      width: calc(100% - 22px);
+      margin: 0 auto;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 56px;
+      position: sticky;
+      top: 0;
+      z-index: 1200;
+      background: rgba(255, 255, 255, 0.24);
+      -webkit-backdrop-filter: blur(18px) saturate(150%);
+      backdrop-filter: blur(18px) saturate(150%);
+      border: 0;
+      box-shadow: none;
+      isolation: isolate;
+    }
+
+    .header-container::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      right: 6px;
+      top: 3px;
+      bottom: 3px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0.44) 100%);
+      -webkit-backdrop-filter: blur(26px) saturate(165%);
+      backdrop-filter: blur(26px) saturate(165%);
+      box-shadow: 0 10px 24px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .header-container > * { position: relative; z-index: 1; }
+
+    .header-logo, .logo-container, .logo { display: flex; align-items: center; }
+
+    .header-container .logo {
+      background: transparent;
+      padding: 0;
+      border: none;
+      box-shadow: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header-center {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex: 1;
+      margin-left: 40px;
+    }
+
+    .header-right { display: flex; align-items: center; gap: 8px; }
+
+    .navigation { display: flex; align-items: center; gap: 8px; }
+
+    .header-container .nav-item,
+    .header-container .auth-item {
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      border-radius: 0;
+      padding: 0;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      transition: color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .header-container .nav-item .nav-text,
+    .header-container .auth-item .nav-text {
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: #6b6b6b;
+      line-height: 1.4;
+      transition: color 0.2s ease;
+      padding: 0 4px;
+      white-space: nowrap;
+    }
+
+    .header-container .nav-item.newsletter .nav-text {
+      color: #000000;
+    }
+
+    .header-container .nav-item:hover .nav-text,
+    .header-container .auth-item:hover .nav-text {
+      color: #000000;
+    }
+
+    .auth-section { display: flex; align-items: center; gap: 28px; }
+
+    .join-button {
+      padding: 6px 12px;
+      background: #2b2b2b;
+      border: 1px solid #2b2b2b;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: background-color 0.18s ease, border-color 0.18s ease;
+    }
+
+    .join-button:hover {
+      background: #000000;
+      border-color: #000000;
+    }
+
+    .join-text {
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .qava-premium-nav-btn {
+      padding: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transition: color 0.2s ease;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: #6b6b6b;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      line-height: 1.4;
+    }
+
+    .qava-premium-nav-btn .nav-text {
+      color: inherit;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.4;
+    }
+
+    .qava-premium-nav-btn:hover,
+    .qava-premium-nav-btn:hover .nav-text,
+    .qava-premium-nav-btn:focus-visible,
+    .qava-premium-nav-btn:focus-visible .nav-text {
+      color: #000000;
+      background: transparent;
+    }
+
+    .qava-premium-nav-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      margin-top: -1px;
+    }
+
+    .qava-premium-nav-icon svg {
+      width: 15px;
+      height: 15px;
+      display: block;
+    }
+
+    .header-container .logo img,
+    .qava-nav-logo-face {
+      width: 72px;
+      height: 16px;
+      object-fit: contain;
+      display: block;
+      border-radius: 4px;
+    }
+
+    .qava-nav-logo-back{ object-fit: contain; }
+
+    .qava-nav-logo-flip { width: 72px; height: 16px; perspective: 600px;
+    overflow: visible;}
+
+    .qava-nav-logo-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease;
+    }
+
+    .qava-nav-logo-inner.is-flipped,
+        .qava-nav-logo-inner.is-flip-up { transform: rotateX(180deg); }
+        .qava-nav-logo-inner.is-flip-down { transform: rotateX(-180deg); }
+        .qava-nav-logo-inner.is-flip-left { transform: rotateY(-180deg); }
+        .qava-nav-logo-inner.is-flip-right { transform: rotateY(180deg); }
+
+    .qava-nav-logo-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+    }
+
+    .qava-nav-logo-back,
+.qava-nav-logo-back.is-axis-x{ transform: rotateX(180deg); }
+
+.qava-nav-logo-back.is-axis-y {
+  transform: rotateY(180deg);
+}
+
+    .hamburger-menu {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .hamburger-line {
+      width: 20px;
+      height: 2px;
+      background: #111827;
+      border-radius: 1px;
+    }
+
+    
+.footer-section {
+      background: transparent;
+      width: 100%;
+      margin: 0;
+      padding: 48px 0 46px;
+      border-top: 1px solid #EBEBEB;
+    }
+
+    .footer-container {
+      width: min(1040px, calc(100vw - 120px));
+      margin: 0 auto;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+
+    .footer-content { display: flex; flex-wrap: wrap; }
+    .footer-logo { width: 39%; padding: 2px 15px 0 0; margin-bottom: 30px; }
+    .footer-logo-img { width: 40px; height: auto; }
+
+    .footer-links {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      width: 60%;
+      gap: 16px 25px;
+      padding: 0 15px 0 10px;
+    }
+
+    .footer-heading {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: 17px;
+      letter-spacing: -0.012em;
+      color: #000000;
+      margin: 0 0 8px;
+    }
+
+    .footer-link-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .footer-link {
+      font-size: 13px;
+      font-weight: 300;
+      color: #797979;
+      text-decoration: none;
+      line-height: 1.2;
+    }
+
+    .footer-link:hover { text-decoration: underline; }
+
+    .footer-copyright {
+      grid-column: 1 / -1;
+      margin-top: 14px;
+      font-size: 13px;
+      font-weight: 300;
+      color: #797979;
+    }
+
+    
+    html { scroll-behavior: smooth; }
+
+    .story-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 24px;
+      margin: 24px 0 48px;
+    }
+
+    .story-meta-col { flex: 1; min-width: 0; }
+
+    .story-meta-col:first-child { flex: 1.7; }
+
+    .story-meta-divider {
+      width: 1px;
+      background: #e5e7eb;
+      align-self: stretch;
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .story-meta-divider { display: block; margin: 0 8px; }
+    }
+
+    .story-meta h3 {
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      line-height: 1.3;
+      color: #6b7280;
+      margin-bottom: 16px;
+    }
+
+    .story-people {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .story-person {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .story-person-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #e5e7eb;
+      flex-shrink: 0;
+    }
+
+    .story-person-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .story-person-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: #111827;
+      white-space: nowrap;
+    }
+
+    .story-person-role {
+      font-size: 12px;
+      font-weight: 300;
+      color: #6b7280;
+      white-space: nowrap;
+    }
+
+    .story-focus-items {
+      font-size: 12px;
+      line-height: 1.6;
+      font-weight: 300;
+      color: #1f2937;
+    }
+
+    /* BLOG POST STYLES */
+
+        .story-wrapper {
+            max-width: 760px;
+            width: calc(100% - 48px);
+            margin: 24px auto 48px;
+            padding: 56px 40px 90px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        .story-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: "Inter", sans-serif;
+            font-size: 12px;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            line-height: 1.3;
+            color: #6b7280;
+            text-decoration: none;
+            margin: 0 0 28px;
+            width: fit-content;
+            transition: color 0.2s ease;
+        }
+
+        .story-back-arrow {
+            font-weight: 300;
+            letter-spacing: 0;
+            color: inherit;
+            line-height: 1;
+        }
+
+        .story-back:visited {
+            color: #6b7280;
+        }
+
+        .story-back:hover,
+        .story-back:focus-visible {
+            color: #000000;
+        }
+
+        .story-pager {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 32px;
+            margin-top: 48px;
+            padding-top: 28px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .story-pager-link {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-width: 46%;
+            color: #6b7280;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .story-pager-prev {
+            text-align: left;
+            align-items: flex-start;
+        }
+
+        .story-pager-next {
+            margin-left: auto;
+            text-align: right;
+            align-items: flex-end;
+        }
+
+        .story-pager-link:visited {
+            color: #6b7280;
+        }
+
+        .story-pager-link:hover,
+        .story-pager-link:focus-visible {
+            color: #000000;
+        }
+
+        .story-pager-label {
+            font-family: "Inter", sans-serif;
+            font-size: 12px;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            line-height: 1.3;
+            color: #6b7280;
+        }
+
+        .story-pager-title {
+            font-family: var(--display);
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+
+        @media (max-width: 640px) {
+            .story-pager {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .story-pager-link {
+                max-width: 100%;
+            }
+
+            .story-pager-next {
+                margin-left: 0;
+            }
+        }
+
+        .story-header {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 0;
+        }
+
+        .story-title {
+            font-family: var(--display);
+            font-size: clamp(32px, 4vw, 42px);
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .story-title-line {
+            display: block;
+        }
+
+        .story-subtitle {
+            font-size: 20px;
+            font-weight: 300;
+            color: #4a4a4a;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        .story-categories {
+            display: flex;
+            gap: 8px;
+            margin: 0 0 20px 0;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .story-category-pill {
+            display: inline-flex;
+            align-items: center;
+            background: transparent;
+            color: #000000;
+            font-size: 11px;
+            font-weight: 400;
+            padding: 2px 4px;
+            border-radius: 0;
+            border: none;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .story-project-badges {
+            display: flex;
+            gap: 8px;
+            margin: 2px 0 3px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .story-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            background: #fafafa;
+            color: #000000;
+            font-size: 11px;
+            font-weight: 400;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-decoration: none;
+        }
+
+        .story-badge-pill span {
+            color: #000000;
+        }
+
+        .story-badge-separator {
+            font-size: 11px;
+            font-weight: 400;
+            color: #000000;
+        }
+
+        .story-hero {
+            width: 100%;
+            margin: 32px 0 40px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .story-hero img {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        /* ===== SPACING SYSTEM - Professional & Consistent ===== */
+        
+        /* Intro section - appears after hero image */
+        .story-intro {
+            padding: 0 !important;
+            margin: 0 0 32px !important;
+        }
+
+        .story-intro p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 16px;
+        }
+
+        .story-intro p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Table of Contents - compact spacing */
+        .story-toc {
+            padding: 0 !important;
+            margin: 32px 0 48px !important;
+        }
+
+        .story-toc ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 0;
+        }
+
+        .story-toc li a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 300;
+            color: #2e2e2e;
+            line-height: 1.65;
+            text-decoration: none;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .story-toc li a:hover {
+            color: #111111;
+            transform: translateX(4px);
+        }
+
+        .story-toc li .index {
+            font-size: 13px;
+            font-weight: 500;
+            color: #6b6b6b;
+            letter-spacing: 0.08em;
+        }
+
+        /* Main content sections */
+        .story-section {
+            padding: 0 !important;
+            margin: 56px 0 0 0 !important;
+        }
+
+        .story-section:first-of-type {
+            margin-top: 0 !important;
+        }
+ 
+        .story-section h2 {
+            font-family: var(--display);
+            font-size: 28px;
+            font-weight: 400;
+            margin: 0 0 24px !important;
+            padding-top: 28px !important;
+            letter-spacing: -0.02em;
+            color: #000000;
+            border-top: 1px solid #e0e0e0 !important;
+        }
+
+        .story-section h3 {
+            font-family: var(--display);
+            font-size: 22px;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin: 32px 0 16px;
+            color: #111;
+        }
+
+        .story-section h3:first-of-type {
+            margin-top: 8px;
+        }
+
+        /* All paragraphs - consistent spacing */
+        .story-wrapper p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 14px;
+        }
+
+        .story-section p,
+        .story-intro p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+        }
+
+        /* Q&A blocks - consistent spacing */
+        .qa-block {
+            margin-bottom: 36px !important;
+        }
+
+        .qa-block:last-child {
+            margin-bottom: 0 !important;
+        }
+
+        .qa-question {
+            font-size: 16px !important;
+            font-weight: 500 !important;
+            margin-bottom: 14px !important;
+            color: #000000 !important;
+        }
+
+        .qa-question .highlight {
+            background: none;
+            padding: 0;
+            display: inline;
+        }
+
+        .qa-answer {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 14px;
+        }
+
+        .qa-answer:last-child {
+            margin-bottom: 0;
+        }
+
+        .story-section ul {
+            margin: 8px 0 20px;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .story-section ul li {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #2e2e2e;
+            font-weight: 300;
+            margin-bottom: 8px;
+            padding-left: 1.15em;
+            position: relative;
+        }
+
+        .story-section ul li::before {
+            content: "–";
+            position: absolute;
+            left: 0;
+        }
+
+        .story-section ul li a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .story-section ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Pull quotes - centered with breathing room */
+        blockquote {
+            margin: 36px auto !important;
+            padding: 0 !important;
+            width: 100%;
+            max-width: 680px;
+            font-size: 16px !important;
+            line-height: 1.65 !important;
+            color: #111111 !important;
+            font-weight: 500 !important;
+            font-style: italic !important;
+            text-align: center;
+            background: transparent;
+            border-radius: 0;
+            white-space: normal;
+            display: block;
+            font-family: 'Inter', sans-serif;
+        }
+
+        blockquote::before {
+            content: "";
+        }
+
+        /* Images with captions */
+        .story-media {
+            margin: 24px 0 28px;
+            text-align: center;
+        }
+
+        .story-media img {
+            width: 100%;
+            border-radius: 4px;
+            display: block;
+        }
+
+        .story-media-caption {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #585858;
+        }
+
+        .story-media-caption a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .story-media-caption a:hover {
+            text-decoration: underline;
+        }
+
+        /* Links within story content */
+        .qa-answer a {
+            color: inherit;
+            text-decoration: none;
+            transition: text-decoration 0.2s ease;
+        }
+
+        .qa-answer a:hover {
+            text-decoration: underline;
+        }
+
+        .story-cta {
+            margin-top: 48px;
+            text-align: center;
+            padding: 32px 48px;
+            border-radius: 14px;
+            background: #fafafa;
+        }
+
+        .story-cta h3 {
+            font-family: var(--display);
+            font-size: 24px;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .story-cta p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #3b3b3b;
+            margin-bottom: 0;
+            font-weight: 300;
+        }
+
+        .story-cta p:first-of-type {
+            margin-bottom: 4px;
+        }
+
+        .story-cta p:last-of-type {
+            margin-bottom: 28px;
+        }
+
+        .story-cta-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .story-cta .cta-button.primary {
+            padding: 6px 12px;
+            background: #2b2b2b;
+            color: #ffffff;
+            border: 1px solid #2b2b2b;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: background-color 0.18s ease, border-color 0.18s ease;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.2;
+            white-space: nowrap;
+            height: auto;
+        }
+
+        .story-cta .cta-button.primary:hover {
+            background: #000000;
+            border-color: #000000;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Secondary button - How Qava Works (matches hero) */
+        .story-cta .cta-button.secondary {
+            padding: 6px 12px;
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            height: 27.6px;
+            text-decoration: none;
+            color: #000000;
+            font-size: 13px;
+            font-weight: 300;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .story-cta .cta-button.secondary::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 12px;
+            right: 12px;
+            height: 1px;
+            background-color: #000000;
+            transform: scaleX(0);
+            transition: transform 0.2s ease;
+        }
+
+        .story-cta .cta-button.secondary:hover::after {
+            transform: scaleX(1);
+        }
+
+        .story-cta .cta-button.secondary:visited {
+            color: #000000;
+        }
+
+            .story-cta .cta-button.secondary:active {
+            color: #000000;
+        }
+
+        .tpl-fig {
+            position: relative;
+            margin: 28px 0 32px;
+            padding: 18px 20px 16px;
+            border: 0;
+            border-radius: 10px;
+            background: #fafafa;
+        }
+        .tpl-fig svg {
+            display: block;
+            width: 100%;
+            height: auto;
+            overflow: visible;
+        }
+        .fig-caption {
+            margin: 10px 4px 0;
+            text-align: center;
+            font-family: "Inter", sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.4;
+            color: #6e6e6e;
+        }
+        .fig-replay {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            z-index: 1;
+            margin: 0;
+            padding: 3px 8px;
+            border: 1px solid rgba(16, 16, 16, 0.18);
+            border-radius: 4px;
+            background: transparent;
+            color: #9b9a97;
+            font-family: "Inter", sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 1.2;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 160ms ease, color 180ms ease, border-color 180ms ease;
+        }
+        .tpl-fig:hover .fig-replay,
+        .fig-replay:focus,
+        .fig-replay:focus-visible { opacity: 1; }
+        .fig-replay:hover {
+            color: #111;
+            border-color: rgba(16, 16, 16, 0.35);
+        }
+        .fig-replay:focus-visible {
+            outline: 2px solid #111;
+            outline-offset: 2px;
+        }
+        .own-check-panel {
+            display: grid;
+            grid-template-columns: 1fr 1px 1fr;
+            width: 100%;
+            border: 1px solid rgba(17, 24, 39, 0.16);
+            background: #fff;
+        }
+        .own-check-col { padding: 16px 18px 14px; }
+        .own-check-rule { width: 1px; background: rgba(17, 24, 39, 0.14); }
+        .own-check-head {
+            margin: 0 0 10px;
+            font-family: "Inter", sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            line-height: 1.3;
+            color: #111;
+        }
+        .own-check-list { margin: 0; padding: 0; list-style: none; }
+        .own-check-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin: 0 0 7px;
+            font-family: "Inter", sans-serif;
+            font-size: 12.5px;
+            font-weight: 400;
+            line-height: 1.35;
+            color: #111;
+        }
+        .own-check-row:last-child { margin-bottom: 0; }
+        .story-section .own-check-list { margin: 0; }
+        .story-section .own-check-row {
+            padding-left: 0;
+            font-size: 12.5px;
+            font-weight: 400;
+            line-height: 1.35;
+            color: #111;
+        }
+        .story-section .own-check-row::before { content: none; }
+        .own-check-box {
+            flex-shrink: 0;
+            width: 11px;
+            height: 11px;
+            margin-top: 3px;
+            border: 1px solid #111;
+            background: #fff;
+        }
+        .sort-svg { max-width: 30rem; margin: 0 auto; }
+        .sort-funnel {
+            fill: none;
+            stroke: rgba(17, 24, 39, 0.18);
+            stroke-width: 1.25;
+            stroke-linejoin: round;
+        }
+        .sort-bin {
+            fill: #fff;
+            stroke: rgba(17, 24, 39, 0.14);
+            stroke-width: 1;
+        }
+        .sort-bin-label {
+            font-family: "Inter", sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            fill: #6e6e6e;
+        }
+        .sort-tile-bg {
+            fill: #fff;
+            stroke: #111;
+            stroke-width: 1;
+        }
+        .sort-tile-label {
+            font-family: "Inter", sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            fill: #111;
+        }
+        .sort-tile { transform-box: fill-box; transform-origin: center; }
+        .tpl-fig-sort.is-hold .sort-tile {
+            opacity: 0;
+            transform: translate(var(--from-x), var(--from-y));
+        }
+        .tpl-fig-sort.is-hold .fig-caption { opacity: 0; }
+        .tpl-fig-sort.is-hold.is-run .sort-tile {
+            animation: sort-fall 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
+            animation-delay: var(--delay);
+        }
+        .tpl-fig-sort.is-hold.is-run .fig-caption {
+            animation: drift-fade 280ms 1800ms ease both;
+        }
+        @keyframes sort-fall {
+            0% { opacity: 0; transform: translate(var(--from-x), var(--from-y)); }
+            18% { opacity: 1; transform: translate(var(--from-x), var(--from-y)); }
+            100% { opacity: 1; transform: translate(0, 0); }
+        }
+        @keyframes drift-fade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .base-copy-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 6px 22px;
+            max-width: 34rem;
+            margin: 0 auto;
+            padding: 6px 8px 0;
+        }
+        .base-original,
+        .base-revised {
+            margin: 0;
+            font-family: "Inter", sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.45;
+            color: #111;
+        }
+        .base-revised { color: #6e6e6e; }
+        .base-date {
+            position: relative;
+            display: inline-block;
+        }
+        .base-date::after {
+            content: "";
+            position: absolute;
+            left: -1px;
+            right: -1px;
+            top: 50%;
+            height: 1.25px;
+            background: #111;
+            transform: scaleX(1);
+            transform-origin: left center;
+        }
+        .base-bar-svg {
+            display: block;
+            width: 100%;
+            max-width: 34rem;
+            height: 12px;
+            margin: 14px auto 0;
+        }
+        .base-bar {
+            fill: none;
+            stroke: rgba(17, 24, 39, 0.14);
+            stroke-width: 1;
+        }
+        .tpl-fig-base.is-hold .base-date::after { transform: scaleX(0); }
+        .tpl-fig-base.is-hold .base-revised,
+        .tpl-fig-base.is-hold .fig-caption { opacity: 0; }
+        .tpl-fig-base.is-hold.is-run .base-date::after {
+            animation: base-strike 420ms 1000ms cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .tpl-fig-base.is-hold.is-run .base-revised {
+            animation: drift-fade 360ms 1100ms ease both;
+        }
+        .tpl-fig-base.is-hold.is-run .fig-caption {
+            animation: drift-fade 320ms 1400ms ease both;
+        }
+        @keyframes base-strike {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+        @media (max-width: 640px) {
+            .tpl-fig { padding: 16px 12px 14px; }
+            .own-check-panel { grid-template-columns: 1fr; }
+            .own-check-rule { width: 100%; height: 1px; }
+            .own-check-col { padding: 14px 14px 12px; }
+            .base-original,
+            .base-revised { font-size: 13px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .fig-replay { display: none; }
+            .tpl-fig.is-hold .sort-tile,
+            .tpl-fig.is-hold .base-revised,
+            .tpl-fig.is-hold .fig-caption,
+            .tpl-fig.is-hold.is-run .sort-tile,
+            .tpl-fig.is-hold.is-run .base-revised,
+            .tpl-fig.is-hold.is-run .fig-caption {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+            .tpl-fig.is-hold .base-date::after,
+            .tpl-fig.is-hold.is-run .base-date::after {
+                animation: none;
+                transform: scaleX(1);
+            }
+        }
+
+        
+    /* RESPONSIVE */
+
+        @media (max-width: 768px) {
+            .story-wrapper {
+                width: calc(100% - 32px);
+                padding: 40px 24px 80px;
+                margin: 16px auto 40px;
+            }
+
+            .story-categories {
+                margin: 0 0 16px;
+                gap: 6px;
+            }
+
+            .story-category-pill {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .story-project-badges {
+                margin: 8px 0 8px;
+                gap: 6px;
+            }
+
+            .story-badge-pill {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
+            .story-title {
+                font-size: 32px;
+                line-height: 1.15;
+            }
+
+            .story-subtitle {
+                font-size: 17px;
+                line-height: 1.45;
+            }
+
+            .story-hero {
+                margin: 24px 0 32px;
+                border-radius: 8px;
+            }
+
+            .story-intro,
+            .story-section {
+                padding: 0;
+            }
+
+            .story-section {
+                margin: 48px 0 0 0 !important;
+            }
+
+            .story-section h2 {
+                font-size: 22px;
+                padding-top: 24px !important;
+                margin-bottom: 20px !important;
+            }
+
+            .story-toc {
+                padding: 0;
+                margin: 28px 0 40px;
+            }
+
+            .story-toc ul {
+                gap: 8px;
+            }
+
+            .story-toc li a {
+                font-size: 15px;
+            }
+
+            .qa-block {
+                margin-bottom: 32px !important;
+            }
+
+            blockquote {
+                margin: 28px auto !important;
+                padding: 0 !important;
+                font-size: 15px !important;
+                line-height: 1.65 !important;
+            }
+
+            .story-media {
+                margin: 20px 0 24px;
+            }
+
+            .story-media img {
+                border-radius: 12px;
+            }
+
+            .story-cta {
+                padding: 32px 24px;
+                margin-top: 40px;
+            }
+
+            .story-cta h3 {
+                font-size: 20px;
+                margin-bottom: 14px;
+            }
+
+            .story-cta p {
+                font-size: 15px;
+                margin-bottom: 24px;
+            }
+
+            .story-cta-actions {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+                align-items: center;
+            }
+
+            .story-cta .cta-button {
+                width: auto;
+                max-width: 280px;
+                min-width: fit-content;
+                padding: 8px 16px;
+            }
+
+            .footer-section {
+                padding: 60px 24px 40px 24px;
+            }
+
+            .footer-logo {
+                width: 100%;
+                padding: 0;
+                margin-bottom: 32px;
+            }
+
+            .footer-links {
+                width: 100%;
+                grid-template-columns: 1fr;
+                padding: 0;
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .story-wrapper {
+                padding: 32px 24px 70px;
+            }
+
+            .story-title {
+                font-size: 28px;
+            }
+
+            .story-subtitle {
+                font-size: 16px;
+            }
+
+            .story-hero {
+                margin: 20px 0 28px;
+            }
+
+            .story-section h2 {
+                font-size: 20px;
+            }
+
+            .story-toc li a {
+                font-size: 14px;
+            }
+
+            .story-wrapper p,
+            .qa-question,
+            .qa-answer {
+                font-size: 15px !important;
+            }
+
+            blockquote {
+                font-size: 15px !important;
+                line-height: 1.65 !important;
+                padding: 0 !important;
+            }
+
+            .story-cta {
+                padding: 28px 20px;
+            }
+
+            .story-cta h3 {
+                font-size: 18px;
+            }
+
+            .story-cta p {
+                font-size: 14px;
+            }
+        }
+    
+
+    @media (max-width: 860px) {
+      .header-center, .auth-section .auth-item { display: none; }
+      .hamburger-menu { display: flex; }
+    }
+
+  
+  
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: #fff;
+      padding: 72px 28px 40px;
+      overflow-y: auto;
+    }
+    .mobile-menu.active {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .mobile-menu .close-menu {
+      position: absolute;
+      top: 22px;
+      right: 22px;
+      font-size: 22px;
+      cursor: pointer;
+      line-height: 1;
+      color: #111827;
+    }
+    .mobile-menu .mobile-nav-item {
+      display: block;
+      padding: 12px 0;
+      text-decoration: none;
+      font-family: "Inter", sans-serif;
+      font-size: 16px;
+      font-weight: 300;
+      color: #6b6b6b;
+    }
+    .mobile-menu .mobile-nav-item:hover,
+    .mobile-menu .mobile-nav-item.is-active { color: #000; }
+    .mobile-menu .mobile-menu-join-button { margin-top: 16px; width: fit-content; }
+
+  </style>
+  <link rel="stylesheet" href="/qava-auth.css" />
+  <link rel="stylesheet" href="club-dot-wave.css?v=1" />
+</head>
+<body>
+<div id="qava-dot-base-fixed" aria-hidden="true"></div>
+
+  <header class="header-container" data-qava-nav="landing">
+    <div class="header-logo">
+      <div class="logo-container">
+        <div class="logo">
+          <a href="https://www.theclubnyc.com/">
+            <div class="qava-nav-logo-flip" id="qava-nav-logo-flip">
+              <div class="qava-nav-logo-inner" id="qava-nav-logo-inner">
+                <img class="qava-nav-logo-face qava-nav-logo-front" src="/the-club-logo-light.png" alt="The Club">
+                <img class="qava-nav-logo-face qava-nav-logo-back" src="/the-club-logo-light.png" alt="">
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="header-center">
+      <nav class="navigation">
+        <a href="https://theclubnyc.com/strategy/" class="nav-item templates"><div class="nav-text">Strategies &amp; Playbooks</div></a>
+        <a href="https://theclubnyc.com/find/" class="nav-item search-listings"><div class="nav-text">Job Board</div></a>
+        <a href="https://theclubnyc.com/blog" class="nav-item blog"><div class="nav-text">Blog</div></a>
+        <a href="https://theclubnyc.com/newsletter" class="nav-item newsletter"><div class="nav-text">Newsletter</div></a>
+      </nav>
+    </div>
+    <div class="header-right">
+      <div class="auth-section">
+        <a href="https://app.theclubnyc.com/" class="qava-premium-nav-btn" data-qava-premium-nav aria-label="Log in"><span class="nav-text">Log in</span></a>
+        <a href="https://app.theclubnyc.com/" class="join-button">
+          <div class="join-text">Get Started</div>
+        </a>
+      </div>
+      <div class="hamburger-menu" onclick="toggleMobileMenu()" role="button" aria-label="Open menu">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </div>
+    </div>
+  </header>
+
+
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="close-menu" onclick="toggleMobileMenu()">✕</div>
+    <a href="https://theclubnyc.com/strategy/" class="mobile-nav-item"><div class="nav-text">Strategies &amp; Playbooks</div></a>
+    <a href="https://theclubnyc.com/find/" class="mobile-nav-item"><div class="nav-text">Job Board</div></a>
+    <a href="https://theclubnyc.com/blog" class="mobile-nav-item"><div class="nav-text">Blog</div></a>
+    <a href="https://theclubnyc.com/newsletter" class="mobile-nav-item"><div class="nav-text">Newsletter</div></a>
+    <a href="https://app.theclubnyc.com/?login=1" class="mobile-nav-item qava-premium-nav-btn" data-qava-premium-nav aria-label="Log in"><span class="nav-text">Log in</span></a>
+    <a href="https://app.theclubnyc.com/" class="join-button mobile-menu-join-button">
+      <div class="join-text">Get Started</div>
+    </a>
+  </div>
+<main class="story-wrapper">
+        <a class="story-back" href="https://www.theclubnyc.com/blog"><span class="story-back-arrow" aria-hidden="true">&larr;</span> Blog</a>
+        <header class="story-header">
+            <h1 class="story-title">You Didn’t Start This, but You Own How It Ends</h1>
+            <p class="story-subtitle" style="color: #666666;">The project plan you inherit might be right. Or it might not be — the objectives may have changed, the business context may have changed, the stakeholders may have changed, things may have been missed. Here's the process to figure that out, and do a healthy reset.</p>
+        </header>
+
+        <section class="story-meta">
+            <div class="story-meta-col">
+                <h3>Behind the Story</h3>
+                <div class="story-people">
+                    <div class="story-person">
+                        <div class="story-person-avatar">
+                            <img src="Reed%20Langridge%20Profile.jpg" alt="Reed Langridge" loading="lazy" />
+                        </div>
+                        <div>
+                            <div class="story-person-name">Reed Langridge</div>
+                            <div class="story-person-role">Founder, The Club</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="story-meta-divider" aria-hidden="true"></div>
+            <div class="story-meta-col">
+                <h3>Focus Areas</h3>
+                <div class="story-focus-items">
+                    <div>Leadership 🧭</div>
+                    <div>Planning 🗺️</div>
+                    <div>Delivery 🎯</div>
+                    <div>Stakeholders 🤝</div>
+                </div>
+            </div>
+        </section>
+
+        <figure class="story-hero">
+            <img src="own-how-it-ends-card.png" alt="A branching path: a dashed line arrives at a point, then three arrows continue forward" loading="lazy">
+        </figure>
+
+        <section class="story-section" id="tldr">
+            <h2>TL;DR</h2>
+            <ul>
+                <li>Here's a six-step way to reset a project you're inheriting mid-flight, without freezing it or blowing it up.</li>
+                <li>The plan you got handed might be totally fine, or the objectives, the business, and the people may have shifted without the plan ever catching up. Either way, you own what happens next.</li>
+                <li>The expensive mistake is skipping the reset and assuming you already know the state of the project parts and stakeholders.</li>
+                <li>None of this assumes the work so far was bad. The point is finding out what's true before you decide what to change.</li>
+            </ul>
+            <p>Here's the first thing I'd tell you, before anything else: the plan you inherited might be completely fine. It might not be. And you genuinely don't know which yet — not because anyone did a bad job, but because plans go stale quietly, the way milk does, while everyone's attention is somewhere else. Objectives shift. The market moves. Somebody two levels up reprioritizes and the memo never quite makes it down to the project plan. You can execute a plan perfectly and still be hitting a target that stopped being the target months ago.</p>
+            <p>So before you praise it, and before you blow it up, you check. That's your first move.</p>
+            <figure class="tpl-fig tpl-fig-own-check" aria-label="Pre-flight checklist. Foundation: clear measurable goals, defined scope and boundaries, success metrics identified, critical path mapped, key milestones set, resource plan confirmed, budget approved, risks identified, shared folder set up. Alignment and execution: stakeholders aligned, roles and owners assigned, decision-makers identified, kickoff meeting held, routine check-ins scheduled, status reporting cadence set, communication plan in place, value capture plan defined.">
+              <div class="own-check-panel">
+                <div class="own-check-col">
+                  <h3 class="own-check-head">Foundation</h3>
+                  <ul class="own-check-list">
+                    <li class="own-check-row"><span class="own-check-box" aria-hidden="true"></span><span>Clear, measurable goals</span></li>
+                    <li class="own-check-row"><span class="own-check-box" aria-hidden="true"></span><span>Defined scope &amp; boundaries</span></li>
+                    <li class="own-check-row"><span class="own-check-box" aria-hidden="true"></span><span>Success metrics identified</span></li>
+                    <li class="own-check-row"><span class="own-check-box" aria-hidden="true"></span><span>Critical path mapped</span></li>
+                    <li class="own-check-row"><span class="own-check-box" aria-hidden="true"></span><span>Key milestones set</span></li>
+                    <li class="own-check-row"><span class="own-check-box" aria-hidden="true"></span><span>Resource plan confirmed</span></li>
+                    <li class="own-check-row"><span class="own-check-box" aria-hidden="true"></span><span>Budget approved</span></li>
+                    <li class="own-check-row"><span class="own-check-box" aria-hidden="true"></span><span>Risks identified</span></li>
+                    <li class="own-check-row"><span class="own-check-box" aria-hidden="true"></span><span>Shared folder set up</span></li>
+                  </ul>
+                </div>
+                <div class="own-check-rule" aria-hidden="true"></div>
+                <div class="own-check-col">
+                  <h3 class="own-check-head">Alignment &amp; Execution</h3>
+                  <ul class="own-check-list">
+                    <li class="own-check-row"><span class="own-check-box" aria-hidden="true"></span><span>Stakeholders aligned</span></li>
+                    <li class="own-check-row"><span class="own-check-box" aria-hidden="true"></span><span>Roles &amp; owners assigned</span></li>
+                    <li class="own-check-row"><span class="own-check-box" aria-hidden="true"></span><span>Decision-makers identified</span></li>
+                    <li class="own-check-row"><span class="own-check-box" aria-hidden="true"></span><span>Kickoff meeting held</span></li>
+                    <li class="own-check-row"><span class="own-check-box" aria-hidden="true"></span><span>Routine check-ins scheduled</span></li>
+                    <li class="own-check-row"><span class="own-check-box" aria-hidden="true"></span><span>Status reporting cadence set</span></li>
+                    <li class="own-check-row"><span class="own-check-box" aria-hidden="true"></span><span>Communication plan in place</span></li>
+                    <li class="own-check-row"><span class="own-check-box" aria-hidden="true"></span><span>Value capture plan defined</span></li>
+                  </ul>
+                </div>
+              </div>
+            </figure>
+        </section>
+
+        <section class="story-section" id="assume">
+            <h2>Assume a combination of both</h2>
+            <p>I've watched people get this wrong in exactly two ways, and both come from good instincts. Some people keep everything running exactly as it was, because touching a moving project feels risky, and continuity feels safe. Others come in fast and start changing things, because that's how you show you're serious about the job. I understand both impulses — I've had both. But they're really the same mistake wearing different clothes: they both skip the part where you find out what's actually true before you act on it. Change too fast and the team that built the first version stops telling you what's really going on and starts telling you what you want to hear. Change nothing and you inherit every assumption unchecked, including whatever's quietly stopped matching what the business actually needs now.</p>
+            <p>Neither failure is about effort. It's about skipping the same step.</p>
+            <p>One thing I want to say clearly, because it matters: none of this assumes the work so far is bad. Most of the time it's fine — better than fine — and the check just confirms it. When it isn't fine, that's rarely the whole story either. The person who's been carrying it may have been doing it alone. They may have been covering for a gap somewhere else on the team. They may have had something going on outside work that had nothing to do with any of this. You're not just stepping into a project — you're stepping into the middle of someone's reputation. Find out what happened before you decide whose fault it was, or whether it was anyone's fault at all.</p>
+        </section>
+
+        <section class="story-section" id="order">
+            <h2>The order I'd actually do this in</h2>
+
+            <h3>1. Check before you touch anything</h3>
+            <p>This is where you go and look for yourself. Pull the last three status updates and hold them up against what actually shipped — not what was scheduled, what really happened. Then go talk to two or three people doing the work, not just the ones running the meetings. They'll usually tell you where it's actually stuck within the first five minutes, often with a sigh you'll learn to recognize. Status reports aren't lying to you — they're just always a little behind the reality, and that's just as true of projects going well as projects going badly. Skip this and your first real decision gets made off the version of events that made it into the deck, not the version that actually happened.</p>
+
+            <h3>2. Sort out what should go and what should stay</h3>
+            <p>Every project picks up decisions along the way. Some were evidence-based decisions — someone weighed the options and picked one, for a reason they could still explain to you today. Others just happened, because nobody was in the room to stop them. You need to know which is which before you touch anything, because reversing a correct decision throws away good thinking that already went into it. And leaving drift in place just because it's already there isn't really a decision — it's an accident you're choosing to keep. Either way, sorting through what stays and goes is your opportunity to demonstrate your approach to the team and build trust.</p>
+
+            <figure class="tpl-fig tpl-fig-sort" data-anim="sort" aria-label="Six decisions fall into two bins. Keep: Vendor B, Cut feature X, Extended timeline. Change: Missed review, Skipped QA step, Changed owner. The second bin is where you start.">
+              <button class="fig-replay" type="button" aria-label="Replay the animation">Replay</button>
+              <svg class="sort-svg" viewBox="0 0 460 304" aria-hidden="true">
+                <path class="sort-funnel" d="M170 12 L290 12 L246 86 L214 86 Z" />
+                <path class="sort-funnel" d="M222 86 L238 86 L238 118 L222 118 Z" />
+                <rect class="sort-bin" x="24" y="158" width="196" height="124" rx="6" />
+                <rect class="sort-bin" x="240" y="158" width="196" height="124" rx="6" />
+                <text class="sort-bin-label" x="122" y="148" text-anchor="middle">Keep</text>
+                <text class="sort-bin-label" x="338" y="148" text-anchor="middle">Change</text>
+                <g class="sort-tile" style="--from-x: 108px; --from-y: -160px; --delay: 0ms;">
+                  <rect class="sort-tile-bg" x="40" y="176" width="164" height="26" rx="3" />
+                  <text class="sort-tile-label" x="122" y="193" text-anchor="middle">Vendor B</text>
+                </g>
+                <g class="sort-tile" style="--from-x: 108px; --from-y: -132px; --delay: 250ms;">
+                  <rect class="sort-tile-bg" x="40" y="210" width="164" height="26" rx="3" />
+                  <text class="sort-tile-label" x="122" y="227" text-anchor="middle">Cut feature X</text>
+                </g>
+                <g class="sort-tile" style="--from-x: -108px; --from-y: -160px; --delay: 500ms;">
+                  <rect class="sort-tile-bg" x="256" y="176" width="164" height="26" rx="3" />
+                  <text class="sort-tile-label" x="338" y="193" text-anchor="middle">Missed review</text>
+                </g>
+                <g class="sort-tile" style="--from-x: 108px; --from-y: -104px; --delay: 750ms;">
+                  <rect class="sort-tile-bg" x="40" y="244" width="164" height="26" rx="3" />
+                  <text class="sort-tile-label" x="122" y="261" text-anchor="middle">Extended timeline</text>
+                </g>
+                <g class="sort-tile" style="--from-x: -108px; --from-y: -132px; --delay: 1000ms;">
+                  <rect class="sort-tile-bg" x="256" y="210" width="164" height="26" rx="3" />
+                  <text class="sort-tile-label" x="338" y="227" text-anchor="middle">Skipped QA step</text>
+                </g>
+                <g class="sort-tile" style="--from-x: -108px; --from-y: -104px; --delay: 1250ms;">
+                  <rect class="sort-tile-bg" x="256" y="244" width="164" height="26" rx="3" />
+                  <text class="sort-tile-label" x="338" y="261" text-anchor="middle">Changed owner</text>
+                </g>
+              </svg>
+              <figcaption class="fig-caption">The second bin is where you start.</figcaption>
+            </figure>
+
+            <h3>3. Find out who's really been holding this together</h3>
+            <p>The org chart will tell you who's accountable. It won't tell you who's actually been making things move when they got stuck. Just ask someone directly — "when this gets stuck, who's the person who actually gets it unstuck?" — and you'll usually get a straight answer fast. That person, title or no title, is who you want on your side before you touch anything they've been quietly holding together. Leave them out, and your first change will land like it came out of nowhere. To the team, it will have.</p>
+
+            <h3>4. Say out loud what "done" means now</h3>
+            <p>You inherited someone else's definition of finished, and there's a decent chance it's gone stale even if nothing else has. Don't quietly adopt it. Don't quietly swap in your own version either. Say what you think done looks like now, to the people who'll actually judge the work, and let them push back if you've got it wrong. This is the step people skip most often, because it feels like it should already be settled. It almost never is.</p>
+
+            <h3>5. Make one change early — and pick it for what it signals, not its size</h3>
+            <p>Find something small enough to execute cleanly and visible enough that people actually notice. The change itself isn't really the point. What you're proving is that you'll act on what you found in step one, instead of just collecting notes for a deck. Go too big too fast and you can fail before you've earned the trust to recover. Stay invisible and you've told the team nothing at all. This could be as simple as setting up regular status meetings to track progress.</p>
+
+            <h3>6. Go back and re-baseline the promises made before you got here</h3>
+            <p>Somewhere upstream, someone told a client, a board, or a boss a date, a number, or a scope. That promise is yours now, whether or not you're the one who made it. Go back to whoever it was made to and tell them plainly what's changed and what hasn't. It's an uncomfortable conversation, which is exactly why people put it off — and exactly why putting it off is the most expensive mistake on this list.</p>
+
+            <figure class="tpl-fig tpl-fig-base" data-anim="base" aria-label="Original commitment to ship March 1 is struck through. A revised commitment to ship April 15, told to the stakeholder on March 12, appears beside it.">
+              <button class="fig-replay" type="button" aria-label="Replay the animation">Replay</button>
+              <div class="base-copy-wrap">
+                <p class="base-original">Original commitment: Ship <span class="base-date">March 1</span></p>
+                <p class="base-revised">Revised: Ship April 15 — told to stakeholder on March 12</p>
+              </div>
+              <svg class="base-bar-svg" viewBox="0 0 460 8" aria-hidden="true">
+                <line class="base-bar" x1="0" y1="4" x2="460" y2="4" />
+              </svg>
+              <figcaption class="fig-caption">An early, honest slip costs less than a silent one.</figcaption>
+            </figure>
+        </section>
+
+        <section class="story-section" id="failures">
+            <h2>Where this often goes wrong</h2>
+            <p>None of this fails dramatically, which is part of why it's so easy to skip. Skip the check, and you inherit an assumption nobody's tested — one that might've been perfectly reasonable when it was made, and just never got revisited since. Skip the sorting, and you'll spend a month undoing a decision that was actually right. Skip finding the real owner, and your first change looks fine on a slide and dies the moment it hits the room, because the one person who could've made it work wasn't in on it. Skip the re-baselining, and you find out the hard way that the deadline you inherited was never really realistic — it was a promise made in a meeting you weren't in, based on assumptions nobody told you had changed.</p>
+            <p>None of these are big, dramatic failures. They're quiet ones. That's exactly why they're so common.</p>
+        </section>
+
+        <section class="story-section" id="remember">
+            <h2>What I'd want you to remember</h2>
+            <p><strong>Check before you decide</strong>, every single time you inherit something mid-flight. Ask yourself: can I name one specific thing the last status report got wrong? If you can't yet, you haven't really checked — you've just read the summary.</p>
+            <p><strong>Sort every decision</strong> into "chosen on purpose" or "just happened" before you touch any of them. Before reversing something, ask whether you actually know who made the original call and why. If you don't, you don't yet know whether you're fixing a mistake or undoing someone's hard-won trade-off.</p>
+            <p><strong>Renegotiate commitments out loud</strong> instead of quietly inheriting them. Has the person the original promise was made to actually heard from you what's changed? If not, you're still carrying someone else's promise around like it's your own.</p>
+        </section>
+
+        <div class="story-cta">
+            <h3>The reset is easier with the right people in the room.</h3>
+            <p style="font-weight: 300;">Check what's true, then decide what stays. The Club is where that work gets done.</p>
+            <p style="font-weight: 300;">Find the people who help you land it.</p>
+            <div class="story-cta-actions">
+                <a href="https://app.theclubnyc.com/" class="cta-button primary">Join for free</a>
+                <a href="https://app.theclubnyc.com/templates/own-how-it-ends" class="cta-button secondary">Read the How To</a>
+            </div>
+        </div>
+            <nav class="story-pager" aria-label="More stories">
+            <a class="story-pager-link story-pager-prev" href="https://www.theclubnyc.com/the-market-stall-never-went-away">
+                <span class="story-pager-label">Previous</span>
+                <span class="story-pager-title">The Market Stall<br>Never Went Away</span>
+            </a>
+            <a class="story-pager-link story-pager-next" href="https://www.theclubnyc.com/buildaworld">
+                <span class="story-pager-label">Next</span>
+                <span class="story-pager-title">Build a world, a feeling —<br>not a product line</span>
+            </a>
+        </nav>
+    </main>
+
+  <footer class="footer-section"></footer>
+
+  <script src="./qava-footer.js?v=footer-v6"></script>
+  <script src="/qava-nav-logo-flip.js?v=multi-1"></script>
+  <script>
+    (function () {
+      if (typeof window.applyQavaFooter === "function") {
+        window.applyQavaFooter(document);
+      }
+
+      document.querySelectorAll('.qa-question').forEach((questionEl) => {
+        if (!questionEl.querySelector('.highlight')) {
+          questionEl.innerHTML = `<span class="highlight">${questionEl.innerHTML}</span>`;
+        }
+      });
+    })();
+  </script>
+  <script src="/qava-auth.js"></script>
+
+  <script>
+    function toggleMobileMenu() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      if (!mobileMenu) return;
+      mobileMenu.classList.toggle('active');
+      document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    }
+
+    (function () {
+      function prefersReducedMotion() {
+        return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      }
+      const CLEAR = { sort: 2200, base: 1800 };
+      function playFigure(root) {
+        const kind = root.getAttribute("data-anim");
+        window.clearTimeout(root._clearTimer);
+        if (prefersReducedMotion()) {
+          root.classList.remove("is-hold", "is-run");
+          return;
+        }
+        root.classList.remove("is-run");
+        root.classList.add("is-hold");
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            root.classList.add("is-run");
+          });
+        });
+        root._clearTimer = window.setTimeout(function () {
+          root.classList.remove("is-hold", "is-run");
+        }, CLEAR[kind] || 2400);
+      }
+      document.querySelectorAll(".tpl-fig[data-anim]").forEach(function (root) {
+        var observer = new IntersectionObserver(function (entries) {
+          if (entries.some(function (entry) { return entry.isIntersecting; })) {
+            observer.disconnect();
+            playFigure(root);
+          }
+        }, { threshold: 0.4 });
+        observer.observe(root);
+        var replay = root.querySelector(".fig-replay");
+        if (replay) replay.addEventListener("click", function () { playFigure(root); });
+      });
+    })();
+  </script>
+
+</body>
+</html>
