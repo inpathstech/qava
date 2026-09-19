@@ -1213,67 +1213,114 @@
             from { opacity: 0; }
             to { opacity: 1; }
         }
-        .base-copy-wrap {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: baseline;
-            gap: 6px 22px;
-            max-width: 34rem;
-            margin: 0 auto;
-            padding: 6px 8px 0;
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
-        .base-original,
-        .base-revised {
-            margin: 0;
+        .tpl-fig.tpl-fig-own-reset {
+            padding: 28px 26px 22px;
+            border-radius: 12px;
+            background: #f9f8f5;
+        }
+        .own-reset-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+        .own-reset-row {
+            display: grid;
+            grid-template-columns: 7.1rem minmax(0, 1fr) 1rem minmax(0, 1fr);
+            align-items: center;
+            column-gap: 8px;
             font-family: "Inter", sans-serif;
-            font-size: 14px;
+            font-size: 12.5px;
             font-weight: 400;
-            line-height: 1.45;
+            line-height: 1.3;
             color: #111;
         }
-        .base-revised { color: #6e6e6e; }
-        .base-date {
+        .own-reset-label { color: #6e6e6e; }
+        .own-reset-old,
+        .own-reset-new {
+            min-width: 0;
+            padding: 5px 11px;
+            border-radius: 999px;
+            text-align: left;
+        }
+        .own-reset-old {
+            border: 1px solid rgba(17, 24, 39, 0.16);
+            background: #fff;
+        }
+        .own-reset-old-text {
             position: relative;
             display: inline-block;
         }
-        .base-date::after {
+        .own-reset-old-text::after {
             content: "";
             position: absolute;
-            left: -1px;
-            right: -1px;
+            left: 0;
+            right: 0;
             top: 50%;
-            height: 1.25px;
+            height: 1px;
             background: #111;
             transform: scaleX(1);
             transform-origin: left center;
         }
-        .base-bar-svg {
-            display: block;
+        .own-reset-arrow {
+            color: #9b9a97;
+            font-size: 13px;
+            line-height: 1;
+            text-align: center;
+        }
+        .own-reset-new {
+            border: 1px solid rgba(47, 111, 104, 0.5);
+            background: #e4f0ed;
+            color: #2a645e;
+        }
+        .own-reset-rule {
             width: 100%;
-            max-width: 34rem;
-            height: 12px;
-            margin: 14px auto 0;
+            height: 1px;
+            margin: 18px 0 12px;
+            background: rgba(17, 24, 39, 0.1);
         }
-        .base-bar {
-            fill: none;
-            stroke: rgba(17, 24, 39, 0.14);
-            stroke-width: 1;
+        .tpl-fig-own-reset .fig-caption {
+            margin: 0;
+            font-style: italic;
         }
-        .tpl-fig-base.is-hold .base-date::after { transform: scaleX(0); }
-        .tpl-fig-base.is-hold .base-revised,
-        .tpl-fig-base.is-hold .fig-caption { opacity: 0; }
-        .tpl-fig-base.is-hold.is-run .base-date::after {
-            animation: base-strike 420ms 1000ms cubic-bezier(0.16, 1, 0.3, 1) both;
+        .tpl-fig-own-reset.is-hold .own-reset-row,
+        .tpl-fig-own-reset.is-hold .own-reset-new,
+        .tpl-fig-own-reset.is-hold .fig-caption { opacity: 0; }
+        .tpl-fig-own-reset.is-hold .own-reset-new { transform: translateX(-8px); }
+        .tpl-fig-own-reset.is-hold .own-reset-old-text::after { transform: scaleX(0); }
+        .tpl-fig-own-reset.is-hold.is-run .own-reset-row {
+            animation: own-reset-row-in 280ms calc(var(--i) * 600ms) cubic-bezier(0.16, 1, 0.3, 1) both;
         }
-        .tpl-fig-base.is-hold.is-run .base-revised {
-            animation: drift-fade 360ms 1100ms ease both;
+        .tpl-fig-own-reset.is-hold.is-run .own-reset-old-text::after {
+            animation: own-reset-strike 380ms calc(var(--i) * 600ms + 80ms) cubic-bezier(0.16, 1, 0.3, 1) both;
         }
-        .tpl-fig-base.is-hold.is-run .fig-caption {
-            animation: drift-fade 320ms 1400ms ease both;
+        .tpl-fig-own-reset.is-hold.is-run .own-reset-new {
+            animation: own-reset-new-in 320ms calc(var(--i) * 600ms + 640ms) ease both;
         }
-        @keyframes base-strike {
+        .tpl-fig-own-reset.is-hold.is-run .fig-caption {
+            animation: drift-fade 320ms 5600ms ease both;
+        }
+        @keyframes own-reset-row-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes own-reset-strike {
             from { transform: scaleX(0); }
             to { transform: scaleX(1); }
+        }
+        @keyframes own-reset-new-in {
+            from { opacity: 0; transform: translateX(-8px); }
+            to { opacity: 1; transform: none; }
         }
         @media (max-width: 640px) {
             .own-done-memo { padding: 18px 16px 16px; }
@@ -1281,23 +1328,38 @@
             .own-check-panel { grid-template-columns: 1fr; }
             .own-check-rule { width: 100%; height: 1px; }
             .own-check-col { padding: 14px 14px 12px; }
-            .base-original,
-            .base-revised { font-size: 13px; }
+            .tpl-fig.tpl-fig-own-reset { padding: 22px 16px 18px; }
+            .own-reset-row {
+                grid-template-columns: minmax(0, 1fr) 0.9rem minmax(0, 1fr);
+                grid-template-areas:
+                    "label label label"
+                    "old arrow new";
+                row-gap: 4px;
+                font-size: 12px;
+            }
+            .own-reset-label { grid-area: label; }
+            .own-reset-old { grid-area: old; }
+            .own-reset-arrow { grid-area: arrow; }
+            .own-reset-new { grid-area: new; }
+            .own-reset-old,
+            .own-reset-new { padding: 5px 9px; }
         }
         @media (prefers-reduced-motion: reduce) {
             .fig-replay { display: none; }
             .tpl-fig.is-hold .sort-tile,
-            .tpl-fig.is-hold .base-revised,
+            .tpl-fig-own-reset.is-hold .own-reset-row,
+            .tpl-fig-own-reset.is-hold .own-reset-new,
             .tpl-fig.is-hold .fig-caption,
             .tpl-fig.is-hold.is-run .sort-tile,
-            .tpl-fig.is-hold.is-run .base-revised,
+            .tpl-fig-own-reset.is-hold.is-run .own-reset-row,
+            .tpl-fig-own-reset.is-hold.is-run .own-reset-new,
             .tpl-fig.is-hold.is-run .fig-caption {
                 animation: none;
                 opacity: 1;
                 transform: none;
             }
-            .tpl-fig.is-hold .base-date::after,
-            .tpl-fig.is-hold.is-run .base-date::after {
+            .tpl-fig-own-reset.is-hold .own-reset-old-text::after,
+            .tpl-fig-own-reset.is-hold.is-run .own-reset-old-text::after {
                 animation: none;
                 transform: scaleX(1);
             }
@@ -1753,15 +1815,21 @@
             <h3>6. Go back and re-baseline the promises made before you got here</h3>
             <p>Somewhere upstream, someone told a client, a board, or a boss a date, a number, or a scope. That promise is yours now, whether or not you're the one who made it. Go back to whoever it was made to and tell them plainly what's changed and what hasn't. It's an uncomfortable conversation, which is exactly why people put it off — and exactly why putting it off is the most expensive mistake on this list.</p>
 
-            <figure class="tpl-fig tpl-fig-base" data-anim="base" aria-label="Original commitment to ship March 1 is struck through. A revised commitment to ship April 15, told to the stakeholder on March 12, appears beside it.">
+            <figure class="tpl-fig is-anim tpl-fig-own-reset" data-anim="reset" aria-labelledby="own-reset-heading">
               <button class="fig-replay" type="button" aria-label="Replay the animation">Replay</button>
-              <div class="base-copy-wrap">
-                <p class="base-original">Original commitment: Ship <span class="base-date">March 1</span></p>
-                <p class="base-revised">Revised: Ship April 15 — told to stakeholder on March 12</p>
+              <h3 id="own-reset-heading" class="sr-only">Project reset comparison. Nine inherited commitments change to the re-baselined plan.</h3>
+              <div class="own-reset-rows" aria-hidden="true">
+                <div class="own-reset-row" style="--i: 0"><span class="own-reset-label">Name</span><span class="own-reset-old"><span class="own-reset-old-text">Atlas CRM Migration</span></span><span class="own-reset-arrow">&rarr;</span><span class="own-reset-new">Atlas Customer Platform</span></div>
+                <div class="own-reset-row" style="--i: 1"><span class="own-reset-label">Owner</span><span class="own-reset-old"><span class="own-reset-old-text">Jordan Lee</span></span><span class="own-reset-arrow">&rarr;</span><span class="own-reset-new">Sam Okafor</span></div>
+                <div class="own-reset-row" style="--i: 2"><span class="own-reset-label">Scope</span><span class="own-reset-old"><span class="own-reset-old-text">Web, mobile, API</span></span><span class="own-reset-arrow">&rarr;</span><span class="own-reset-new">Web only, phase 2 later</span></div>
+                <div class="own-reset-row" style="--i: 3"><span class="own-reset-label">Launch date</span><span class="own-reset-old"><span class="own-reset-old-text">March 1</span></span><span class="own-reset-arrow">&rarr;</span><span class="own-reset-new">April 15</span></div>
+                <div class="own-reset-row" style="--i: 4"><span class="own-reset-label">Budget</span><span class="own-reset-old"><span class="own-reset-old-text">$180,000</span></span><span class="own-reset-arrow">&rarr;</span><span class="own-reset-new">$225,000</span></div>
+                <div class="own-reset-row" style="--i: 5"><span class="own-reset-label">Team size</span><span class="own-reset-old"><span class="own-reset-old-text">6 people</span></span><span class="own-reset-arrow">&rarr;</span><span class="own-reset-new">4 people</span></div>
+                <div class="own-reset-row" style="--i: 6"><span class="own-reset-label">Success metric</span><span class="own-reset-old"><span class="own-reset-old-text">500 signups / mo</span></span><span class="own-reset-arrow">&rarr;</span><span class="own-reset-new">200 activated users / mo</span></div>
+                <div class="own-reset-row" style="--i: 7"><span class="own-reset-label">Definition of done</span><span class="own-reset-old"><span class="own-reset-old-text">All features shipped</span></span><span class="own-reset-arrow">&rarr;</span><span class="own-reset-new">Core flow live and adopted</span></div>
+                <div class="own-reset-row" style="--i: 8"><span class="own-reset-label">Shared folder</span><span class="own-reset-old"><span class="own-reset-old-text">No folder / location</span></span><span class="own-reset-arrow">&rarr;</span><span class="own-reset-new">Drive/Atlas-Reset</span></div>
               </div>
-              <svg class="base-bar-svg" viewBox="0 0 460 8" aria-hidden="true">
-                <line class="base-bar" x1="0" y1="4" x2="460" y2="4" />
-              </svg>
+              <div class="own-reset-rule" aria-hidden="true"></div>
               <figcaption class="fig-caption">An early, honest slip costs less than a silent one.</figcaption>
             </figure>
         </section>
@@ -1777,6 +1845,18 @@
             <p><strong>Check before you decide</strong>, every single time you inherit something mid-flight. Ask yourself: can I name one specific thing the last status report got wrong? If you can't yet, you haven't really checked — you've just read the summary.</p>
             <p><strong>Sort every decision</strong> into "chosen on purpose" or "just happened" before you touch any of them. Before reversing something, ask whether you actually know who made the original call and why. If you don't, you don't yet know whether you're fixing a mistake or undoing someone's hard-won trade-off.</p>
             <p><strong>Renegotiate commitments out loud</strong> instead of quietly inheriting them. Has the person the original promise was made to actually heard from you what's changed? If not, you're still carrying someone else's promise around like it's your own.</p>
+        </section>
+
+        <section class="story-section" id="also-like">
+            <h2>You might also like</h2>
+            <ul>
+                <li><a href="https://app.theclubnyc.com/templates/pricing-strategy">Pricing Strategy</a> — Basecamp and Design Pickle, with Marn &amp; Rosiello and Hinterhuber</li>
+                <li><a href="https://app.theclubnyc.com/templates/go-to-market-plan">Go-to-Market Plan</a> — Slack and Snowflake, four motions, Moore's positioning line</li>
+                <li><a href="https://app.theclubnyc.com/templates/swot-analysis">SWOT Analysis</a> — Duolingo and Peloton, Hill &amp; Westbrook, TOWS pairing</li>
+                <li><a href="https://app.theclubnyc.com/templates/competitor-analysis">Competitor Analysis</a> — Basecamp and managed bookkeeping, Armstrong &amp; Collopy</li>
+                <li><a href="https://app.theclubnyc.com/templates/market-sizing-tam-sam-som">Market Sizing (TAM/SAM/SOM)</a> — Airbnb's S-1 and a bookkeeping firm, Atlanta Fed</li>
+                <li><a href="https://app.theclubnyc.com/templates/business-model-canvas">Business Model Canvas</a> — Spotify and EPAM, Osterwalder origin</li>
+            </ul>
         </section>
 
         <div class="story-cta">
@@ -1831,7 +1911,7 @@
       function prefersReducedMotion() {
         return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       }
-      const CLEAR = { sort: 2200, base: 1800 };
+      const CLEAR = { sort: 2200, reset: 6400 };
       function playFigure(root) {
         const kind = root.getAttribute("data-anim");
         window.clearTimeout(root._clearTimer);
