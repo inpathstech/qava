@@ -985,6 +985,41 @@
             color: #000000;
         }
 
+        .own-done-memo {
+            margin: 18px 0 32px;
+            padding: 22px 24px 20px;
+            border: 0;
+            border-radius: 10px;
+            background: #f7f6f5;
+        }
+        .story-section .own-done-memo p {
+            margin: 0 0 12px;
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 1.55;
+            color: #2e2e2e;
+        }
+        .story-section .own-done-memo p:last-child { margin-bottom: 0; }
+        .own-done-memo-subject {
+            font-weight: 500;
+            color: #111;
+        }
+        .story-section .own-done-memo ul {
+            margin: 0 0 12px;
+            padding: 0 0 0 1.15em;
+            list-style: disc;
+        }
+        .story-section .own-done-memo ul li {
+            margin: 0 0 6px;
+            padding-left: 0;
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 1.55;
+            color: #2e2e2e;
+        }
+        .story-section .own-done-memo ul li::before { content: none; }
+        .story-section .own-done-memo ul li:last-child { margin-bottom: 0; }
+
         .tpl-fig {
             position: relative;
             margin: 28px 0 32px;
@@ -1241,6 +1276,7 @@
             to { transform: scaleX(1); }
         }
         @media (max-width: 640px) {
+            .own-done-memo { padding: 18px 16px 16px; }
             .tpl-fig { padding: 16px 12px 14px; }
             .own-check-panel { grid-template-columns: 1fr; }
             .own-check-rule { width: 100%; height: 1px; }
@@ -1696,7 +1732,20 @@
             <p>The org chart will tell you who's accountable. It won't tell you who's actually been making things move when they got stuck. Project teams tend to follow the 80/20 rule like anywhere else — a small group of people end up driving most of the outcomes at any given time. That doesn't mean everyone else is replaceable; different phases of a project just lean harder on different people, and right now, someone's carrying more than their formal role suggests. Find these people quickly and build a relationship with them before you change anything.</p>
 
             <h3>4. Say out loud what "done" means now</h3>
-            <p>You inherited someone else's definition of finished, and there's a decent chance it's gone stale even if nothing else has. Don't quietly adopt it. Don't quietly swap in your own version either. Say what you think done looks like now, to the people who'll actually judge the work, and let them push back if you've got it wrong. This is the step people skip most often, because it feels like it should already be settled. It almost never is.</p>
+            <p>Set the bar for what "done" means — say it out loud, put it in writing, and share it with everyone who'll work on the deliverable, directly or indirectly, so they can push back if they need to. This is a step people tend to skip. Done might mean the steering committee has reviewed the deliverable, it's saved to the shared folder, and an email's gone out — don't assume that happens on its own. Get the simple workflow right, and the complex stuff tends to follow.</p>
+            <aside class="own-done-memo" aria-label="Sample email. Subject: What done looks like for Atlas Customer Platform going forward.">
+                <p class="own-done-memo-subject">Subject: What "done" looks like for Atlas Customer Platform going forward</p>
+                <p>Hi team,</p>
+                <p>As I get up to speed, I want to make sure we're all working toward the same finish line — so here's what "done" means for this project from here on out:</p>
+                <p>A deliverable is done when:</p>
+                <ul>
+                    <li>The steering committee has reviewed and signed off on it</li>
+                    <li>The final version is saved to the shared folder (not email, not Slack — the folder)</li>
+                    <li>A short update has gone out to the full distribution list confirming it's ready</li>
+                </ul>
+                <p>If a deliverable is missing any of these, let's not treat it as done yet, even if the work itself is finished. If you think this definition is missing anything, just let me know, and we can iterate on it.</p>
+                <p>Thanks,<br>Maya</p>
+            </aside>
 
             <h3>5. Make one change early — and pick it for what it signals, not its size</h3>
             <p>Find something small enough to execute cleanly and visible enough that people actually notice. The change itself isn't really the point. What you're proving is that you'll act on what you found in step one, instead of just collecting notes for a deck. Go too big too fast and you can fail before you've earned the trust to recover. Stay invisible and you've told the team nothing at all. This could be as simple as setting up regular status meetings to track progress.</p>
